@@ -55,4 +55,23 @@ describe('bundled GitHub extension', () => {
       false
     );
   });
+
+  it('does not overwrite an existing non-bundled extension with the same key', async () => {
+    const addExtensionFn = vi.fn().mockResolvedValue(undefined);
+    const existing = [
+      {
+        name: 'GitHub',
+        type: 'stdio',
+        description: 'my own github extension',
+        cmd: 'my-github-mcp',
+        args: [],
+        enabled: true,
+        bundled: false,
+      },
+    ] as unknown as FixedExtensionEntry[];
+
+    await syncBundledExtensions(existing, addExtensionFn);
+
+    expect(addExtensionFn).not.toHaveBeenCalledWith('GitHub', expect.anything(), expect.anything());
+  });
 });

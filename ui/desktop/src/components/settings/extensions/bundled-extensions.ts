@@ -80,7 +80,9 @@ export async function syncBundledExtensions(
       // Find if this extension already exists
       const existingExt = existingExtensions.find((ext) => nameToKey(ext.name) === bundledExt.id);
 
-      if (existingExt && isBundledExtension(existingExt)) {
+      // Never overwrite an existing entry: it may be a user's own configuration
+      // that happens to share the catalog id (e.g. a custom "GitHub" extension).
+      if (existingExt) {
         continue;
       }
 
@@ -124,9 +126,8 @@ export async function syncBundledExtensions(
           };
       }
 
-      // Add or update the extension, preserving enabled state if it exists
-      const enabled = existingExt ? existingExt.enabled : bundledExt.enabled;
-      await addExtensionFn(bundledExt.name, extConfig, enabled);
+      // Add the extension; existing entries were skipped above
+      await addExtensionFn(bundledExt.name, extConfig, bundledExt.enabled);
     }
   } catch (error) {
     console.error('Failed to sync built-in extensions:', error);

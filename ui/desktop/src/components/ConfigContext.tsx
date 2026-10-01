@@ -177,7 +177,8 @@ export const ConfigProvider: React.FC<ConfigProviderProps> = ({ children }) => {
         // This ensures:
         // 1. Fresh installs get the default extensions (developer, computercontroller, etc.)
         // 2. Existing users get NEW bundled extensions added in subsequent releases
-        // The syncBundledExtensions function skips extensions that already exist and are marked as bundled
+        // The syncBundledExtensions function skips ids that already exist, so a
+        // user's own configuration that shares a catalog id is never overwritten
         // Platform extensions (code_execution, todo, etc.) are handled by the backend
         const addExtensionForSync = async (
           _name: string,

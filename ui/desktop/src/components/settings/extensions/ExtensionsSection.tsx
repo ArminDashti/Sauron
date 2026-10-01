@@ -252,7 +252,13 @@ export default function ExtensionsSection({
             initialData={extensionToFormData(selectedExtension)}
             onClose={handleModalClose}
             onSubmit={handleUpdateExtension}
-            onDelete={handleDeleteExtension}
+            // Bundled entries are re-added by the startup sync, so removing one
+            // would silently come back; offer disable (the list toggle) instead.
+            onDelete={
+              'bundled' in selectedExtension && selectedExtension.bundled
+                ? undefined
+                : handleDeleteExtension
+            }
             submitLabel={intl.formatMessage(i18n.saveChanges)}
             modalType={'edit'}
           />
