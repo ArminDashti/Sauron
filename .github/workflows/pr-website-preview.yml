@@ -36,6 +36,7 @@ jobs:
           node-version: 20
           cache: npm
           cache-dependency-path: documentation/package-lock.json
+        continue-on-error: true
 
       - name: Generate ACP reference
         run: node documentation/scripts/generate-acp-docs.js
@@ -58,6 +59,9 @@ jobs:
         uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020  # v7.0.0
         with:
           node-version: 22
+          cache: npm
+          cache-dependency-path: documentation/package-lock.json
+        continue-on-error: true
 
       - name: Deploy preview to Cloudflare Pages
         if: env.CLOUDFLARE_API_TOKEN != ''
