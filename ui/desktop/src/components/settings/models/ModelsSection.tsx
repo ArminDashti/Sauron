@@ -8,6 +8,7 @@ import { toastError } from '../../../toasts';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../ui/card';
 import ResetProviderSection from '../reset_provider/ResetProviderSection';
 import { defineMessages, useIntl } from '../../../i18n';
+import { BrandIcon } from '../../logos/BrandLogos';
 
 const i18n = defineMessages({
   resetTitle: {
@@ -50,20 +51,20 @@ export default function ModelsSection({ setView }: ModelsSectionProps) {
         setProvider(providerDisplayName);
       } else {
         // Fallback to original provider lookup
-        const { providerId: gooseProvider } = await acpReadDefaults();
-        if (!gooseProvider) {
+        const { providerId: sauronProvider } = await acpReadDefaults();
+        if (!sauronProvider) {
           setProvider('');
           return;
         }
         try {
-          const providerDetails = await acpGetProviderDetails(gooseProvider);
+          const providerDetails = await acpGetProviderDetails(sauronProvider);
           setProvider(providerDetails.metadata.display_name);
         } catch {
           toastError({
             title: intl.formatMessage(modelAndProviderMessages.unknownProviderTitle),
             msg: intl.formatMessage(modelAndProviderMessages.unknownProviderMsg),
           });
-          setProvider(gooseProvider);
+          setProvider(sauronProvider);
         }
       }
     } catch (error) {
@@ -103,9 +104,16 @@ export default function ModelsSection({ setView }: ModelsSectionProps) {
               <div className="h-[16px]"></div>
             </>
           ) : (
-            <div className="animate-in fade-in duration-100">
-              <h3 className="text-text-primary">{displayModelName}</h3>
-              <h4 className="text-xs text-text-secondary">{provider}</h4>
+            <div className="animate-in fade-in duration-100 flex items-center gap-3">
+              <BrandIcon
+                model={currentModel}
+                provider={currentProvider || provider}
+                className="w-9 h-9 shrink-0"
+              />
+              <div>
+                <h3 className="text-text-primary">{displayModelName}</h3>
+                <h4 className="text-xs text-text-secondary">{provider}</h4>
+              </div>
             </div>
           )}
           <ModelSettingsButtons setView={setView} />
