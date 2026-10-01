@@ -73,6 +73,41 @@ describe('ACP providers', () => {
     ]);
   });
 
+  it('refreshes a non-ACP provider inventory without probing readiness', async () => {
+    const entry = providerEntry({
+      providerId: 'mistral',
+      providerType: 'Declarative',
+      acp: false,
+    });
+    const refreshed = {
+      ...entry,
+      models: [{ id: 'mistral-large-latest', name: 'mistral-large-latest' }],
+    };
+    const client = {
+      goose: {
+        providersList_unstable: vi
+          .fn()
+          .mockResolvedValueOnce({ entries: [entry] })
+          .mockResolvedValueOnce({ entries: [refreshed] }),
+        providersReadinessCheck_unstable: vi.fn().mockRejectedValue(new Error('Invalid params')),
+        providersInventoryRefresh_unstable: vi
+          .fn()
+          .mockResolvedValue({ started: ['mistral'], skipped: [] }),
+      },
+    };
+    vi.mocked(getAcpClient).mockResolvedValue(
+      client as unknown as Awaited<ReturnType<typeof getAcpClient>>
+    );
+
+    const result = await acpRefreshProviderDetails('mistral');
+
+    expect(client.goose.providersReadinessCheck_unstable).not.toHaveBeenCalled();
+    expect(result.readinessError).toBeNull();
+    expect(result.provider.metadata.known_models.map((model) => model.name)).toEqual([
+      'mistral-large-latest',
+    ]);
+  });
+
   it('sets thinking effort after provider and model, then returns the final config response', async () => {
     const client = {
       connection: {
