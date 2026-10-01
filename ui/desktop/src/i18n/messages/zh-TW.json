@@ -1388,6 +1388,24 @@
   "hub.goodMorning": {
     "defaultMessage": "早安"
   },
+  "hubView.description": {
+    "defaultMessage": "從各種來源尋找技能和 MCP 伺服器。"
+  },
+  "hubView.mcpsDescription": {
+    "defaultMessage": "透過這些登錄中心的 MCP 伺服器連接工具與整合。"
+  },
+  "hubView.mcpsHeading": {
+    "defaultMessage": "MCP"
+  },
+  "hubView.skillsDescription": {
+    "defaultMessage": "以這些來源中可重複使用的技能擴充您的代理。"
+  },
+  "hubView.skillsHeading": {
+    "defaultMessage": "技能"
+  },
+  "hubView.title": {
+    "defaultMessage": "中心"
+  },
   "huggingFaceModelSearch.download": {
     "defaultMessage": "下載"
   },
@@ -2365,6 +2383,9 @@
   },
   "navigation.itemHome": {
     "defaultMessage": "新交談"
+  },
+  "navigation.itemHub": {
+    "defaultMessage": "中心"
   },
   "navigation.itemRecipes": {
     "defaultMessage": "配方"

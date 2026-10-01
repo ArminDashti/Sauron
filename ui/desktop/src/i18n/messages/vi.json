@@ -1388,6 +1388,24 @@
   "hub.goodMorning": {
     "defaultMessage": "Chào buổi sáng"
   },
+  "hubView.description": {
+    "defaultMessage": "Khám phá Skills và máy chủ MCP từ nhiều nguồn khác nhau."
+  },
+  "hubView.mcpsDescription": {
+    "defaultMessage": "Kết nối công cụ và tích hợp với máy chủ MCP từ các sổ đăng ký này."
+  },
+  "hubView.mcpsHeading": {
+    "defaultMessage": "MCPs"
+  },
+  "hubView.skillsDescription": {
+    "defaultMessage": "Mở rộng agent của bạn với các kỹ năng có thể tái sử dụng từ những nguồn này."
+  },
+  "hubView.skillsHeading": {
+    "defaultMessage": "Kỹ năng"
+  },
+  "hubView.title": {
+    "defaultMessage": "Hub"
+  },
   "huggingFaceModelSearch.download": {
     "defaultMessage": "Tải xuống"
   },
@@ -2365,6 +2383,9 @@
   },
   "navigation.itemHome": {
     "defaultMessage": "Trò chuyện mới"
+  },
+  "navigation.itemHub": {
+    "defaultMessage": "Hub"
   },
   "navigation.itemRecipes": {
     "defaultMessage": "Công thức"

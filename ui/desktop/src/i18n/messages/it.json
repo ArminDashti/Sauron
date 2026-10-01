@@ -1388,6 +1388,24 @@
   "hub.goodMorning": {
     "defaultMessage": "Buongiorno"
   },
+  "hubView.description": {
+    "defaultMessage": "Scopri skill e server MCP da diverse fonti."
+  },
+  "hubView.mcpsDescription": {
+    "defaultMessage": "Collega strumenti e integrazioni con server MCP da questi registry."
+  },
+  "hubView.mcpsHeading": {
+    "defaultMessage": "MCPs"
+  },
+  "hubView.skillsDescription": {
+    "defaultMessage": "Estendi il tuo agente con skill riutilizzabili da queste fonti."
+  },
+  "hubView.skillsHeading": {
+    "defaultMessage": "Competenze"
+  },
+  "hubView.title": {
+    "defaultMessage": "Hub"
+  },
   "huggingFaceModelSearch.download": {
     "defaultMessage": "Scarica"
   },
@@ -2365,6 +2383,9 @@
   },
   "navigation.itemHome": {
     "defaultMessage": "Nuova chat"
+  },
+  "navigation.itemHub": {
+    "defaultMessage": "Hub"
   },
   "navigation.itemRecipes": {
     "defaultMessage": "Ricette"

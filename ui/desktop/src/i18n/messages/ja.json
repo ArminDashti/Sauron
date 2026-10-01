@@ -1388,6 +1388,24 @@
   "hub.goodMorning": {
     "defaultMessage": "おはようございます"
   },
+  "hubView.description": {
+    "defaultMessage": "さまざまなソースからスキルとMCPサーバーを見つける。"
+  },
+  "hubView.mcpsDescription": {
+    "defaultMessage": "これらのレジストリのMCPサーバーでツールや連携を接続する。"
+  },
+  "hubView.mcpsHeading": {
+    "defaultMessage": "MCP"
+  },
+  "hubView.skillsDescription": {
+    "defaultMessage": "これらのソースの再利用可能なスキルでエージェントを拡張する。"
+  },
+  "hubView.skillsHeading": {
+    "defaultMessage": "スキル"
+  },
+  "hubView.title": {
+    "defaultMessage": "ハブ"
+  },
   "huggingFaceModelSearch.download": {
     "defaultMessage": "ダウンロード"
   },
@@ -2365,6 +2383,9 @@
   },
   "navigation.itemHome": {
     "defaultMessage": "新規チャット"
+  },
+  "navigation.itemHub": {
+    "defaultMessage": "ハブ"
   },
   "navigation.itemRecipes": {
     "defaultMessage": "レシピ"

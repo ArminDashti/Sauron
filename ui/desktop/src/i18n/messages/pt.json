@@ -1388,6 +1388,24 @@
   "hub.goodMorning": {
     "defaultMessage": "Bom dia"
   },
+  "hubView.description": {
+    "defaultMessage": "Descubra skills e servidores MCP de várias fontes."
+  },
+  "hubView.mcpsDescription": {
+    "defaultMessage": "Conecte ferramentas e integrações com servidores MCP destes registros."
+  },
+  "hubView.mcpsHeading": {
+    "defaultMessage": "MCPs"
+  },
+  "hubView.skillsDescription": {
+    "defaultMessage": "Amplie seu agente com skills reutilizáveis destas fontes."
+  },
+  "hubView.skillsHeading": {
+    "defaultMessage": "Competências"
+  },
+  "hubView.title": {
+    "defaultMessage": "Hub"
+  },
   "huggingFaceModelSearch.download": {
     "defaultMessage": "Baixar"
   },
@@ -2365,6 +2383,9 @@
   },
   "navigation.itemHome": {
     "defaultMessage": "Nova conversa"
+  },
+  "navigation.itemHub": {
+    "defaultMessage": "Hub"
   },
   "navigation.itemRecipes": {
     "defaultMessage": "Receitas"

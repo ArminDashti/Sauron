@@ -1388,6 +1388,24 @@
   "hub.goodMorning": {
     "defaultMessage": "좋은 아침이에요"
   },
+  "hubView.description": {
+    "defaultMessage": "다양한 소스에서 스킬과 MCP 서버를 찾아보세요."
+  },
+  "hubView.mcpsDescription": {
+    "defaultMessage": "이 레지스트리의 MCP 서버로 도구와 연동을 연결하세요."
+  },
+  "hubView.mcpsHeading": {
+    "defaultMessage": "MCP"
+  },
+  "hubView.skillsDescription": {
+    "defaultMessage": "이러한 소스의 재사용 가능한 스킬로 에이전트를 확장하세요."
+  },
+  "hubView.skillsHeading": {
+    "defaultMessage": "스킬"
+  },
+  "hubView.title": {
+    "defaultMessage": "허브"
+  },
   "huggingFaceModelSearch.download": {
     "defaultMessage": "다운로드"
   },
@@ -2365,6 +2383,9 @@
   },
   "navigation.itemHome": {
     "defaultMessage": "새 채팅"
+  },
+  "navigation.itemHub": {
+    "defaultMessage": "허브"
   },
   "navigation.itemRecipes": {
     "defaultMessage": "레시피"

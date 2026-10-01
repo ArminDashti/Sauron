@@ -1388,6 +1388,24 @@
   "hub.goodMorning": {
     "defaultMessage": "早上好"
   },
+  "hubView.description": {
+    "defaultMessage": "从各种来源发现技能和 MCP 服务器。"
+  },
+  "hubView.mcpsDescription": {
+    "defaultMessage": "通过这些注册中心的 MCP 服务器连接工具和集成。"
+  },
+  "hubView.mcpsHeading": {
+    "defaultMessage": "MCP"
+  },
+  "hubView.skillsDescription": {
+    "defaultMessage": "用这些来源中可复用的技能扩展你的 agent。"
+  },
+  "hubView.skillsHeading": {
+    "defaultMessage": "技能"
+  },
+  "hubView.title": {
+    "defaultMessage": "中心"
+  },
   "huggingFaceModelSearch.download": {
     "defaultMessage": "下载"
   },
@@ -2365,6 +2383,9 @@
   },
   "navigation.itemHome": {
     "defaultMessage": "新对话"
+  },
+  "navigation.itemHub": {
+    "defaultMessage": "中心"
   },
   "navigation.itemRecipes": {
     "defaultMessage": "配方"
