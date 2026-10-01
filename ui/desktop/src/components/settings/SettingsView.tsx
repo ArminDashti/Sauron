@@ -219,7 +219,7 @@ export default function SettingsView({
                 className="mb-3 w-full justify-start rounded-full px-3 text-sm font-medium hover:bg-background-tertiary/60"
               />
             </div>
-            <TabsList className="w-full flex-col items-stretch gap-0.5 bg-transparent px-2 py-0">
+            <TabsList className="w-full min-h-0 flex-1 flex-col items-stretch gap-0.5 overflow-y-auto bg-transparent px-2 py-0">
               <TabsTrigger
                 value="models"
                 className={settingsTabClass}
