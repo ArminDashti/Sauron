@@ -2,6 +2,7 @@ import { ScrollArea } from '../ui/scroll-area';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs';
 import { View, ViewOptions } from '../../utils/navigationUtils';
 import ModelsSection from './models/ModelsSection';
+import ProvidersSection from './providers/ProvidersSection';
 import ExternalBackendSection from './app/ExternalBackendSection';
 import AgentLoopSettings from './AgentLoopSettings';
 import AppSettingsSection from './app/AppSettingsSection';
@@ -17,6 +18,7 @@ import {
   Keyboard,
   HardDrive,
   KeyRound,
+  Server,
 } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 import ChatSettingsSection from './chat/ChatSettingsSection';
@@ -38,6 +40,10 @@ const i18n = defineMessages({
   tabModels: {
     id: 'settingsView.tabModels',
     defaultMessage: 'Models',
+  },
+  tabProviders: {
+    id: 'settingsView.tabProviders',
+    defaultMessage: 'Providers',
   },
   tabLocalInference: {
     id: 'settingsView.tabLocalInference',
@@ -95,6 +101,7 @@ export default function SettingsView({
 
   const activeTabTitle = {
     models: intl.formatMessage(i18n.tabModels),
+    providers: intl.formatMessage(i18n.tabProviders),
     'local-inference': intl.formatMessage(i18n.tabLocalInference),
     chat: intl.formatMessage(i18n.tabChat),
     sharing: intl.formatMessage(i18n.tabAgent),
@@ -116,6 +123,7 @@ export default function SettingsView({
       const sectionToTab: Record<string, string> = {
         update: 'app',
         models: 'models',
+        providers: 'providers',
         modes: 'chat',
         sharing: 'sharing',
         styles: 'chat',
@@ -194,6 +202,14 @@ export default function SettingsView({
                 <Bot className="h-5 w-5 text-text-secondary" />
                 {intl.formatMessage(i18n.tabModels)}
               </TabsTrigger>
+              <TabsTrigger
+                value="providers"
+                className={settingsTabClass}
+                data-testid="settings-providers-tab"
+              >
+                <Server className="h-5 w-5 text-text-secondary" />
+                {intl.formatMessage(i18n.tabProviders)}
+              </TabsTrigger>
               {localInference && (
                 <TabsTrigger
                   value="local-inference"
@@ -244,11 +260,7 @@ export default function SettingsView({
                 <KeyRound className="h-5 w-5 text-text-secondary" />
                 {intl.formatMessage(i18n.tabAuth)}
               </TabsTrigger>
-              <TabsTrigger
-                value="app"
-                className={settingsTabClass}
-                data-testid="settings-app-tab"
-              >
+              <TabsTrigger value="app" className={settingsTabClass} data-testid="settings-app-tab">
                 <Monitor className="h-5 w-5 text-text-secondary" />
                 {intl.formatMessage(i18n.tabApp)}
               </TabsTrigger>
@@ -270,6 +282,13 @@ export default function SettingsView({
                 className="mt-0 focus-visible:outline-none focus-visible:ring-0"
               >
                 <ModelsSection setView={setView} />
+              </TabsContent>
+
+              <TabsContent
+                value="providers"
+                className="mt-0 focus-visible:outline-none focus-visible:ring-0"
+              >
+                <ProvidersSection setView={setView} />
               </TabsContent>
 
               {localInference && (
