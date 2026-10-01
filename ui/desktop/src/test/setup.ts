@@ -86,6 +86,7 @@ Object.defineProperty(window, 'electron', {
     reloadApp: vi.fn(),
     showMessageBox: vi.fn(() => Promise.resolve({ response: 0 })),
     getIsFullScreen: vi.fn(() => Promise.resolve(false)),
+    getUserProfile: vi.fn(() => Promise.resolve({ username: 'test-user' })),
     logInfo: vi.fn(),
     logError: vi.fn(),
     on: vi.fn(),

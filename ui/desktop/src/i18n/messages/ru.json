@@ -2363,6 +2363,12 @@
   "navigation.itemSkills": {
     "defaultMessage": "Навыки"
   },
+  "navigationFooter.sendFeedback": {
+    "defaultMessage": "Отправить отзыв"
+  },
+  "navigationFooter.you": {
+    "defaultMessage": "Вы"
+  },
   "navigationPanel.chats": {
     "defaultMessage": "Чаты"
   },

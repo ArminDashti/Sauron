@@ -2363,6 +2363,12 @@
   "navigation.itemSkills": {
     "defaultMessage": "技能"
   },
+  "navigationFooter.sendFeedback": {
+    "defaultMessage": "傳送意見回饋"
+  },
+  "navigationFooter.you": {
+    "defaultMessage": "你"
+  },
   "navigationPanel.chats": {
     "defaultMessage": "交談"
   },

@@ -2363,6 +2363,12 @@
   "navigation.itemSkills": {
     "defaultMessage": "Keterampilan"
   },
+  "navigationFooter.sendFeedback": {
+    "defaultMessage": "Kirim masukan"
+  },
+  "navigationFooter.you": {
+    "defaultMessage": "Anda"
+  },
   "navigationPanel.chats": {
     "defaultMessage": "Obrolan"
   },
