@@ -44,4 +44,34 @@ describe('ExtensionItem', () => {
       expect(screen.getByRole('switch')).toHaveAttribute('aria-checked', 'true');
     });
   });
+
+  it('shows the configure button for a bundled HTTP extension so secrets can be entered', () => {
+    const onConfigure = vi.fn();
+    const bundled = {
+      name: 'GitHub',
+      type: 'streamable_http',
+      uri: 'https://api.githubcopilot.com/mcp/',
+      enabled: false,
+      bundled: true,
+    } as unknown as FixedExtensionEntry;
+
+    renderWithIntl(
+      <ExtensionItem extension={bundled} onToggle={vi.fn()} onConfigure={onConfigure} />
+    );
+
+    const configure = screen.getByRole('button', { name: /Configure GitHub Extension/ });
+    fireEvent.click(configure);
+    expect(onConfigure).toHaveBeenCalledWith(bundled);
+  });
+
+  it('hides the configure button for builtin extensions', () => {
+    const onConfigure = vi.fn();
+
+    renderWithIntl(
+      <ExtensionItem extension={makeExtension(true)} onToggle={vi.fn()} onConfigure={onConfigure} />
+    );
+
+    expect(screen.queryByRole('button', { name: /Configure/ })).toBeNull();
+    expect(onConfigure).not.toHaveBeenCalled();
+  });
 });
