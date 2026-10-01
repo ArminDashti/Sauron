@@ -6,6 +6,9 @@ import ProvidersSection from './providers/ProvidersSection';
 import ExternalBackendSection from './app/ExternalBackendSection';
 import AgentLoopSettings from './AgentLoopSettings';
 import AppSettingsSection from './app/AppSettingsSection';
+import AppearanceSettingsSection from './appearance/AppearanceSettingsSection';
+import McpSettingsSection from './mcp/McpSettingsSection';
+import PluginsSettingsSection from './plugins/PluginsSettingsSection';
 import ConfigSettings from './config/ConfigSettings';
 import PromptsSettingsSection from './PromptsSettingsSection';
 import type { ExtensionConfig } from '../../types/extensions';
@@ -18,6 +21,9 @@ import {
   Keyboard,
   HardDrive,
   KeyRound,
+  Palette,
+  Plug,
+  Puzzle,
   Server,
 } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
@@ -69,6 +75,18 @@ const i18n = defineMessages({
     id: 'settingsView.tabAuth',
     defaultMessage: 'Auth',
   },
+  tabMcp: {
+    id: 'settingsView.tabMcp',
+    defaultMessage: 'MCP',
+  },
+  tabPlugins: {
+    id: 'settingsView.tabPlugins',
+    defaultMessage: 'Plugins',
+  },
+  tabAppearance: {
+    id: 'settingsView.tabAppearance',
+    defaultMessage: 'Appearance',
+  },
   tabApp: {
     id: 'settingsView.tabApp',
     defaultMessage: 'App',
@@ -108,6 +126,9 @@ export default function SettingsView({
     prompts: intl.formatMessage(i18n.tabPrompts),
     keyboard: intl.formatMessage(i18n.tabKeyboard),
     auth: intl.formatMessage(i18n.tabAuth),
+    mcp: intl.formatMessage(i18n.tabMcp),
+    plugins: intl.formatMessage(i18n.tabPlugins),
+    appearance: intl.formatMessage(i18n.tabAppearance),
     app: intl.formatMessage(i18n.tabApp),
   }[activeTab];
 
@@ -134,6 +155,11 @@ export default function SettingsView({
         prompts: 'prompts',
         keyboard: 'keyboard',
         auth: 'auth',
+        mcp: 'mcp',
+        plugins: 'plugins',
+        appearance: 'appearance',
+        theme: 'appearance',
+        language: 'appearance',
         'local-inference': 'local-inference',
       };
 
@@ -260,6 +286,26 @@ export default function SettingsView({
                 <KeyRound className="h-5 w-5 text-text-secondary" />
                 {intl.formatMessage(i18n.tabAuth)}
               </TabsTrigger>
+              <TabsTrigger value="mcp" className={settingsTabClass} data-testid="settings-mcp-tab">
+                <Plug className="h-5 w-5 text-text-secondary" />
+                {intl.formatMessage(i18n.tabMcp)}
+              </TabsTrigger>
+              <TabsTrigger
+                value="plugins"
+                className={settingsTabClass}
+                data-testid="settings-plugins-tab"
+              >
+                <Puzzle className="h-5 w-5 text-text-secondary" />
+                {intl.formatMessage(i18n.tabPlugins)}
+              </TabsTrigger>
+              <TabsTrigger
+                value="appearance"
+                className={settingsTabClass}
+                data-testid="settings-appearance-tab"
+              >
+                <Palette className="h-5 w-5 text-text-secondary" />
+                {intl.formatMessage(i18n.tabAppearance)}
+              </TabsTrigger>
               <TabsTrigger value="app" className={settingsTabClass} data-testid="settings-app-tab">
                 <Monitor className="h-5 w-5 text-text-secondary" />
                 {intl.formatMessage(i18n.tabApp)}
@@ -336,6 +382,27 @@ export default function SettingsView({
                 className="mt-0 focus-visible:outline-none focus-visible:ring-0"
               >
                 <AuthSettingsSection />
+              </TabsContent>
+
+              <TabsContent
+                value="mcp"
+                className="mt-0 focus-visible:outline-none focus-visible:ring-0"
+              >
+                <McpSettingsSection />
+              </TabsContent>
+
+              <TabsContent
+                value="plugins"
+                className="mt-0 focus-visible:outline-none focus-visible:ring-0"
+              >
+                <PluginsSettingsSection setView={setView} />
+              </TabsContent>
+
+              <TabsContent
+                value="appearance"
+                className="mt-0 focus-visible:outline-none focus-visible:ring-0"
+              >
+                <AppearanceSettingsSection />
               </TabsContent>
 
               <TabsContent

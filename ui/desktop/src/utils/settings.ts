@@ -1,8 +1,9 @@
+import type { ThemeId } from '../theme/theme-tokens';
+
 export type RecentModel = {
   provider: string;
   model: string;
 };
-
 export interface ExternalBackendConfig {
   enabled: boolean;
   url: string;
@@ -48,7 +49,7 @@ export interface Settings {
   keyboardShortcuts: KeyboardShortcuts;
 
   // UI preferences (migrated from localStorage)
-  theme: 'dark' | 'light' | 'aura';
+  theme: ThemeId;
   useSystemTheme: boolean;
   language: LanguageSetting;
   responseStyle: string;

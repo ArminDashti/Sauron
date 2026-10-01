@@ -323,7 +323,7 @@ function UserMessage({ message, onMessageUpdate }: UserMessageProps) {
             </div>
           </div>
         ) : (
-          <div className="message flex justify-end w-full">
+          <div className="message flex justify-start w-full">
             <div className="flex-col max-w-[85%] w-fit">
               <div className="flex flex-col group">
                 {textContent.trim() && (
@@ -348,11 +348,11 @@ function UserMessage({ message, onMessageUpdate }: UserMessageProps) {
                   </div>
                 )}
 
-                <div className="relative h-[22px] flex justify-end text-right">
-                  <div className="absolute w-40 font-mono right-0 text-xs text-text-secondary pt-1 transition-all duration-200 group-hover:-translate-y-4 group-hover:opacity-0">
+                <div className="relative h-[22px] flex justify-start text-left">
+                  <div className="absolute w-40 font-mono left-0 text-xs text-text-secondary pt-1 transition-all duration-200 group-hover:-translate-y-4 group-hover:opacity-0">
                     {timestamp}
                   </div>
-                  <div className="absolute right-0 pt-1 flex items-center gap-2">
+                  <div className="absolute left-0 pt-1 flex items-center gap-2">
                     <button
                       onClick={handleEditClick}
                       onKeyDown={(e) => {
