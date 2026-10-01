@@ -223,7 +223,7 @@ export const DirSwitcher: React.FC<DirSwitcherProps> = ({
               >
                 <FolderDot className="mr-1" size={16} />
                 <div className="max-w-[200px] truncate">
-                  {workingDir.replace(/\/+$/, '').split('/').pop() || workingDir}
+                  {splitDirPath(workingDir).name || workingDir}
                 </div>
               </button>
             </DropdownMenuTrigger>
