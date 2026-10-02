@@ -8,6 +8,24 @@
   "alertBox.failedToSaveThreshold": {
     "defaultMessage": "Eşik kaydedilemedi: {error}"
   },
+  "allProviderModels.filterAll": {
+    "defaultMessage": "Tümü"
+  },
+  "allProviderModels.filterFree": {
+    "defaultMessage": "Ücretsiz"
+  },
+  "allProviderModels.freeCount": {
+    "defaultMessage": "{count} ücretsiz"
+  },
+  "allProviderModels.noFreeModels": {
+    "defaultMessage": "Sağlayıcılarınızda ücretsiz model yok."
+  },
+  "allProviderModels.noFreeModelsHint": {
+    "defaultMessage": "Modeller, bir sağlayıcı bunları yerel çalıştırdığında (Ollama, yerel modeller) veya OpenRouter'in :free modelleri gibi ücretsiz varyantlar sunduğunda ücretsiz olarak gösterilir."
+  },
+  "allProviderModels.showAll": {
+    "defaultMessage": "Tüm modelleri göster"
+  },
   "announcementModal.gotIt": {
     "defaultMessage": "Anladım!"
   },
@@ -944,6 +962,9 @@
   "dirSwitcher.recentDirectories": {
     "defaultMessage": "Son dizinler"
   },
+  "freeModelBadge.label": {
+    "defaultMessage": "Ücretsiz"
+  },
   "gitBranchIndicator.failedToSwitch": {
     "defaultMessage": "{branch} dalına geçilemedi"
   },
@@ -1378,15 +1399,6 @@
   },
   "headersSection.value": {
     "defaultMessage": "Değer"
-  },
-  "hub.goodAfternoon": {
-    "defaultMessage": "İyi günler"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "İyi akşamlar"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "Günaydın"
   },
   "hubView.description": {
     "defaultMessage": "Çeşitli kaynaklardan Skills ve MCP sunucuları keşfedin."

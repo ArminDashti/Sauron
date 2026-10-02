@@ -8,6 +8,24 @@
   "alertBox.failedToSaveThreshold": {
     "defaultMessage": "しきい値の保存に失敗しました: {error}"
   },
+  "allProviderModels.filterAll": {
+    "defaultMessage": "すべて"
+  },
+  "allProviderModels.filterFree": {
+    "defaultMessage": "無料"
+  },
+  "allProviderModels.freeCount": {
+    "defaultMessage": "{count} 件無料"
+  },
+  "allProviderModels.noFreeModels": {
+    "defaultMessage": "プロバイダーに無料モデルがありません。"
+  },
+  "allProviderModels.noFreeModelsHint": {
+    "defaultMessage": "モデルは、プロバイダーがローカルで実行する場合（Ollama、ローカルモデル）や、OpenRouter の :free のような無料バリアントを提供する場合に無料として表示されます。"
+  },
+  "allProviderModels.showAll": {
+    "defaultMessage": "すべてのモデルを表示"
+  },
   "announcementModal.gotIt": {
     "defaultMessage": "了解しました"
   },
@@ -944,6 +962,9 @@
   "dirSwitcher.recentDirectories": {
     "defaultMessage": "最近のディレクトリ"
   },
+  "freeModelBadge.label": {
+    "defaultMessage": "無料"
+  },
   "gitBranchIndicator.failedToSwitch": {
     "defaultMessage": "{branch} への切り替えに失敗しました"
   },
@@ -1378,15 +1399,6 @@
   },
   "headersSection.value": {
     "defaultMessage": "値"
-  },
-  "hub.goodAfternoon": {
-    "defaultMessage": "こんにちは"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "こんばんは"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "おはようございます"
   },
   "hubView.description": {
     "defaultMessage": "さまざまなソースからスキルとMCPサーバーを見つける。"

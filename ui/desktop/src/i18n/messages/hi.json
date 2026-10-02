@@ -8,6 +8,24 @@
   "alertBox.failedToSaveThreshold": {
     "defaultMessage": "सीमा सहेजने में विफल: {error}"
   },
+  "allProviderModels.filterAll": {
+    "defaultMessage": "सभी"
+  },
+  "allProviderModels.filterFree": {
+    "defaultMessage": "मुफ़्त"
+  },
+  "allProviderModels.freeCount": {
+    "defaultMessage": "{count} मुफ़्त"
+  },
+  "allProviderModels.noFreeModels": {
+    "defaultMessage": "आपके प्रोवाइडरों से कोई मुफ़्त मॉडल नहीं हैं।"
+  },
+  "allProviderModels.noFreeModelsHint": {
+    "defaultMessage": "मॉडल तब मुफ़्त माने जाते हैं जब कोई प्रोवाइडर उन्हें स्थानीय रूप से चलाता है (Ollama, स्थानीय मॉडल) या मुफ़्त वेरिएंट सूचीबद्ध करता है, जैसे OpenRouter के :free मॉडल।"
+  },
+  "allProviderModels.showAll": {
+    "defaultMessage": "सभी मॉडल दिखाएँ"
+  },
   "announcementModal.gotIt": {
     "defaultMessage": "समझ गया!"
   },
@@ -944,6 +962,9 @@
   "dirSwitcher.recentDirectories": {
     "defaultMessage": "हाल की निर्देशिकाएँ"
   },
+  "freeModelBadge.label": {
+    "defaultMessage": "मुफ़्त"
+  },
   "gitBranchIndicator.failedToSwitch": {
     "defaultMessage": "{branch} पर स्विच नहीं किया जा सका"
   },
@@ -1378,15 +1399,6 @@
   },
   "headersSection.value": {
     "defaultMessage": "मूल्य"
-  },
-  "hub.goodAfternoon": {
-    "defaultMessage": "शुभ दोपहर"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "शुभ संध्या"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "सुप्रभात"
   },
   "hubView.description": {
     "defaultMessage": "विभिन्न स्रोतों से स्किल्स और MCP सर्वर खोजें।"

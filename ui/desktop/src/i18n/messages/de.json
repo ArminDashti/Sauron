@@ -8,6 +8,24 @@
   "alertBox.failedToSaveThreshold": {
     "defaultMessage": "Schwellenwert konnte nicht gespeichert werden: {error}"
   },
+  "allProviderModels.filterAll": {
+    "defaultMessage": "Alle"
+  },
+  "allProviderModels.filterFree": {
+    "defaultMessage": "Kostenlos"
+  },
+  "allProviderModels.freeCount": {
+    "defaultMessage": "{count} kostenlos"
+  },
+  "allProviderModels.noFreeModels": {
+    "defaultMessage": "Keine kostenlosen Modelle von deinen Anbietern."
+  },
+  "allProviderModels.noFreeModelsHint": {
+    "defaultMessage": "Modelle gelten als kostenlos, wenn ein Anbieter sie lokal ausführt (Ollama, lokale Modelle) oder kostenlose Varianten anbietet, wie die :free-Modelle von OpenRouter."
+  },
+  "allProviderModels.showAll": {
+    "defaultMessage": "Alle Modelle anzeigen"
+  },
   "announcementModal.gotIt": {
     "defaultMessage": "Verstanden!"
   },
@@ -944,6 +962,9 @@
   "dirSwitcher.recentDirectories": {
     "defaultMessage": "Zuletzt verwendete Verzeichnisse"
   },
+  "freeModelBadge.label": {
+    "defaultMessage": "Kostenlos"
+  },
   "gitBranchIndicator.failedToSwitch": {
     "defaultMessage": "Wechsel zu {branch} fehlgeschlagen"
   },
@@ -1378,15 +1399,6 @@
   },
   "headersSection.value": {
     "defaultMessage": "Wert"
-  },
-  "hub.goodAfternoon": {
-    "defaultMessage": "Guten Tag"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "Guten Abend"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "Guten Morgen"
   },
   "hubView.description": {
     "defaultMessage": "Entdecke Skills und MCP-Server aus verschiedenen Quellen."

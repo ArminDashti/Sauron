@@ -13,6 +13,10 @@ import type { ProviderDetails } from '../../../types/providers';
 import { defineMessages, useIntl } from '../../../i18n';
 import { errorMessage } from '../../../utils/conversionUtils';
 import { toastError, toastSuccess } from '../../../toasts';
+import FreeModelBadge from './FreeModelBadge';
+import { collectKnownFreeKeys, modelKey } from './freeModels';
+
+const FREE_ONLY_STORAGE_KEY = 'modelsFreeOnly';
 
 const i18n = defineMessages({
   title: {
@@ -72,6 +76,31 @@ const i18n = defineMessages({
     id: 'allProviderModels.refreshFailed',
     defaultMessage: 'Could not refresh {provider}: {error}',
   },
+  filterAll: {
+    id: 'allProviderModels.filterAll',
+    defaultMessage: 'All',
+  },
+  filterFree: {
+    id: 'allProviderModels.filterFree',
+    defaultMessage: 'Free',
+  },
+  freeCount: {
+    id: 'allProviderModels.freeCount',
+    defaultMessage: '{count} free',
+  },
+  noFreeModels: {
+    id: 'allProviderModels.noFreeModels',
+    defaultMessage: 'No free models from your providers.',
+  },
+  noFreeModelsHint: {
+    id: 'allProviderModels.noFreeModelsHint',
+    defaultMessage:
+      'Models show as free when a provider runs them locally (Ollama, local models) or lists free variants, such as the :free models from OpenRouter.',
+  },
+  showAll: {
+    id: 'allProviderModels.showAll',
+    defaultMessage: 'Show all models',
+  },
 });
 
 /**
@@ -90,6 +119,14 @@ export default function AllProviderModels() {
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [loadError, setLoadError] = useState<string | null>(null);
   const [refreshErrors, setRefreshErrors] = useState<Record<string, string>>({});
+  const [freeOnly, setFreeOnly] = useState<boolean>(
+    () => localStorage.getItem(FREE_ONLY_STORAGE_KEY) === 'true'
+  );
+
+  const handleFreeOnly = useCallback((value: boolean) => {
+    setFreeOnly(value);
+    localStorage.setItem(FREE_ONLY_STORAGE_KEY, String(value));
+  }, []);
 
   const loadModels = useCallback(async () => {
     setIsLoading(true);
@@ -166,6 +203,39 @@ export default function AllProviderModels() {
     [providers]
   );
 
+  const providerRows = useMemo(() => {
+    const freeKeys = collectKnownFreeKeys(
+      providers.map((provider) => ({
+        name: provider.name,
+        models: provider.metadata.known_models.map((model) => model.name),
+      }))
+    );
+    return providers.map((provider) => {
+      const models = provider.metadata.known_models;
+      const freeModels = models.filter((model) =>
+        freeKeys.has(modelKey(provider.name, model.name))
+      );
+      return { provider, models, freeModels };
+    });
+  }, [providers]);
+
+  const totalFreeModels = useMemo(
+    () => providerRows.reduce((sum, row) => sum + row.freeModels.length, 0),
+    [providerRows]
+  );
+
+  const visibleRows = useMemo(
+    () => (freeOnly ? providerRows.filter((row) => row.freeModels.length > 0) : providerRows),
+    [freeOnly, providerRows]
+  );
+
+  const filterButtonClass = (active: boolean) =>
+    `inline-flex items-center gap-1 rounded-md border px-2 py-1 text-xs transition-colors ${
+      active
+        ? 'border-text-inverse bg-background-inverse text-text-inverse'
+        : 'border-border-primary bg-background-secondary text-text-secondary hover:bg-background-tertiary hover:text-text-primary'
+    }`;
+
   return (
     <Card className="rounded-lg">
       <CardHeader className="pb-0">
@@ -201,10 +271,29 @@ export default function AllProviderModels() {
           </div>
         ) : (
           <div className="space-y-4">
-            <div className="flex items-center justify-between gap-2">
-              <span className="text-xs text-text-secondary">
-                {intl.formatMessage(i18n.modelCount, { count: totalModels })}
-              </span>
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <div className="flex items-center gap-1" role="group">
+                <button
+                  type="button"
+                  data-testid="models-filter-all"
+                  aria-pressed={!freeOnly}
+                  onClick={() => handleFreeOnly(false)}
+                  className={filterButtonClass(!freeOnly)}
+                >
+                  {intl.formatMessage(i18n.filterAll)}{' '}
+                  <span className="opacity-70">{totalModels}</span>
+                </button>
+                <button
+                  type="button"
+                  data-testid="models-filter-free"
+                  aria-pressed={freeOnly}
+                  onClick={() => handleFreeOnly(true)}
+                  className={filterButtonClass(freeOnly)}
+                >
+                  {intl.formatMessage(i18n.filterFree)}{' '}
+                  <span className="opacity-70">{totalFreeModels}</span>
+                </button>
+              </div>
               <Button
                 size="sm"
                 variant="ghost"
@@ -223,65 +312,92 @@ export default function AllProviderModels() {
               </Button>
             </div>
 
-            {providers.map((provider) => {
-              const models = provider.metadata.known_models;
-              const error = refreshErrors[provider.name];
-              const isCurrentProvider = defaults.providerId === provider.name;
-              return (
-                <div key={provider.name} data-testid={`all-provider-models-${provider.name}`}>
-                  <div className="flex flex-wrap items-center gap-2">
-                    <h3 className="text-sm text-text-primary">
-                      {provider.metadata.display_name}
-                    </h3>
-                    <span className="text-xs text-text-secondary">
-                      {intl.formatMessage(i18n.modelCount, { count: models.length })}
-                    </span>
-                  </div>
-
-                  {error && (
-                    <p className="mt-1 text-xs text-red-500">
-                      {intl.formatMessage(i18n.refreshFailed, {
-                        provider: provider.metadata.display_name,
-                        error,
-                      })}
-                    </p>
-                  )}
-
-                  {models.length === 0 ? (
-                    <p className="mt-1 text-xs text-text-secondary">
-                      {intl.formatMessage(i18n.noModels)}
-                    </p>
-                  ) : (
-                    <div className="mt-2 flex flex-wrap gap-1.5">
-                      {models.map((model) => {
-                        const isCurrent = isCurrentProvider && defaults.modelId === model.name;
-                        return (
-                          <button
-                            key={model.name}
-                            type="button"
-                            onClick={() => handleSelectModel(provider, model.name)}
-                            title={
-                              model.context_limit
-                                ? `${model.name} (${Math.round(model.context_limit / 1024)}k context)`
-                                : model.name
-                            }
-                            aria-pressed={isCurrent}
-                            className={`inline-flex items-center gap-1 rounded-full border px-2.5 py-1 text-xs transition-colors ${
-                              isCurrent
-                                ? 'border-text-inverse bg-background-inverse text-text-inverse'
-                                : 'border-border-primary bg-background-secondary text-text-primary hover:border-border-secondary hover:bg-background-tertiary'
-                            }`}
-                          >
-                            {isCurrent && <Check className="h-3 w-3" aria-hidden="true" />}
-                            {model.name}
-                          </button>
-                        );
-                      })}
-                    </div>
-                  )}
+            {visibleRows.length === 0 ? (
+              <div className="flex items-center justify-between gap-4">
+                <div>
+                  <p className="text-sm text-text-primary">
+                    {intl.formatMessage(i18n.noFreeModels)}
+                  </p>
+                  <p className="mt-1 text-xs text-text-secondary">
+                    {intl.formatMessage(i18n.noFreeModelsHint)}
+                  </p>
                 </div>
-              );
-            })}
+                <Button size="sm" variant="secondary" onClick={() => handleFreeOnly(false)}>
+                  {intl.formatMessage(i18n.showAll)}
+                </Button>
+              </div>
+            ) : (
+              visibleRows.map((row) => {
+                const { provider, freeModels } = row;
+                const models = freeOnly ? freeModels : row.models;
+                const freeModelNames = new Set(freeModels.map((model) => model.name));
+                const error = refreshErrors[provider.name];
+                const isCurrentProvider = defaults.providerId === provider.name;
+                return (
+                  <div key={provider.name} data-testid={`all-provider-models-${provider.name}`}>
+                    <div className="flex flex-wrap items-center gap-2">
+                      <h3 className="text-sm text-text-primary">
+                        {provider.metadata.display_name}
+                      </h3>
+                      <span className="text-xs text-text-secondary">
+                        {intl.formatMessage(i18n.modelCount, { count: models.length })}
+                      </span>
+                      {!freeOnly && freeModels.length > 0 && (
+                        <span
+                          className="text-xs text-emerald-600 dark:text-emerald-400"
+                          data-testid={`provider-free-count-${provider.name}`}
+                        >
+                          {intl.formatMessage(i18n.freeCount, { count: freeModels.length })}
+                        </span>
+                      )}
+                    </div>
+
+                    {error && (
+                      <p className="mt-1 text-xs text-red-500">
+                        {intl.formatMessage(i18n.refreshFailed, {
+                          provider: provider.metadata.display_name,
+                          error,
+                        })}
+                      </p>
+                    )}
+
+                    {models.length === 0 ? (
+                      <p className="mt-1 text-xs text-text-secondary">
+                        {intl.formatMessage(i18n.noModels)}
+                      </p>
+                    ) : (
+                      <div className="mt-2 flex flex-wrap gap-1.5">
+                        {models.map((model) => {
+                          const isCurrent = isCurrentProvider && defaults.modelId === model.name;
+                          const isFree = freeModelNames.has(model.name);
+                          const contextSuffix = model.context_limit
+                            ? ` (${Math.round(model.context_limit / 1024)}k context)`
+                            : '';
+                          return (
+                            <button
+                              key={model.name}
+                              type="button"
+                              onClick={() => handleSelectModel(provider, model.name)}
+                              title={`${model.name}${contextSuffix}${isFree ? ' · free' : ''}`}
+                              aria-pressed={isCurrent}
+                              className={`inline-flex items-center gap-1 rounded-full border px-2.5 py-1 text-xs transition-colors ${
+                                isCurrent
+                                  ? 'border-text-inverse bg-background-inverse text-text-inverse'
+                                  : 'border-border-primary bg-background-secondary text-text-primary hover:border-border-secondary hover:bg-background-tertiary'
+                              }`}
+                            >
+                              {isCurrent && <Check className="h-3 w-3" aria-hidden="true" />}
+                              {model.name}
+                              {isFree && !freeOnly && <FreeModelBadge className="ml-0.5" />}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </div>
+                );
+              })
+            )}
           </div>
         )}
       </CardContent>

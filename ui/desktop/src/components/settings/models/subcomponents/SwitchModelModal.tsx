@@ -30,6 +30,7 @@ import { getPredefinedModelsFromEnv, shouldShowPredefinedModels } from '../prede
 import type { ProviderDetails, ProviderType, ThinkingEffort } from '../../../../types/providers';
 import { trackModelChanged } from '../../../../utils/analytics';
 import { addToRecentModels } from '../../../../utils/recentModels';
+import FreeModelBadge from '../FreeModelBadge';
 
 const i18n = defineMessages({
   thinkingEffortOff: {
@@ -284,6 +285,7 @@ export const SwitchModelModal = ({
     provider: string;
     isDisabled?: boolean;
     reasoning?: boolean;
+    free?: boolean;
   };
   const [modelOptions, setModelOptions] = useState<{ options: ModelOption[] }[]>([]);
   const [provider, setProvider] = useState<string | null>(
@@ -548,12 +550,14 @@ export const SwitchModelModal = ({
             provider: string;
             providerType: ProviderType;
             reasoning?: boolean;
+            free?: boolean;
           }[] = modelList.map((m) => ({
             value: m.name,
             label: m.name,
             provider: p.name,
             providerType: p.provider_type,
             reasoning: m.reasoning,
+            free: m.free,
           }));
 
           if (p.provider_type !== 'Custom') {
@@ -916,6 +920,18 @@ export const SwitchModelModal = ({
                         }
                         onChange={handleModelChange}
                         onInputChange={handleInputChange}
+                        formatOptionLabel={(option: unknown, meta: { context: string }) => {
+                          const { free, label } = option as ModelOption;
+                          if (!free || meta.context !== 'menu') {
+                            return <span>{label}</span>;
+                          }
+                          return (
+                            <span className="flex w-full items-center justify-between gap-2">
+                              <span>{label}</span>
+                              <FreeModelBadge />
+                            </span>
+                          );
+                        }}
                         value={
                           loadingModels
                             ? {

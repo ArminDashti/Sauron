@@ -8,6 +8,24 @@
   "alertBox.failedToSaveThreshold": {
     "defaultMessage": "Не удалось сохранить пороговое значение: {error}"
   },
+  "allProviderModels.filterAll": {
+    "defaultMessage": "Все"
+  },
+  "allProviderModels.filterFree": {
+    "defaultMessage": "Бесплатные"
+  },
+  "allProviderModels.freeCount": {
+    "defaultMessage": "{count} бесплатных"
+  },
+  "allProviderModels.noFreeModels": {
+    "defaultMessage": "Бесплатных моделей от ваших провайдеров нет."
+  },
+  "allProviderModels.noFreeModelsHint": {
+    "defaultMessage": "Модель считается бесплатной, если провайдер запускает её локально (Ollama, локальные модели) или предлагает бесплатные варианты, например :free модели OpenRouter."
+  },
+  "allProviderModels.showAll": {
+    "defaultMessage": "Показать все модели"
+  },
   "announcementModal.gotIt": {
     "defaultMessage": "Понятно!"
   },
@@ -944,6 +962,9 @@
   "dirSwitcher.recentDirectories": {
     "defaultMessage": "Недавние каталоги"
   },
+  "freeModelBadge.label": {
+    "defaultMessage": "Бесплатно"
+  },
   "gitBranchIndicator.failedToSwitch": {
     "defaultMessage": "Не удалось переключиться на {branch}"
   },
@@ -1378,15 +1399,6 @@
   },
   "headersSection.value": {
     "defaultMessage": "Значение"
-  },
-  "hub.goodAfternoon": {
-    "defaultMessage": "Добрый день"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "Добрый вечер"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "Доброе утро"
   },
   "hubView.description": {
     "defaultMessage": "Ищите навыки и MCP-серверы из различных источников."

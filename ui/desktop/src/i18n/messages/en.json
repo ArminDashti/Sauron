@@ -47,6 +47,15 @@
   "allProviderModels.emptyHint": {
     "defaultMessage": "Configure a provider to see the models it offers."
   },
+  "allProviderModels.filterAll": {
+    "defaultMessage": "All"
+  },
+  "allProviderModels.filterFree": {
+    "defaultMessage": "Free"
+  },
+  "allProviderModels.freeCount": {
+    "defaultMessage": "{count} free"
+  },
   "allProviderModels.loadFailed": {
     "defaultMessage": "Could not load provider models"
   },
@@ -55,6 +64,12 @@
   },
   "allProviderModels.modelCount": {
     "defaultMessage": "{count,plural,one{# model} other{# models}}"
+  },
+  "allProviderModels.noFreeModels": {
+    "defaultMessage": "No free models from your providers."
+  },
+  "allProviderModels.noFreeModelsHint": {
+    "defaultMessage": "Models show as free when a provider runs them locally (Ollama, local models) or lists free variants, such as the :free models from OpenRouter."
   },
   "allProviderModels.noModels": {
     "defaultMessage": "No models reported by this provider."
@@ -67,6 +82,9 @@
   },
   "allProviderModels.refreshing": {
     "defaultMessage": "Refreshing..."
+  },
+  "allProviderModels.showAll": {
+    "defaultMessage": "Show all models"
   },
   "allProviderModels.title": {
     "defaultMessage": "Models from your providers"
@@ -1310,6 +1328,9 @@
   "externalBackendSection.workingDirPlaceholder": {
     "defaultMessage": "/home/goose/workspace"
   },
+  "freeModelBadge.label": {
+    "defaultMessage": "Free"
+  },
   "gitBranchIndicator.failedToSwitch": {
     "defaultMessage": "Failed to switch to {branch}"
   },
@@ -1441,15 +1462,6 @@
   },
   "headersSection.value": {
     "defaultMessage": "Value"
-  },
-  "hub.goodAfternoon": {
-    "defaultMessage": "Good afternoon"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "Good evening"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "Good morning"
   },
   "hubView.description": {
     "defaultMessage": "Discover Skills and MCP servers from various sources."

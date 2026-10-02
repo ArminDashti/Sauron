@@ -8,6 +8,24 @@
   "alertBox.failedToSaveThreshold": {
     "defaultMessage": "Không thể lưu ngưỡng: {error}"
   },
+  "allProviderModels.filterAll": {
+    "defaultMessage": "Tất cả"
+  },
+  "allProviderModels.filterFree": {
+    "defaultMessage": "Miễn phí"
+  },
+  "allProviderModels.freeCount": {
+    "defaultMessage": "{count} miễn phí"
+  },
+  "allProviderModels.noFreeModels": {
+    "defaultMessage": "Không có model miễn phí từ các nhà cung cấp của bạn."
+  },
+  "allProviderModels.noFreeModelsHint": {
+    "defaultMessage": "Các model được coi là miễn phí khi nhà cung cấp chạy chúng trên máy (Ollama, model cục bộ) hoặc liệt kê các biến thể miễn phí, chẳng hạn như các :free model của OpenRouter."
+  },
+  "allProviderModels.showAll": {
+    "defaultMessage": "Hiện tất cả model"
+  },
   "announcementModal.gotIt": {
     "defaultMessage": "Đã hiểu!"
   },
@@ -944,6 +962,9 @@
   "dirSwitcher.recentDirectories": {
     "defaultMessage": "Thư mục gần đây"
   },
+  "freeModelBadge.label": {
+    "defaultMessage": "Miễn phí"
+  },
   "gitBranchIndicator.failedToSwitch": {
     "defaultMessage": "Không thể chuyển sang {branch}"
   },
@@ -1378,15 +1399,6 @@
   },
   "headersSection.value": {
     "defaultMessage": "Giá trị"
-  },
-  "hub.goodAfternoon": {
-    "defaultMessage": "Chào buổi chiều"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "Chào buổi tối"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "Chào buổi sáng"
   },
   "hubView.description": {
     "defaultMessage": "Khám phá Skills và máy chủ MCP từ nhiều nguồn khác nhau."

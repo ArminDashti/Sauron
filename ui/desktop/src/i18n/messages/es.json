@@ -8,6 +8,24 @@
   "alertBox.failedToSaveThreshold": {
     "defaultMessage": "No se pudo guardar el umbral: {error}"
   },
+  "allProviderModels.filterAll": {
+    "defaultMessage": "Todos"
+  },
+  "allProviderModels.filterFree": {
+    "defaultMessage": "Gratis"
+  },
+  "allProviderModels.freeCount": {
+    "defaultMessage": "{count} gratis"
+  },
+  "allProviderModels.noFreeModels": {
+    "defaultMessage": "No hay modelos gratuitos de tus proveedores."
+  },
+  "allProviderModels.noFreeModelsHint": {
+    "defaultMessage": "Los modelos se consideran gratuitos cuando un proveedor los ejecuta localmente (Ollama, modelos locales) o enumera variantes gratuitas, como los modelos :free de OpenRouter."
+  },
+  "allProviderModels.showAll": {
+    "defaultMessage": "Mostrar todos los modelos"
+  },
   "announcementModal.gotIt": {
     "defaultMessage": "¡Entendido!"
   },
@@ -944,6 +962,9 @@
   "dirSwitcher.recentDirectories": {
     "defaultMessage": "Directorios recientes"
   },
+  "freeModelBadge.label": {
+    "defaultMessage": "Gratis"
+  },
   "gitBranchIndicator.failedToSwitch": {
     "defaultMessage": "No se pudo cambiar a {branch}"
   },
@@ -1378,15 +1399,6 @@
   },
   "headersSection.value": {
     "defaultMessage": "Valor"
-  },
-  "hub.goodAfternoon": {
-    "defaultMessage": "Buenas tardes"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "Buenas noches"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "Buenos días"
   },
   "hubView.description": {
     "defaultMessage": "Descubre skills y servidores MCP de diversas fuentes."

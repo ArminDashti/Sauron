@@ -8,6 +8,24 @@
   "alertBox.failedToSaveThreshold": {
     "defaultMessage": "임계값 저장 실패: {error}"
   },
+  "allProviderModels.filterAll": {
+    "defaultMessage": "전체"
+  },
+  "allProviderModels.filterFree": {
+    "defaultMessage": "무료"
+  },
+  "allProviderModels.freeCount": {
+    "defaultMessage": "{count}개 무료"
+  },
+  "allProviderModels.noFreeModels": {
+    "defaultMessage": "제공업체에 무료 모델이 없습니다."
+  },
+  "allProviderModels.noFreeModelsHint": {
+    "defaultMessage": "제공업체가 로컬에서 실행하거나(Ollama, 로컬 모델) OpenRouter의 :free 같은 무료 변형을 제공하는 경우 모델이 무료로 표시됩니다."
+  },
+  "allProviderModels.showAll": {
+    "defaultMessage": "모든 모델 보기"
+  },
   "announcementModal.gotIt": {
     "defaultMessage": "알았어요!"
   },
@@ -944,6 +962,9 @@
   "dirSwitcher.recentDirectories": {
     "defaultMessage": "최근 디렉터리"
   },
+  "freeModelBadge.label": {
+    "defaultMessage": "무료"
+  },
   "gitBranchIndicator.failedToSwitch": {
     "defaultMessage": "{branch} 브랜치로 전환하지 못했습니다"
   },
@@ -1378,15 +1399,6 @@
   },
   "headersSection.value": {
     "defaultMessage": "값"
-  },
-  "hub.goodAfternoon": {
-    "defaultMessage": "좋은 오후예요"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "좋은 저녁이에요"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "좋은 아침이에요"
   },
   "hubView.description": {
     "defaultMessage": "다양한 소스에서 스킬과 MCP 서버를 찾아보세요."

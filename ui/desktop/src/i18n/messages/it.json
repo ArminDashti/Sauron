@@ -8,6 +8,24 @@
   "alertBox.failedToSaveThreshold": {
     "defaultMessage": "Impossibile salvare la soglia: {error}"
   },
+  "allProviderModels.filterAll": {
+    "defaultMessage": "Tutti"
+  },
+  "allProviderModels.filterFree": {
+    "defaultMessage": "Gratis"
+  },
+  "allProviderModels.freeCount": {
+    "defaultMessage": "{count} gratuiti"
+  },
+  "allProviderModels.noFreeModels": {
+    "defaultMessage": "Nessun modello gratuito dai tuoi provider."
+  },
+  "allProviderModels.noFreeModelsHint": {
+    "defaultMessage": "I modelli sono considerati gratuiti quando un provider li esegue in locale (Ollama, modelli locali) o elenca varianti gratuite, come i modelli :free di OpenRouter."
+  },
+  "allProviderModels.showAll": {
+    "defaultMessage": "Mostra tutti i modelli"
+  },
   "announcementModal.gotIt": {
     "defaultMessage": "Capito!"
   },
@@ -944,6 +962,9 @@
   "dirSwitcher.recentDirectories": {
     "defaultMessage": "Cartelle recenti"
   },
+  "freeModelBadge.label": {
+    "defaultMessage": "Gratis"
+  },
   "gitBranchIndicator.failedToSwitch": {
     "defaultMessage": "Impossibile passare a {branch}"
   },
@@ -1378,15 +1399,6 @@
   },
   "headersSection.value": {
     "defaultMessage": "Valore"
-  },
-  "hub.goodAfternoon": {
-    "defaultMessage": "Buon pomeriggio"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "Buonasera"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "Buongiorno"
   },
   "hubView.description": {
     "defaultMessage": "Scopri skill e server MCP da diverse fonti."

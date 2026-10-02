@@ -8,6 +8,24 @@
   "alertBox.failedToSaveThreshold": {
     "defaultMessage": "Gagal menyimpan ambang: {error}"
   },
+  "allProviderModels.filterAll": {
+    "defaultMessage": "Semua"
+  },
+  "allProviderModels.filterFree": {
+    "defaultMessage": "Percuma"
+  },
+  "allProviderModels.freeCount": {
+    "defaultMessage": "{count} percuma"
+  },
+  "allProviderModels.noFreeModels": {
+    "defaultMessage": "Tiada model percuma daripada pembekal anda."
+  },
+  "allProviderModels.noFreeModelsHint": {
+    "defaultMessage": "Model dianggap percuma apabila pembekal menjalankannya secara tempatan (Ollama, model tempatan) atau menyenaraikan varian percuma, seperti model :free daripada OpenRouter."
+  },
+  "allProviderModels.showAll": {
+    "defaultMessage": "Tunjukkan semua model"
+  },
   "announcementModal.gotIt": {
     "defaultMessage": "Faham!"
   },
@@ -944,6 +962,9 @@
   "dirSwitcher.recentDirectories": {
     "defaultMessage": "Direktori terkini"
   },
+  "freeModelBadge.label": {
+    "defaultMessage": "Percuma"
+  },
   "gitBranchIndicator.failedToSwitch": {
     "defaultMessage": "Gagal beralih ke {branch}"
   },
@@ -1378,15 +1399,6 @@
   },
   "headersSection.value": {
     "defaultMessage": "Nilai"
-  },
-  "hub.goodAfternoon": {
-    "defaultMessage": "Selamat tengah hari"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "Selamat petang"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "Selamat pagi"
   },
   "hubView.description": {
     "defaultMessage": "Temui Skills dan pelayan MCP dari pelbagai sumber."

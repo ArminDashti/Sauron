@@ -8,6 +8,24 @@
   "alertBox.failedToSaveThreshold": {
     "defaultMessage": "保存阈值失败：{error}"
   },
+  "allProviderModels.filterAll": {
+    "defaultMessage": "全部"
+  },
+  "allProviderModels.filterFree": {
+    "defaultMessage": "免费"
+  },
+  "allProviderModels.freeCount": {
+    "defaultMessage": "{count} 个免费"
+  },
+  "allProviderModels.noFreeModels": {
+    "defaultMessage": "您的提供商没有免费模型。"
+  },
+  "allProviderModels.noFreeModelsHint": {
+    "defaultMessage": "当提供商在本地运行模型（Ollama、本地模型）或列出免费变体（例如 OpenRouter 的 :free 模型）时，模型会显示为免费。"
+  },
+  "allProviderModels.showAll": {
+    "defaultMessage": "显示所有模型"
+  },
   "announcementModal.gotIt": {
     "defaultMessage": "知道了！"
   },
@@ -944,6 +962,9 @@
   "dirSwitcher.recentDirectories": {
     "defaultMessage": "最近的目录"
   },
+  "freeModelBadge.label": {
+    "defaultMessage": "免费"
+  },
   "gitBranchIndicator.failedToSwitch": {
     "defaultMessage": "无法切换到 {branch}"
   },
@@ -1378,15 +1399,6 @@
   },
   "headersSection.value": {
     "defaultMessage": "值"
-  },
-  "hub.goodAfternoon": {
-    "defaultMessage": "下午好"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "晚上好"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "早上好"
   },
   "hubView.description": {
     "defaultMessage": "从各种来源发现技能和 MCP 服务器。"
