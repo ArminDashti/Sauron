@@ -2363,6 +2363,12 @@
   "navigation.itemSkills": {
     "defaultMessage": "Competenze"
   },
+  "navigationFooter.sendFeedback": {
+    "defaultMessage": "Invia feedback"
+  },
+  "navigationFooter.you": {
+    "defaultMessage": "Tu"
+  },
   "navigationPanel.chats": {
     "defaultMessage": "Chat"
   },

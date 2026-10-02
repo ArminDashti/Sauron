@@ -2435,6 +2435,12 @@
   "navigation.itemSkills": {
     "defaultMessage": "Skills"
   },
+  "navigationFooter.sendFeedback": {
+    "defaultMessage": "Send feedback"
+  },
+  "navigationFooter.you": {
+    "defaultMessage": "You"
+  },
   "navigationPanel.chats": {
     "defaultMessage": "Chats"
   },

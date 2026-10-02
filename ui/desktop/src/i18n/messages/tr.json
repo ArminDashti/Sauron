@@ -2363,6 +2363,12 @@
   "navigation.itemSkills": {
     "defaultMessage": "Beceriler"
   },
+  "navigationFooter.sendFeedback": {
+    "defaultMessage": "Geri bildirim gönder"
+  },
+  "navigationFooter.you": {
+    "defaultMessage": "Siz"
+  },
   "navigationPanel.chats": {
     "defaultMessage": "Sohbetler"
   },

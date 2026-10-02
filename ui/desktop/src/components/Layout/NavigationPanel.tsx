@@ -13,6 +13,7 @@ import {
 } from '../../hooks/useNavigationItems';
 import { AppEvents } from '../../constants/events';
 import { InlineEditText } from '../common/InlineEditText';
+import NavigationFooter from './NavigationFooter';
 import { SessionIndicators } from '../SessionIndicators';
 import { acpRenameSession, type SessionListItem } from '../../acp/sessions';
 import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/Tooltip';
@@ -427,13 +428,10 @@ export const Navigation: React.FC<{
         )}
       </div>
 
-      <div className="px-2 pt-2 pb-2 border-t border-border-secondary">
-        <NavRow
-          item={SETTINGS_NAV_ITEM}
-          active={isActive(SETTINGS_NAV_ITEM.path)}
-          onClick={() => handleNavClick(SETTINGS_NAV_ITEM.path)}
-        />
-      </div>
+      <NavigationFooter
+        settingsActive={isActive(SETTINGS_NAV_ITEM.path)}
+        onOpenSettings={() => handleNavClick(SETTINGS_NAV_ITEM.path)}
+      />
     </motion.div>
   );
 };

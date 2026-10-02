@@ -2363,6 +2363,12 @@
   "navigation.itemSkills": {
     "defaultMessage": "Kemahiran"
   },
+  "navigationFooter.sendFeedback": {
+    "defaultMessage": "Hantar maklum balas"
+  },
+  "navigationFooter.you": {
+    "defaultMessage": "Anda"
+  },
   "navigationPanel.chats": {
     "defaultMessage": "Sembang"
   },
