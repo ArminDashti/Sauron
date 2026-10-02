@@ -20,6 +20,7 @@ import {
   acpSaveThinkingEffort,
 } from '../../../../acp/providers';
 import { useModelAndProvider } from '../../../ModelAndProviderContext';
+import ModelIcon from '../../../logos/ModelIcon';
 import type { View } from '../../../../utils/navigationUtils';
 import Model, {
   fetchModelReasoning,
@@ -772,9 +773,12 @@ export const SwitchModelModal = ({
                     >
                       <div className="flex-1">
                         <div className="flex items-center justify-between">
-                          <span className="text-text-primary font-medium">
-                            {model.alias || model.name}
-                          </span>
+                          <div className="flex items-center gap-2 min-w-0">
+                            <ModelIcon provider={model.provider} className="h-4 w-4" />
+                            <span className="text-text-primary font-medium">
+                              {model.alias || model.name}
+                            </span>
+                          </div>
                           {model.alias?.includes('recommended') && (
                             <span className="text-xs bg-background-secondary text-text-primary px-2 py-1 rounded-full border border-border-primary ml-2">
                               {intl.formatMessage(i18n.recommended)}

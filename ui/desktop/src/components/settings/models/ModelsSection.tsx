@@ -2,6 +2,7 @@ import { useEffect, useState, useCallback, useRef } from 'react';
 import { View } from '../../../utils/navigationUtils';
 import ModelSettingsButtons from './subcomponents/ModelSettingsButtons';
 import AllProviderModels from './AllProviderModels';
+import ModelIcon from '../../logos/ModelIcon';
 import { acpGetProviderDetails, acpReadDefaults } from '../../../acp/providers';
 import { modelAndProviderMessages, useModelAndProvider } from '../../ModelAndProviderContext';
 import { toastError } from '../../../toasts';
@@ -92,9 +93,12 @@ export default function ModelsSection({ setView }: ModelsSectionProps) {
               <div className="h-[16px]"></div>
             </>
           ) : (
-            <div className="animate-in fade-in duration-100">
-              <h3 className="text-text-primary">{displayModelName}</h3>
-              <h4 className="text-xs text-text-secondary">{provider}</h4>
+            <div className="animate-in fade-in duration-100 flex items-center gap-2">
+              <ModelIcon provider={currentProvider} className="h-5 w-5" />
+              <div>
+                <h3 className="text-text-primary">{displayModelName}</h3>
+                <h4 className="text-xs text-text-secondary">{provider}</h4>
+              </div>
             </div>
           )}
           <ModelSettingsButtons setView={setView} />
