@@ -122,8 +122,14 @@
   "appLayout.collapseNavigation": {
     "defaultMessage": "Navigation einklappen"
   },
+  "appLayout.hideChanges": {
+    "defaultMessage": "Änderungsbereich ausblenden"
+  },
   "appLayout.openNavigation": {
     "defaultMessage": "Navigation öffnen"
+  },
+  "appLayout.showChanges": {
+    "defaultMessage": "Änderungsbereich anzeigen"
   },
   "appsView.customApp": {
     "defaultMessage": "Benutzerdefinierte App"
@@ -337,6 +343,81 @@
   },
   "cardButtons.launch": {
     "defaultMessage": "Starten"
+  },
+  "changesPanel.cleanTree": {
+    "defaultMessage": "Arbeitsbaum sauber"
+  },
+  "changesPanel.close": {
+    "defaultMessage": "Änderungsbereich schließen"
+  },
+  "changesPanel.commitAndPush": {
+    "defaultMessage": "Committen & Pushen"
+  },
+  "changesPanel.commitFailed": {
+    "defaultMessage": "Commit fehlgeschlagen"
+  },
+  "changesPanel.commitPlaceholder": {
+    "defaultMessage": "Commit-Nachricht"
+  },
+  "changesPanel.commitSuccess": {
+    "defaultMessage": "Committet und gepusht"
+  },
+  "changesPanel.committing": {
+    "defaultMessage": "Wird committet…"
+  },
+  "changesPanel.loadFailed": {
+    "defaultMessage": "Git-Änderungen konnten nicht geladen werden"
+  },
+  "changesPanel.loading": {
+    "defaultMessage": "Änderungen werden geladen…"
+  },
+  "changesPanel.loadingDiff": {
+    "defaultMessage": "Diff wird geladen…"
+  },
+  "changesPanel.noChanges": {
+    "defaultMessage": "Keine Änderungen"
+  },
+  "changesPanel.noDirectory": {
+    "defaultMessage": "Kein Arbeitsverzeichnis ausgewählt"
+  },
+  "changesPanel.notARepo": {
+    "defaultMessage": "Kein Git-Repository"
+  },
+  "changesPanel.pushFailed": {
+    "defaultMessage": "Committet, aber Push fehlgeschlagen"
+  },
+  "changesPanel.refresh": {
+    "defaultMessage": "Änderungen aktualisieren"
+  },
+  "changesPanel.retry": {
+    "defaultMessage": "Erneut versuchen"
+  },
+  "changesPanel.statusAdded": {
+    "defaultMessage": "Hinzugefügt"
+  },
+  "changesPanel.statusConflicted": {
+    "defaultMessage": "Konflikt"
+  },
+  "changesPanel.statusCopied": {
+    "defaultMessage": "Kopiert"
+  },
+  "changesPanel.statusDeleted": {
+    "defaultMessage": "Gelöscht"
+  },
+  "changesPanel.statusModified": {
+    "defaultMessage": "Geändert"
+  },
+  "changesPanel.statusRenamed": {
+    "defaultMessage": "Umbenannt"
+  },
+  "changesPanel.statusUntracked": {
+    "defaultMessage": "Nicht verfolgt"
+  },
+  "changesPanel.title": {
+    "defaultMessage": "Änderungen"
+  },
+  "changesPanel.uncommitted": {
+    "defaultMessage": "Nicht committet"
   },
   "chat.notification.taskComplete.body": {
     "defaultMessage": "Klicken Sie hier, um Sauron wieder in den Vordergrund zu holen."
@@ -1087,6 +1168,12 @@
   },
   "dictationSettings.voiceDictationProvider": {
     "defaultMessage": "Anbieter für Sprachdiktat"
+  },
+  "diffViewer.noDiff": {
+    "defaultMessage": "Keine textuellen Änderungen zum Anzeigen"
+  },
+  "diffViewer.unmodifiedLines": {
+    "defaultMessage": "{count} unveränderte Zeilen"
   },
   "dirSwitcher.chooseDirectory": {
     "defaultMessage": "Verzeichnis auswählen…"

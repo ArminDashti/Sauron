@@ -122,8 +122,14 @@
   "appLayout.collapseNavigation": {
     "defaultMessage": "Ciutkan navigasi"
   },
+  "appLayout.hideChanges": {
+    "defaultMessage": "Sembunyikan panel perubahan"
+  },
   "appLayout.openNavigation": {
     "defaultMessage": "Buka navigasi"
+  },
+  "appLayout.showChanges": {
+    "defaultMessage": "Tampilkan panel perubahan"
   },
   "appsView.customApp": {
     "defaultMessage": "Aplikasi khusus"
@@ -337,6 +343,81 @@
   },
   "cardButtons.launch": {
     "defaultMessage": "Jalankan"
+  },
+  "changesPanel.cleanTree": {
+    "defaultMessage": "Pohon kerja bersih"
+  },
+  "changesPanel.close": {
+    "defaultMessage": "Tutup panel perubahan"
+  },
+  "changesPanel.commitAndPush": {
+    "defaultMessage": "Commit & Push"
+  },
+  "changesPanel.commitFailed": {
+    "defaultMessage": "Commit gagal"
+  },
+  "changesPanel.commitPlaceholder": {
+    "defaultMessage": "Pesan commit"
+  },
+  "changesPanel.commitSuccess": {
+    "defaultMessage": "Berhasil commit dan push"
+  },
+  "changesPanel.committing": {
+    "defaultMessage": "Meng-commit…"
+  },
+  "changesPanel.loadFailed": {
+    "defaultMessage": "Gagal memuat perubahan git"
+  },
+  "changesPanel.loading": {
+    "defaultMessage": "Memuat perubahan…"
+  },
+  "changesPanel.loadingDiff": {
+    "defaultMessage": "Memuat diff…"
+  },
+  "changesPanel.noChanges": {
+    "defaultMessage": "Tidak ada perubahan"
+  },
+  "changesPanel.noDirectory": {
+    "defaultMessage": "Tidak ada direktori kerja yang dipilih"
+  },
+  "changesPanel.notARepo": {
+    "defaultMessage": "Bukan repositori git"
+  },
+  "changesPanel.pushFailed": {
+    "defaultMessage": "Berhasil commit, tetapi push gagal"
+  },
+  "changesPanel.refresh": {
+    "defaultMessage": "Muat ulang perubahan"
+  },
+  "changesPanel.retry": {
+    "defaultMessage": "Coba lagi"
+  },
+  "changesPanel.statusAdded": {
+    "defaultMessage": "Ditambahkan"
+  },
+  "changesPanel.statusConflicted": {
+    "defaultMessage": "Bertentangan"
+  },
+  "changesPanel.statusCopied": {
+    "defaultMessage": "Disalin"
+  },
+  "changesPanel.statusDeleted": {
+    "defaultMessage": "Dihapus"
+  },
+  "changesPanel.statusModified": {
+    "defaultMessage": "Diubah"
+  },
+  "changesPanel.statusRenamed": {
+    "defaultMessage": "Dinamai ulang"
+  },
+  "changesPanel.statusUntracked": {
+    "defaultMessage": "Belum dilacak"
+  },
+  "changesPanel.title": {
+    "defaultMessage": "Perubahan"
+  },
+  "changesPanel.uncommitted": {
+    "defaultMessage": "Belum di-commit"
   },
   "chat.notification.taskComplete.body": {
     "defaultMessage": "Klik di sini untuk membawa Sauron kembali ke fokus."
@@ -1087,6 +1168,12 @@
   },
   "dictationSettings.voiceDictationProvider": {
     "defaultMessage": "Penyedia Dikte Suara"
+  },
+  "diffViewer.noDiff": {
+    "defaultMessage": "Tidak ada perubahan teks untuk ditampilkan"
+  },
+  "diffViewer.unmodifiedLines": {
+    "defaultMessage": "{count} baris tidak berubah"
   },
   "dirSwitcher.chooseDirectory": {
     "defaultMessage": "Pilih direktori…"

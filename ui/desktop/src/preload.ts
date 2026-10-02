@@ -6,6 +6,7 @@ import { defaultSettings } from './utils/settings';
 import type { OpenExternalUrlResult } from './utils/urlSecurity';
 import type { GitHubDeviceCode, GitHubTokenPollResult } from './utils/githubSignIn';
 import type { UserProfile } from './utils/userProfile';
+import type { GitChangesResult, GitCommitPushResult } from './utils/gitChangesIpc';
 import type { UsageStatsRange, UsageStatsResult } from './types/usageStats';
 import type { SystemUsage } from './utils/systemUsage';
 
@@ -192,6 +193,9 @@ type ElectronAPI = {
   getGitBranchInfo: (dir: string) => Promise<{ branch: string } | null>;
   listGitBranches: (dir: string) => Promise<string[]>;
   switchGitBranch: (dir: string, branch: string) => Promise<{ success: boolean; error?: string }>;
+  getGitChanges: (dir: string) => Promise<GitChangesResult | null>;
+  getGitChangeDiff: (dir: string, filePath: string) => Promise<string>;
+  commitAndPushGitChanges: (dir: string, message: string) => Promise<GitCommitPushResult>;
   getUserProfile: () => Promise<UserProfile>;
   getSystemUsage: () => Promise<SystemUsage>;
 };
@@ -364,6 +368,11 @@ const electronAPI: ElectronAPI = {
   listGitBranches: (dir: string) => ipcRenderer.invoke('list-git-branches', dir),
   switchGitBranch: (dir: string, branch: string) =>
     ipcRenderer.invoke('switch-git-branch', dir, branch),
+  getGitChanges: (dir: string) => ipcRenderer.invoke('get-git-changes', dir),
+  getGitChangeDiff: (dir: string, filePath: string) =>
+    ipcRenderer.invoke('get-git-change-diff', dir, filePath),
+  commitAndPushGitChanges: (dir: string, message: string) =>
+    ipcRenderer.invoke('commit-and-push-git-changes', dir, message),
   getUserProfile: () => ipcRenderer.invoke('get-user-profile'),
   getSystemUsage: () => ipcRenderer.invoke('get-system-usage'),
 };

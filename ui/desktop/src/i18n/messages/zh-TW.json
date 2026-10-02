@@ -122,8 +122,14 @@
   "appLayout.collapseNavigation": {
     "defaultMessage": "收合導覽列"
   },
+  "appLayout.hideChanges": {
+    "defaultMessage": "隱藏變更面板"
+  },
   "appLayout.openNavigation": {
     "defaultMessage": "開啟導覽列"
+  },
+  "appLayout.showChanges": {
+    "defaultMessage": "顯示變更面板"
   },
   "appsView.customApp": {
     "defaultMessage": "自訂應用程式"
@@ -337,6 +343,81 @@
   },
   "cardButtons.launch": {
     "defaultMessage": "啟動"
+  },
+  "changesPanel.cleanTree": {
+    "defaultMessage": "工作樹乾淨"
+  },
+  "changesPanel.close": {
+    "defaultMessage": "關閉變更面板"
+  },
+  "changesPanel.commitAndPush": {
+    "defaultMessage": "提交並推送"
+  },
+  "changesPanel.commitFailed": {
+    "defaultMessage": "提交失敗"
+  },
+  "changesPanel.commitPlaceholder": {
+    "defaultMessage": "提交訊息"
+  },
+  "changesPanel.commitSuccess": {
+    "defaultMessage": "已提交並推送"
+  },
+  "changesPanel.committing": {
+    "defaultMessage": "正在提交…"
+  },
+  "changesPanel.loadFailed": {
+    "defaultMessage": "無法載入 git 變更"
+  },
+  "changesPanel.loading": {
+    "defaultMessage": "正在載入變更…"
+  },
+  "changesPanel.loadingDiff": {
+    "defaultMessage": "正在載入差異…"
+  },
+  "changesPanel.noChanges": {
+    "defaultMessage": "沒有變更"
+  },
+  "changesPanel.noDirectory": {
+    "defaultMessage": "未選擇工作目錄"
+  },
+  "changesPanel.notARepo": {
+    "defaultMessage": "不是 git 儲存庫"
+  },
+  "changesPanel.pushFailed": {
+    "defaultMessage": "已提交，但推送失敗"
+  },
+  "changesPanel.refresh": {
+    "defaultMessage": "重新整理變更"
+  },
+  "changesPanel.retry": {
+    "defaultMessage": "重試"
+  },
+  "changesPanel.statusAdded": {
+    "defaultMessage": "新增"
+  },
+  "changesPanel.statusConflicted": {
+    "defaultMessage": "衝突"
+  },
+  "changesPanel.statusCopied": {
+    "defaultMessage": "複製"
+  },
+  "changesPanel.statusDeleted": {
+    "defaultMessage": "刪除"
+  },
+  "changesPanel.statusModified": {
+    "defaultMessage": "修改"
+  },
+  "changesPanel.statusRenamed": {
+    "defaultMessage": "重新命名"
+  },
+  "changesPanel.statusUntracked": {
+    "defaultMessage": "未追蹤"
+  },
+  "changesPanel.title": {
+    "defaultMessage": "變更"
+  },
+  "changesPanel.uncommitted": {
+    "defaultMessage": "未提交"
   },
   "chat.notification.taskComplete.body": {
     "defaultMessage": "按一下這裡讓 Sauron 重新回到焦點。"
@@ -1087,6 +1168,12 @@
   },
   "dictationSettings.voiceDictationProvider": {
     "defaultMessage": "語音聽寫供應商"
+  },
+  "diffViewer.noDiff": {
+    "defaultMessage": "沒有可顯示的文字變更"
+  },
+  "diffViewer.unmodifiedLines": {
+    "defaultMessage": "{count} 行未變更"
   },
   "dirSwitcher.chooseDirectory": {
     "defaultMessage": "選擇目錄…"
