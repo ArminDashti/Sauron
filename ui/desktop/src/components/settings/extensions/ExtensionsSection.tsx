@@ -165,12 +165,18 @@ export default function ExtensionsSection({
 
     const extensionConfig = createExtensionConfig(formData);
     const originalName = selectedExtension.name;
+    // Keep the bundled marker so the startup sync does not overwrite user edits
+    // (e.g. the token entered for the GitHub extension).
+    const configToSave =
+      'bundled' in selectedExtension && selectedExtension.bundled === true
+        ? { ...extensionConfig, bundled: true }
+        : extensionConfig;
 
     try {
       if (originalName !== extensionConfig.name) {
         await removeExtension(originalName);
       }
-      await addExtension(extensionConfig.name, extensionConfig, formData.enabled);
+      await addExtension(configToSave.name, configToSave, formData.enabled);
     } catch (error) {
       console.error('Failed to update extension:', error);
     } finally {
@@ -246,7 +252,13 @@ export default function ExtensionsSection({
             initialData={extensionToFormData(selectedExtension)}
             onClose={handleModalClose}
             onSubmit={handleUpdateExtension}
-            onDelete={handleDeleteExtension}
+            // Bundled entries are re-added by the startup sync, so removing one
+            // would silently come back; offer disable (the list toggle) instead.
+            onDelete={
+              'bundled' in selectedExtension && selectedExtension.bundled
+                ? undefined
+                : handleDeleteExtension
+            }
             submitLabel={intl.formatMessage(i18n.saveChanges)}
             modalType={'edit'}
           />

@@ -77,12 +77,9 @@ export default function ExtensionItem({
     );
   };
 
-  // Bundled extensions and builtins are not editable
-  // Over time we can take the first part of the conditional away as people have bundled: true in their config.yaml entries
-
-  // allow configuration editing if extension is not a builtin/bundled extension AND isStatic = false
-  const editable =
-    !(extension.type === 'builtin' || ('bundled' in extension && extension.bundled)) && !isStatic;
+  // Builtins and platform extensions are not editable. Bundled stdio/HTTP
+  // extensions are, so users can provide secrets (e.g. a GitHub token).
+  const editable = !(extension.type === 'builtin' || extension.type === 'platform') && !isStatic;
 
   return (
     <Card

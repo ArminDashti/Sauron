@@ -52,5 +52,19 @@
     "type": "builtin",
     "env_keys": [],
     "bundled": true
+  },
+  {
+    "id": "github",
+    "name": "GitHub",
+    "description": "Connect your GitHub account to search repositories, work with code, manage issues, and open pull requests. Requires a GitHub personal access token.",
+    "enabled": false,
+    "type": "streamable_http",
+    "uri": "https://api.githubcopilot.com/mcp/",
+    "headers": {
+      "Authorization": "Bearer ${GITHUB_PERSONAL_ACCESS_TOKEN}"
+    },
+    "env_keys": ["GITHUB_PERSONAL_ACCESS_TOKEN"],
+    "timeout": 300,
+    "bundled": true
   }
 ]
