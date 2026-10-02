@@ -4801,5 +4801,65 @@
   },
   "settingsView.tabProviders": {
     "defaultMessage": "Providers"
+  },
+  "authSettings.cancelSignIn": {
+    "defaultMessage": "रद्द करें"
+  },
+  "authSettings.checkingStatus": {
+    "defaultMessage": "जाँच हो रही है..."
+  },
+  "authSettings.connectedAccounts": {
+    "defaultMessage": "कनेक्ट किए गए खाते"
+  },
+  "authSettings.connectedAccountsDescription": {
+    "defaultMessage": "Sauron को अपने बाहरी खातों के साथ काम करने देने के लिए साइन इन करें।"
+  },
+  "authSettings.githubAccountDescription": {
+    "defaultMessage": "रिपॉज़िटरी खोजें, कोड के साथ काम करें, इश्यू प्रबंधित करें और पुल रिक्वेस्ट खोलें।"
+  },
+  "authSettings.githubAccountName": {
+    "defaultMessage": "GitHub"
+  },
+  "authSettings.githubConnected": {
+    "defaultMessage": "कनेक्टेड"
+  },
+  "authSettings.githubEnterCode": {
+    "defaultMessage": "Sauron को अधिकृत करने के लिए {url} पर यह कोड दर्ज करें:"
+  },
+  "authSettings.githubNotConnected": {
+    "defaultMessage": "कनेक्टेड नहीं"
+  },
+  "authSettings.githubOpenDevicePage": {
+    "defaultMessage": "GitHub डिवाइस पेज खोलें"
+  },
+  "authSettings.githubSignInFailed": {
+    "defaultMessage": "GitHub साइन-इन विफल रहा: {error}"
+  },
+  "authSettings.githubSignInUnavailable": {
+    "defaultMessage": "GitHub साइन-इन केवल डेस्कटॉप ऐप में उपलब्ध है।"
+  },
+  "authSettings.githubSignOutMessage": {
+    "defaultMessage": "जब तक आप फिर से साइन इन नहीं करते, Sauron आपके GitHub रिपॉज़िटरी के साथ काम नहीं कर पाएगा।"
+  },
+  "authSettings.githubSignOutTitle": {
+    "defaultMessage": "GitHub से साइन आउट करें"
+  },
+  "authSettings.githubSignedIn": {
+    "defaultMessage": "GitHub पर साइन इन हो गया। GitHub एक्सटेंशन उपयोग के लिए तैयार है।"
+  },
+  "authSettings.githubSignedOut": {
+    "defaultMessage": "GitHub से साइन आउट हो गया"
+  },
+  "authSettings.githubStatusFailed": {
+    "defaultMessage": "GitHub साइन-इन स्थिति जाँच नहीं सकी"
+  },
+  "authSettings.githubWaitingForAuthorization": {
+    "defaultMessage": "GitHub प्राधिकरण की प्रतीक्षा है..."
+  },
+  "authSettings.signInWithGitHub": {
+    "defaultMessage": "GitHub से साइन इन करें"
+  },
+  "authSettings.signOutFromGitHub": {
+    "defaultMessage": "साइन आउट करें"
   }
 }

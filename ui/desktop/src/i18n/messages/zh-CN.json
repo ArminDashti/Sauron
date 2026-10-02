@@ -4801,5 +4801,65 @@
   },
   "settingsView.tabProviders": {
     "defaultMessage": "Providers"
+  },
+  "authSettings.cancelSignIn": {
+    "defaultMessage": "取消"
+  },
+  "authSettings.checkingStatus": {
+    "defaultMessage": "检查中..."
+  },
+  "authSettings.connectedAccounts": {
+    "defaultMessage": "已连接的账户"
+  },
+  "authSettings.connectedAccountsDescription": {
+    "defaultMessage": "登录后 Sauron 即可使用你的外部账户。"
+  },
+  "authSettings.githubAccountDescription": {
+    "defaultMessage": "搜索仓库、处理代码、管理议题并创建拉取请求。"
+  },
+  "authSettings.githubAccountName": {
+    "defaultMessage": "GitHub"
+  },
+  "authSettings.githubConnected": {
+    "defaultMessage": "已连接"
+  },
+  "authSettings.githubEnterCode": {
+    "defaultMessage": "在 {url} 输入此代码以授权 Sauron："
+  },
+  "authSettings.githubNotConnected": {
+    "defaultMessage": "未连接"
+  },
+  "authSettings.githubOpenDevicePage": {
+    "defaultMessage": "打开 GitHub 设备页面"
+  },
+  "authSettings.githubSignInFailed": {
+    "defaultMessage": "GitHub 登录失败：{error}"
+  },
+  "authSettings.githubSignInUnavailable": {
+    "defaultMessage": "GitHub 登录仅在桌面应用中可用。"
+  },
+  "authSettings.githubSignOutMessage": {
+    "defaultMessage": "在你重新登录之前，Sauron 将无法操作你的 GitHub 仓库。"
+  },
+  "authSettings.githubSignOutTitle": {
+    "defaultMessage": "退出 GitHub 登录"
+  },
+  "authSettings.githubSignedIn": {
+    "defaultMessage": "已登录 GitHub。GitHub 扩展已可使用。"
+  },
+  "authSettings.githubSignedOut": {
+    "defaultMessage": "已退出 GitHub 登录"
+  },
+  "authSettings.githubStatusFailed": {
+    "defaultMessage": "无法检查 GitHub 登录状态"
+  },
+  "authSettings.githubWaitingForAuthorization": {
+    "defaultMessage": "正在等待 GitHub 授权..."
+  },
+  "authSettings.signInWithGitHub": {
+    "defaultMessage": "使用 GitHub 登录"
+  },
+  "authSettings.signOutFromGitHub": {
+    "defaultMessage": "退出登录"
   }
 }

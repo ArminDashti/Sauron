@@ -4801,5 +4801,65 @@
   },
   "settingsView.tabProviders": {
     "defaultMessage": "Providers"
+  },
+  "authSettings.cancelSignIn": {
+    "defaultMessage": "Отмена"
+  },
+  "authSettings.checkingStatus": {
+    "defaultMessage": "Проверка..."
+  },
+  "authSettings.connectedAccounts": {
+    "defaultMessage": "Подключённые аккаунты"
+  },
+  "authSettings.connectedAccountsDescription": {
+    "defaultMessage": "Войдите, чтобы Sauron мог работать с вашими внешними аккаунтами."
+  },
+  "authSettings.githubAccountDescription": {
+    "defaultMessage": "Поиск репозиториев, работа с кодом, управление issues и создание pull request-ов."
+  },
+  "authSettings.githubAccountName": {
+    "defaultMessage": "GitHub"
+  },
+  "authSettings.githubConnected": {
+    "defaultMessage": "Подключено"
+  },
+  "authSettings.githubEnterCode": {
+    "defaultMessage": "Введите этот код на {url}, чтобы авторизовать Sauron:"
+  },
+  "authSettings.githubNotConnected": {
+    "defaultMessage": "Не подключено"
+  },
+  "authSettings.githubOpenDevicePage": {
+    "defaultMessage": "Открыть страницу устройства GitHub"
+  },
+  "authSettings.githubSignInFailed": {
+    "defaultMessage": "Не удалось войти в GitHub: {error}"
+  },
+  "authSettings.githubSignInUnavailable": {
+    "defaultMessage": "Вход через GitHub доступен только в настольном приложении."
+  },
+  "authSettings.githubSignOutMessage": {
+    "defaultMessage": "Sauron не сможет работать с вашими репозиториями GitHub, пока вы не войдёте снова."
+  },
+  "authSettings.githubSignOutTitle": {
+    "defaultMessage": "Выйти из GitHub"
+  },
+  "authSettings.githubSignedIn": {
+    "defaultMessage": "Вы вошли в GitHub. Расширение GitHub готово к работе."
+  },
+  "authSettings.githubSignedOut": {
+    "defaultMessage": "Вы вышли из GitHub"
+  },
+  "authSettings.githubStatusFailed": {
+    "defaultMessage": "Не удалось проверить статус входа в GitHub"
+  },
+  "authSettings.githubWaitingForAuthorization": {
+    "defaultMessage": "Ожидание авторизации GitHub..."
+  },
+  "authSettings.signInWithGitHub": {
+    "defaultMessage": "Войти через GitHub"
+  },
+  "authSettings.signOutFromGitHub": {
+    "defaultMessage": "Выйти"
   }
 }

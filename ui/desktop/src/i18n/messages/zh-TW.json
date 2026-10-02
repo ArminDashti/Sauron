@@ -4801,5 +4801,65 @@
   },
   "settingsView.tabProviders": {
     "defaultMessage": "Providers"
+  },
+  "authSettings.cancelSignIn": {
+    "defaultMessage": "取消"
+  },
+  "authSettings.checkingStatus": {
+    "defaultMessage": "檢查中..."
+  },
+  "authSettings.connectedAccounts": {
+    "defaultMessage": "已連接的帳戶"
+  },
+  "authSettings.connectedAccountsDescription": {
+    "defaultMessage": "登入後 Sauron 即可使用你的外部帳戶。"
+  },
+  "authSettings.githubAccountDescription": {
+    "defaultMessage": "搜尋儲存庫、處理程式碼、管理議題並建立拉取請求。"
+  },
+  "authSettings.githubAccountName": {
+    "defaultMessage": "GitHub"
+  },
+  "authSettings.githubConnected": {
+    "defaultMessage": "已連接"
+  },
+  "authSettings.githubEnterCode": {
+    "defaultMessage": "在 {url} 輸入此代碼以授權 Sauron："
+  },
+  "authSettings.githubNotConnected": {
+    "defaultMessage": "未連接"
+  },
+  "authSettings.githubOpenDevicePage": {
+    "defaultMessage": "開啟 GitHub 裝置頁面"
+  },
+  "authSettings.githubSignInFailed": {
+    "defaultMessage": "GitHub 登入失敗：{error}"
+  },
+  "authSettings.githubSignInUnavailable": {
+    "defaultMessage": "GitHub 登入僅在桌面應用程式中可用。"
+  },
+  "authSettings.githubSignOutMessage": {
+    "defaultMessage": "在你重新登入之前，Sauron 將無法操作 GitHub 儲存庫。"
+  },
+  "authSettings.githubSignOutTitle": {
+    "defaultMessage": "登出 GitHub"
+  },
+  "authSettings.githubSignedIn": {
+    "defaultMessage": "已登入 GitHub。GitHub 擴充功能已可使用。"
+  },
+  "authSettings.githubSignedOut": {
+    "defaultMessage": "已登出 GitHub"
+  },
+  "authSettings.githubStatusFailed": {
+    "defaultMessage": "無法檢查 GitHub 登入狀態"
+  },
+  "authSettings.githubWaitingForAuthorization": {
+    "defaultMessage": "正在等待 GitHub 授權..."
+  },
+  "authSettings.signInWithGitHub": {
+    "defaultMessage": "使用 GitHub 登入"
+  },
+  "authSettings.signOutFromGitHub": {
+    "defaultMessage": "登出"
   }
 }

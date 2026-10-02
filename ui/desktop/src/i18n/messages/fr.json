@@ -4801,5 +4801,65 @@
   },
   "settingsView.tabProviders": {
     "defaultMessage": "Providers"
+  },
+  "authSettings.cancelSignIn": {
+    "defaultMessage": "Annuler"
+  },
+  "authSettings.checkingStatus": {
+    "defaultMessage": "Vérification..."
+  },
+  "authSettings.connectedAccounts": {
+    "defaultMessage": "Comptes connectés"
+  },
+  "authSettings.connectedAccountsDescription": {
+    "defaultMessage": "Connectez-vous pour permettre à Sauron d’utiliser vos comptes externes."
+  },
+  "authSettings.githubAccountDescription": {
+    "defaultMessage": "Recherchez des dépôts, travaillez avec du code, gérez des issues et ouvrez des pull requests."
+  },
+  "authSettings.githubAccountName": {
+    "defaultMessage": "GitHub"
+  },
+  "authSettings.githubConnected": {
+    "defaultMessage": "Connecté"
+  },
+  "authSettings.githubEnterCode": {
+    "defaultMessage": "Saisissez ce code sur {url} pour autoriser Sauron :"
+  },
+  "authSettings.githubNotConnected": {
+    "defaultMessage": "Non connecté"
+  },
+  "authSettings.githubOpenDevicePage": {
+    "defaultMessage": "Ouvrir la page d’appareil GitHub"
+  },
+  "authSettings.githubSignInFailed": {
+    "defaultMessage": "Échec de la connexion à GitHub : {error}"
+  },
+  "authSettings.githubSignInUnavailable": {
+    "defaultMessage": "La connexion GitHub est uniquement disponible dans l’application de bureau."
+  },
+  "authSettings.githubSignOutMessage": {
+    "defaultMessage": "Sauron ne pourra plus travailler avec vos dépôts GitHub jusqu’à votre prochaine connexion."
+  },
+  "authSettings.githubSignOutTitle": {
+    "defaultMessage": "Se déconnecter de GitHub"
+  },
+  "authSettings.githubSignedIn": {
+    "defaultMessage": "Connecté à GitHub. L’extension GitHub est prête à l’emploi."
+  },
+  "authSettings.githubSignedOut": {
+    "defaultMessage": "Déconnecté de GitHub"
+  },
+  "authSettings.githubStatusFailed": {
+    "defaultMessage": "Impossible de vérifier l’état de connexion GitHub"
+  },
+  "authSettings.githubWaitingForAuthorization": {
+    "defaultMessage": "En attente de l’autorisation GitHub..."
+  },
+  "authSettings.signInWithGitHub": {
+    "defaultMessage": "Se connecter avec GitHub"
+  },
+  "authSettings.signOutFromGitHub": {
+    "defaultMessage": "Se déconnecter"
   }
 }

@@ -4801,5 +4801,65 @@
   },
   "settingsView.tabProviders": {
     "defaultMessage": "Providers"
+  },
+  "authSettings.cancelSignIn": {
+    "defaultMessage": "Abbrechen"
+  },
+  "authSettings.checkingStatus": {
+    "defaultMessage": "Wird geprüft..."
+  },
+  "authSettings.connectedAccounts": {
+    "defaultMessage": "Verbundene Konten"
+  },
+  "authSettings.connectedAccountsDescription": {
+    "defaultMessage": "Melde dich an, damit Sauron mit deinen externen Konten arbeiten kann."
+  },
+  "authSettings.githubAccountDescription": {
+    "defaultMessage": "Repositorys durchsuchen, mit Code arbeiten, Issues verwalten und Pull Requests erstellen."
+  },
+  "authSettings.githubAccountName": {
+    "defaultMessage": "GitHub"
+  },
+  "authSettings.githubConnected": {
+    "defaultMessage": "Verbunden"
+  },
+  "authSettings.githubEnterCode": {
+    "defaultMessage": "Gib diesen Code unter {url} ein, um Sauron zu autorisieren:"
+  },
+  "authSettings.githubNotConnected": {
+    "defaultMessage": "Nicht verbunden"
+  },
+  "authSettings.githubOpenDevicePage": {
+    "defaultMessage": "GitHub-Geräteseite öffnen"
+  },
+  "authSettings.githubSignInFailed": {
+    "defaultMessage": "GitHub-Anmeldung fehlgeschlagen: {error}"
+  },
+  "authSettings.githubSignInUnavailable": {
+    "defaultMessage": "Die GitHub-Anmeldung ist nur in der Desktop-App verfügbar."
+  },
+  "authSettings.githubSignOutMessage": {
+    "defaultMessage": "Sauron kann deine GitHub-Repositorys erst wieder bearbeiten, wenn du dich erneut anmeldest."
+  },
+  "authSettings.githubSignOutTitle": {
+    "defaultMessage": "Bei GitHub abmelden"
+  },
+  "authSettings.githubSignedIn": {
+    "defaultMessage": "Bei GitHub angemeldet. Die GitHub-Erweiterung ist einsatzbereit."
+  },
+  "authSettings.githubSignedOut": {
+    "defaultMessage": "Von GitHub abgemeldet"
+  },
+  "authSettings.githubStatusFailed": {
+    "defaultMessage": "GitHub-Anmeldestatus konnte nicht geprüft werden"
+  },
+  "authSettings.githubWaitingForAuthorization": {
+    "defaultMessage": "Warte auf GitHub-Autorisierung..."
+  },
+  "authSettings.signInWithGitHub": {
+    "defaultMessage": "Mit GitHub anmelden"
+  },
+  "authSettings.signOutFromGitHub": {
+    "defaultMessage": "Abmelden"
   }
 }

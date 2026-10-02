@@ -4801,5 +4801,65 @@
   },
   "settingsView.tabProviders": {
     "defaultMessage": "Providers"
+  },
+  "authSettings.cancelSignIn": {
+    "defaultMessage": "İptal"
+  },
+  "authSettings.checkingStatus": {
+    "defaultMessage": "Kontrol ediliyor..."
+  },
+  "authSettings.connectedAccounts": {
+    "defaultMessage": "Bağlı hesaplar"
+  },
+  "authSettings.connectedAccountsDescription": {
+    "defaultMessage": "Sauron'un harici hesaplarınızla çalışmasına izin vermek için oturum açın."
+  },
+  "authSettings.githubAccountDescription": {
+    "defaultMessage": "Depoları arayın, kodla çalışın, sorunları yönetin ve pull request açın."
+  },
+  "authSettings.githubAccountName": {
+    "defaultMessage": "GitHub"
+  },
+  "authSettings.githubConnected": {
+    "defaultMessage": "Bağlı"
+  },
+  "authSettings.githubEnterCode": {
+    "defaultMessage": "Sauron'u yetkilendirmek için {url} adresine bu kodu girin:"
+  },
+  "authSettings.githubNotConnected": {
+    "defaultMessage": "Bağlı değil"
+  },
+  "authSettings.githubOpenDevicePage": {
+    "defaultMessage": "GitHub cihaz sayfasını aç"
+  },
+  "authSettings.githubSignInFailed": {
+    "defaultMessage": "GitHub oturum açma başarısız: {error}"
+  },
+  "authSettings.githubSignInUnavailable": {
+    "defaultMessage": "GitHub oturum açma yalnızca masaüstü uygulamasında kullanılabilir."
+  },
+  "authSettings.githubSignOutMessage": {
+    "defaultMessage": "Yeniden oturum açana kadar Sauron GitHub depolarınızla çalışamaz."
+  },
+  "authSettings.githubSignOutTitle": {
+    "defaultMessage": "GitHub'dan çık"
+  },
+  "authSettings.githubSignedIn": {
+    "defaultMessage": "GitHub'a giriş yapıldı. GitHub eklentisi kullanıma hazır."
+  },
+  "authSettings.githubSignedOut": {
+    "defaultMessage": "GitHub'dan çıkıldı"
+  },
+  "authSettings.githubStatusFailed": {
+    "defaultMessage": "GitHub oturum açma durumu kontrol edilemedi"
+  },
+  "authSettings.githubWaitingForAuthorization": {
+    "defaultMessage": "GitHub yetkisi bekleniyor..."
+  },
+  "authSettings.signInWithGitHub": {
+    "defaultMessage": "GitHub ile giriş yap"
+  },
+  "authSettings.signOutFromGitHub": {
+    "defaultMessage": "Çıkış yap"
   }
 }

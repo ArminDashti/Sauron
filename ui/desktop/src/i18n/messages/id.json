@@ -4801,5 +4801,65 @@
   },
   "settingsView.tabProviders": {
     "defaultMessage": "Providers"
+  },
+  "authSettings.cancelSignIn": {
+    "defaultMessage": "Batal"
+  },
+  "authSettings.checkingStatus": {
+    "defaultMessage": "Memeriksa..."
+  },
+  "authSettings.connectedAccounts": {
+    "defaultMessage": "Akun terhubung"
+  },
+  "authSettings.connectedAccountsDescription": {
+    "defaultMessage": "Masuk agar Sauron dapat bekerja dengan akun eksternal Anda."
+  },
+  "authSettings.githubAccountDescription": {
+    "defaultMessage": "Cari repositori, bekerja dengan kode, kelola issue, dan buka pull request."
+  },
+  "authSettings.githubAccountName": {
+    "defaultMessage": "GitHub"
+  },
+  "authSettings.githubConnected": {
+    "defaultMessage": "Terhubung"
+  },
+  "authSettings.githubEnterCode": {
+    "defaultMessage": "Masukkan kode ini di {url} untuk memberi otorisasi kepada Sauron:"
+  },
+  "authSettings.githubNotConnected": {
+    "defaultMessage": "Tidak terhubung"
+  },
+  "authSettings.githubOpenDevicePage": {
+    "defaultMessage": "Buka halaman perangkat GitHub"
+  },
+  "authSettings.githubSignInFailed": {
+    "defaultMessage": "Gagal masuk ke GitHub: {error}"
+  },
+  "authSettings.githubSignInUnavailable": {
+    "defaultMessage": "Masuk GitHub hanya tersedia di aplikasi desktop."
+  },
+  "authSettings.githubSignOutMessage": {
+    "defaultMessage": "Sauron tidak akan dapat bekerja dengan repositori GitHub Anda sampai Anda masuk kembali."
+  },
+  "authSettings.githubSignOutTitle": {
+    "defaultMessage": "Keluar dari GitHub"
+  },
+  "authSettings.githubSignedIn": {
+    "defaultMessage": "Berhasil masuk ke GitHub. Ekstensi GitHub siap digunakan."
+  },
+  "authSettings.githubSignedOut": {
+    "defaultMessage": "Berhasil keluar dari GitHub"
+  },
+  "authSettings.githubStatusFailed": {
+    "defaultMessage": "Tidak dapat memeriksa status masuk GitHub"
+  },
+  "authSettings.githubWaitingForAuthorization": {
+    "defaultMessage": "Menunggu otorisasi GitHub..."
+  },
+  "authSettings.signInWithGitHub": {
+    "defaultMessage": "Masuk dengan GitHub"
+  },
+  "authSettings.signOutFromGitHub": {
+    "defaultMessage": "Keluar"
   }
 }

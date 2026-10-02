@@ -4801,5 +4801,65 @@
   },
   "settingsView.tabProviders": {
     "defaultMessage": "Providers"
+  },
+  "authSettings.cancelSignIn": {
+    "defaultMessage": "Hủy"
+  },
+  "authSettings.checkingStatus": {
+    "defaultMessage": "Đang kiểm tra..."
+  },
+  "authSettings.connectedAccounts": {
+    "defaultMessage": "Tài khoản đã kết nối"
+  },
+  "authSettings.connectedAccountsDescription": {
+    "defaultMessage": "Đăng nhập để cho phép Sauron làm việc với các tài khoản bên ngoài của bạn."
+  },
+  "authSettings.githubAccountDescription": {
+    "defaultMessage": "Tìm kiếm kho mã, làm việc với mã, quản lý issues và mở pull request."
+  },
+  "authSettings.githubAccountName": {
+    "defaultMessage": "GitHub"
+  },
+  "authSettings.githubConnected": {
+    "defaultMessage": "Đã kết nối"
+  },
+  "authSettings.githubEnterCode": {
+    "defaultMessage": "Nhập mã này tại {url} để ủy quyền cho Sauron:"
+  },
+  "authSettings.githubNotConnected": {
+    "defaultMessage": "Chưa kết nối"
+  },
+  "authSettings.githubOpenDevicePage": {
+    "defaultMessage": "Mở trang thiết bị GitHub"
+  },
+  "authSettings.githubSignInFailed": {
+    "defaultMessage": "Đăng nhập GitHub thất bại: {error}"
+  },
+  "authSettings.githubSignInUnavailable": {
+    "defaultMessage": "Đăng nhập GitHub chỉ có sẵn trong ứng dụng máy tính để bàn."
+  },
+  "authSettings.githubSignOutMessage": {
+    "defaultMessage": "Sauron sẽ không thể làm việc với các kho GitHub của bạn cho đến khi bạn đăng nhập lại."
+  },
+  "authSettings.githubSignOutTitle": {
+    "defaultMessage": "Đăng xuất khỏi GitHub"
+  },
+  "authSettings.githubSignedIn": {
+    "defaultMessage": "Đã đăng nhập GitHub. Tiện ích mở rộng GitHub đã sẵn sàng sử dụng."
+  },
+  "authSettings.githubSignedOut": {
+    "defaultMessage": "Đã đăng xuất khỏi GitHub"
+  },
+  "authSettings.githubStatusFailed": {
+    "defaultMessage": "Không thể kiểm tra trạng thái đăng nhập GitHub"
+  },
+  "authSettings.githubWaitingForAuthorization": {
+    "defaultMessage": "Đang chờ ủy quyền GitHub..."
+  },
+  "authSettings.signInWithGitHub": {
+    "defaultMessage": "Đăng nhập bằng GitHub"
+  },
+  "authSettings.signOutFromGitHub": {
+    "defaultMessage": "Đăng xuất"
   }
 }

@@ -4801,5 +4801,65 @@
   },
   "settingsView.tabProviders": {
     "defaultMessage": "Providers"
+  },
+  "authSettings.cancelSignIn": {
+    "defaultMessage": "キャンセル"
+  },
+  "authSettings.checkingStatus": {
+    "defaultMessage": "確認中..."
+  },
+  "authSettings.connectedAccounts": {
+    "defaultMessage": "接続済みアカウント"
+  },
+  "authSettings.connectedAccountsDescription": {
+    "defaultMessage": "サインインして、Sauron が外部アカウントで作業できるようにします。"
+  },
+  "authSettings.githubAccountDescription": {
+    "defaultMessage": "リポジトリを検索し、コードを操作し、Issue を管理し、Pull Request を開きます。"
+  },
+  "authSettings.githubAccountName": {
+    "defaultMessage": "GitHub"
+  },
+  "authSettings.githubConnected": {
+    "defaultMessage": "接続済み"
+  },
+  "authSettings.githubEnterCode": {
+    "defaultMessage": "Sauron を承認するには {url} でこのコードを入力してください:"
+  },
+  "authSettings.githubNotConnected": {
+    "defaultMessage": "未接続"
+  },
+  "authSettings.githubOpenDevicePage": {
+    "defaultMessage": "GitHub デバイスページを開く"
+  },
+  "authSettings.githubSignInFailed": {
+    "defaultMessage": "GitHub にサインインできませんでした: {error}"
+  },
+  "authSettings.githubSignInUnavailable": {
+    "defaultMessage": "GitHub サインインはデスクトップアプリでのみ利用できます。"
+  },
+  "authSettings.githubSignOutMessage": {
+    "defaultMessage": "再サインインするまで、Sauron は GitHub リポジトリを操作できません。"
+  },
+  "authSettings.githubSignOutTitle": {
+    "defaultMessage": "GitHub からサインアウト"
+  },
+  "authSettings.githubSignedIn": {
+    "defaultMessage": "GitHub にサインインしました。GitHub 拡張機能を使用準備ができました。"
+  },
+  "authSettings.githubSignedOut": {
+    "defaultMessage": "GitHub からサインアウトしました"
+  },
+  "authSettings.githubStatusFailed": {
+    "defaultMessage": "GitHub のサインイン状態を確認できませんでした"
+  },
+  "authSettings.githubWaitingForAuthorization": {
+    "defaultMessage": "GitHub の承認を待っています..."
+  },
+  "authSettings.signInWithGitHub": {
+    "defaultMessage": "GitHub でサインイン"
+  },
+  "authSettings.signOutFromGitHub": {
+    "defaultMessage": "サインアウト"
   }
 }

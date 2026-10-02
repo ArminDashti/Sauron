@@ -4801,5 +4801,65 @@
   },
   "settingsView.tabProviders": {
     "defaultMessage": "Providers"
+  },
+  "authSettings.cancelSignIn": {
+    "defaultMessage": "Annulla"
+  },
+  "authSettings.checkingStatus": {
+    "defaultMessage": "Controllo in corso..."
+  },
+  "authSettings.connectedAccounts": {
+    "defaultMessage": "Account collegati"
+  },
+  "authSettings.connectedAccountsDescription": {
+    "defaultMessage": "Accedi per permettere a Sauron di lavorare con i tuoi account esterni."
+  },
+  "authSettings.githubAccountDescription": {
+    "defaultMessage": "Cerca repository, lavora con il codice, gestisci le issue e apri le pull request."
+  },
+  "authSettings.githubAccountName": {
+    "defaultMessage": "GitHub"
+  },
+  "authSettings.githubConnected": {
+    "defaultMessage": "Collegato"
+  },
+  "authSettings.githubEnterCode": {
+    "defaultMessage": "Inserisci questo codice su {url} per autorizzare Sauron:"
+  },
+  "authSettings.githubNotConnected": {
+    "defaultMessage": "Non collegato"
+  },
+  "authSettings.githubOpenDevicePage": {
+    "defaultMessage": "Apri la pagina del dispositivo GitHub"
+  },
+  "authSettings.githubSignInFailed": {
+    "defaultMessage": "Accesso a GitHub non riuscito: {error}"
+  },
+  "authSettings.githubSignInUnavailable": {
+    "defaultMessage": "L’accesso a GitHub è disponibile solo nell’app desktop."
+  },
+  "authSettings.githubSignOutMessage": {
+    "defaultMessage": "Sauron non potrà lavorare con i tuoi repository GitHub fino al prossimo accesso."
+  },
+  "authSettings.githubSignOutTitle": {
+    "defaultMessage": "Disconnetti da GitHub"
+  },
+  "authSettings.githubSignedIn": {
+    "defaultMessage": "Accesso a GitHub effettuato. L’estensione GitHub è pronta all’uso."
+  },
+  "authSettings.githubSignedOut": {
+    "defaultMessage": "Disconnesso da GitHub"
+  },
+  "authSettings.githubStatusFailed": {
+    "defaultMessage": "Impossibile verificare lo stato di accesso a GitHub"
+  },
+  "authSettings.githubWaitingForAuthorization": {
+    "defaultMessage": "In attesa dell’autorizzazione GitHub..."
+  },
+  "authSettings.signInWithGitHub": {
+    "defaultMessage": "Accedi con GitHub"
+  },
+  "authSettings.signOutFromGitHub": {
+    "defaultMessage": "Disconnetti"
   }
 }

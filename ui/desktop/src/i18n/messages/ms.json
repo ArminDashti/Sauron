@@ -4801,5 +4801,65 @@
   },
   "settingsView.tabProviders": {
     "defaultMessage": "Providers"
+  },
+  "authSettings.cancelSignIn": {
+    "defaultMessage": "Batal"
+  },
+  "authSettings.checkingStatus": {
+    "defaultMessage": "Memeriksa..."
+  },
+  "authSettings.connectedAccounts": {
+    "defaultMessage": "Akaun dipautkan"
+  },
+  "authSettings.connectedAccountsDescription": {
+    "defaultMessage": "Daftar masuk untuk membolehkan Sauron bekerja dengan akaun luaran anda."
+  },
+  "authSettings.githubAccountDescription": {
+    "defaultMessage": "Cari repositori, bekerja dengan kod, urus isu, dan buka pull request."
+  },
+  "authSettings.githubAccountName": {
+    "defaultMessage": "GitHub"
+  },
+  "authSettings.githubConnected": {
+    "defaultMessage": "Dipautkan"
+  },
+  "authSettings.githubEnterCode": {
+    "defaultMessage": "Masukkan kod ini di {url} untuk memberi kuasa kepada Sauron:"
+  },
+  "authSettings.githubNotConnected": {
+    "defaultMessage": "Tidak dipautkan"
+  },
+  "authSettings.githubOpenDevicePage": {
+    "defaultMessage": "Buka halaman peranti GitHub"
+  },
+  "authSettings.githubSignInFailed": {
+    "defaultMessage": "Daftar masuk GitHub gagal: {error}"
+  },
+  "authSettings.githubSignInUnavailable": {
+    "defaultMessage": "Daftar masuk GitHub hanya tersedia dalam aplikasi desktop."
+  },
+  "authSettings.githubSignOutMessage": {
+    "defaultMessage": "Sauron tidak akan dapat bekerja dengan repositori GitHub anda sehingga anda daftar masuk semula."
+  },
+  "authSettings.githubSignOutTitle": {
+    "defaultMessage": "Daftar keluar daripada GitHub"
+  },
+  "authSettings.githubSignedIn": {
+    "defaultMessage": "Berjaya daftar masuk ke GitHub. Sambungan GitHub sedia digunakan."
+  },
+  "authSettings.githubSignedOut": {
+    "defaultMessage": "Berjaya daftar keluar daripada GitHub"
+  },
+  "authSettings.githubStatusFailed": {
+    "defaultMessage": "Tidak dapat menyemak status daftar masuk GitHub"
+  },
+  "authSettings.githubWaitingForAuthorization": {
+    "defaultMessage": "Menunggu kebenaran GitHub..."
+  },
+  "authSettings.signInWithGitHub": {
+    "defaultMessage": "Daftar masuk dengan GitHub"
+  },
+  "authSettings.signOutFromGitHub": {
+    "defaultMessage": "Daftar keluar"
   }
 }

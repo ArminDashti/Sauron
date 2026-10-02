@@ -4,6 +4,7 @@ import type { GooseApp } from './types/apps';
 import type { Settings, SettingKey } from './utils/settings';
 import { defaultSettings } from './utils/settings';
 import type { OpenExternalUrlResult } from './utils/urlSecurity';
+import type { GitHubDeviceCode, GitHubTokenPollResult } from './utils/githubSignIn';
 
 // Mapping from settings keys to their old localStorage keys for lazy migration
 const localStorageKeyMap: Partial<Record<SettingKey, string>> = {
@@ -160,6 +161,8 @@ type ElectronAPI = {
     tokensUpdated?: boolean;
   }) => void;
   openExternal: (url: string) => Promise<OpenExternalUrlResult>;
+  githubDeviceStart: () => Promise<GitHubDeviceCode>;
+  githubDevicePoll: (deviceCode: string) => Promise<GitHubTokenPollResult>;
   // Update-related functions
   getVersion: () => string;
   checkForUpdates: () => Promise<{ updateInfo: unknown; error: string | null }>;
@@ -304,6 +307,9 @@ const electronAPI: ElectronAPI = {
   openExternal: (url: string): Promise<OpenExternalUrlResult> => {
     return ipcRenderer.invoke('open-external', url);
   },
+  githubDeviceStart: (): Promise<GitHubDeviceCode> => ipcRenderer.invoke('github-device-start'),
+  githubDevicePoll: (deviceCode: string): Promise<GitHubTokenPollResult> =>
+    ipcRenderer.invoke('github-device-poll', deviceCode),
   getVersion: (): string => {
     return config.GOOSE_VERSION || ipcRenderer.sendSync('get-app-version') || '';
   },

@@ -4801,5 +4801,65 @@
   },
   "settingsView.tabProviders": {
     "defaultMessage": "Providers"
+  },
+  "authSettings.cancelSignIn": {
+    "defaultMessage": "Cancelar"
+  },
+  "authSettings.checkingStatus": {
+    "defaultMessage": "Verificando..."
+  },
+  "authSettings.connectedAccounts": {
+    "defaultMessage": "Contas conectadas"
+  },
+  "authSettings.connectedAccountsDescription": {
+    "defaultMessage": "Entre para permitir que o Sauron trabalhe com suas contas externas."
+  },
+  "authSettings.githubAccountDescription": {
+    "defaultMessage": "Pesquise repositórios, trabalhe com código, gerencie issues e abra pull requests."
+  },
+  "authSettings.githubAccountName": {
+    "defaultMessage": "GitHub"
+  },
+  "authSettings.githubConnected": {
+    "defaultMessage": "Conectado"
+  },
+  "authSettings.githubEnterCode": {
+    "defaultMessage": "Digite este código em {url} para autorizar o Sauron:"
+  },
+  "authSettings.githubNotConnected": {
+    "defaultMessage": "Não conectado"
+  },
+  "authSettings.githubOpenDevicePage": {
+    "defaultMessage": "Abrir a página de dispositivo do GitHub"
+  },
+  "authSettings.githubSignInFailed": {
+    "defaultMessage": "Falha ao entrar no GitHub: {error}"
+  },
+  "authSettings.githubSignInUnavailable": {
+    "defaultMessage": "O login com GitHub está disponível apenas no aplicativo desktop."
+  },
+  "authSettings.githubSignOutMessage": {
+    "defaultMessage": "O Sauron não poderá trabalhar com seus repositórios do GitHub até você entrar novamente."
+  },
+  "authSettings.githubSignOutTitle": {
+    "defaultMessage": "Sair do GitHub"
+  },
+  "authSettings.githubSignedIn": {
+    "defaultMessage": "Você entrou no GitHub. A extensão do GitHub está pronta para uso."
+  },
+  "authSettings.githubSignedOut": {
+    "defaultMessage": "Você saiu do GitHub"
+  },
+  "authSettings.githubStatusFailed": {
+    "defaultMessage": "Não foi possível verificar o status de login do GitHub"
+  },
+  "authSettings.githubWaitingForAuthorization": {
+    "defaultMessage": "Aguardando autorização do GitHub..."
+  },
+  "authSettings.signInWithGitHub": {
+    "defaultMessage": "Entrar com GitHub"
+  },
+  "authSettings.signOutFromGitHub": {
+    "defaultMessage": "Sair"
   }
 }

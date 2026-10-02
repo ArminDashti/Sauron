@@ -4801,5 +4801,65 @@
   },
   "settingsView.tabProviders": {
     "defaultMessage": "Providers"
+  },
+  "authSettings.cancelSignIn": {
+    "defaultMessage": "Cancelar"
+  },
+  "authSettings.checkingStatus": {
+    "defaultMessage": "Comprobando..."
+  },
+  "authSettings.connectedAccounts": {
+    "defaultMessage": "Cuentas conectadas"
+  },
+  "authSettings.connectedAccountsDescription": {
+    "defaultMessage": "Inicia sesión para que Sauron trabaje con tus cuentas externas."
+  },
+  "authSettings.githubAccountDescription": {
+    "defaultMessage": "Busca repositorios, trabaja con código, gestiona issues y abre pull requests."
+  },
+  "authSettings.githubAccountName": {
+    "defaultMessage": "GitHub"
+  },
+  "authSettings.githubConnected": {
+    "defaultMessage": "Conectado"
+  },
+  "authSettings.githubEnterCode": {
+    "defaultMessage": "Introduce este código en {url} para autorizar a Sauron:"
+  },
+  "authSettings.githubNotConnected": {
+    "defaultMessage": "No conectado"
+  },
+  "authSettings.githubOpenDevicePage": {
+    "defaultMessage": "Abrir la página de dispositivo de GitHub"
+  },
+  "authSettings.githubSignInFailed": {
+    "defaultMessage": "Error al iniciar sesión en GitHub: {error}"
+  },
+  "authSettings.githubSignInUnavailable": {
+    "defaultMessage": "El inicio de sesión con GitHub solo está disponible en la aplicación de escritorio."
+  },
+  "authSettings.githubSignOutMessage": {
+    "defaultMessage": "Sauron no podrá trabajar con tus repositorios de GitHub hasta que vuelvas a iniciar sesión."
+  },
+  "authSettings.githubSignOutTitle": {
+    "defaultMessage": "Cerrar sesión de GitHub"
+  },
+  "authSettings.githubSignedIn": {
+    "defaultMessage": "Sesión iniciada en GitHub. La extensión de GitHub está lista para usar."
+  },
+  "authSettings.githubSignedOut": {
+    "defaultMessage": "Sesión cerrada de GitHub"
+  },
+  "authSettings.githubStatusFailed": {
+    "defaultMessage": "No se pudo comprobar el estado de inicio de sesión de GitHub"
+  },
+  "authSettings.githubWaitingForAuthorization": {
+    "defaultMessage": "Esperando la autorización de GitHub..."
+  },
+  "authSettings.signInWithGitHub": {
+    "defaultMessage": "Iniciar sesión con GitHub"
+  },
+  "authSettings.signOutFromGitHub": {
+    "defaultMessage": "Cerrar sesión"
   }
 }
