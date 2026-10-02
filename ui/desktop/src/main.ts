@@ -55,8 +55,11 @@ import {
 } from './utils/autoUpdater';
 import { UPDATES_ENABLED } from './updates';
 import './utils/gitBranchIpc';
+import './utils/gitChangesIpc';
 import './utils/userProfileIpc';
+import './utils/systemUsageIpc';
 import './utils/recipeHash';
+import './utils/usageStatsIpc';
 import type { SauronApp } from './types/apps';
 import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer';
 import { WEB_PROTOCOLS } from './utils/urlSecurity';
@@ -1931,6 +1934,7 @@ const validSettingKeys: Set<string> = new Set([
   'showDockIcon',
   'enableWakelock',
   'enableNotifications',
+  'notificationSoundEnabled',
   'spellcheckEnabled',
   'externalSaurond',
   'globalShortcut',
@@ -2921,6 +2925,9 @@ async function appMain() {
       const notification = new Notification({
         title: sanitizeText(data.title),
         body: sanitizeText(data.body),
+        // The renderer plays the app's own chime, gated by the
+        // notificationSoundEnabled setting, so the OS must stay quiet.
+        silent: true,
       });
 
       // Add click handler to focus the window

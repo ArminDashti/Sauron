@@ -23,6 +23,7 @@ export const ICON_COLORS = {
   // Settings tab rail
   models: '#3b82f6', // blue
   providers: '#8b5cf6', // violet
+  harnesses: '#06b6d4', // cyan
   localInference: '#14b8a6', // teal
   chat: '#22c55e', // green
   sharing: '#0ea5e9', // sky
@@ -33,6 +34,7 @@ export const ICON_COLORS = {
   plugins: '#ec4899', // pink
   appearance: '#d946ef', // fuchsia
   app: '#eab308', // yellow
+  stats: '#06b6d4', // cyan
 } as const;
 
 export type IconColorKey = keyof typeof ICON_COLORS;
