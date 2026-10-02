@@ -4148,6 +4148,12 @@
   "settings.version.title": {
     "defaultMessage": "버전"
   },
+  "settingsView.noResults": {
+    "defaultMessage": "결과 없음"
+  },
+  "settingsView.searchPlaceholder": {
+    "defaultMessage": "설정 검색"
+  },
   "settingsView.tabApp": {
     "defaultMessage": "앱"
   },

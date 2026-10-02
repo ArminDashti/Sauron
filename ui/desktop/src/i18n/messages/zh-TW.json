@@ -4148,6 +4148,12 @@
   "settings.version.title": {
     "defaultMessage": "版本"
   },
+  "settingsView.noResults": {
+    "defaultMessage": "無結果"
+  },
+  "settingsView.searchPlaceholder": {
+    "defaultMessage": "搜尋設定"
+  },
   "settingsView.tabApp": {
     "defaultMessage": "應用程式"
   },

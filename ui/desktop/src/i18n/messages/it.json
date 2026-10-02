@@ -4148,6 +4148,12 @@
   "settings.version.title": {
     "defaultMessage": "Versione"
   },
+  "settingsView.noResults": {
+    "defaultMessage": "Nessun risultato"
+  },
+  "settingsView.searchPlaceholder": {
+    "defaultMessage": "Cerca nelle impostazioni"
+  },
   "settingsView.tabApp": {
     "defaultMessage": "App"
   },

@@ -4511,6 +4511,12 @@
   "settings.version.title": {
     "defaultMessage": "Version"
   },
+  "settingsView.noResults": {
+    "defaultMessage": "No results"
+  },
+  "settingsView.searchPlaceholder": {
+    "defaultMessage": "Search Settings"
+  },
   "settingsView.tabApp": {
     "defaultMessage": "App"
   },
