@@ -1355,6 +1355,36 @@
   "groupedExtensionLoadingToast.successfullyLoaded": {
     "defaultMessage": "{count,plural,one{# Erweiterung erfolgreich geladen} other{# Erweiterungen erfolgreich geladen}}"
   },
+  "harnessesSection.title": {
+    "defaultMessage": "Agent-Harnesses"
+  },
+  "harnessesSection.description": {
+    "defaultMessage": "Verwende Agenten aus einem anderen Harness wie Cursor, Claude Code, Codex oder Copilot. Aktiviere hier einen und wähle ihn dann unter Models aus, um damit zu chatten."
+  },
+  "harnessesSection.loading": {
+    "defaultMessage": "Harnesses werden geladen..."
+  },
+  "harnessesSection.loadFailed": {
+    "defaultMessage": "Harnesses konnten nicht geladen werden"
+  },
+  "harnessesSection.empty": {
+    "defaultMessage": "Es sind keine externen Agent-Harnesses verfügbar."
+  },
+  "harnessesSection.installed": {
+    "defaultMessage": "Installiert"
+  },
+  "harnessesSection.notInstalled": {
+    "defaultMessage": "Nicht installiert"
+  },
+  "harnessesSection.configure": {
+    "defaultMessage": "Konfigurieren"
+  },
+  "harnessesSection.configured": {
+    "defaultMessage": "Aktiviert"
+  },
+  "harnessesSection.notConfigured": {
+    "defaultMessage": "Nicht aktiviert"
+  },
   "headersSection.add": {
     "defaultMessage": "Hinzufügen"
   },
@@ -1378,15 +1408,6 @@
   },
   "headersSection.value": {
     "defaultMessage": "Wert"
-  },
-  "hub.goodAfternoon": {
-    "defaultMessage": "Guten Tag"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "Guten Abend"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "Guten Morgen"
   },
   "hubView.description": {
     "defaultMessage": "Entdecke Skills und MCP-Server aus verschiedenen Quellen."
@@ -4126,6 +4147,9 @@
   },
   "settingsView.tabExternalBackend": {
     "defaultMessage": "Externes Backend"
+  },
+  "settingsView.tabHarnesses": {
+    "defaultMessage": "Harnesses"
   },
   "settingsView.tabKeyboard": {
     "defaultMessage": "Tastatur"

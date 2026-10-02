@@ -1355,6 +1355,36 @@
   "groupedExtensionLoadingToast.successfullyLoaded": {
     "defaultMessage": "{count,plural,one{Đã tải thành công # tiện ích mở rộng} other{Đã tải thành công # tiện ích mở rộng}}"
   },
+  "harnessesSection.title": {
+    "defaultMessage": "Harness agen"
+  },
+  "harnessesSection.description": {
+    "defaultMessage": "Sử dụng agen từ harness khác như Cursor, Claude Code, Codex hoặc Copilot. Bật một harness tại đây, rồi chọn nó trong Models để trò chuyện."
+  },
+  "harnessesSection.loading": {
+    "defaultMessage": "Đang tải harness..."
+  },
+  "harnessesSection.loadFailed": {
+    "defaultMessage": "Không thể tải harness"
+  },
+  "harnessesSection.empty": {
+    "defaultMessage": "Không có harness agen bên ngoài nào."
+  },
+  "harnessesSection.installed": {
+    "defaultMessage": "Đã cài đặt"
+  },
+  "harnessesSection.notInstalled": {
+    "defaultMessage": "Chưa cài đặt"
+  },
+  "harnessesSection.configure": {
+    "defaultMessage": "Cấu hình"
+  },
+  "harnessesSection.configured": {
+    "defaultMessage": "Đã bật"
+  },
+  "harnessesSection.notConfigured": {
+    "defaultMessage": "Chưa bật"
+  },
   "headersSection.add": {
     "defaultMessage": "Thêm"
   },
@@ -1378,15 +1408,6 @@
   },
   "headersSection.value": {
     "defaultMessage": "Giá trị"
-  },
-  "hub.goodAfternoon": {
-    "defaultMessage": "Chào buổi chiều"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "Chào buổi tối"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "Chào buổi sáng"
   },
   "hubView.description": {
     "defaultMessage": "Khám phá Skills và máy chủ MCP từ nhiều nguồn khác nhau."
@@ -4126,6 +4147,9 @@
   },
   "settingsView.tabExternalBackend": {
     "defaultMessage": "Backend bên ngoài"
+  },
+  "settingsView.tabHarnesses": {
+    "defaultMessage": "Harness"
   },
   "settingsView.tabKeyboard": {
     "defaultMessage": "Bàn phím"

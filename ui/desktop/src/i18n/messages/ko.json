@@ -1355,6 +1355,36 @@
   "groupedExtensionLoadingToast.successfullyLoaded": {
     "defaultMessage": "{count,plural,one{#개의 익스텐션을 성공적으로 로드했습니다} other{#개의 익스텐션을 성공적으로 로드했습니다}}"
   },
+  "harnessesSection.title": {
+    "defaultMessage": "에이전트 하네스"
+  },
+  "harnessesSection.description": {
+    "defaultMessage": "Cursor, Claude Code, Codex, Copilot 등 다른 하네스의 에이전트를 사용합니다. 여기서 활성화한 다음 Models에서 선택하여 채팅하세요."
+  },
+  "harnessesSection.loading": {
+    "defaultMessage": "하네스를 불러오는 중..."
+  },
+  "harnessesSection.loadFailed": {
+    "defaultMessage": "하네스를 불러오지 못했습니다"
+  },
+  "harnessesSection.empty": {
+    "defaultMessage": "외부 에이전트 하네스가 없습니다."
+  },
+  "harnessesSection.installed": {
+    "defaultMessage": "설치됨"
+  },
+  "harnessesSection.notInstalled": {
+    "defaultMessage": "설치되지 않음"
+  },
+  "harnessesSection.configure": {
+    "defaultMessage": "구성"
+  },
+  "harnessesSection.configured": {
+    "defaultMessage": "활성화됨"
+  },
+  "harnessesSection.notConfigured": {
+    "defaultMessage": "비활성화됨"
+  },
   "headersSection.add": {
     "defaultMessage": "추가"
   },
@@ -1378,15 +1408,6 @@
   },
   "headersSection.value": {
     "defaultMessage": "값"
-  },
-  "hub.goodAfternoon": {
-    "defaultMessage": "좋은 오후예요"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "좋은 저녁이에요"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "좋은 아침이에요"
   },
   "hubView.description": {
     "defaultMessage": "다양한 소스에서 스킬과 MCP 서버를 찾아보세요."
@@ -4126,6 +4147,9 @@
   },
   "settingsView.tabExternalBackend": {
     "defaultMessage": "외부 백엔드"
+  },
+  "settingsView.tabHarnesses": {
+    "defaultMessage": "하네스"
   },
   "settingsView.tabKeyboard": {
     "defaultMessage": "키보드"

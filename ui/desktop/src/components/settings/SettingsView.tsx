@@ -3,6 +3,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs';
 import { View, ViewOptions } from '../../utils/navigationUtils';
 import ModelsSection from './models/ModelsSection';
 import ProvidersSection from './providers/ProvidersSection';
+import HarnessesSection from './harnesses/HarnessesSection';
 import ExternalBackendSection from './app/ExternalBackendSection';
 import AgentLoopSettings from './AgentLoopSettings';
 import AppSettingsSection from './app/AppSettingsSection';
@@ -25,6 +26,7 @@ import {
   Plug,
   Puzzle,
   Server,
+  Blocks,
 } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 import ChatSettingsSection from './chat/ChatSettingsSection';
@@ -50,6 +52,10 @@ const i18n = defineMessages({
   tabProviders: {
     id: 'settingsView.tabProviders',
     defaultMessage: 'Providers',
+  },
+  tabHarnesses: {
+    id: 'settingsView.tabHarnesses',
+    defaultMessage: 'Harnesses',
   },
   tabLocalInference: {
     id: 'settingsView.tabLocalInference',
@@ -120,6 +126,7 @@ export default function SettingsView({
   const activeTabTitle = {
     models: intl.formatMessage(i18n.tabModels),
     providers: intl.formatMessage(i18n.tabProviders),
+    harnesses: intl.formatMessage(i18n.tabHarnesses),
     'local-inference': intl.formatMessage(i18n.tabLocalInference),
     chat: intl.formatMessage(i18n.tabChat),
     sharing: intl.formatMessage(i18n.tabAgent),
@@ -145,6 +152,7 @@ export default function SettingsView({
         update: 'app',
         models: 'models',
         providers: 'providers',
+        harnesses: 'harnesses',
         modes: 'chat',
         sharing: 'sharing',
         styles: 'chat',
@@ -235,6 +243,14 @@ export default function SettingsView({
               >
                 <Server className="h-5 w-5 text-text-secondary" />
                 {intl.formatMessage(i18n.tabProviders)}
+              </TabsTrigger>
+              <TabsTrigger
+                value="harnesses"
+                className={settingsTabClass}
+                data-testid="settings-harnesses-tab"
+              >
+                <Blocks className="h-5 w-5 text-text-secondary" />
+                {intl.formatMessage(i18n.tabHarnesses)}
               </TabsTrigger>
               {localInference && (
                 <TabsTrigger
@@ -335,6 +351,13 @@ export default function SettingsView({
                 className="mt-0 focus-visible:outline-none focus-visible:ring-0"
               >
                 <ProvidersSection setView={setView} />
+              </TabsContent>
+
+              <TabsContent
+                value="harnesses"
+                className="mt-0 focus-visible:outline-none focus-visible:ring-0"
+              >
+                <HarnessesSection />
               </TabsContent>
 
               {localInference && (

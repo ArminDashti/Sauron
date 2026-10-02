@@ -1355,6 +1355,36 @@
   "groupedExtensionLoadingToast.successfullyLoaded": {
     "defaultMessage": "{count,plural,one{# extension chargée avec succès} other{# extensions chargées avec succès}}"
   },
+  "harnessesSection.title": {
+    "defaultMessage": "Harnesses d'agents"
+  },
+  "harnessesSection.description": {
+    "defaultMessage": "Utilisez des agents d'un autre harness comme Cursor, Claude Code, Codex ou Copilot. Activez-en un ici, puis sélectionnez-le dans Models pour discuter avec lui."
+  },
+  "harnessesSection.loading": {
+    "defaultMessage": "Chargement des harnesses..."
+  },
+  "harnessesSection.loadFailed": {
+    "defaultMessage": "Échec du chargement des harnesses"
+  },
+  "harnessesSection.empty": {
+    "defaultMessage": "Aucun harness d'agents externe n'est disponible."
+  },
+  "harnessesSection.installed": {
+    "defaultMessage": "Installé"
+  },
+  "harnessesSection.notInstalled": {
+    "defaultMessage": "Non installé"
+  },
+  "harnessesSection.configure": {
+    "defaultMessage": "Configurer"
+  },
+  "harnessesSection.configured": {
+    "defaultMessage": "Activé"
+  },
+  "harnessesSection.notConfigured": {
+    "defaultMessage": "Non activé"
+  },
   "headersSection.add": {
     "defaultMessage": "Ajouter"
   },
@@ -1378,15 +1408,6 @@
   },
   "headersSection.value": {
     "defaultMessage": "Valeur"
-  },
-  "hub.goodAfternoon": {
-    "defaultMessage": "Bon après-midi"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "Bonsoir"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "Bonjour"
   },
   "hubView.description": {
     "defaultMessage": "Découvrez des compétences et des serveurs MCP provenant de sources variées."
@@ -4126,6 +4147,9 @@
   },
   "settingsView.tabExternalBackend": {
     "defaultMessage": "Backend externe"
+  },
+  "settingsView.tabHarnesses": {
+    "defaultMessage": "Harnesses"
   },
   "settingsView.tabKeyboard": {
     "defaultMessage": "Clavier"
