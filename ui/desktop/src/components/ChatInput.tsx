@@ -1717,12 +1717,30 @@ export default function ChatInput({
         </div>
       )}
 
-      {/* Bottom action bar. Single flat row; no dividers. Left side: model
-          + working dir. Right side (after spacer): context indicator,
-          extensions, diagnostics, attach, mic, send. When the bar is narrow
-          (e.g. on a small window), the secondary controls drop out so the
-          model selector + send button always stay visible. */}
+      {/* Bottom action bar. Single flat row; no dividers. Left side: folder,
+          branch, model (in that order). Right side (after spacer): context
+          indicator, extensions, diagnostics, attach, mic, send. When the bar
+          is narrow (e.g. on a small window), the secondary controls drop out
+          so the model selector + send button always stay visible. */}
       <div ref={bottomBarRef} className="flex flex-row items-center gap-2 px-3 py-2 relative">
+        {/* Left: working directory (leaf folder name only) */}
+        {!isBottomBarNarrow && (
+          <DirSwitcher
+            className=""
+            sessionId={sessionId ?? undefined}
+            workingDir={currentWorkingDir}
+            onWorkingDirChange={async (newDir) => {
+              await onWorkingDirChange?.(newDir);
+              setWorkingDirOverride(newDir);
+            }}
+          />
+        )}
+
+        {/* Left: git branch */}
+        {!isBottomBarNarrow && currentWorkingDir && (
+          <GitBranchIndicator dir={currentWorkingDir} />
+        )}
+
         {/* Left: model selector */}
         <Tooltip>
           <div>
@@ -1738,23 +1756,6 @@ export default function ChatInput({
             />
           </div>
         </Tooltip>
-
-        {/* Left: working directory (leaf folder name only) */}
-        {!isBottomBarNarrow && (
-          <DirSwitcher
-            className=""
-            sessionId={sessionId ?? undefined}
-            workingDir={currentWorkingDir}
-            onWorkingDirChange={async (newDir) => {
-              await onWorkingDirChange?.(newDir);
-              setWorkingDirOverride(newDir);
-            }}
-          />
-        )}
-
-        {!isBottomBarNarrow && currentWorkingDir && (
-          <GitBranchIndicator dir={currentWorkingDir} className="ml-1" />
-        )}
 
         {/* Spacer */}
         <div className="flex-1" />
