@@ -158,9 +158,9 @@
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   4. GOOSE DESKTOP UI ALIASES — @theme inline {}
+   4. SAURON DESKTOP UI ALIASES — @theme inline {}
    App-specific tokens that map to MCP spec tokens.
-   Not part of the MCP spec — only used by Goose components.
+   Not part of the MCP spec — only used by Sauron components.
    ═══════════════════════════════════════════════════════════════════════════ */
 @theme inline {
   --font-serif: serif;
@@ -174,7 +174,7 @@
 
 /* ═══════════════════════════════════════════════════════════════════════════
    5. APP-SPECIFIC VARIABLES — :root / .dark
-   Goose-only variables that derive from MCP tokens. These are NOT duplicated
+   Sauron-only variables that derive from MCP tokens. These are NOT duplicated
    in theme-tokens.ts — they exist only here.
    ═══════════════════════════════════════════════════════════════════════════ */
 
@@ -403,8 +403,8 @@
     opacity: 1 !important;
   }
 
-  /* Goose icon entrance animation */
-  .goose-icon-entrance {
+  /* Sauron icon entrance animation */
+  .sauron-icon-entrance {
     animation: none !important;
     opacity: 1 !important;
     transform: none !important;
@@ -558,7 +558,7 @@ body {
   color: var(--color-inline-code);
   background-color: var(--color-neutral-50);
   font-family: monospace;
-  font-size: 12px;
+  font-size: 0.75rem;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
@@ -637,7 +637,7 @@ pre:has(> code.bg-inline-code) {
   scrollbar-width: thin;
 }
 
-.assistant:has(+ .user):not(.in-chain) .goose-message {
+.assistant:has(+ .user):not(.in-chain) .sauron-message {
   padding-bottom: 24px;
 }
 
@@ -721,8 +721,8 @@ pre:has(> code.bg-inline-code) {
   contain: layout style paint;
 }
 
-/* Goose icon animation to replace framer-motion */
-@keyframes goose-icon-entrance {
+/* Sauron icon animation to replace framer-motion */
+@keyframes sauron-icon-entrance {
   from {
     opacity: 0;
     transform: scale(0.25) translate(-5px, 5px) rotate(-20deg);
@@ -733,8 +733,8 @@ pre:has(> code.bg-inline-code) {
   }
 }
 
-.goose-icon-animation {
-  animation: goose-icon-entrance 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+.sauron-icon-animation {
+  animation: sauron-icon-entrance 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
   transform-origin: bottom left;
 }
 

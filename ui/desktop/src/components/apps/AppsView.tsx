@@ -2,12 +2,12 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { MainPanelLayout } from '../Layout/MainPanelLayout';
 import { Button } from '../ui/button';
 import { AlertTriangle, Download, Play, Trash2, Upload } from 'lucide-react';
-import type { GooseApp } from '../../types/apps';
+import type { SauronApp } from '../../types/apps';
 import { deleteMcpApp, exportMcpApp, importMcpApp, listMcpApps } from '../../acp/mcp-apps';
 import { useChatContext } from '../../contexts/ChatContext';
 import { formatAppName } from '../../utils/conversionUtils';
 import { errorMessage } from '../../utils/conversionUtils';
-import { isRetiredGooseChatApp } from '../../utils/retiredApps';
+import { isRetiredSauronChatApp } from '../../utils/retiredApps';
 import { defineMessages, useIntl } from '../../i18n';
 
 const i18n = defineMessages({
@@ -30,7 +30,7 @@ const i18n = defineMessages({
   description: {
     id: 'appsView.description',
     defaultMessage:
-      'Applications from your MCP servers and Apps built by goose itself. You can ask it to create new apps through the chat interface and they will appear here.',
+      'Applications from your MCP servers and Apps built by sauron itself. You can ask it to create new apps through the chat interface and they will appear here.',
   },
   loading: {
     id: 'appsView.loading',
@@ -43,7 +43,7 @@ const i18n = defineMessages({
   noAppsDescription: {
     id: 'appsView.noAppsDescription',
     defaultMessage:
-      'Open a chat and ask goose for the app you want to have. It can build one for you and that will appear here. Or if somebody shared an app, you can import it using the button above.',
+      'Open a chat and ask sauron for the app you want to have. It can build one for you and that will appear here. Or if somebody shared an app, you can import it using the button above.',
   },
   customApp: {
     id: 'appsView.customApp',
@@ -89,9 +89,9 @@ const GridLayout = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export default function AppsView() {
+export default function AppsView({ embedded = false }: { embedded?: boolean }) {
   const intl = useIntl();
-  const [apps, setApps] = useState<GooseApp[]>([]);
+  const [apps, setApps] = useState<SauronApp[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [deletesInProgress, setDeletesInProgress] = useState<Set<string>>(new Set());
@@ -103,7 +103,7 @@ export default function AppsView() {
     const loadCachedApps = async () => {
       try {
         const cachedApps = await listMcpApps();
-        // Only show apps from the "apps" extension (vibe coded apps built by Goose)
+        // Only show apps from the "apps" extension (vibe coded apps built by Sauron)
         setApps(cachedApps.filter((a) => a.mcpServers?.includes('apps')));
       } catch (err) {
         console.warn('Failed to load cached apps:', err);
@@ -128,7 +128,7 @@ export default function AppsView() {
       const sessionApps = (await listMcpApps(activeSessionId)).filter((a) =>
         a.mcpServers?.includes(appsExtension)
       );
-      const merged = new Map<string, GooseApp>();
+      const merged = new Map<string, SauronApp>();
       for (const app of cacheApps) {
         merged.set(app.uri, app);
       }
@@ -180,7 +180,7 @@ export default function AppsView() {
     }
   }, [sessionId, refreshAppsExtensionList]);
 
-  const handleLaunchApp = async (app: GooseApp) => {
+  const handleLaunchApp = async (app: SauronApp) => {
     try {
       await window.electron.launchApp(app);
     } catch (err) {
@@ -189,7 +189,7 @@ export default function AppsView() {
     }
   };
 
-  const handleDeleteApp = async (app: GooseApp) => {
+  const handleDeleteApp = async (app: SauronApp) => {
     if (
       !window.confirm(
         intl.formatMessage(i18n.deleteConfirm, { name: formatAppName(app.name) })
@@ -217,7 +217,7 @@ export default function AppsView() {
     }
   };
 
-  const handleDownloadApp = async (app: GooseApp) => {
+  const handleDownloadApp = async (app: SauronApp) => {
     try {
       const html = await exportMcpApp(app.name);
       const blob = new Blob([html], { type: 'text/html' });
@@ -250,7 +250,7 @@ export default function AppsView() {
       await importMcpApp(text);
 
       const cachedApps = await listMcpApps();
-      // Only show apps from the "apps" extension (vibe coded apps built by Goose)
+      // Only show apps from the "apps" extension (vibe coded apps built by Sauron)
       setApps(cachedApps.filter((a) => a.mcpServers?.includes('apps')));
       setError(null);
     } catch (err) {
@@ -263,7 +263,7 @@ export default function AppsView() {
   // Only show error-only UI if we have no apps to display
   if (error && apps.length === 0) {
     return (
-      <MainPanelLayout>
+      <MainPanelLayout embedded={embedded}>
         <div className="flex flex-col items-center justify-center h-64 text-center">
           <p className="text-red-500 mb-4">{intl.formatMessage(i18n.errorLoading, { error })}</p>
           <Button onClick={loadApps}>{intl.formatMessage(i18n.retry)}</Button>
@@ -273,7 +273,7 @@ export default function AppsView() {
   }
 
   return (
-    <MainPanelLayout>
+    <MainPanelLayout embedded={embedded}>
       <div className="flex-1 flex flex-col min-h-0">
         <input
           ref={fileInputRef}
@@ -329,7 +329,7 @@ export default function AppsView() {
             <GridLayout>
               {apps.map((app) => {
                 const isCustomApp = app.mcpServers?.includes('apps') ?? false;
-                const retiredChatApp = isRetiredGooseChatApp(app);
+                const retiredChatApp = isRetiredSauronChatApp(app);
                 const canDelete = isCustomApp && app.deletable === true;
                 const deleteInProgress = deletesInProgress.has(app.name);
                 return (

@@ -60,13 +60,14 @@ const mockSettings: Record<string, unknown> = {
     findPrevious: 'CommandOrControl+Shift+G',
     alwaysOnTop: 'CommandOrControl+Shift+T',
   },
-  externalGoosed: {
+  externalSaurond: {
     enabled: false,
     url: '',
     secret: '',
   },
   theme: 'light',
   useSystemTheme: true,
+  fontSize: 100,
   language: 'system',
   responseStyle: 'concise',
   showPricing: true,
@@ -87,9 +88,11 @@ Object.defineProperty(window, 'electron', {
     showMessageBox: vi.fn(() => Promise.resolve({ response: 0 })),
     getIsFullScreen: vi.fn(() => Promise.resolve(false)),
     getUserProfile: vi.fn(() => Promise.resolve({ username: 'test-user' })),
+    getSystemUsage: vi.fn(() => Promise.resolve({ cpuPercent: 12, memoryPercent: 34 })),
     logInfo: vi.fn(),
     logError: vi.fn(),
     on: vi.fn(),
     off: vi.fn(),
+    broadcastFontSizeChange: vi.fn(),
   },
 });
