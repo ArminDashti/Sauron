@@ -4877,7 +4877,73 @@
   "authSettings.signInWithGitHub": {
     "defaultMessage": "Accedi con GitHub"
   },
-  "authSettings.signOutFromGitHub": {
-    "defaultMessage": "Disconnetti"
+  "pluginsSettings.loadFailed": {
+    "defaultMessage": "Could not load plugins"
+  },
+  "pluginsSettings.loading": {
+    "defaultMessage": "Loading plugins..."
+  },
+  "pluginsSettings.manageSkills": {
+    "defaultMessage": "Manage skills"
+  },
+  "pluginsSettings.pluginCount": {
+    "defaultMessage": "{count,plural,=0{No plugins} one{# plugin} other{# plugins}}"
+  },
+  "pluginsSettings.refresh": {
+    "defaultMessage": "Refresh"
+  },
+  "pluginsSettings.skillCount": {
+    "defaultMessage": "{count,plural,one{# skill} other{# skills}}"
+  },
+  "pluginsSettings.title": {
+    "defaultMessage": "Plugins"
+  },
+  "providersSection.resetDescription": {
+    "defaultMessage": "Clear your selected model and provider settings to start fresh"
+  },
+  "providersSection.resetTitle": {
+    "defaultMessage": "Reset Provider and Model"
+  },
+  "settingsView.tabAppearance": {
+    "defaultMessage": "Appearance"
+  },
+  "settingsView.tabMcp": {
+    "defaultMessage": "MCP"
+  },
+  "settingsView.tabPlugins": {
+    "defaultMessage": "Plugins"
+  },
+  "themeSelector.popular": {
+    "defaultMessage": "Popular themes"
+  },
+  "allProviderModels.clearSearch": {
+    "defaultMessage": "Cancella ricerca"
+  },
+  "allProviderModels.clearSearchInput": {
+    "defaultMessage": "Cancella campo di ricerca"
+  },
+  "allProviderModels.noSearchResults": {
+    "defaultMessage": "Nessun modello corrisponde a \"{query}\"."
+  },
+  "allProviderModels.searchLabel": {
+    "defaultMessage": "Cerca modelli"
+  },
+  "allProviderModels.searchPlaceholder": {
+    "defaultMessage": "Cerca modelli..."
+  },
+  "allProviderModels.showingCount": {
+    "defaultMessage": "Mostrati {shown, number} di {total, number} modelli"
+  },
+  "modelBadges.contextShort": {
+    "defaultMessage": "{amount, number}k"
+  },
+  "modelBadges.contextWindow": {
+    "defaultMessage": "Contesto di {amount, number}k"
+  },
+  "modelBadges.default": {
+    "defaultMessage": "Predefinito"
+  },
+  "modelBadges.reasoning": {
+    "defaultMessage": "Ragionamento"
   }
 }

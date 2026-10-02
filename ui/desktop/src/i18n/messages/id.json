@@ -4877,7 +4877,73 @@
   "authSettings.signInWithGitHub": {
     "defaultMessage": "Masuk dengan GitHub"
   },
-  "authSettings.signOutFromGitHub": {
-    "defaultMessage": "Keluar"
+  "pluginsSettings.loadFailed": {
+    "defaultMessage": "Could not load plugins"
+  },
+  "pluginsSettings.loading": {
+    "defaultMessage": "Loading plugins..."
+  },
+  "pluginsSettings.manageSkills": {
+    "defaultMessage": "Manage skills"
+  },
+  "pluginsSettings.pluginCount": {
+    "defaultMessage": "{count,plural,=0{No plugins} one{# plugin} other{# plugins}}"
+  },
+  "pluginsSettings.refresh": {
+    "defaultMessage": "Refresh"
+  },
+  "pluginsSettings.skillCount": {
+    "defaultMessage": "{count,plural,one{# skill} other{# skills}}"
+  },
+  "pluginsSettings.title": {
+    "defaultMessage": "Plugins"
+  },
+  "providersSection.resetDescription": {
+    "defaultMessage": "Clear your selected model and provider settings to start fresh"
+  },
+  "providersSection.resetTitle": {
+    "defaultMessage": "Reset Provider and Model"
+  },
+  "settingsView.tabAppearance": {
+    "defaultMessage": "Appearance"
+  },
+  "settingsView.tabMcp": {
+    "defaultMessage": "MCP"
+  },
+  "settingsView.tabPlugins": {
+    "defaultMessage": "Plugins"
+  },
+  "themeSelector.popular": {
+    "defaultMessage": "Popular themes"
+  },
+  "allProviderModels.clearSearch": {
+    "defaultMessage": "Hapus pencarian"
+  },
+  "allProviderModels.clearSearchInput": {
+    "defaultMessage": "Hapus kolom pencarian"
+  },
+  "allProviderModels.noSearchResults": {
+    "defaultMessage": "Tidak ada model yang cocok dengan \"{query}\"."
+  },
+  "allProviderModels.searchLabel": {
+    "defaultMessage": "Cari model"
+  },
+  "allProviderModels.searchPlaceholder": {
+    "defaultMessage": "Cari model..."
+  },
+  "allProviderModels.showingCount": {
+    "defaultMessage": "Menampilkan {shown, number} dari {total, number} model"
+  },
+  "modelBadges.contextShort": {
+    "defaultMessage": "{amount, number}k"
+  },
+  "modelBadges.contextWindow": {
+    "defaultMessage": "Konteks {amount, number}k"
+  },
+  "modelBadges.default": {
+    "defaultMessage": "Bawaan"
+  },
+  "modelBadges.reasoning": {
+    "defaultMessage": "Penalaran"
   }
 }

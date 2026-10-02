@@ -4877,7 +4877,73 @@
   "authSettings.signInWithGitHub": {
     "defaultMessage": "GitHub로 로그인"
   },
-  "authSettings.signOutFromGitHub": {
-    "defaultMessage": "로그아웃"
+  "pluginsSettings.loadFailed": {
+    "defaultMessage": "Could not load plugins"
+  },
+  "pluginsSettings.loading": {
+    "defaultMessage": "Loading plugins..."
+  },
+  "pluginsSettings.manageSkills": {
+    "defaultMessage": "Manage skills"
+  },
+  "pluginsSettings.pluginCount": {
+    "defaultMessage": "{count,plural,=0{No plugins} one{# plugin} other{# plugins}}"
+  },
+  "pluginsSettings.refresh": {
+    "defaultMessage": "Refresh"
+  },
+  "pluginsSettings.skillCount": {
+    "defaultMessage": "{count,plural,one{# skill} other{# skills}}"
+  },
+  "pluginsSettings.title": {
+    "defaultMessage": "Plugins"
+  },
+  "providersSection.resetDescription": {
+    "defaultMessage": "Clear your selected model and provider settings to start fresh"
+  },
+  "providersSection.resetTitle": {
+    "defaultMessage": "Reset Provider and Model"
+  },
+  "settingsView.tabAppearance": {
+    "defaultMessage": "Appearance"
+  },
+  "settingsView.tabMcp": {
+    "defaultMessage": "MCP"
+  },
+  "settingsView.tabPlugins": {
+    "defaultMessage": "Plugins"
+  },
+  "themeSelector.popular": {
+    "defaultMessage": "Popular themes"
+  },
+  "allProviderModels.clearSearch": {
+    "defaultMessage": "검색 지우기"
+  },
+  "allProviderModels.clearSearchInput": {
+    "defaultMessage": "검색 입력 지우기"
+  },
+  "allProviderModels.noSearchResults": {
+    "defaultMessage": "\"{query}\"와 일치하는 모델이 없습니다."
+  },
+  "allProviderModels.searchLabel": {
+    "defaultMessage": "모델 검색"
+  },
+  "allProviderModels.searchPlaceholder": {
+    "defaultMessage": "모델 검색..."
+  },
+  "allProviderModels.showingCount": {
+    "defaultMessage": "{total, number}개 중 {shown, number}개 모델 표시"
+  },
+  "modelBadges.contextShort": {
+    "defaultMessage": "{amount, number}k"
+  },
+  "modelBadges.contextWindow": {
+    "defaultMessage": "컨텍스트 {amount, number}k"
+  },
+  "modelBadges.default": {
+    "defaultMessage": "기본"
+  },
+  "modelBadges.reasoning": {
+    "defaultMessage": "추론"
   }
 }

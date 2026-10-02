@@ -4877,7 +4877,73 @@
   "authSettings.signInWithGitHub": {
     "defaultMessage": "GitHub ile giriş yap"
   },
-  "authSettings.signOutFromGitHub": {
-    "defaultMessage": "Çıkış yap"
+  "pluginsSettings.loadFailed": {
+    "defaultMessage": "Could not load plugins"
+  },
+  "pluginsSettings.loading": {
+    "defaultMessage": "Loading plugins..."
+  },
+  "pluginsSettings.manageSkills": {
+    "defaultMessage": "Manage skills"
+  },
+  "pluginsSettings.pluginCount": {
+    "defaultMessage": "{count,plural,=0{No plugins} one{# plugin} other{# plugins}}"
+  },
+  "pluginsSettings.refresh": {
+    "defaultMessage": "Refresh"
+  },
+  "pluginsSettings.skillCount": {
+    "defaultMessage": "{count,plural,one{# skill} other{# skills}}"
+  },
+  "pluginsSettings.title": {
+    "defaultMessage": "Plugins"
+  },
+  "providersSection.resetDescription": {
+    "defaultMessage": "Clear your selected model and provider settings to start fresh"
+  },
+  "providersSection.resetTitle": {
+    "defaultMessage": "Reset Provider and Model"
+  },
+  "settingsView.tabAppearance": {
+    "defaultMessage": "Appearance"
+  },
+  "settingsView.tabMcp": {
+    "defaultMessage": "MCP"
+  },
+  "settingsView.tabPlugins": {
+    "defaultMessage": "Plugins"
+  },
+  "themeSelector.popular": {
+    "defaultMessage": "Popular themes"
+  },
+  "allProviderModels.clearSearch": {
+    "defaultMessage": "Aramayı temizle"
+  },
+  "allProviderModels.clearSearchInput": {
+    "defaultMessage": "Arama alanını temizle"
+  },
+  "allProviderModels.noSearchResults": {
+    "defaultMessage": "\"{query}\" eşleşen model yok."
+  },
+  "allProviderModels.searchLabel": {
+    "defaultMessage": "Modelleri ara"
+  },
+  "allProviderModels.searchPlaceholder": {
+    "defaultMessage": "Modelleri ara..."
+  },
+  "allProviderModels.showingCount": {
+    "defaultMessage": "{total, number} modelden {shown, number} tanesi gösteriliyor"
+  },
+  "modelBadges.contextShort": {
+    "defaultMessage": "{amount, number}k"
+  },
+  "modelBadges.contextWindow": {
+    "defaultMessage": "{amount, number}k bağlam"
+  },
+  "modelBadges.default": {
+    "defaultMessage": "Varsayılan"
+  },
+  "modelBadges.reasoning": {
+    "defaultMessage": "Akıl yürütme"
   }
 }

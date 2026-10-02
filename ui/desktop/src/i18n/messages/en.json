@@ -29,6 +29,12 @@
   "alertBox.failedToSaveThreshold": {
     "defaultMessage": "Failed to save threshold: {error}"
   },
+  "allProviderModels.clearSearch": {
+    "defaultMessage": "Clear search"
+  },
+  "allProviderModels.clearSearchInput": {
+    "defaultMessage": "Clear search input"
+  },
   "allProviderModels.configureProviders": {
     "defaultMessage": "Configure providers"
   },
@@ -59,6 +65,9 @@
   "allProviderModels.noModels": {
     "defaultMessage": "No models reported by this provider."
   },
+  "allProviderModels.noSearchResults": {
+    "defaultMessage": "No models match \"{query}\"."
+  },
   "allProviderModels.refreshAll": {
     "defaultMessage": "Refresh models"
   },
@@ -67,6 +76,15 @@
   },
   "allProviderModels.refreshing": {
     "defaultMessage": "Refreshing..."
+  },
+  "allProviderModels.searchLabel": {
+    "defaultMessage": "Search models"
+  },
+  "allProviderModels.searchPlaceholder": {
+    "defaultMessage": "Search models..."
+  },
+  "allProviderModels.showingCount": {
+    "defaultMessage": "Showing {shown, number} of {total, number} models"
   },
   "allProviderModels.title": {
     "defaultMessage": "Models from your providers"
@@ -2248,6 +2266,18 @@
   },
   "modelAndProviderContext.unknownProviderTitle": {
     "defaultMessage": "Provider name lookup"
+  },
+  "modelBadges.contextShort": {
+    "defaultMessage": "{amount, number}k"
+  },
+  "modelBadges.contextWindow": {
+    "defaultMessage": "{amount, number}k context"
+  },
+  "modelBadges.default": {
+    "defaultMessage": "Default"
+  },
+  "modelBadges.reasoning": {
+    "defaultMessage": "Reasoning"
   },
   "modelSettingsButtons.switchModels": {
     "defaultMessage": "Switch models"

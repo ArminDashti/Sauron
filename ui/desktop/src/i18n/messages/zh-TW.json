@@ -4877,7 +4877,73 @@
   "authSettings.signInWithGitHub": {
     "defaultMessage": "使用 GitHub 登入"
   },
-  "authSettings.signOutFromGitHub": {
-    "defaultMessage": "登出"
+  "pluginsSettings.loadFailed": {
+    "defaultMessage": "Could not load plugins"
+  },
+  "pluginsSettings.loading": {
+    "defaultMessage": "Loading plugins..."
+  },
+  "pluginsSettings.manageSkills": {
+    "defaultMessage": "Manage skills"
+  },
+  "pluginsSettings.pluginCount": {
+    "defaultMessage": "{count,plural,=0{No plugins} one{# plugin} other{# plugins}}"
+  },
+  "pluginsSettings.refresh": {
+    "defaultMessage": "Refresh"
+  },
+  "pluginsSettings.skillCount": {
+    "defaultMessage": "{count,plural,one{# skill} other{# skills}}"
+  },
+  "pluginsSettings.title": {
+    "defaultMessage": "Plugins"
+  },
+  "providersSection.resetDescription": {
+    "defaultMessage": "Clear your selected model and provider settings to start fresh"
+  },
+  "providersSection.resetTitle": {
+    "defaultMessage": "Reset Provider and Model"
+  },
+  "settingsView.tabAppearance": {
+    "defaultMessage": "Appearance"
+  },
+  "settingsView.tabMcp": {
+    "defaultMessage": "MCP"
+  },
+  "settingsView.tabPlugins": {
+    "defaultMessage": "Plugins"
+  },
+  "themeSelector.popular": {
+    "defaultMessage": "Popular themes"
+  },
+  "allProviderModels.clearSearch": {
+    "defaultMessage": "清除搜尋"
+  },
+  "allProviderModels.clearSearchInput": {
+    "defaultMessage": "清除搜尋輸入"
+  },
+  "allProviderModels.noSearchResults": {
+    "defaultMessage": "沒有符合 \"{query}\" 的模型。"
+  },
+  "allProviderModels.searchLabel": {
+    "defaultMessage": "搜尋模型"
+  },
+  "allProviderModels.searchPlaceholder": {
+    "defaultMessage": "搜尋模型..."
+  },
+  "allProviderModels.showingCount": {
+    "defaultMessage": "正在顯示 {total, number} 個模型中的 {shown, number} 個"
+  },
+  "modelBadges.contextShort": {
+    "defaultMessage": "{amount, number}k"
+  },
+  "modelBadges.contextWindow": {
+    "defaultMessage": "{amount, number}k 上下文"
+  },
+  "modelBadges.default": {
+    "defaultMessage": "預設"
+  },
+  "modelBadges.reasoning": {
+    "defaultMessage": "推理"
   }
 }

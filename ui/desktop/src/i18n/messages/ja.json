@@ -4877,7 +4877,73 @@
   "authSettings.signInWithGitHub": {
     "defaultMessage": "GitHub でサインイン"
   },
-  "authSettings.signOutFromGitHub": {
-    "defaultMessage": "サインアウト"
+  "pluginsSettings.loadFailed": {
+    "defaultMessage": "Could not load plugins"
+  },
+  "pluginsSettings.loading": {
+    "defaultMessage": "Loading plugins..."
+  },
+  "pluginsSettings.manageSkills": {
+    "defaultMessage": "Manage skills"
+  },
+  "pluginsSettings.pluginCount": {
+    "defaultMessage": "{count,plural,=0{No plugins} one{# plugin} other{# plugins}}"
+  },
+  "pluginsSettings.refresh": {
+    "defaultMessage": "Refresh"
+  },
+  "pluginsSettings.skillCount": {
+    "defaultMessage": "{count,plural,one{# skill} other{# skills}}"
+  },
+  "pluginsSettings.title": {
+    "defaultMessage": "Plugins"
+  },
+  "providersSection.resetDescription": {
+    "defaultMessage": "Clear your selected model and provider settings to start fresh"
+  },
+  "providersSection.resetTitle": {
+    "defaultMessage": "Reset Provider and Model"
+  },
+  "settingsView.tabAppearance": {
+    "defaultMessage": "Appearance"
+  },
+  "settingsView.tabMcp": {
+    "defaultMessage": "MCP"
+  },
+  "settingsView.tabPlugins": {
+    "defaultMessage": "Plugins"
+  },
+  "themeSelector.popular": {
+    "defaultMessage": "Popular themes"
+  },
+  "allProviderModels.clearSearch": {
+    "defaultMessage": "検索をクリア"
+  },
+  "allProviderModels.clearSearchInput": {
+    "defaultMessage": "検索入力をクリア"
+  },
+  "allProviderModels.noSearchResults": {
+    "defaultMessage": "\"{query}\" に一致するモデルはありません。"
+  },
+  "allProviderModels.searchLabel": {
+    "defaultMessage": "モデルを検索"
+  },
+  "allProviderModels.searchPlaceholder": {
+    "defaultMessage": "モデルを検索..."
+  },
+  "allProviderModels.showingCount": {
+    "defaultMessage": "{total, number} 件中 {shown, number} 件のモデルを表示"
+  },
+  "modelBadges.contextShort": {
+    "defaultMessage": "{amount, number}k"
+  },
+  "modelBadges.contextWindow": {
+    "defaultMessage": "コンテキスト {amount, number}k"
+  },
+  "modelBadges.default": {
+    "defaultMessage": "デフォルト"
+  },
+  "modelBadges.reasoning": {
+    "defaultMessage": "思考"
   }
 }

@@ -4877,7 +4877,73 @@
   "authSettings.signInWithGitHub": {
     "defaultMessage": "Войти через GitHub"
   },
-  "authSettings.signOutFromGitHub": {
-    "defaultMessage": "Выйти"
+  "pluginsSettings.loadFailed": {
+    "defaultMessage": "Could not load plugins"
+  },
+  "pluginsSettings.loading": {
+    "defaultMessage": "Loading plugins..."
+  },
+  "pluginsSettings.manageSkills": {
+    "defaultMessage": "Manage skills"
+  },
+  "pluginsSettings.pluginCount": {
+    "defaultMessage": "{count,plural,=0{No plugins} one{# plugin} other{# plugins}}"
+  },
+  "pluginsSettings.refresh": {
+    "defaultMessage": "Refresh"
+  },
+  "pluginsSettings.skillCount": {
+    "defaultMessage": "{count,plural,one{# skill} other{# skills}}"
+  },
+  "pluginsSettings.title": {
+    "defaultMessage": "Plugins"
+  },
+  "providersSection.resetDescription": {
+    "defaultMessage": "Clear your selected model and provider settings to start fresh"
+  },
+  "providersSection.resetTitle": {
+    "defaultMessage": "Reset Provider and Model"
+  },
+  "settingsView.tabAppearance": {
+    "defaultMessage": "Appearance"
+  },
+  "settingsView.tabMcp": {
+    "defaultMessage": "MCP"
+  },
+  "settingsView.tabPlugins": {
+    "defaultMessage": "Plugins"
+  },
+  "themeSelector.popular": {
+    "defaultMessage": "Popular themes"
+  },
+  "allProviderModels.clearSearch": {
+    "defaultMessage": "Очистить поиск"
+  },
+  "allProviderModels.clearSearchInput": {
+    "defaultMessage": "Очистить поле поиска"
+  },
+  "allProviderModels.noSearchResults": {
+    "defaultMessage": "Нет моделей по запросу \"{query}\"."
+  },
+  "allProviderModels.searchLabel": {
+    "defaultMessage": "Поиск моделей"
+  },
+  "allProviderModels.searchPlaceholder": {
+    "defaultMessage": "Поиск моделей..."
+  },
+  "allProviderModels.showingCount": {
+    "defaultMessage": "Показано {shown, number} из {total, number} моделей"
+  },
+  "modelBadges.contextShort": {
+    "defaultMessage": "{amount, number}k"
+  },
+  "modelBadges.contextWindow": {
+    "defaultMessage": "Контекст {amount, number}k"
+  },
+  "modelBadges.default": {
+    "defaultMessage": "По умолчанию"
+  },
+  "modelBadges.reasoning": {
+    "defaultMessage": "Рассуждение"
   }
 }

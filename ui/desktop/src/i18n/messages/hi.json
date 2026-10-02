@@ -4877,7 +4877,73 @@
   "authSettings.signInWithGitHub": {
     "defaultMessage": "GitHub से साइन इन करें"
   },
-  "authSettings.signOutFromGitHub": {
-    "defaultMessage": "साइन आउट करें"
+  "pluginsSettings.loadFailed": {
+    "defaultMessage": "Could not load plugins"
+  },
+  "pluginsSettings.loading": {
+    "defaultMessage": "Loading plugins..."
+  },
+  "pluginsSettings.manageSkills": {
+    "defaultMessage": "Manage skills"
+  },
+  "pluginsSettings.pluginCount": {
+    "defaultMessage": "{count,plural,=0{No plugins} one{# plugin} other{# plugins}}"
+  },
+  "pluginsSettings.refresh": {
+    "defaultMessage": "Refresh"
+  },
+  "pluginsSettings.skillCount": {
+    "defaultMessage": "{count,plural,one{# skill} other{# skills}}"
+  },
+  "pluginsSettings.title": {
+    "defaultMessage": "Plugins"
+  },
+  "providersSection.resetDescription": {
+    "defaultMessage": "Clear your selected model and provider settings to start fresh"
+  },
+  "providersSection.resetTitle": {
+    "defaultMessage": "Reset Provider and Model"
+  },
+  "settingsView.tabAppearance": {
+    "defaultMessage": "Appearance"
+  },
+  "settingsView.tabMcp": {
+    "defaultMessage": "MCP"
+  },
+  "settingsView.tabPlugins": {
+    "defaultMessage": "Plugins"
+  },
+  "themeSelector.popular": {
+    "defaultMessage": "Popular themes"
+  },
+  "allProviderModels.clearSearch": {
+    "defaultMessage": "खोज साफ़ करें"
+  },
+  "allProviderModels.clearSearchInput": {
+    "defaultMessage": "खोज इनपुट साफ़ करें"
+  },
+  "allProviderModels.noSearchResults": {
+    "defaultMessage": "कोई मॉडल \"{query}\" से मेल नहीं खाता।"
+  },
+  "allProviderModels.searchLabel": {
+    "defaultMessage": "मॉडल खोजें"
+  },
+  "allProviderModels.searchPlaceholder": {
+    "defaultMessage": "मॉडल खोजें..."
+  },
+  "allProviderModels.showingCount": {
+    "defaultMessage": "{total, number} में से {shown, number} मॉडल दिखाए जा रहे हैं"
+  },
+  "modelBadges.contextShort": {
+    "defaultMessage": "{amount, number}k"
+  },
+  "modelBadges.contextWindow": {
+    "defaultMessage": "{amount, number}k कॉन्टेक्स्ट"
+  },
+  "modelBadges.default": {
+    "defaultMessage": "डिफ़ॉल्ट"
+  },
+  "modelBadges.reasoning": {
+    "defaultMessage": "रीज़निंग"
   }
 }

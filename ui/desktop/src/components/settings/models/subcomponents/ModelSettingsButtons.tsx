@@ -20,12 +20,13 @@ export default function ModelSettingsButtons({ setView }: ConfigureModelButtonsP
   const [isAddModelModalOpen, setIsAddModelModalOpen] = useState(false);
 
   return (
-    <div className="flex gap-2 pt-4">
+    <div className="flex shrink-0 items-center gap-2">
       <Button
         className="flex items-center gap-2 justify-center"
         variant="default"
         size="sm"
         onClick={() => setIsAddModelModalOpen(true)}
+        data-testid="models-section-switch"
       >
         {intl.formatMessage(i18n.switchModels)}
       </Button>

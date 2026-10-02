@@ -4877,7 +4877,73 @@
   "authSettings.signInWithGitHub": {
     "defaultMessage": "使用 GitHub 登录"
   },
-  "authSettings.signOutFromGitHub": {
-    "defaultMessage": "退出登录"
+  "pluginsSettings.loadFailed": {
+    "defaultMessage": "Could not load plugins"
+  },
+  "pluginsSettings.loading": {
+    "defaultMessage": "Loading plugins..."
+  },
+  "pluginsSettings.manageSkills": {
+    "defaultMessage": "Manage skills"
+  },
+  "pluginsSettings.pluginCount": {
+    "defaultMessage": "{count,plural,=0{No plugins} one{# plugin} other{# plugins}}"
+  },
+  "pluginsSettings.refresh": {
+    "defaultMessage": "Refresh"
+  },
+  "pluginsSettings.skillCount": {
+    "defaultMessage": "{count,plural,one{# skill} other{# skills}}"
+  },
+  "pluginsSettings.title": {
+    "defaultMessage": "Plugins"
+  },
+  "providersSection.resetDescription": {
+    "defaultMessage": "Clear your selected model and provider settings to start fresh"
+  },
+  "providersSection.resetTitle": {
+    "defaultMessage": "Reset Provider and Model"
+  },
+  "settingsView.tabAppearance": {
+    "defaultMessage": "Appearance"
+  },
+  "settingsView.tabMcp": {
+    "defaultMessage": "MCP"
+  },
+  "settingsView.tabPlugins": {
+    "defaultMessage": "Plugins"
+  },
+  "themeSelector.popular": {
+    "defaultMessage": "Popular themes"
+  },
+  "allProviderModels.clearSearch": {
+    "defaultMessage": "清除搜索"
+  },
+  "allProviderModels.clearSearchInput": {
+    "defaultMessage": "清除搜索输入"
+  },
+  "allProviderModels.noSearchResults": {
+    "defaultMessage": "没有与 \"{query}\" 匹配的模型。"
+  },
+  "allProviderModels.searchLabel": {
+    "defaultMessage": "搜索模型"
+  },
+  "allProviderModels.searchPlaceholder": {
+    "defaultMessage": "搜索模型..."
+  },
+  "allProviderModels.showingCount": {
+    "defaultMessage": "正在显示 {total, number} 个模型中的 {shown, number} 个"
+  },
+  "modelBadges.contextShort": {
+    "defaultMessage": "{amount, number}k"
+  },
+  "modelBadges.contextWindow": {
+    "defaultMessage": "{amount, number}k 上下文"
+  },
+  "modelBadges.default": {
+    "defaultMessage": "默认"
+  },
+  "modelBadges.reasoning": {
+    "defaultMessage": "推理"
   }
 }
