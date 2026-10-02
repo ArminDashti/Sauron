@@ -1379,15 +1379,6 @@
   "headersSection.value": {
     "defaultMessage": "値"
   },
-  "hub.goodAfternoon": {
-    "defaultMessage": "こんにちは"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "こんばんは"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "おはようございます"
-  },
   "hubView.description": {
     "defaultMessage": "さまざまなソースからスキルとMCPサーバーを見つける。"
   },
@@ -2392,6 +2383,12 @@
   },
   "navigation.itemSkills": {
     "defaultMessage": "スキル"
+  },
+  "navigationFooter.cpuUsage": {
+    "defaultMessage": "CPU {percent}%"
+  },
+  "navigationFooter.memoryUsage": {
+    "defaultMessage": "メモリ {percent}%"
   },
   "navigationFooter.sendFeedback": {
     "defaultMessage": "フィードバックを送信"

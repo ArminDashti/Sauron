@@ -1379,15 +1379,6 @@
   "headersSection.value": {
     "defaultMessage": "Nilai"
   },
-  "hub.goodAfternoon": {
-    "defaultMessage": "Selamat siang"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "Selamat malam"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "Selamat pagi"
-  },
   "hubView.description": {
     "defaultMessage": "Temukan Skills dan server MCP dari berbagai sumber."
   },
@@ -2392,6 +2383,12 @@
   },
   "navigation.itemSkills": {
     "defaultMessage": "Keterampilan"
+  },
+  "navigationFooter.cpuUsage": {
+    "defaultMessage": "CPU {percent}%"
+  },
+  "navigationFooter.memoryUsage": {
+    "defaultMessage": "Memori {percent}%"
   },
   "navigationFooter.sendFeedback": {
     "defaultMessage": "Kirim masukan"

@@ -1379,15 +1379,6 @@
   "headersSection.value": {
     "defaultMessage": "值"
   },
-  "hub.goodAfternoon": {
-    "defaultMessage": "午安"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "晚安"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "早安"
-  },
   "hubView.description": {
     "defaultMessage": "從各種來源尋找技能和 MCP 伺服器。"
   },
@@ -2392,6 +2383,12 @@
   },
   "navigation.itemSkills": {
     "defaultMessage": "技能"
+  },
+  "navigationFooter.cpuUsage": {
+    "defaultMessage": "CPU {percent}%"
+  },
+  "navigationFooter.memoryUsage": {
+    "defaultMessage": "記憶體 {percent}%"
   },
   "navigationFooter.sendFeedback": {
     "defaultMessage": "傳送意見回饋"

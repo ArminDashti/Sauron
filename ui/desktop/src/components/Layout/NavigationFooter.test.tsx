@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach, beforeAll, afterAll } from 'vitest';
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import NavigationFooter from './NavigationFooter';
 import { IntlTestWrapper } from '../../i18n/test-utils';
@@ -48,6 +48,26 @@ describe('NavigationFooter', () => {
 
     expect(await screen.findByText('You')).toBeInTheDocument();
     expect(screen.getByText('Y')).toBeInTheDocument();
+  });
+
+  it('shows CPU and memory usage percentages above the profile row', async () => {
+    window.electron.getSystemUsage = vi.fn(() =>
+      Promise.resolve({ cpuPercent: 12, memoryPercent: 34 })
+    );
+    renderFooter();
+
+    const usageRow = await screen.findByTestId('system-usage');
+    expect(usageRow).toHaveTextContent('CPU 12%');
+    expect(usageRow).toHaveTextContent('Memory 34%');
+    expect(within(usageRow).queryByRole('button')).not.toBeInTheDocument();
+  });
+
+  it('hides the usage row when system usage cannot be read', async () => {
+    window.electron.getSystemUsage = vi.fn(() => Promise.reject(new Error('unavailable')));
+    renderFooter();
+
+    await screen.findByText('Armin');
+    expect(screen.queryByTestId('system-usage')).not.toBeInTheDocument();
   });
 
   it('opens the settings route from the settings button', async () => {
