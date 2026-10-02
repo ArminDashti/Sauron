@@ -438,6 +438,14 @@ impl SauronAcpAgent {
         self.on_config_read_all(req).await
     }
 
+    #[custom_method(GitHubQueryRequest)]
+    async fn dispatch_github_query(
+        &self,
+        req: GitHubQueryRequest,
+    ) -> Result<GitHubQueryResponse, agent_client_protocol::Error> {
+        self.on_github_query(req).await
+    }
+
     #[custom_method(DefaultsReadRequest)]
     async fn dispatch_defaults_read(
         &self,

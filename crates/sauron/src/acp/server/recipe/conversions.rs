@@ -5,7 +5,7 @@ use sauron_sdk_types::custom_requests::{
     RecipeRetryConfigDto, RecipeSettingsDto, RecipeSuccessCheckDto, SubRecipeDto,
 };
 
-use crate::agents::extension::{Envs, ExtensionConfig};
+use crate::agents::mcp_server::{Envs, McpServerConfig};
 use crate::agents::types::{RetryConfig, SuccessCheck};
 use crate::recipe::{
     Author, Recipe, RecipeParameter, RecipeParameterInputType, RecipeParameterRequirement,
@@ -27,7 +27,7 @@ impl TryFrom<RecipeDto> for Recipe {
                 .map(|extensions| {
                     extensions
                         .into_iter()
-                        .map(ExtensionConfig::try_from)
+                        .map(McpServerConfig::try_from)
                         .collect::<Result<Vec<_>>>()
                 })
                 .transpose()?,
@@ -279,7 +279,7 @@ impl From<SuccessCheck> for RecipeSuccessCheckDto {
     }
 }
 
-impl TryFrom<RecipeExtensionDto> for ExtensionConfig {
+impl TryFrom<RecipeExtensionDto> for McpServerConfig {
     type Error = anyhow::Error;
 
     fn try_from(dto: RecipeExtensionDto) -> Result<Self> {
@@ -368,12 +368,12 @@ impl TryFrom<RecipeExtensionDto> for ExtensionConfig {
     }
 }
 
-impl TryFrom<ExtensionConfig> for RecipeExtensionDto {
+impl TryFrom<McpServerConfig> for RecipeExtensionDto {
     type Error = anyhow::Error;
 
-    fn try_from(extension: ExtensionConfig) -> Result<Self> {
+    fn try_from(extension: McpServerConfig) -> Result<Self> {
         Ok(match extension {
-            ExtensionConfig::Builtin {
+            McpServerConfig::Builtin {
                 name,
                 description,
                 display_name,
@@ -388,7 +388,7 @@ impl TryFrom<ExtensionConfig> for RecipeExtensionDto {
                 bundled,
                 available_tools: available_tools_to_wire(available_tools),
             },
-            ExtensionConfig::Platform {
+            McpServerConfig::Platform {
                 name,
                 description,
                 display_name,
@@ -401,7 +401,7 @@ impl TryFrom<ExtensionConfig> for RecipeExtensionDto {
                 bundled,
                 available_tools: available_tools_to_wire(available_tools),
             },
-            ExtensionConfig::Stdio {
+            McpServerConfig::Stdio {
                 name,
                 description,
                 cmd,
@@ -424,7 +424,7 @@ impl TryFrom<ExtensionConfig> for RecipeExtensionDto {
                 bundled,
                 available_tools: available_tools_to_wire(available_tools),
             },
-            ExtensionConfig::StreamableHttp {
+            McpServerConfig::StreamableHttp {
                 name,
                 description,
                 uri,
@@ -586,7 +586,7 @@ mod tests {
         assert_eq!(recipe.title, "Test Recipe");
         assert_eq!(recipe.extensions.as_ref().unwrap().len(), 3);
         match &recipe.extensions.as_ref().unwrap()[0] {
-            ExtensionConfig::Builtin {
+            McpServerConfig::Builtin {
                 available_tools, ..
             } => {
                 assert_eq!(available_tools, &vec!["shell".to_string()]);
@@ -594,7 +594,7 @@ mod tests {
             extension => panic!("expected builtin extension, got {extension:?}"),
         }
         match &recipe.extensions.as_ref().unwrap()[1] {
-            ExtensionConfig::Stdio {
+            McpServerConfig::Stdio {
                 envs,
                 available_tools,
                 ..
@@ -605,7 +605,7 @@ mod tests {
             extension => panic!("expected stdio extension, got {extension:?}"),
         }
         match &recipe.extensions.as_ref().unwrap()[2] {
-            ExtensionConfig::StreamableHttp {
+            McpServerConfig::StreamableHttp {
                 envs,
                 available_tools,
                 ..

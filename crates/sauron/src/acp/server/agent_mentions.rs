@@ -62,22 +62,20 @@ impl SauronAcpAgent {
             None
         };
 
-        let cwd = if let Some(cwd) = req
+        let cwd = req
             .cwd
             .as_deref()
             .map(str::trim)
             .filter(|path| !path.is_empty())
-        {
-            PathBuf::from(cwd)
-        } else if let Some(session) = &session {
-            session.working_dir.clone()
-        } else {
-            return Err(agent_client_protocol::Error::invalid_params()
-                .data("Either cwd or sessionId is required"));
-        };
+            .map(PathBuf::from)
+            .or_else(|| session.as_ref().and_then(|s| s.working_dir.clone()))
+            .ok_or_else(|| {
+                agent_client_protocol::Error::invalid_params()
+                    .data("Either cwd or sessionId is required")
+            })?;
 
         let filesystem_sources =
-            crate::agents::platform_extensions::summon::discover_filesystem_sources(&cwd);
+            crate::agents::in_process::summon::discover_filesystem_sources(Some(&cwd));
         let mut sources = Vec::new();
         let mut seen = HashSet::new();
 

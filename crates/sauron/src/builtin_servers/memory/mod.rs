@@ -130,7 +130,7 @@ impl MemoryServer {
              Use category "*" with retrieve_memories or remove_memory_category to access all entries.
             "#};
 
-        let global_memory_dir = choose_app_strategy(crate::APP_STRATEGY.clone())
+        let global_memory_dir = choose_app_strategy(crate::config::paths::APP_STRATEGY.clone())
             .map(|strategy| strategy.in_config_dir("memory"))
             .unwrap_or_else(|_| PathBuf::from(".config/sauron/memory"));
 

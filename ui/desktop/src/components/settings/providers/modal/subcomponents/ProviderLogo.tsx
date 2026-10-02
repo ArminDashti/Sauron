@@ -16,14 +16,15 @@ interface ProviderLogoProps {
 
 export default function ProviderLogo({ providerName, size = 'md' }: ProviderLogoProps) {
   const intl = useIntl();
-  const iconClassName = size === 'sm' ? 'w-8 h-8' : 'w-16 h-16';
+  const className = size === 'sm' ? 'h-8 w-8' : 'h-12 w-12';
 
   return (
-    <div className={`flex justify-center${size === 'md' ? ' mb-2' : ''}`}>
-      <BrandIcon provider={providerName} className={iconClassName} />
-      <span className="sr-only">
-        {intl.formatMessage(i18n.logoAlt, { providerName })}
-      </span>
+    <div
+      className={`flex justify-center${size === 'md' ? ' mb-2' : ''}`}
+      role="img"
+      aria-label={intl.formatMessage(i18n.logoAlt, { providerName })}
+    >
+      <BrandIcon provider={providerName} className={className} />
     </div>
   );
 }

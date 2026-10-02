@@ -2,7 +2,7 @@ use crate::conversation::message::Message;
 use crate::conversation::Conversation;
 use crate::providers::base::ProviderUsage;
 use crate::recipe::Recipe;
-use crate::session::ExtensionData;
+use crate::session::McpServerData;
 use sauron_agent::operation::{ConversationEffect, MachineEffect};
 
 pub enum SauronEffect {
@@ -12,7 +12,7 @@ pub enum SauronEffect {
         usage: Option<ProviderUsage>,
     },
     SetRecipe(Box<Option<Recipe>>),
-    SetExtensionData(ExtensionData),
+    SetExtensionData(McpServerData),
     RecordUsage(ProviderUsage),
 }
 

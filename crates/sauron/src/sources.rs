@@ -3,6 +3,10 @@
 //! `<project>/.agents/skills/`). Projects live in `<dataDir>/projects/<slug>.md`.
 
 use crate::config::paths::Paths;
+use crate::rules::{
+    build_rule_md, discover_rules, is_global_rule_file, parse_rule_frontmatter,
+    read_rule_properties, resolve_rule_file, rule_base_dir, validate_rule_name,
+};
 use crate::skills::{
     build_skill_md, discover_skills, infer_skill_name, is_global_skill_dir,
     parse_skill_frontmatter, resolve_discoverable_skill_dir, resolve_skill_dir, skill_base_dir,
@@ -34,7 +38,7 @@ pub fn parse_frontmatter<T: for<'de> Deserialize<'de>>(
 
 fn require_mutable_type(source_type: SourceType) -> Result<(), Error> {
     match source_type {
-        SourceType::Skill | SourceType::Project | SourceType::Agent => Ok(()),
+        SourceType::Skill | SourceType::Project | SourceType::Agent | SourceType::Rule => Ok(()),
         other => Err(Error::invalid_params().data(format!(
             "Source type '{other}' is not supported for mutation."
         ))),
@@ -45,6 +49,7 @@ fn require_listable_type(source_type: Option<SourceType>) -> Result<SourceType, 
     match source_type.unwrap_or(SourceType::Skill) {
         SourceType::Skill => Ok(SourceType::Skill),
         SourceType::BuiltinSkill => Ok(SourceType::BuiltinSkill),
+        SourceType::Rule => Ok(SourceType::Rule),
         SourceType::Project => Ok(SourceType::Project),
         SourceType::Agent => Ok(SourceType::Agent),
         other => Err(Error::invalid_params().data(format!(
@@ -145,6 +150,36 @@ fn parse_project_frontmatter(
             HashMap::new(),
         ),
     }
+}
+
+/// Validate a kebab-case identifier shared by skills, rules, and projects.
+/// `label` names the entity in the error message.
+pub(crate) fn validate_kebab_name(label: &str, name: &str) -> Result<(), Error> {
+    if name.is_empty() {
+        return Err(Error::invalid_params().data(format!("{label} name must not be empty")));
+    }
+    if name.len() > 64 {
+        return Err(Error::invalid_params().data(format!(
+            "Invalid {label} name \"{}\". Names must be at most 64 characters.",
+            name
+        )));
+    }
+    if !name
+        .chars()
+        .all(|ch| ch.is_ascii_lowercase() || ch.is_ascii_digit() || ch == '-')
+    {
+        return Err(Error::invalid_params().data(format!(
+            "Invalid {label} name \"{}\". Names may only contain lowercase letters, digits, and hyphens.",
+            name
+        )));
+    }
+    if name.starts_with('-') || name.ends_with('-') {
+        return Err(Error::invalid_params().data(format!(
+            "Invalid {label} name \"{}\". Names must not start or end with a hyphen.",
+            name
+        )));
+    }
+    Ok(())
 }
 
 /// Validate a project slug. Same shape as a skill name (kebab-case, ASCII).
@@ -322,6 +357,27 @@ fn builtin_skill_entry(mut source: SourceEntry) -> SourceEntry {
     source.global = true;
     source.supporting_files.clear();
     source
+}
+
+fn rule_source_entry(
+    name: &str,
+    description: &str,
+    content: &str,
+    file: &Path,
+    global: bool,
+    properties: HashMap<String, serde_json::Value>,
+) -> SourceEntry {
+    SourceEntry {
+        source_type: SourceType::Rule,
+        name: name.to_string(),
+        description: description.to_string(),
+        content: content.to_string(),
+        path: file.to_string_lossy().to_string(),
+        global,
+        writable: true,
+        supporting_files: Vec::new(),
+        properties,
+    }
 }
 
 fn agent_base_dir(global: bool, project_dir: Option<&str>) -> Result<PathBuf, Error> {
@@ -717,6 +773,31 @@ pub fn create_source(
                 properties,
             ))
         }
+        SourceType::Rule => {
+            validate_rule_name(name)?;
+            let base = rule_base_dir(global, project_dir)?;
+            fs::create_dir_all(&base).map_err(|e| {
+                Error::internal_error().data(format!("Failed to create rules dir: {e}"))
+            })?;
+            let file = base.join(format!("{name}.md"));
+            if file.exists() {
+                return Err(Error::invalid_params()
+                    .data(format!("A source named \"{name}\" already exists")));
+            }
+            let md = build_rule_md(name, description, content, &properties);
+            fs::write(&file, md).map_err(|e| {
+                Error::internal_error().data(format!("Failed to write rule file: {e}"))
+            })?;
+
+            Ok(rule_source_entry(
+                name,
+                description,
+                content,
+                &file,
+                global,
+                properties,
+            ))
+        }
         SourceType::Project => {
             validate_project_slug(name)?;
             let base = projects_dir();
@@ -822,6 +903,52 @@ pub fn update_source_with_roots(
                 resolved_properties,
             ))
         }
+        SourceType::Rule => {
+            validate_rule_name(name)?;
+
+            let file = resolve_rule_file(path)?;
+            let current_stem = file
+                .file_stem()
+                .and_then(|stem| stem.to_str())
+                .ok_or_else(|| Error::internal_error().data("Failed to resolve rule file name"))?;
+
+            let resolved_properties = match options.properties {
+                Some(properties) => properties,
+                None => read_rule_properties(&file),
+            };
+
+            let (target_file, global) = if name == current_stem {
+                (file.clone(), is_global_rule_file(&file))
+            } else {
+                let base_dir = file.parent().ok_or_else(|| {
+                    Error::internal_error().data("Failed to resolve rules directory")
+                })?;
+                let target_file = base_dir.join(format!("{name}.md"));
+                if target_file.exists() {
+                    return Err(Error::invalid_params()
+                        .data(format!("A source named \"{name}\" already exists")));
+                }
+                fs::rename(&file, &target_file).map_err(|e| {
+                    Error::internal_error().data(format!("Failed to rename rule file: {e}"))
+                })?;
+                let global = is_global_rule_file(&target_file);
+                (target_file, global)
+            };
+
+            let md = build_rule_md(name, description, content, &resolved_properties);
+            fs::write(&target_file, md).map_err(|e| {
+                Error::internal_error().data(format!("Failed to write rule file: {e}"))
+            })?;
+
+            Ok(rule_source_entry(
+                name,
+                description,
+                content,
+                &target_file,
+                global,
+                resolved_properties,
+            ))
+        }
         SourceType::Project => {
             validate_project_slug(name)?;
             let file = resolve_project_path(path)?;
@@ -873,6 +1000,12 @@ pub fn delete_source_with_roots(
         SourceType::Skill => {
             let dir = resolve_skill_dir(path)?;
             fs::remove_dir_all(&dir).map_err(|e| {
+                Error::internal_error().data(format!("Failed to delete source: {e}"))
+            })?;
+        }
+        SourceType::Rule => {
+            let file = resolve_rule_file(path)?;
+            fs::remove_file(&file).map_err(|e| {
                 Error::internal_error().data(format!("Failed to delete source: {e}"))
             })?;
         }
@@ -980,6 +1113,13 @@ pub fn list_sources_with_roots(
                         .map(builtin_skill_entry),
                 );
             }
+            SourceType::Rule => {
+                let working_dir = project_dir
+                    .map(str::trim)
+                    .filter(|p| !p.is_empty())
+                    .map(PathBuf::from);
+                sources.extend(discover_rules(working_dir.as_deref()));
+            }
             SourceType::Project => {
                 sources.extend(read_project_dir()?);
             }
@@ -1055,6 +1195,25 @@ pub fn export_source_with_roots(
             })?;
             let filename = format!("{}.skill.json", name);
             Ok((json, filename))
+        }
+        SourceType::Rule => {
+            let file = resolve_rule_file(path)?;
+            let raw = read_source_path(&file).map_err(|e| {
+                Error::internal_error().data(format!("Failed to read rule file: {e}"))
+            })?;
+            let (name, description, content, _) = parse_rule_frontmatter(&raw);
+
+            let export = serde_json::json!({
+                "version": 1,
+                "type": "rule",
+                "name": name,
+                "description": description,
+                "content": content,
+            });
+            let json = serde_json::to_string_pretty(&export).map_err(|e| {
+                Error::internal_error().data(format!("Failed to serialize source: {e}"))
+            })?;
+            Ok((json, format!("{name}.rule.json")))
         }
         SourceType::Agent => {
             let file_path = resolve_agent_file_with_roots(path, additional_roots)?;
@@ -1142,6 +1301,7 @@ pub fn import_sources(
         .unwrap_or("skill");
     let source_type = match type_str {
         "skill" => SourceType::Skill,
+        "rule" => SourceType::Rule,
         "project" => SourceType::Project,
         "agent" => SourceType::Agent,
         other => {
@@ -1159,13 +1319,13 @@ pub fn import_sources(
         return Err(Error::invalid_params().data("Source name must not be empty"));
     }
 
-    // Skills require a description; projects can omit it.
+    // Skills and rules require a description; projects can omit it.
     let description = value
         .get("description")
         .and_then(|v| v.as_str())
         .unwrap_or("")
         .to_string();
-    if source_type == SourceType::Skill && description.is_empty() {
+    if matches!(source_type, SourceType::Skill | SourceType::Rule) && description.is_empty() {
         return Err(Error::invalid_params().data("Source description must not be empty"));
     }
 
@@ -1224,6 +1384,29 @@ pub fn import_sources(
             }
             create_source(
                 SourceType::Skill,
+                &final_name,
+                &description,
+                &content,
+                global,
+                project_dir,
+                properties,
+            )
+            .map(|entry| vec![entry])
+        }
+        SourceType::Rule => {
+            validate_rule_name(&name)?;
+            let base = rule_base_dir(global, project_dir)?;
+            let mut final_name = name.clone();
+            if base.join(format!("{final_name}.md")).exists() {
+                final_name = format!("{name}-imported");
+                let mut counter = 2u32;
+                while base.join(format!("{final_name}.md")).exists() {
+                    final_name = format!("{name}-imported-{counter}");
+                    counter += 1;
+                }
+            }
+            create_source(
+                SourceType::Rule,
                 &final_name,
                 &description,
                 &content,

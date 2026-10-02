@@ -3,7 +3,7 @@ use std::sync::Arc;
 use anyhow::Result;
 use futures::StreamExt;
 use sauron::agents::{Agent, AgentEvent, SauronPlatform};
-use sauron::config::extensions::{set_extension, ExtensionEntry};
+use sauron::config::mcp_servers::{set_extension, McpServerEntry};
 
 #[cfg(test)]
 mod tests {
@@ -14,10 +14,10 @@ mod tests {
         use super::*;
         use async_trait::async_trait;
         use chrono::{DateTime, Utc};
-        use sauron::agents::platform_extensions::scheduler::{
+        use sauron::agents::in_process::scheduler::{
             EXTENSION_NAME as SCHEDULER_EXTENSION_NAME, MANAGE_SCHEDULE_TOOL_NAME_COMPLETE,
         };
-        use sauron::agents::ExtensionConfig;
+        use sauron::agents::McpServerConfig;
         use sauron::agents::{AgentConfig, ScheduleTool};
         use sauron::config::permission::PermissionManager;
         use sauron::config::SauronMode;
@@ -130,9 +130,9 @@ mod tests {
 
         async fn add_scheduler_extension(agent: &Agent) {
             agent
-                .extension_manager
-                .add_extension(
-                    ExtensionConfig::Platform {
+                .mcp_manager
+                .add_mcp_server(
+                    McpServerConfig::Platform {
                         name: SCHEDULER_EXTENSION_NAME.to_string(),
                         description: "Create and manage scheduled recipe execution".to_string(),
                         display_name: Some("Scheduler".to_string()),
@@ -549,7 +549,7 @@ mod tests {
             type Provider = Self;
 
             fn from_env(
-                _extensions: Vec<sauron::config::ExtensionConfig>,
+                _extensions: Vec<sauron::config::McpServerConfig>,
                 _tls_config: Option<sauron::providers::api_client::TlsConfig>,
             ) -> futures::future::BoxFuture<'static, anyhow::Result<Self>> {
                 Box::pin(async { Ok(Self::new()) })
@@ -729,7 +729,7 @@ mod tests {
             type Provider = Self;
 
             fn from_env(
-                _extensions: Vec<sauron::config::ExtensionConfig>,
+                _extensions: Vec<sauron::config::McpServerConfig>,
                 _tls_config: Option<sauron::providers::api_client::TlsConfig>,
             ) -> futures::future::BoxFuture<'static, anyhow::Result<Self>> {
                 Box::pin(async { Ok(Self::new()) })
@@ -914,7 +914,7 @@ mod tests {
             type Provider = Self;
 
             fn from_env(
-                _extensions: Vec<sauron::config::ExtensionConfig>,
+                _extensions: Vec<sauron::config::McpServerConfig>,
                 _tls_config: Option<sauron::providers::api_client::TlsConfig>,
             ) -> futures::future::BoxFuture<'static, anyhow::Result<Self>> {
                 Box::pin(async { Ok(Self::new()) })
@@ -1127,10 +1127,10 @@ mod tests {
     #[cfg(test)]
     mod extension_manager_tests {
         use super::*;
-        use sauron::agents::extension::ExtensionConfig;
-        use sauron::agents::platform_extensions::{
+        use sauron::agents::in_process::{
             MANAGE_EXTENSIONS_TOOL_NAME, SEARCH_AVAILABLE_EXTENSIONS_TOOL_NAME,
         };
+        use sauron::agents::mcp_server::McpServerConfig;
         use sauron::agents::AgentConfig;
         use sauron::config::permission::PermissionManager;
         use sauron::config::SauronMode;
@@ -1141,9 +1141,9 @@ mod tests {
 
             // Add the TODO extension to the config so it can be discovered by search_available_extensions
             // Set it as disabled initially so tests can enable it
-            let todo_extension_entry = ExtensionEntry {
+            let todo_extension_entry = McpServerEntry {
                 enabled: false,
-                config: ExtensionConfig::Platform {
+                config: McpServerConfig::Platform {
                     name: "todo".to_string(),
                     description:
                         "Enable a todo list for sauron so it can keep track of what it is doing"
@@ -1181,7 +1181,7 @@ mod tests {
             let session_id = session.id;
 
             // Now add the extension manager platform extension
-            let ext_config = ExtensionConfig::Platform {
+            let ext_config = McpServerConfig::Platform {
                 name: "extensionmanager".to_string(),
                 description: "Extension Manager".to_string(),
                 display_name: Some("Extension Manager".to_string()),
@@ -1190,7 +1190,7 @@ mod tests {
             };
 
             agent
-                .add_extension(ext_config, &session_id)
+                .add_mcp_server(ext_config, &session_id)
                 .await
                 .expect("Failed to add extension manager");
             (agent, session_id, temp_dir)
@@ -1276,7 +1276,7 @@ mod tests {
             type Provider = Self;
 
             fn from_env(
-                _extensions: Vec<sauron::config::ExtensionConfig>,
+                _extensions: Vec<sauron::config::McpServerConfig>,
                 _tls_config: Option<sauron::providers::api_client::TlsConfig>,
             ) -> futures::future::BoxFuture<'static, anyhow::Result<Self>> {
                 unimplemented!()
@@ -1556,7 +1556,7 @@ mod tests {
             type Provider = Self;
 
             fn from_env(
-                _extensions: Vec<sauron::config::ExtensionConfig>,
+                _extensions: Vec<sauron::config::McpServerConfig>,
                 _tls_config: Option<sauron::providers::api_client::TlsConfig>,
             ) -> futures::future::BoxFuture<'static, anyhow::Result<Self>> {
                 unimplemented!()
@@ -1758,7 +1758,7 @@ mod tests {
             type Provider = Self;
 
             fn from_env(
-                _extensions: Vec<sauron::config::ExtensionConfig>,
+                _extensions: Vec<sauron::config::McpServerConfig>,
                 _tls_config: Option<sauron::providers::api_client::TlsConfig>,
             ) -> futures::future::BoxFuture<'static, anyhow::Result<Self>> {
                 unimplemented!()
@@ -1910,7 +1910,7 @@ mod tests {
             type Provider = Self;
 
             fn from_env(
-                _extensions: Vec<sauron::config::ExtensionConfig>,
+                _extensions: Vec<sauron::config::McpServerConfig>,
                 _tls_config: Option<sauron::providers::api_client::TlsConfig>,
             ) -> futures::future::BoxFuture<'static, anyhow::Result<Self>> {
                 unimplemented!()
@@ -2283,7 +2283,7 @@ mod tests {
             type Provider = Self;
 
             fn from_env(
-                _extensions: Vec<sauron::config::ExtensionConfig>,
+                _extensions: Vec<sauron::config::McpServerConfig>,
                 _tls_config: Option<sauron::providers::api_client::TlsConfig>,
             ) -> futures::future::BoxFuture<'static, anyhow::Result<Self>> {
                 Box::pin(async { Ok(Self::new()) })
@@ -2806,18 +2806,18 @@ mod tests {
 
     mod add_extensions_bulk_tests {
         use super::*;
-        use sauron::agents::extension::Envs;
-        use sauron::agents::{AgentConfig, ExtensionConfig};
+        use sauron::agents::mcp_server::Envs;
+        use sauron::agents::{AgentConfig, McpServerConfig};
         use sauron::config::permission::PermissionManager;
         use sauron::config::SauronMode;
         use sauron::session::session_manager::SessionType;
         use sauron::session::{
-            EnabledExtensionsState, ExtensionData, ExtensionState, SessionManager,
+            EnabledExtensionsState, McpServerData, McpServerState, SessionManager,
         };
         use tempfile::TempDir;
 
-        fn platform_extension(name: &str) -> ExtensionConfig {
-            ExtensionConfig::Platform {
+        fn platform_extension(name: &str) -> McpServerConfig {
+            McpServerConfig::Platform {
                 name: name.to_string(),
                 description: format!("Platform test extension {name}"),
                 display_name: None,
@@ -2826,8 +2826,8 @@ mod tests {
             }
         }
 
-        fn unloadable_stdio_extension(name: &str) -> ExtensionConfig {
-            ExtensionConfig::Stdio {
+        fn unloadable_stdio_extension(name: &str) -> McpServerConfig {
+            McpServerConfig::Stdio {
                 name: name.to_string(),
                 description: format!("Unloadable test extension {name}"),
                 cmd: "sauron-test-definitely-missing-binary".to_string(),
@@ -2879,7 +2879,7 @@ mod tests {
                 .await
                 .unwrap();
             let mut names: Vec<String> =
-                EnabledExtensionsState::from_extension_data(&session.extension_data)
+                EnabledExtensionsState::from_mcp_server_data(&session.extension_data)
                     .expect("enabled extensions state should be persisted")
                     .extensions
                     .iter()
@@ -2895,7 +2895,7 @@ mod tests {
                 setup_agent_and_session("bulk-load-persist-success").await;
 
             let results = agent
-                .add_extensions_bulk(
+                .add_mcp_servers_bulk(
                     vec![platform_extension("analyze"), platform_extension("todo")],
                     &session_id,
                 )
@@ -2915,7 +2915,7 @@ mod tests {
                 setup_agent_and_session("bulk-load-persist-partial-failure").await;
 
             let results = agent
-                .add_extensions_bulk(
+                .add_mcp_servers_bulk(
                     vec![
                         platform_extension("todo"),
                         unloadable_stdio_extension("broken"),
@@ -2953,9 +2953,9 @@ mod tests {
                 unloadable_stdio_extension("broken-one"),
                 unloadable_stdio_extension("broken-two"),
             ];
-            let mut extension_data = ExtensionData::new();
+            let mut extension_data = McpServerData::new();
             EnabledExtensionsState::new(extensions.clone())
-                .to_extension_data(&mut extension_data)
+                .to_mcp_server_data(&mut extension_data)
                 .unwrap();
             session_manager
                 .update(&session_id)
@@ -2965,7 +2965,7 @@ mod tests {
                 .unwrap();
 
             let results = agent
-                .add_extensions_bulk(extensions, &session_id)
+                .add_mcp_servers_bulk(extensions, &session_id)
                 .await
                 .unwrap();
 
@@ -2996,7 +2996,7 @@ mod tests {
                 std::future::pending::<()>().await;
             });
 
-            let extension = ExtensionConfig::streamable_http(
+            let extension = McpServerConfig::streamable_http(
                 "pending".to_string(),
                 format!("http://{address}"),
                 "Pending test extension".to_string(),
@@ -3011,7 +3011,7 @@ mod tests {
                 let session_id = session_id.clone();
                 async move {
                     agent
-                        .add_extensions_bulk(vec![extension], &session_id)
+                        .add_mcp_servers_bulk(vec![extension], &session_id)
                         .await
                 }
             });
@@ -3036,7 +3036,7 @@ mod tests {
         use async_trait::async_trait;
         use rmcp::model::{CallToolRequestParams, Tool};
         use sauron::agents::{AgentConfig, SessionConfig};
-        use sauron::config::{ExtensionConfig, PermissionManager, SauronMode};
+        use sauron::config::{McpServerConfig, PermissionManager, SauronMode};
         use sauron::conversation::message::{Message, MessageContent};
         use sauron::providers::base::{stream_from_single_message, MessageStream, Provider};
         use sauron::session::{SessionManager, SessionType};
@@ -3113,7 +3113,7 @@ mod tests {
         {
             let mcp = McpFixture::new().await;
             let extension =
-                ExtensionConfig::streamable_http("mcp-fixture", &mcp.url, "MCP fixture", 30_u64);
+                McpServerConfig::streamable_http("mcp-fixture", &mcp.url, "MCP fixture", 30_u64);
             let temp_dir = tempfile::tempdir()?;
             let session_manager = Arc::new(SessionManager::new(temp_dir.path().to_path_buf()));
             let permission_manager =
@@ -3145,7 +3145,7 @@ mod tests {
                     &session_id,
                 )
                 .await?;
-            agent.add_extension(extension, &session_id).await?;
+            agent.add_mcp_server(extension, &session_id).await?;
 
             let stream = agent
                 .reply(
@@ -3254,7 +3254,7 @@ mod tests {
             type Provider = Self;
 
             fn from_env(
-                _extensions: Vec<sauron::config::ExtensionConfig>,
+                _extensions: Vec<sauron::config::McpServerConfig>,
                 _tls_config: Option<sauron::providers::api_client::TlsConfig>,
             ) -> futures::future::BoxFuture<'static, anyhow::Result<Self>> {
                 unimplemented!()
@@ -3341,7 +3341,7 @@ mod tests {
             type Provider = Self;
 
             fn from_env(
-                _extensions: Vec<sauron::config::ExtensionConfig>,
+                _extensions: Vec<sauron::config::McpServerConfig>,
                 _tls_config: Option<sauron::providers::api_client::TlsConfig>,
             ) -> futures::future::BoxFuture<'static, anyhow::Result<Self>> {
                 unimplemented!()

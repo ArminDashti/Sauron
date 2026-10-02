@@ -8,6 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../..
 import BlockLogoBlack from './icons/block-lockup_black.png';
 import BlockLogoWhite from './icons/block-lockup_white.png';
 import TelemetrySettings from './TelemetrySettings';
+import WorktreeSettings from './WorktreeSettings';
 
 const i18n = defineMessages({
   appearanceTitle: { id: 'settings.appearance.title', defaultMessage: 'Appearance' },
@@ -179,6 +180,8 @@ export default function AppSettingsSection({ scrollToSection }: AppSettingsSecti
   return (
     <div className="space-y-4 pr-4 pb-8 mt-1">
       <TelemetrySettings />
+
+      <WorktreeSettings />
 
       <Card className="rounded-lg">
         <CardHeader className="pb-0">

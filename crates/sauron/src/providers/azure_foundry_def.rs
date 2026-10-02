@@ -7,7 +7,7 @@ use sauron_providers::api_client::{AuthMethod, AuthProvider, TlsConfig};
 use sauron_providers::azure_foundry::{endpoint_kind, AzureFoundryProvider, EndpointKind};
 use sauron_providers::base::{ProviderDescriptor, ProviderMetadata};
 
-use crate::config::{Config, ExtensionConfig};
+use crate::config::{Config, McpServerConfig};
 use crate::providers::azureauth::{AzureAuth, AzureCredentials};
 use crate::providers::base::ProviderDef;
 
@@ -69,7 +69,7 @@ impl ProviderDef for AzureFoundryProviderDef {
     type Provider = AzureFoundryProvider;
 
     fn from_env(
-        _extensions: Vec<ExtensionConfig>,
+        _extensions: Vec<McpServerConfig>,
         tls_config: Option<TlsConfig>,
     ) -> BoxFuture<'static, Result<Self::Provider>> {
         Box::pin(from_env(tls_config))

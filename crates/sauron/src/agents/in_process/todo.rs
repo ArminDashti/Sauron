@@ -1,8 +1,8 @@
-use crate::agents::extension::PlatformExtensionContext;
 use crate::agents::mcp_client::{Error, McpClientTrait};
+use crate::agents::mcp_server::InProcessContext;
 use crate::agents::tool_execution::ToolCallContext;
-use crate::session::extension_data;
-use crate::session::extension_data::ExtensionState;
+use crate::session::mcp_server_data;
+use crate::session::mcp_server_data::McpServerState;
 use anyhow::Result;
 use async_trait::async_trait;
 use indoc::indoc;
@@ -25,11 +25,11 @@ struct TodoWriteParams {
 
 pub struct TodoClient {
     info: InitializeResult,
-    context: PlatformExtensionContext,
+    context: InProcessContext,
 }
 
 impl TodoClient {
-    pub fn new(context: PlatformExtensionContext) -> Result<Self> {
+    pub fn new(context: InProcessContext) -> Result<Self> {
         let info = InitializeResult::new(ServerCapabilities::builder().enable_tools().build())
             .with_server_info(
                 Implementation::new(EXTENSION_NAME.to_string(), "1.0.0".to_string())
@@ -80,9 +80,9 @@ impl TodoClient {
         let manager = &self.context.session_manager;
         match manager.get_session(session_id, false).await {
             Ok(mut session) => {
-                let todo_state = extension_data::TodoState::new(content);
+                let todo_state = mcp_server_data::TodoState::new(content);
                 if todo_state
-                    .to_extension_data(&mut session.extension_data)
+                    .to_mcp_server_data(&mut session.extension_data)
                     .is_ok()
                 {
                     match manager
@@ -185,7 +185,7 @@ impl McpClientTrait for TodoClient {
             .await
             .ok()?;
 
-        match extension_data::TodoState::from_extension_data(&metadata.extension_data) {
+        match mcp_server_data::TodoState::from_mcp_server_data(&metadata.extension_data) {
             Some(state) if !state.content.trim().is_empty() => Some(format!(
                 "Planning notes (for your reference; items need not be closed out):\n{}\n",
                 state.content

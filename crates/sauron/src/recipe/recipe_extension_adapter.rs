@@ -1,4 +1,4 @@
-use crate::agents::extension::{Envs, ExtensionConfig};
+use crate::agents::mcp_server::{Envs, McpServerConfig};
 use serde::de::Deserializer;
 use serde::Deserialize;
 use std::collections::HashMap;
@@ -85,7 +85,7 @@ macro_rules! map_recipe_extensions {
                     name,
                     description,
                     $( $field ),*
-                } => ExtensionConfig::$variant {
+                } => McpServerConfig::$variant {
                     name,
                     description: description.unwrap_or_default(),
                     $( $field ),*
@@ -95,7 +95,7 @@ macro_rules! map_recipe_extensions {
     }};
 }
 
-impl From<RecipeExtensionConfigInternal> for ExtensionConfig {
+impl From<RecipeExtensionConfigInternal> for McpServerConfig {
     fn from(internal_variant: RecipeExtensionConfigInternal) -> Self {
         map_recipe_extensions!(
         internal_variant;
@@ -139,12 +139,12 @@ impl From<RecipeExtensionConfigInternal> for ExtensionConfig {
 
 pub fn deserialize_recipe_extensions<'de, D>(
     deserializer: D,
-) -> Result<Option<Vec<ExtensionConfig>>, D::Error>
+) -> Result<Option<Vec<McpServerConfig>>, D::Error>
 where
     D: Deserializer<'de>,
 {
     let remotes = Option::<Vec<RecipeExtensionConfigInternal>>::deserialize(deserializer)?;
-    Ok(remotes.map(|items| items.into_iter().map(ExtensionConfig::from).collect()))
+    Ok(remotes.map(|items| items.into_iter().map(McpServerConfig::from).collect()))
 }
 
 #[cfg(test)]
@@ -156,11 +156,11 @@ mod tests {
     #[derive(Deserialize)]
     struct Wrapper {
         #[serde(deserialize_with = "deserialize_recipe_extensions")]
-        extensions: Option<Vec<ExtensionConfig>>,
+        extensions: Option<Vec<McpServerConfig>>,
     }
 
     #[test]
-    fn builtin_extension_defaults_description() {
+    fn builtin_mcp_server_defaults_description() {
         let wrapper: Wrapper = serde_json::from_value(json!({
             "extensions": [{
                 "type": "builtin",
@@ -177,7 +177,7 @@ mod tests {
         assert_eq!(extensions.len(), 1);
 
         match &extensions[0] {
-            ExtensionConfig::Builtin {
+            McpServerConfig::Builtin {
                 name,
                 description,
                 display_name,
@@ -200,7 +200,7 @@ mod tests {
     }
 
     #[test]
-    fn builtin_extension_null_description_defaults_to_empty() {
+    fn builtin_mcp_server_null_description_defaults_to_empty() {
         let wrapper: Wrapper = serde_json::from_value(json!({
             "extensions": [{
                 "type": "builtin",
@@ -214,7 +214,7 @@ mod tests {
         assert_eq!(extensions.len(), 1);
 
         match &extensions[0] {
-            ExtensionConfig::Builtin {
+            McpServerConfig::Builtin {
                 name,
                 description,
                 display_name,
@@ -253,7 +253,7 @@ mod tests {
         assert_eq!(extensions.len(), 1);
 
         match &extensions[0] {
-            ExtensionConfig::Stdio { envs, .. } => {
+            McpServerConfig::Stdio { envs, .. } => {
                 let map = envs.get_env();
                 assert!(!map.contains_key("LD_PRELOAD"));
                 assert_eq!(map.get("SAFE_VAR"), Some(&"ok".to_string()));

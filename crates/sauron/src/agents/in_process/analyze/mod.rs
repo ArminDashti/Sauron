@@ -3,8 +3,8 @@ pub mod graph;
 pub mod languages;
 pub mod parser;
 
-use crate::agents::extension::PlatformExtensionContext;
 use crate::agents::mcp_client::{Error, McpClientTrait};
+use crate::agents::mcp_server::InProcessContext;
 use crate::agents::tool_execution::ToolCallContext;
 use anyhow::Result;
 use async_trait::async_trait;
@@ -54,7 +54,7 @@ pub struct AnalyzeClient {
 }
 
 impl AnalyzeClient {
-    pub fn new(_context: PlatformExtensionContext) -> Result<Self> {
+    pub fn new(_context: InProcessContext) -> Result<Self> {
         let info = InitializeResult::new(ServerCapabilities::builder().enable_tools().build())
             .with_server_info(Implementation::new(EXTENSION_NAME, "1.0.0").with_title("Analyze"))
             .with_instructions(indoc! {"
@@ -275,9 +275,9 @@ mod tests {
     use std::sync::Arc;
     use tempfile::tempdir;
 
-    fn ctx() -> PlatformExtensionContext {
-        PlatformExtensionContext {
-            extension_manager: None,
+    fn ctx() -> InProcessContext {
+        InProcessContext {
+            mcp_manager: None,
             session_manager: Arc::new(SessionManager::new(std::env::temp_dir())),
             scheduler: None,
             session: None,

@@ -5285,4 +5285,17 @@
   "usageStats.writeTokens": {
     "defaultMessage": "Write tokens"
   }
+,
+  "worktreeSettings.description": {
+    "defaultMessage": "作業ディレクトリピッカーが提供するディレクトリを制御します"
+  },
+  "worktreeSettings.title": {
+    "defaultMessage": "Git ワークツリー"
+  },
+  "worktreeSettings.toggleDescription": {
+    "defaultMessage": "現在のリポジトリの他のワークツリーを作業ディレクトリピッカーに表示します。"
+  },
+  "worktreeSettings.toggleLabel": {
+    "defaultMessage": "Git ワークツリーを考慳する"
+  }
 }

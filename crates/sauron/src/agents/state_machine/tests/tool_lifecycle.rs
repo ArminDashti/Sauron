@@ -287,7 +287,7 @@ async fn approvals_and_per_tool_permissions() -> Result<()> {
     assert_eq!(pipeline.calculator_total(), 4);
 
     let pipeline = pipeline.with_sauron_mode(SauronMode::Auto).await;
-    pipeline.add_extension("developer").await?;
+    pipeline.add_mcp_server("developer").await?;
     api.on("run a dangerous command").calls([(
         "dangerous",
         "shell",
@@ -434,7 +434,7 @@ async fn tool_availability_tracks_mode_and_extension_removal() -> Result<()> {
     let (pipeline, api) = test_pipeline().await?;
 
     api.on("install the extra extension").call(
-        crate::agents::platform_extensions::MANAGE_EXTENSIONS_TOOL_NAME_COMPLETE,
+        crate::agents::in_process::MANAGE_EXTENSIONS_TOOL_NAME_COMPLETE,
         json!({
             "action": "enable",
             "extension_name": "analyze"
@@ -457,7 +457,7 @@ async fn tool_availability_tracks_mode_and_extension_removal() -> Result<()> {
     assert_eq!(pipeline.calculator_total(), 0);
 
     let pipeline = pipeline.with_sauron_mode(SauronMode::Auto).await;
-    pipeline.remove_extension("calculator").await?;
+    pipeline.remove_mcp_server("calculator").await?;
     api.on("continue without the calculator")
         .reply("calculator removed");
     let result = pipeline.run(["continue without the calculator"]).await?;

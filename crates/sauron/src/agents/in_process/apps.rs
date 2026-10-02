@@ -1,5 +1,5 @@
-use crate::agents::extension::PlatformExtensionContext;
 use crate::agents::mcp_client::{Error, McpClientTrait};
+use crate::agents::mcp_server::InProcessContext;
 use crate::agents::reply_parts::{
     coerce_tool_arguments, prepare_tools_for_provider, toolshim_postprocess,
 };
@@ -128,12 +128,12 @@ struct UpdateAppContentResponse {
 
 pub struct AppsManagerClient {
     info: InitializeResult,
-    context: PlatformExtensionContext,
+    context: InProcessContext,
     apps_dir: PathBuf,
 }
 
 impl AppsManagerClient {
-    pub fn new(context: PlatformExtensionContext) -> Result<Self, String> {
+    pub fn new(context: InProcessContext) -> Result<Self, String> {
         let apps_dir = Paths::in_data_dir(EXTENSION_NAME);
 
         fs::create_dir_all(&apps_dir)
@@ -263,14 +263,14 @@ impl AppsManagerClient {
     }
 
     async fn get_provider(&self) -> Result<Arc<dyn Provider>, String> {
-        let extension_manager = self
+        let mcp_manager = self
             .context
-            .extension_manager
+            .mcp_manager
             .as_ref()
             .and_then(|weak| weak.upgrade())
             .ok_or("Extension manager not available")?;
 
-        let provider_guard = extension_manager.get_provider().lock().await;
+        let provider_guard = mcp_manager.get_provider().lock().await;
 
         let provider = provider_guard
             .as_ref()
@@ -831,8 +831,8 @@ mod tests {
     fn test_client(apps_dir: PathBuf) -> AppsManagerClient {
         AppsManagerClient {
             info: AppsManagerClient::create_info(),
-            context: PlatformExtensionContext {
-                extension_manager: None,
+            context: InProcessContext {
+                mcp_manager: None,
                 session_manager: Arc::new(SessionManager::new(apps_dir.join("sessions"))),
                 scheduler: None,
                 session: None,

@@ -4,6 +4,7 @@ use anyhow::Result;
 use async_trait::async_trait;
 use rmcp::model::{CallToolResult, ContentBlock, ErrorCode, ErrorData};
 use tracing_futures::Instrument;
+use std::path::Path;
 
 use crate::agents::final_output_tool::FINAL_OUTPUT_TOOL_NAME;
 use crate::agents::state_machine::effects::SauronEffect;
@@ -156,7 +157,7 @@ impl Operation<Session, SauronEffect> for UnknownToolOperation {
                                     emit_post_tool_use(
                                         &self.hook_manager,
                                         &session.id,
-                                        &session.working_dir.to_string_lossy(),
+                                        &session.working_dir.as_deref().unwrap_or(Path::new(".")).to_string_lossy(),
                                         &tool_call.name,
                                         &request.id,
                                         tool_input.as_ref(),

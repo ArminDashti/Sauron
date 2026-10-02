@@ -19,18 +19,14 @@ impl SauronAcpAgent {
             .map(str::trim)
             .filter(|session_id| !session_id.is_empty())
         {
-            Some(
-                self.session_manager
-                    .get_session(session_id, false)
-                    .await
-                    .map_err(|_| {
-                        agent_client_protocol::Error::resource_not_found(Some(
-                            session_id.to_string(),
-                        ))
+            self.session_manager
+                .get_session(session_id, false)
+                .await
+                .map_err(|_| {
+                    agent_client_protocol::Error::resource_not_found(Some(session_id.to_string()))
                         .data(format!("Session not found: {}", session_id))
-                    })?
-                    .working_dir,
-            )
+                })?
+                .working_dir
         } else {
             None
         };

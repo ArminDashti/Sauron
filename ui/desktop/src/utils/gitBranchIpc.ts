@@ -38,6 +38,18 @@ ipcMain.handle(
   }
 );
 
+ipcMain.handle(
+  'get-git-origin-url',
+  async (_event, dir: string): Promise<string | null> => {
+    if (!dir?.trim()) return null;
+    try {
+      return await git(dir, ['remote', 'get-url', 'origin']);
+    } catch {
+      return null;
+    }
+  }
+);
+
 ipcMain.handle('list-git-branches', async (_event, dir: string): Promise<string[]> => {
   if (!dir?.trim()) return [];
 

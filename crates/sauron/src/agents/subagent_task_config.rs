@@ -1,4 +1,4 @@
-use crate::agents::ExtensionConfig;
+use crate::agents::McpServerConfig;
 use crate::config::Config;
 use crate::providers::base::Provider;
 use std::fmt;
@@ -15,7 +15,7 @@ pub struct TaskConfig {
     pub model_config: sauron_providers::model::ModelConfig,
     pub parent_session_id: String,
     pub parent_working_dir: PathBuf,
-    pub extensions: Vec<ExtensionConfig>,
+    pub extensions: Vec<McpServerConfig>,
     pub max_turns: Option<usize>,
 }
 
@@ -37,7 +37,7 @@ impl TaskConfig {
         model_config: sauron_providers::model::ModelConfig,
         parent_session_id: &str,
         parent_working_dir: &Path,
-        extensions: Vec<ExtensionConfig>,
+        extensions: Vec<McpServerConfig>,
     ) -> Self {
         Self {
             provider,

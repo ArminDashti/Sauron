@@ -607,7 +607,7 @@ impl Agent {
         tool_input: Option<&Value>,
         session: &Session,
     ) {
-        let working_dir = session.working_dir.to_string_lossy().to_string();
+        let working_dir = session.working_dir.as_deref().unwrap_or(Path::new(".")).to_string_lossy().to_string();
         match categorize_tool(tool_name) {
             ToolCategory::Shell => {
                 if let Some(cmd) = tool_input.and_then(|v| extract_string_arg(v, &["command"])) {
@@ -680,7 +680,7 @@ impl Agent {
             crate::hooks::HookContext::new(crate::hooks::HookEvent::PreToolUseResult, &session.id)
                 .with_tool(tool_name.to_string(), tool_input.cloned())
                 .with_tool_call_id(tool_call_id)
-                .with_working_dir(session.working_dir.to_string_lossy().to_string())
+                .with_working_dir(session.working_dir.as_deref().unwrap_or(Path::new(".")).to_string_lossy().to_string())
                 .with_pre_tool_use_outcome(outcome);
         self.hook_manager.emit_pre_tool_use_result(ctx).await;
     }

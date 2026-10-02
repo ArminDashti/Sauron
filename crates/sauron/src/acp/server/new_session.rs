@@ -1,9 +1,11 @@
 use crate::acp::custom_requests::SauronExtension;
-use crate::acp::server::{meta_string, validate_absolute_cwd, ResultExt};
-use crate::agents::ExtensionLoadResult;
+use crate::acp::server::{
+    enabled_extensions_data, meta_string, validate_absolute_cwd, ResultExt,
+};
+use crate::agents::McpServerLoadResult;
 use crate::config::{Config, SauronMode};
 use crate::recipe::{Recipe, Settings};
-use crate::session::{ExtensionData, Session, SessionType};
+use crate::session::{McpServerData, Session, SessionType};
 
 use super::SauronAcpAgent;
 use agent_client_protocol::schema::v1::{Meta, NewSessionRequest, NewSessionResponse, SessionId};
@@ -17,7 +19,7 @@ use tracing::warn;
 struct InitialSessionConfig {
     provider: String,
     model_config: ModelConfig,
-    extension_data: ExtensionData,
+    extension_data: McpServerData,
     recipe: Option<Recipe>,
     user_recipe_values: Option<HashMap<String, String>>,
     meta: NewSessionMetaFields,
@@ -30,6 +32,31 @@ struct NewSessionMetaFields {
     /// Client-supplied title, recorded as user-set so sauron's own name
     /// generation leaves it alone. `None` when a recipe title took precedence.
     client_title: Option<String>,
+    /// The client asked for a chat-only session: no folder, no repository, and
+    /// no filesystem- or shell-backed tools.
+    chat_only: bool,
+}
+
+impl SauronAcpAgent {
+    /// Resolve the directory a new session is attached to.
+    ///
+    /// A chat-only session has none. Otherwise the host-imposed cwd wins (e.g.
+    /// roaming, where the connector's absolute path is meaningless on this
+    /// machine), falling back to the client's cwd, which must be absolute and
+    /// exist.
+    fn resolve_requested_working_dir(
+        &self,
+        args: &mut NewSessionRequest,
+        chat_only: bool,
+    ) -> Result<Option<PathBuf>, agent_client_protocol::Error> {
+        if let Some(host_cwd) = &self.session_cwd {
+            args.cwd = host_cwd.clone();
+        } else if chat_only {
+            return Ok(None);
+        }
+        validate_absolute_cwd(&args.cwd)?;
+        Ok(Some(args.cwd.clone()))
+    }
 }
 
 impl SauronAcpAgent {
@@ -38,18 +65,12 @@ impl SauronAcpAgent {
         cx: &ConnectionTo<Client>,
         mut args: NewSessionRequest,
     ) -> Result<NewSessionResponse, agent_client_protocol::Error> {
-        // When the host imposes a working directory (e.g. roaming, where the
-        // connector's absolute path is meaningless on this machine), ignore the
-        // cwd the client sent and use the host-controlled one instead.
-        if let Some(host_cwd) = &self.session_cwd {
-            args.cwd = host_cwd.clone();
-        }
-        validate_absolute_cwd(&args.cwd)?;
+        let meta = new_session_meta_fields(args.meta.as_ref())?;
+        let working_dir = self.resolve_requested_working_dir(&mut args, meta.chat_only)?;
         let config = Config::global();
         let session_type = session_type_from_meta(args.meta.as_ref())?;
         let current_mode: SauronMode = config.get_sauron_mode().unwrap_or_default();
         let recipe = self.resolve_recipe_from_meta(args.meta.as_ref()).await?;
-        let meta = new_session_meta_fields(args.meta.as_ref(), recipe.as_ref())?;
         let session_name = recipe_title(recipe.as_ref())
             .map(str::to_string)
             .or_else(|| meta.client_title.clone())
@@ -57,7 +78,7 @@ impl SauronAcpAgent {
 
         let session = self
             .session_manager
-            .create_session(args.cwd.clone(), session_name, session_type, current_mode)
+            .create_session(working_dir, session_name, session_type, current_mode)
             .await
             .internal_err_ctx("Failed to create session")?;
         match self
@@ -150,13 +171,19 @@ impl SauronAcpAgent {
 
         let sauron_extensions = meta_sauron_extensions(args.meta.as_ref())?;
         let recipe_extensions = rendered.as_ref().and_then(|r| r.extensions.as_deref());
-        let extension_data = self.build_enabled_extensions_data(
-            config,
-            session,
-            args.mcp_servers,
-            sauron_extensions,
-            recipe_extensions,
-        )?;
+        let extension_data = if meta.chat_only {
+            // A chat-only session has no folder to scope extensions to, so it
+            // runs with none rather than inheriting the user's global set.
+            enabled_extensions_data(session, Vec::new())?
+        } else {
+            self.build_enabled_extensions_data(
+                config,
+                session,
+                args.mcp_servers,
+                sauron_extensions,
+                recipe_extensions,
+            )?
+        };
 
         self.apply_initial_session_config(
             &session.id,
@@ -253,7 +280,7 @@ impl SauronAcpAgent {
     async fn build_new_session_response(
         &self,
         session: &Session,
-        extension_results: &[ExtensionLoadResult],
+        extension_results: &[McpServerLoadResult],
         effort_support: &ThinkingEffortSupport,
     ) -> Result<NewSessionResponse, agent_client_protocol::Error> {
         let (mode_state, config_options) =
@@ -321,6 +348,7 @@ fn new_session_meta_fields(
         // precedence it has today and a client title only replaces the
         // "New Chat" fallback.
         client_title: session_title.filter(|_| recipe_title(recipe).is_none()),
+        chat_only: meta_bool(meta, "chatOnly")?,
     })
 }
 

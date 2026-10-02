@@ -1,5 +1,5 @@
 use crate::action_required_manager::{ActionRequiredManager, ElicitationOutcome};
-use crate::agents::extension_manager::ExtensionManager;
+use crate::agents::mcp_manager::McpManager;
 use crate::agents::tool_execution::ToolCallContext;
 use crate::session_context::{SESSION_ID_HEADER, TOOL_CALL_REQUEST_ID_HEADER, WORKING_DIR_HEADER};
 #[expect(deprecated)]
@@ -177,7 +177,7 @@ pub struct SauronClient {
     capabilities: SauronMcpClientCapabilities,
     working_dir: Arc<tokio::sync::RwLock<PathBuf>>,
     action_required: Arc<ActionRequiredManager>,
-    extension_manager: Weak<ExtensionManager>,
+    mcp_manager: Weak<McpManager>,
 }
 
 impl SauronClient {
@@ -187,7 +187,7 @@ impl SauronClient {
         capabilities: SauronMcpClientCapabilities,
         working_dir: PathBuf,
         action_required: Arc<ActionRequiredManager>,
-        extension_manager: Weak<ExtensionManager>,
+        mcp_manager: Weak<McpManager>,
     ) -> Self {
         SauronClient {
             notification_handlers: handlers,
@@ -197,7 +197,7 @@ impl SauronClient {
             capabilities,
             working_dir: Arc::new(tokio::sync::RwLock::new(working_dir)),
             action_required,
-            extension_manager,
+            mcp_manager,
         }
     }
 
@@ -215,10 +215,8 @@ impl SauronClient {
     }
 
     async fn handle_tool_list_changed(&self) {
-        if let Some(extension_manager) = self.extension_manager.upgrade() {
-            extension_manager
-                .invalidate_tools_cache_and_bump_version()
-                .await;
+        if let Some(mcp_manager) = self.mcp_manager.upgrade() {
+            mcp_manager.invalidate_tools_cache_and_bump_version().await;
         }
     }
 
@@ -511,7 +509,7 @@ pub(crate) struct ConnectContext {
     pub working_dir: PathBuf,
     pub docker_container: Option<String>,
     pub action_required: Arc<ActionRequiredManager>,
-    pub extension_manager: Weak<ExtensionManager>,
+    pub mcp_manager: Weak<McpManager>,
 }
 
 /// The MCP client is the interface for MCP operations.
@@ -539,7 +537,7 @@ impl McpClient {
             working_dir,
             docker_container,
             action_required,
-            extension_manager,
+            mcp_manager,
         } = ctx;
         let notification_subscribers =
             Arc::new(Mutex::new(Vec::<mpsc::Sender<ServerNotification>>::new()));
@@ -550,7 +548,7 @@ impl McpClient {
             capabilities.clone(),
             working_dir,
             action_required,
-            extension_manager,
+            mcp_manager,
         );
         let client: rmcp::service::RunningService<rmcp::RoleClient, SauronClient> =
             if let Some(protocol_version) = capabilities.protocol_version {
@@ -1036,7 +1034,7 @@ fn inject_session_context_into_request(
 mod tests {
     use super::*;
 
-    use crate::agents::extension::ExtensionConfig;
+    use crate::agents::mcp_server::McpServerConfig;
     use crate::agents::SauronPlatform;
     use rmcp::model::Tool;
     use serde_json::json;
@@ -1122,7 +1120,7 @@ mod tests {
     #[tokio::test]
     async fn tool_list_changed_during_fetch_prevents_stale_cache() {
         let temp_dir = tempfile::tempdir().unwrap();
-        let extension_manager = Arc::new(ExtensionManager::new_without_provider(
+        let mcp_manager = Arc::new(McpManager::new_without_provider(
             temp_dir.path().to_path_buf(),
         ));
         let tools_client = Arc::new(BlockingToolsClient {
@@ -1130,7 +1128,7 @@ mod tests {
             first_fetch_started: Semaphore::new(0),
             release_first_fetch: Semaphore::new(0),
         });
-        let config = ExtensionConfig::Builtin {
+        let config = McpServerConfig::Builtin {
             name: "dynamic".to_string(),
             display_name: Some("dynamic".to_string()),
             description: "dynamic tools".to_string(),
@@ -1138,7 +1136,7 @@ mod tests {
             bundled: None,
             available_tools: vec![],
         };
-        extension_manager
+        mcp_manager
             .add_client("dynamic".to_string(), config, tools_client.clone(), None)
             .await;
 
@@ -1153,10 +1151,10 @@ mod tests {
             },
             temp_dir.path().to_path_buf(),
             Arc::new(ActionRequiredManager::new()),
-            Arc::downgrade(&extension_manager),
+            Arc::downgrade(&mcp_manager),
         );
 
-        let manager = extension_manager.clone();
+        let manager = mcp_manager.clone();
         let first_fetch = tokio::spawn(async move {
             manager
                 .get_prefixed_tools("test-session", None)
@@ -1171,7 +1169,7 @@ mod tests {
         let stale_result = first_fetch.await.unwrap();
         assert!(stale_result.iter().any(|tool| tool.name == "dynamic__old"));
 
-        let refreshed = extension_manager
+        let refreshed = mcp_manager
             .get_prefixed_tools("test-session", None)
             .await
             .unwrap();

@@ -10,8 +10,8 @@ use rmcp::model::{CallToolRequestParams, CallToolResult};
 use rmcp::object;
 use tokio_util::sync::CancellationToken;
 
-use sauron::agents::extension::{Envs, ExtensionConfig};
-use sauron::agents::extension_manager::{ExtensionManager, ExtensionManagerCapabilities};
+use sauron::agents::mcp_manager::{McpManager, McpManagerCapabilities};
+use sauron::agents::mcp_server::{Envs, McpServerConfig};
 use sauron::agents::SauronPlatform;
 
 use test_case::test_case;
@@ -187,7 +187,7 @@ async fn test_replayed_session(
     }
 
     let envs = Envs::new(env);
-    let extension_config = ExtensionConfig::Stdio {
+    let extension_config = McpServerConfig::Stdio {
         name: "test".to_string(),
         description: "Test".to_string(),
         cmd,
@@ -204,12 +204,12 @@ async fn test_replayed_session(
     let session_manager = Arc::new(sauron::session::SessionManager::new(
         temp_dir.path().to_path_buf(),
     ));
-    let extension_manager = Arc::new(ExtensionManager::new(
+    let mcp_manager = Arc::new(McpManager::new(
         Arc::new(tokio::sync::Mutex::new(None)),
         session_manager,
         None,
         SauronPlatform::SauronDesktop.to_string(),
-        ExtensionManagerCapabilities {
+        McpManagerCapabilities {
             mcpui: true,
             host_info: None,
             elicitation_handler: None,
@@ -220,8 +220,8 @@ async fn test_replayed_session(
 
     #[allow(clippy::redundant_closure_call)]
     let result = (async || -> Result<(), Box<dyn std::error::Error>> {
-        extension_manager
-            .add_extension(extension_config, None, None, None)
+        mcp_manager
+            .add_mcp_server(extension_config, None, None, None)
             .await?;
         let mut results = Vec::new();
         for tool_call in tool_calls {
@@ -235,7 +235,7 @@ async fn test_replayed_session(
                 None,
                 Some("test-id".to_string()),
             );
-            let result = extension_manager
+            let result = mcp_manager
                 .dispatch_tool_call(&ctx, tool_call, CancellationToken::default())
                 .await;
 

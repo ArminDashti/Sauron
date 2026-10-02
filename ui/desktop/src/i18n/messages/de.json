@@ -5285,4 +5285,17 @@
   "usageStats.writeTokens": {
     "defaultMessage": "Write tokens"
   }
+,
+  "worktreeSettings.description": {
+    "defaultMessage": "Steuern, welche Verzeichnisse die Arbeitsverzeichnis-Auswahl anbietet"
+  },
+  "worktreeSettings.title": {
+    "defaultMessage": "Git-Worktrees"
+  },
+  "worktreeSettings.toggleDescription": {
+    "defaultMessage": "Die anderen Worktrees des aktuellen Repositorys in der Arbeitsverzeichnis-Auswahl anzeigen."
+  },
+  "worktreeSettings.toggleLabel": {
+    "defaultMessage": "Git-Worktrees berücksichtigen"
+  }
 }

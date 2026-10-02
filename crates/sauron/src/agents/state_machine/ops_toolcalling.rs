@@ -1,14 +1,15 @@
 //! Exposes extension capabilities and executes requests that belong to them.
 
 use std::collections::{HashMap, HashSet};
+use std::path::Path;
 
 use anyhow::{anyhow, Result};
 use async_trait::async_trait;
 use futures::{FutureExt, StreamExt};
 use rmcp::model::{CallToolRequestParams, CallToolResult, ContentBlock, ErrorData, Role, Tool};
 
-use crate::agents::extension_manager::ExtensionManager;
-use crate::agents::platform_extensions::MANAGE_EXTENSIONS_TOOL_NAME_COMPLETE;
+use crate::agents::in_process::MANAGE_EXTENSIONS_TOOL_NAME_COMPLETE;
+use crate::agents::mcp_manager::McpManager;
 use crate::agents::state_machine::ops_llm::{ADVERTISED_TOOLS_NOTE, LLM_OPERATION_NAME};
 use crate::agents::state_machine::ops_tool_approval::request_executable;
 use crate::agents::state_machine::{
@@ -24,7 +25,7 @@ use crate::conversation::message::{ActionRequiredData, Message, MessageContent, 
 use crate::conversation::Conversation;
 use crate::hints::load_hints::SubdirectoryHintTracker;
 use crate::hooks::{HookChainOutcome, HookContext, HookEvent, HookManager};
-use crate::session::{EnabledExtensionsState, ExtensionState, Session};
+use crate::session::{EnabledExtensionsState, McpServerState, Session};
 use std::sync::Arc;
 use tokio::sync::Mutex;
 use tokio_util::sync::CancellationToken;
@@ -244,7 +245,7 @@ pub(super) fn with_post_tool_hooks(
 ) -> ToolCallResult {
     let hook_manager = hook_manager.clone();
     let session_id = session.id.clone();
-    let working_dir = session.working_dir.to_string_lossy().to_string();
+    let working_dir = session.working_dir.as_deref().unwrap_or(Path::new(".")).to_string_lossy().to_string();
     let tool_name = tool_call.name.to_string();
     let tool_call_id = tool_call_id.to_string();
     let tool_input = tool_call
@@ -314,19 +315,19 @@ pub(super) fn with_post_tool_hooks(
 
 pub struct ToolExecutionOperation<'a> {
     sauron_mode: &'a Mutex<SauronMode>,
-    extension_manager: Arc<ExtensionManager>,
+    mcp_manager: Arc<McpManager>,
     hook_manager: HookManager,
 }
 
 impl<'a> ToolExecutionOperation<'a> {
     pub fn new(
         sauron_mode: &'a Mutex<SauronMode>,
-        extension_manager: Arc<ExtensionManager>,
+        mcp_manager: Arc<McpManager>,
         hook_manager: HookManager,
     ) -> Self {
         Self {
             sauron_mode,
-            extension_manager,
+            mcp_manager,
             hook_manager,
         }
     }
@@ -370,7 +371,7 @@ impl<'a> ToolExecutionOperation<'a> {
                 Some(request_id.clone()),
             );
             let result = self
-                .extension_manager
+                .mcp_manager
                 .dispatch_tool_call(&context, tool_call.clone(), cancellation_token)
                 .await;
             let result = result.unwrap_or_else(|error| {
@@ -395,10 +396,10 @@ impl<'a> ToolExecutionOperation<'a> {
     }
 
     async fn extension_state_effect(&self, session: &Session) -> Result<SauronEffect> {
-        let extension_configs = self.extension_manager.get_extension_configs().await;
-        let extensions_state = EnabledExtensionsState::new(extension_configs);
+        let mcp_server_configs = self.mcp_manager.get_extension_configs().await;
+        let extensions_state = EnabledExtensionsState::new(mcp_server_configs);
         let mut extension_data = session.extension_data.clone();
-        extensions_state.to_extension_data(&mut extension_data)?;
+        extensions_state.to_mcp_server_data(&mut extension_data)?;
         Ok(SauronEffect::SetExtensionData(extension_data))
     }
 
@@ -440,7 +441,7 @@ impl<'a> ToolExecutionOperation<'a> {
         emit: &Emitter,
     ) -> Result<OperationResult<SauronEffect>> {
         let prompts = match self
-            .extension_manager
+            .mcp_manager
             .list_prompts(&session.id, emit.cancel_token().clone())
             .await
         {
@@ -503,7 +504,7 @@ impl<'a> ToolExecutionOperation<'a> {
             .await;
         };
         let prompts = match self
-            .extension_manager
+            .mcp_manager
             .list_prompts(&session.id, emit.cancel_token().clone())
             .await
         {
@@ -558,7 +559,7 @@ impl<'a> ToolExecutionOperation<'a> {
             .map(|(key, value)| (key.to_string(), value.trim_matches('"').to_string()))
             .collect();
         let result = match self
-            .extension_manager
+            .mcp_manager
             .get_prompt(
                 &session.id,
                 &extension,
@@ -755,7 +756,7 @@ impl Operation<Session, SauronEffect> for ToolExecutionOperation<'_> {
 
     async fn inference_tools(&self, session: &Session) -> Result<Vec<Tool>> {
         let tools = self
-            .extension_manager
+            .mcp_manager
             .get_prefixed_tools_excluding(&session.id, crate::skills::EXTENSION_NAME)
             .await
             .unwrap_or_default();
@@ -767,7 +768,7 @@ impl Operation<Session, SauronEffect> for ToolExecutionOperation<'_> {
         session: &Session,
         _conversation: &Conversation,
     ) -> Result<Vec<String>> {
-        Ok(self.extension_manager.collect_moim_parts(&session.id).await)
+        Ok(self.mcp_manager.collect_moim_parts(&session.id).await)
     }
 
     async fn prompt_parts(
@@ -780,28 +781,33 @@ impl Operation<Session, SauronEffect> for ToolExecutionOperation<'_> {
             for content in &message.content {
                 if let MessageContent::ToolRequest(request) = content {
                     if let Ok(tool_call) = &request.tool_call {
-                        hints.record_tool_arguments(&tool_call.arguments, &session.working_dir);
+                        if let Some(working_dir) = session.working_dir.as_deref() {
+                            hints.record_tool_arguments(&tool_call.arguments, working_dir);
+                        }
                     }
                 }
             }
         }
-        let mut prompt_parts = hints.load_new_hints(&session.working_dir);
+        let mut prompt_parts = if let Some(working_dir) = session.working_dir.as_deref() {
+            hints.load_new_hints(working_dir)
+        } else {
+            Vec::new()
+        };
 
         #[cfg(feature = "code-mode")]
         if self
-            .extension_manager
-            .is_extension_enabled(
-                crate::agents::platform_extensions::code_execution::EXTENSION_NAME,
-            )
+            .mcp_manager
+            .is_mcp_server_enabled(crate::agents::in_process::code_execution::EXTENSION_NAME)
             .await
         {
             return Ok(prompt_parts);
         }
 
-        let mut extensions = self
-            .extension_manager
-            .get_extensions_info(&session.working_dir)
-            .await;
+        let mut extensions = if let Some(working_dir) = session.working_dir.as_deref() {
+            self.mcp_manager.get_extensions_info(working_dir).await
+        } else {
+            Vec::new()
+        };
         extensions.retain(|extension| extension.name != crate::skills::EXTENSION_NAME);
         if extensions.is_empty() {
             return Ok(prompt_parts);
@@ -842,7 +848,7 @@ impl Operation<Session, SauronEffect> for ToolExecutionOperation<'_> {
         }
 
         let known_tools: HashSet<_> = self
-            .extension_manager
+            .mcp_manager
             .get_prefixed_tools_excluding(&session.id, crate::skills::EXTENSION_NAME)
             .await
             .unwrap_or_default()

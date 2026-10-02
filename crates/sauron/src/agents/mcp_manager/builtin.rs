@@ -1,20 +1,20 @@
 use std::collections::HashMap;
 
 use super::super::container::Container;
-use super::super::extension::{ExtensionError, ExtensionResult};
 use super::super::mcp_client::{ConnectContext, McpClient, McpClientTrait};
+use super::super::mcp_server::{McpServerError, McpServerResult};
 use super::stdio;
-use crate::builtin_extension::get_builtin_extension;
-use crate::config::extensions::name_to_key;
+use crate::builtin_mcp_server::get_builtin_mcp_server;
+use crate::config::mcp_servers::name_to_key;
 
 pub(super) async fn connect(
     name: &str,
     container: Option<&Container>,
     mut ctx: ConnectContext,
-) -> ExtensionResult<Box<dyn McpClientTrait>> {
+) -> McpServerResult<Box<dyn McpClientTrait>> {
     let key = name_to_key(name);
-    let extension_fn = get_builtin_extension(&key)
-        .ok_or_else(|| ExtensionError::ConfigError(format!("Unknown extension: {}", name)))?;
+    let extension_fn = get_builtin_mcp_server(&key)
+        .ok_or_else(|| McpServerError::ConfigError(format!("Unknown extension: {}", name)))?;
 
     if let Some(container) = container {
         ctx.docker_container = Some(container.id().to_string());

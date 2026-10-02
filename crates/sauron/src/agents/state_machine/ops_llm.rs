@@ -12,7 +12,7 @@ use sauron_providers::conversation::token_usage::ProviderUsage;
 use sauron_providers::errors::ProviderError;
 use sauron_providers::model::ModelConfig;
 
-use crate::agents::extension_manager::{get_tool_owner, recover_mangled_tool_name};
+use crate::agents::mcp_manager::{get_tool_owner, recover_mangled_tool_name};
 use crate::agents::state_machine::SauronEffect;
 
 pub(super) use sauron_agent::inference::{chat_span, record_chat_usage};

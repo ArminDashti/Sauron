@@ -5285,4 +5285,17 @@
   "usageStats.writeTokens": {
     "defaultMessage": "Write tokens"
   }
+,
+  "worktreeSettings.description": {
+    "defaultMessage": "Kawal direktori yang ditawarkan oleh pemilih direktori kerja"
+  },
+  "worktreeSettings.title": {
+    "defaultMessage": "Worktree Git"
+  },
+  "worktreeSettings.toggleDescription": {
+    "defaultMessage": "Senaraikan worktree lain dalam repositori semasa dalam pemilih direktori kerja."
+  },
+  "worktreeSettings.toggleLabel": {
+    "defaultMessage": "Pertimbangkan worktree Git"
+  }
 }

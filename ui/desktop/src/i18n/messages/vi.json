@@ -5285,4 +5285,17 @@
   "usageStats.writeTokens": {
     "defaultMessage": "Write tokens"
   }
+,
+  "worktreeSettings.description": {
+    "defaultMessage": "Kiểm soát những thư mục mà bộ chọn thư mục làm việc cung cấp"
+  },
+  "worktreeSettings.title": {
+    "defaultMessage": "Worktree Git"
+  },
+  "worktreeSettings.toggleDescription": {
+    "defaultMessage": "Liệt kê các worktree khác của kho lưu trỡ hiện tại trong bộ chọn thư mục làm việc."
+  },
+  "worktreeSettings.toggleLabel": {
+    "defaultMessage": "Cân nhắc worktree Git"
+  }
 }

@@ -17,8 +17,8 @@ use tokio_util::sync::CancellationToken;
 use tracing::warn;
 
 use super::container::Container;
-use super::extension::{
-    ExtensionConfig, ExtensionInfo, ExtensionResult, PlatformExtensionContext, PLATFORM_EXTENSIONS,
+use super::mcp_server::{
+    InProcessContext, McpServerConfig, McpServerInfo, McpServerResult, IN_PROCESS_SERVERS,
 };
 use super::tool_execution::{ToolCallContext, ToolCallNotificationEmitter, ToolCallResult};
 use super::types::SharedProvider;
@@ -27,7 +27,7 @@ use crate::agents::mcp_client::{
     ConnectContext, McpClientTrait, SauronMcpClientCapabilities, SauronMcpHostInfo,
 };
 use crate::agents::reply_parts::is_tool_visible_to_app;
-use crate::config::extensions::name_to_key;
+use crate::config::mcp_servers::name_to_key;
 use crate::config::Config;
 use crate::oauth::SauronCredentialStore;
 use rmcp::model::{
@@ -102,12 +102,12 @@ fn resolve_timeout(timeout: Option<u64>) -> u64 {
 }
 
 struct Extension {
-    pub config: ExtensionConfig,
+    pub config: McpServerConfig,
     /// Resolved config snapshot (with secrets from keyring substituted)
     /// captured at client-creation time. Used to detect secret rotation
     /// without re-reading the keyring on every comparison. Only held in
     /// memory — never serialized to disk.
-    resolved_config: ExtensionConfig,
+    resolved_config: McpServerConfig,
 
     client: McpClientBox,
     server_info: Option<ServerConfig>,
@@ -115,8 +115,8 @@ struct Extension {
 
 impl Extension {
     fn new(
-        config: ExtensionConfig,
-        resolved_config: ExtensionConfig,
+        config: McpServerConfig,
+        resolved_config: McpServerConfig,
         client: McpClientBox,
         server_info: Option<ServerConfig>,
     ) -> Self {
@@ -144,7 +144,7 @@ impl Extension {
     }
 }
 
-pub struct ExtensionManagerCapabilities {
+pub struct McpManagerCapabilities {
     pub mcpui: bool,
     pub host_info: Option<SauronMcpHostInfo>,
     pub elicitation_handler: Option<crate::agents::mcp_client::ElicitationHandler>,
@@ -169,14 +169,14 @@ pub struct SauronMcpAppToolAttachment {
 pub(crate) const TRUSTED_TOOL_UPDATE_META_KEY: &str = "__sauron_tool_update_meta";
 
 /// Manages sauron extensions / MCP clients and their interactions
-pub struct ExtensionManager {
+pub struct McpManager {
     extensions: Mutex<HashMap<String, Extension>>,
-    context: PlatformExtensionContext,
+    context: InProcessContext,
     provider: SharedProvider,
     tools_cache: Mutex<Option<Arc<Vec<Tool>>>>,
     tools_cache_version: AtomicU64,
     client_name: String,
-    capabilities: ExtensionManagerCapabilities,
+    capabilities: McpManagerCapabilities,
 }
 
 /// A flattened representation of a resource used by the agent to prepare inference
@@ -241,17 +241,17 @@ pub fn get_parameter_names(tool: &Tool) -> Vec<String> {
     names
 }
 
-const TOOL_EXTENSION_META_KEY: &str = "sauron_extension";
+const TOOL_SERVER_META_KEY: &str = "sauron_extension";
 
 pub fn get_tool_owner(tool: &Tool) -> Option<String> {
     tool.meta
         .as_ref()
-        .and_then(|m| m.0.get(TOOL_EXTENSION_META_KEY))
+        .and_then(|m| m.0.get(TOOL_SERVER_META_KEY))
         .and_then(|v| v.as_str())
         .map(|s| s.to_string())
 }
 
-pub(crate) fn is_tool_owned_by_extension(tool: &Tool, extension_name: &str) -> bool {
+pub(crate) fn is_tool_owned_by_server(tool: &Tool, extension_name: &str) -> bool {
     let expected_owner = name_to_key(extension_name);
     get_tool_owner(tool).is_some_and(|owner| name_to_key(&owner) == expected_owner)
 }
@@ -363,10 +363,10 @@ fn insert_trusted_tool_update_meta(
     result.meta = Some(MetaObject(meta_map));
 }
 
-fn is_unprefixed_extension(config: &ExtensionConfig) -> bool {
+fn is_unprefixed_server(config: &McpServerConfig) -> bool {
     match config {
-        ExtensionConfig::Platform { name, .. } | ExtensionConfig::Builtin { name, .. } => {
-            PLATFORM_EXTENSIONS
+        McpServerConfig::Platform { name, .. } | McpServerConfig::Builtin { name, .. } => {
+            IN_PROCESS_SERVERS
                 .get(name_to_key(name).as_str())
                 .is_some_and(|def| def.unprefixed_tools)
         }
@@ -376,14 +376,14 @@ fn is_unprefixed_extension(config: &ExtensionConfig) -> bool {
 
 /// Returns true if the named extension is a first-class platform extension
 /// whose tools are exposed unprefixed and remain visible during code execution mode.
-pub fn is_first_class_extension(name: &str) -> bool {
-    PLATFORM_EXTENSIONS
+pub fn is_first_class_server(name: &str) -> bool {
+    IN_PROCESS_SERVERS
         .get(name_to_key(name).as_str())
         .is_some_and(|def| def.unprefixed_tools)
 }
 
-pub fn is_hidden_extension(name: &str) -> bool {
-    PLATFORM_EXTENSIONS
+pub fn is_hidden_server(name: &str) -> bool {
+    IN_PROCESS_SERVERS
         .get(name_to_key(name).as_str())
         .is_some_and(|def| def.hidden)
 }
@@ -397,7 +397,7 @@ struct ResolvedTool {
     resource_uri: Option<String>,
 }
 
-impl ExtensionManager {
+impl McpManager {
     fn mcp_client_capabilities(&self) -> SauronMcpClientCapabilities {
         SauronMcpClientCapabilities {
             mcpui: self.capabilities.mcpui,
@@ -412,13 +412,13 @@ impl ExtensionManager {
         session_manager: Arc<crate::session::SessionManager>,
         scheduler: Option<Arc<dyn crate::scheduler_trait::SchedulerTrait>>,
         client_name: String,
-        capabilities: ExtensionManagerCapabilities,
+        capabilities: McpManagerCapabilities,
         use_login_shell_path: bool,
     ) -> Self {
         Self {
             extensions: Mutex::new(HashMap::new()),
-            context: PlatformExtensionContext {
-                extension_manager: None,
+            context: InProcessContext {
+                mcp_manager: None,
                 session_manager,
                 scheduler,
                 session: None,
@@ -439,7 +439,7 @@ impl ExtensionManager {
             session_manager,
             None,
             "sauron-cli".to_string(),
-            ExtensionManagerCapabilities {
+            McpManagerCapabilities {
                 mcpui: false,
                 host_info: None,
                 elicitation_handler: None,
@@ -449,7 +449,7 @@ impl ExtensionManager {
         )
     }
 
-    pub fn get_context(&self) -> &PlatformExtensionContext {
+    pub fn get_context(&self) -> &InProcessContext {
         &self.context
     }
 
@@ -467,13 +467,13 @@ impl ExtensionManager {
 
     /// Add an extension with an optional working directory.
     /// If working_dir is None, falls back to current_dir.
-    pub async fn add_extension(
+    pub async fn add_mcp_server(
         self: &Arc<Self>,
-        config: ExtensionConfig,
+        config: McpServerConfig,
         working_dir: Option<PathBuf>,
         container: Option<&Container>,
         session_id: Option<&str>,
-    ) -> ExtensionResult<()> {
+    ) -> McpServerResult<()> {
         let sanitized_name = config.key();
 
         // Compare both the unresolved config (to detect structural changes like
@@ -502,11 +502,11 @@ impl ExtensionManager {
             working_dir,
             docker_container: None,
             action_required: self.context.session_manager.action_required(),
-            extension_manager: Arc::downgrade(self),
+            mcp_manager: Arc::downgrade(self),
         };
 
         let client: Box<dyn McpClientTrait> = match &resolved_config {
-            ExtensionConfig::StreamableHttp {
+            McpServerConfig::StreamableHttp {
                 uri,
                 timeout,
                 headers,
@@ -538,12 +538,12 @@ impl ExtensionManager {
                 )
                 .await?
             }
-            ExtensionConfig::Builtin { name, .. } | ExtensionConfig::Platform { name, .. }
-                if PLATFORM_EXTENSIONS.contains_key(name_to_key(name).as_str()) =>
+            McpServerConfig::Builtin { name, .. } | McpServerConfig::Platform { name, .. }
+                if IN_PROCESS_SERVERS.contains_key(name_to_key(name).as_str()) =>
             {
-                let def = &PLATFORM_EXTENSIONS[name_to_key(name).as_str()];
+                let def = &IN_PROCESS_SERVERS[name_to_key(name).as_str()];
                 let mut context = self.context.clone();
-                context.extension_manager = Some(Arc::downgrade(self));
+                context.mcp_manager = Some(Arc::downgrade(self));
                 if let Some(id) = session_id {
                     if let Ok(session) = self.context.session_manager.get_session(id, false).await {
                         context.session = Some(Arc::new(session));
@@ -556,13 +556,13 @@ impl ExtensionManager {
                 };
                 client
             }
-            ExtensionConfig::Builtin { name, timeout, .. } => {
+            McpServerConfig::Builtin { name, timeout, .. } => {
                 builtin::connect(name, container, ctx(*timeout, working_dir)).await?
             }
-            ExtensionConfig::Platform { name, .. } => {
+            McpServerConfig::Platform { name, .. } => {
                 builtin::connect(name, container, ctx(None, working_dir)).await?
             }
-            ExtensionConfig::Stdio {
+            McpServerConfig::Stdio {
                 cmd,
                 args,
                 envs,
@@ -597,7 +597,7 @@ impl ExtensionManager {
     pub async fn add_client(
         &self,
         name: String,
-        config: ExtensionConfig,
+        config: McpServerConfig,
         client: McpClientBox,
         info: Option<ServerConfig>,
     ) {
@@ -610,7 +610,7 @@ impl ExtensionManager {
     }
 
     /// Get extensions info for building the system prompt
-    pub async fn get_extensions_info(&self, working_dir: &std::path::Path) -> Vec<ExtensionInfo> {
+    pub async fn get_extensions_info(&self, working_dir: &std::path::Path) -> Vec<McpServerInfo> {
         let working_dir_str = working_dir.to_string_lossy();
         self.extensions
             .lock()
@@ -619,19 +619,19 @@ impl ExtensionManager {
             .map(|(name, ext)| {
                 let instructions = ext.get_instructions().unwrap_or_default();
                 let instructions = instructions.replace("{{WORKING_DIR}}", &working_dir_str);
-                ExtensionInfo::new(name, &instructions, ext.supports_resources())
+                McpServerInfo::new(name, &instructions, ext.supports_resources())
             })
             .collect()
     }
 
     /// Get aggregated usage statistics
-    pub async fn remove_extension(&self, name: &str) -> ExtensionResult<()> {
+    pub async fn remove_mcp_server(&self, name: &str) -> McpServerResult<()> {
         let sanitized_name = name_to_key(name);
-        self.remove_extension_by_key(&sanitized_name).await?;
+        self.remove_mcp_server_by_key(&sanitized_name).await?;
         Ok(())
     }
 
-    pub async fn remove_extension_by_key(&self, key: &str) -> ExtensionResult<bool> {
+    pub async fn remove_mcp_server_by_key(&self, key: &str) -> McpServerResult<bool> {
         let removed = self.extensions.lock().await.remove(key).is_some();
         if removed {
             self.invalidate_tools_cache_and_bump_version().await;
@@ -648,16 +648,16 @@ impl ExtensionManager {
         }
     }
 
-    pub async fn list_extensions(&self) -> ExtensionResult<Vec<String>> {
+    pub async fn list_mcp_servers(&self) -> McpServerResult<Vec<String>> {
         Ok(self.extensions.lock().await.keys().cloned().collect())
     }
 
-    pub async fn is_extension_enabled(&self, name: &str) -> bool {
+    pub async fn is_mcp_server_enabled(&self, name: &str) -> bool {
         let normalized = name_to_key(name);
         self.extensions.lock().await.contains_key(&normalized)
     }
 
-    pub async fn get_extension_configs(&self) -> Vec<ExtensionConfig> {
+    pub async fn get_extension_configs(&self) -> Vec<McpServerConfig> {
         self.extensions
             .lock()
             .await
@@ -671,7 +671,7 @@ impl ExtensionManager {
         &self,
         session_id: &str,
         extension_name: Option<String>,
-    ) -> ExtensionResult<Vec<Tool>> {
+    ) -> McpServerResult<Vec<Tool>> {
         let all_tools = self.get_all_tools_cached(session_id).await?;
         Ok(self.filter_tools(&all_tools, extension_name.as_deref(), None))
     }
@@ -709,7 +709,7 @@ impl ExtensionManager {
         &self,
         session_id: &str,
         exclude: &str,
-    ) -> ExtensionResult<Vec<Tool>> {
+    ) -> McpServerResult<Vec<Tool>> {
         let all_tools = self.get_all_tools_cached(session_id).await?;
         Ok(self.filter_tools(&all_tools, None, Some(exclude)))
     }
@@ -746,7 +746,7 @@ impl ExtensionManager {
             .collect()
     }
 
-    async fn get_all_tools_cached(&self, session_id: &str) -> ExtensionResult<Arc<Vec<Tool>>> {
+    async fn get_all_tools_cached(&self, session_id: &str) -> McpServerResult<Arc<Vec<Tool>>> {
         {
             let cache = self.tools_cache.lock().await;
             if let Some(ref tools) = *cache {
@@ -816,7 +816,7 @@ impl ExtensionManager {
         *self.tools_cache.lock().await = None;
     }
 
-    async fn fetch_all_tools(&self, session_id: &str) -> ExtensionResult<Vec<Tool>> {
+    async fn fetch_all_tools(&self, session_id: &str) -> McpServerResult<Vec<Tool>> {
         let clients: Vec<_> = self
             .extensions
             .lock()
@@ -842,7 +842,7 @@ impl ExtensionManager {
                     }
                 };
 
-                let expose_unprefixed = is_unprefixed_extension(&config);
+                let expose_unprefixed = is_unprefixed_server(&config);
 
                 loop {
                     for mut tool in client_tools.tools {
@@ -859,7 +859,7 @@ impl ExtensionManager {
                                 .map(|m| m.0.clone())
                                 .unwrap_or_default();
                             meta_map.insert(
-                                TOOL_EXTENSION_META_KEY.to_string(),
+                                TOOL_SERVER_META_KEY.to_string(),
                                 serde_json::Value::String(name.clone()),
                             );
 
@@ -1530,9 +1530,9 @@ impl ExtensionManager {
                 .iter()
                 .filter_map(|(name, extension)| {
                     let is_platform = match &extension.config {
-                        ExtensionConfig::Platform { .. } => true,
-                        ExtensionConfig::Builtin { name: ext_name, .. } => {
-                            PLATFORM_EXTENSIONS.contains_key(name_to_key(ext_name).as_str())
+                        McpServerConfig::Platform { .. } => true,
+                        McpServerConfig::Builtin { name: ext_name, .. } => {
+                            IN_PROCESS_SERVERS.contains_key(name_to_key(ext_name).as_str())
                         }
                         _ => false,
                     };
@@ -1574,7 +1574,7 @@ mod tests {
 
     use tokio::sync::mpsc;
 
-    impl ExtensionManager {
+    impl McpManager {
         async fn add_mock_extension(&self, name: String, client: McpClientBox) {
             self.add_mock_extension_with_tools(name, client, vec![])
                 .await;
@@ -1587,7 +1587,7 @@ mod tests {
             available_tools: Vec<String>,
         ) {
             let sanitized_name = name_to_key(&name);
-            let config = ExtensionConfig::Builtin {
+            let config = McpServerConfig::Builtin {
                 name: name.clone(),
                 display_name: Some(name.clone()),
                 description: "built-in".to_string(),
@@ -1765,9 +1765,8 @@ mod tests {
 
     async fn dispatch_notification_methods(ctx: ToolCallContext) -> Vec<String> {
         let temp_dir = tempfile::tempdir().unwrap();
-        let extension_manager =
-            ExtensionManager::new_without_provider(temp_dir.path().to_path_buf());
-        extension_manager
+        let mcp_manager = McpManager::new_without_provider(temp_dir.path().to_path_buf());
+        mcp_manager
             .add_mock_extension(
                 "notifications".to_string(),
                 Arc::new(ContextNotificationClient),
@@ -1776,7 +1775,7 @@ mod tests {
 
         let tool_call = CallToolRequestParams::new("notifications__tool".to_string())
             .with_arguments(object!({}));
-        let dispatched = extension_manager
+        let dispatched = mcp_manager
             .dispatch_tool_call(&ctx, tool_call, CancellationToken::default())
             .await
             .expect("tool call should dispatch");
@@ -1815,9 +1814,8 @@ mod tests {
     #[tokio::test]
     async fn dispatch_reuses_existing_notification_emitter() {
         let temp_dir = tempfile::tempdir().unwrap();
-        let extension_manager =
-            ExtensionManager::new_without_provider(temp_dir.path().to_path_buf());
-        extension_manager
+        let mcp_manager = McpManager::new_without_provider(temp_dir.path().to_path_buf());
+        mcp_manager
             .add_mock_extension(
                 "notifications".to_string(),
                 Arc::new(ContextNotificationClient),
@@ -1833,7 +1831,7 @@ mod tests {
         let tool_call = CallToolRequestParams::new("notifications__tool".to_string())
             .with_arguments(object!({}));
 
-        let dispatched = extension_manager
+        let dispatched = mcp_manager
             .dispatch_tool_call(&ctx, tool_call, CancellationToken::default())
             .await
             .expect("tool call should dispatch");
@@ -1877,19 +1875,18 @@ mod tests {
         use super::super::tool_execution::ToolCallContext;
 
         let temp_dir = tempfile::tempdir().unwrap();
-        let extension_manager =
-            ExtensionManager::new_without_provider(temp_dir.path().to_path_buf());
+        let mcp_manager = McpManager::new_without_provider(temp_dir.path().to_path_buf());
 
         // Add some mock clients using the helper method
-        extension_manager
+        mcp_manager
             .add_mock_extension("test_client".to_string(), Arc::new(MockClient {}))
             .await;
 
-        extension_manager
+        mcp_manager
             .add_mock_extension("__cli__ent__".to_string(), Arc::new(MockClient {}))
             .await;
 
-        extension_manager
+        mcp_manager
             .add_mock_extension("client 🚀".to_string(), Arc::new(MockClient {}))
             .await;
 
@@ -1902,7 +1899,7 @@ mod tests {
         let tool_call =
             CallToolRequestParams::new("test_client__tool".to_string()).with_arguments(object!({}));
 
-        let result = extension_manager
+        let result = mcp_manager
             .dispatch_tool_call(&ctx, tool_call, CancellationToken::default())
             .await;
         assert!(result.is_ok());
@@ -1910,7 +1907,7 @@ mod tests {
         let tool_call = CallToolRequestParams::new("test_client__available_tool".to_string())
             .with_arguments(object!({}));
 
-        let result = extension_manager
+        let result = mcp_manager
             .dispatch_tool_call(&ctx, tool_call, CancellationToken::default())
             .await;
         assert!(result.is_ok());
@@ -1918,7 +1915,7 @@ mod tests {
         let tool_call = CallToolRequestParams::new("__cli__ent____tool".to_string())
             .with_arguments(object!({}));
 
-        let result = extension_manager
+        let result = mcp_manager
             .dispatch_tool_call(&ctx, tool_call, CancellationToken::default())
             .await;
         assert!(result.is_ok());
@@ -1926,7 +1923,7 @@ mod tests {
         let tool_call =
             CallToolRequestParams::new("client___tool".to_string()).with_arguments(object!({}));
 
-        let result = extension_manager
+        let result = mcp_manager
             .dispatch_tool_call(&ctx, tool_call, CancellationToken::default())
             .await;
         assert!(result.is_ok());
@@ -1934,7 +1931,7 @@ mod tests {
         let invalid_tool_call =
             CallToolRequestParams::new("client___tools".to_string()).with_arguments(object!({}));
 
-        let result = extension_manager
+        let result = mcp_manager
             .dispatch_tool_call(&ctx, invalid_tool_call, CancellationToken::default())
             .await;
         if let Err(err) = result {
@@ -1946,7 +1943,7 @@ mod tests {
         let invalid_tool_call =
             CallToolRequestParams::new("_client__tools".to_string()).with_arguments(object!({}));
 
-        let result = extension_manager
+        let result = mcp_manager
             .dispatch_tool_call(&ctx, invalid_tool_call, CancellationToken::default())
             .await;
         if let Err(err) = result {
@@ -1959,13 +1956,12 @@ mod tests {
     #[tokio::test]
     async fn test_tool_availability_filtering() {
         let temp_dir = tempfile::tempdir().unwrap();
-        let extension_manager =
-            ExtensionManager::new_without_provider(temp_dir.path().to_path_buf());
+        let mcp_manager = McpManager::new_without_provider(temp_dir.path().to_path_buf());
 
         // Only "available_tool" should be available to the LLM
         let available_tools = vec!["available_tool".to_string()];
 
-        extension_manager
+        mcp_manager
             .add_mock_extension_with_tools(
                 "test_extension".to_string(),
                 Arc::new(MockClient {}),
@@ -1973,7 +1969,7 @@ mod tests {
             )
             .await;
 
-        let tools = extension_manager
+        let tools = mcp_manager
             .get_prefixed_tools("test-session-id", None)
             .await
             .unwrap();
@@ -1992,10 +1988,9 @@ mod tests {
     #[tokio::test]
     async fn test_tool_availability_defaults_to_available() {
         let temp_dir = tempfile::tempdir().unwrap();
-        let extension_manager =
-            ExtensionManager::new_without_provider(temp_dir.path().to_path_buf());
+        let mcp_manager = McpManager::new_without_provider(temp_dir.path().to_path_buf());
 
-        extension_manager
+        mcp_manager
             .add_mock_extension_with_tools(
                 "test_extension".to_string(),
                 Arc::new(MockClient {}),
@@ -2003,7 +1998,7 @@ mod tests {
             )
             .await;
 
-        let tools = extension_manager
+        let tools = mcp_manager
             .get_prefixed_tools("test-session-id", None)
             .await
             .unwrap();
@@ -2027,12 +2022,11 @@ mod tests {
         use super::super::tool_execution::ToolCallContext;
 
         let temp_dir = tempfile::tempdir().unwrap();
-        let extension_manager =
-            ExtensionManager::new_without_provider(temp_dir.path().to_path_buf());
+        let mcp_manager = McpManager::new_without_provider(temp_dir.path().to_path_buf());
 
         let available_tools = vec!["available_tool".to_string()];
 
-        extension_manager
+        mcp_manager
             .add_mock_extension_with_tools(
                 "test_extension".to_string(),
                 Arc::new(MockClient {}),
@@ -2049,7 +2043,7 @@ mod tests {
         let unavailable_tool_call = CallToolRequestParams::new("test_extension__tool".to_string())
             .with_arguments(object!({}));
 
-        let result = extension_manager
+        let result = mcp_manager
             .dispatch_tool_call(&ctx, unavailable_tool_call, CancellationToken::default())
             .await;
 
@@ -2064,7 +2058,7 @@ mod tests {
             CallToolRequestParams::new("test_extension__available_tool".to_string())
                 .with_arguments(object!({}));
 
-        let result = extension_manager
+        let result = mcp_manager
             .dispatch_tool_call(&ctx, available_tool_call, CancellationToken::default())
             .await;
 
@@ -2074,14 +2068,13 @@ mod tests {
     #[tokio::test]
     async fn test_tools_cache_invalidated_on_add_extension() {
         let temp_dir = tempfile::tempdir().unwrap();
-        let extension_manager =
-            ExtensionManager::new_without_provider(temp_dir.path().to_path_buf());
+        let mcp_manager = McpManager::new_without_provider(temp_dir.path().to_path_buf());
 
-        extension_manager
+        mcp_manager
             .add_mock_extension("ext_a".to_string(), Arc::new(MockClient {}))
             .await;
 
-        let tools_after_first = extension_manager
+        let tools_after_first = mcp_manager
             .get_prefixed_tools("test-session-id", None)
             .await
             .unwrap();
@@ -2092,11 +2085,11 @@ mod tests {
         assert!(tool_names.iter().any(|n| n.starts_with("ext_a__")));
         assert!(!tool_names.iter().any(|n| n.starts_with("ext_b__")));
 
-        extension_manager
+        mcp_manager
             .add_mock_extension("ext_b".to_string(), Arc::new(MockClient {}))
             .await;
 
-        let tools_after_second = extension_manager
+        let tools_after_second = mcp_manager
             .get_prefixed_tools("test-session-id", None)
             .await
             .unwrap();
@@ -2111,17 +2104,16 @@ mod tests {
     #[tokio::test]
     async fn test_tools_cache_invalidated_on_remove_extension() {
         let temp_dir = tempfile::tempdir().unwrap();
-        let extension_manager =
-            ExtensionManager::new_without_provider(temp_dir.path().to_path_buf());
+        let mcp_manager = McpManager::new_without_provider(temp_dir.path().to_path_buf());
 
-        extension_manager
+        mcp_manager
             .add_mock_extension("ext_a".to_string(), Arc::new(MockClient {}))
             .await;
-        extension_manager
+        mcp_manager
             .add_mock_extension("ext_b".to_string(), Arc::new(MockClient {}))
             .await;
 
-        let tools_before = extension_manager
+        let tools_before = mcp_manager
             .get_prefixed_tools("test-session-id", None)
             .await
             .unwrap();
@@ -2129,9 +2121,9 @@ mod tests {
         assert!(tool_names.iter().any(|n| n.starts_with("ext_a__")));
         assert!(tool_names.iter().any(|n| n.starts_with("ext_b__")));
 
-        extension_manager.remove_extension("ext_b").await.unwrap();
+        mcp_manager.remove_mcp_server("ext_b").await.unwrap();
 
-        let tools_after = extension_manager
+        let tools_after = mcp_manager
             .get_prefixed_tools("test-session-id", None)
             .await
             .unwrap();
@@ -2143,17 +2135,16 @@ mod tests {
     #[tokio::test]
     async fn test_get_prefixed_tools_excluding() {
         let temp_dir = tempfile::tempdir().unwrap();
-        let extension_manager =
-            ExtensionManager::new_without_provider(temp_dir.path().to_path_buf());
+        let mcp_manager = McpManager::new_without_provider(temp_dir.path().to_path_buf());
 
-        extension_manager
+        mcp_manager
             .add_mock_extension("ext_a".to_string(), Arc::new(MockClient {}))
             .await;
-        extension_manager
+        mcp_manager
             .add_mock_extension("ext_b".to_string(), Arc::new(MockClient {}))
             .await;
 
-        let tools = extension_manager
+        let tools = mcp_manager
             .get_prefixed_tools_excluding("test-session-id", "ext_a")
             .await
             .unwrap();
@@ -2166,14 +2157,13 @@ mod tests {
     #[tokio::test]
     async fn test_mcp_app_tools_identified_for_code_mode_exclusion() {
         let temp_dir = tempfile::tempdir().unwrap();
-        let extension_manager =
-            ExtensionManager::new_without_provider(temp_dir.path().to_path_buf());
+        let mcp_manager = McpManager::new_without_provider(temp_dir.path().to_path_buf());
 
-        extension_manager
+        mcp_manager
             .add_mock_extension("autovisualiser".to_string(), Arc::new(MockClient {}))
             .await;
 
-        let tools = extension_manager
+        let tools = mcp_manager
             .get_prefixed_tools_excluding("test-session-id", "code_execution")
             .await
             .unwrap();
@@ -2198,17 +2188,16 @@ mod tests {
     #[tokio::test]
     async fn test_get_prefixed_tools_by_extension_name() {
         let temp_dir = tempfile::tempdir().unwrap();
-        let extension_manager =
-            ExtensionManager::new_without_provider(temp_dir.path().to_path_buf());
+        let mcp_manager = McpManager::new_without_provider(temp_dir.path().to_path_buf());
 
-        extension_manager
+        mcp_manager
             .add_mock_extension("ext_a".to_string(), Arc::new(MockClient {}))
             .await;
-        extension_manager
+        mcp_manager
             .add_mock_extension("ext_b".to_string(), Arc::new(MockClient {}))
             .await;
 
-        let tools = extension_manager
+        let tools = mcp_manager
             .get_prefixed_tools("test-session-id", Some("ext_a".to_string()))
             .await
             .unwrap();
@@ -2227,7 +2216,7 @@ mod tests {
                 Arc::new(serde_json::Map::new()),
             );
             tool.meta = Some(MetaObject(
-                serde_json::json!({ TOOL_EXTENSION_META_KEY: owner })
+                serde_json::json!({ TOOL_SERVER_META_KEY: owner })
                     .as_object()
                     .unwrap()
                     .clone(),
@@ -2238,16 +2227,15 @@ mod tests {
         let own_tool = tool("ext_a__own", "ext_a");
         let sibling_tool = tool("ext_a__ext_b__secret", "ext_a__ext_b");
 
-        assert!(is_tool_owned_by_extension(&own_tool, "ext_a"));
-        assert!(!is_tool_owned_by_extension(&sibling_tool, "ext_a"));
+        assert!(is_tool_owned_by_server(&own_tool, "ext_a"));
+        assert!(!is_tool_owned_by_server(&sibling_tool, "ext_a"));
     }
 
     #[tokio::test]
     async fn app_dispatch_revalidates_owner_after_tools_cache_changes() {
         let temp_dir = tempfile::tempdir().unwrap();
-        let extension_manager =
-            ExtensionManager::new_without_provider(temp_dir.path().to_path_buf());
-        extension_manager
+        let mcp_manager = McpManager::new_without_provider(temp_dir.path().to_path_buf());
+        mcp_manager
             .add_mock_extension("ext_a__ext_b".to_string(), Arc::new(MockClient {}))
             .await;
 
@@ -2259,7 +2247,7 @@ mod tests {
             );
             tool.meta = Some(MetaObject(
                 serde_json::json!({
-                    TOOL_EXTENSION_META_KEY: owner,
+                    TOOL_SERVER_META_KEY: owner,
                     "ui": { "resourceUri": "ui://test/app" }
                 })
                 .as_object()
@@ -2269,8 +2257,8 @@ mod tests {
             tool
         };
 
-        *extension_manager.tools_cache.lock().await = Some(Arc::new(vec![app_tool("ext_a")]));
-        let initially_visible = extension_manager
+        *mcp_manager.tools_cache.lock().await = Some(Arc::new(vec![app_tool("ext_a")]));
+        let initially_visible = mcp_manager
             .get_prefixed_tools("session", Some("ext_a".to_string()))
             .await
             .unwrap();
@@ -2278,10 +2266,9 @@ mod tests {
 
         // Model tools/list_changed replacing the validated tool with a sibling
         // owner's colliding flattened name before the actual dispatch.
-        *extension_manager.tools_cache.lock().await =
-            Some(Arc::new(vec![app_tool("ext_a__ext_b")]));
+        *mcp_manager.tools_cache.lock().await = Some(Arc::new(vec![app_tool("ext_a__ext_b")]));
         let ctx = ToolCallContext::new("session".to_string(), None, None);
-        let result = extension_manager
+        let result = mcp_manager
             .dispatch_app_tool_call(
                 &ctx,
                 CallToolRequestParams::new("ext_a__ext_b__secret".to_string()),
@@ -2299,14 +2286,13 @@ mod tests {
     #[tokio::test]
     async fn test_resolve_tool_error_includes_available_tools() {
         let temp_dir = tempfile::tempdir().unwrap();
-        let extension_manager =
-            ExtensionManager::new_without_provider(temp_dir.path().to_path_buf());
+        let mcp_manager = McpManager::new_without_provider(temp_dir.path().to_path_buf());
 
-        extension_manager
+        mcp_manager
             .add_mock_extension("ext_a".to_string(), Arc::new(MockClient {}))
             .await;
 
-        let result = extension_manager
+        let result = mcp_manager
             .resolve_tool("test-session-id", "definitely_not_a_real_tool")
             .await;
         let err = match result {
@@ -2418,13 +2404,12 @@ mod tests {
     #[tokio::test]
     async fn test_resolve_tool_recovers_dotted_mangled_name() {
         let temp_dir = tempfile::tempdir().unwrap();
-        let extension_manager =
-            ExtensionManager::new_without_provider(temp_dir.path().to_path_buf());
-        extension_manager
+        let mcp_manager = McpManager::new_without_provider(temp_dir.path().to_path_buf());
+        mcp_manager
             .add_mock_extension("test_client".to_string(), Arc::new(MockClient {}))
             .await;
 
-        let resolved = extension_manager
+        let resolved = mcp_manager
             .resolve_tool("test-session-id", "test_client.tool")
             .await
             .expect("mangled dotted name should resolve to the real tool");
@@ -2435,13 +2420,12 @@ mod tests {
     #[tokio::test]
     async fn test_resolve_tool_recovers_functions_prefixed_name() {
         let temp_dir = tempfile::tempdir().unwrap();
-        let extension_manager =
-            ExtensionManager::new_without_provider(temp_dir.path().to_path_buf());
-        extension_manager
+        let mcp_manager = McpManager::new_without_provider(temp_dir.path().to_path_buf());
+        mcp_manager
             .add_mock_extension("test_client".to_string(), Arc::new(MockClient {}))
             .await;
 
-        let resolved = extension_manager
+        let resolved = mcp_manager
             .resolve_tool("test-session-id", "functions.test_client__tool")
             .await
             .expect("functions-prefixed name should resolve to the real tool");
@@ -2452,13 +2436,12 @@ mod tests {
     #[tokio::test]
     async fn test_resolve_tool_exact_dotted_name_never_rewritten() {
         let temp_dir = tempfile::tempdir().unwrap();
-        let extension_manager =
-            ExtensionManager::new_without_provider(temp_dir.path().to_path_buf());
-        extension_manager
+        let mcp_manager = McpManager::new_without_provider(temp_dir.path().to_path_buf());
+        mcp_manager
             .add_mock_extension("dotted".to_string(), Arc::new(MockDottedClient {}))
             .await;
 
-        let resolved = extension_manager
+        let resolved = mcp_manager
             .resolve_tool("test-session-id", "dotted__db.query")
             .await
             .expect("exact dotted tool name must resolve");
@@ -2469,13 +2452,12 @@ mod tests {
     #[tokio::test]
     async fn test_resolve_tool_recovers_mangled_separator_with_dotted_tool_name() {
         let temp_dir = tempfile::tempdir().unwrap();
-        let extension_manager =
-            ExtensionManager::new_without_provider(temp_dir.path().to_path_buf());
-        extension_manager
+        let mcp_manager = McpManager::new_without_provider(temp_dir.path().to_path_buf());
+        mcp_manager
             .add_mock_extension("dotted".to_string(), Arc::new(MockDottedClient {}))
             .await;
 
-        let resolved = extension_manager
+        let resolved = mcp_manager
             .resolve_tool("test-session-id", "dotted.db.query")
             .await
             .expect("mangled extension separator should resolve");
@@ -2490,16 +2472,15 @@ mod tests {
         // tools are advertised with no "__" prefix at all (owner only in
         // metadata). "developer.tool" must still resolve to the real "tool".
         // Naming the mock extension literally "developer" makes
-        // is_unprefixed_extension look it up in the real PLATFORM_EXTENSIONS
+        // is_unprefixed_server look it up in the real IN_PROCESS_SERVERS
         // registry, exercising production behavior, not a fake stand-in.
         let temp_dir = tempfile::tempdir().unwrap();
-        let extension_manager =
-            ExtensionManager::new_without_provider(temp_dir.path().to_path_buf());
-        extension_manager
+        let mcp_manager = McpManager::new_without_provider(temp_dir.path().to_path_buf());
+        mcp_manager
             .add_mock_extension("developer".to_string(), Arc::new(MockClient {}))
             .await;
 
-        let resolved = extension_manager
+        let resolved = mcp_manager
             .resolve_tool("test-session-id", "developer.tool")
             .await
             .expect("unprefixed extension namespace mangling should resolve");
@@ -2510,16 +2491,15 @@ mod tests {
     #[tokio::test]
     async fn test_dispatch_rejects_unadvertised_tool_implemented_by_extension() {
         let temp_dir = tempfile::tempdir().unwrap();
-        let extension_manager =
-            ExtensionManager::new_without_provider(temp_dir.path().to_path_buf());
-        extension_manager
+        let mcp_manager = McpManager::new_without_provider(temp_dir.path().to_path_buf());
+        mcp_manager
             .add_mock_extension("test_client".to_string(), Arc::new(MockClient {}))
             .await;
 
         let ctx = ToolCallContext::new("test-session-id".to_string(), None, None);
         let tool_call = CallToolRequestParams::new("test_client__unadvertised_tool".to_string());
 
-        let err = match extension_manager
+        let err = match mcp_manager
             .dispatch_tool_call(&ctx, tool_call, CancellationToken::default())
             .await
         {
@@ -2701,14 +2681,14 @@ mod tests {
 
     #[tokio::test]
     async fn test_add_extension_noop_on_identical_config() {
-        // When add_extension is called with a config that is byte-for-byte identical to
+        // When add_mcp_server is called with a config that is byte-for-byte identical to
         // the already-loaded one, it must return Ok(()) without removing the extension.
         let temp_dir = tempfile::tempdir().unwrap();
-        let em = Arc::new(ExtensionManager::new_without_provider(
+        let em = Arc::new(McpManager::new_without_provider(
             temp_dir.path().to_path_buf(),
         ));
 
-        let config = ExtensionConfig::Platform {
+        let config = McpServerConfig::Platform {
             name: "test-ext".to_string(),
             description: "original".to_string(),
             display_name: None,
@@ -2725,8 +2705,8 @@ mod tests {
         .await;
         assert_eq!(em.extensions.lock().await.len(), 1);
 
-        // Calling add_extension with the same config must be a no-op (Ok, count unchanged).
-        let result = em.add_extension(config, None, None, None).await;
+        // Calling add_mcp_server with the same config must be a no-op (Ok, count unchanged).
+        let result = em.add_mcp_server(config, None, None, None).await;
         assert!(result.is_ok(), "identical config should be a no-op");
         assert_eq!(
             em.extensions.lock().await.len(),
@@ -2737,21 +2717,21 @@ mod tests {
 
     #[tokio::test]
     async fn test_add_extension_replaces_extension_on_config_change() {
-        // When add_extension is called with an updated config (same name, different fields),
+        // When add_mcp_server is called with an updated config (same name, different fields),
         // the existing extension must be removed so the caller can re-add with new config.
         let temp_dir = tempfile::tempdir().unwrap();
-        let em = Arc::new(ExtensionManager::new_without_provider(
+        let em = Arc::new(McpManager::new_without_provider(
             temp_dir.path().to_path_buf(),
         ));
 
-        let config_a = ExtensionConfig::Platform {
+        let config_a = McpServerConfig::Platform {
             name: "test-ext".to_string(),
             description: "version-a".to_string(),
             display_name: None,
             bundled: None,
             available_tools: vec![],
         };
-        let config_b = ExtensionConfig::Platform {
+        let config_b = McpServerConfig::Platform {
             name: "test-ext".to_string(),
             description: "version-b".to_string(),
             display_name: None,
@@ -2768,7 +2748,7 @@ mod tests {
         .await;
         assert_eq!(em.extensions.lock().await.len(), 1);
 
-        let result = em.add_extension(config_b, None, None, None).await;
+        let result = em.add_mcp_server(config_b, None, None, None).await;
         assert!(
             result.is_err(),
             "unknown platform extension must return Err"

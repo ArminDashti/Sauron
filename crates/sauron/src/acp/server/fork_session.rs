@@ -19,7 +19,7 @@ impl SauronAcpAgent {
         // Resolve and validate the effective cwd before copying anything, so a
         // bad request cannot leave a stray "(copy)" session in the store.
         let cwd = effective_session_cwd(self.session_cwd.as_deref(), &args.cwd);
-        validate_absolute_cwd(&cwd)?;
+        validate_session_cwd(cwd.as_deref())?;
 
         let fork_name = if source.name.trim().is_empty() {
             "(copy)".to_string()

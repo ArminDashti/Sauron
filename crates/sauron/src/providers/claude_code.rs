@@ -23,7 +23,7 @@ use super::base::{
 use super::utils::filter_extensions_from_system_prompt;
 use crate::config::paths::Paths;
 use crate::config::search_path::SearchPaths;
-use crate::config::{Config, ExtensionConfig, SauronMode};
+use crate::config::{Config, McpServerConfig, SauronMode};
 use crate::conversation::message::{Message, MessageContent};
 use crate::permission::permission_confirmation::PrincipalType;
 use crate::permission::{Permission, PermissionConfirmation};
@@ -538,12 +538,12 @@ fn build_stream_json_input(content_blocks: &[Value], session_id: &str) -> String
     serde_json::to_string(&msg).expect("serializing JSON content blocks cannot fail")
 }
 
-fn claude_mcp_config_json(extensions: &[ExtensionConfig]) -> Option<String> {
+fn claude_mcp_config_json(extensions: &[McpServerConfig]) -> Option<String> {
     let mut mcp_servers = serde_json::Map::new();
 
     for extension in extensions {
         match extension {
-            ExtensionConfig::StreamableHttp { uri, headers, .. } => {
+            McpServerConfig::StreamableHttp { uri, headers, .. } => {
                 let key = extension.key();
                 let mut config = serde_json::Map::new();
                 config.insert("type".to_string(), json!("http"));
@@ -553,7 +553,7 @@ fn claude_mcp_config_json(extensions: &[ExtensionConfig]) -> Option<String> {
                 }
                 mcp_servers.insert(key, Value::Object(config));
             }
-            ExtensionConfig::Stdio {
+            McpServerConfig::Stdio {
                 cmd, args, envs, ..
             } => {
                 let key = extension.key();
@@ -642,7 +642,7 @@ impl ProviderDef for ClaudeCodeProvider {
     type Provider = Self;
 
     fn from_env(
-        extensions: Vec<ExtensionConfig>,
+        extensions: Vec<McpServerConfig>,
         _tls_config: Option<crate::providers::api_client::TlsConfig>,
     ) -> BoxFuture<'static, Result<Self::Provider>> {
         Box::pin(async move {
@@ -1035,7 +1035,7 @@ impl Provider for ClaudeCodeProvider {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::agents::extension::Envs;
+    use crate::agents::mcp_server::Envs;
     use chrono::Utc;
     use sauron_test_support::session::TEST_SESSION_ID;
     use serde_json::json;
@@ -1233,7 +1233,7 @@ mod tests {
         ; "empty_extensions_returns_none"
     )]
     #[test_case(
-        vec![ExtensionConfig::Stdio {
+        vec![McpServerConfig::Stdio {
             name: "lookup".into(),
             description: String::new(),
             cmd: "node".into(),
@@ -1256,7 +1256,7 @@ mod tests {
         ; "stdio_converts_to_mcp_config_json"
     )]
     #[test_case(
-        vec![ExtensionConfig::StreamableHttp {
+        vec![McpServerConfig::StreamableHttp {
             name: "lookup".into(),
             description: String::new(),
             uri: "http://localhost/mcp".into(),
@@ -1281,7 +1281,7 @@ mod tests {
         ; "streamable_http_converts_to_mcp_config_json"
     )]
     #[test_case(
-        vec![ExtensionConfig::StreamableHttp {
+        vec![McpServerConfig::StreamableHttp {
             name: "mcp_kiwi_com".into(),
             description: String::new(),
             uri: "https://mcp.kiwi.com".into(),
@@ -1304,7 +1304,7 @@ mod tests {
         }}))
         ; "resolved_name_used_as_key"
     )]
-    fn test_claude_mcp_config_json(extensions: Vec<ExtensionConfig>, expected: Option<Value>) {
+    fn test_claude_mcp_config_json(extensions: Vec<McpServerConfig>, expected: Option<Value>) {
         let result = claude_mcp_config_json(&extensions)
             .map(|json| serde_json::from_str::<Value>(&json).unwrap());
         assert_eq!(result, expected);

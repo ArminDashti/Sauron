@@ -1,4 +1,4 @@
-use crate::agents::ExtensionManager;
+use crate::agents::McpManager;
 use rmcp::model::ErrorData;
 use serde::{Deserialize, Serialize};
 use tokio_util::sync::CancellationToken;
@@ -210,15 +210,15 @@ impl SauronApp {
 }
 
 pub async fn fetch_mcp_apps(
-    extension_manager: &ExtensionManager,
+    mcp_manager: &McpManager,
     session_id: &str,
 ) -> Result<Vec<SauronApp>, ErrorData> {
     let mut apps = Vec::new();
 
-    let ui_resources = extension_manager.get_ui_resources(session_id).await?;
+    let ui_resources = mcp_manager.get_ui_resources(session_id).await?;
 
     for (extension_name, resource) in ui_resources {
-        match extension_manager
+        match mcp_manager
             .read_resource(
                 session_id,
                 &resource.uri,

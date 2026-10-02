@@ -12,8 +12,6 @@ import {
   formatContextLimit,
 } from './subcomponents/ModelBadges';
 import {
-  acpIsProviderTokenSet,
-  acpListProviderSecrets,
   acpListSettingsProviderDetails,
   acpReadDefaults,
   acpRefreshProviderDetails,
@@ -29,10 +27,6 @@ import {
 import { defineMessages, useIntl } from '../../../i18n';
 import { errorMessage } from '../../../utils/conversionUtils';
 import { toastError, toastSuccess } from '../../../toasts';
-import FreeModelBadge from './FreeModelBadge';
-import { collectKnownFreeKeys, modelKey } from './freeModels';
-
-const FREE_ONLY_STORAGE_KEY = 'modelsFreeOnly';
 
 const i18n = defineMessages({
   title: {
@@ -116,31 +110,6 @@ const i18n = defineMessages({
     id: 'allProviderModels.refreshFailed',
     defaultMessage: 'Could not refresh {provider}: {error}',
   },
-  filterAll: {
-    id: 'allProviderModels.filterAll',
-    defaultMessage: 'All',
-  },
-  filterFree: {
-    id: 'allProviderModels.filterFree',
-    defaultMessage: 'Free',
-  },
-  freeCount: {
-    id: 'allProviderModels.freeCount',
-    defaultMessage: '{count} free',
-  },
-  noFreeModels: {
-    id: 'allProviderModels.noFreeModels',
-    defaultMessage: 'No free models from your providers.',
-  },
-  noFreeModelsHint: {
-    id: 'allProviderModels.noFreeModelsHint',
-    defaultMessage:
-      'Models show as free when a provider runs them locally (Ollama, local models) or lists free variants, such as the :free models from OpenRouter.',
-  },
-  showAll: {
-    id: 'allProviderModels.showAll',
-    defaultMessage: 'Show all models',
-  },
   addPreferred: {
     id: 'allProviderModels.addPreferred',
     defaultMessage: 'Add {model} to preferred models',
@@ -158,9 +127,8 @@ const i18n = defineMessages({
 interface AllProviderModelsProps {
   /** Called after a model has been made the default so the parent can refresh. */
   onModelSelected?: () => void;
-  /** Starred models shown in the chat model menu. */
-  preferredModels: RecentModel[];
-  onPreferredModelsChange: (next: RecentModel[]) => void;
+  preferredModels?: RecentModel[];
+  onPreferredModelsChange?: (next: RecentModel[]) => void;
 }
 
 /**
@@ -169,7 +137,7 @@ interface AllProviderModelsProps {
  */
 export default function AllProviderModels({
   onModelSelected,
-  preferredModels,
+  preferredModels = [],
   onPreferredModelsChange,
 }: AllProviderModelsProps) {
   const intl = useIntl();
@@ -184,14 +152,6 @@ export default function AllProviderModels({
   const [loadError, setLoadError] = useState<string | null>(null);
   const [refreshErrors, setRefreshErrors] = useState<Record<string, string>>({});
   const [query, setQuery] = useState('');
-  const [freeOnly, setFreeOnly] = useState<boolean>(
-    () => localStorage.getItem(FREE_ONLY_STORAGE_KEY) === 'true'
-  );
-
-  const handleFreeOnly = useCallback((value: boolean) => {
-    setFreeOnly(value);
-    localStorage.setItem(FREE_ONLY_STORAGE_KEY, String(value));
-  }, []);
 
   const loadModels = useCallback(async () => {
     setIsLoading(true);
@@ -201,17 +161,7 @@ export default function AllProviderModels({
         acpListSettingsProviderDetails(),
         acpReadDefaults(),
       ]);
-      const configured = all.filter((provider) => provider.is_configured);
-      // Only load models for providers whose token key is set; the secrets
-      // list is shared across checks so each provider needs at most one
-      // extra config read.
-      const storedSecrets = await acpListProviderSecrets().catch(() => []);
-      const withToken = await Promise.all(
-        configured.map(async (provider) =>
-          (await acpIsProviderTokenSet(provider, storedSecrets)) ? provider : null
-        )
-      );
-      setProviders(withToken.filter((provider): provider is ProviderDetails => provider !== null));
+      setProviders(all.filter((provider) => provider.is_configured));
       setDefaults(currentDefaults);
     } catch (error) {
       setLoadError(errorMessage(error));
@@ -282,7 +232,7 @@ export default function AllProviderModels({
         : addPreferredModel(preferredModels, provider.name, model);
       try {
         await window.electron.setSetting('preferredModels', next);
-        onPreferredModelsChange(next);
+        onPreferredModelsChange?.(next);
       } catch (error) {
         toastError({
           title: intl.formatMessage(i18n.preferredUpdateFailed),
@@ -298,59 +248,24 @@ export default function AllProviderModels({
     [providers]
   );
 
-  const freeKeys = useMemo(
-    () =>
-      collectKnownFreeKeys(
-        providers.map((provider) => ({
-          name: provider.name,
-          models: provider.metadata.known_models.map((model) => model.name),
-        }))
-      ),
-    [providers]
-  );
-
-  const isFreeModel = useCallback(
-    (providerId: string, modelName: string) => freeKeys.has(modelKey(providerId, modelName)),
-    [freeKeys]
-  );
-
-  const totalFreeModels = useMemo(
-    () =>
-      providers.reduce(
-        (sum, provider) =>
-          sum +
-          provider.metadata.known_models.filter((model) =>
-            freeKeys.has(modelKey(provider.name, model.name))
-          ).length,
-        0
-      ),
-    [providers, freeKeys]
-  );
-
   const normalizedQuery = query.trim().toLowerCase();
 
   const filteredGroups = useMemo(() => {
     return providers
       .map((provider) => {
         const models = provider.metadata.known_models;
-        const freeCount = models.filter((model) =>
-          freeKeys.has(modelKey(provider.name, model.name))
-        ).length;
         const providerMatches =
           normalizedQuery !== '' &&
           (provider.metadata.display_name.toLowerCase().includes(normalizedQuery) ||
             provider.name.toLowerCase().includes(normalizedQuery));
-        const searched =
+        const visibleModels =
           normalizedQuery === '' || providerMatches
             ? models
             : models.filter((model) => model.name.toLowerCase().includes(normalizedQuery));
-        const visibleModels = freeOnly
-          ? searched.filter((model) => freeKeys.has(modelKey(provider.name, model.name)))
-          : searched;
-        return { provider, models: visibleModels, freeCount };
+        return { provider, models: visibleModels };
       })
-      .filter((group) => (normalizedQuery === '' && !freeOnly) || group.models.length > 0);
-  }, [providers, normalizedQuery, freeKeys, freeOnly]);
+      .filter((group) => normalizedQuery === '' || group.models.length > 0);
+  }, [providers, normalizedQuery]);
 
   const visibleModels = useMemo(
     () => filteredGroups.reduce((sum, group) => sum + group.models.length, 0),
@@ -358,19 +273,12 @@ export default function AllProviderModels({
   );
 
   const countText =
-    normalizedQuery === '' && !freeOnly
+    normalizedQuery === ''
       ? intl.formatMessage(i18n.modelCount, { count: totalModels })
       : intl.formatMessage(i18n.showingCount, {
           shown: visibleModels,
           total: totalModels,
         });
-
-  const filterButtonClass = (active: boolean) =>
-    `inline-flex items-center gap-1 rounded-md border px-2 py-1 text-xs transition-colors ${
-      active
-        ? 'border-text-inverse bg-background-inverse text-text-inverse'
-        : 'border-border-primary bg-background-secondary text-text-secondary hover:bg-background-tertiary hover:text-text-primary'
-    }`;
 
   return (
     <Card className="rounded-lg">
@@ -408,36 +316,9 @@ export default function AllProviderModels({
         ) : (
           <div className="space-y-4">
             <div className="flex flex-wrap items-center justify-between gap-2">
-              <div className="flex flex-wrap items-center gap-2">
-                <div className="flex items-center gap-1" role="group">
-                  <button
-                    type="button"
-                    data-testid="models-filter-all"
-                    aria-pressed={!freeOnly}
-                    onClick={() => handleFreeOnly(false)}
-                    className={filterButtonClass(!freeOnly)}
-                  >
-                    {intl.formatMessage(i18n.filterAll)}{' '}
-                    <span className="opacity-70">{totalModels}</span>
-                  </button>
-                  <button
-                    type="button"
-                    data-testid="models-filter-free"
-                    aria-pressed={freeOnly}
-                    onClick={() => handleFreeOnly(true)}
-                    className={filterButtonClass(freeOnly)}
-                  >
-                    {intl.formatMessage(i18n.filterFree)}{' '}
-                    <span className="opacity-70">{totalFreeModels}</span>
-                  </button>
-                </div>
-                <span
-                  className="text-xs text-text-secondary"
-                  data-testid="all-provider-models-count"
-                >
-                  {countText}
-                </span>
-              </div>
+              <span className="text-xs text-text-secondary" data-testid="all-provider-models-count">
+                {countText}
+              </span>
               <div className="flex items-center gap-2">
                 <div className="relative">
                   <Search
@@ -482,21 +363,7 @@ export default function AllProviderModels({
               </div>
             </div>
 
-            {freeOnly && totalFreeModels === 0 ? (
-              <div className="flex items-center justify-between gap-4">
-                <div>
-                  <p className="text-sm text-text-primary">
-                    {intl.formatMessage(i18n.noFreeModels)}
-                  </p>
-                  <p className="mt-1 text-xs text-text-secondary">
-                    {intl.formatMessage(i18n.noFreeModelsHint)}
-                  </p>
-                </div>
-                <Button size="sm" variant="secondary" onClick={() => handleFreeOnly(false)}>
-                  {intl.formatMessage(i18n.showAll)}
-                </Button>
-              </div>
-            ) : filteredGroups.length === 0 ? (
+            {filteredGroups.length === 0 ? (
               <div className="flex flex-col items-center gap-3 rounded-lg border border-dashed border-border-primary py-8">
                 <p className="text-sm text-text-secondary">
                   {intl.formatMessage(i18n.noSearchResults, { query: query.trim() })}
@@ -506,7 +373,7 @@ export default function AllProviderModels({
                 </Button>
               </div>
             ) : (
-              filteredGroups.map(({ provider, models, freeCount }) => {
+              filteredGroups.map(({ provider, models }) => {
                 const error = refreshErrors[provider.name];
                 const isCurrentProvider = defaults.providerId === provider.name;
                 return (
@@ -524,14 +391,6 @@ export default function AllProviderModels({
                         <span className="text-xs text-text-secondary">
                           {intl.formatMessage(i18n.modelCount, { count: models.length })}
                         </span>
-                        {!freeOnly && freeCount > 0 && (
-                          <span
-                            className="text-xs text-emerald-600 dark:text-emerald-400"
-                            data-testid={`provider-free-count-${provider.name}`}
-                          >
-                            {intl.formatMessage(i18n.freeCount, { count: freeCount })}
-                          </span>
-                        )}
                       </div>
                     </div>
 
@@ -553,23 +412,22 @@ export default function AllProviderModels({
                       <div className="grid gap-2 sm:grid-cols-2">
                         {models.map((model) => {
                           const isCurrent = isCurrentProvider && defaults.modelId === model.name;
-                          const isFree = isFreeModel(provider.name, model.name);
-                          const contextText = formatContextLimit(model.context_limit);
                           const isPreferred = isPreferredModel(
                             preferredModels,
                             provider.name,
                             model.name
                           );
+                          const contextText = formatContextLimit(model.context_limit);
                           return (
-                            <div key={model.name} className="flex min-w-0 items-center gap-1">
+                            <div key={model.name} className="flex min-w-0 items-stretch gap-1">
                               <button
                                 type="button"
                                 onClick={() => handleSelectModel(provider, model.name)}
-                                title={`${
+                                title={
                                   contextText
                                     ? `${model.name} (${contextText} context)`
                                     : model.name
-                                }${isFree ? ' · free' : ''}`}
+                                }
                                 aria-pressed={isCurrent}
                                 data-testid={`all-provider-model-${provider.name}-${model.name}`}
                                 className={`flex min-w-0 flex-1 items-center gap-2.5 rounded-lg border px-3 py-2 text-left transition-colors ${
@@ -591,7 +449,6 @@ export default function AllProviderModels({
                                 <span className="min-w-0 flex-1 truncate text-sm text-text-primary">
                                   {model.name}
                                 </span>
-                                {isFree && !freeOnly && <FreeModelBadge className="shrink-0" />}
                                 <ContextBadge contextLimit={model.context_limit} compact />
                                 {model.reasoning && <ReasoningBadge />}
                                 {isCurrent && <DefaultBadge />}
@@ -604,14 +461,15 @@ export default function AllProviderModels({
                                   { model: model.name }
                                 )}
                                 aria-pressed={isPreferred}
-                                className={`shrink-0 rounded-md px-1.5 py-1.5 transition-colors ${
+                                className={`shrink-0 rounded-lg border px-2 transition-colors ${
                                   isPreferred
-                                    ? 'text-amber-500 hover:text-amber-600'
-                                    : 'text-text-secondary opacity-60 hover:text-text-primary hover:opacity-100'
+                                    ? 'border-amber-500 text-amber-500 hover:text-amber-600'
+                                    : 'border-border-primary text-text-secondary opacity-60 hover:opacity-100'
                                 }`}
                               >
                                 <Star
                                   className={`h-3.5 w-3.5 ${isPreferred ? 'fill-current' : ''}`}
+                                  aria-hidden="true"
                                 />
                               </button>
                             </div>

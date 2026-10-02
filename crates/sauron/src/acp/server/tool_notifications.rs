@@ -6,7 +6,7 @@ use rmcp::model::LoggingMessageNotificationParam;
 use rmcp::model::{ProgressNotificationParam, ServerNotification};
 use serde::Serialize;
 
-use crate::agents::platform_extensions::developer::shell::{
+use crate::agents::in_process::developer::shell::{
     parse_shell_output_notification, ShellOutputNotificationParams,
 };
 
@@ -71,7 +71,7 @@ pub(super) fn tool_notification_update(
 #[cfg(test)]
 mod tests {
     use super::tool_notification_update;
-    use crate::agents::platform_extensions::developer::shell::DEVELOPER_SHELL_OUTPUT_NOTIFICATION_METHOD;
+    use crate::agents::in_process::developer::shell::DEVELOPER_SHELL_OUTPUT_NOTIFICATION_METHOD;
     use agent_client_protocol::schema::v1::SessionUpdate;
     use rmcp::model::{
         CancelledNotificationParam, CustomNotification, Notification, NumberOrString,

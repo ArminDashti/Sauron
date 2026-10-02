@@ -107,7 +107,7 @@ Some workspace crates, including those that make up the GDK, are published to cr
 - Test: When adding features, update sauron-self-test.yaml, rebuild, then run `sauron run --recipe sauron-self-test.yaml` to validate
 - Error: Use anyhow::Result
 - Provider: Implement Provider trait see providers/base.rs
-- MCP: Extensions in crates/sauron-mcp/
+- MCP: Built-in servers in crates/sauron/src/builtin_servers/
 - UI Desktop: Use ACP SDK types or local `src/types/*` types. Do not import generated OpenAPI types/client code from `ui/desktop/src/api`
 
 ## Code Quality

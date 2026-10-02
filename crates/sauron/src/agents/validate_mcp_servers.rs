@@ -1,4 +1,4 @@
-use crate::agents::ExtensionConfig;
+use crate::agents::McpServerConfig;
 use anyhow::Result;
 use serde::Deserialize;
 use std::path::Path;
@@ -14,7 +14,7 @@ struct BundledExtensionEntry {
     enabled: bool,
 }
 
-pub fn validate_bundled_extensions(path: &Path) -> Result<String> {
+pub fn validate_bundled_mcp_servers(path: &Path) -> Result<String> {
     let content = std::fs::read_to_string(path)?;
     let raw_entries: Vec<serde_json::Value> = serde_json::from_str(&content)?;
     let total = raw_entries.len();
@@ -59,7 +59,7 @@ pub fn validate_bundled_extensions(path: &Path) -> Result<String> {
             continue;
         }
 
-        if let Err(e) = serde_json::from_value::<ExtensionConfig>(entry.clone()) {
+        if let Err(e) = serde_json::from_value::<McpServerConfig>(entry.clone()) {
             errors.push(format!("[{index}] {} (id={}): {e}", meta.name, meta.id));
         }
     }
@@ -101,7 +101,7 @@ mod tests {
             "bundled": true
         }]"#,
         );
-        let result = validate_bundled_extensions(f.path());
+        let result = validate_bundled_mcp_servers(f.path());
         assert!(result.is_ok());
         assert!(result.unwrap().contains("1 extensions validated"));
     }
@@ -122,7 +122,7 @@ mod tests {
             "bundled": true
         }]"#,
         );
-        let result = validate_bundled_extensions(f.path());
+        let result = validate_bundled_mcp_servers(f.path());
         assert!(result.is_ok());
     }
 
@@ -142,7 +142,7 @@ mod tests {
             "bundled": true
         }]"#,
         );
-        let result = validate_bundled_extensions(f.path());
+        let result = validate_bundled_mcp_servers(f.path());
         assert!(result.is_ok());
     }
 
@@ -160,7 +160,7 @@ mod tests {
             "bundled": true
         }]"#,
         );
-        let result = validate_bundled_extensions(f.path());
+        let result = validate_bundled_mcp_servers(f.path());
         assert!(result.is_err());
         let err = result.unwrap_err().to_string();
         assert!(err.contains("Asana"));
@@ -181,7 +181,7 @@ mod tests {
             "bundled": true
         }]"#,
         );
-        let result = validate_bundled_extensions(f.path());
+        let result = validate_bundled_mcp_servers(f.path());
         assert!(result.is_err());
         assert!(result.unwrap_err().to_string().contains("uri"));
     }
@@ -200,7 +200,7 @@ mod tests {
             "bundled": true
         }]"#,
         );
-        let result = validate_bundled_extensions(f.path());
+        let result = validate_bundled_mcp_servers(f.path());
         assert!(result.is_err());
         assert!(result.unwrap_err().to_string().contains("cmd"));
     }
@@ -230,7 +230,7 @@ mod tests {
             }
         ]"#,
         );
-        let result = validate_bundled_extensions(f.path());
+        let result = validate_bundled_mcp_servers(f.path());
         assert!(result.is_err());
         let err = result.unwrap_err().to_string();
         assert!(err.contains("1 error(s)"));
@@ -240,7 +240,7 @@ mod tests {
     #[test]
     fn test_empty_array_is_valid() {
         let f = write_json("[]");
-        let result = validate_bundled_extensions(f.path());
+        let result = validate_bundled_mcp_servers(f.path());
         assert!(result.is_ok());
         assert!(result.unwrap().contains("0 extensions validated"));
     }

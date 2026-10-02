@@ -1,7 +1,7 @@
 use super::discover_skills_with_config;
 use super::loaded_skill_context_with_args;
-use crate::agents::extension::PlatformExtensionContext;
 use crate::agents::mcp_client::{Error, McpClientTrait};
+use crate::agents::mcp_server::InProcessContext;
 use crate::agents::ToolCallContext;
 use crate::config::Config;
 use async_trait::async_trait;
@@ -19,18 +19,19 @@ pub static EXTENSION_NAME: &str = "skills";
 
 pub struct SkillsClient {
     info: InitializeResult,
-    working_dir: RwLock<PathBuf>,
+    /// `None` for chat-only sessions, which expose no project-scoped skills.
+    working_dir: RwLock<Option<PathBuf>>,
     exclude_builtin_skills: bool,
     config: &'static Config,
 }
 
 impl SkillsClient {
-    pub fn new(context: PlatformExtensionContext) -> anyhow::Result<Self> {
+    pub fn new(context: InProcessContext) -> anyhow::Result<Self> {
         let working_dir = context
             .session
             .as_ref()
-            .map(|s| s.working_dir.clone())
-            .unwrap_or_else(|| std::env::current_dir().unwrap_or_default());
+            .and_then(|s| s.working_dir.clone())
+            .or_else(|| std::env::current_dir().ok());
 
         let info = InitializeResult::new(ServerCapabilities::builder().enable_tools().build())
             .with_server_info(Implementation::new(EXTENSION_NAME, "1.0.0").with_title("Skills"));
@@ -58,7 +59,7 @@ impl SkillsClient {
 
     fn discover_skills(&self) -> Vec<SourceEntry> {
         let working_dir = self.working_dir.read().unwrap().clone();
-        discover_skills_with_config(Some(&working_dir), self.config)
+        discover_skills_with_config(working_dir.as_deref(), self.config)
             .into_iter()
             .filter(|skill| {
                 !self.exclude_builtin_skills || skill.source_type != SourceType::BuiltinSkill
@@ -269,7 +270,7 @@ impl McpClientTrait for SkillsClient {
     }
 
     async fn update_working_dir(&self, new_dir: PathBuf) -> Result<(), Error> {
-        *self.working_dir.write().unwrap() = new_dir;
+        *self.working_dir.write().unwrap() = Some(new_dir);
         Ok(())
     }
 
@@ -337,8 +338,8 @@ mod tests {
             working_dir: project.to_path_buf(),
             ..crate::session::Session::default()
         });
-        SkillsClient::new(PlatformExtensionContext {
-            extension_manager: None,
+        SkillsClient::new(InProcessContext {
+            mcp_manager: None,
             session_manager: Arc::new(crate::session::SessionManager::instance()),
             scheduler: None,
             session: Some(session),
@@ -490,8 +491,8 @@ mod tests {
             working_dir: workspace.to_path_buf(),
             ..crate::session::Session::default()
         });
-        SkillsClient::new(PlatformExtensionContext {
-            extension_manager: None,
+        SkillsClient::new(InProcessContext {
+            mcp_manager: None,
             session_manager: Arc::new(crate::session::SessionManager::instance()),
             scheduler: None,
             session: Some(session),
@@ -615,8 +616,8 @@ mod tests {
             working_dir: temp_dir.path().to_path_buf(),
             ..crate::session::Session::default()
         });
-        let client = SkillsClient::new(PlatformExtensionContext {
-            extension_manager: None,
+        let client = SkillsClient::new(InProcessContext {
+            mcp_manager: None,
             session_manager: Arc::new(crate::session::SessionManager::instance()),
             scheduler: None,
             session: Some(session),
@@ -664,8 +665,8 @@ mod tests {
 
     #[tokio::test]
     async fn test_load_skill_not_found_returns_error() {
-        let client = SkillsClient::new(PlatformExtensionContext {
-            extension_manager: None,
+        let client = SkillsClient::new(InProcessContext {
+            mcp_manager: None,
             session_manager: Arc::new(crate::session::SessionManager::instance()),
             scheduler: None,
             session: None,

@@ -53,6 +53,17 @@ declare module '*.md?raw' {
 declare global {
   interface Window {
     isCreatingRecipe?: boolean;
+    electron: {
+      getUserProfile: () => Promise<{ username: string }>;
+      getSystemStats: () => Promise<{
+        cpu: number;
+        memory: number;
+        disk: number;
+        download: number;
+        upload: number;
+      }>;
+      openExternal: (url: string) => Promise<'opened' | null>;
+    };
   }
 
   interface WindowEventMap {

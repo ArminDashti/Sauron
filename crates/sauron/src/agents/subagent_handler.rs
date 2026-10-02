@@ -148,7 +148,7 @@ fn get_agent_messages(params: SubagentRunParams) -> AgentMessagesFuture {
             .map_err(|e| anyhow!("Failed to set provider on sub agent: {}", e))?;
 
         for extension in &task_config.extensions {
-            if let Err(e) = agent.add_extension(extension.clone(), &session_id).await {
+            if let Err(e) = agent.add_mcp_server(extension.clone(), &session_id).await {
                 debug!(
                     "Failed to add extension '{}' to subagent: {}",
                     extension.name(),

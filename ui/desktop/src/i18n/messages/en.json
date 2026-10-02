@@ -56,15 +56,6 @@
   "allProviderModels.emptyHint": {
     "defaultMessage": "Configure a provider to see the models it offers."
   },
-  "allProviderModels.filterAll": {
-    "defaultMessage": "All"
-  },
-  "allProviderModels.filterFree": {
-    "defaultMessage": "Free"
-  },
-  "allProviderModels.freeCount": {
-    "defaultMessage": "{count} free"
-  },
   "allProviderModels.loadFailed": {
     "defaultMessage": "Could not load provider models"
   },
@@ -73,12 +64,6 @@
   },
   "allProviderModels.modelCount": {
     "defaultMessage": "{count,plural,one{# model} other{# models}}"
-  },
-  "allProviderModels.noFreeModels": {
-    "defaultMessage": "No free models from your providers."
-  },
-  "allProviderModels.noFreeModelsHint": {
-    "defaultMessage": "Models show as free when a provider runs them locally (Ollama, local models) or lists free variants, such as the :free models from OpenRouter."
   },
   "allProviderModels.noModels": {
     "defaultMessage": "No models reported by this provider."
@@ -107,9 +92,6 @@
   "allProviderModels.searchPlaceholder": {
     "defaultMessage": "Search models..."
   },
-  "allProviderModels.showAll": {
-    "defaultMessage": "Show all models"
-  },
   "allProviderModels.showingCount": {
     "defaultMessage": "Showing {shown, number} of {total, number} models"
   },
@@ -122,14 +104,8 @@
   "appLayout.collapseNavigation": {
     "defaultMessage": "Collapse navigation"
   },
-  "appLayout.hideChanges": {
-    "defaultMessage": "Hide changes panel"
-  },
   "appLayout.openNavigation": {
     "defaultMessage": "Open navigation"
-  },
-  "appLayout.showChanges": {
-    "defaultMessage": "Show changes panel"
   },
   "appsView.customApp": {
     "defaultMessage": "Custom app"
@@ -233,6 +209,9 @@
   "authSettings.githubAccountName": {
     "defaultMessage": "GitHub"
   },
+  "authSettings.githubBrowserOpenFailed": {
+    "defaultMessage": "Could not open the browser. Use Open GitHub again."
+  },
   "authSettings.githubConnected": {
     "defaultMessage": "Connected"
   },
@@ -242,8 +221,8 @@
   "authSettings.githubNotConnected": {
     "defaultMessage": "Not connected"
   },
-  "authSettings.githubOpenDevicePage": {
-    "defaultMessage": "Open the GitHub device page"
+  "authSettings.githubOpenAgain": {
+    "defaultMessage": "Open GitHub again"
   },
   "authSettings.githubSignInFailed": {
     "defaultMessage": "GitHub sign-in failed: {error}"
@@ -343,81 +322,6 @@
   },
   "cardButtons.launch": {
     "defaultMessage": "Launch"
-  },
-  "changesPanel.cleanTree": {
-    "defaultMessage": "Working tree clean"
-  },
-  "changesPanel.close": {
-    "defaultMessage": "Close changes panel"
-  },
-  "changesPanel.commitAndPush": {
-    "defaultMessage": "Commit & Push"
-  },
-  "changesPanel.commitFailed": {
-    "defaultMessage": "Commit failed"
-  },
-  "changesPanel.commitPlaceholder": {
-    "defaultMessage": "Commit message"
-  },
-  "changesPanel.commitSuccess": {
-    "defaultMessage": "Committed and pushed"
-  },
-  "changesPanel.committing": {
-    "defaultMessage": "Committing…"
-  },
-  "changesPanel.loadFailed": {
-    "defaultMessage": "Could not load git changes"
-  },
-  "changesPanel.loading": {
-    "defaultMessage": "Loading changes…"
-  },
-  "changesPanel.loadingDiff": {
-    "defaultMessage": "Loading diff…"
-  },
-  "changesPanel.noChanges": {
-    "defaultMessage": "No changes"
-  },
-  "changesPanel.noDirectory": {
-    "defaultMessage": "No working directory selected"
-  },
-  "changesPanel.notARepo": {
-    "defaultMessage": "Not a git repository"
-  },
-  "changesPanel.pushFailed": {
-    "defaultMessage": "Committed, but push failed"
-  },
-  "changesPanel.refresh": {
-    "defaultMessage": "Refresh changes"
-  },
-  "changesPanel.retry": {
-    "defaultMessage": "Retry"
-  },
-  "changesPanel.statusAdded": {
-    "defaultMessage": "Added"
-  },
-  "changesPanel.statusConflicted": {
-    "defaultMessage": "Conflicted"
-  },
-  "changesPanel.statusCopied": {
-    "defaultMessage": "Copied"
-  },
-  "changesPanel.statusDeleted": {
-    "defaultMessage": "Deleted"
-  },
-  "changesPanel.statusModified": {
-    "defaultMessage": "Modified"
-  },
-  "changesPanel.statusRenamed": {
-    "defaultMessage": "Renamed"
-  },
-  "changesPanel.statusUntracked": {
-    "defaultMessage": "Untracked"
-  },
-  "changesPanel.title": {
-    "defaultMessage": "Changes"
-  },
-  "changesPanel.uncommitted": {
-    "defaultMessage": "Uncommitted"
   },
   "chat.notification.taskComplete.body": {
     "defaultMessage": "Click here to bring Sauron back into focus."
@@ -884,9 +788,6 @@
   "customProviderForm.apiKey": {
     "defaultMessage": "API Key"
   },
-  "customProviderForm.apiKeyEnvHint": {
-    "defaultMessage": "Enter {example} to read the key from an environment variable instead of storing it."
-  },
   "customProviderForm.apiKeyPlaceholderExisting": {
     "defaultMessage": "Leave blank to keep existing key"
   },
@@ -1043,9 +944,6 @@
   "defaultProviderSetupForm.apiHostPlaceholder": {
     "defaultMessage": "https://api.example.com"
   },
-  "defaultProviderSetupForm.apiKeyEnvHint": {
-    "defaultMessage": "Enter {example} to read the key from an environment variable instead of storing it."
-  },
   "defaultProviderSetupForm.apiKeyLabel": {
     "defaultMessage": "API Key"
   },
@@ -1168,12 +1066,6 @@
   },
   "dictationSettings.voiceDictationProvider": {
     "defaultMessage": "Voice Dictation Provider"
-  },
-  "diffViewer.noDiff": {
-    "defaultMessage": "No textual changes to display"
-  },
-  "diffViewer.unmodifiedLines": {
-    "defaultMessage": "{count} unmodified lines"
   },
   "dirSwitcher.chooseDirectory": {
     "defaultMessage": "Choose directory…"
@@ -1508,9 +1400,6 @@
   "externalBackendSection.workingDirPlaceholder": {
     "defaultMessage": "/home/sauron/workspace"
   },
-  "freeModelBadge.label": {
-    "defaultMessage": "Free"
-  },
   "gitBranchIndicator.failedToSwitch": {
     "defaultMessage": "Failed to switch to {branch}"
   },
@@ -1522,6 +1411,60 @@
   },
   "gitBranchIndicator.uncommittedChanges": {
     "defaultMessage": "You may have uncommitted changes."
+  },
+  "githubView.askSauron": {
+    "defaultMessage": "Ask Sauron"
+  },
+  "githubView.description": {
+    "defaultMessage": "Browse repositories, issues, and pull requests, then ask Sauron to work on them."
+  },
+  "githubView.draft": {
+    "defaultMessage": "Draft"
+  },
+  "githubView.emptyIssues": {
+    "defaultMessage": "No open issues in this repository."
+  },
+  "githubView.emptyPulls": {
+    "defaultMessage": "No open pull requests in this repository."
+  },
+  "githubView.emptyRepos": {
+    "defaultMessage": "No repositories found."
+  },
+  "githubView.issues": {
+    "defaultMessage": "Issues"
+  },
+  "githubView.loadFailed": {
+    "defaultMessage": "Could not load GitHub data: {error}"
+  },
+  "githubView.loading": {
+    "defaultMessage": "Loading…"
+  },
+  "githubView.notConnectedBody": {
+    "defaultMessage": "Sign in with GitHub to list your repositories, issues, and pull requests. Your browser will open to authorize Sauron."
+  },
+  "githubView.notConnectedTitle": {
+    "defaultMessage": "Connect GitHub"
+  },
+  "githubView.private": {
+    "defaultMessage": "Private"
+  },
+  "githubView.pullRequests": {
+    "defaultMessage": "Pull requests"
+  },
+  "githubView.repositories": {
+    "defaultMessage": "Repositories"
+  },
+  "githubView.selectRepo": {
+    "defaultMessage": "Select a repository"
+  },
+  "githubView.signInAgain": {
+    "defaultMessage": "Sign in again"
+  },
+  "githubView.title": {
+    "defaultMessage": "GitHub"
+  },
+  "githubView.tryAgain": {
+    "defaultMessage": "Try again"
   },
   "groupedExtensionLoadingToast.askSauron": {
     "defaultMessage": "Ask sauron"
@@ -1558,36 +1501,6 @@
   },
   "groupedExtensionLoadingToast.successfullyLoaded": {
     "defaultMessage": "{count,plural,one{Successfully loaded # extension} other{Successfully loaded # extensions}}"
-  },
-  "harnessesSection.configure": {
-    "defaultMessage": "Configure"
-  },
-  "harnessesSection.configured": {
-    "defaultMessage": "Enabled"
-  },
-  "harnessesSection.description": {
-    "defaultMessage": "Use agents from another harness such as Cursor, Claude Code, Codex, or Copilot. Enable one here, then select it in Models to chat with it."
-  },
-  "harnessesSection.empty": {
-    "defaultMessage": "No external agent harnesses are available."
-  },
-  "harnessesSection.installed": {
-    "defaultMessage": "Installed"
-  },
-  "harnessesSection.loadFailed": {
-    "defaultMessage": "Failed to load harnesses"
-  },
-  "harnessesSection.loading": {
-    "defaultMessage": "Loading harnesses..."
-  },
-  "harnessesSection.notConfigured": {
-    "defaultMessage": "Not enabled"
-  },
-  "harnessesSection.notInstalled": {
-    "defaultMessage": "Not installed"
-  },
-  "harnessesSection.title": {
-    "defaultMessage": "Agent Harnesses"
   },
   "headersSection.add": {
     "defaultMessage": "Add"
@@ -2621,6 +2534,9 @@
   "navigation.itemExtensions": {
     "defaultMessage": "Extensions"
   },
+  "navigation.itemGitHub": {
+    "defaultMessage": "GitHub"
+  },
   "navigation.itemHome": {
     "defaultMessage": "New Chat"
   },
@@ -2642,14 +2558,23 @@
   "navigation.itemSkills": {
     "defaultMessage": "Skills"
   },
-  "navigationFooter.cpuUsage": {
-    "defaultMessage": "CPU {percent}%"
+  "navigationFooter.cpu": {
+    "defaultMessage": "CPU"
   },
-  "navigationFooter.memoryUsage": {
-    "defaultMessage": "Memory {percent}%"
+  "navigationFooter.disk": {
+    "defaultMessage": "Disk"
+  },
+  "navigationFooter.download": {
+    "defaultMessage": "DL"
+  },
+  "navigationFooter.memory": {
+    "defaultMessage": "Memory"
   },
   "navigationFooter.sendFeedback": {
     "defaultMessage": "Send feedback"
+  },
+  "navigationFooter.upload": {
+    "defaultMessage": "UP"
   },
   "navigationFooter.you": {
     "defaultMessage": "You"
@@ -2910,7 +2835,7 @@
     "defaultMessage": "Manage skills"
   },
   "pluginsSettings.pluginCount": {
-    "defaultMessage": "{count,plural,one{# plugin} other{# plugins} =0{No plugins}}"
+    "defaultMessage": "{count,plural,=0{No plugins} one{# plugin} other{# plugins}}"
   },
   "pluginsSettings.refresh": {
     "defaultMessage": "Refresh"
@@ -4473,7 +4398,7 @@
     "defaultMessage": "Agent Loop"
   },
   "settings.appearance.description": {
-    "defaultMessage": "Configure how sauron appears on your system"
+    "defaultMessage": "Configure how goose appears on your system"
   },
   "settings.appearance.title": {
     "defaultMessage": "Appearance"
@@ -4488,7 +4413,7 @@
     "defaultMessage": "Cost Tracking"
   },
   "settings.dockIcon.description": {
-    "defaultMessage": "Show sauron in the dock"
+    "defaultMessage": "Show goose in the dock"
   },
   "settings.dockIcon.title": {
     "defaultMessage": "Dock icon"
@@ -4521,7 +4446,7 @@
     "defaultMessage": "Help & feedback"
   },
   "settings.language.description": {
-    "defaultMessage": "Choose the display language for sauron"
+    "defaultMessage": "Choose the display language for goose"
   },
   "settings.language.english": {
     "defaultMessage": "English"
@@ -4578,7 +4503,7 @@
     "defaultMessage": "Chinese (Traditional)"
   },
   "settings.menuBarIcon.description": {
-    "defaultMessage": "Show sauron in the menu bar"
+    "defaultMessage": "Show goose in the menu bar"
   },
   "settings.menuBarIcon.title": {
     "defaultMessage": "Menu bar icon"
@@ -4599,7 +4524,7 @@
     "defaultMessage": "Click on Notifications"
   },
   "settings.notifications.modal.macStep3": {
-    "defaultMessage": "Find and select sauron in the application list"
+    "defaultMessage": "Find and select goose in the application list"
   },
   "settings.notifications.modal.macStep4": {
     "defaultMessage": "Enable notifications and adjust settings as desired"
@@ -4617,7 +4542,7 @@
     "defaultMessage": "Go to System > Notifications"
   },
   "settings.notifications.modal.winStep3": {
-    "defaultMessage": "Find and select sauron in the application list"
+    "defaultMessage": "Find and select goose in the application list"
   },
   "settings.notifications.modal.winStep4": {
     "defaultMessage": "Toggle notifications on and adjust settings as desired"
@@ -4625,14 +4550,8 @@
   "settings.notifications.openSettings": {
     "defaultMessage": "Open Settings"
   },
-  "settings.notifications.sound.description": {
-    "defaultMessage": "Play a sound with task completion notifications"
-  },
-  "settings.notifications.sound.title": {
-    "defaultMessage": "Notification sound"
-  },
   "settings.notifications.task.description": {
-    "defaultMessage": "Notify when Sauron finishes a task while the window is in the background"
+    "defaultMessage": "Notify when Goose finishes a task while the window is in the background"
   },
   "settings.notifications.task.title": {
     "defaultMessage": "Task completion notifications"
@@ -4641,13 +4560,13 @@
     "defaultMessage": "Notifications"
   },
   "settings.preventSleep.description": {
-    "defaultMessage": "Keep your computer awake while sauron is running a task (screen can still lock)"
+    "defaultMessage": "Keep your computer awake while goose is running a task (screen can still lock)"
   },
   "settings.preventSleep.title": {
     "defaultMessage": "Prevent Sleep"
   },
   "settings.theme.description": {
-    "defaultMessage": "Customize the look and feel of sauron"
+    "defaultMessage": "Customize the look and feel of goose"
   },
   "settings.theme.title": {
     "defaultMessage": "Theme"
@@ -4661,14 +4580,11 @@
   "settings.version.title": {
     "defaultMessage": "Version"
   },
-  "settingsView.noResults": {
-    "defaultMessage": "No results"
-  },
-  "settingsView.searchPlaceholder": {
-    "defaultMessage": "Search Settings"
-  },
   "settingsView.tabApp": {
     "defaultMessage": "App"
+  },
+  "settingsView.tabAuth": {
+    "defaultMessage": "Auth"
   },
   "settingsView.tabAppearance": {
     "defaultMessage": "Appearance"
@@ -4679,11 +4595,11 @@
   "settingsView.tabExternalBackend": {
     "defaultMessage": "Agent"
   },
-  "settingsView.tabHarnesses": {
-    "defaultMessage": "Harnesses"
-  },
   "settingsView.tabKeyboard": {
     "defaultMessage": "Keyboard"
+  },
+  "settingsView.tabLocalInference": {
+    "defaultMessage": "Local inference"
   },
   "settingsView.tabMcp": {
     "defaultMessage": "MCP"
@@ -4699,9 +4615,6 @@
   },
   "settingsView.tabProviders": {
     "defaultMessage": "Providers"
-  },
-  "settingsView.tabStats": {
-    "defaultMessage": "Stats"
   },
   "settingsView.title": {
     "defaultMessage": "Settings"
@@ -5162,78 +5075,6 @@
   "updateSection.versionIsAvailable": {
     "defaultMessage": "Version {version} is available"
   },
-  "usageStats.byModel": {
-    "defaultMessage": "Per model"
-  },
-  "usageStats.byProvider": {
-    "defaultMessage": "Per provider"
-  },
-  "usageStats.cost": {
-    "defaultMessage": "Cost"
-  },
-  "usageStats.empty": {
-    "defaultMessage": "No usage was recorded in this date range."
-  },
-  "usageStats.inputCacheTokens": {
-    "defaultMessage": "Input cache tokens"
-  },
-  "usageStats.inputTokens": {
-    "defaultMessage": "Input tokens"
-  },
-  "usageStats.loading": {
-    "defaultMessage": "Loading usage stats…"
-  },
-  "usageStats.modelColumn": {
-    "defaultMessage": "Model"
-  },
-  "usageStats.preset30": {
-    "defaultMessage": "Last 30 days"
-  },
-  "usageStats.preset7": {
-    "defaultMessage": "Last 7 days"
-  },
-  "usageStats.presetAll": {
-    "defaultMessage": "All time"
-  },
-  "usageStats.presetYear": {
-    "defaultMessage": "This year"
-  },
-  "usageStats.providerColumn": {
-    "defaultMessage": "Provider"
-  },
-  "usageStats.rangeDescription": {
-    "defaultMessage": "Usage is grouped by model and by provider for the selected dates."
-  },
-  "usageStats.rangeFrom": {
-    "defaultMessage": "From"
-  },
-  "usageStats.rangeLabel": {
-    "defaultMessage": "Date range"
-  },
-  "usageStats.rangeTo": {
-    "defaultMessage": "To"
-  },
-  "usageStats.sessions": {
-    "defaultMessage": "{count,plural,one{# session} other{# sessions}}"
-  },
-  "usageStats.sourceLedger": {
-    "defaultMessage": "Recorded usage"
-  },
-  "usageStats.sourceMessages": {
-    "defaultMessage": "Estimated from stored messages"
-  },
-  "usageStats.total": {
-    "defaultMessage": "Total"
-  },
-  "usageStats.unknown": {
-    "defaultMessage": "Unknown"
-  },
-  "usageStats.writeCacheTokens": {
-    "defaultMessage": "Write cache tokens"
-  },
-  "usageStats.writeTokens": {
-    "defaultMessage": "Write tokens"
-  },
   "userMessage.cancel": {
     "defaultMessage": "Cancel"
   },
@@ -5284,5 +5125,17 @@
   },
   "userMessage.removeImageFromEdit": {
     "defaultMessage": "Remove image from message"
+  },
+  "worktreeSettings.description": {
+    "defaultMessage": "Control which directories the working directory picker offers"
+  },
+  "worktreeSettings.title": {
+    "defaultMessage": "Git worktrees"
+  },
+  "worktreeSettings.toggleDescription": {
+    "defaultMessage": "List the other worktrees of the current repository in the working directory picker."
+  },
+  "worktreeSettings.toggleLabel": {
+    "defaultMessage": "Consider git worktrees"
   }
 }

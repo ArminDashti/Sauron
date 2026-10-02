@@ -1,10 +1,10 @@
-use crate::session::builder::ExtensionFailure;
+use crate::session::builder::McpServerFailure;
 use anstream::{adapter::strip_str, eprintln, println};
 use bat::WrappingMode;
 use console::{measure_text_width, style, Color, StyledObject, Term};
 use indicatif::{MultiProgress, ProgressBar, ProgressStyle};
 use rmcp::model::{CallToolRequestParams, JsonObject, PromptArgument, Role};
-use sauron::agents::platform_extensions::todo::TODO_WRITE_TOOL_NAME_COMPLETE;
+use sauron::agents::in_process::todo::TODO_WRITE_TOOL_NAME_COMPLETE;
 use sauron::config::Config;
 use sauron::conversation::message::{
     ActionRequiredData, Message, MessageContent, SystemNotificationContent, SystemNotificationType,
@@ -237,7 +237,7 @@ pub fn show_extensions_ready() {
     eprintln!("  {}", style("✓ extensions ready").green());
 }
 
-pub fn show_extension_failures(failures: &[ExtensionFailure]) {
+pub fn show_extension_failures(failures: &[McpServerFailure]) {
     for failure in failures {
         match failure.label.as_deref() {
             None => {

@@ -608,6 +608,123 @@ pub struct ConfigReadAllResponse {
     pub config: std::collections::HashMap<String, serde_json::Value>,
 }
 
+/// Closed GitHub API queries that use the stored personal access token server-side.
+#[derive(Debug, Clone, Serialize, Deserialize, JsonSchema)]
+#[serde(tag = "kind", rename_all = "camelCase")]
+pub enum GitHubQuery {
+    Account,
+    Repos {
+        #[serde(default)]
+        page: Option<u32>,
+        #[serde(default)]
+        per_page: Option<u32>,
+    },
+    Issues {
+        owner: String,
+        repo: String,
+        #[serde(default)]
+        page: Option<u32>,
+        #[serde(default)]
+        per_page: Option<u32>,
+    },
+    Pulls {
+        owner: String,
+        repo: String,
+        #[serde(default)]
+        page: Option<u32>,
+        #[serde(default)]
+        per_page: Option<u32>,
+    },
+}
+
+impl Default for GitHubQuery {
+    fn default() -> Self {
+        Self::Account
+    }
+}
+
+#[derive(Debug, Default, Clone, Serialize, Deserialize, JsonSchema, JsonRpcRequest)]
+#[request(method = "_sauron/unstable/github/query", response = GitHubQueryResponse)]
+#[serde(rename_all = "camelCase")]
+pub struct GitHubQueryRequest {
+    pub query: GitHubQuery,
+}
+
+#[derive(Debug, Default, Clone, Serialize, Deserialize, JsonSchema)]
+#[serde(rename_all = "camelCase")]
+pub struct GitHubAccountDto {
+    pub login: String,
+    #[serde(default)]
+    pub name: Option<String>,
+    pub avatar_url: String,
+    pub html_url: String,
+}
+
+#[derive(Debug, Default, Clone, Serialize, Deserialize, JsonSchema)]
+#[serde(rename_all = "camelCase")]
+pub struct GitHubRepoDto {
+    pub id: i64,
+    pub name: String,
+    pub full_name: String,
+    pub owner_login: String,
+    #[serde(default)]
+    pub description: Option<String>,
+    pub html_url: String,
+    pub private: bool,
+    #[serde(default)]
+    pub updated_at: Option<String>,
+}
+
+#[derive(Debug, Default, Clone, Serialize, Deserialize, JsonSchema)]
+#[serde(rename_all = "camelCase")]
+pub struct GitHubIssueDto {
+    pub number: i64,
+    pub title: String,
+    pub html_url: String,
+    pub state: String,
+    #[serde(default)]
+    pub user_login: Option<String>,
+    #[serde(default)]
+    pub updated_at: Option<String>,
+}
+
+#[derive(Debug, Default, Clone, Serialize, Deserialize, JsonSchema)]
+#[serde(rename_all = "camelCase")]
+pub struct GitHubPullDto {
+    pub number: i64,
+    pub title: String,
+    pub html_url: String,
+    pub state: String,
+    #[serde(default)]
+    pub user_login: Option<String>,
+    #[serde(default)]
+    pub updated_at: Option<String>,
+    pub draft: bool,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize, JsonSchema)]
+#[serde(tag = "kind", rename_all = "camelCase")]
+pub enum GitHubQueryData {
+    Account { account: GitHubAccountDto },
+    Repos { repos: Vec<GitHubRepoDto> },
+    Issues { issues: Vec<GitHubIssueDto> },
+    Pulls { pulls: Vec<GitHubPullDto> },
+}
+
+impl Default for GitHubQueryData {
+    fn default() -> Self {
+        Self::Account {
+            account: GitHubAccountDto::default(),
+        }
+    }
+}
+
+#[derive(Debug, Default, Clone, Serialize, Deserialize, JsonSchema, JsonRpcResponse)]
+#[serde(rename_all = "camelCase")]
+pub struct GitHubQueryResponse {
+    pub data: GitHubQueryData,
+}
+
 #[derive(Debug, Default, Clone, Copy, PartialEq, Eq, Serialize, Deserialize, JsonSchema)]
 #[serde(rename_all = "camelCase")]
 pub enum PreferenceKey {
@@ -1363,6 +1480,7 @@ pub enum SourceType {
     #[default]
     Skill,
     BuiltinSkill,
+    Rule,
     Recipe,
     Subrecipe,
     Agent,
@@ -1374,6 +1492,7 @@ impl std::fmt::Display for SourceType {
         match self {
             SourceType::Skill => write!(f, "skill"),
             SourceType::BuiltinSkill => write!(f, "builtin skill"),
+            SourceType::Rule => write!(f, "rule"),
             SourceType::Recipe => write!(f, "recipe"),
             SourceType::Subrecipe => write!(f, "subrecipe"),
             SourceType::Agent => write!(f, "agent"),

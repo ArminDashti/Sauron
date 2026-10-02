@@ -35,7 +35,7 @@ use super::{
     xai::XaiProvider,
     xai_oauth::XaiOAuthProvider,
 };
-use crate::config::ExtensionConfig;
+use crate::config::McpServerConfig;
 use crate::providers::anthropic_def::AnthropicProviderDef;
 use crate::providers::azure_foundry_def::AzureFoundryProviderDef;
 use crate::providers::base::ProviderType;
@@ -272,14 +272,14 @@ pub async fn inventory_identity(name: &str) -> Result<super::inventory::Inventor
     get_from_registry(name).await?.inventory_identity()
 }
 
-pub async fn create(name: &str, extensions: Vec<ExtensionConfig>) -> Result<Arc<dyn Provider>> {
+pub async fn create(name: &str, extensions: Vec<McpServerConfig>) -> Result<Arc<dyn Provider>> {
     let entry = get_from_registry(name).await?;
     entry.create(extensions).await
 }
 
 pub async fn create_with_working_dir(
     name: &str,
-    extensions: Vec<ExtensionConfig>,
+    extensions: Vec<McpServerConfig>,
     working_dir: PathBuf,
 ) -> Result<Arc<dyn Provider>> {
     let entry = get_from_registry(name).await?;
@@ -288,7 +288,7 @@ pub async fn create_with_working_dir(
 
 pub async fn create_with_default_model(
     name: impl AsRef<str>,
-    extensions: Vec<ExtensionConfig>,
+    extensions: Vec<McpServerConfig>,
 ) -> Result<Arc<dyn Provider>> {
     get_from_registry(name.as_ref())
         .await?
@@ -312,7 +312,7 @@ pub async fn cleanup_provider(name: &str) -> Result<()> {
 
 pub async fn create_with_named_model(
     provider_name: &str,
-    extensions: Vec<ExtensionConfig>,
+    extensions: Vec<McpServerConfig>,
 ) -> Result<Arc<dyn Provider>> {
     create(provider_name, extensions).await
 }

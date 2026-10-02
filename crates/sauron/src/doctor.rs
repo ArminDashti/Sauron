@@ -1,7 +1,7 @@
 use std::sync::Arc;
 
-use crate::agents::platform_extensions::developer;
-use crate::agents::ExtensionConfig;
+use crate::agents::in_process::developer;
+use crate::agents::McpServerConfig;
 use crate::config::Config;
 use crate::conversation::message::Message;
 use crate::providers;
@@ -27,7 +27,7 @@ pub async fn run(agent: &crate::agents::Agent, session_id: &str) -> anyhow::Resu
     }
 
     let info = SystemInfo::collect();
-    let extensions = agent.list_extensions().await;
+    let extensions = agent.list_mcp_servers().await;
 
     let mut prompt = format!(
         "I ran /doctor because something seems off. Here's my system info:\n\n\
@@ -66,7 +66,7 @@ pub async fn run(agent: &crate::agents::Agent, session_id: &str) -> anyhow::Resu
 
 async fn require_developer_extension(agent: &crate::agents::Agent) -> Option<Message> {
     let has_developer = agent
-        .extension_manager
+        .mcp_manager
         .get_extension_configs()
         .await
         .iter()
@@ -75,10 +75,10 @@ async fn require_developer_extension(agent: &crate::agents::Agent) -> Option<Mes
     (!has_developer).then(|| Message::assistant().with_text(DEVELOPER_EXTENSION_REQUIRED_MESSAGE))
 }
 
-fn is_developer_platform_config(config: &ExtensionConfig) -> bool {
+fn is_developer_platform_config(config: &McpServerConfig) -> bool {
     matches!(
         config,
-        ExtensionConfig::Builtin { .. } | ExtensionConfig::Platform { .. }
+        McpServerConfig::Builtin { .. } | McpServerConfig::Platform { .. }
     ) && config.key() == developer::EXTENSION_NAME
 }
 
@@ -287,9 +287,9 @@ mod tests {
     async fn developer_requirement_accepts_enabled_extension() {
         let agent = crate::agents::Agent::new();
         agent
-            .extension_manager
-            .add_extension(
-                ExtensionConfig::Platform {
+            .mcp_manager
+            .add_mcp_server(
+                McpServerConfig::Platform {
                     name: developer::EXTENSION_NAME.to_string(),
                     description: "Developer tools".to_string(),
                     display_name: Some("Developer".to_string()),
@@ -308,7 +308,7 @@ mod tests {
 
     #[test]
     fn custom_extension_named_developer_does_not_satisfy_requirement() {
-        let config = ExtensionConfig::stdio(
+        let config = McpServerConfig::stdio(
             developer::EXTENSION_NAME,
             "custom-developer",
             "Unrelated custom extension",

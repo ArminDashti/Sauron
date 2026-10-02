@@ -45,6 +45,8 @@ export interface Settings {
   enableNotifications: boolean;
   notificationSoundEnabled: boolean;
   spellcheckEnabled: boolean;
+  /** When disabled, git worktrees are never listed or considered as working directories. */
+  enableWorktrees: boolean;
   // Key is kept as `externalSaurond` for backward compat with persisted user settings.
   externalSaurond: ExternalBackendConfig;
   globalShortcut?: string | null;
@@ -89,6 +91,7 @@ export const defaultSettings: Settings = {
   enableNotifications: true,
   notificationSoundEnabled: true,
   spellcheckEnabled: true,
+  enableWorktrees: true,
   keyboardShortcuts: defaultKeyboardShortcuts,
   externalSaurond: {
     enabled: false,

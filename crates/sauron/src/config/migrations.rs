@@ -1,6 +1,6 @@
-use crate::agents::extension::PLATFORM_EXTENSIONS;
-use crate::agents::ExtensionConfig;
-use crate::config::extensions::ExtensionEntry;
+use crate::agents::mcp_server::IN_PROCESS_SERVERS;
+use crate::agents::McpServerConfig;
+use crate::config::mcp_servers::McpServerEntry;
 use crate::config::providers::ProviderEntry;
 use serde_yaml::Mapping;
 
@@ -44,20 +44,20 @@ fn migrate_platform_extensions(config: &mut Mapping) -> bool {
 
     let mut needs_save = false;
 
-    for (name, def) in PLATFORM_EXTENSIONS.iter() {
+    for (name, def) in IN_PROCESS_SERVERS.iter() {
         let ext_key = serde_yaml::Value::String(name.to_string());
         let existing = extensions_map.get(&ext_key);
 
         let needs_migration = match existing {
             None => true,
-            Some(value) => match serde_yaml::from_value::<ExtensionEntry>(value.clone()) {
+            Some(value) => match serde_yaml::from_value::<McpServerEntry>(value.clone()) {
                 Ok(entry) => match &entry.config {
-                    ExtensionConfig::Platform {
+                    McpServerConfig::Platform {
                         description,
                         display_name,
                         ..
                     }
-                    | ExtensionConfig::Builtin {
+                    | McpServerConfig::Builtin {
                         description,
                         display_name,
                         ..
@@ -73,7 +73,7 @@ fn migrate_platform_extensions(config: &mut Mapping) -> bool {
 
         if needs_migration {
             let existing_entry =
-                existing.and_then(|v| serde_yaml::from_value::<ExtensionEntry>(v.clone()).ok());
+                existing.and_then(|v| serde_yaml::from_value::<McpServerEntry>(v.clone()).ok());
 
             let enabled = existing
                 .and_then(read_enabled_field)
@@ -82,10 +82,10 @@ fn migrate_platform_extensions(config: &mut Mapping) -> bool {
             let available_tools = existing_entry
                 .as_ref()
                 .and_then(|entry| match &entry.config {
-                    ExtensionConfig::Builtin {
+                    McpServerConfig::Builtin {
                         available_tools, ..
                     }
-                    | ExtensionConfig::Platform {
+                    | McpServerConfig::Platform {
                         available_tools, ..
                     } => Some(available_tools.clone()),
                     _ => None,
@@ -95,10 +95,10 @@ fn migrate_platform_extensions(config: &mut Mapping) -> bool {
             // If the extension already exists as type 'builtin', preserve that type
             let is_existing_builtin = existing_entry
                 .as_ref()
-                .is_some_and(|e| matches!(e.config, ExtensionConfig::Builtin { .. }));
+                .is_some_and(|e| matches!(e.config, McpServerConfig::Builtin { .. }));
 
             let config = if is_existing_builtin {
-                ExtensionConfig::Builtin {
+                McpServerConfig::Builtin {
                     name: def.name.to_string(),
                     description: def.description.to_string(),
                     display_name: Some(def.display_name.to_string()),
@@ -107,7 +107,7 @@ fn migrate_platform_extensions(config: &mut Mapping) -> bool {
                     available_tools,
                 }
             } else {
-                ExtensionConfig::Platform {
+                McpServerConfig::Platform {
                     name: def.name.to_string(),
                     description: def.description.to_string(),
                     display_name: Some(def.display_name.to_string()),
@@ -116,7 +116,7 @@ fn migrate_platform_extensions(config: &mut Mapping) -> bool {
                 }
             };
 
-            let new_entry = ExtensionEntry { config, enabled };
+            let new_entry = McpServerEntry { config, enabled };
 
             if let Ok(value) = serde_yaml::to_value(&new_entry) {
                 extensions_map.insert(ext_key, value);
@@ -297,8 +297,8 @@ mod tests {
     fn test_migrate_platform_extensions_preserves_restrictions() {
         let mut config = Mapping::new();
         let mut extensions = Mapping::new();
-        let todo_entry = ExtensionEntry {
-            config: ExtensionConfig::Platform {
+        let todo_entry = McpServerEntry {
+            config: McpServerConfig::Platform {
                 name: "todo".to_string(),
                 description: "old description".to_string(),
                 display_name: Some("Old Name".to_string()),
@@ -323,12 +323,12 @@ mod tests {
         let extensions = config.get(&extensions_key).unwrap().as_mapping().unwrap();
         let todo_key = serde_yaml::Value::String("todo".to_string());
         let todo_value = extensions.get(&todo_key).unwrap();
-        let todo_entry: ExtensionEntry = serde_yaml::from_value(todo_value.clone()).unwrap();
+        let todo_entry: McpServerEntry = serde_yaml::from_value(todo_value.clone()).unwrap();
 
         assert!(!todo_entry.enabled);
         assert!(matches!(
             todo_entry.config,
-            ExtensionConfig::Platform {
+            McpServerConfig::Platform {
                 available_tools,
                 ..
             } if available_tools == ["todo_read"]
@@ -337,12 +337,12 @@ mod tests {
     }
 
     #[test]
-    fn test_migrate_builtin_extensions_preserves_restrictions() {
-        let def = PLATFORM_EXTENSIONS.get("todo").unwrap();
+    fn test_migrate_builtin_mcp_servers_preserves_restrictions() {
+        let def = IN_PROCESS_SERVERS.get("todo").unwrap();
         let mut config = Mapping::new();
         let mut extensions = Mapping::new();
-        let todo_entry = ExtensionEntry {
-            config: ExtensionConfig::Builtin {
+        let todo_entry = McpServerEntry {
+            config: McpServerConfig::Builtin {
                 name: def.name.to_string(),
                 description: "old description".to_string(),
                 display_name: Some("Old Name".to_string()),
@@ -365,7 +365,7 @@ mod tests {
 
         let extensions_key = serde_yaml::Value::String(EXTENSIONS_CONFIG_KEY.to_string());
         let extensions = config.get(&extensions_key).unwrap().as_mapping().unwrap();
-        let todo_entry: ExtensionEntry = serde_yaml::from_value(
+        let todo_entry: McpServerEntry = serde_yaml::from_value(
             extensions
                 .get(serde_yaml::Value::String("todo".to_string()))
                 .unwrap()
@@ -376,7 +376,7 @@ mod tests {
         assert!(todo_entry.enabled);
         assert!(matches!(
             todo_entry.config,
-            ExtensionConfig::Builtin {
+            McpServerConfig::Builtin {
                 available_tools,
                 ..
             } if available_tools == ["todo_read"]

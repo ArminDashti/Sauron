@@ -140,7 +140,7 @@ async fn run_provider_scenario_with_validation<F>(
 where
     F: Fn(&ScenarioResult) -> Result<()>,
 {
-    use sauron::config::ExtensionConfig;
+    use sauron::config::McpServerConfig;
 
     sauron::agents::moim::SKIP.with(|f| f.set(true));
 
@@ -212,10 +212,10 @@ where
     );
     let agent = Agent::with_config(agent_config);
     agent
-        .extension_manager
+        .mcp_manager
         .add_client(
             "weather_extension".to_string(),
-            ExtensionConfig::Builtin {
+            McpServerConfig::Builtin {
                 name: "".to_string(),
                 display_name: None,
                 description: "".to_string(),

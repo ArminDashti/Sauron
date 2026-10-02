@@ -1,6 +1,7 @@
-// An example script to run an MCP server
+// An example script to run a bundled MCP server over stdio.
+// Requires the `memory-server` feature.
 use anyhow::Result;
-use sauron_mcp::MemoryServer;
+use sauron::builtin_servers::MemoryServer;
 use tracing_appender::rolling::{RollingFileAppender, Rotation};
 use tracing_subscriber::{self, EnvFilter};
 

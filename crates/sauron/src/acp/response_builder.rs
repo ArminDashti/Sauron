@@ -1,4 +1,4 @@
-use crate::agents::{Agent, ExtensionLoadResult};
+use crate::agents::{Agent, McpServerLoadResult};
 use crate::config::{Config, SauronMode};
 use crate::providers::inventory::{ProviderInventoryEntry, ProviderInventoryService};
 use crate::session::session_manager::SessionUsageTotals;
@@ -37,6 +37,8 @@ struct SessionMeta<'a> {
     user_set_name: bool,
     session_type: String,
     has_recipe: bool,
+    /// True for chat-only sessions, which have no folder or repository.
+    chat_only: bool,
     #[serde(skip_serializing_if = "Option::is_none")]
     project_id: Option<&'a str>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -57,6 +59,7 @@ impl<'a> From<&'a Session> for SessionMeta<'a> {
             user_set_name: session.user_set_name,
             session_type: session.session_type.to_string(),
             has_recipe: session.recipe.is_some(),
+            chat_only: session.working_dir.is_none(),
             project_id: session.project_id.as_deref(),
             provider_id: session.provider_name.as_deref(),
             model_id: session
@@ -77,7 +80,7 @@ pub(super) fn session_meta(session: &Session) -> serde_json::Map<String, serde_j
 
 pub(super) fn session_response_meta(
     session: &Session,
-    extension_results: &[ExtensionLoadResult],
+    extension_results: &[McpServerLoadResult],
 ) -> serde_json::Map<String, serde_json::Value> {
     let mut meta = serde_json::Map::new();
     if let Some(recipe) = &session.recipe {
@@ -95,16 +98,29 @@ pub(super) fn session_response_meta(
     }
     meta.insert(
         "workingDir".to_string(),
-        serde_json::Value::String(session.working_dir.to_string_lossy().to_string()),
+        serde_json::Value::String(
+            session
+                .working_dir
+                .as_ref()
+                .map(|dir| dir.to_string_lossy().to_string())
+                .unwrap_or_default(),
+        ),
     );
     meta
 }
 
+/// ACP models `SessionInfo.cwd` as a required absolute path, so a chat-only
+/// session reports an empty cwd and advertises itself via `meta.chatOnly`.
 pub(super) fn build_session_info(session: Session) -> SessionInfo {
     let meta = session_meta(&session);
-    let mut info = SessionInfo::new(SessionId::new(session.id), session.working_dir)
-        .updated_at(session.updated_at.to_rfc3339())
-        .meta(meta);
+    let mut info = SessionInfo::new(
+        SessionId::new(session.id),
+        session
+            .working_dir
+            .unwrap_or_else(|| std::path::PathBuf::new()),
+    )
+    .updated_at(session.updated_at.to_rfc3339())
+    .meta(meta);
     if !session.name.is_empty() {
         info = info.title(session.name);
     }
@@ -476,8 +492,8 @@ pub(super) fn available_commands_for_optional_working_dir(
         .collect()
 }
 
-fn available_commands_update(working_dir: &std::path::Path) -> AvailableCommandsUpdate {
-    AvailableCommandsUpdate::new(available_commands_for_working_dir(working_dir))
+fn available_commands_update(working_dir: Option<&std::path::Path>) -> AvailableCommandsUpdate {
+    AvailableCommandsUpdate::new(available_commands_for_optional_working_dir(working_dir))
 }
 
 pub(super) fn send_session_setup_notifications(
@@ -498,7 +514,9 @@ pub(super) fn send_session_setup_notifications(
     ))?;
     cx.send_notification(SessionNotification::new(
         session_id,
-        SessionUpdate::AvailableCommandsUpdate(available_commands_update(&session.working_dir)),
+        SessionUpdate::AvailableCommandsUpdate(available_commands_update(
+            session.working_dir.as_deref(),
+        )),
     ))
 }
 

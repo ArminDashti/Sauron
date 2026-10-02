@@ -7,7 +7,14 @@ pub mod acp;
 pub use sauron_sdk_types::{custom_notifications, custom_requests};
 pub mod action_required_manager;
 pub mod agents;
-pub mod builtin_extension;
+pub mod builtin_mcp_server;
+#[cfg(any(
+    feature = "autovisualiser",
+    feature = "computer-controller",
+    feature = "memory-server",
+    feature = "tutorial-server"
+))]
+pub mod builtin_servers;
 pub mod checks;
 pub mod config;
 pub mod context_limit;
@@ -41,6 +48,7 @@ pub mod prompt_template;
 pub mod providers;
 pub mod recipe;
 pub mod recipe_deeplink;
+pub mod rules;
 pub mod sauron_apps;
 pub mod scheduler;
 pub mod scheduler_trait;

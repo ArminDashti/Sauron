@@ -18,10 +18,10 @@ use std::str::FromStr;
 use tokio::signal::ctrl_c;
 use tokio_util::task::AbortOnDropHandle;
 
-pub use builder::{build_session, ExtensionFailure, SessionBuilderConfig};
+pub use builder::{build_session, McpServerFailure, SessionBuilderConfig};
 use console::Color;
 
-use sauron::agents::platform_extensions::developer::shell::{
+use sauron::agents::in_process::developer::shell::{
     parse_shell_output_notification, ShellOutputNotificationParams, ShellOutputStream,
 };
 use sauron::agents::AgentEvent;
@@ -36,12 +36,12 @@ use input::InputResult;
 use rmcp::model::ServerNotification;
 use rmcp::model::{ElicitationAction, PromptMessage};
 use rmcp::model::{ErrorCode, ErrorData};
-use sauron::agents::extension::{Envs, ExtensionConfig, PLATFORM_EXTENSIONS};
+use sauron::agents::mcp_server::{Envs, McpServerConfig, IN_PROCESS_SERVERS};
 use sauron::agents::types::RetryConfig;
 use sauron::agents::{
     context_management_unsupported_message, Agent, SessionConfig, COMPACT_TRIGGERS,
 };
-use sauron::config::extensions::name_to_key;
+use sauron::config::mcp_servers::name_to_key;
 use sauron::config::{Config, SauronMode};
 use strum::VariantNames;
 
@@ -247,7 +247,7 @@ pub struct CliSession {
     /// Background extension loader; drained exclusively by
     /// [`CliSession::ensure_extensions_loaded`], the session's single loading
     /// gate.
-    extension_loading: Option<AbortOnDropHandle<Result<Vec<ExtensionFailure>>>>,
+    extension_loading: Option<AbortOnDropHandle<Result<Vec<McpServerFailure>>>>,
     loading_announced: bool,
 }
 
@@ -296,7 +296,7 @@ impl CliSession {
         output_format: String,
         stats: bool,
         refresh_completions: bool,
-        extension_loading: Option<AbortOnDropHandle<Vec<ExtensionFailure>>>,
+        extension_loading: Option<AbortOnDropHandle<Vec<McpServerFailure>>>,
     ) -> Self {
         let messages = agent
             .config
@@ -342,13 +342,13 @@ impl CliSession {
         &self.session_id
     }
 
-    /// Parse a stdio extension command string into an ExtensionConfig
+    /// Parse a stdio extension command string into an McpServerConfig
     /// Format: "[name:]ENV1=val1 ENV2=val2 command args..."
     ///
     /// Without the optional `name:` prefix the extension is named after the
     /// basename of the command, which is the launcher rather than the server
     /// whenever one is used (`npx`, `python -m ...`, `uvx`, ...).
-    pub fn parse_stdio_extension(extension_command: &str) -> Result<ExtensionConfig> {
+    pub fn parse_stdio_extension(extension_command: &str) -> Result<McpServerConfig> {
         let (explicit_name, command) = split_extension_name_prefix(extension_command);
         let mut parts = sauron::utils::split_command_args(command)?;
         let mut envs = HashMap::new();
@@ -375,7 +375,7 @@ impl CliSession {
                 .to_string()
         });
 
-        Ok(ExtensionConfig::Stdio {
+        Ok(McpServerConfig::Stdio {
             name,
             cmd,
             args: parts,
@@ -389,7 +389,7 @@ impl CliSession {
         })
     }
 
-    pub fn parse_streamable_http_extension(extension_url: &str, timeout: u64) -> ExtensionConfig {
+    pub fn parse_streamable_http_extension(extension_url: &str, timeout: u64) -> McpServerConfig {
         let name = url::Url::parse(extension_url)
             .ok()
             .map(|u| {
@@ -411,7 +411,7 @@ impl CliSession {
             .filter(|s| !s.is_empty())
             .unwrap_or_else(|| "unnamed".to_string());
 
-        ExtensionConfig::StreamableHttp {
+        McpServerConfig::StreamableHttp {
             name,
             uri: extension_url.to_string(),
             envs: Envs::new(HashMap::new()),
@@ -429,13 +429,13 @@ impl CliSession {
     }
 
     /// Parse builtin extension names (comma-separated) into ExtensionConfigs
-    pub fn parse_builtin_extensions(builtin_name: &str) -> Vec<ExtensionConfig> {
+    pub fn parse_builtin_mcp_servers(builtin_name: &str) -> Vec<McpServerConfig> {
         builtin_name
             .split(',')
             .map(|name| {
                 let extension_name = name.trim();
-                if PLATFORM_EXTENSIONS.contains_key(extension_name) {
-                    ExtensionConfig::Platform {
+                if IN_PROCESS_SERVERS.contains_key(extension_name) {
+                    McpServerConfig::Platform {
                         name: extension_name.to_string(),
                         description: extension_name.to_string(),
                         display_name: None,
@@ -443,7 +443,7 @@ impl CliSession {
                         available_tools: Vec::new(),
                     }
                 } else {
-                    ExtensionConfig::Builtin {
+                    McpServerConfig::Builtin {
                         name: extension_name.to_string(),
                         display_name: None,
                         timeout: None,
@@ -456,12 +456,12 @@ impl CliSession {
             .collect()
     }
 
-    async fn add_and_persist_extensions(&mut self, configs: Vec<ExtensionConfig>) -> Result<()> {
+    async fn add_and_persist_extensions(&mut self, configs: Vec<McpServerConfig>) -> Result<()> {
         // Extension-set mutations must not race the background loader.
         self.ensure_extensions_loaded(true).await?;
         for config in configs {
             self.agent
-                .add_extension(config, &self.session_id)
+                .add_mcp_server(config, &self.session_id)
                 .await
                 .map_err(|e| anyhow::anyhow!("Failed to start extension: {}", e))?;
         }
@@ -471,7 +471,7 @@ impl CliSession {
         Ok(())
     }
 
-    pub async fn add_extension(&mut self, extension_command: String) -> Result<()> {
+    pub async fn add_mcp_server(&mut self, extension_command: String) -> Result<()> {
         let config = Self::parse_stdio_extension(&extension_command)?;
         self.add_and_persist_extensions(vec![config]).await
     }
@@ -485,7 +485,7 @@ impl CliSession {
     }
 
     pub async fn add_builtin(&mut self, builtin_name: String) -> Result<()> {
-        let configs = Self::parse_builtin_extensions(&builtin_name);
+        let configs = Self::parse_builtin_mcp_servers(&builtin_name);
         self.add_and_persist_extensions(configs).await
     }
 
@@ -678,7 +678,7 @@ impl CliSession {
             InputResult::Exit => unreachable!("Exit is handled in the main loop"),
             InputResult::AddExtension(cmd) => {
                 history.save(editor);
-                match self.add_extension(cmd.clone()).await {
+                match self.add_mcp_server(cmd.clone()).await {
                     Ok(_) => output::render_extension_success(&cmd),
                     Err(e) => output::render_extension_error(&cmd, &e.to_string()),
                 }
@@ -1127,7 +1127,7 @@ impl CliSession {
             }
         };
 
-        let extension_configs = self.agent.get_extension_configs().await;
+        let mcp_server_configs = self.agent.get_extension_configs().await;
 
         self.agent
             .emit_hook(sauron::hooks::HookEvent::SessionEnd, &self.session_id)
@@ -1148,22 +1148,22 @@ impl CliSession {
             output::render_error(&format!("Failed to apply the current mode: {}", e));
         }
 
-        if !extension_configs.is_empty() {
+        if !mcp_server_configs.is_empty() {
             output::sauron_mode_message("Restarting extensions for the new session...");
         }
 
         // MCP clients pin themselves to the first session id they see a request for, so
         // extensions must be torn down and re-added under the new session id.
-        for name in self.agent.list_extensions().await {
-            if let Err(e) = self.agent.remove_extension(&name, &self.session_id).await {
+        for name in self.agent.list_mcp_servers().await {
+            if let Err(e) = self.agent.remove_mcp_server(&name, &self.session_id).await {
                 output::render_extension_error(&name, &e.to_string());
             }
         }
 
         let mut unavailable = Vec::new();
-        for config in extension_configs {
+        for config in mcp_server_configs {
             let name = config.name();
-            if let Err(e) = self.agent.add_extension(config, &self.session_id).await {
+            if let Err(e) = self.agent.add_mcp_server(config, &self.session_id).await {
                 output::render_extension_error(&name, &e.to_string());
                 unavailable.push(name);
             }
@@ -2666,8 +2666,8 @@ fn build_switched_model_config(
 #[cfg(test)]
 mod tests {
     use super::*;
-    use sauron::agents::extension::Envs;
-    use sauron::config::ExtensionConfig;
+    use sauron::agents::mcp_server::Envs;
+    use sauron::config::McpServerConfig;
     use sauron::conversation::message::MessageErrorKind;
     use sauron::providers::base::Provider;
     use serde_json::json;
@@ -2802,7 +2802,7 @@ mod tests {
 
     #[test_case(
         "/usr/bin/my-server",
-        ExtensionConfig::Stdio {
+        McpServerConfig::Stdio {
             name: "my-server".into(),
             cmd: "/usr/bin/my-server".into(),
             args: vec![],
@@ -2818,7 +2818,7 @@ mod tests {
     )]
     #[test_case(
         "MY_SECRET=s3cret npx -y @modelcontextprotocol/server-everything",
-        ExtensionConfig::Stdio {
+        McpServerConfig::Stdio {
             name: "npx".into(),
             cmd: "npx".into(),
             args: vec!["-y".into(), "@modelcontextprotocol/server-everything".into()],
@@ -2834,7 +2834,7 @@ mod tests {
     )]
     #[test_case(
         r#""/Applications/IntelliJ IDEA.app/Contents/jbr/Contents/Home/bin/java" -classpath "/path/with spaces/lib.jar" Main"#,
-        ExtensionConfig::Stdio {
+        McpServerConfig::Stdio {
             name: "java".into(),
             cmd: "/Applications/IntelliJ IDEA.app/Contents/jbr/Contents/Home/bin/java".into(),
             args: vec!["-classpath".into(), "/path/with spaces/lib.jar".into(), "Main".into()],
@@ -2848,7 +2848,7 @@ mod tests {
         }
         ; "quoted_path_with_spaces"
     )]
-    fn test_parse_stdio_extension(input: &str, expected: ExtensionConfig) {
+    fn test_parse_stdio_extension(input: &str, expected: McpServerConfig) {
         assert_eq!(CliSession::parse_stdio_extension(input).unwrap(), expected);
     }
 
@@ -2869,10 +2869,10 @@ mod tests {
         assert_eq!(absolute.name(), "memory");
         assert!(matches!(
             absolute,
-            ExtensionConfig::Stdio { cmd, .. } if cmd == "/usr/local/bin/mcp"
+            McpServerConfig::Stdio { cmd, .. } if cmd == "/usr/local/bin/mcp"
         ));
         let config = CliSession::parse_stdio_extension("memory:API_KEY=k npx -y srv").unwrap();
-        let ExtensionConfig::Stdio {
+        let McpServerConfig::Stdio {
             name,
             cmd,
             args,
@@ -3009,7 +3009,7 @@ mod tests {
 
     #[test_case(
         "https://mcp.kiwi.com", 300,
-        ExtensionConfig::StreamableHttp {
+        McpServerConfig::StreamableHttp {
             name: "mcp_kiwi_com".into(),
             uri: "https://mcp.kiwi.com".into(),
             envs: Envs::default(),
@@ -3028,7 +3028,7 @@ mod tests {
     )]
     #[test_case(
         "http://localhost:8080/api", 300,
-        ExtensionConfig::StreamableHttp {
+        McpServerConfig::StreamableHttp {
             name: "localhost_8080_api".into(),
             uri: "http://localhost:8080/api".into(),
             envs: Envs::default(),
@@ -3047,7 +3047,7 @@ mod tests {
     )]
     #[test_case(
         "http://localhost:9090/other", 300,
-        ExtensionConfig::StreamableHttp {
+        McpServerConfig::StreamableHttp {
             name: "localhost_9090_other".into(),
             uri: "http://localhost:9090/other".into(),
             envs: Envs::default(),
@@ -3064,7 +3064,7 @@ mod tests {
         }
         ; "different_port_and_path"
     )]
-    fn test_parse_streamable_http_extension(url: &str, timeout: u64, expected: ExtensionConfig) {
+    fn test_parse_streamable_http_extension(url: &str, timeout: u64, expected: McpServerConfig) {
         assert_eq!(
             CliSession::parse_streamable_http_extension(url, timeout),
             expected
@@ -3102,8 +3102,8 @@ mod tests {
             .await
             .unwrap();
 
-        let mut extension_data = sauron::session::ExtensionData::new();
-        extension_data.set_extension_state("test", "v0", serde_json::json!("marker"));
+        let mut extension_data = sauron::session::McpServerData::new();
+        extension_data.set_mcp_server_state("test", "v0", serde_json::json!("marker"));
         sm.update(&old.id)
             .extension_data(extension_data)
             .apply()
@@ -3139,7 +3139,7 @@ mod tests {
         assert_eq!(
             reloaded_old
                 .extension_data
-                .get_extension_state("test", "v0"),
+                .get_mcp_server_state("test", "v0"),
             Some(&serde_json::json!("marker"))
         );
     }
@@ -3173,7 +3173,7 @@ mod tests {
     }
 
     async fn session_with_loader(
-        extension_loading: Option<AbortOnDropHandle<Vec<ExtensionFailure>>>,
+        extension_loading: Option<AbortOnDropHandle<Vec<McpServerFailure>>>,
         refresh_completions: bool,
     ) -> CliSession {
         let temp_dir = tempfile::TempDir::new().unwrap();
@@ -3230,7 +3230,7 @@ mod tests {
         let (release, released) = tokio::sync::oneshot::channel::<()>();
         let loader = AbortOnDropHandle::new(tokio::spawn(async move {
             let _ = released.await;
-            Vec::<ExtensionFailure>::new()
+            Vec::<McpServerFailure>::new()
         }));
 
         let mut session = session_with_loader(Some(loader), false).await;
@@ -3256,7 +3256,7 @@ mod tests {
 
     #[tokio::test]
     async fn ensure_extensions_loaded_drains_the_loader_once() {
-        let loader = AbortOnDropHandle::new(tokio::spawn(async { Vec::<ExtensionFailure>::new() }));
+        let loader = AbortOnDropHandle::new(tokio::spawn(async { Vec::<McpServerFailure>::new() }));
         let mut session = session_with_loader(Some(loader), false).await;
 
         session.ensure_extensions_loaded(false).await.unwrap();
@@ -3272,7 +3272,7 @@ mod tests {
         let (release, released) = tokio::sync::oneshot::channel::<()>();
         let loader = AbortOnDropHandle::new(tokio::spawn(async move {
             let _ = released.await;
-            Vec::<ExtensionFailure>::new()
+            Vec::<McpServerFailure>::new()
         }));
         let session = session_with_loader(Some(loader), true).await;
 
@@ -3305,7 +3305,7 @@ mod tests {
 
     #[tokio::test]
     async fn headless_loader_skips_completion_refresh() {
-        let loader = AbortOnDropHandle::new(tokio::spawn(async { Vec::<ExtensionFailure>::new() }));
+        let loader = AbortOnDropHandle::new(tokio::spawn(async { Vec::<McpServerFailure>::new() }));
         let mut session = session_with_loader(Some(loader), false).await;
 
         session.ensure_extensions_loaded(false).await.unwrap();

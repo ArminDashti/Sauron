@@ -9,17 +9,17 @@ pub(super) use crate::acp::response_builder::{
 };
 use crate::acp::tool_call_notifier::ToolCallNotifier;
 use crate::acp::{PermissionDecision, ACP_CURRENT_MODEL};
-use crate::agents::extension::{Envs, PLATFORM_EXTENSIONS};
+use crate::agents::in_process::developer::DeveloperClient;
 use crate::agents::mcp_client::{McpClientTrait, SauronMcpHostInfo};
-use crate::agents::platform_extensions::developer::DeveloperClient;
+use crate::agents::mcp_server::{Envs, IN_PROCESS_SERVERS};
 use crate::agents::state_machine::{
     has_unapplied_tool_confirmation_response, pending_tool_confirmations,
 };
 use crate::agents::{
-    Agent, AgentConfig, ExtensionConfig, ExtensionLoadResult, SauronPlatform, SessionConfig,
+    Agent, AgentConfig, McpServerConfig, McpServerLoadResult, SauronPlatform, SessionConfig,
 };
 use crate::config::base::CONFIG_YAML_NAME;
-use crate::config::extensions::{configured_enabled_state, get_enabled_extensions_with_config};
+use crate::config::mcp_servers::{configured_enabled_state, get_enabled_mcp_servers_with_config};
 use crate::config::paths::Paths;
 use crate::config::permission::PermissionManager;
 use crate::config::{Config, SauronMode};
@@ -39,7 +39,7 @@ use crate::providers::inventory::{
 use crate::scheduler_trait::SchedulerTrait;
 use crate::session::session_manager::SessionUsageTotals;
 use crate::session::{
-    EnabledExtensionsState, ExtensionData, ExtensionState, Session, SessionManager, SessionType,
+    EnabledExtensionsState, McpServerData, McpServerState, Session, SessionManager, SessionType,
 };
 use crate::source_roots::SourceRoot;
 use crate::utils::sanitize_unicode_tags;
@@ -109,6 +109,7 @@ mod dispatch;
 mod elicitation;
 mod extensions;
 mod fork_session;
+mod github;
 mod list_sessions;
 mod live_voice;
 mod load_session;
@@ -132,7 +133,7 @@ mod tools;
 pub type AcpProviderFactory = Arc<
     dyn Fn(
             String,
-            Vec<ExtensionConfig>,
+            Vec<McpServerConfig>,
             Option<PathBuf>,
             bool,
         ) -> BoxFuture<'static, Result<Arc<dyn Provider>>>
@@ -486,11 +487,11 @@ fn extract_use_login_shell_path(args: &InitializeRequest) -> bool {
         .unwrap_or(false)
 }
 
-fn mcp_server_to_extension_config(mcp_server: McpServer) -> Result<ExtensionConfig, String> {
+fn mcp_server_to_extension_config(mcp_server: McpServer) -> Result<McpServerConfig, String> {
     match mcp_server {
         McpServer::Stdio(stdio) => {
             let timeout = extract_timeout_from_meta(&stdio.meta);
-            Ok(ExtensionConfig::Stdio {
+            Ok(McpServerConfig::Stdio {
                 name: stdio.name,
                 description: String::new(),
                 cmd: stdio.command.to_string_lossy().to_string(),
@@ -505,7 +506,7 @@ fn mcp_server_to_extension_config(mcp_server: McpServer) -> Result<ExtensionConf
         }
         McpServer::Http(http) => {
             let timeout = extract_timeout_from_meta(&http.meta);
-            Ok(ExtensionConfig::StreamableHttp {
+            Ok(McpServerConfig::StreamableHttp {
                 name: http.name,
                 description: String::new(),
                 uri: http.url,
@@ -531,7 +532,7 @@ fn mcp_server_to_extension_config(mcp_server: McpServer) -> Result<ExtensionConf
 }
 
 fn add_mcp_servers(
-    extensions: &mut Vec<ExtensionConfig>,
+    extensions: &mut Vec<McpServerConfig>,
     mcp_servers: Vec<McpServer>,
 ) -> Result<(), agent_client_protocol::Error> {
     for mcp_server in mcp_servers {
@@ -544,19 +545,19 @@ fn add_mcp_servers(
 
 fn enabled_extensions_data(
     session: &Session,
-    extensions: Vec<ExtensionConfig>,
-) -> Result<ExtensionData, agent_client_protocol::Error> {
+    extensions: Vec<McpServerConfig>,
+) -> Result<McpServerData, agent_client_protocol::Error> {
     let mut extension_data = session.extension_data.clone();
     EnabledExtensionsState::new(extensions)
-        .to_extension_data(&mut extension_data)
+        .to_mcp_server_data(&mut extension_data)
         .internal_err_ctx("Failed to initialize session extensions")?;
     Ok(extension_data)
 }
 
-fn selected_builtin_extensions(
+fn selected_builtin_mcp_servers(
     config: &Config,
     builtin_selection: &AcpBuiltinSelection,
-) -> Vec<ExtensionConfig> {
+) -> Vec<McpServerConfig> {
     let mut extensions = Vec::new();
 
     for builtin in &builtin_selection.defaults {
@@ -575,12 +576,12 @@ fn selected_builtin_extensions(
 fn initial_session_extensions(
     config: &Config,
     builtin_selection: &AcpBuiltinSelection,
-    project_root: &Path,
+    project_root: Option<&Path>,
     mcp_servers: Vec<McpServer>,
     sauron_extensions: Option<Vec<SauronExtension>>,
-    recipe_extensions: Option<&[ExtensionConfig]>,
-) -> Result<Vec<ExtensionConfig>, agent_client_protocol::Error> {
-    let mut extensions = selected_builtin_extensions(config, builtin_selection);
+    recipe_extensions: Option<&[McpServerConfig]>,
+) -> Result<Vec<McpServerConfig>, agent_client_protocol::Error> {
+    let mut extensions = selected_builtin_mcp_servers(config, builtin_selection);
 
     if let Some(recipe_extensions) = recipe_extensions {
         for extension in recipe_extensions {
@@ -591,11 +592,10 @@ fn initial_session_extensions(
             push_or_replace_extension(&mut extensions, extension);
         }
     } else {
-        for extension in get_enabled_extensions_with_config(config) {
+        for extension in get_enabled_mcp_servers_with_config(config) {
             push_or_replace_extension(&mut extensions, extension);
         }
-        for extension in crate::plugins::mcp_servers::enabled_plugin_mcp_servers(Some(project_root))
-        {
+        for extension in crate::plugins::mcp_servers::enabled_plugin_mcp_servers(project_root) {
             push_or_replace_extension(&mut extensions, extension);
         }
         add_mcp_servers(&mut extensions, mcp_servers)?;
@@ -604,7 +604,7 @@ fn initial_session_extensions(
     Ok(extensions)
 }
 
-fn push_or_replace_extension(extensions: &mut Vec<ExtensionConfig>, extension: ExtensionConfig) {
+fn push_or_replace_extension(extensions: &mut Vec<McpServerConfig>, extension: McpServerConfig) {
     let name = extension.name().to_string();
     if let Some(index) = extensions
         .iter()
@@ -700,9 +700,9 @@ fn annotated_prompt_text(text: &str, annotations: Option<&Annotations>) -> RmcpT
     }
 }
 
-fn builtin_to_extension_config(name: &str) -> ExtensionConfig {
-    if let Some(def) = PLATFORM_EXTENSIONS.get(name) {
-        ExtensionConfig::Platform {
+fn builtin_to_extension_config(name: &str) -> McpServerConfig {
+    if let Some(def) = IN_PROCESS_SERVERS.get(name) {
+        McpServerConfig::Platform {
             name: def.name.into(),
             description: def.description.into(),
             display_name: Some(def.display_name.into()),
@@ -710,7 +710,7 @@ fn builtin_to_extension_config(name: &str) -> ExtensionConfig {
             available_tools: vec![],
         }
     } else {
-        ExtensionConfig::Builtin {
+        McpServerConfig::Builtin {
             name: name.into(),
             display_name: None,
             timeout: None,
@@ -801,12 +801,26 @@ pub(super) fn build_usage_updates(
 
 /// Resolve the cwd an existing session should be activated with: a
 /// host-imposed cwd (roaming) wins, otherwise the client-requested cwd is
-/// honored as-is, preserving standard ACP semantics.
-pub(super) fn effective_session_cwd(host_cwd: Option<&Path>, requested: &Path) -> PathBuf {
-    host_cwd.unwrap_or(requested).to_path_buf()
+/// honored as-is, preserving standard ACP semantics. An empty requested cwd
+/// means the session is chat-only and has no directory at all.
+pub(super) fn effective_session_cwd(
+    host_cwd: Option<&Path>,
+    requested: &Path,
+) -> Option<PathBuf> {
+    match host_cwd {
+        Some(host_cwd) => Some(host_cwd.to_path_buf()),
+        None if requested.as_os_str().is_empty() => None,
+        None => Some(requested.to_path_buf()),
+    }
 }
 
-pub(super) fn validate_absolute_cwd(cwd: &Path) -> Result<(), agent_client_protocol::Error> {
+/// Validate a session's directory. `None` is valid and means a chat-only
+/// session, which touches no directory.
+pub(super) fn validate_session_cwd(cwd: Option<&Path>) -> Result<(), agent_client_protocol::Error> {
+    let Some(cwd) = cwd else {
+        return Ok(());
+    };
+
     if !cwd.is_absolute() {
         return Err(
             agent_client_protocol::Error::invalid_params().data("cwd must be an absolute path")
@@ -818,6 +832,10 @@ pub(super) fn validate_absolute_cwd(cwd: &Path) -> Result<(), agent_client_proto
     }
 
     Ok(())
+}
+
+pub(super) fn validate_absolute_cwd(cwd: &Path) -> Result<(), agent_client_protocol::Error> {
+    validate_session_cwd(Some(cwd))
 }
 
 impl SauronAcpAgent {
@@ -1003,7 +1021,7 @@ impl SauronAcpAgent {
     async fn create_provider(
         &self,
         provider_name: &str,
-        extensions: Vec<ExtensionConfig>,
+        extensions: Vec<McpServerConfig>,
         working_dir: Option<PathBuf>,
         use_default_model: bool,
     ) -> Result<Arc<dyn Provider>> {
@@ -1096,15 +1114,11 @@ impl SauronAcpAgent {
             return;
         }
 
-        if !agent
-            .extension_manager
-            .is_extension_enabled("developer")
-            .await
-        {
+        if !agent.mcp_manager.is_mcp_server_enabled("developer").await {
             return;
         }
 
-        let context = agent.extension_manager.get_context().clone();
+        let context = agent.mcp_manager.get_context().clone();
         let dev_client = match DeveloperClient::new(context) {
             Ok(dev_client) => dev_client,
             Err(error) => {
@@ -1126,7 +1140,7 @@ impl SauronAcpAgent {
         let info = client.get_info().cloned();
 
         let developer_config = agent
-            .extension_manager
+            .mcp_manager
             .get_extension_configs()
             .await
             .into_iter()
@@ -1134,7 +1148,7 @@ impl SauronAcpAgent {
             .unwrap_or_else(|| builtin_to_extension_config("developer"));
 
         agent
-            .extension_manager
+            .mcp_manager
             .add_client("developer".into(), developer_config, client, info)
             .await;
     }
@@ -1143,7 +1157,7 @@ impl SauronAcpAgent {
         &self,
         cx: &ConnectionTo<Client>,
         session: &Session,
-    ) -> Result<(Arc<Agent>, Vec<ExtensionLoadResult>), agent_client_protocol::Error> {
+    ) -> Result<(Arc<Agent>, Vec<McpServerLoadResult>), agent_client_protocol::Error> {
         let agent_result = self
             .get_or_create_session_agent_with_results(cx, session.id.clone())
             .await?;
@@ -1158,7 +1172,7 @@ impl SauronAcpAgent {
     async fn prepare_session_for_activation(
         &self,
         mut session: Session,
-        cwd: std::path::PathBuf,
+        cwd: Option<std::path::PathBuf>,
         mcp_servers: Vec<McpServer>,
         include_messages_on_reload: bool,
     ) -> Result<Session, agent_client_protocol::Error> {
@@ -1167,10 +1181,9 @@ impl SauronAcpAgent {
         let mut session_needs_update = false;
 
         if cwd != session.working_dir {
-            builder = builder.working_dir(cwd);
+            builder = builder.working_dir_maybe(cwd);
             session_needs_update = true;
         }
-
         if session.provider_name.is_none() || session.model_config.is_none() {
             let (resolved_provider, resolved_model_config) =
                 resolve_default_provider_model_config(config)?;
@@ -1182,7 +1195,7 @@ impl SauronAcpAgent {
 
         if !mcp_servers.is_empty() {
             let mut stored_extensions =
-                EnabledExtensionsState::from_extension_data(&session.extension_data)
+                EnabledExtensionsState::from_mcp_server_data(&session.extension_data)
                     .unwrap_or_else(|| EnabledExtensionsState::new(Vec::new()));
             add_mcp_servers(&mut stored_extensions.extensions, mcp_servers)?;
             builder = builder.extension_data(enabled_extensions_data(
@@ -1220,12 +1233,12 @@ impl SauronAcpAgent {
         session: &Session,
         mcp_servers: Vec<McpServer>,
         sauron_extensions: Option<Vec<SauronExtension>>,
-        recipe_extensions: Option<&[ExtensionConfig]>,
-    ) -> Result<ExtensionData, agent_client_protocol::Error> {
+        recipe_extensions: Option<&[McpServerConfig]>,
+    ) -> Result<McpServerData, agent_client_protocol::Error> {
         let extensions = initial_session_extensions(
             config,
             &self.builtin_selection,
-            &session.working_dir,
+            session.working_dir.as_deref(),
             mcp_servers,
             sauron_extensions,
             recipe_extensions,
@@ -1304,7 +1317,7 @@ impl SauronAcpAgent {
         &self,
         cx: &ConnectionTo<Client>,
         session: &Session,
-    ) -> Result<(Arc<Agent>, Vec<ExtensionLoadResult>), agent_client_protocol::Error> {
+    ) -> Result<(Arc<Agent>, Vec<McpServerLoadResult>), agent_client_protocol::Error> {
         let (agent, extension_results) = self.prepare_acp_session_agent(cx, session).await?;
         self.register_acp_session(session.id.clone(), agent.clone())
             .await;
@@ -2862,7 +2875,7 @@ mod tests {
         (config, config_file, secrets_file)
     }
 
-    fn has_developer(extensions: &[ExtensionConfig]) -> bool {
+    fn has_developer(extensions: &[McpServerConfig]) -> bool {
         extensions.iter().any(|ext| ext.name() == "developer")
     }
 
@@ -2997,7 +3010,7 @@ extensions:
 
         assert_eq!(extensions.len(), 1);
         match &extensions[0] {
-            ExtensionConfig::StreamableHttp { name, uri, .. } => {
+            McpServerConfig::StreamableHttp { name, uri, .. } => {
                 assert_eq!(name, "zed-mcp");
                 assert_eq!(uri, "http://localhost/new");
             }
@@ -3008,7 +3021,7 @@ extensions:
     #[test]
     fn default_builtin_developer_loads_when_config_is_empty() {
         let (config, _c, _s) = config_with_yaml("");
-        let selected = selected_builtin_extensions(&config, &default_builtin("developer"));
+        let selected = selected_builtin_mcp_servers(&config, &default_builtin("developer"));
         assert!(
             has_developer(&selected),
             "developer should load by default on a fresh config"
@@ -3026,7 +3039,7 @@ extensions:
     name: developer
 "#,
         );
-        let selected = selected_builtin_extensions(&config, &default_builtin("developer"));
+        let selected = selected_builtin_mcp_servers(&config, &default_builtin("developer"));
         assert!(has_developer(&selected));
     }
 
@@ -3041,7 +3054,7 @@ extensions:
     name: developer
 "#,
         );
-        let selected = selected_builtin_extensions(&config, &default_builtin("developer"));
+        let selected = selected_builtin_mcp_servers(&config, &default_builtin("developer"));
         assert!(
             !has_developer(&selected),
             "developer must NOT load when the user disabled it (issue #10221)"
@@ -3059,14 +3072,14 @@ extensions:
     name: developer
 "#,
         );
-        let selected = selected_builtin_extensions(&config, &explicit_builtin("developer"));
+        let selected = selected_builtin_mcp_servers(&config, &explicit_builtin("developer"));
         assert!(has_developer(&selected));
     }
 
     #[test]
     fn default_off_builtin_loads_when_explicitly_requested() {
         let (config, _c, _s) = config_with_yaml("");
-        let selected = selected_builtin_extensions(&config, &explicit_builtin("chatrecall"));
+        let selected = selected_builtin_mcp_servers(&config, &explicit_builtin("chatrecall"));
         assert!(
             selected.iter().any(|ext| ext.name() == "chatrecall"),
             "default-off builtins must load when explicitly requested via builtins"
@@ -3079,7 +3092,7 @@ extensions:
                 .args(vec!["stdio".into()])
                 .env(vec![EnvVariable::new("GITHUB_PERSONAL_ACCESS_TOKEN", "ghp_xxxxxxxxxxxx")])
         ),
-        Ok(ExtensionConfig::Stdio {
+        Ok(McpServerConfig::Stdio {
             name: "github".into(),
             description: String::new(),
             cmd: "/path/to/github-mcp-server".into(),
@@ -3103,7 +3116,7 @@ extensions:
             McpServerHttp::new("github", "https://api.githubcopilot.com/mcp/")
                 .headers(vec![HttpHeader::new("Authorization", "Bearer ghp_xxxxxxxxxxxx")])
         ),
-        Ok(ExtensionConfig::StreamableHttp {
+        Ok(McpServerConfig::StreamableHttp {
             name: "github".into(),
             description: String::new(),
             uri: "https://api.githubcopilot.com/mcp/".into(),
@@ -3128,7 +3141,7 @@ extensions:
     )]
     fn test_mcp_server_to_extension_config(
         input: McpServer,
-        expected: Result<ExtensionConfig, String>,
+        expected: Result<McpServerConfig, String>,
     ) {
         assert_eq!(mcp_server_to_extension_config(input), expected);
     }

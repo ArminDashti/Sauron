@@ -48,6 +48,7 @@ import SkillsView from './components/skills/SkillsView';
 import HubView from './components/hub/HubView';
 import AppsView from './components/apps/AppsView';
 import StandaloneAppView from './components/apps/StandaloneAppView';
+import GitHubView from './components/github/GitHubView';
 import { View, ViewOptions } from './utils/navigationUtils';
 
 import { useNavigation } from './hooks/useNavigation';
@@ -238,6 +239,10 @@ const SkillsRoute = () => {
   return <SkillsView />;
 };
 
+const GitHubRoute = () => {
+  return <GitHubView />;
+};
+
 const PermissionRoute = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -269,6 +274,9 @@ const PermissionRoute = () => {
             break;
           case 'skills':
             navigate('/skills');
+            break;
+          case 'github':
+            navigate('/github');
             break;
           default:
             navigate('/');
@@ -669,6 +677,7 @@ export function AppInner() {
               <Route path="schedules" element={<SchedulesRoute />} />
               <Route path="recipes" element={<RecipesRoute />} />
               <Route path="skills" element={<SkillsRoute />} />
+              <Route path="github" element={<GitHubRoute />} />
               <Route path="hub" element={<HubView />} />
               <Route path="permission" element={<PermissionRoute />} />
             </Route>

@@ -1,22 +1,22 @@
 use crate::recipes::github_recipe::SAURON_RECIPE_GITHUB_REPO_CONFIG_KEY;
 use cliclack::spinner;
 use console::style;
-use sauron::agents::extension::{ToolInfo, PLATFORM_EXTENSIONS};
-use sauron::agents::extension_manager::get_parameter_names;
+use sauron::agents::mcp_manager::get_parameter_names;
+use sauron::agents::mcp_server::{ToolInfo, IN_PROCESS_SERVERS};
 use sauron::agents::Agent;
-use sauron::agents::{extension::Envs, ExtensionConfig};
+use sauron::agents::{extension::Envs, McpServerConfig};
 use sauron::config::declarative_providers::{
     create_custom_provider, remove_custom_provider, AuthConfig, CreateCustomProviderParams,
 };
-use sauron::config::extensions::{
-    get_all_extension_names, get_all_extensions, get_enabled_extensions, get_extension_by_name,
-    name_to_key, remove_extension, set_extension, set_extension_enabled,
+use sauron::config::mcp_servers::{
+    get_all_mcp_server_names, get_all_mcp_servers, get_enabled_mcp_servers, get_mcp_server_by_name,
+    name_to_key, remove_mcp_server, set_extension, set_mcp_server_enabled,
 };
 use sauron::config::paths::Paths;
 use sauron::config::permission::PermissionLevel;
 use sauron::config::signup_tetrate::TetrateAuth;
 use sauron::config::{
-    configure_tetrate, Config, ConfigError, ExperimentManager, ExtensionEntry, PermissionManager,
+    configure_tetrate, Config, ConfigError, ExperimentManager, McpServerEntry, PermissionManager,
     SauronMode,
 };
 #[cfg(feature = "telemetry")]
@@ -293,9 +293,9 @@ async fn handle_manual_provider_setup(config: &Config) {
                 style("Tip").green().italic(),
                 style("sauron configure").cyan()
             );
-            set_extension(ExtensionEntry {
+            set_extension(McpServerEntry {
                 enabled: true,
-                config: ExtensionConfig::default(),
+                config: McpServerConfig::default(),
             });
         }
         Ok(false) => {
@@ -1017,7 +1017,7 @@ pub fn toggle_extensions_dialog() -> anyhow::Result<()> {
         eprintln!("{}", style(format!("Warning: {}", warning)).yellow());
     }
 
-    let extensions = get_all_extensions();
+    let extensions = get_all_mcp_servers();
 
     if extensions.is_empty() {
         cliclack::outro(
@@ -1059,7 +1059,7 @@ pub fn toggle_extensions_dialog() -> anyhow::Result<()> {
 
     // Update enabled status for each extension
     for name in extension_status.iter().map(|(name, _)| name) {
-        set_extension_enabled(
+        set_mcp_server_enabled(
             &name_to_key(name),
             selected.iter().any(|s| s.as_str() == name),
         );
@@ -1099,7 +1099,7 @@ fn prompt_extension_description() -> anyhow::Result<String> {
 }
 
 fn prompt_extension_name(placeholder: &str) -> anyhow::Result<String> {
-    let extensions = get_all_extension_names();
+    let extensions = get_all_mcp_server_names();
     Ok(
         cliclack::input("What would you like to call this extension?")
             .placeholder(placeholder)
@@ -1173,7 +1173,7 @@ fn collect_headers() -> anyhow::Result<HashMap<String, String>> {
     Ok(headers)
 }
 
-fn configure_builtin_extension() -> anyhow::Result<()> {
+fn configure_builtin_mcp_server() -> anyhow::Result<()> {
     let extensions = vec![
         (
             "autovisualiser",
@@ -1213,8 +1213,8 @@ fn configure_builtin_extension() -> anyhow::Result<()> {
         .map(|(_, name, desc)| (name.to_string(), desc.to_string()))
         .unwrap_or_else(|| (extension.clone(), extension.clone()));
 
-    let config = if PLATFORM_EXTENSIONS.contains_key(extension.as_str()) {
-        ExtensionConfig::Platform {
+    let config = if IN_PROCESS_SERVERS.contains_key(extension.as_str()) {
+        McpServerConfig::Platform {
             name: extension.clone(),
             description,
             display_name: Some(display_name),
@@ -1223,7 +1223,7 @@ fn configure_builtin_extension() -> anyhow::Result<()> {
         }
     } else {
         let timeout = prompt_extension_timeout()?;
-        ExtensionConfig::Builtin {
+        McpServerConfig::Builtin {
             name: extension.clone(),
             display_name: Some(display_name),
             timeout: Some(timeout),
@@ -1233,7 +1233,7 @@ fn configure_builtin_extension() -> anyhow::Result<()> {
         }
     };
 
-    set_extension(ExtensionEntry {
+    set_extension(McpServerEntry {
         enabled: true,
         config,
     });
@@ -1269,9 +1269,9 @@ fn configure_stdio_extension() -> anyhow::Result<()> {
     let description = prompt_extension_description()?;
     let (envs, env_keys) = collect_env_vars()?;
 
-    set_extension(ExtensionEntry {
+    set_extension(McpServerEntry {
         enabled: true,
-        config: ExtensionConfig::Stdio {
+        config: McpServerConfig::Stdio {
             name: name.clone(),
             cmd,
             args,
@@ -1313,9 +1313,9 @@ fn configure_streamable_http_extension() -> anyhow::Result<()> {
     let envs = HashMap::new();
     let env_keys = Vec::new();
 
-    set_extension(ExtensionEntry {
+    set_extension(McpServerEntry {
         enabled: true,
-        config: ExtensionConfig::StreamableHttp {
+        config: McpServerConfig::StreamableHttp {
             name: name.clone(),
             uri,
             envs: Envs::new(envs),
@@ -1356,7 +1356,7 @@ pub fn configure_extensions_dialog() -> anyhow::Result<()> {
         .interact()?;
 
     match extension_type {
-        "built-in" => configure_builtin_extension()?,
+        "built-in" => configure_builtin_mcp_server()?,
         "stdio" => configure_stdio_extension()?,
         "streamable_http" => configure_streamable_http_extension()?,
         _ => unreachable!(),
@@ -1371,7 +1371,7 @@ pub fn remove_extension_dialog() -> anyhow::Result<()> {
         eprintln!("{}", style(format!("Warning: {}", warning)).yellow());
     }
 
-    let extensions = get_all_extensions();
+    let extensions = get_all_mcp_servers();
 
     // Create a list of extension names and their enabled status
     let mut extension_status: Vec<(String, bool)> = extensions
@@ -1417,8 +1417,8 @@ pub fn remove_extension_dialog() -> anyhow::Result<()> {
         .interact()?;
 
     for name in selected {
-        remove_extension(&name_to_key(name));
-        PermissionManager::instance().remove_extension(&name_to_key(name));
+        remove_mcp_server(&name_to_key(name));
+        PermissionManager::instance().remove_mcp_server(&name_to_key(name));
         cliclack::outro(format!("Removed {} extension", style(name).green()))?;
     }
 
@@ -1729,7 +1729,7 @@ pub fn toggle_experiments_dialog() -> anyhow::Result<()> {
 }
 
 pub async fn configure_tool_permissions_dialog() -> anyhow::Result<()> {
-    let mut extensions: Vec<String> = get_enabled_extensions()
+    let mut extensions: Vec<String> = get_enabled_mcp_servers()
         .into_iter()
         .map(|ext| ext.name().clone())
         .collect();
@@ -1771,10 +1771,10 @@ pub async fn configure_tool_permissions_dialog() -> anyhow::Result<()> {
         )
         .await?;
 
-    let extension_config = get_extension_by_name(&selected_extension_name);
+    let extension_config = get_mcp_server_by_name(&selected_extension_name);
     if let Some(config) = extension_config.as_ref() {
         agent
-            .add_extension(config.clone(), &session.id)
+            .add_mcp_server(config.clone(), &session.id)
             .await
             .unwrap_or_else(|_| {
                 println!(
@@ -2006,15 +2006,15 @@ pub async fn handle_openrouter_auth() -> anyhow::Result<()> {
                     println!("✓ Configuration test passed!");
 
                     // Enable the developer extension by default if not already enabled
-                    let entries = get_all_extensions();
+                    let entries = get_all_mcp_servers();
                     let has_developer = entries
                         .iter()
                         .any(|e| e.config.name() == "developer" && e.enabled);
 
                     if !has_developer {
-                        set_extension(ExtensionEntry {
+                        set_extension(McpServerEntry {
                             enabled: true,
-                            config: ExtensionConfig::Platform {
+                            config: McpServerConfig::Platform {
                                 name: "developer".to_string(),
                                 description: "Developer extension".to_string(),
                                 display_name: Some(
@@ -2078,15 +2078,15 @@ pub async fn handle_tetrate_auth() -> anyhow::Result<()> {
                 Ok(_) => {
                     println!("✓ Configuration test passed!");
 
-                    let entries = get_all_extensions();
+                    let entries = get_all_mcp_servers();
                     let has_developer = entries
                         .iter()
                         .any(|e| e.config.name() == "developer" && e.enabled);
 
                     if !has_developer {
-                        set_extension(ExtensionEntry {
+                        set_extension(McpServerEntry {
                             enabled: true,
-                            config: ExtensionConfig::Platform {
+                            config: McpServerConfig::Platform {
                                 name: "developer".to_string(),
                                 description: "Developer extension".to_string(),
                                 display_name: Some(

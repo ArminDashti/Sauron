@@ -11,7 +11,7 @@ use crate::agents::platform_tools::{manage_schedule_tool, MANAGE_SCHEDULE_TOOL_N
 use crate::agents::schedule_tool::ScheduleTool;
 use crate::agents::tool_execution::ToolCallContext;
 
-use super::PlatformExtensionContext;
+use super::InProcessContext;
 
 pub const EXTENSION_NAME: &str = "scheduler";
 pub const MANAGE_SCHEDULE_TOOL_NAME_COMPLETE: &str = "scheduler__manage_schedule";
@@ -22,7 +22,7 @@ pub struct SchedulerClient {
 }
 
 impl SchedulerClient {
-    pub fn new(context: PlatformExtensionContext) -> Option<Self> {
+    pub fn new(context: InProcessContext) -> Option<Self> {
         let scheduler = context.scheduler?;
         let info = InitializeResult::new(ServerCapabilities::builder().enable_tools().build())
             .with_server_info(Implementation::new(EXTENSION_NAME, "1.0.0").with_title("Scheduler"))

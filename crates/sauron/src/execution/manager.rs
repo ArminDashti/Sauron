@@ -1,5 +1,5 @@
 use crate::agents::mcp_client::SauronMcpHostInfo;
-use crate::agents::{Agent, AgentConfig, ExtensionLoadResult, SauronPlatform};
+use crate::agents::{Agent, AgentConfig, McpServerLoadResult, SauronPlatform};
 use crate::config::permission::PermissionManager;
 use crate::config::Config;
 use crate::scheduler_trait::SchedulerTrait;
@@ -27,7 +27,7 @@ pub struct RuntimeContext {
 pub struct AgentManagerGetResult {
     pub agent: Arc<Agent>,
     pub agent_created: bool,
-    pub extension_results: Vec<ExtensionLoadResult>,
+    pub extension_results: Vec<McpServerLoadResult>,
 }
 
 pub struct AgentManager {
@@ -225,7 +225,7 @@ impl AgentManager {
                     );
                 }
             }
-            extension_results = agent.load_extensions_from_session(&session).await;
+            extension_results = agent.load_mcp_servers_from_session(&session).await;
             if let Some(recipe) = &session.recipe {
                 agent
                     .apply_recipe_components(recipe.response.clone(), true)

@@ -1,6 +1,6 @@
 use dotenvy::dotenv;
 use futures::StreamExt;
-use sauron::agents::{Agent, AgentEvent, ExtensionConfig, SessionConfig};
+use sauron::agents::{Agent, AgentEvent, McpServerConfig, SessionConfig};
 use sauron::config::{SauronMode, DEFAULT_EXTENSION_DESCRIPTION, DEFAULT_EXTENSION_TIMEOUT};
 use sauron::conversation::message::Message;
 use sauron::providers::create_with_named_model;
@@ -35,17 +35,17 @@ async fn main() -> anyhow::Result<()> {
         .update_provider(provider, model_config, &session.id)
         .await?;
 
-    let config = ExtensionConfig::stdio(
+    let config = McpServerConfig::stdio(
         "developer",
         "./target/debug/sauron",
         DEFAULT_EXTENSION_DESCRIPTION,
         DEFAULT_EXTENSION_TIMEOUT,
     )
     .with_args(vec!["mcp", "developer"]);
-    agent.add_extension(config, &session.id).await?;
+    agent.add_mcp_server(config, &session.id).await?;
 
     println!("Extensions:");
-    for extension in agent.list_extensions().await {
+    for extension in agent.list_mcp_servers().await {
         println!("  {}", extension);
     }
 

@@ -1,5 +1,5 @@
-use crate::agents::extension::PlatformExtensionContext;
 use crate::agents::mcp_client::{Error, McpClientTrait};
+use crate::agents::mcp_server::InProcessContext;
 use crate::agents::subagent_handler::{run_subagent_task, OnMessageCallback, SubagentRunParams};
 use crate::agents::subagent_task_config::{TaskConfig, DEFAULT_SUBAGENT_MAX_TURNS};
 use crate::agents::tool_execution::{ToolCallContext, ToolCallNotificationEmitter};
@@ -10,7 +10,7 @@ use crate::providers;
 use crate::recipe::build_recipe::build_recipe_from_template;
 use crate::recipe::local_recipes::load_local_recipe_file;
 use crate::recipe::{Recipe, RecipeParameter, Settings, RECIPE_FILE_EXTENSIONS};
-use crate::session::extension_data::EnabledExtensionsState;
+use crate::session::mcp_server_data::EnabledExtensionsState;
 use crate::session::SessionType;
 use crate::sources::parse_frontmatter;
 use crate::utils::safe_truncate;
@@ -365,17 +365,25 @@ fn scan_agents_from_dir(
     }
 }
 
-pub fn discover_filesystem_sources(working_dir: &Path) -> Vec<SourceEntry> {
+/// Discover recipes and agents available to a session.
+///
+/// `working_dir` is `None` for chat-only sessions: their global sources still
+/// apply, but no project-local `.sauron`/`.claude`/`.agents` directory is read.
+pub fn discover_filesystem_sources(working_dir: Option<&Path>) -> Vec<SourceEntry> {
     let mut sources: Vec<SourceEntry> = Vec::new();
     let mut seen: std::collections::HashSet<String> = std::collections::HashSet::new();
 
     let home = dirs::home_dir();
     let config = Paths::config_dir();
 
-    let local_recipe_dirs: Vec<PathBuf> = vec![
-        working_dir.join(".sauron/recipes"),
-        working_dir.join(".agents/recipes"),
-    ];
+    let local_recipe_dirs: Vec<PathBuf> = working_dir
+        .map(|dir| {
+            vec![
+                dir.join(".sauron/recipes"),
+                dir.join(".agents/recipes"),
+            ]
+        })
+        .unwrap_or_default();
 
     let global_recipe_dirs: Vec<PathBuf> = std::env::var("SAURON_RECIPE_PATH")
         .ok()
@@ -395,11 +403,15 @@ pub fn discover_filesystem_sources(working_dir: &Path) -> Vec<SourceEntry> {
         )
         .collect();
 
-    let local_agent_dirs: Vec<PathBuf> = vec![
-        working_dir.join(".sauron/agents"),
-        working_dir.join(".claude/agents"),
-        working_dir.join(".agents/agents"),
-    ];
+    let local_agent_dirs: Vec<PathBuf> = working_dir
+        .map(|dir| {
+            vec![
+                dir.join(".sauron/agents"),
+                dir.join(".claude/agents"),
+                dir.join(".agents/agents"),
+            ]
+        })
+        .unwrap_or_default();
 
     let global_agent_dirs: Vec<PathBuf> = [
         home.as_ref().map(|h| h.join(".sauron/agents")),
@@ -411,13 +423,9 @@ pub fn discover_filesystem_sources(working_dir: &Path) -> Vec<SourceEntry> {
     .flatten()
     .collect();
 
-    scan_recipes_from_dir(
-        working_dir,
-        SourceType::Recipe,
-        true,
-        &mut sources,
-        &mut seen,
-    );
+    if let Some(dir) = working_dir {
+        scan_recipes_from_dir(dir, SourceType::Recipe, true, &mut sources, &mut seen);
+    }
 
     for dir in local_recipe_dirs {
         scan_recipes_from_dir(&dir, SourceType::Recipe, false, &mut sources, &mut seen);
@@ -452,7 +460,7 @@ fn build_subagent_instructions(session: Option<&crate::session::Session>) -> Str
     };
 
     // filter the sources down to what we want even though currently that is what we get
-    let mut sources: Vec<SourceEntry> = discover_filesystem_sources(&session.working_dir)
+    let mut sources: Vec<SourceEntry> = discover_filesystem_sources(session.working_dir.as_deref())
         .into_iter()
         .filter(|s| {
             matches!(
@@ -576,7 +584,7 @@ fn is_session_id(s: &str) -> bool {
 
 pub struct SummonClient {
     info: InitializeResult,
-    context: PlatformExtensionContext,
+    context: InProcessContext,
     source_cache: Mutex<Option<(Instant, PathBuf, Vec<SourceEntry>)>>,
     background_tasks: Mutex<HashMap<String, BackgroundTask>>,
     completed_tasks: Mutex<HashMap<String, CompletedTask>>,
@@ -594,7 +602,7 @@ impl Drop for SummonClient {
 }
 
 impl SummonClient {
-    pub fn new(context: PlatformExtensionContext) -> Result<Self> {
+    pub fn new(context: InProcessContext) -> Result<Self> {
         let info = InitializeResult::new(ServerCapabilities::builder().enable_tools().build())
             .with_server_info(Implementation::new(EXTENSION_NAME, "1.0.0").with_title("Summon"));
 
@@ -1814,7 +1822,7 @@ impl SummonClient {
         params: &DelegateParams,
         recipe: &Recipe,
         session: &crate::session::Session,
-        extensions: &[crate::config::ExtensionConfig],
+        extensions: &[crate::config::McpServerConfig],
     ) -> Result<
         (
             Arc<dyn crate::providers::base::Provider>,
@@ -1852,13 +1860,13 @@ impl SummonClient {
         let provider = match provider_entry {
             Ok(entry) => entry.create(extensions.to_vec()).await?,
             Err(error) => {
-                let parent_provider = if let Some(extension_manager) = self
+                let parent_provider = if let Some(mcp_manager) = self
                     .context
-                    .extension_manager
+                    .mcp_manager
                     .as_ref()
                     .and_then(|weak| weak.upgrade())
                 {
-                    extension_manager.get_provider().lock().await.clone()
+                    mcp_manager.get_provider().lock().await.clone()
                 } else {
                     None
                 };
@@ -2342,7 +2350,7 @@ mod tests {
     use std::sync::Arc;
     use tempfile::TempDir;
 
-    fn create_test_context() -> PlatformExtensionContext {
+    fn create_test_context() -> InProcessContext {
         create_test_context_with_session_manager(Arc::new(
             crate::session::SessionManager::instance(),
         ))
@@ -2350,9 +2358,9 @@ mod tests {
 
     fn create_test_context_with_session_manager(
         session_manager: Arc<crate::session::SessionManager>,
-    ) -> PlatformExtensionContext {
-        PlatformExtensionContext {
-            extension_manager: None,
+    ) -> InProcessContext {
+        InProcessContext {
+            mcp_manager: None,
             session_manager,
             scheduler: None,
             session: None,
@@ -3004,14 +3012,14 @@ You review code."#;
             )
             .unwrap(),
         );
-        let extension_manager = Arc::new(
-            crate::agents::extension_manager::ExtensionManager::new_without_provider(
+        let mcp_manager = Arc::new(
+            crate::agents::mcp_manager::McpManager::new_without_provider(
                 temp_dir.path().to_path_buf(),
             ),
         );
-        *extension_manager.get_provider().lock().await = Some(Arc::clone(&parent_provider));
-        let mut context = extension_manager.get_context().clone();
-        context.extension_manager = Some(Arc::downgrade(&extension_manager));
+        *mcp_manager.get_provider().lock().await = Some(Arc::clone(&parent_provider));
+        let mut context = mcp_manager.get_context().clone();
+        context.mcp_manager = Some(Arc::downgrade(&mcp_manager));
         let client = SummonClient::new(context).unwrap();
         let session = crate::session::Session {
             provider_name: Some(parent_provider.get_name().to_string()),
@@ -3036,14 +3044,14 @@ You review code."#;
     async fn test_build_task_config_recreates_registered_parent_provider() {
         let temp_dir = TempDir::new().unwrap();
         let parent_provider = providers::create("openai", Vec::new()).await.unwrap();
-        let extension_manager = Arc::new(
-            crate::agents::extension_manager::ExtensionManager::new_without_provider(
+        let mcp_manager = Arc::new(
+            crate::agents::mcp_manager::McpManager::new_without_provider(
                 temp_dir.path().to_path_buf(),
             ),
         );
-        *extension_manager.get_provider().lock().await = Some(Arc::clone(&parent_provider));
-        let mut context = extension_manager.get_context().clone();
-        context.extension_manager = Some(Arc::downgrade(&extension_manager));
+        *mcp_manager.get_provider().lock().await = Some(Arc::clone(&parent_provider));
+        let mut context = mcp_manager.get_context().clone();
+        context.mcp_manager = Some(Arc::downgrade(&mcp_manager));
         let client = SummonClient::new(context).unwrap();
         let session = crate::session::Session {
             provider_name: Some(parent_provider.get_name().to_string()),

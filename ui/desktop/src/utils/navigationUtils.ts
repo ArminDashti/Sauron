@@ -18,6 +18,7 @@ export type View =
   | 'recipes'
   | 'skills'
   | 'hub'
+  | 'github'
   | 'permission';
 
 export type ViewOptions = {
@@ -70,6 +71,9 @@ export const createNavigationHandler = (navigate: NavigateFunction) => {
         break;
       case 'hub':
         navigate('/hub', { state: options });
+        break;
+      case 'github':
+        navigate('/github', { state: options });
         break;
       case 'permission':
         navigate('/permission', { state: options });

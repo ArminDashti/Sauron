@@ -5285,4 +5285,17 @@
   "usageStats.writeTokens": {
     "defaultMessage": "Write tokens"
   }
+,
+  "worktreeSettings.description": {
+    "defaultMessage": "Управляет тем, какие каталоги предлагает выбор рабочего каталога"
+  },
+  "worktreeSettings.title": {
+    "defaultMessage": "Рабочие деревья Git"
+  },
+  "worktreeSettings.toggleDescription": {
+    "defaultMessage": "Показывать другие рабочие деревья текущего репозитория в выборе рабочего каталога."
+  },
+  "worktreeSettings.toggleLabel": {
+    "defaultMessage": "Учитывать рабочие деревья Git"
+  }
 }

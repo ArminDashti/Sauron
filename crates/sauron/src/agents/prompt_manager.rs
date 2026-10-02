@@ -4,7 +4,7 @@ use chrono::Utc;
 use indexmap::IndexMap;
 use serde::Serialize;
 
-use crate::agents::{extension::ExtensionInfo, moim};
+use crate::agents::{mcp_server::McpServerInfo, moim};
 use crate::hints::load_hints::build_gitignore;
 use crate::hints::{get_context_filenames, load_hint_files, SubdirectoryHintTracker};
 use crate::{
@@ -29,7 +29,7 @@ impl Default for PromptManager {
 
 #[derive(Serialize)]
 struct SystemPromptContext {
-    extensions: Vec<ExtensionInfo>,
+    extensions: Vec<McpServerInfo>,
     current_date_time: String,
     sauron_mode: SauronMode,
     is_autonomous: bool,
@@ -43,7 +43,7 @@ struct SystemPromptContext {
 pub struct SystemPromptBuilder<'a, M> {
     manager: &'a M,
 
-    extensions_info: Vec<ExtensionInfo>,
+    extensions_info: Vec<McpServerInfo>,
     prompt_extras: IndexMap<String, String>,
     subagents_enabled: bool,
     hints: Option<String>,
@@ -53,12 +53,12 @@ pub struct SystemPromptBuilder<'a, M> {
 }
 
 impl<'a> SystemPromptBuilder<'a, PromptManager> {
-    pub fn with_extension(mut self, extension: ExtensionInfo) -> Self {
+    pub fn with_mcp_server(mut self, extension: McpServerInfo) -> Self {
         self.extensions_info.push(extension);
         self
     }
 
-    pub fn with_extensions(mut self, extensions: impl Iterator<Item = ExtensionInfo>) -> Self {
+    pub fn with_mcp_servers(mut self, extensions: impl Iterator<Item = McpServerInfo>) -> Self {
         for extension in extensions {
             self.extensions_info.push(extension);
         }
@@ -78,7 +78,7 @@ impl<'a> SystemPromptBuilder<'a, PromptManager> {
         self
     }
 
-    pub fn without_extensions(mut self) -> Self {
+    pub fn without_mcp_servers(mut self) -> Self {
         self.include_extensions = false;
         self
     }
@@ -111,7 +111,7 @@ impl<'a> SystemPromptBuilder<'a, PromptManager> {
         // Stable tool ordering is important for multi session prompt caching.
         extensions_info.sort_by(|a, b| a.name.cmp(&b.name));
 
-        let sanitized_extensions_info: Vec<ExtensionInfo> = extensions_info
+        let sanitized_extensions_info: Vec<McpServerInfo> = extensions_info
             .into_iter()
             .map(|mut ext_info| {
                 ext_info.instructions = sanitize_unicode_tags(&ext_info.instructions);
@@ -238,7 +238,7 @@ impl PromptManager {
             .with_prompt_extras(prompt_parts)
             .with_hints(working_dir)
             .with_sauron_mode(sauron_mode)
-            .without_extensions()
+            .without_mcp_servers()
             .build()
     }
 
@@ -444,7 +444,7 @@ mod tests {
     #[test]
     fn test_build_system_prompt_sanitizes_extension_instructions() {
         let manager = PromptManager::new();
-        let malicious_extension_info = ExtensionInfo::new(
+        let malicious_extension_info = McpServerInfo::new(
             "test_extension",
             "Extension help\u{E0041}\u{E0042}\u{E0043}hidden instructions",
             false,
@@ -452,7 +452,7 @@ mod tests {
 
         let result = manager
             .builder()
-            .with_extension(malicious_extension_info)
+            .with_mcp_server(malicious_extension_info)
             .build();
 
         assert!(!result.contains('\u{E0041}'));
@@ -477,7 +477,7 @@ mod tests {
 
         let system_prompt = manager
             .builder()
-            .with_extension(ExtensionInfo::new(
+            .with_mcp_server(McpServerInfo::new(
                 "test",
                 "how to use this extension",
                 true,
@@ -493,12 +493,12 @@ mod tests {
 
         let system_prompt = manager
             .builder()
-            .with_extension(ExtensionInfo::new(
+            .with_mcp_server(McpServerInfo::new(
                 "extension_A",
                 "<instructions on how to use extension A>",
                 true,
             ))
-            .with_extension(ExtensionInfo::new(
+            .with_mcp_server(McpServerInfo::new(
                 "extension_B",
                 "<instructions on how to use extension B (no resources)>",
                 false,
@@ -510,7 +510,7 @@ mod tests {
 
     #[tokio::test]
     async fn test_all_platform_extensions() {
-        use crate::agents::platform_extensions::{PlatformExtensionContext, PLATFORM_EXTENSIONS};
+        use crate::agents::in_process::{InProcessContext, IN_PROCESS_SERVERS};
         use crate::config::SauronMode;
         use crate::session::SessionManager;
         use std::sync::Arc;
@@ -537,15 +537,15 @@ mod tests {
         )
         .await
         .unwrap();
-        let context = PlatformExtensionContext {
-            extension_manager: None,
+        let context = InProcessContext {
+            mcp_manager: None,
             session_manager,
             scheduler: Some(scheduler),
             session: Some(Arc::new(session)),
             use_login_shell_path: false,
         };
 
-        let mut extensions: Vec<ExtensionInfo> = PLATFORM_EXTENSIONS
+        let mut extensions: Vec<McpServerInfo> = IN_PROCESS_SERVERS
             .values()
             .filter_map(|def| {
                 let client = (def.client_factory)(context.clone())?;
@@ -554,7 +554,7 @@ mod tests {
                     .get_info()
                     .and_then(|i| i.capabilities.resources.as_ref())
                     .is_some();
-                Some(ExtensionInfo::new(def.name, &instructions, has_resources))
+                Some(McpServerInfo::new(def.name, &instructions, has_resources))
             })
             .collect();
 
@@ -563,7 +563,7 @@ mod tests {
         let manager = PromptManager::with_timestamp(DateTime::<Utc>::from_timestamp(0, 0).unwrap());
         let system_prompt = manager
             .builder()
-            .with_extensions(extensions.into_iter())
+            .with_mcp_servers(extensions.into_iter())
             .build();
 
         assert_snapshot!(system_prompt);

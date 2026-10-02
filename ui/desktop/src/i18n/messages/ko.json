@@ -5285,4 +5285,17 @@
   "usageStats.writeTokens": {
     "defaultMessage": "Write tokens"
   }
+,
+  "worktreeSettings.description": {
+    "defaultMessage": "작업 디렉토리 선ഝd가 제공하는 디렉토리를 제어합니다"
+  },
+  "worktreeSettings.title": {
+    "defaultMessage": "Git 워트리"
+  },
+  "worktreeSettings.toggleDescription": {
+    "defaultMessage": "현재 저장소의 다른 워트리를 작업 디렉토리 선ഝd가에 표시합니다."
+  },
+  "worktreeSettings.toggleLabel": {
+    "defaultMessage": "Git 워트리 고려"
+  }
 }

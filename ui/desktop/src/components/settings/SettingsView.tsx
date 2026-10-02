@@ -3,7 +3,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs';
 import { View, ViewOptions } from '../../utils/navigationUtils';
 import ModelsSection from './models/ModelsSection';
 import ProvidersSection from './providers/ProvidersSection';
-import HarnessesSection from './harnesses/HarnessesSection';
 import ExternalBackendSection from './app/ExternalBackendSection';
 import AgentLoopSettings from './AgentLoopSettings';
 import AppSettingsSection from './app/AppSettingsSection';
@@ -12,12 +11,6 @@ import McpSettingsSection from './mcp/McpSettingsSection';
 import PluginsSettingsSection from './plugins/PluginsSettingsSection';
 import ConfigSettings from './config/ConfigSettings';
 import PromptsSettingsSection from './PromptsSettingsSection';
-import UsageStatsSection from './stats/UsageStatsSection';
-import RecipesView from '../recipes/RecipesView';
-import SkillsView from '../skills/SkillsView';
-import AppsView from '../apps/AppsView';
-import ExtensionsView from '../extensions/ExtensionsView';
-import SessionsView from '../sessions/SessionsView';
 import type { ExtensionConfig } from '../../types/extensions';
 import {
   Bot,
@@ -26,28 +19,24 @@ import {
   MessageSquare,
   FileText,
   Keyboard,
+  KeyRound,
+  HardDrive,
   Palette,
   Plug,
   Puzzle,
-  Search,
   Server,
-  BarChart3,
-  Blocks,
 } from 'lucide-react';
-import type { LucideIcon } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
-import { Input } from '../ui/input';
-import { cn } from '../../utils';
 import ChatSettingsSection from './chat/ChatSettingsSection';
 import KeyboardShortcutsSection from './keyboard/KeyboardShortcutsSection';
 import { CONFIGURATION_ENABLED } from '../../updates';
 import { trackSettingsTabViewed } from '../../utils/analytics';
-import { useConfig } from '../ConfigContext';
-import { getNavItemLabel, SETTINGS_NAV_ITEMS } from '../../hooks/useNavigationItems';
 import { defineMessages, useIntl } from '../../i18n';
 import BackButton from '../ui/BackButton';
 import { useNavigationContext } from '../Layout/NavigationContext';
-import { iconColor, type IconColorKey } from '../../theme/iconColors';
+import { iconColor } from '../../theme/iconColors';
+import { useFeatures } from '../../contexts/FeaturesContext';
+import LocalInferenceSection from './localInference/LocalInferenceSection';
 
 const i18n = defineMessages({
   title: {
@@ -62,9 +51,9 @@ const i18n = defineMessages({
     id: 'settingsView.tabProviders',
     defaultMessage: 'Providers',
   },
-  tabHarnesses: {
-    id: 'settingsView.tabHarnesses',
-    defaultMessage: 'Harnesses',
+  tabLocalInference: {
+    id: 'settingsView.tabLocalInference',
+    defaultMessage: 'Local inference',
   },
   tabChat: {
     id: 'settingsView.tabChat',
@@ -86,6 +75,10 @@ const i18n = defineMessages({
     id: 'settingsView.tabMcp',
     defaultMessage: 'MCP',
   },
+  tabAuth: {
+    id: 'settingsView.tabAuth',
+    defaultMessage: 'Auth',
+  },
   tabPlugins: {
     id: 'settingsView.tabPlugins',
     defaultMessage: 'Plugins',
@@ -98,137 +91,10 @@ const i18n = defineMessages({
     id: 'settingsView.tabApp',
     defaultMessage: 'App',
   },
-  tabStats: {
-    id: 'settingsView.tabStats',
-    defaultMessage: 'Stats',
-  },
-  searchPlaceholder: {
-    id: 'settingsView.searchPlaceholder',
-    defaultMessage: 'Search Settings',
-  },
-  noResults: {
-    id: 'settingsView.noResults',
-    defaultMessage: 'No results',
-  },
 });
 
-type SettingsTab = {
-  value: string;
-  label: (typeof i18n)[keyof typeof i18n];
-  icon: LucideIcon;
-  /** Palette key so each destination keeps the same color as elsewhere in the app. */
-  color: IconColorKey;
-  testId: string;
-  group: 1 | 2;
-};
-
-/** Sidebar entries grouped like the reference layout: agent config first, app config below. */
-const SETTINGS_TABS: SettingsTab[] = [
-  {
-    value: 'models',
-    label: i18n.tabModels,
-    icon: Bot,
-    color: 'models',
-    testId: 'settings-models-tab',
-    group: 1,
-  },
-  {
-    value: 'providers',
-    label: i18n.tabProviders,
-    icon: Server,
-    color: 'providers',
-    testId: 'settings-providers-tab',
-    group: 1,
-  },
-  {
-    value: 'harnesses',
-    label: i18n.tabHarnesses,
-    icon: Blocks,
-    color: 'harnesses',
-    testId: 'settings-harnesses-tab',
-    group: 1,
-  },
-  {
-    value: 'chat',
-    label: i18n.tabChat,
-    icon: MessageSquare,
-    color: 'chat',
-    testId: 'settings-chat-tab',
-    group: 1,
-  },
-  {
-    value: 'sharing',
-    label: i18n.tabAgent,
-    icon: Share2,
-    color: 'sharing',
-    testId: 'settings-sharing-tab',
-    group: 1,
-  },
-  {
-    value: 'prompts',
-    label: i18n.tabPrompts,
-    icon: FileText,
-    color: 'prompts',
-    testId: 'settings-prompts-tab',
-    group: 1,
-  },
-  {
-    value: 'keyboard',
-    label: i18n.tabKeyboard,
-    icon: Keyboard,
-    color: 'keyboard',
-    testId: 'settings-keyboard-tab',
-    group: 2,
-  },
-  {
-    value: 'mcp',
-    label: i18n.tabMcp,
-    icon: Plug,
-    color: 'mcp',
-    testId: 'settings-mcp-tab',
-    group: 2,
-  },
-  {
-    value: 'plugins',
-    label: i18n.tabPlugins,
-    icon: Puzzle,
-    color: 'plugins',
-    testId: 'settings-plugins-tab',
-    group: 2,
-  },
-  {
-    value: 'appearance',
-    label: i18n.tabAppearance,
-    icon: Palette,
-    color: 'appearance',
-    testId: 'settings-appearance-tab',
-    group: 2,
-  },
-  {
-    value: 'app',
-    label: i18n.tabApp,
-    icon: Monitor,
-    color: 'app',
-    testId: 'settings-app-tab',
-    group: 2,
-  },
-  {
-    value: 'stats',
-    label: i18n.tabStats,
-    icon: BarChart3,
-    color: 'stats',
-    testId: 'settings-stats-tab',
-    group: 2,
-  },
-];
-
 const settingsTabClass =
-  'w-full gap-3 rounded-lg px-3 py-2 text-sm font-normal text-text-secondary hover:bg-background-tertiary/60 data-[state=active]:bg-background-tertiary data-[state=active]:text-text-primary data-[state=active]:shadow-none';
-
-/** Tabs that render a full page view inside Settings instead of a settings section. */
-const EMBEDDED_TAB_IDS = new Set(['recipes', 'skills', 'apps', 'extensions', 'sessions']);
-
-const embeddedTabClass = 'mt-0 flex-1 min-h-0 focus-visible:outline-none focus-visible:ring-0';
+  'w-full gap-3 rounded-full px-3 py-2 text-sm font-medium hover:bg-background-tertiary/60 data-[state=active]:bg-background-tertiary data-[state=active]:shadow-none';
 
 export type SettingsViewOptions = {
   deepLinkConfig?: ExtensionConfig;
@@ -246,32 +112,24 @@ export default function SettingsView({
   viewOptions: SettingsViewOptions;
 }) {
   const [activeTab, setActiveTab] = useState('models');
-  const [searchQuery, setSearchQuery] = useState('');
   const hasTrackedInitialTab = useRef(false);
-  const { extensionsList } = useConfig();
   const { navWidth } = useNavigationContext();
   const intl = useIntl();
-
-  const appsExtensionEnabled = !!extensionsList?.find((ext) => ext.name === 'apps')?.enabled;
-  const isEmbeddedTab = EMBEDDED_TAB_IDS.has(activeTab);
-
-  const movedNavItems = SETTINGS_NAV_ITEMS.filter((item) =>
-    item.id === 'apps' ? appsExtensionEnabled : true
-  );
+  const { localInference } = useFeatures();
 
   const activeTabTitle = {
     models: intl.formatMessage(i18n.tabModels),
     providers: intl.formatMessage(i18n.tabProviders),
-    harnesses: intl.formatMessage(i18n.tabHarnesses),
+    'local-inference': intl.formatMessage(i18n.tabLocalInference),
     chat: intl.formatMessage(i18n.tabChat),
     sharing: intl.formatMessage(i18n.tabAgent),
     prompts: intl.formatMessage(i18n.tabPrompts),
     keyboard: intl.formatMessage(i18n.tabKeyboard),
+    auth: intl.formatMessage(i18n.tabAuth),
     mcp: intl.formatMessage(i18n.tabMcp),
     plugins: intl.formatMessage(i18n.tabPlugins),
     appearance: intl.formatMessage(i18n.tabAppearance),
     app: intl.formatMessage(i18n.tabApp),
-    stats: intl.formatMessage(i18n.tabStats),
   }[activeTab];
 
   const handleTabChange = (tab: string) => {
@@ -287,7 +145,6 @@ export default function SettingsView({
         update: 'app',
         models: 'models',
         providers: 'providers',
-        harnesses: 'harnesses',
         modes: 'chat',
         sharing: 'sharing',
         styles: 'chat',
@@ -303,8 +160,7 @@ export default function SettingsView({
         appearance: 'appearance',
         theme: 'appearance',
         language: 'appearance',
-        'local-inference': 'providers',
-        stats: 'stats',
+        'local-inference': 'local-inference',
       };
 
       const targetTab = sectionToTab[viewOptions.section];
@@ -313,13 +169,6 @@ export default function SettingsView({
       }
     }
   }, [viewOptions.section]);
-
-  // Reset active tab if the apps extension becomes unavailable
-  useEffect(() => {
-    if (!appsExtensionEnabled && activeTab === 'apps') {
-      setActiveTab('models');
-    }
-  }, [appsExtensionEnabled, activeTab]);
 
   useEffect(() => {
     if (!hasTrackedInitialTab.current) {
@@ -360,218 +209,199 @@ export default function SettingsView({
               <BackButton
                 onClick={onClose}
                 variant="ghost"
-                className="mb-3 w-full justify-start rounded-lg px-3 text-sm font-medium hover:bg-background-tertiary/60"
+                className="mb-3 w-full justify-start rounded-full px-3 text-sm font-medium hover:bg-background-tertiary/60"
               />
-              <div className="relative mb-3">
-                <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-text-secondary" />
-                <Input
-                  type="search"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Escape' && searchQuery) {
-                      // Clear the filter first; only let Escape close Settings when empty.
-                      e.stopPropagation();
-                      setSearchQuery('');
-                    }
-                  }}
-                  placeholder={intl.formatMessage(i18n.searchPlaceholder)}
-                  aria-label={intl.formatMessage(i18n.searchPlaceholder)}
-                  data-testid="settings-search-input"
-                  className="h-9 rounded-lg pl-9 text-sm [&::-webkit-search-cancel-button]:cursor-pointer"
-                />
-              </div>
             </div>
             <TabsList className="w-full min-h-0 flex-1 flex-col items-stretch gap-0.5 overflow-y-auto bg-transparent px-2 py-0">
-              {SETTINGS_TABS.filter((tab) => {
-                if (!searchQuery.trim()) return true;
-                return intl
-                  .formatMessage(tab.label)
-                  .toLowerCase()
-                  .includes(searchQuery.trim().toLowerCase());
-              }).map((tab, index, visible) => {
-                const Icon = tab.icon;
-                const startsGroup = index === 0 || visible[index - 1].group !== tab.group;
-                return (
-                  <TabsTrigger
-                    key={tab.value}
-                    value={tab.value}
-                    className={cn(settingsTabClass, startsGroup && index > 0 && 'mt-4')}
-                    data-testid={tab.testId}
-                  >
-                    <Icon className="h-5 w-5" style={{ color: iconColor(tab.color) }} />
-                    {intl.formatMessage(tab.label)}
-                  </TabsTrigger>
-                );
-              })}
-              {movedNavItems
-                .filter((item) => {
-                  if (!searchQuery.trim()) return true;
-                  return getNavItemLabel(item, intl)
-                    .toLowerCase()
-                    .includes(searchQuery.trim().toLowerCase());
-                })
-                .map((item, index) => {
-                  const ItemIcon = item.icon;
-                  return (
-                    <TabsTrigger
-                      key={item.id}
-                      value={item.id}
-                      className={cn(settingsTabClass, index === 0 && 'mt-4')}
-                      data-testid={`settings-${item.id}-tab`}
-                    >
-                      <ItemIcon className="h-5 w-5" style={{ color: iconColor(item.color) }} />
-                      {getNavItemLabel(item, intl)}
-                    </TabsTrigger>
-                  );
-                })}
-              {searchQuery.trim() &&
-                !SETTINGS_TABS.some((tab) =>
-                  intl
-                    .formatMessage(tab.label)
-                    .toLowerCase()
-                    .includes(searchQuery.trim().toLowerCase())
-                ) &&
-                !movedNavItems.some((item) =>
-                  getNavItemLabel(item, intl)
-                    .toLowerCase()
-                    .includes(searchQuery.trim().toLowerCase())
-                ) && (
-                  <p className="px-3 py-2 text-sm text-text-secondary">
-                    {intl.formatMessage(i18n.noResults)}
-                  </p>
-                )}
+              <TabsTrigger
+                value="models"
+                className={settingsTabClass}
+                data-testid="settings-models-tab"
+              >
+                <Bot className="h-5 w-5" style={{ color: iconColor('models') }} />
+                {intl.formatMessage(i18n.tabModels)}
+              </TabsTrigger>
+              <TabsTrigger
+                value="providers"
+                className={settingsTabClass}
+                data-testid="settings-providers-tab"
+              >
+                <Server className="h-5 w-5" style={{ color: iconColor('providers') }} />
+                {intl.formatMessage(i18n.tabProviders)}
+              </TabsTrigger>
+              {localInference && (
+                <TabsTrigger
+                  value="local-inference"
+                  className={settingsTabClass}
+                  data-testid="settings-local-inference-tab"
+                >
+                  <HardDrive className="h-5 w-5" style={{ color: iconColor('localInference') }} />
+                  {intl.formatMessage(i18n.tabLocalInference)}
+                </TabsTrigger>
+              )}
+              <TabsTrigger
+                value="chat"
+                className={settingsTabClass}
+                data-testid="settings-chat-tab"
+              >
+                <MessageSquare className="h-5 w-5" style={{ color: iconColor('chat') }} />
+                {intl.formatMessage(i18n.tabChat)}
+              </TabsTrigger>
+              <TabsTrigger
+                value="sharing"
+                className={settingsTabClass}
+                data-testid="settings-sharing-tab"
+              >
+                <Share2 className="h-5 w-5" style={{ color: iconColor('sharing') }} />
+                {intl.formatMessage(i18n.tabAgent)}
+              </TabsTrigger>
+              <TabsTrigger
+                value="prompts"
+                className={settingsTabClass}
+                data-testid="settings-prompts-tab"
+              >
+                <FileText className="h-5 w-5" style={{ color: iconColor('prompts') }} />
+                {intl.formatMessage(i18n.tabPrompts)}
+              </TabsTrigger>
+              <TabsTrigger
+                value="keyboard"
+                className={settingsTabClass}
+                data-testid="settings-keyboard-tab"
+              >
+                <Keyboard className="h-5 w-5" style={{ color: iconColor('keyboard') }} />
+                {intl.formatMessage(i18n.tabKeyboard)}
+              </TabsTrigger>
+              <TabsTrigger
+                value="auth"
+                className={settingsTabClass}
+                data-testid="settings-auth-tab"
+              >
+                <KeyRound className="h-5 w-5" style={{ color: iconColor('auth') }} />
+                {intl.formatMessage(i18n.tabAuth)}
+              </TabsTrigger>
+              <TabsTrigger value="mcp" className={settingsTabClass} data-testid="settings-mcp-tab">
+                <Plug className="h-5 w-5" style={{ color: iconColor('mcp') }} />
+                {intl.formatMessage(i18n.tabMcp)}
+              </TabsTrigger>
+              <TabsTrigger
+                value="plugins"
+                className={settingsTabClass}
+                data-testid="settings-plugins-tab"
+              >
+                <Puzzle className="h-5 w-5" style={{ color: iconColor('plugins') }} />
+                {intl.formatMessage(i18n.tabPlugins)}
+              </TabsTrigger>
+              <TabsTrigger
+                value="appearance"
+                className={settingsTabClass}
+                data-testid="settings-appearance-tab"
+              >
+                <Palette className="h-5 w-5" style={{ color: iconColor('appearance') }} />
+                {intl.formatMessage(i18n.tabAppearance)}
+              </TabsTrigger>
+              <TabsTrigger value="app" className={settingsTabClass} data-testid="settings-app-tab">
+                <Monitor className="h-5 w-5" style={{ color: iconColor('app') }} />
+                {intl.formatMessage(i18n.tabApp)}
+              </TabsTrigger>
             </TabsList>
           </aside>
         </div>
 
         <main className="flex min-w-0 flex-1 flex-col overflow-hidden bg-background-primary">
-          {isEmbeddedTab ? (
-            <div className="flex-1 min-h-0 flex flex-col">
-              <TabsContent value="recipes" className={embeddedTabClass}>
-                <RecipesView embedded />
+          <div className="px-12 pb-8 pt-16">
+            <div className="mx-auto max-w-5xl">
+              <h1 className="text-4xl font-light">{activeTabTitle}</h1>
+            </div>
+          </div>
+
+          <ScrollArea className="min-h-0 flex-1 px-12">
+            <div className="mx-auto max-w-5xl pb-10">
+              <TabsContent
+                value="models"
+                className="mt-0 focus-visible:outline-none focus-visible:ring-0"
+              >
+                <ModelsSection setView={setView} />
               </TabsContent>
-              <TabsContent value="skills" className={embeddedTabClass}>
-                <SkillsView embedded />
+
+              <TabsContent
+                value="providers"
+                className="mt-0 focus-visible:outline-none focus-visible:ring-0"
+              >
+                <ProvidersSection setView={setView} />
               </TabsContent>
-              <TabsContent value="apps" className={embeddedTabClass}>
-                <AppsView embedded />
+
+              {localInference && (
+                <TabsContent
+                  value="local-inference"
+                  className="mt-0 focus-visible:outline-none focus-visible:ring-0"
+                >
+                  <LocalInferenceSection />
+                </TabsContent>
+              )}
+
+              <TabsContent
+                value="chat"
+                className="mt-0 focus-visible:outline-none focus-visible:ring-0"
+              >
+                <ChatSettingsSection />
               </TabsContent>
-              <TabsContent value="extensions" className={embeddedTabClass}>
-                <ExtensionsView
-                  onClose={onClose}
-                  setView={setView}
-                  viewOptions={viewOptions}
-                  embedded
-                />
+
+              <TabsContent
+                value="sharing"
+                className="mt-0 focus-visible:outline-none focus-visible:ring-0"
+              >
+                <div className="space-y-4 pb-8">
+                  <AgentLoopSettings />
+                  <ExternalBackendSection />
+                </div>
               </TabsContent>
-              <TabsContent value="sessions" className={embeddedTabClass}>
-                <SessionsView embedded />
+
+              <TabsContent
+                value="prompts"
+                className="mt-0 focus-visible:outline-none focus-visible:ring-0"
+              >
+                <PromptsSettingsSection />
+              </TabsContent>
+
+              <TabsContent
+                value="keyboard"
+                className="mt-0 focus-visible:outline-none focus-visible:ring-0"
+              >
+                <KeyboardShortcutsSection />
+              </TabsContent>
+
+              <TabsContent
+                value="mcp"
+                className="mt-0 focus-visible:outline-none focus-visible:ring-0"
+              >
+                <McpSettingsSection />
+              </TabsContent>
+
+              <TabsContent
+                value="plugins"
+                className="mt-0 focus-visible:outline-none focus-visible:ring-0"
+              >
+                <PluginsSettingsSection setView={setView} />
+              </TabsContent>
+
+              <TabsContent
+                value="appearance"
+                className="mt-0 focus-visible:outline-none focus-visible:ring-0"
+              >
+                <AppearanceSettingsSection />
+              </TabsContent>
+
+              <TabsContent
+                value="app"
+                className="mt-0 focus-visible:outline-none focus-visible:ring-0"
+              >
+                <div className="space-y-8">
+                  {CONFIGURATION_ENABLED && <ConfigSettings />}
+                  <AppSettingsSection scrollToSection={viewOptions.section} />
+                </div>
               </TabsContent>
             </div>
-          ) : (
-            <>
-              <div className="px-12 pb-8 pt-16">
-                <div className="mx-auto max-w-5xl">
-                  <h1 className="text-4xl font-light">{activeTabTitle}</h1>
-                </div>
-              </div>
-
-              <ScrollArea className="min-h-0 flex-1 px-12">
-                <div className="mx-auto max-w-5xl pb-10">
-                  <TabsContent
-                    value="models"
-                    className="mt-0 focus-visible:outline-none focus-visible:ring-0"
-                  >
-                    <ModelsSection setView={setView} />
-                  </TabsContent>
-
-                  <TabsContent
-                    value="providers"
-                    className="mt-0 focus-visible:outline-none focus-visible:ring-0"
-                  >
-                    <ProvidersSection setView={setView} />
-                  </TabsContent>
-
-                  <TabsContent
-                    value="harnesses"
-                    className="mt-0 focus-visible:outline-none focus-visible:ring-0"
-                  >
-                    <HarnessesSection />
-                  </TabsContent>
-
-                  <TabsContent
-                    value="chat"
-                    className="mt-0 focus-visible:outline-none focus-visible:ring-0"
-                  >
-                    <ChatSettingsSection />
-                  </TabsContent>
-
-                  <TabsContent
-                    value="sharing"
-                    className="mt-0 focus-visible:outline-none focus-visible:ring-0"
-                  >
-                    <div className="space-y-4 pb-8">
-                      <AgentLoopSettings />
-                      <ExternalBackendSection />
-                    </div>
-                  </TabsContent>
-
-                  <TabsContent
-                    value="prompts"
-                    className="mt-0 focus-visible:outline-none focus-visible:ring-0"
-                  >
-                    <PromptsSettingsSection />
-                  </TabsContent>
-
-                  <TabsContent
-                    value="keyboard"
-                    className="mt-0 focus-visible:outline-none focus-visible:ring-0"
-                  >
-                    <KeyboardShortcutsSection />
-                  </TabsContent>
-
-                  <TabsContent
-                    value="mcp"
-                    className="mt-0 focus-visible:outline-none focus-visible:ring-0"
-                  >
-                    <McpSettingsSection />
-                  </TabsContent>
-
-                  <TabsContent
-                    value="plugins"
-                    className="mt-0 focus-visible:outline-none focus-visible:ring-0"
-                  >
-                    <PluginsSettingsSection setView={setView} />
-                  </TabsContent>
-
-                  <TabsContent
-                    value="appearance"
-                    className="mt-0 focus-visible:outline-none focus-visible:ring-0"
-                  >
-                    <AppearanceSettingsSection />
-                  </TabsContent>
-
-                  <TabsContent
-                    value="app"
-                    className="mt-0 focus-visible:outline-none focus-visible:ring-0"
-                  >
-                    <div className="space-y-8">
-                      {CONFIGURATION_ENABLED && <ConfigSettings />}
-                      <AppSettingsSection scrollToSection={viewOptions.section} />
-                    </div>
-                  </TabsContent>
-
-                  <TabsContent
-                    value="stats"
-                    className="mt-0 focus-visible:outline-none focus-visible:ring-0"
-                  >
-                    <UsageStatsSection />
-                  </TabsContent>
-                </div>
-              </ScrollArea>
-            </>
-          )}
+          </ScrollArea>
         </main>
       </Tabs>
     </div>

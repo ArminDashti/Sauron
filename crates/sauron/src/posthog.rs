@@ -1,5 +1,5 @@
 use crate::config::paths::Paths;
-use crate::config::{get_enabled_extensions, Config};
+use crate::config::{get_enabled_mcp_servers, Config};
 use crate::session::session_manager::CURRENT_SCHEMA_VERSION;
 use crate::session::SessionManager;
 #[cfg(target_os = "windows")]
@@ -421,7 +421,7 @@ async fn send_session_event(installation: &InstallationData) -> Result<(), Strin
         insert(&mut props, "setting_max_turns", max_turns);
     }
 
-    let extensions = get_enabled_extensions();
+    let extensions = get_enabled_mcp_servers();
     insert(&mut props, "extensions_count", extensions.len() as u64);
     let extension_names: Vec<String> = extensions.iter().map(|e| e.name()).collect();
     insert(

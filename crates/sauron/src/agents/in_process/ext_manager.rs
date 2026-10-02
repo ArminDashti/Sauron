@@ -1,9 +1,9 @@
-use crate::agents::extension::ExtensionConfig;
-use crate::agents::extension::PlatformExtensionContext;
-use crate::agents::extension_manager::is_hidden_extension;
 use crate::agents::mcp_client::{Error, McpClientTrait};
+use crate::agents::mcp_manager::is_hidden_server;
+use crate::agents::mcp_server::InProcessContext;
+use crate::agents::mcp_server::McpServerConfig;
 use crate::agents::tool_execution::ToolCallContext;
-use crate::config::{get_all_extensions, get_extension_by_name};
+use crate::config::{get_all_mcp_servers, get_mcp_server_by_name};
 use crate::session::SessionType;
 use anyhow::Result;
 use async_trait::async_trait;
@@ -74,11 +74,11 @@ pub const MANAGE_EXTENSIONS_TOOL_NAME_COMPLETE: &str = "extensionmanager__manage
 pub struct ExtensionManagerClient {
     info: InitializeResult,
     #[allow(dead_code)]
-    context: PlatformExtensionContext,
+    context: InProcessContext,
 }
 
 impl ExtensionManagerClient {
-    pub fn new(context: PlatformExtensionContext) -> Result<Self> {
+    pub fn new(context: InProcessContext) -> Result<Self> {
         let info = InitializeResult::new(
             ServerCapabilities::builder().enable_tools().build(),
         )
@@ -107,13 +107,13 @@ impl ExtensionManagerClient {
     async fn handle_search_available_extensions(
         &self,
     ) -> Result<Vec<ContentBlock>, ExtensionManagerToolError> {
-        let extension_manager = self
+        let mcp_manager = self
             .context
-            .extension_manager
+            .mcp_manager
             .as_ref()
             .and_then(|weak| weak.upgrade())
             .ok_or(ExtensionManagerToolError::ManagerUnavailable)?;
-        let enabled = extension_manager.list_extensions().await.map_err(|e| {
+        let enabled = mcp_manager.list_mcp_servers().await.map_err(|e| {
             ExtensionManagerToolError::OperationFailed {
                 message: format!("Failed to search available extensions: {}", e),
             }
@@ -172,9 +172,9 @@ impl ExtensionManagerClient {
             ));
         }
 
-        let extension_manager = self
+        let mcp_manager = self
             .context
-            .extension_manager
+            .mcp_manager
             .as_ref()
             .and_then(|weak| weak.upgrade())
             .ok_or_else(|| {
@@ -186,15 +186,15 @@ impl ExtensionManagerClient {
             })?;
 
         if action == ManageExtensionAction::Disable {
-            if crate::config::extensions::name_to_key(&extension_name) == "extensionmanager" {
+            if crate::config::mcp_servers::name_to_key(&extension_name) == "extensionmanager" {
                 return Err(ErrorData::new(
                     ErrorCode::INVALID_REQUEST,
                     "The Extension Manager cannot disable itself. Ask the user to disable it from sauron settings instead.".to_string(),
                     None,
                 ));
             }
-            return extension_manager
-                .remove_extension(&extension_name)
+            return mcp_manager
+                .remove_mcp_server(&extension_name)
                 .await
                 .map(|_| {
                     vec![ContentBlock::text(format!(
@@ -205,7 +205,7 @@ impl ExtensionManagerClient {
                 .map_err(|e| ErrorData::new(ErrorCode::INTERNAL_ERROR, e.to_string(), None));
         }
 
-        let config = match get_extension_by_name(&extension_name) {
+        let config = match get_mcp_server_by_name(&extension_name) {
             Some(config) => config,
             None => {
                 return Err(ErrorData::new(
@@ -219,8 +219,8 @@ impl ExtensionManagerClient {
             }
         };
 
-        extension_manager
-            .add_extension(config, None, None, None)
+        mcp_manager
+            .add_mcp_server(config, None, None, None)
             .await
             .map(|_| {
                 vec![ContentBlock::text(format!(
@@ -236,13 +236,13 @@ impl ExtensionManagerClient {
         session_id: &str,
         arguments: Option<JsonObject>,
     ) -> Result<Vec<ContentBlock>, ExtensionManagerToolError> {
-        if let Some(weak_ref) = &self.context.extension_manager {
-            if let Some(extension_manager) = weak_ref.upgrade() {
+        if let Some(weak_ref) = &self.context.mcp_manager {
+            if let Some(mcp_manager) = weak_ref.upgrade() {
                 let params = arguments
                     .map(serde_json::Value::Object)
                     .unwrap_or(serde_json::Value::Object(serde_json::Map::new()));
 
-                match extension_manager
+                match mcp_manager
                     .list_resources(
                         session_id,
                         params,
@@ -268,13 +268,13 @@ impl ExtensionManagerClient {
         session_id: &str,
         arguments: Option<JsonObject>,
     ) -> Result<Vec<ContentBlock>, ExtensionManagerToolError> {
-        if let Some(weak_ref) = &self.context.extension_manager {
-            if let Some(extension_manager) = weak_ref.upgrade() {
+        if let Some(weak_ref) = &self.context.mcp_manager {
+            if let Some(mcp_manager) = weak_ref.upgrade() {
                 let params = arguments
                     .map(serde_json::Value::Object)
                     .unwrap_or(serde_json::Value::Object(serde_json::Map::new()));
 
-                match extension_manager
+                match mcp_manager
                     .read_resource_tool(
                         session_id,
                         params,
@@ -348,9 +348,9 @@ impl ExtensionManagerClient {
             );
         }
 
-        if let Some(weak_ref) = &self.context.extension_manager {
-            if let Some(extension_manager) = weak_ref.upgrade() {
-                if extension_manager.supports_resources().await {
+        if let Some(weak_ref) = &self.context.mcp_manager {
+            if let Some(mcp_manager) = weak_ref.upgrade() {
+                if mcp_manager.supports_resources().await {
                     tools.extend([
                         Tool::new(
                             LIST_RESOURCES_TOOL_NAME.to_string(),
@@ -515,12 +515,12 @@ impl McpClientTrait for ExtensionManagerClient {
 }
 
 fn search_available_extensions(enabled: &[String]) -> String {
-    let disabled: Vec<String> = get_all_extensions()
+    let disabled: Vec<String> = get_all_mcp_servers()
         .into_iter()
-        .filter(|extension| !extension.enabled && !is_hidden_extension(&extension.config.name()))
+        .filter(|extension| !extension.enabled && !is_hidden_server(&extension.config.name()))
         .map(|extension| {
             let description = match &extension.config {
-                ExtensionConfig::Builtin {
+                McpServerConfig::Builtin {
                     description,
                     display_name,
                     ..
@@ -528,17 +528,17 @@ fn search_available_extensions(enabled: &[String]) -> String {
                     .as_deref()
                     .unwrap_or("Built-in extension")
                     .to_string(),
-                ExtensionConfig::Builtin { description, .. }
-                | ExtensionConfig::Platform { description, .. }
-                | ExtensionConfig::StreamableHttp { description, .. }
-                | ExtensionConfig::Stdio { description, .. } => description.clone(),
+                McpServerConfig::Builtin { description, .. }
+                | McpServerConfig::Platform { description, .. }
+                | McpServerConfig::StreamableHttp { description, .. }
+                | McpServerConfig::Stdio { description, .. } => description.clone(),
             };
             format!("- {} - {}", extension.config.name(), description)
         })
         .collect();
     let enabled: Vec<String> = enabled
         .iter()
-        .filter(|name| !is_hidden_extension(name))
+        .filter(|name| !is_hidden_server(name))
         .map(|name| format!("- {}", name))
         .collect();
 
@@ -565,13 +565,13 @@ fn search_available_extensions(enabled: &[String]) -> String {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::agents::extension_manager::ExtensionManager;
+    use crate::agents::mcp_manager::McpManager;
     use crate::config::SauronMode;
     use std::path::PathBuf;
 
-    fn client_for(manager: &Arc<ExtensionManager>) -> ExtensionManagerClient {
-        ExtensionManagerClient::new(PlatformExtensionContext {
-            extension_manager: Some(Arc::downgrade(manager)),
+    fn client_for(manager: &Arc<McpManager>) -> ExtensionManagerClient {
+        ExtensionManagerClient::new(InProcessContext {
+            mcp_manager: Some(Arc::downgrade(manager)),
             session_manager: manager.get_context().session_manager.clone(),
             scheduler: None,
             session: None,
@@ -580,7 +580,7 @@ mod tests {
         .unwrap()
     }
 
-    async fn create_session(manager: &ExtensionManager, session_type: SessionType) -> String {
+    async fn create_session(manager: &McpManager, session_type: SessionType) -> String {
         manager
             .get_context()
             .session_manager
@@ -628,7 +628,7 @@ mod tests {
     #[tokio::test]
     async fn subagent_direct_calls_cannot_enable_or_disable_extensions() {
         let temp_dir = tempfile::tempdir().unwrap();
-        let manager = Arc::new(ExtensionManager::new_without_provider(
+        let manager = Arc::new(McpManager::new_without_provider(
             temp_dir.path().to_path_buf(),
         ));
         let client = client_for(&manager);
@@ -637,25 +637,25 @@ mod tests {
 
         let enable = manage(&client, &subagent_id, "enable").await;
         assert!(enable.is_error.unwrap_or(false));
-        assert!(!manager.is_extension_enabled("developer").await);
+        assert!(!manager.is_mcp_server_enabled("developer").await);
 
         let user_enable = manage(&client, &user_id, "enable").await;
         assert!(!user_enable.is_error.unwrap_or(false));
-        assert!(manager.is_extension_enabled("developer").await);
+        assert!(manager.is_mcp_server_enabled("developer").await);
 
         let disable = manage(&client, &subagent_id, "disable").await;
         assert!(disable.is_error.unwrap_or(false));
-        assert!(manager.is_extension_enabled("developer").await);
+        assert!(manager.is_mcp_server_enabled("developer").await);
 
         let user_disable = manage(&client, &user_id, "disable").await;
         assert!(!user_disable.is_error.unwrap_or(false));
-        assert!(!manager.is_extension_enabled("developer").await);
+        assert!(!manager.is_mcp_server_enabled("developer").await);
     }
 
     #[tokio::test]
     async fn extension_manager_cannot_disable_itself() {
         let temp_dir = tempfile::tempdir().unwrap();
-        let manager = Arc::new(ExtensionManager::new_without_provider(
+        let manager = Arc::new(McpManager::new_without_provider(
             temp_dir.path().to_path_buf(),
         ));
         let client = client_for(&manager);
@@ -682,7 +682,7 @@ mod tests {
     #[tokio::test]
     async fn subagent_and_unknown_callers_are_not_offered_extension_management() {
         let temp_dir = tempfile::tempdir().unwrap();
-        let manager = Arc::new(ExtensionManager::new_without_provider(
+        let manager = Arc::new(McpManager::new_without_provider(
             temp_dir.path().to_path_buf(),
         ));
         let client = client_for(&manager);
@@ -715,6 +715,6 @@ mod tests {
 
         let unknown_enable = manage(&client, "missing-session", "enable").await;
         assert!(unknown_enable.is_error.unwrap_or(false));
-        assert!(!manager.is_extension_enabled("developer").await);
+        assert!(!manager.is_mcp_server_enabled("developer").await);
     }
 }

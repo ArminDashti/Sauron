@@ -9,7 +9,7 @@ use sauron_providers::databricks_auth::{
 };
 use std::sync::Arc;
 
-use crate::config::{Config, ConfigError, ExtensionConfig};
+use crate::config::{Config, ConfigError, McpServerConfig};
 use crate::providers::base::ProviderDef;
 
 pub struct DatabricksProviderDef;
@@ -43,7 +43,7 @@ impl ProviderDef for DatabricksProviderDef {
     type Provider = DatabricksProvider;
 
     fn from_env(
-        _extensions: Vec<ExtensionConfig>,
+        _extensions: Vec<McpServerConfig>,
         tls_config: Option<TlsConfig>,
     ) -> BoxFuture<'static, Result<Self::Provider>> {
         Box::pin(from_env(tls_config))

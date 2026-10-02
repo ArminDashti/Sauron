@@ -1,7 +1,7 @@
 use std::collections::HashMap;
 
 use crate::config;
-use crate::config::extensions::name_to_key;
+use crate::config::mcp_servers::name_to_key;
 use crate::config::permission::PermissionLevel;
 use crate::config::Config;
 use once_cell::sync::Lazy;
@@ -12,9 +12,7 @@ use serde::{Deserialize, Serialize};
 use thiserror::Error;
 use tracing::warn;
 
-pub use crate::agents::platform_extensions::{
-    PlatformExtensionContext, PlatformExtensionDef, PLATFORM_EXTENSIONS,
-};
+pub use crate::agents::in_process::{InProcessContext, InProcessServerDef, IN_PROCESS_SERVERS};
 
 #[derive(Error, Debug)]
 #[error("process quit before initialization: stderr = {stderr}")]
@@ -37,7 +35,7 @@ impl ProcessExit {
 }
 
 #[derive(Error, Debug)]
-pub enum ExtensionError {
+pub enum McpServerError {
     #[error("failed a client call to an MCP server: {0}")]
     Client(#[from] ClientError),
     #[error("invalid config: {0}")]
@@ -54,19 +52,19 @@ pub enum ExtensionError {
     ProcessExit(#[source] Box<ProcessExit>),
 }
 
-impl From<ClientInitializeError> for ExtensionError {
+impl From<ClientInitializeError> for McpServerError {
     fn from(error: ClientInitializeError) -> Self {
         Self::InitializeError(Box::new(error))
     }
 }
 
-impl From<ProcessExit> for ExtensionError {
+impl From<ProcessExit> for McpServerError {
     fn from(error: ProcessExit) -> Self {
         Self::ProcessExit(Box::new(error))
     }
 }
 
-pub type ExtensionResult<T> = Result<T, ExtensionError>;
+pub type McpServerResult<T> = Result<T, McpServerError>;
 
 #[derive(Debug, Clone, Serialize, Default, PartialEq)]
 pub struct Envs {
@@ -153,7 +151,7 @@ impl Envs {
 
 #[derive(Debug, Clone, Deserialize, Serialize, PartialEq)]
 #[serde(tag = "type")]
-pub enum ExtensionConfig {
+pub enum McpServerConfig {
     #[serde(rename = "stdio")]
     Stdio {
         name: String,
@@ -254,7 +252,7 @@ pub enum ExtensionConfig {
     },
 }
 
-impl Default for ExtensionConfig {
+impl Default for McpServerConfig {
     fn default() -> Self {
         Self::Builtin {
             name: config::DEFAULT_EXTENSION.to_string(),
@@ -267,7 +265,7 @@ impl Default for ExtensionConfig {
     }
 }
 
-impl ExtensionConfig {
+impl McpServerConfig {
     pub fn streamable_http<S: Into<String>, T: Into<u64>>(
         name: S,
         uri: S,
@@ -377,7 +375,7 @@ impl ExtensionConfig {
         available_tools.is_empty() || available_tools.contains(&tool_name.to_string())
     }
 
-    pub async fn resolve(self, config: &Config) -> ExtensionResult<Self> {
+    pub async fn resolve(self, config: &Config) -> McpServerResult<Self> {
         match self {
             Self::Stdio {
                 name,
@@ -422,7 +420,7 @@ impl ExtensionConfig {
             } => {
                 // Resolve the OAuth client secret alongside env_keys so that
                 // rotating it changes the resolved config, which is what
-                // add_extension compares to decide whether to restart.
+                // add_mcp_server compares to decide whether to restart.
                 let merged =
                     merge_environments(&envs, env_keys.iter().chain(&client_secret_key), config)
                         .await?;
@@ -466,7 +464,7 @@ async fn merge_environments(
     envs: &Envs,
     env_keys: impl Iterator<Item = &String>,
     config: &Config,
-) -> ExtensionResult<HashMap<String, String>> {
+) -> McpServerResult<HashMap<String, String>> {
     let mut all_envs = envs.get_env();
     for key in env_keys {
         // inline values shadow the secret store
@@ -479,7 +477,7 @@ async fn merge_environments(
         let value = match std::env::var(key.to_uppercase()) {
             Ok(value) => value,
             Err(_) => config.get_secret::<String>(key).map_err(|e| {
-                ExtensionError::ConfigError(format!(
+                McpServerError::ConfigError(format!(
                     "Failed to fetch secret '{}' from config: {}",
                     key, e
                 ))
@@ -516,10 +514,10 @@ fn substitute_env_vars(value: &str, env_map: &HashMap<String, String>) -> String
     result
 }
 
-impl std::fmt::Display for ExtensionConfig {
+impl std::fmt::Display for McpServerConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
-            ExtensionConfig::StreamableHttp {
+            McpServerConfig::StreamableHttp {
                 name, uri, socket, ..
             } => {
                 if let Some(socket) = socket {
@@ -528,25 +526,25 @@ impl std::fmt::Display for ExtensionConfig {
                     write!(f, "StreamableHttp({}: {})", name, uri)
                 }
             }
-            ExtensionConfig::Stdio {
+            McpServerConfig::Stdio {
                 name, cmd, args, ..
             } => {
                 write!(f, "Stdio({}: {} {})", name, cmd, args.join(" "))
             }
-            ExtensionConfig::Builtin { name, .. } => write!(f, "Builtin({})", name),
-            ExtensionConfig::Platform { name, .. } => write!(f, "Platform({})", name),
+            McpServerConfig::Builtin { name, .. } => write!(f, "Builtin({})", name),
+            McpServerConfig::Platform { name, .. } => write!(f, "Platform({})", name),
         }
     }
 }
 
 #[derive(Clone, Debug, Serialize)]
-pub struct ExtensionInfo {
+pub struct McpServerInfo {
     pub name: String,
     pub instructions: String,
     pub has_resources: bool,
 }
 
-impl ExtensionInfo {
+impl McpServerInfo {
     pub fn new(name: &str, instructions: &str, has_resources: bool) -> Self {
         Self {
             name: name.to_string(),
@@ -606,7 +604,7 @@ mod tests {
 
     #[test]
     fn test_deserialize_missing_description() {
-        let config: ExtensionConfig = serde_yaml::from_str(
+        let config: McpServerConfig = serde_yaml::from_str(
             "enabled: true
 type: builtin
 name: developer
@@ -616,7 +614,7 @@ bundled: true
 available_tools: []",
         )
         .unwrap();
-        if let ExtensionConfig::Builtin { description, .. } = config {
+        if let McpServerConfig::Builtin { description, .. } = config {
             assert_eq!(description, "")
         } else {
             panic!("unexpected result of deserialization: {}", config)
@@ -625,7 +623,7 @@ available_tools: []",
 
     #[test]
     fn test_deserialize_null_description() {
-        let config: ExtensionConfig = serde_yaml::from_str(
+        let config: McpServerConfig = serde_yaml::from_str(
             "enabled: true
 type: builtin
 name: developer
@@ -637,7 +635,7 @@ available_tools: []
 ",
         )
         .unwrap();
-        if let ExtensionConfig::Builtin { description, .. } = config {
+        if let McpServerConfig::Builtin { description, .. } = config {
             assert_eq!(description, "")
         } else {
             panic!("unexpected result of deserialization: {}", config)
@@ -646,7 +644,7 @@ available_tools: []
 
     #[test]
     fn test_deserialize_normal_description() {
-        let config: ExtensionConfig = serde_yaml::from_str(
+        let config: McpServerConfig = serde_yaml::from_str(
             "enabled: true
 type: builtin
 name: developer
@@ -658,7 +656,7 @@ available_tools: []
     ",
         )
         .unwrap();
-        if let ExtensionConfig::Builtin { description, .. } = config {
+        if let McpServerConfig::Builtin { description, .. } = config {
             assert_eq!(description, "description goes here")
         } else {
             panic!("unexpected result of deserialization: {}", config)
@@ -667,7 +665,7 @@ available_tools: []
 
     #[test]
     fn test_deserialize_streamable_http_oauth_client_fields() {
-        let config: ExtensionConfig = serde_yaml::from_str(
+        let config: McpServerConfig = serde_yaml::from_str(
             "type: streamable_http
 name: remote
 uri: https://example.com/mcp
@@ -680,7 +678,7 @@ timeout: 300",
         )
         .unwrap();
 
-        let ExtensionConfig::StreamableHttp {
+        let McpServerConfig::StreamableHttp {
             client_id,
             client_secret_key,
             scopes,
@@ -697,7 +695,7 @@ timeout: 300",
 
     #[test]
     fn test_deserialize_streamable_http_without_oauth_client_fields() {
-        let config: ExtensionConfig = serde_yaml::from_str(
+        let config: McpServerConfig = serde_yaml::from_str(
             "type: streamable_http
 name: remote
 uri: https://example.com/mcp
@@ -705,7 +703,7 @@ timeout: 300",
         )
         .unwrap();
 
-        let ExtensionConfig::StreamableHttp {
+        let McpServerConfig::StreamableHttp {
             client_id,
             client_secret_key,
             scopes,
@@ -722,7 +720,7 @@ timeout: 300",
 
     #[test]
     fn serialization_omits_unset_oauth_client_fields() {
-        let config = ExtensionConfig::streamable_http(
+        let config = McpServerConfig::streamable_http(
             "remote",
             "https://example.com/mcp",
             "remote extension",
@@ -748,7 +746,7 @@ timeout: 300",
 
     #[test]
     fn serialization_omits_empty_available_tools() {
-        let config = ExtensionConfig::Builtin {
+        let config = McpServerConfig::Builtin {
             name: "developer".into(),
             description: "dev".into(),
             display_name: Some("Developer".into()),
@@ -764,7 +762,7 @@ timeout: 300",
 
     #[test]
     fn serialization_preserves_available_tools() {
-        let config = ExtensionConfig::Builtin {
+        let config = McpServerConfig::Builtin {
             name: "developer".into(),
             description: "dev".into(),
             display_name: Some("Developer".into()),
@@ -780,7 +778,7 @@ timeout: 300",
     }
 
     #[test_case(
-        ExtensionConfig::Builtin {
+        McpServerConfig::Builtin {
             name: "developer".into(),
             description: "dev".into(),
             display_name: None,
@@ -788,7 +786,7 @@ timeout: 300",
             bundled: None,
             available_tools: vec![],
         },
-        ExtensionConfig::Builtin {
+        McpServerConfig::Builtin {
             name: "developer".into(),
             description: "dev".into(),
             display_name: None,
@@ -799,7 +797,7 @@ timeout: 300",
         ; "builtin_unchanged"
     )]
     #[test_case(
-        ExtensionConfig::StreamableHttp {
+        McpServerConfig::StreamableHttp {
             name: "test".into(),
             description: String::new(),
             uri: "https://example.com".into(),
@@ -823,7 +821,7 @@ timeout: 300",
             bundled: None,
             available_tools: vec![],
         },
-        ExtensionConfig::StreamableHttp {
+        McpServerConfig::StreamableHttp {
             name: "test".into(),
             description: String::new(),
             uri: "https://example.com".into(),
@@ -850,7 +848,7 @@ timeout: 300",
         ; "header_substitution"
     )]
     #[test_case(
-        ExtensionConfig::Stdio {
+        McpServerConfig::Stdio {
             name: "test".into(),
             description: String::new(),
             cmd: "echo".into(),
@@ -862,7 +860,7 @@ timeout: 300",
             bundled: None,
             available_tools: vec![],
         },
-        ExtensionConfig::Stdio {
+        McpServerConfig::Stdio {
             name: "test".into(),
             description: String::new(),
             cmd: "echo".into(),
@@ -877,7 +875,7 @@ timeout: 300",
         ; "env_keys_cleared"
     )]
     #[test_case(
-        ExtensionConfig::Stdio {
+        McpServerConfig::Stdio {
             name: "test".into(),
             description: String::new(),
             cmd: "echo".into(),
@@ -889,7 +887,7 @@ timeout: 300",
             bundled: None,
             available_tools: vec![],
         },
-        ExtensionConfig::Stdio {
+        McpServerConfig::Stdio {
             name: "test".into(),
             description: String::new(),
             cmd: "echo".into(),
@@ -908,7 +906,7 @@ timeout: 300",
         ; "env_key_resolved"
     )]
     #[test_case(
-        ExtensionConfig::StreamableHttp {
+        McpServerConfig::StreamableHttp {
             name: "test".into(),
             description: String::new(),
             uri: "https://example.com".into(),
@@ -928,7 +926,7 @@ timeout: 300",
             bundled: None,
             available_tools: vec![],
         },
-        ExtensionConfig::StreamableHttp {
+        McpServerConfig::StreamableHttp {
             name: "test".into(),
             description: String::new(),
             uri: "https://example.com".into(),
@@ -952,7 +950,7 @@ timeout: 300",
         ; "http_env_key_and_header_substitution"
     )]
     #[test_case(
-        ExtensionConfig::StreamableHttp {
+        McpServerConfig::StreamableHttp {
             name: "test".into(),
             description: String::new(),
             uri: "https://example.com/mcp?api_key=$MY_SECRET".into(),
@@ -967,7 +965,7 @@ timeout: 300",
             bundled: None,
             available_tools: vec![],
         },
-        ExtensionConfig::StreamableHttp {
+        McpServerConfig::StreamableHttp {
             name: "test".into(),
             description: String::new(),
             uri: "https://example.com/mcp?api_key=secret_value".into(),
@@ -989,7 +987,7 @@ timeout: 300",
         ; "http_env_key_uri_substitution"
     )]
     #[test_case(
-        ExtensionConfig::Stdio {
+        McpServerConfig::Stdio {
             name: "test".into(),
             description: String::new(),
             cmd: "echo".into(),
@@ -1005,7 +1003,7 @@ timeout: 300",
             bundled: None,
             available_tools: vec![],
         },
-        ExtensionConfig::Stdio {
+        McpServerConfig::Stdio {
             name: "test".into(),
             description: String::new(),
             cmd: "echo".into(),
@@ -1024,7 +1022,7 @@ timeout: 300",
         ; "env_key_skipped_when_already_in_envs"
     )]
     #[test_case(
-        ExtensionConfig::StreamableHttp {
+        McpServerConfig::StreamableHttp {
             name: "test".into(),
             description: String::new(),
             uri: "https://example.com/mcp".into(),
@@ -1039,7 +1037,7 @@ timeout: 300",
             bundled: None,
             available_tools: vec![],
         },
-        ExtensionConfig::StreamableHttp {
+        McpServerConfig::StreamableHttp {
             name: "test".into(),
             description: String::new(),
             uri: "https://example.com/mcp".into(),
@@ -1061,7 +1059,7 @@ timeout: 300",
         ; "http_client_id_substitution_and_oauth_fields_preserved"
     )]
     #[test_case(
-        ExtensionConfig::StreamableHttp {
+        McpServerConfig::StreamableHttp {
             name: "test".into(),
             description: String::new(),
             uri: "https://example.com/mcp".into(),
@@ -1076,7 +1074,7 @@ timeout: 300",
             bundled: None,
             available_tools: vec![],
         },
-        ExtensionConfig::StreamableHttp {
+        McpServerConfig::StreamableHttp {
             name: "test".into(),
             description: String::new(),
             uri: "https://example.com/mcp".into(),
@@ -1098,7 +1096,7 @@ timeout: 300",
         ; "http_client_secret_key_resolved_without_env_keys_entry"
     )]
     #[tokio::test]
-    async fn test_resolve(config: ExtensionConfig, expected: ExtensionConfig) {
+    async fn test_resolve(config: McpServerConfig, expected: McpServerConfig) {
         let dir = tempfile::tempdir().unwrap();
         let cfg = config::Config::new_with_file_secrets(
             dir.path().join("config.yaml"),
@@ -1118,7 +1116,7 @@ timeout: 300",
             dir.path().join("secrets.yaml"),
         )
         .unwrap();
-        let config = ExtensionConfig::Stdio {
+        let config = McpServerConfig::Stdio {
             name: "test".to_string(),
             description: String::new(),
             cmd: "cmd".to_string(),
@@ -1133,7 +1131,7 @@ timeout: 300",
 
         let resolved = config.resolve(&cfg).await.unwrap();
 
-        let ExtensionConfig::Stdio { envs, .. } = resolved else {
+        let McpServerConfig::Stdio { envs, .. } = resolved else {
             panic!("expected stdio config");
         };
         let envs = envs.get_env();
@@ -1143,7 +1141,7 @@ timeout: 300",
 
     #[test]
     fn test_display_streamable_http_with_socket() {
-        let config = ExtensionConfig::StreamableHttp {
+        let config = McpServerConfig::StreamableHttp {
             name: "test".into(),
             description: String::new(),
             uri: "http://localhost:8080/mcp".into(),
@@ -1166,7 +1164,7 @@ timeout: 300",
 
     #[test]
     fn test_display_streamable_http_without_socket() {
-        let config = ExtensionConfig::StreamableHttp {
+        let config = McpServerConfig::StreamableHttp {
             name: "test".into(),
             description: String::new(),
             uri: "http://localhost:8080/mcp".into(),

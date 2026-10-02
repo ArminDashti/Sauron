@@ -4,7 +4,7 @@ use std::collections::HashMap;
 use std::fmt;
 use std::path::Path;
 
-use crate::agents::extension::ExtensionConfig;
+use crate::agents::mcp_server::McpServerConfig;
 use crate::agents::types::RetryConfig;
 use crate::recipe::read_recipe_file_content::read_recipe_file;
 use crate::recipe::yaml_format_utils::reformat_fields_with_multiline_values;
@@ -62,7 +62,7 @@ pub struct Recipe {
         default,
         deserialize_with = "recipe_extension_adapter::deserialize_recipe_extensions"
     )]
-    pub extensions: Option<Vec<ExtensionConfig>>, // a list of extensions to enable
+    pub extensions: Option<Vec<McpServerConfig>>, // a list of extensions to enable
 
     #[serde(skip_serializing_if = "Option::is_none")]
     pub settings: Option<Settings>, // settings for the recipe
@@ -216,7 +216,7 @@ pub struct RecipeBuilder {
 
     // Optional fields
     prompt: Option<String>,
-    extensions: Option<Vec<ExtensionConfig>>,
+    extensions: Option<Vec<McpServerConfig>>,
     settings: Option<Settings>,
     activities: Option<Vec<String>>,
     author: Option<Author>,
@@ -231,7 +231,7 @@ impl Recipe {
     fn ensure_analyze_for_developer(&mut self) {
         let has_builtin_developer = self.extensions.as_ref().is_some_and(|exts| {
             exts.iter()
-                .any(|e| matches!(e, ExtensionConfig::Builtin { name, .. } if name == "developer"))
+                .any(|e| matches!(e, McpServerConfig::Builtin { name, .. } if name == "developer"))
         });
         let has_analyze = self
             .extensions
@@ -239,7 +239,7 @@ impl Recipe {
             .is_some_and(|exts| exts.iter().any(|e| e.name() == "analyze"));
 
         if has_builtin_developer && !has_analyze {
-            let analyze = ExtensionConfig::Platform {
+            let analyze = McpServerConfig::Platform {
                 name: "analyze".to_string(),
                 description: String::new(),
                 display_name: None,
@@ -256,7 +256,7 @@ impl Recipe {
         if self.sub_recipes.is_none() {
             return;
         }
-        let summon = ExtensionConfig::Platform {
+        let summon = McpServerConfig::Platform {
             name: "summon".to_string(),
             description: String::new(),
             display_name: None,
@@ -367,7 +367,7 @@ impl RecipeBuilder {
         self
     }
 
-    pub fn extensions(mut self, extensions: Vec<ExtensionConfig>) -> Self {
+    pub fn extensions(mut self, extensions: Vec<McpServerConfig>) -> Self {
         self.extensions = Some(extensions);
         self
     }
@@ -769,7 +769,7 @@ isGlobal: true"#;
         let extensions = recipe.extensions.unwrap();
         assert_eq!(extensions.len(), 1);
 
-        if let ExtensionConfig::Stdio {
+        if let McpServerConfig::Stdio {
             name, description, ..
         } = &extensions[0]
         {

@@ -12,6 +12,34 @@ description.workspace = true
 default = []
 online-model-meta = []
 telemetry = []
+# Bundled MCP servers, served in-process (see `src/builtin_servers`).
+autovisualiser = []
+computer-controller = [
+    "dep:lopdf",
+    "dep:docx-rs",
+    "dep:umya-spreadsheet",
+    "image/bmp",
+    "image/dds",
+    "image/dxt",
+    "image/farbfeld",
+    "image/hdr",
+    "image/ico",
+    "image/jpeg_rayon",
+    "image/openexr",
+    "image/pnm",
+    "image/tga",
+    "image/tiff",
+]
+document-tools = ["computer-controller"]
+memory-server = []
+tutorial-server = []
+bundled-mcp = [
+    "autovisualiser",
+    "computer-controller",
+    "document-tools",
+    "memory-server",
+    "tutorial-server",
+]
 otel = [
     "dep:tracing-opentelemetry",
     "dep:opentelemetry",
@@ -118,7 +146,10 @@ lru = { workspace = true }
 rmcp = { workspace = true, features = [
     "auth",
     "client",
+    "macros",
+    "server",
     "transport-child-process",
+    "transport-io",
     "transport-streamable-http-client",
     "transport-streamable-http-client-reqwest",
     "transport-streamable-http-client-unix-socket",
@@ -254,6 +285,11 @@ pem = { version = "4.0.0", default-features = false, features = ["std"], optiona
 
 pctx_code_mode = { version = "0.5.0", default-features = false, optional = true }
 
+# For the bundled computer-controller MCP server (optional, behind "computer-controller")
+lopdf = { version = "0.45", default-features = false, optional = true }
+docx-rs = { version = "0.4.18", default-features = false, features = ["image"], optional = true }
+umya-spreadsheet = { version = "3", default-features = false, optional = true }
+
 # These are needed because temporal_rs 0.1 (a transitive dep via PCTX) enables unstable features on icu_calendar without pinning the dependency version
 # A fix is available in temporal_rs 0.2 but PCTX has not updated
 # They are just here to pin the version, and can be removed if PCTX updates temporal_rs
@@ -295,7 +331,6 @@ opentelemetry_sdk = { workspace = true, features = ["testing"] }
 sauron-test-support = { path = "../sauron-test-support", default-features = false }
 bytes = { workspace = true }
 http = { workspace = true }
-sauron-mcp = { path = "../sauron-mcp", default-features = false }
 insta = { version = "1", default-features = false }
 dtor = { version = "1.0.5", default-features = false, features = ["proc_macro"] }
 tower = { version = "0.5.2", default-features = false, features = ["util"] }
@@ -307,6 +342,11 @@ path = "examples/agent.rs"
 [[example]]
 name = "databricks_oauth"
 path = "examples/databricks_oauth.rs"
+
+[[example]]
+name = "mcp"
+path = "examples/mcp.rs"
+required-features = ["memory-server"]
 
 [[example]]
 name = "test_whisper"

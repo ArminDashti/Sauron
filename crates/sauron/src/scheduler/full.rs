@@ -13,7 +13,7 @@ use tokio_util::sync::CancellationToken;
 
 use crate::agents::{Agent, AgentConfig, AgentEvent, SauronPlatform, SessionConfig};
 use crate::config::permission::PermissionManager;
-use crate::config::{resolve_extensions_for_new_session, Config, SauronMode};
+use crate::config::{resolve_mcp_servers_for_new_session, Config, SauronMode};
 use crate::conversation::message::Message;
 use crate::conversation::Conversation;
 #[cfg(feature = "telemetry")]
@@ -885,14 +885,14 @@ async fn execute_job(
         )
         .await?;
 
-    let mut extensions = resolve_extensions_for_new_session(recipe.extensions.as_deref(), None);
+    let mut extensions = resolve_mcp_servers_for_new_session(recipe.extensions.as_deref(), None);
     if recipe.extensions.is_none() {
         extensions.extend(crate::plugins::mcp_servers::enabled_plugin_mcp_servers(
             std::env::current_dir().ok().as_deref(),
         ));
     }
     for ext in &extensions {
-        agent.add_extension(ext.clone(), &session.id).await?;
+        agent.add_mcp_server(ext.clone(), &session.id).await?;
     }
 
     let agent_provider = create(&provider_name, extensions).await?;

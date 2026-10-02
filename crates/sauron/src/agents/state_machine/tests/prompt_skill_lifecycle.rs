@@ -100,7 +100,7 @@ async fn unadvertised_load_skill_is_neither_approved_nor_loaded() -> Result<()> 
         "---\nname: private\ndescription: Private test skill\n---\nPRIVATE_SKILL_CONTENT",
     )?;
 
-    pipeline.add_extension("code_execution").await?;
+    pipeline.add_mcp_server("code_execution").await?;
     pipeline.set_permission("load_skill", PermissionLevel::AlwaysAllow);
     let pipeline = pipeline.with_sauron_mode(SauronMode::Approve).await;
     api.on("try the hidden skill")

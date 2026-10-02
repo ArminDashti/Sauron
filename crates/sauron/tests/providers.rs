@@ -5,7 +5,7 @@ use sauron::acp::ACP_CURRENT_MODEL;
 use sauron::agents::{
     Agent, AgentConfig, AgentEvent, PromptManager, SauronPlatform, SessionConfig,
 };
-use sauron::config::{ExtensionConfig, PermissionManager, SauronMode};
+use sauron::config::{McpServerConfig, PermissionManager, SauronMode};
 use sauron::conversation::message::{ActionRequiredData, Message, MessageContent};
 use sauron::permission::Permission;
 use sauron::providers::anthropic::ANTHROPIC_DEFAULT_MODEL;
@@ -232,8 +232,8 @@ impl ProviderFixture {
         let mcp = McpFixture::new().await;
 
         let mcp_extension =
-            ExtensionConfig::streamable_http("mcp-fixture", &mcp.url, "MCP fixture", 30_u64);
-        let developer_extension = ExtensionConfig::Builtin {
+            McpServerConfig::streamable_http("mcp-fixture", &mcp.url, "MCP fixture", 30_u64);
+        let developer_extension = McpServerConfig::Builtin {
             name: "developer".to_string(),
             description: String::new(),
             display_name: Some("Developer".to_string()),
@@ -279,11 +279,11 @@ impl ProviderFixture {
             .update_provider(provider.clone(), model_config.clone(), &session_id)
             .await?;
         agent
-            .add_extension(mcp_extension, &session_id)
+            .add_mcp_server(mcp_extension, &session_id)
             .await
             .map_err(|e| anyhow::anyhow!("{}", e))?;
         agent
-            .add_extension(developer_extension, &session_id)
+            .add_mcp_server(developer_extension, &session_id)
             .await
             .map_err(|e| anyhow::anyhow!("{}", e))?;
 
@@ -310,19 +310,19 @@ impl ProviderFixture {
     ) -> Result<Message> {
         let tools = self
             .agent
-            .extension_manager
+            .mcp_manager
             .get_prefixed_tools(&self.session_id, None)
             .await
             .unwrap();
 
         let info = self
             .agent
-            .extension_manager
+            .mcp_manager
             .get_extensions_info(std::path::Path::new("."))
             .await;
         let system = PromptManager::new()
             .builder()
-            .with_extensions(info.into_iter())
+            .with_mcp_servers(info.into_iter())
             .build();
 
         let message = Message::user().with_text(prompt);
@@ -364,7 +364,7 @@ impl ProviderFixture {
         );
         let result = self
             .agent
-            .extension_manager
+            .mcp_manager
             .dispatch_tool_call(&ctx, params, CancellationToken::new())
             .await
             .unwrap()

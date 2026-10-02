@@ -1,6 +1,6 @@
 use super::*;
-use crate::agents::extension::Envs;
-use crate::config::extensions::ExtensionEntry;
+use crate::agents::mcp_server::Envs;
+use crate::config::mcp_servers::McpServerEntry;
 use agent_client_protocol::schema::v1::{HttpHeader, McpServer, McpServerHttp, McpServerStdio};
 use std::collections::HashSet;
 
@@ -13,7 +13,7 @@ impl SauronAcpAgent {
         let config = sauron_extension_to_config_without_secrets(req.extension)?;
         let agent = self.get_session_agent(&req.session_id).await?;
         agent
-            .add_extension(config, session_id)
+            .add_mcp_server(config, session_id)
             .await
             .internal_err()?;
         Ok(EmptyResponse {})
@@ -26,7 +26,7 @@ impl SauronAcpAgent {
         let session_id = &req.session_id;
         let agent = self.get_session_agent(&req.session_id).await?;
         let removed = agent
-            .remove_extension_by_key(&req.extension_key, session_id)
+            .remove_mcp_server_by_key(&req.extension_key, session_id)
             .await
             .internal_err()?;
         if !removed {
@@ -39,13 +39,11 @@ impl SauronAcpAgent {
     pub(super) async fn on_get_config_extensions(
         &self,
     ) -> Result<GetConfigExtensionsResponse, agent_client_protocol::Error> {
-        let extensions = crate::config::extensions::get_all_extensions()
+        let extensions = crate::config::mcp_servers::get_all_mcp_servers()
             .into_iter()
-            .filter(|ext| {
-                !crate::agents::extension_manager::is_hidden_extension(&ext.config.name())
-            })
+            .filter(|ext| !crate::agents::mcp_manager::is_hidden_server(&ext.config.name()))
             .collect::<Vec<_>>();
-        let warnings = crate::config::extensions::get_warnings();
+        let warnings = crate::config::mcp_servers::get_warnings();
         let extensions = extensions
             .into_iter()
             .map(config_entry_to_sauron_entry)
@@ -69,7 +67,7 @@ impl SauronAcpAgent {
             .set_secret_values(&conversion.secret_updates)
             .internal_err_ctx("Failed to save extension env secrets")?;
 
-        crate::config::extensions::set_extension(ExtensionEntry {
+        crate::config::mcp_servers::set_extension(McpServerEntry {
             enabled: req.enabled,
             config: conversion.config,
         });
@@ -80,7 +78,7 @@ impl SauronAcpAgent {
         &self,
         req: RemoveConfigExtensionRequest,
     ) -> Result<EmptyResponse, agent_client_protocol::Error> {
-        crate::config::extensions::remove_extension(&req.config_key);
+        crate::config::mcp_servers::remove_mcp_server(&req.config_key);
         Ok(EmptyResponse {})
     }
 
@@ -89,7 +87,7 @@ impl SauronAcpAgent {
         req: SetConfigExtensionEnabledRequest,
     ) -> Result<EmptyResponse, agent_client_protocol::Error> {
         let updated =
-            crate::config::extensions::set_extension_enabled(&req.config_key, req.enabled);
+            crate::config::mcp_servers::set_mcp_server_enabled(&req.config_key, req.enabled);
         if !updated {
             return Err(agent_client_protocol::Error::invalid_params()
                 .data(format!("Extension '{}' not found", req.config_key)));
@@ -121,7 +119,7 @@ impl SauronAcpAgent {
 }
 
 fn session_configs_to_entries(
-    configs: Vec<ExtensionConfig>,
+    configs: Vec<McpServerConfig>,
 ) -> Result<Vec<SessionExtensionEntry>, agent_client_protocol::Error> {
     let mut extension_keys = HashSet::with_capacity(configs.len());
     let mut entries = Vec::with_capacity(configs.len());
@@ -142,10 +140,10 @@ fn session_configs_to_entries(
 }
 
 fn config_to_sauron_extension(
-    config: &ExtensionConfig,
+    config: &McpServerConfig,
 ) -> Result<Option<SauronExtension>, agent_client_protocol::Error> {
     let extension = match config {
-        ExtensionConfig::Builtin {
+        McpServerConfig::Builtin {
             name,
             description,
             display_name,
@@ -160,7 +158,7 @@ fn config_to_sauron_extension(
             bundled: *bundled,
             available_tools: available_tools_to_wire(available_tools),
         },
-        ExtensionConfig::Platform {
+        McpServerConfig::Platform {
             name,
             description,
             display_name,
@@ -173,7 +171,7 @@ fn config_to_sauron_extension(
             bundled: *bundled,
             available_tools: available_tools_to_wire(available_tools),
         },
-        ExtensionConfig::Stdio {
+        McpServerConfig::Stdio {
             name,
             description,
             cmd,
@@ -197,7 +195,7 @@ fn config_to_sauron_extension(
             bundled: *bundled,
             available_tools: available_tools_to_wire(available_tools),
         },
-        ExtensionConfig::StreamableHttp {
+        McpServerConfig::StreamableHttp {
             name,
             description,
             uri,
@@ -236,7 +234,7 @@ fn config_to_sauron_extension(
 }
 
 struct ConfigExtensionConversion {
-    config: ExtensionConfig,
+    config: McpServerConfig,
     secret_updates: Vec<(String, serde_json::Value)>,
 }
 
@@ -252,7 +250,7 @@ fn sauron_extension_to_config(
             timeout,
             bundled,
             available_tools,
-        } => ExtensionConfig::Builtin {
+        } => McpServerConfig::Builtin {
             name,
             description: description.unwrap_or_default(),
             display_name,
@@ -266,7 +264,7 @@ fn sauron_extension_to_config(
             display_name,
             bundled,
             available_tools,
-        } => ExtensionConfig::Platform {
+        } => McpServerConfig::Platform {
             name,
             description: description.unwrap_or_default(),
             display_name,
@@ -302,7 +300,7 @@ fn sauron_extension_to_config(
                     }
                     secret_updates.push((env.name, serde_json::Value::String(env.value)));
                 }
-                ExtensionConfig::Stdio {
+                McpServerConfig::Stdio {
                     name: stdio.name,
                     description: description.unwrap_or_default(),
                     cmd: stdio.command.to_string_lossy().to_string(),
@@ -315,7 +313,7 @@ fn sauron_extension_to_config(
                     available_tools: available_tools.unwrap_or_default(),
                 }
             }
-            McpServer::Http(http) => ExtensionConfig::StreamableHttp {
+            McpServer::Http(http) => McpServerConfig::StreamableHttp {
                 name: http.name,
                 description: description.unwrap_or_default(),
                 uri: http.url,
@@ -353,7 +351,7 @@ fn sauron_extension_to_config(
 
 fn sauron_extension_to_config_without_secrets(
     extension: SauronExtension,
-) -> Result<ExtensionConfig, agent_client_protocol::Error> {
+) -> Result<McpServerConfig, agent_client_protocol::Error> {
     let conversion = sauron_extension_to_config(extension)?;
     if !conversion.secret_updates.is_empty() {
         return Err(agent_client_protocol::Error::invalid_params().data(
@@ -365,7 +363,7 @@ fn sauron_extension_to_config_without_secrets(
 
 pub(super) fn sauron_extensions_to_configs(
     extensions: Vec<SauronExtension>,
-) -> Result<Vec<ExtensionConfig>, agent_client_protocol::Error> {
+) -> Result<Vec<McpServerConfig>, agent_client_protocol::Error> {
     extensions
         .into_iter()
         .map(sauron_extension_to_config_without_secrets)
@@ -373,7 +371,7 @@ pub(super) fn sauron_extensions_to_configs(
 }
 
 fn config_entry_to_sauron_entry(
-    entry: ExtensionEntry,
+    entry: McpServerEntry,
 ) -> Result<Option<SauronExtensionEntry>, agent_client_protocol::Error> {
     let config_key = entry.config.key();
     let Some(extension) = config_to_sauron_extension(&entry.config)? else {
@@ -405,12 +403,12 @@ fn available_tools_to_wire(available_tools: &[String]) -> Option<Vec<String>> {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::agents::extension::Envs;
+    use crate::agents::mcp_server::Envs;
     use agent_client_protocol::schema::v1::{McpServer, McpServerSse};
     use std::collections::HashMap;
 
-    fn builtin_config(name: &str) -> ExtensionConfig {
-        ExtensionConfig::Builtin {
+    fn builtin_config(name: &str) -> McpServerConfig {
+        McpServerConfig::Builtin {
             name: name.to_string(),
             description: String::new(),
             display_name: None,
@@ -438,8 +436,8 @@ mod tests {
     }
 
     #[test]
-    fn builtin_config_converts_to_sauron_builtin_extension() {
-        let config = ExtensionConfig::Builtin {
+    fn builtin_config_converts_to_sauron_builtin_mcp_server() {
+        let config = McpServerConfig::Builtin {
             name: "developer".to_string(),
             description: "Developer tools".to_string(),
             display_name: Some("Developer".to_string()),
@@ -474,7 +472,7 @@ mod tests {
 
     #[test]
     fn platform_config_converts_to_sauron_platform_extension() {
-        let config = ExtensionConfig::Platform {
+        let config = McpServerConfig::Platform {
             name: "todo".to_string(),
             description: "Todo tools".to_string(),
             display_name: Some("Todo".to_string()),
@@ -506,7 +504,7 @@ mod tests {
 
     #[test]
     fn stdio_config_converts_to_sauron_mcp_extension_without_literal_envs() {
-        let config = ExtensionConfig::Stdio {
+        let config = McpServerConfig::Stdio {
             name: "test-stdio".to_string(),
             description: "Test stdio".to_string(),
             cmd: "test-command".to_string(),
@@ -564,7 +562,7 @@ mod tests {
 
     #[test]
     fn streamable_http_config_converts_to_sauron_mcp_extension_without_literal_envs() {
-        let config = ExtensionConfig::StreamableHttp {
+        let config = McpServerConfig::StreamableHttp {
             name: "test-http".to_string(),
             description: "Test HTTP".to_string(),
             uri: "https://example.com/mcp".to_string(),
@@ -648,7 +646,7 @@ mod tests {
         let conversion = sauron_extension_to_config(extension).expect("conversion should succeed");
         assert!(conversion.secret_updates.is_empty());
 
-        let ExtensionConfig::Stdio {
+        let McpServerConfig::Stdio {
             name,
             description,
             cmd,
@@ -720,7 +718,7 @@ mod tests {
             ]
         );
 
-        let ExtensionConfig::Stdio { envs, env_keys, .. } = conversion.config else {
+        let McpServerConfig::Stdio { envs, env_keys, .. } = conversion.config else {
             panic!("expected stdio config");
         };
 
@@ -753,7 +751,7 @@ mod tests {
         let conversion = sauron_extension_to_config(extension).expect("conversion should succeed");
         assert!(conversion.secret_updates.is_empty());
 
-        let ExtensionConfig::StreamableHttp {
+        let McpServerConfig::StreamableHttp {
             name,
             description,
             uri,
@@ -797,7 +795,7 @@ mod tests {
     }
 
     #[test]
-    fn sauron_builtin_extension_converts_to_config() {
+    fn sauron_builtin_mcp_server_converts_to_config() {
         let builtin = SauronExtension::Builtin {
             name: "developer".to_string(),
             description: Some("Developer tools".to_string()),
@@ -810,7 +808,7 @@ mod tests {
         let conversion = sauron_extension_to_config(builtin).expect("conversion should succeed");
         assert!(conversion.secret_updates.is_empty());
 
-        let ExtensionConfig::Builtin {
+        let McpServerConfig::Builtin {
             name,
             description,
             display_name,
@@ -843,7 +841,7 @@ mod tests {
         let conversion = sauron_extension_to_config(platform).expect("conversion should succeed");
         assert!(conversion.secret_updates.is_empty());
 
-        let ExtensionConfig::Platform {
+        let McpServerConfig::Platform {
             name,
             description,
             display_name,

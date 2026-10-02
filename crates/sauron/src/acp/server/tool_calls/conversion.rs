@@ -1,5 +1,5 @@
 use crate::acp::tools::AcpAwareToolMeta;
-use crate::agents::extension_manager::TRUSTED_TOOL_UPDATE_META_KEY;
+use crate::agents::mcp_manager::TRUSTED_TOOL_UPDATE_META_KEY;
 use crate::conversation::message::{Message, ToolNameParts, ToolRequest, ToolResponse};
 use crate::mcp_utils::ToolResult;
 use agent_client_protocol::schema::v1::{
@@ -336,7 +336,7 @@ mod tests {
         use super::*;
 
         #[test]
-        fn with_extension() {
+        fn with_mcp_server() {
             assert_eq!(
                 format_tool_name("platform__manage_extensions"),
                 "platform: manage extensions"

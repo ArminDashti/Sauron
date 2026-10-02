@@ -7,15 +7,15 @@ use futures::StreamExt;
 use tokio::sync::Mutex;
 use tokio_util::sync::CancellationToken;
 
-use crate::agents::{Agent, AgentEvent, ExtensionConfig, SessionConfig};
-use crate::config::extensions::get_enabled_extensions;
+use crate::agents::{Agent, AgentEvent, McpServerConfig, SessionConfig};
+use crate::config::mcp_servers::get_enabled_mcp_servers;
 use crate::config::paths::Paths;
 use crate::config::Config;
 use crate::conversation::message::{ActionRequiredData, Message, MessageContent};
 use crate::execution::manager::AgentManager;
 use crate::permission::Permission;
 use crate::session::SessionType;
-use crate::session::{EnabledExtensionsState, ExtensionState, Session};
+use crate::session::{EnabledExtensionsState, McpServerState, Session};
 
 use super::pairing::PairingStore;
 use super::{Gateway, GatewayConfig, IncomingMessage, OutgoingMessage, PairingState, PlatformUser};
@@ -340,14 +340,14 @@ impl GatewayHandler {
             }
         }
 
-        // Store default extensions so load_extensions_from_session works.
-        let mut extensions = get_enabled_extensions();
+        // Store default extensions so load_mcp_servers_from_session works.
+        let mut extensions = get_enabled_mcp_servers();
         extensions.extend(crate::plugins::mcp_servers::enabled_plugin_mcp_servers(
             Some(&session.working_dir),
         ));
         let extensions_state = EnabledExtensionsState::new(extensions);
         let mut extension_data = session.extension_data.clone();
-        if let Err(e) = extensions_state.to_extension_data(&mut extension_data) {
+        if let Err(e) = extensions_state.to_mcp_server_data(&mut extension_data) {
             tracing::warn!(error = %e, "failed to initialize gateway session extensions");
         } else {
             update = update.extension_data(extension_data);
@@ -390,15 +390,15 @@ impl GatewayHandler {
         // --- current global config ---
         let current_provider = config.get_sauron_provider().ok();
         let current_model_name = config.get_sauron_model().ok();
-        let mut current_extensions = get_enabled_extensions();
+        let mut current_extensions = get_enabled_mcp_servers();
         current_extensions.extend(crate::plugins::mcp_servers::enabled_plugin_mcp_servers(
             Some(&session.working_dir),
         ));
         let current_mode = config.get_sauron_mode().unwrap_or_default();
 
         // --- what the session has ---
-        let session_extensions: Vec<ExtensionConfig> =
-            EnabledExtensionsState::from_extension_data(&session.extension_data)
+        let session_extensions: Vec<McpServerConfig> =
+            EnabledExtensionsState::from_mcp_server_data(&session.extension_data)
                 .map(|s| s.extensions)
                 .unwrap_or_default();
 
@@ -438,7 +438,7 @@ impl GatewayHandler {
         if extensions_changed {
             let extensions_state = EnabledExtensionsState::new(current_extensions);
             let mut extension_data = session.extension_data.clone();
-            if let Err(e) = extensions_state.to_extension_data(&mut extension_data) {
+            if let Err(e) = extensions_state.to_mcp_server_data(&mut extension_data) {
                 tracing::warn!(error = %e, "failed to update gateway session extensions");
             } else {
                 update = update.extension_data(extension_data);
@@ -519,7 +519,7 @@ impl GatewayHandler {
         }
 
         // Load extensions (skips any already loaded on the agent).
-        agent.load_extensions_from_session(&session).await;
+        agent.load_mcp_servers_from_session(&session).await;
 
         let cancel = CancellationToken::new();
         let cancel_for_reply = cancel.clone();

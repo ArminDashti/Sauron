@@ -271,7 +271,7 @@ impl ProviderDef for OllamaCloudProvider {
     type Provider = Self;
 
     fn from_env(
-        _extensions: Vec<crate::config::ExtensionConfig>,
+        _extensions: Vec<crate::config::McpServerConfig>,
         _tls_config: Option<TlsConfig>,
     ) -> BoxFuture<'static, Result<Self::Provider>> {
         Box::pin(async {

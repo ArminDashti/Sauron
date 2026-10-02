@@ -9,7 +9,7 @@ impl SauronAcpAgent {
         let agent = self.get_session_agent(&req.session_id).await?;
         let cancel_token = CancellationToken::new();
         let result = agent
-            .extension_manager
+            .mcp_manager
             .read_resource(session_id, &req.uri, &req.extension_name, cancel_token)
             .await
             .internal_err()?;

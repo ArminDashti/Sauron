@@ -27,7 +27,6 @@ path = "src/bin/mcp_conformance_driver.rs"
 clap_mangen = { version = "0.3", default-features = false }
 sauron = { path = "../sauron", default-features = false }
 agent-client-protocol = { workspace = true, features = ["unstable"], optional = true }
-sauron-mcp = { path = "../sauron-mcp", default-features = false, optional = true }
 sauron-providers = { path = "../sauron-providers", default-features = false }
 sauron-roaming = { path = "../sauron-roaming", optional = true }
 rmcp = { workspace = true }
@@ -124,7 +123,7 @@ telemetry = ["sauron/telemetry"]
 otel = ["sauron/otel"]
 system-keyring = ["sauron/system-keyring"]
 update = ["dep:sigstore-verify", "dep:snap"]
-bundled-mcp = ["dep:sauron-mcp", "sauron-mcp/bundled-mcp"]
+bundled-mcp = ["sauron/bundled-mcp"]
 scheduler = ["sauron/scheduler"]
 platform-apps = ["sauron/platform-apps"]
 chat-recall = ["sauron/chat-recall"]
@@ -150,7 +149,6 @@ rustls-tls = [
     "axum-server/tls-rustls",
     "sigstore-verify?/rustls",
     "sauron/rustls-tls",
-    "sauron-mcp?/rustls-tls",
     "sauron-providers/rustls-tls",
 ]
 native-tls = [
@@ -159,7 +157,6 @@ native-tls = [
     "axum-server/tls-openssl",
     "sigstore-verify?/native-tls",
     "sauron/native-tls",
-    "sauron-mcp?/native-tls",
     "sauron-providers/native-tls",
 ]
 [dev-dependencies]

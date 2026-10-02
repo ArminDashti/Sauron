@@ -256,6 +256,11 @@
       "responseType": "ConfigReadAllResponse_unstable"
     },
     {
+      "method": "_sauron/unstable/github/query",
+      "requestType": "GitHubQueryRequest_unstable",
+      "responseType": "GitHubQueryResponse_unstable"
+    },
+    {
       "method": "_sauron/unstable/defaults/read",
       "requestType": "DefaultsReadRequest_unstable",
       "responseType": "DefaultsReadResponse_unstable"

@@ -1,6 +1,16 @@
 use etcetera::{choose_app_strategy, AppStrategy, AppStrategyArgs};
+use once_cell::sync::Lazy;
 use std::ffi::OsString;
 use std::path::PathBuf;
+
+// NOTE: "Block" is kept here for backwards compatibility with existing
+// user config/data directories (e.g. ~/Library/Application Support/Block/sauron/).
+// Changing this would orphan existing installations.
+pub static APP_STRATEGY: Lazy<AppStrategyArgs> = Lazy::new(|| AppStrategyArgs {
+    top_level_domain: "Block".to_string(),
+    author: "Block".to_string(),
+    app_name: "sauron".to_string(),
+});
 
 pub struct Paths;
 
@@ -16,15 +26,8 @@ impl Paths {
                 DirType::AgentsHome => base.join(".agents"),
             }
         } else {
-            // NOTE: "Block" is kept here for backwards compatibility with existing
-            // user config/data directories (e.g. ~/Library/Application Support/Block/sauron/).
-            // Changing this would orphan existing installations.
-            let strategy = choose_app_strategy(AppStrategyArgs {
-                top_level_domain: "Block".to_string(),
-                author: "Block".to_string(),
-                app_name: "sauron".to_string(),
-            })
-            .expect("sauron requires a home dir");
+            let strategy =
+                choose_app_strategy(APP_STRATEGY.clone()).expect("sauron requires a home dir");
 
             match dir_type {
                 DirType::Config => strategy.config_dir(),
@@ -83,6 +86,14 @@ impl Paths {
 
     pub fn in_data_dir(subpath: &str) -> PathBuf {
         Self::data_dir().join(subpath)
+    }
+
+    /// Built-in skills are materialized from the binary into this folder on
+    /// first use so they exist as ordinary files in an app folder. They are
+    /// read-only: discovery reports them as `SourceType::BuiltinSkill` and
+    /// Studio never lists them.
+    pub fn builtin_skills_dir() -> PathBuf {
+        Self::in_data_dir("builtin-skills")
     }
 }
 

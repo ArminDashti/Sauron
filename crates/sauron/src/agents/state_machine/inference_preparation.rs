@@ -1,7 +1,7 @@
 //! Sauron-specific inference request preparation.
 
 #[cfg(feature = "code-mode")]
-use crate::agents::ExtensionManager;
+use crate::agents::McpManager;
 use crate::agents::PromptManager;
 use crate::config::SauronMode;
 use crate::session::Session;
@@ -18,7 +18,7 @@ use tokio::sync::Mutex;
 
 pub struct SauronInferenceRequestPreparer<'a> {
     #[cfg(feature = "code-mode")]
-    pub(crate) extension_manager: Arc<ExtensionManager>,
+    pub(crate) mcp_manager: Arc<McpManager>,
     pub(crate) sauron_mode: &'a Mutex<SauronMode>,
     pub(crate) prompt_manager: &'a Mutex<PromptManager>,
     pub(crate) tool_inspection_manager: &'a ToolInspectionManager,
@@ -35,10 +35,8 @@ impl InferenceRequestPreparer<Session> for SauronInferenceRequestPreparer<'_> {
     ) -> Result<PreparedInferenceRequest> {
         #[cfg(feature = "code-mode")]
         let code_execution_mode = self
-            .extension_manager
-            .is_extension_enabled(
-                crate::agents::platform_extensions::code_execution::EXTENSION_NAME,
-            )
+            .mcp_manager
+            .is_mcp_server_enabled(crate::agents::in_process::code_execution::EXTENSION_NAME)
             .await;
         #[cfg(not(feature = "code-mode"))]
         let code_execution_mode = false;

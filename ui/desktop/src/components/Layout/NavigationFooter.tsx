@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { Cpu, MemoryStick, MessageCircleHeart } from 'lucide-react';
+import { MessageCircleHeart } from 'lucide-react';
 import { defineMessages, useIntl } from '../../i18n';
 import { Button } from '../ui/button';
 import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/Tooltip';
 import { getNavItemLabel, SETTINGS_NAV_ITEM } from '../../hooks/useNavigationItems';
 import { formatUserName, getUserInitials } from '../../utils/userProfile';
-import type { SystemUsage } from '../../utils/systemUsage';
 import { iconColor } from '../../theme/iconColors';
 import { cn } from '../../utils';
+import type { SystemStats } from '../../types/systemStats';
 
 const FEEDBACK_URL = 'https://github.com/aaif-goose/goose/issues/new/choose';
-
-const USAGE_POLL_INTERVAL_MS = 2000;
 
 const i18n = defineMessages({
   sendFeedback: {
@@ -22,13 +20,25 @@ const i18n = defineMessages({
     id: 'navigationFooter.you',
     defaultMessage: 'You',
   },
-  cpuUsage: {
-    id: 'navigationFooter.cpuUsage',
-    defaultMessage: 'CPU {percent}%',
+  cpu: {
+    id: 'navigationFooter.cpu',
+    defaultMessage: 'CPU',
   },
-  memoryUsage: {
-    id: 'navigationFooter.memoryUsage',
-    defaultMessage: 'Memory {percent}%',
+  memory: {
+    id: 'navigationFooter.memory',
+    defaultMessage: 'Memory',
+  },
+  disk: {
+    id: 'navigationFooter.disk',
+    defaultMessage: 'Disk',
+  },
+  download: {
+    id: 'navigationFooter.download',
+    defaultMessage: 'DL',
+  },
+  upload: {
+    id: 'navigationFooter.upload',
+    defaultMessage: 'UP',
   },
 });
 
@@ -40,7 +50,7 @@ interface NavigationFooterProps {
 const NavigationFooter: React.FC<NavigationFooterProps> = ({ settingsActive, onOpenSettings }) => {
   const intl = useIntl();
   const [displayName, setDisplayName] = useState('');
-  const [systemUsage, setSystemUsage] = useState<SystemUsage | null>(null);
+  const [systemStats, setSystemStats] = useState<SystemStats | null>(null);
 
   useEffect(() => {
     let isMounted = true;
@@ -57,21 +67,19 @@ const NavigationFooter: React.FC<NavigationFooterProps> = ({ settingsActive, onO
 
   useEffect(() => {
     let isMounted = true;
-
-    const pollSystemUsage = async () => {
+    const fetchStats = async () => {
       try {
-        const usage = await window.electron.getSystemUsage();
-        if (isMounted) setSystemUsage(usage);
+        const stats = await window.electron.getSystemStats();
+        if (isMounted) setSystemStats(stats);
       } catch {
-        // Main process unavailable (e.g. tests) — leave the usage row hidden.
+        // Silently fail
       }
     };
-
-    pollSystemUsage();
-    const intervalId = setInterval(pollSystemUsage, USAGE_POLL_INTERVAL_MS);
+    fetchStats();
+    const interval = setInterval(fetchStats, 2000); // Update every 2 seconds
     return () => {
       isMounted = false;
-      clearInterval(intervalId);
+      clearInterval(interval);
     };
   }, []);
 
@@ -81,24 +89,21 @@ const NavigationFooter: React.FC<NavigationFooterProps> = ({ settingsActive, onO
   const SettingsIcon = SETTINGS_NAV_ITEM.icon;
 
   return (
-    <div className="flex flex-col">
-      {systemUsage && (
-        <div
-          className="flex items-center justify-center gap-3 px-2 pb-1 pt-1 text-[11px] text-text-secondary"
-          data-testid="system-usage"
-        >
-          <span className="inline-flex items-center gap-1">
-            <Cpu className="h-3.5 w-3.5" aria-hidden="true" />
-            {intl.formatMessage(i18n.cpuUsage, { percent: systemUsage.cpuPercent })}
-          </span>
-          <span className="inline-flex items-center gap-1">
-            <MemoryStick className="h-3.5 w-3.5" aria-hidden="true" />
-            {intl.formatMessage(i18n.memoryUsage, { percent: systemUsage.memoryPercent })}
-          </span>
+    <div className="flex flex-col gap-1 px-2 pb-2 pt-1">
+      {systemStats && (
+        <div className="flex flex-col gap-0.5 px-1 text-xs text-text-secondary">
+          <div className="flex gap-2">
+            <span>{intl.formatMessage(i18n.cpu)}: {systemStats.cpu}%</span>
+            <span>{intl.formatMessage(i18n.memory)}: {systemStats.memory}%</span>
+          </div>
+          <div className="flex gap-2">
+            <span>{intl.formatMessage(i18n.disk)}: {systemStats.disk}%</span>
+            <span>{intl.formatMessage(i18n.download)}: {systemStats.download}</span>
+            <span>{intl.formatMessage(i18n.upload)}: {systemStats.upload}</span>
+          </div>
         </div>
       )}
-
-      <div className="flex items-center gap-1 px-2 pb-2 pt-1">
+      <div className="flex items-center gap-1">
         <div className="flex min-w-0 flex-1 items-center gap-2 px-1">
           <div
             aria-hidden="true"

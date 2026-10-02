@@ -4,10 +4,10 @@ use super::output;
 use super::{derive_extension_name_from_command, split_extension_name_prefix, CliSession};
 use console::style;
 use rustyline::EditMode;
-use sauron::agents::{Agent, Container, ExtensionError};
-use sauron::config::extensions::name_to_key;
-use sauron::config::resolve_extensions_for_new_session;
-use sauron::config::{Config, ExtensionConfig, SauronMode};
+use sauron::agents::{Agent, Container, McpServerError};
+use sauron::config::mcp_servers::name_to_key;
+use sauron::config::resolve_mcp_servers_for_new_session;
+use sauron::config::{Config, McpServerConfig, SauronMode};
 use sauron::model_config::model_config_from_user_config;
 use sauron::providers::create;
 use sauron::recipe::Recipe;
@@ -30,9 +30,9 @@ fn truncate_with_ellipsis(s: &str, max_len: usize) -> String {
 }
 
 fn disambiguate_stdio_extension_names(
-    extensions: &mut [(String, ExtensionConfig)],
+    extensions: &mut [(String, McpServerConfig)],
     renameable: &HashSet<usize>,
-) -> Result<(), ExtensionError> {
+) -> Result<(), McpServerError> {
     let mut counts: HashMap<String, usize> = HashMap::new();
     // Only entries the caller marked fixed (explicitly named, or not a CLI
     // stdio extension at all) can make this an error — a fixed name colliding
@@ -51,7 +51,7 @@ fn disambiguate_stdio_extension_names(
         !renameable.contains(index) && fixed_counts.get(&config.key()).copied().unwrap_or(0) > 1
     });
     if let Some((_, (_, config))) = duplicate_fixed_names {
-        return Err(ExtensionError::ConfigError(format!(
+        return Err(McpServerError::ConfigError(format!(
             "extension name '{}' is already in use",
             config.name()
         )));
@@ -62,7 +62,7 @@ fn disambiguate_stdio_extension_names(
         if !renameable.contains(&idx) || counts.get(&config.key()).copied().unwrap_or(0) < 2 {
             continue;
         }
-        let ExtensionConfig::Stdio {
+        let McpServerConfig::Stdio {
             name, cmd, args, ..
         } = config
         else {
@@ -81,16 +81,16 @@ fn disambiguate_stdio_extension_names(
     Ok(())
 }
 
-fn is_builtin_or_platform_extension(config: &ExtensionConfig) -> bool {
+fn is_builtin_or_platform_extension(config: &McpServerConfig) -> bool {
     matches!(
         config,
-        ExtensionConfig::Builtin { .. } | ExtensionConfig::Platform { .. }
+        McpServerConfig::Builtin { .. } | McpServerConfig::Platform { .. }
     )
 }
 
 fn deduplicate_cli_builtins(
-    existing: &[(String, ExtensionConfig)],
-    cli_extensions: &mut Vec<(String, ExtensionConfig, bool)>,
+    existing: &[(String, McpServerConfig)],
+    cli_extensions: &mut Vec<(String, McpServerConfig, bool)>,
 ) {
     let mut seen_builtin_names = existing
         .iter()
@@ -107,7 +107,7 @@ fn parse_cli_flag_extensions(
     extensions: &[String],
     streamable_http_extensions: &[StreamableHttpOptions],
     builtins: &[String],
-) -> Vec<(String, ExtensionConfig, bool)> {
+) -> Vec<(String, McpServerConfig, bool)> {
     let mut extensions_to_load = Vec::new();
 
     for (idx, ext_str) in extensions.iter().enumerate() {
@@ -139,7 +139,7 @@ fn parse_cli_flag_extensions(
     }
 
     for builtin_str in builtins {
-        let configs = CliSession::parse_builtin_extensions(builtin_str);
+        let configs = CliSession::parse_builtin_mcp_servers(builtin_str);
         for config in configs {
             extensions_to_load.push((config.name(), config, false));
         }
@@ -227,28 +227,28 @@ impl Default for SessionBuilderConfig {
     }
 }
 
-pub struct ExtensionFailure {
+pub struct McpServerFailure {
     pub label: Option<String>,
     pub error: anyhow::Error,
 }
 
 async fn load_extensions(
     agent: Arc<Agent>,
-    extensions: Vec<ExtensionConfig>,
+    extensions: Vec<McpServerConfig>,
     session_id: &str,
-) -> Vec<ExtensionFailure> {
-    let results = match agent.add_extensions_bulk(extensions, session_id).await {
+) -> Vec<McpServerFailure> {
+    let results = match agent.add_mcp_servers_bulk(extensions, session_id).await {
         Ok(results) => results,
         Err(error) => {
             tracing::error!("failed to load extensions: {}", error);
-            return vec![ExtensionFailure { label: None, error }];
+            return vec![McpServerFailure { label: None, error }];
         }
     };
 
     results
         .into_iter()
         .filter_map(|r| {
-            r.error.map(|error| ExtensionFailure {
+            r.error.map(|error| McpServerFailure {
                 label: Some(r.name),
                 error: anyhow::anyhow!(error),
             })
@@ -565,9 +565,9 @@ async fn collect_extension_configs(
     session_config: &SessionBuilderConfig,
     recipe: Option<&Recipe>,
     session_id: &str,
-) -> Result<Vec<ExtensionConfig>, ExtensionError> {
+) -> Result<Vec<McpServerConfig>, McpServerError> {
     let recipe_extensions = recipe.and_then(|r| r.extensions.as_deref());
-    let configured_extensions: Vec<ExtensionConfig> = if session_config.resume {
+    let configured_extensions: Vec<McpServerConfig> = if session_config.resume {
         EnabledExtensionsState::for_session(
             &agent.config.session_manager,
             session_id,
@@ -577,7 +577,7 @@ async fn collect_extension_configs(
     } else if session_config.no_profile {
         Vec::new()
     } else {
-        resolve_extensions_for_new_session(recipe_extensions, None)
+        resolve_mcp_servers_for_new_session(recipe_extensions, None)
     };
 
     let mut cli_flag_extensions = parse_cli_flag_extensions(
@@ -586,7 +586,7 @@ async fn collect_extension_configs(
         &session_config.builtins,
     );
 
-    let mut all: Vec<(String, ExtensionConfig)> = configured_extensions
+    let mut all: Vec<(String, McpServerConfig)> = configured_extensions
         .into_iter()
         .map(|config| (config.name(), config))
         .collect();
@@ -834,7 +834,7 @@ pub async fn build_session(session_config: SessionBuilderConfig) -> CliSession {
             async move { load_extensions(agent, extensions_for_provider, &sid).await }
         })),
         Err(error) => AbortOnDropHandle::new(tokio::spawn(async move {
-            vec![ExtensionFailure { label: None, error }]
+            vec![McpServerFailure { label: None, error }]
         })),
     };
 
@@ -1022,7 +1022,7 @@ mod tests {
 
     #[test]
     fn test_cli_builtin_reuses_configured_registered_extension() {
-        let configured = CliSession::parse_builtin_extensions("developer")
+        let configured = CliSession::parse_builtin_mcp_servers("developer")
             .into_iter()
             .next()
             .unwrap();

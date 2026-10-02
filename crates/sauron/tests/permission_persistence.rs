@@ -114,7 +114,7 @@ fn permission_removal_and_clear_persist() {
 
     manager.update_user_permission("git__status", PermissionLevel::AlwaysAllow);
     manager.update_user_permission("github__status", PermissionLevel::AskBefore);
-    manager.remove_extension("git");
+    manager.remove_mcp_server("git");
 
     let reloaded_manager = PermissionManager::new(config_dir.path().to_path_buf());
     assert_eq!(reloaded_manager.get_user_permission("git__status"), None);

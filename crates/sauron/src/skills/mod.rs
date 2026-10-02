@@ -27,6 +27,7 @@ use serde::Deserialize;
 use serde_json::Value;
 use std::collections::{HashMap, HashSet};
 use std::path::{Path, PathBuf};
+use std::sync::OnceLock;
 use tracing::warn;
 
 #[derive(Debug, Deserialize)]
@@ -366,6 +367,22 @@ struct SkillDirectory {
     is_global: bool,
     writable: bool,
     preserve_path: bool,
+    source_type: SourceType,
+}
+
+fn skill_directory(
+    path: PathBuf,
+    is_global: bool,
+    writable: bool,
+    preserve_path: bool,
+) -> SkillDirectory {
+    SkillDirectory {
+        path,
+        is_global,
+        writable,
+        preserve_path,
+        source_type: SourceType::Skill,
+    }
 }
 
 fn all_skill_dirs_with_config(working_dir: Option<&Path>, config: &Config) -> Vec<SkillDirectory> {
@@ -378,52 +395,37 @@ fn all_skill_dirs_with_config(working_dir: Option<&Path>, config: &Config) -> Ve
             wd.join(".sauron").join("skills"),
             wd.join(".claude").join("skills"),
         ] {
-            dirs.push(SkillDirectory {
-                path,
-                is_global: false,
-                writable: true,
-                preserve_path: false,
-            });
+            dirs.push(skill_directory(path, false, true, false));
         }
     }
     dirs.extend(
         plugin_dirs
             .iter()
             .filter(|(_, scope)| *scope == PluginScope::Project)
-            .map(|(path, _)| SkillDirectory {
-                path: path.clone(),
-                is_global: false,
-                writable: false,
-                preserve_path: true,
-            }),
+            .map(|(path, _)| skill_directory(path.clone(), false, false, true)),
     );
 
     let home = dirs::home_dir();
     if let Some(h) = home.as_ref() {
-        dirs.push(SkillDirectory {
-            path: h.join(".agents").join("skills"),
-            is_global: true,
-            writable: true,
-            preserve_path: false,
-        });
+        dirs.push(skill_directory(
+            h.join(".agents").join("skills"),
+            true,
+            true,
+            false,
+        ));
     }
-    dirs.push(SkillDirectory {
-        path: Paths::config_dir().join("skills"),
-        is_global: true,
-        writable: true,
-        preserve_path: false,
-    });
+    dirs.push(skill_directory(
+        Paths::config_dir().join("skills"),
+        true,
+        true,
+        false,
+    ));
     if let Some(h) = home.as_ref() {
         for path in [
             h.join(".claude").join("skills"),
             h.join(".config").join("agents").join("skills"),
         ] {
-            dirs.push(SkillDirectory {
-                path,
-                is_global: true,
-                writable: true,
-                preserve_path: false,
-            });
+            dirs.push(skill_directory(path, true, true, false));
         }
     }
 
@@ -431,15 +433,30 @@ fn all_skill_dirs_with_config(working_dir: Option<&Path>, config: &Config) -> Ve
         plugin_dirs
             .into_iter()
             .filter(|(_, scope)| *scope == PluginScope::User)
-            .map(|(path, _)| SkillDirectory {
-                path,
-                is_global: true,
-                writable: true,
-                preserve_path: true,
-            }),
+            .map(|(path, _)| skill_directory(path, true, true, true)),
     );
 
+    // Lowest precedence, so a user skill of the same name always wins over the
+    // built-in. Materialized from the binary into an app folder on first use.
+    if let Some(builtin_root) = materialize_builtin_skills() {
+        dirs.push(SkillDirectory {
+            path: builtin_root,
+            is_global: true,
+            writable: false,
+            preserve_path: true,
+            source_type: SourceType::BuiltinSkill,
+        });
+    }
+
     dirs
+}
+
+/// Copy compiled-in built-ins into the app folder at most once per process.
+/// Built-in discovery runs on every session start, so this is the single point
+/// where the deployment cost is paid.
+fn materialize_builtin_skills() -> Option<PathBuf> {
+    static BUILTIN_ROOT: OnceLock<Option<PathBuf>> = OnceLock::new();
+    BUILTIN_ROOT.get_or_init(builtin::materialize).clone()
 }
 
 fn parse_skill_content(
@@ -447,6 +464,7 @@ fn parse_skill_content(
     path: &Path,
     global: bool,
     writable: bool,
+    source_type: SourceType,
 ) -> Option<SourceEntry> {
     let (metadata, body): (SkillFrontmatter, String) = match parse_frontmatter(content) {
         Ok(Some(parsed)) => parsed,
@@ -474,7 +492,7 @@ fn parse_skill_content(
     }
 
     Some(SourceEntry {
-        source_type: SourceType::Skill,
+        source_type,
         name,
         description: metadata.description,
         content: body,
@@ -533,6 +551,7 @@ fn scan_skills_from_dir(
     global: bool,
     writable: bool,
     preserve_path: bool,
+    source_type: SourceType,
     seen: &mut HashSet<String>,
 ) -> Vec<SourceEntry> {
     let mut skill_files = Vec::new();
@@ -570,9 +589,13 @@ fn scan_skills_from_dir(
             }
         };
 
-        if let Some(mut source) =
-            parse_skill_content(&content, &registered_skill_dir, global, writable)
-        {
+        if let Some(mut source) = parse_skill_content(
+            &content,
+            &registered_skill_dir,
+            global,
+            writable,
+            source_type,
+        ) {
             if !seen.contains(&source.name) {
                 let mut files = Vec::new();
                 let mut visited_support_dirs = HashSet::new();
@@ -620,24 +643,31 @@ fn discover_skills_with_config(working_dir: Option<&Path>, config: &Config) -> V
             dir.is_global,
             dir.writable,
             dir.preserve_path,
+            dir.source_type,
             &mut seen,
         ) {
             sources.push(source);
         }
     }
 
-    for content in builtin::get_all() {
-        if let Some(source) = parse_skill_content(content, &PathBuf::new(), true, true) {
-            if !seen.contains(&source.name) {
-                seen.insert(source.name.clone());
-                let path = format!("builtin://skills/{}", source.name);
-                sources.push(SourceEntry {
-                    source_type: SourceType::BuiltinSkill,
-                    path,
-                    ..source
-                });
-            }
+    // The compiled-in copy is a fallback for when the app folder could not be
+    // written; names already found on disk win.
+    for skill in builtin::get_all() {
+        if seen.contains(&skill.name) {
+            continue;
         }
+        let Some(mut source) = parse_skill_content(
+            &skill.content,
+            &PathBuf::new(),
+            true,
+            false,
+            SourceType::BuiltinSkill,
+        ) else {
+            continue;
+        };
+        seen.insert(source.name.clone());
+        source.path = format!("builtin://skills/{}", source.name);
+        sources.push(source);
     }
 
     sources

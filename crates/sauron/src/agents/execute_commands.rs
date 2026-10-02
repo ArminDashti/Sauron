@@ -694,8 +694,8 @@ mod tests {
         );
         assert!(
             !agent
-                .extension_manager
-                .is_extension_enabled(crate::agents::platform_extensions::developer::EXTENSION_NAME)
+                .mcp_manager
+                .is_mcp_server_enabled(crate::agents::in_process::developer::EXTENSION_NAME)
                 .await
         );
     }

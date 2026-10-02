@@ -17,7 +17,7 @@ use super::base::{ConfigKey, MessageStream, Provider, ProviderDef, ProviderMetad
 use super::utils::filter_extensions_from_system_prompt;
 use crate::config::paths::Paths;
 use crate::config::search_path::SearchPaths;
-use crate::config::{Config, ExtensionConfig, SauronMode};
+use crate::config::{Config, McpServerConfig, SauronMode};
 use crate::conversation::message::{Message, MessageContent};
 use crate::subprocess::configure_subprocess;
 use rmcp::model::Role;
@@ -555,11 +555,11 @@ fn toml_quote(s: &str) -> String {
 // up in process argv, visible via `ps`. Claude Code avoids this by writing to a
 // temp file with 0o600 permissions.
 // Tracking: https://github.com/openai/codex/issues/2628
-fn codex_mcp_config_overrides(extensions: &[ExtensionConfig]) -> Result<Vec<String>> {
+fn codex_mcp_config_overrides(extensions: &[McpServerConfig]) -> Result<Vec<String>> {
     let mut overrides = Vec::new();
     for extension in extensions {
         match extension {
-            ExtensionConfig::StreamableHttp {
+            McpServerConfig::StreamableHttp {
                 name,
                 socket: Some(_),
                 ..
@@ -568,7 +568,7 @@ fn codex_mcp_config_overrides(extensions: &[ExtensionConfig]) -> Result<Vec<Stri
                     "Codex provider does not support socket-backed Streamable HTTP extension '{name}'; use a provider that preserves socket-backed MCP transport, or remove the socket setting only if remote HTTP is intended"
                 ));
             }
-            ExtensionConfig::StreamableHttp { uri, headers, .. } => {
+            McpServerConfig::StreamableHttp { uri, headers, .. } => {
                 let key = extension.key();
                 overrides.push(format!("mcp_servers.{}.url={}", key, toml_quote(uri)));
                 if !headers.is_empty() {
@@ -585,7 +585,7 @@ fn codex_mcp_config_overrides(extensions: &[ExtensionConfig]) -> Result<Vec<Stri
                     ));
                 }
             }
-            ExtensionConfig::Stdio {
+            McpServerConfig::Stdio {
                 cmd, args, envs, ..
             } => {
                 let key = extension.key();
@@ -639,7 +639,7 @@ impl ProviderDef for CodexProvider {
     type Provider = Self;
 
     fn from_env(
-        extensions: Vec<ExtensionConfig>,
+        extensions: Vec<McpServerConfig>,
         _tls_config: Option<crate::providers::api_client::TlsConfig>,
     ) -> BoxFuture<'static, Result<Self::Provider>> {
         Box::pin(async move {
@@ -740,7 +740,7 @@ impl Provider for CodexProvider {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::agents::extension::Envs;
+    use crate::agents::mcp_server::Envs;
     use sauron_providers::base::ProviderDescriptor as _;
     use sauron_test_support::TEST_IMAGE_B64;
     use std::collections::HashMap;
@@ -780,7 +780,7 @@ printf '%s\n' '{"type":"item.completed","item":{"type":"agent_message","text":"p
     }
 
     #[test_case(
-        ExtensionConfig::Stdio {
+        McpServerConfig::Stdio {
             name: "lookup".into(),
             cmd: "node".into(),
             args: vec!["server.js".into()],
@@ -800,7 +800,7 @@ printf '%s\n' '{"type":"item.completed","item":{"type":"agent_message","text":"p
         ; "stdio_converts_to_mcp_overrides"
     )]
     #[test_case(
-        ExtensionConfig::StreamableHttp {
+        McpServerConfig::StreamableHttp {
             name: "lookup".into(),
             description: String::new(),
             uri: "http://localhost/mcp".into(),
@@ -822,7 +822,7 @@ printf '%s\n' '{"type":"item.completed","item":{"type":"agent_message","text":"p
         ; "streamable_http_converts_to_mcp_overrides"
     )]
     #[test_case(
-        ExtensionConfig::StreamableHttp {
+        McpServerConfig::StreamableHttp {
             name: "mcp_kiwi_com".into(),
             description: String::new(),
             uri: "https://mcp.kiwi.com".into(),
@@ -843,7 +843,7 @@ printf '%s\n' '{"type":"item.completed","item":{"type":"agent_message","text":"p
         ; "resolved_name_used_as_key_http"
     )]
     #[test_case(
-        ExtensionConfig::Stdio {
+        McpServerConfig::Stdio {
             name: "my-server".into(),
             cmd: "/usr/bin/my-server".into(),
             args: vec![],
@@ -860,7 +860,7 @@ printf '%s\n' '{"type":"item.completed","item":{"type":"agent_message","text":"p
         ]
         ; "resolved_name_used_as_key_stdio"
     )]
-    fn test_codex_mcp_overrides(config: ExtensionConfig, expected: &[&str]) {
+    fn test_codex_mcp_overrides(config: McpServerConfig, expected: &[&str]) {
         let overrides = codex_mcp_config_overrides(&[config]).unwrap();
         let expected: Vec<String> = expected.iter().map(|s| s.to_string()).collect();
         assert_eq!(overrides, expected);
@@ -868,7 +868,7 @@ printf '%s\n' '{"type":"item.completed","item":{"type":"agent_message","text":"p
 
     #[test]
     fn test_codex_rejects_socket_backed_streamable_http() {
-        let config = ExtensionConfig::StreamableHttp {
+        let config = McpServerConfig::StreamableHttp {
             name: "private-service".into(),
             description: String::new(),
             uri: "http://attacker.example/mcp".into(),

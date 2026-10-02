@@ -21,8 +21,8 @@ use tokio::sync::{mpsc, Mutex};
 use tokio_util::sync::CancellationToken;
 use tracing::warn;
 
-use super::super::extension::{ExtensionError, ExtensionResult};
 use super::super::mcp_client::{ConnectContext, McpClient, McpClientTrait};
+use super::super::mcp_server::{McpServerError, McpServerResult};
 use super::super::tool_execution::ToolCallContext;
 use crate::oauth::{oauth_flow, oauth_flow_with_challenge, StaticOAuthClientConfig};
 
@@ -132,9 +132,9 @@ fn auth_challenge_from_service_error(err: &ServiceError) -> Option<String> {
 async fn clear_credentials_on_post_refresh_auth_failure(
     credential_store: &dyn CredentialStore,
     name: &str,
-    error: &ExtensionError,
+    error: &McpServerError,
 ) -> bool {
-    let ExtensionError::InitializeError(err) = error else {
+    let McpServerError::InitializeError(err) = error else {
         return false;
     };
 
@@ -162,15 +162,15 @@ pub(super) fn resolve_static_oauth_client(
     client_secret_key: Option<&str>,
     scopes: &[String],
     envs: &HashMap<String, String>,
-) -> ExtensionResult<Option<StaticOAuthClientConfig>> {
+) -> McpServerResult<Option<StaticOAuthClientConfig>> {
     let Some(client_id) = client_id else {
         if client_secret_key.is_some() {
-            return Err(ExtensionError::ConfigError(
+            return Err(McpServerError::ConfigError(
                 "client_secret_key requires client_id".to_string(),
             ));
         }
         if !scopes.is_empty() {
-            return Err(ExtensionError::ConfigError(
+            return Err(McpServerError::ConfigError(
                 "scopes requires client_id".to_string(),
             ));
         }
@@ -180,7 +180,7 @@ pub(super) fn resolve_static_oauth_client(
     let client_secret =
         match client_secret_key {
             Some(key) => Some(envs.get(key).cloned().ok_or_else(|| {
-                ExtensionError::ConfigError(format!("Secret '{}' not found", key))
+                McpServerError::ConfigError(format!("Secret '{}' not found", key))
             })?),
             None => None,
         };
@@ -195,15 +195,15 @@ pub(super) fn resolve_static_oauth_client(
 const SAURON_USER_AGENT: reqwest::header::HeaderValue =
     reqwest::header::HeaderValue::from_static(concat!("sauron/", env!("CARGO_PKG_VERSION")));
 
-fn header_map(headers: &HashMap<String, String>) -> ExtensionResult<HeaderMap> {
+fn header_map(headers: &HashMap<String, String>) -> McpServerResult<HeaderMap> {
     let mut map = HeaderMap::new();
     map.insert(reqwest::header::USER_AGENT, SAURON_USER_AGENT);
     for (key, value) in headers {
         map.insert(
             HeaderName::try_from(key)
-                .map_err(|_| ExtensionError::ConfigError(format!("invalid header: {}", key)))?,
+                .map_err(|_| McpServerError::ConfigError(format!("invalid header: {}", key)))?,
             value.parse().map_err(|_| {
-                ExtensionError::ConfigError(format!("invalid header value: {}", key))
+                McpServerError::ConfigError(format!("invalid header value: {}", key))
             })?,
         );
     }
@@ -214,7 +214,7 @@ fn header_map(headers: &HashMap<String, String>) -> ExtensionResult<HeaderMap> {
 fn http_client(
     headers: &HashMap<String, String>,
     timeout: Duration,
-) -> ExtensionResult<reqwest::Client> {
+) -> McpServerResult<reqwest::Client> {
     #[allow(unused_mut)]
     let mut builder = reqwest::Client::builder()
         .redirect(reqwest::redirect::Policy::none())
@@ -225,7 +225,7 @@ fn http_client(
     }
     builder
         .build()
-        .map_err(|_| ExtensionError::ConfigError("could not construct http client".to_string()))
+        .map_err(|_| McpServerError::ConfigError("could not construct http client".to_string()))
 }
 
 fn should_retry_legacy_after_empty_discover(
@@ -267,7 +267,7 @@ async fn connect_with_auth(
     uri: &str,
     headers: &HashMap<String, String>,
     ctx: ConnectContext,
-) -> ExtensionResult<McpClient> {
+) -> McpServerResult<McpClient> {
     let auth_client = AuthClient::new(http_client(headers, ctx.timeout)?, auth_manager);
     Ok(connect_with_legacy_retry(
         || {
@@ -563,14 +563,14 @@ pub(super) async fn connect(
     params: ConnectParams,
     socket: Option<&str>,
     credential_store: Box<dyn CredentialStore>,
-) -> ExtensionResult<Box<dyn McpClientTrait>> {
+) -> McpServerResult<Box<dyn McpClientTrait>> {
     #[cfg(unix)]
     if let Some(socket_path) = socket {
         return connect_over_unix_socket(&params, socket_path).await;
     }
     #[cfg(not(unix))]
     if socket.is_some() {
-        return Err(ExtensionError::ConfigError(
+        return Err(McpServerError::ConfigError(
             "Unix domain socket transport is not supported on this platform".to_string(),
         ));
     }
@@ -654,7 +654,7 @@ pub(super) async fn connect(
 async fn connect_over_unix_socket(
     params: &ConnectParams,
     socket_path: &str,
-) -> ExtensionResult<Box<dyn McpClientTrait>> {
+) -> McpServerResult<Box<dyn McpClientTrait>> {
     use rmcp::transport::UnixSocketHttpClient;
 
     let unix_client = UnixSocketHttpClient::new(socket_path, &params.uri);
@@ -707,7 +707,7 @@ mod tests {
             working_dir: working_dir.to_path_buf(),
             docker_container: None,
             action_required: Arc::new(ActionRequiredManager::new()),
-            extension_manager: Weak::new(),
+            mcp_manager: Weak::new(),
         }
     }
 
@@ -791,7 +791,7 @@ mod tests {
                 ),
             ),
         );
-        let error = ExtensionError::from(err);
+        let error = McpServerError::from(err);
 
         assert!(clear_credentials_on_post_refresh_auth_failure(&store, "test-ext", &error).await);
         assert!(store.load().await.unwrap().is_none());
@@ -811,7 +811,7 @@ mod tests {
         )
         .await;
 
-        let Err(ExtensionError::ConfigError(msg)) = result else {
+        let Err(McpServerError::ConfigError(msg)) = result else {
             panic!("expected ConfigError, got a different result");
         };
         assert!(
@@ -834,7 +834,7 @@ mod tests {
         )
         .await;
 
-        let Err(ExtensionError::ConfigError(msg)) = result else {
+        let Err(McpServerError::ConfigError(msg)) = result else {
             panic!("expected ConfigError, got a different result");
         };
         assert!(

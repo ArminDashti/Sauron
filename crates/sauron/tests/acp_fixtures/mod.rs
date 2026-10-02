@@ -14,7 +14,8 @@ use fs_err as fs;
 use sauron::acp::server::{serve, AcpProviderFactory, SauronAcpAgent, SauronAcpAgentOptions};
 pub use sauron::acp::{map_permission_response, PermissionDecision};
 use sauron::agents::SauronPlatform;
-use sauron::builtin_extension::register_builtin_extensions;
+#[cfg(feature = "bundled-mcp")]
+use sauron::builtin_mcp_server::register_builtin_mcp_servers;
 use sauron::config::paths::Paths;
 use sauron::config::{PermissionManager, SauronMode};
 use sauron::providers::api_client::{ApiClient, AuthMethod as ApiAuthMethod};
@@ -806,7 +807,8 @@ where
     if std::env::var_os("SAURON_PATH_ROOT").is_none() {
         std::env::set_var("SAURON_PATH_ROOT", ACP_CONFIG_ROOT.path());
     }
-    register_builtin_extensions(sauron_mcp::BUILTIN_EXTENSIONS.clone());
+    #[cfg(feature = "bundled-mcp")]
+    register_builtin_mcp_servers(sauron::builtin_servers::BUILTIN_SERVERS.clone());
 
     let handle = std::thread::Builder::new()
         .name("acp-test".to_string())

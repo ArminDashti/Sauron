@@ -46,7 +46,7 @@ impl sauron_providers::base::ProviderDescriptor for PiAcpProvider {
 
 impl PiAcpProvider {
     fn create(
-        extensions: Vec<crate::config::ExtensionConfig>,
+        extensions: Vec<crate::config::McpServerConfig>,
         working_dir: PathBuf,
         use_default_model: bool,
     ) -> BoxFuture<'static, Result<AcpProvider>> {
@@ -90,14 +90,14 @@ impl ProviderDef for PiAcpProvider {
     type Provider = AcpProvider;
 
     fn from_env(
-        extensions: Vec<crate::config::ExtensionConfig>,
+        extensions: Vec<crate::config::McpServerConfig>,
         tls_config: Option<crate::providers::api_client::TlsConfig>,
     ) -> BoxFuture<'static, Result<AcpProvider>> {
         Self::from_env_with_working_dir(extensions, current_working_dir(), tls_config)
     }
 
     fn from_env_with_working_dir(
-        extensions: Vec<crate::config::ExtensionConfig>,
+        extensions: Vec<crate::config::McpServerConfig>,
         working_dir: PathBuf,
         _tls_config: Option<crate::providers::api_client::TlsConfig>,
     ) -> BoxFuture<'static, Result<AcpProvider>> {
@@ -105,7 +105,7 @@ impl ProviderDef for PiAcpProvider {
     }
 
     fn from_env_with_default_model(
-        extensions: Vec<crate::config::ExtensionConfig>,
+        extensions: Vec<crate::config::McpServerConfig>,
         _tls_config: Option<crate::providers::api_client::TlsConfig>,
     ) -> BoxFuture<'static, Result<AcpProvider>> {
         Self::create(extensions, current_working_dir(), true)

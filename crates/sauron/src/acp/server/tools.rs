@@ -1,5 +1,5 @@
 use super::*;
-use crate::agents::extension_manager::{get_parameter_names, is_tool_owned_by_extension};
+use crate::agents::mcp_manager::{get_parameter_names, is_tool_owned_by_server};
 use crate::agents::reply_parts::is_tool_visible_to_app;
 use crate::config::permission::PermissionLevel;
 use rmcp::model::CallToolRequestParams;
@@ -68,7 +68,7 @@ impl SauronAcpAgent {
             .await;
 
         let Some(tool) = tools.iter().find(|tool| {
-            *tool.name == req.name && is_tool_owned_by_extension(tool, &req.extension_name)
+            *tool.name == req.name && is_tool_owned_by_server(tool, &req.extension_name)
         }) else {
             return Err(agent_client_protocol::Error::invalid_params().data("tool not found"));
         };
@@ -115,7 +115,7 @@ impl SauronAcpAgent {
             None,
         );
         let tool_result = agent
-            .extension_manager
+            .mcp_manager
             .dispatch_app_tool_call(
                 &ctx,
                 tool_call,

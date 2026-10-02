@@ -112,3 +112,10 @@ export function describeGitHubSignInError(error: string): string {
       return `GitHub sign-in failed (${error}).`;
   }
 }
+
+/** Prefer the complete device URL so GitHub can prefill the user code. */
+export function githubSignInBrowserUrl(
+  device: Pick<GitHubDeviceCode, 'verificationUri' | 'verificationUriComplete'>
+): string {
+  return device.verificationUriComplete || device.verificationUri || GITHUB_DEVICE_URL;
+}

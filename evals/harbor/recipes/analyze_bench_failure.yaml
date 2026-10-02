@@ -151,7 +151,8 @@ prompt: |
     context management
   - `crates/sauron/src/providers/` — provider-specific quirks (prompt
     shape, streaming, tool-call format)
-  - `crates/sauron-mcp/src/developer/` — the developer extension, where
+  - `crates/sauron/src/agents/platform_extensions/developer/` — the developer
+    extension, where
     most shell/file tools live
   - `crates/sauron/src/prompts/` and any system-prompt strings — what
     we're telling the model about how to behave

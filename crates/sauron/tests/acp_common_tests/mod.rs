@@ -647,7 +647,7 @@ async fn assert_stored_extensions<C: Connection>(conn: &C, session_id: &str, exp
         .await
         .unwrap();
     let stored_extensions =
-        EnabledExtensionsState::from_extension_data(&session.extension_data).unwrap();
+        EnabledExtensionsState::from_mcp_server_data(&session.extension_data).unwrap();
     let names = stored_extensions
         .extensions
         .iter()

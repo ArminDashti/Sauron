@@ -1,5 +1,5 @@
-use crate::agents::extension::PlatformExtensionContext;
 use crate::agents::mcp_client::{Error, McpClientTrait};
+use crate::agents::mcp_server::InProcessContext;
 use crate::agents::tool_execution::ToolCallContext;
 use anyhow::Result;
 use async_trait::async_trait;
@@ -19,7 +19,7 @@ pub struct TomClient {
 }
 
 impl TomClient {
-    pub fn new(_context: PlatformExtensionContext) -> Result<Self> {
+    pub fn new(_context: InProcessContext) -> Result<Self> {
         Ok(Self {
             info: InitializeResult::new(ServerCapabilities::builder().build()).with_server_info(
                 Implementation::new(EXTENSION_NAME.to_string(), "1.0.0".to_string())

@@ -208,7 +208,7 @@ impl ProviderDef for MockCompactionProvider {
     type Provider = Self;
 
     fn from_env(
-        _extensions: Vec<sauron::config::ExtensionConfig>,
+        _extensions: Vec<sauron::config::McpServerConfig>,
         _tls_config: Option<sauron::providers::api_client::TlsConfig>,
     ) -> futures::future::BoxFuture<'static, anyhow::Result<Self>> {
         Box::pin(async { Ok(Self::new()) })

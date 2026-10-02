@@ -118,8 +118,8 @@ async fn doctor_refuses_without_developer_before_inference() -> Result<()> {
         .get_or_create_agent(pipeline.session_id.clone())
         .await?;
     agent
-        .extension_manager
-        .remove_extension(crate::agents::platform_extensions::developer::EXTENSION_NAME)
+        .mcp_manager
+        .remove_mcp_server(crate::agents::in_process::developer::EXTENSION_NAME)
         .await?;
 
     let result = pipeline.run(["/doctor"]).await?;
@@ -132,8 +132,8 @@ async fn doctor_refuses_without_developer_before_inference() -> Result<()> {
     assert_eq!(api.call_count(), 0);
     assert!(
         !agent
-            .extension_manager
-            .is_extension_enabled(crate::agents::platform_extensions::developer::EXTENSION_NAME)
+            .mcp_manager
+            .is_mcp_server_enabled(crate::agents::in_process::developer::EXTENSION_NAME)
             .await
     );
 

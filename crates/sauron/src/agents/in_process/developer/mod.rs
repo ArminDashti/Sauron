@@ -4,8 +4,8 @@ pub mod shell;
 mod shell_output_streaming;
 pub mod tree;
 
-use crate::agents::extension::PlatformExtensionContext;
 use crate::agents::mcp_client::{Error, McpClientTrait};
+use crate::agents::mcp_server::InProcessContext;
 use crate::agents::ToolCallContext;
 use anyhow::Result;
 use async_trait::async_trait;
@@ -74,7 +74,7 @@ fn developer_instructions() -> &'static str {
 }
 
 impl DeveloperClient {
-    pub fn new(context: PlatformExtensionContext) -> Result<Self> {
+    pub fn new(context: InProcessContext) -> Result<Self> {
         let info = InitializeResult::new(ServerCapabilities::builder().enable_tools().build())
             .with_server_info(Implementation::new(EXTENSION_NAME, "1.0.0").with_title("Developer"))
             .with_instructions(developer_instructions());
@@ -291,9 +291,9 @@ mod tests {
         assert_eq!(annotations.open_world_hint, Some(true));
     }
 
-    fn test_context(data_dir: std::path::PathBuf) -> PlatformExtensionContext {
-        PlatformExtensionContext {
-            extension_manager: None,
+    fn test_context(data_dir: std::path::PathBuf) -> InProcessContext {
+        InProcessContext {
+            mcp_manager: None,
             session_manager: Arc::new(SessionManager::new(data_dir)),
             scheduler: None,
             session: None,

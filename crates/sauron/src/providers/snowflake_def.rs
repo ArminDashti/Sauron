@@ -3,7 +3,7 @@ use futures::future::BoxFuture;
 use sauron_providers::base::ProviderDescriptor;
 use sauron_providers::snowflake::SnowflakeProvider;
 
-use crate::config::{Config, ConfigError, ExtensionConfig};
+use crate::config::{Config, ConfigError, McpServerConfig};
 use crate::providers::api_client::TlsConfig;
 use crate::providers::base::{ProviderDef, ProviderMetadata};
 
@@ -37,7 +37,7 @@ impl ProviderDef for SnowflakeProviderDef {
     type Provider = SnowflakeProvider;
 
     fn from_env(
-        _extensions: Vec<ExtensionConfig>,
+        _extensions: Vec<McpServerConfig>,
         tls_config: Option<TlsConfig>,
     ) -> BoxFuture<'static, Result<Self::Provider>> {
         Box::pin(from_env(tls_config))

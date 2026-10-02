@@ -277,7 +277,7 @@ impl PermissionManager {
             .expect("Failed to write to permission.yaml");
     }
 
-    pub fn remove_extension(&self, extension_name: &str) {
+    pub fn remove_mcp_server(&self, extension_name: &str) {
         self.mutate_permission_map(|map| {
             for permission_config in map.values_mut() {
                 permission_config
@@ -455,7 +455,7 @@ mod tests {
         manager.update_user_permission("gitlab__deploy", PermissionLevel::AskBefore);
         manager.update_user_permission("__cli__ent____tool", PermissionLevel::NeverAllow);
 
-        manager.remove_extension("git");
+        manager.remove_mcp_server("git");
 
         assert_eq!(manager.get_user_permission("git__status"), None);
         assert_eq!(
@@ -471,10 +471,10 @@ mod tests {
             Some(PermissionLevel::AskBefore)
         );
 
-        manager.remove_extension("__cli__ent__");
+        manager.remove_mcp_server("__cli__ent__");
         assert_eq!(manager.get_user_permission("__cli__ent____tool"), None);
 
-        manager.remove_extension("");
+        manager.remove_mcp_server("");
         assert_eq!(
             manager.get_user_permission("github__delete_repo"),
             Some(PermissionLevel::NeverAllow)

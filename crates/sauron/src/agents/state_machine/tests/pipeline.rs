@@ -10,9 +10,9 @@ use tokio_util::sync::CancellationToken;
 use super::calculator_extension::CalculatorExtension;
 use super::dummy_api::{DummyApi, ProviderFeatures};
 use crate::action_required_manager::ElicitationOutcome;
-use crate::agents::extension::ExtensionConfig;
-use crate::agents::extension_manager::{ExtensionManager, ExtensionManagerCapabilities};
 use crate::agents::mcp_client::McpClientTrait;
+use crate::agents::mcp_manager::{McpManager, McpManagerCapabilities};
+use crate::agents::mcp_server::McpServerConfig;
 use crate::agents::prompt_manager::PromptManager;
 use crate::agents::state_machine::{
     BangShellOperation, CompactionOperation, DoctorOperation, Emitter, EntryHookOperation,
@@ -32,7 +32,7 @@ use crate::permission::permission_inspector::PermissionInspector;
 use crate::permission::Permission;
 use crate::providers::base::Provider;
 use crate::security::security_inspector::SecurityInspector;
-use crate::session::extension_data::EnabledExtensionsState;
+use crate::session::mcp_server_data::EnabledExtensionsState;
 use crate::session::{Session, SessionManager, SessionType};
 use crate::tool_inspection::ToolInspectionManager;
 use sauron_providers::model::ModelConfig;
@@ -90,7 +90,7 @@ pub(super) struct TestPipeline {
     provider_features: ProviderFeatures,
     provider: Arc<dyn Provider>,
     model_config: ModelConfig,
-    extension_manager: Arc<ExtensionManager>,
+    mcp_manager: Arc<McpManager>,
     sauron_mode: TokioMutex<SauronMode>,
     prompt_manager: TokioMutex<PromptManager>,
     tool_inspection_manager: ToolInspectionManager,
@@ -154,7 +154,7 @@ impl TestPipeline {
             )),
             Arc::new(ToolExecutionOperation::new(
                 &self.sauron_mode,
-                self.extension_manager.clone(),
+                self.mcp_manager.clone(),
                 self.hook_manager.clone(),
             )),
             Arc::new(UnknownToolOperation::new(self.hook_manager.clone())),
@@ -173,7 +173,7 @@ impl TestPipeline {
         operations.extend(remaining_operations);
         let request_preparer = SauronInferenceRequestPreparer {
             #[cfg(feature = "code-mode")]
-            extension_manager: self.extension_manager.clone(),
+            mcp_manager: self.mcp_manager.clone(),
             sauron_mode: &self.sauron_mode,
             prompt_manager: &self.prompt_manager,
             tool_inspection_manager: &self.tool_inspection_manager,
@@ -285,8 +285,8 @@ impl TestPipeline {
             .apply()
             .await?;
         for extension in recipe.extensions.clone().unwrap_or_default() {
-            self.extension_manager
-                .add_extension(
+            self.mcp_manager
+                .add_mcp_server(
                     extension,
                     Some(self.working_dir.clone()),
                     None,
@@ -492,17 +492,17 @@ impl TestPipeline {
         self.permission_manager.update_user_permission(tool, level);
     }
 
-    pub(super) async fn remove_extension(&self, name: &str) -> Result<()> {
-        self.extension_manager
-            .remove_extension(name)
+    pub(super) async fn remove_mcp_server(&self, name: &str) -> Result<()> {
+        self.mcp_manager
+            .remove_mcp_server(name)
             .await
             .map_err(anyhow::Error::from)
     }
 
-    pub(super) async fn add_extension(&self, name: &str) -> Result<()> {
-        self.extension_manager
-            .add_extension(
-                ExtensionConfig::Platform {
+    pub(super) async fn add_mcp_server(&self, name: &str) -> Result<()> {
+        self.mcp_manager
+            .add_mcp_server(
+                McpServerConfig::Platform {
                     name: name.to_string(),
                     description: name.to_string(),
                     display_name: None,
@@ -770,14 +770,14 @@ async fn build_test_pipeline(
             provider
         };
     let shared_provider = Arc::new(TokioMutex::new(Some(provider.clone())));
-    let extension_manager = Arc::new(ExtensionManager::new(
+    let mcp_manager = Arc::new(McpManager::new(
         shared_provider.clone(),
         session_manager.clone(),
         scheduler
             .clone()
             .map(|scheduler| scheduler as Arc<dyn crate::scheduler_trait::SchedulerTrait>),
         "pipeline-test".to_string(),
-        ExtensionManagerCapabilities {
+        McpManagerCapabilities {
             mcpui: false,
             host_info: None,
             elicitation_handler: None,
@@ -804,7 +804,7 @@ async fn build_test_pipeline(
         provider_features,
         provider: provider.clone(),
         model_config,
-        extension_manager,
+        mcp_manager,
         sauron_mode: TokioMutex::new(session.sauron_mode),
         prompt_manager: TokioMutex::new(PromptManager::new()),
         tool_inspection_manager,
@@ -821,9 +821,9 @@ async fn build_test_pipeline(
         scheduler,
         _temp_dir: temp_dir,
     };
-    let extension_manager = pipeline.extension_manager.clone();
+    let mcp_manager = pipeline.mcp_manager.clone();
     let session_id = pipeline.session_id.clone();
-    let mut extensions = EnabledExtensionsState::from_extension_data(&session.extension_data)
+    let mut extensions = EnabledExtensionsState::from_mcp_server_data(&session.extension_data)
         .map(|state| state.extensions)
         .unwrap_or_else(default_extensions);
     for recipe_extension in session
@@ -848,7 +848,7 @@ async fn build_test_pipeline(
     }
     for extension in extensions {
         if extension.name() == "calculator" {
-            extension_manager
+            mcp_manager
                 .add_client(
                     "calculator".to_string(),
                     extension,
@@ -857,8 +857,8 @@ async fn build_test_pipeline(
                 )
                 .await;
         } else {
-            extension_manager
-                .add_extension(
+            mcp_manager
+                .add_mcp_server(
                     extension,
                     Some(session.working_dir.clone()),
                     None,
@@ -871,13 +871,13 @@ async fn build_test_pipeline(
     Ok(pipeline)
 }
 
-fn default_extensions() -> Vec<ExtensionConfig> {
+fn default_extensions() -> Vec<McpServerConfig> {
     [
         ("calculator", "Stateful test calculator"),
         ("extensionmanager", "Extension Manager"),
         ("todo", "Todo"),
         (
-            crate::agents::platform_extensions::scheduler::EXTENSION_NAME,
+            crate::agents::in_process::scheduler::EXTENSION_NAME,
             "Scheduler",
         ),
     ]
@@ -886,8 +886,8 @@ fn default_extensions() -> Vec<ExtensionConfig> {
     .collect()
 }
 
-fn platform_extension(name: &str, description: &str) -> ExtensionConfig {
-    ExtensionConfig::Platform {
+fn platform_extension(name: &str, description: &str) -> McpServerConfig {
+    McpServerConfig::Platform {
         name: name.to_string(),
         description: description.to_string(),
         display_name: None,

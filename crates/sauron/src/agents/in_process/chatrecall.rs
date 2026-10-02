@@ -1,5 +1,5 @@
-use crate::agents::extension::PlatformExtensionContext;
 use crate::agents::mcp_client::{Error, McpClientTrait};
+use crate::agents::mcp_server::InProcessContext;
 use crate::agents::tool_execution::ToolCallContext;
 use crate::conversation::Conversation;
 use crate::session::session_manager::SessionType;
@@ -37,7 +37,7 @@ struct ChatRecallParams {
 
 pub struct ChatRecallClient {
     info: InitializeResult,
-    context: PlatformExtensionContext,
+    context: InProcessContext,
 }
 
 fn agent_only_history(text: String) -> ContentBlock {
@@ -92,7 +92,7 @@ fn format_agent_visible_excerpt(conversation: &Conversation) -> Option<(usize, S
 }
 
 impl ChatRecallClient {
-    pub fn new(context: PlatformExtensionContext) -> Result<Self> {
+    pub fn new(context: InProcessContext) -> Result<Self> {
         let info = InitializeResult::new(ServerCapabilities::builder().enable_tools().build())
             .with_server_info(
                 Implementation::new(EXTENSION_NAME.to_string(), "1.0.0".to_string())
@@ -439,8 +439,8 @@ mod tests {
             .await
             .unwrap();
 
-        let client = ChatRecallClient::new(PlatformExtensionContext {
-            extension_manager: None,
+        let client = ChatRecallClient::new(InProcessContext {
+            mcp_manager: None,
             session_manager,
             scheduler: None,
             session: Some(Arc::new(current_session.clone())),

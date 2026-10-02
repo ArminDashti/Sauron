@@ -48,6 +48,7 @@ const mockSettings: Record<string, unknown> = {
   showDockIcon: true,
   enableWakelock: false,
   spellcheckEnabled: true,
+  enableWorktrees: true,
   keyboardShortcuts: {
     focusWindow: 'CommandOrControl+Alt+G',
     quickLauncher: 'CommandOrControl+Alt+Shift+G',

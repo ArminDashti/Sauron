@@ -1,5 +1,5 @@
 use crate::config::base::Config;
-use crate::config::extensions::get_enabled_extensions;
+use crate::config::mcp_servers::get_enabled_mcp_servers;
 use crate::config::paths::Paths;
 use crate::prompt_template::list_templates;
 use crate::providers::utils::LOGS_TO_KEEP;
@@ -104,7 +104,7 @@ impl SystemInfo {
         let config = Config::global();
         let provider = config.get_sauron_provider().ok();
         let model = config.get_sauron_model().ok();
-        let enabled_extensions = get_enabled_extensions()
+        let enabled_extensions = get_enabled_mcp_servers()
             .into_iter()
             .map(|ext| ext.name().to_string())
             .collect();

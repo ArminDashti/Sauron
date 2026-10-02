@@ -4,7 +4,7 @@ use sauron_providers::api_client::TlsConfig;
 use sauron_providers::base::{ProviderDescriptor, ProviderMetadata};
 use sauron_providers::google::{GoogleProvider, GOOGLE_API_HOST};
 
-use crate::config::{Config, ExtensionConfig};
+use crate::config::{Config, McpServerConfig};
 use crate::providers::base::ProviderDef;
 
 pub struct GoogleProviderDef;
@@ -24,7 +24,7 @@ impl ProviderDef for GoogleProviderDef {
     type Provider = GoogleProvider;
 
     fn from_env(
-        _extensions: Vec<ExtensionConfig>,
+        _extensions: Vec<McpServerConfig>,
         tls_config: Option<TlsConfig>,
     ) -> BoxFuture<'static, Result<Self::Provider>> {
         Box::pin(from_env(tls_config))

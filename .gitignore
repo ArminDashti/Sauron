@@ -106,3 +106,5 @@ live-in-desktop-design
 dist
 dist-ssr
 *.local
+*.exe
+# commit-push-to-github: ignore files > 5MB

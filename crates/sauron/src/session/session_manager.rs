@@ -7,7 +7,7 @@ use crate::providers::base::Provider;
 use crate::recipe::validate_recipe::strip_unreferenced_parameters;
 use crate::recipe::Recipe;
 use crate::session::export_markdown::export_session_to_markdown;
-use crate::session::extension_data::ExtensionData;
+use crate::session::mcp_server_data::McpServerData;
 use crate::session::session_naming::{
     generate_session_name, MSG_COUNT_FOR_SESSION_NAME_GENERATION,
 };
@@ -30,6 +30,27 @@ pub const SESSIONS_FOLDER: &str = "sessions";
 pub const DB_NAME: &str = "sessions.db";
 const MILLISECOND_TIMESTAMP_THRESHOLD: i64 = 10_000_000_000;
 const SESSION_COUNT_BATCH_SIZE: usize = 900;
+
+/// Sentinel persisted in the `working_dir` column for chat-only sessions.
+///
+/// The column stays `NOT NULL` — SQLite cannot relax that constraint without
+/// rebuilding the table — so absence is encoded as the empty string rather than
+/// SQL `NULL`.
+const NO_WORKING_DIR: &str = "";
+
+fn decode_working_dir(stored: String) -> Option<PathBuf> {
+    if stored.is_empty() {
+        None
+    } else {
+        Some(PathBuf::from(stored))
+    }
+}
+
+fn encode_working_dir(working_dir: Option<&Path>) -> String {
+    working_dir
+        .map(|dir| dir.to_string_lossy().to_string())
+        .unwrap_or_else(|| NO_WORKING_DIR.to_string())
+}
 
 #[derive(
     Debug,
@@ -62,7 +83,12 @@ static SESSION_STORAGE: LazyLock<Arc<SessionStorage>> =
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Session {
     pub id: String,
-    pub working_dir: PathBuf,
+    /// `None` for chat-only sessions, which have no folder or repository.
+    ///
+    /// Persisted as the empty string in the `working_dir` column, which stays
+    /// `NOT NULL` because SQLite cannot relax that constraint in place.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub working_dir: Option<PathBuf>,
     #[serde(alias = "description")]
     pub name: String,
     #[serde(default)]
@@ -71,7 +97,7 @@ pub struct Session {
     pub session_type: SessionType,
     pub created_at: DateTime<Utc>,
     pub updated_at: DateTime<Utc>,
-    pub extension_data: ExtensionData,
+    pub extension_data: McpServerData,
     #[serde(default)]
     pub usage: Usage,
     #[serde(default)]
@@ -153,8 +179,8 @@ pub struct SessionUpdateBuilder<'a> {
     name: Option<String>,
     user_set_name: Option<bool>,
     session_type: Option<SessionType>,
-    working_dir: Option<PathBuf>,
-    extension_data: Option<ExtensionData>,
+    working_dir: Option<Option<PathBuf>>,
+    extension_data: Option<McpServerData>,
     usage: Option<Usage>,
     accumulated_usage: Option<Usage>,
     accumulated_cost: Option<Option<f64>>,
@@ -236,11 +262,18 @@ impl<'a> SessionUpdateBuilder<'a> {
     }
 
     pub fn working_dir(mut self, working_dir: PathBuf) -> Self {
+        self.working_dir = Some(Some(working_dir));
+        self
+    }
+
+    /// Attach a session to a folder, or to none at all (`None`), turning it into
+    /// a chat-only session.
+    pub fn working_dir_maybe(mut self, working_dir: Option<PathBuf>) -> Self {
         self.working_dir = Some(working_dir);
         self
     }
 
-    pub fn extension_data(mut self, data: ExtensionData) -> Self {
+    pub fn extension_data(mut self, data: McpServerData) -> Self {
         self.extension_data = Some(data);
         self
     }
@@ -418,9 +451,11 @@ impl SessionManager {
         self.storage.action_required.clone()
     }
 
+    /// Create a session. `working_dir` is `None` for chat-only sessions, which
+    /// have no folder or repository attached.
     pub async fn create_session(
         &self,
-        working_dir: PathBuf,
+        working_dir: Option<PathBuf>,
         name: String,
         session_type: SessionType,
         sauron_mode: SauronMode,
@@ -654,7 +689,7 @@ impl SessionManager {
                 &model_config,
                 id,
                 &conversation,
-                Some(session.working_dir.as_path()),
+                session.working_dir.as_deref(),
             )
             .await?;
             return Ok(Some(self.system_generated_name_update(id, name).await?));
@@ -752,13 +787,13 @@ impl Default for Session {
     fn default() -> Self {
         Self {
             id: String::new(),
-            working_dir: std::env::current_dir().unwrap_or_else(|_| PathBuf::from(".")),
+            working_dir: std::env::current_dir().ok(),
             name: String::new(),
             user_set_name: false,
             session_type: SessionType::default(),
             created_at: Default::default(),
             updated_at: Default::default(),
-            extension_data: ExtensionData::default(),
+            extension_data: McpServerData::default(),
             usage: Usage::default(),
             accumulated_usage: Usage::default(),
             accumulated_cost: None,
@@ -848,7 +883,7 @@ impl sqlx::FromRow<'_, sqlx::sqlite::SqliteRow> for Session {
 
         Ok(Session {
             id: row.try_get("id")?,
-            working_dir: PathBuf::from(row.try_get::<String, _>("working_dir")?),
+            working_dir: decode_working_dir(row.try_get::<String, _>("working_dir")?),
             name,
             user_set_name,
             session_type,
@@ -1225,7 +1260,7 @@ impl SessionStorage {
         .bind(&session.name)
         .bind(session.user_set_name)
         .bind(session.session_type.to_string())
-        .bind(&*session.working_dir.to_string_lossy())
+        .bind(encode_working_dir(session.working_dir.as_deref()))
         .bind(session.created_at)
         .bind(session.updated_at)
         .bind(serde_json::to_string(&session.extension_data)?)
@@ -1619,7 +1654,7 @@ impl SessionStorage {
 
     async fn create_session(
         &self,
-        working_dir: PathBuf,
+        working_dir: Option<PathBuf>,
         name: String,
         session_type: SessionType,
         sauron_mode: SauronMode,
@@ -1651,7 +1686,7 @@ impl SessionStorage {
             .bind(&today)
             .bind(&name)
             .bind(session_type.to_string())
-            .bind(&*working_dir.to_string_lossy())
+            .bind(encode_working_dir(working_dir.as_deref()))
             .bind(sauron_mode.to_string())
             .fetch_one(&mut *tx)
             .await?;
@@ -1780,7 +1815,7 @@ impl SessionStorage {
             q = q.bind(session_type.to_string());
         }
         if let Some(wd) = builder.working_dir {
-            q = q.bind(wd.to_string_lossy().to_string());
+            q = q.bind(encode_working_dir(wd.as_deref()));
         }
         if let Some(ed) = builder.extension_data {
             q = q.bind(serde_json::to_string(&ed)?);

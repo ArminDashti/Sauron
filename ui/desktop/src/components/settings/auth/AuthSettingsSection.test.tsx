@@ -28,6 +28,13 @@ vi.mock('../../../acp/config', () => ({
 vi.mock('../../../acp/extensions', () => ({
   getConfiguredExtensions: vi.fn(),
   setConfigExtensionEnabled: vi.fn(),
+  addConfigExtension: vi.fn(),
+}));
+
+vi.mock('../../ConfigContext', () => ({
+  useConfig: () => ({
+    getExtensions: vi.fn().mockResolvedValue([]),
+  }),
 }));
 
 vi.mock('../../ModelAndProviderContext', () => ({
@@ -216,11 +223,12 @@ describe('AuthSettingsSection', () => {
     expect(screen.getByRole('button', { name: 'Sign in with GitHub' })).toBeInTheDocument();
   });
 
-  it('runs the GitHub device flow and stores the token on success', async () => {
+  it('runs the GitHub device flow, opens the browser, and stores the token on success', async () => {
     const user = userEvent.setup();
     const electron = window.electron as unknown as {
       githubDeviceStart: ReturnType<typeof vi.fn>;
       githubDevicePoll: ReturnType<typeof vi.fn>;
+      openExternal: ReturnType<typeof vi.fn>;
     };
     electron.githubDeviceStart.mockResolvedValue({
       deviceCode: 'device-secret',
@@ -240,6 +248,9 @@ describe('AuthSettingsSection', () => {
     await user.click(await screen.findByRole('button', { name: 'Sign in with GitHub' }));
 
     expect(electron.githubDeviceStart).toHaveBeenCalled();
+    await waitFor(() => {
+      expect(electron.openExternal).toHaveBeenCalledWith('https://github.com/login/device');
+    });
     expect(await screen.findByText('ABCD-1234')).toBeInTheDocument();
 
     await waitFor(
@@ -258,6 +269,35 @@ describe('AuthSettingsSection', () => {
       );
     });
     expect(await screen.findByText('Connected')).toBeInTheDocument();
+  });
+
+  it('opens verificationUriComplete when GitHub returns it', async () => {
+    const user = userEvent.setup();
+    const electron = window.electron as unknown as {
+      githubDeviceStart: ReturnType<typeof vi.fn>;
+      githubDevicePoll: ReturnType<typeof vi.fn>;
+      openExternal: ReturnType<typeof vi.fn>;
+    };
+    electron.githubDeviceStart.mockResolvedValue({
+      deviceCode: 'device-secret',
+      userCode: 'WXYZ-9999',
+      verificationUri: 'https://github.com/login/device',
+      verificationUriComplete: 'https://github.com/login/device?user_code=WXYZ-9999',
+      expiresIn: 899,
+      interval: 5,
+    });
+    electron.githubDevicePoll.mockResolvedValue({ status: 'pending' });
+
+    renderWithIntl(<AuthSettingsSection />);
+
+    await user.click(await screen.findByRole('button', { name: 'Sign in with GitHub' }));
+
+    await waitFor(() => {
+      expect(electron.openExternal).toHaveBeenCalledWith(
+        'https://github.com/login/device?user_code=WXYZ-9999'
+      );
+    });
+    expect(await screen.findByRole('button', { name: 'Open GitHub again' })).toBeInTheDocument();
   });
 
   it('signs out of GitHub after confirmation', async () => {

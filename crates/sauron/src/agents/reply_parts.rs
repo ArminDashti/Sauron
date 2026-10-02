@@ -10,9 +10,9 @@ use tracing::debug;
 
 use super::super::agents::Agent;
 use super::gen_ai_telemetry;
-use crate::agents::extension_manager::{get_tool_owner, recover_mangled_tool_name};
 #[cfg(feature = "code-mode")]
-use crate::agents::platform_extensions::code_execution;
+use crate::agents::in_process::code_execution;
+use crate::agents::mcp_manager::{get_tool_owner, recover_mangled_tool_name};
 use crate::config::{Config, SauronMode};
 use crate::conversation::message::{Message, MessageContent, MessageUsage, ToolRequest};
 use crate::conversation::{fix_conversation, merge_consecutive_messages_for_request, Conversation};
@@ -205,8 +205,8 @@ impl Agent {
 
         #[cfg(feature = "code-mode")]
         let code_execution_active = self
-            .extension_manager
-            .is_extension_enabled(code_execution::EXTENSION_NAME)
+            .mcp_manager
+            .is_mcp_server_enabled(code_execution::EXTENSION_NAME)
             .await;
         #[cfg(not(feature = "code-mode"))]
         let code_execution_active = false;
@@ -214,10 +214,7 @@ impl Agent {
         let tools = prepare_inference_tools(tools, code_execution_active);
 
         // Prepare system prompt
-        let extensions_info = self
-            .extension_manager
-            .get_extensions_info(working_dir)
-            .await;
+        let extensions_info = self.mcp_manager.get_extensions_info(working_dir).await;
         let model_config = self.effective_model_config_for_session(session_id).await?;
 
         let sauron_mode = *self.current_sauron_mode.lock().await;
@@ -229,7 +226,7 @@ impl Agent {
         let prompt_manager = self.prompt_manager.lock().await;
         let system_prompt = prompt_manager
             .builder()
-            .with_extensions(extensions_info.into_iter())
+            .with_mcp_servers(extensions_info.into_iter())
             .with_code_execution_mode(code_execution_active)
             .with_hints(working_dir)
             .with_sauron_mode(sauron_mode)
@@ -248,8 +245,7 @@ pub(crate) fn prepare_inference_tools(
 ) -> Vec<Tool> {
     #[cfg(feature = "code-mode")]
     if code_execution_active {
-        let disclosure_style =
-            crate::agents::platform_extensions::code_execution::get_tool_disclosure();
+        let disclosure_style = crate::agents::in_process::code_execution::get_tool_disclosure();
 
         tools = tools
             .into_iter()
@@ -259,9 +255,9 @@ pub(crate) fn prepare_inference_tools(
                     // in catalog & filesystem styles, progressive search is handled
                     // by pctx, so we want to omit all non-first-class extensions
                     // from the standard tool list
-                    if crate::agents::extension_manager::get_tool_owner(&tool).is_some_and(
-                        |owner| crate::agents::extension_manager::is_first_class_extension(&owner),
-                    ) || crate::agents::extension_manager::get_tool_resource_uri(&tool).is_some()
+                    if crate::agents::mcp_manager::get_tool_owner(&tool).is_some_and(|owner| {
+                        crate::agents::mcp_manager::is_first_class_server(&owner)
+                    }) || crate::agents::mcp_manager::get_tool_resource_uri(&tool).is_some()
                     {
                         Some(tool)
                     } else {

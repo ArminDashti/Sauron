@@ -690,7 +690,7 @@ impl AutoVisualiserRouter {
         // choose_app_strategy().cache_dir()
         // - macOS/Linux: ~/.cache/sauron/autovisualiser/
         // - Windows:     ~\AppData\Local\Block\sauron\cache\autovisualiser\
-        let cache_dir = choose_app_strategy(crate::APP_STRATEGY.clone())
+        let cache_dir = choose_app_strategy(crate::config::paths::APP_STRATEGY.clone())
             .unwrap()
             .cache_dir()
             .join("autovisualiser");

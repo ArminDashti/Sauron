@@ -1,4 +1,4 @@
-use crate::agents::extension_manager::ExtensionManager;
+use crate::agents::mcp_manager::McpManager;
 use crate::conversation::message::{Message, MessageMetadata};
 use crate::conversation::{CURRENT_TIME_TAG, TURN_CONTEXT_TAG, WORKING_DIRECTORY_TAG};
 use std::path::{Path, PathBuf};
@@ -36,9 +36,9 @@ pub fn system_prompt_block() -> Option<String> {
 
 pub(super) async fn compute_compaction_info(
     session_id: &str,
-    extension_manager: &ExtensionManager,
+    mcp_manager: &McpManager,
 ) -> Option<String> {
-    let session = extension_manager
+    let session = mcp_manager
         .get_context()
         .session_manager
         .get_session(session_id, false)
@@ -48,7 +48,7 @@ pub(super) async fn compute_compaction_info(
         .as_ref()
         .and_then(|session| session.model_config.clone());
     let context_limit = if let Some(model_config) = session_model_config.as_ref() {
-        let provider = extension_manager.get_provider().lock().await.clone();
+        let provider = mcp_manager.get_provider().lock().await.clone();
         match provider {
             Some(provider) => {
                 crate::context_limit::get_context_limit(provider.as_ref(), &model_config.model_name)
@@ -73,7 +73,7 @@ pub(super) async fn compute_compaction_info(
 /// agent-only user message, never moved or edited afterwards.
 pub async fn turn_context_message(
     session_id: &str,
-    extension_manager: &ExtensionManager,
+    mcp_manager: &McpManager,
     turns_taken: u32,
     max_turns: u32,
     turn_start: chrono::DateTime<chrono::Local>,
@@ -83,7 +83,7 @@ pub async fn turn_context_message(
         return None;
     }
 
-    let session = extension_manager
+    let session = mcp_manager
         .get_context()
         .session_manager
         .get_session(session_id, false)
@@ -93,7 +93,7 @@ pub async fn turn_context_message(
         .as_ref()
         .and_then(|session| session.model_config.clone());
     let context_limit = if let Some(model_config) = session_model_config.as_ref() {
-        let provider = extension_manager.get_provider().lock().await.clone();
+        let provider = mcp_manager.get_provider().lock().await.clone();
         match provider {
             Some(provider) => {
                 crate::context_limit::get_context_limit(provider.as_ref(), &model_config.model_name)
@@ -113,7 +113,7 @@ pub async fn turn_context_message(
         .as_ref()
         .map(|session| session.working_dir.clone())
         .unwrap_or_else(|| PathBuf::from("."));
-    let mut parts = extension_manager.collect_moim_parts(session_id).await;
+    let mut parts = mcp_manager.collect_moim_parts(session_id).await;
     parts.extend(compaction_info.map(|value| tag("compaction", &value)));
     parts.extend(turn_budget_part(turns_taken, max_turns));
     turn_context_event(&working_dir, context_limit, parts, turn_start)
@@ -222,9 +222,9 @@ fn turn_budget_part(turns_taken: u32, max_turns: u32) -> Option<String> {
 mod tests {
     use super::*;
 
-    async fn session_and_manager() -> (String, ExtensionManager, tempfile::TempDir) {
+    async fn session_and_manager() -> (String, McpManager, tempfile::TempDir) {
         let temp_dir = tempfile::tempdir().unwrap();
-        let em = ExtensionManager::new_without_provider(temp_dir.path().to_path_buf());
+        let em = McpManager::new_without_provider(temp_dir.path().to_path_buf());
         let session = em
             .get_context()
             .session_manager

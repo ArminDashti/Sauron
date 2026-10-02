@@ -34,7 +34,7 @@ use tokio_util::compat::{TokioAsyncReadCompatExt as _, TokioAsyncWriteCompatExt 
 
 use crate::acp::handoff::{build_handoff_context_memo, memo_token_budget, prompt_token_cost};
 use crate::acp::{map_permission_response, PermissionDecision};
-use crate::config::{Config, ExtensionConfig, SauronMode};
+use crate::config::{Config, McpServerConfig, SauronMode};
 use crate::conversation::message::{Message, MessageContent, TOOL_META_EXTERNAL_DISPATCH_KEY};
 use crate::permission::permission_confirmation::PrincipalType;
 use crate::permission::{Permission, PermissionConfirmation};
@@ -1840,12 +1840,12 @@ fn select_mode_id(candidates: &[String], modes: Option<&SessionModeState>) -> Op
     }
 }
 
-pub fn extension_configs_to_mcp_servers(configs: &[ExtensionConfig]) -> Vec<McpServer> {
+pub fn extension_configs_to_mcp_servers(configs: &[McpServerConfig]) -> Vec<McpServer> {
     let mut servers = Vec::new();
 
     for config in configs {
         match config {
-            ExtensionConfig::StreamableHttp {
+            McpServerConfig::StreamableHttp {
                 name,
                 socket: Some(_),
                 ..
@@ -1855,7 +1855,7 @@ pub fn extension_configs_to_mcp_servers(configs: &[ExtensionConfig]) -> Vec<McpS
                     "skipping socket-backed HTTP extension, unsupported by ACP"
                 );
             }
-            ExtensionConfig::StreamableHttp {
+            McpServerConfig::StreamableHttp {
                 name,
                 uri,
                 headers,
@@ -1870,7 +1870,7 @@ pub fn extension_configs_to_mcp_servers(configs: &[ExtensionConfig]) -> Vec<McpS
                     McpServerHttp::new(name, uri).headers(http_headers),
                 ));
             }
-            ExtensionConfig::Stdio {
+            McpServerConfig::Stdio {
                 name,
                 cmd,
                 args,
@@ -2376,7 +2376,7 @@ fn permission_decision_from_mode(sauron_mode: SauronMode) -> Option<PermissionDe
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::agents::extension::Envs;
+    use crate::agents::mcp_server::Envs;
     use agent_client_protocol::schema::v1::{
         ConfigOptionUpdate, ErrorCode, SessionConfigSelectGroup, SessionConfigSelectOption,
         SessionMode, SessionModeId,
@@ -4221,7 +4221,7 @@ mod tests {
     }
 
     #[test_case(
-        ExtensionConfig::Stdio {
+        McpServerConfig::Stdio {
             name: "github".into(),
             description: String::new(),
             cmd: "/path/to/github-mcp-server".into(),
@@ -4243,7 +4243,7 @@ mod tests {
         ; "stdio_converts_to_mcpserver_stdio"
     )]
     #[test_case(
-        ExtensionConfig::StreamableHttp {
+        McpServerConfig::StreamableHttp {
             name: "github".into(),
             description: String::new(),
             uri: "https://api.githubcopilot.com/mcp/".into(),
@@ -4266,7 +4266,7 @@ mod tests {
         ]
         ; "streamable_http_converts_to_mcpserver_http_when_capable"
     )]
-    fn test_extension_configs_to_mcp_servers(config: ExtensionConfig, expected: Vec<McpServer>) {
+    fn test_extension_configs_to_mcp_servers(config: McpServerConfig, expected: Vec<McpServer>) {
         let result = extension_configs_to_mcp_servers(&[config]);
         assert_eq!(result.len(), expected.len(), "server count mismatch");
         for (a, e) in result.iter().zip(expected.iter()) {
@@ -4289,7 +4289,7 @@ mod tests {
 
     #[test]
     fn socket_backed_http_is_omitted_without_dropping_ordinary_http() {
-        let socket_backed = ExtensionConfig::StreamableHttp {
+        let socket_backed = McpServerConfig::StreamableHttp {
             name: "socket-backed".into(),
             description: String::new(),
             uri: "http://127.0.0.1:4711/mcp".into(),
@@ -4304,7 +4304,7 @@ mod tests {
             bundled: Some(false),
             available_tools: vec![],
         };
-        let ordinary_http = ExtensionConfig::StreamableHttp {
+        let ordinary_http = McpServerConfig::StreamableHttp {
             name: "ordinary-http".into(),
             description: String::new(),
             uri: "https://mcp.example.com/".into(),
@@ -4334,7 +4334,7 @@ mod tests {
 
     #[test]
     fn test_filter_supported_servers_skips_http_without_capability() {
-        let config = ExtensionConfig::StreamableHttp {
+        let config = McpServerConfig::StreamableHttp {
             name: "github".into(),
             description: String::new(),
             uri: "https://api.githubcopilot.com/mcp/".into(),

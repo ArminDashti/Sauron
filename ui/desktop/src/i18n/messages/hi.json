@@ -5285,4 +5285,17 @@
   "usageStats.writeTokens": {
     "defaultMessage": "Write tokens"
   }
+,
+  "worktreeSettings.description": {
+    "defaultMessage": "नियंत्रित करें कार्य निर्देशिका चयनकर्ता कौन-सी निर्देशिकाए प्रदान करता है"
+  },
+  "worktreeSettings.title": {
+    "defaultMessage": "Git वर्कट्री"
+  },
+  "worktreeSettings.toggleDescription": {
+    "defaultMessage": "वर्तमान रिपोशिटोरी की अन्य वर्कट्री को कार्य निर्देशिका चयनकर्ता में सूचीब्द करें।"
+  },
+  "worktreeSettings.toggleLabel": {
+    "defaultMessage": "Git वर्कट्री पर विचार करें"
+  }
 }

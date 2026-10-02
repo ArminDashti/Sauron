@@ -80,6 +80,36 @@ pub fn configure_subprocess(command: &mut Command) {
     configure_parent_death_signal(command);
 }
 
+/// Returns the user's full login shell PATH, resolved once and cached.
+///
+/// Use this before spawning subprocesses so they inherit the user's full PATH
+/// rather than the restricted one a desktop app launcher may provide.
+#[cfg(not(windows))]
+pub fn merged_path() -> Option<String> {
+    static CACHED: std::sync::OnceLock<Option<String>> = std::sync::OnceLock::new();
+
+    let login = CACHED
+        .get_or_init(crate::agents::in_process::developer::shell::resolve_login_shell_path)
+        .as_deref()?;
+
+    let current = std::env::var("PATH").unwrap_or_default();
+    if current.is_empty() {
+        return Some(login.to_string());
+    }
+
+    // Login shell entries first so user tools win, then any current entries
+    // not already present (e.g. from direnv, nix, or peekaboo's auto-install).
+    let login_entries: Vec<&str> = login.split(':').collect();
+    let mut seen: std::collections::HashSet<&str> = login_entries.iter().copied().collect();
+    let mut merged = login_entries;
+    for entry in current.split(':') {
+        if seen.insert(entry) {
+            merged.push(entry);
+        }
+    }
+    Some(merged.join(":"))
+}
+
 #[cfg(target_os = "linux")]
 struct LongLivedSpawnRequest {
     command: Command,

@@ -10,7 +10,7 @@ pub use sauron_providers::api_client::{
     DEFAULT_CONNECT_TIMEOUT_SECS, DEFAULT_PROVIDER_TIMEOUT_SECS,
 };
 
-use crate::config::ExtensionConfig;
+use crate::config::McpServerConfig;
 
 use std::path::PathBuf;
 
@@ -32,14 +32,14 @@ pub trait ProviderDef: ProviderDescriptor + Send + Sync {
     type Provider: Provider + 'static;
 
     fn from_env(
-        extensions: Vec<ExtensionConfig>,
+        extensions: Vec<McpServerConfig>,
         tls_config: Option<TlsConfig>,
     ) -> BoxFuture<'static, Result<Self::Provider>>
     where
         Self: Sized;
 
     fn from_env_with_working_dir(
-        extensions: Vec<ExtensionConfig>,
+        extensions: Vec<McpServerConfig>,
         _working_dir: PathBuf,
         tls_config: Option<TlsConfig>,
     ) -> BoxFuture<'static, Result<Self::Provider>>
@@ -50,7 +50,7 @@ pub trait ProviderDef: ProviderDescriptor + Send + Sync {
     }
 
     fn from_env_with_default_model(
-        extensions: Vec<ExtensionConfig>,
+        extensions: Vec<McpServerConfig>,
         tls_config: Option<TlsConfig>,
     ) -> BoxFuture<'static, Result<Self::Provider>>
     where

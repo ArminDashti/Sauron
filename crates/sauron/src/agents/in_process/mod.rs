@@ -30,14 +30,13 @@ pub use ext_manager::MANAGE_EXTENSIONS_TOOL_NAME;
 #[allow(unused_imports)]
 pub use ext_manager::SEARCH_AVAILABLE_EXTENSIONS_TOOL_NAME;
 
-pub static PLATFORM_EXTENSIONS: Lazy<HashMap<&'static str, PlatformExtensionDef>> = Lazy::new(
-    || {
-        let mut map = HashMap::new();
+pub static IN_PROCESS_SERVERS: Lazy<HashMap<&'static str, InProcessServerDef>> = Lazy::new(|| {
+    let mut map = HashMap::new();
 
-        #[cfg(feature = "tree-sitter")]
+    #[cfg(feature = "tree-sitter")]
         map.insert(
             analyze::EXTENSION_NAME,
-            PlatformExtensionDef {
+            InProcessServerDef {
                 name: analyze::EXTENSION_NAME,
                 display_name: "Analyze",
                 description:
@@ -49,24 +48,23 @@ pub static PLATFORM_EXTENSIONS: Lazy<HashMap<&'static str, PlatformExtensionDef>
             },
         );
 
-        map.insert(
-            todo::EXTENSION_NAME,
-            PlatformExtensionDef {
-                name: todo::EXTENSION_NAME,
-                display_name: "Todo",
-                description:
-                    "Enable a todo list for sauron so it can keep track of what it is doing",
-                default_enabled: false,
-                unprefixed_tools: false,
-                hidden: false,
-                client_factory: |ctx| Some(Box::new(todo::TodoClient::new(ctx).unwrap())),
-            },
-        );
+    map.insert(
+        todo::EXTENSION_NAME,
+        InProcessServerDef {
+            name: todo::EXTENSION_NAME,
+            display_name: "Todo",
+            description: "Enable a todo list for sauron so it can keep track of what it is doing",
+            default_enabled: false,
+            unprefixed_tools: false,
+            hidden: false,
+            client_factory: |ctx| Some(Box::new(todo::TodoClient::new(ctx).unwrap())),
+        },
+    );
 
-        #[cfg(feature = "platform-apps")]
+    #[cfg(feature = "platform-apps")]
         map.insert(
             apps::EXTENSION_NAME,
-            PlatformExtensionDef {
+            InProcessServerDef {
                 name: apps::EXTENSION_NAME,
                 display_name: "Apps",
                 description:
@@ -78,26 +76,24 @@ pub static PLATFORM_EXTENSIONS: Lazy<HashMap<&'static str, PlatformExtensionDef>
             },
         );
 
-        #[cfg(feature = "chat-recall")]
-        map.insert(
-            chatrecall::EXTENSION_NAME,
-            PlatformExtensionDef {
-                name: chatrecall::EXTENSION_NAME,
-                display_name: "Chat Recall",
-                description:
-                    "Search past conversations and load session summaries for contextual memory",
-                default_enabled: false,
-                unprefixed_tools: false,
-                hidden: false,
-                client_factory: |ctx| {
-                    Some(Box::new(chatrecall::ChatRecallClient::new(ctx).unwrap()))
-                },
-            },
-        );
+    #[cfg(feature = "chat-recall")]
+    map.insert(
+        chatrecall::EXTENSION_NAME,
+        InProcessServerDef {
+            name: chatrecall::EXTENSION_NAME,
+            display_name: "Chat Recall",
+            description:
+                "Search past conversations and load session summaries for contextual memory",
+            default_enabled: false,
+            unprefixed_tools: false,
+            hidden: false,
+            client_factory: |ctx| Some(Box::new(chatrecall::ChatRecallClient::new(ctx).unwrap())),
+        },
+    );
 
-        map.insert(
+    map.insert(
             "extensionmanager",
-            PlatformExtensionDef {
+            InProcessServerDef {
                 name: ext_manager::EXTENSION_NAME,
                 display_name: "Extension Manager",
                 description:
@@ -109,87 +105,86 @@ pub static PLATFORM_EXTENSIONS: Lazy<HashMap<&'static str, PlatformExtensionDef>
             },
         );
 
-        #[cfg(feature = "scheduler")]
-        map.insert(
-            scheduler::EXTENSION_NAME,
-            PlatformExtensionDef {
-                name: scheduler::EXTENSION_NAME,
-                display_name: "Scheduler",
-                description: "Create and manage scheduled recipe execution",
-                default_enabled: true,
-                unprefixed_tools: false,
-                hidden: true,
-                client_factory: |ctx| {
-                    scheduler::SchedulerClient::new(ctx).map(|client| Box::new(client) as _)
-                },
+    #[cfg(feature = "scheduler")]
+    map.insert(
+        scheduler::EXTENSION_NAME,
+        InProcessServerDef {
+            name: scheduler::EXTENSION_NAME,
+            display_name: "Scheduler",
+            description: "Create and manage scheduled recipe execution",
+            default_enabled: true,
+            unprefixed_tools: false,
+            hidden: true,
+            client_factory: |ctx| {
+                scheduler::SchedulerClient::new(ctx).map(|client| Box::new(client) as _)
             },
-        );
+        },
+    );
 
-        map.insert(
-            summon::EXTENSION_NAME,
-            PlatformExtensionDef {
-                name: summon::EXTENSION_NAME,
-                display_name: "Summon",
-                description: "Load knowledge and delegate tasks to subagents",
-                default_enabled: true,
-                unprefixed_tools: true,
-                hidden: false,
-                client_factory: |ctx| Some(Box::new(summon::SummonClient::new(ctx).unwrap())),
+    map.insert(
+        summon::EXTENSION_NAME,
+        InProcessServerDef {
+            name: summon::EXTENSION_NAME,
+            display_name: "Summon",
+            description: "Load knowledge and delegate tasks to subagents",
+            default_enabled: true,
+            unprefixed_tools: true,
+            hidden: false,
+            client_factory: |ctx| Some(Box::new(summon::SummonClient::new(ctx).unwrap())),
+        },
+    );
+
+    map.insert(
+        summarize::EXTENSION_NAME,
+        InProcessServerDef {
+            name: summarize::EXTENSION_NAME,
+            display_name: "Summarize",
+            description: "Load files/directories and get an LLM summary in a single call",
+            default_enabled: false,
+            unprefixed_tools: false,
+            hidden: false,
+            client_factory: |ctx| Some(Box::new(summarize::SummarizeClient::new(ctx).unwrap())),
+        },
+    );
+
+    #[cfg(feature = "code-mode")]
+    map.insert(
+        code_execution::EXTENSION_NAME,
+        InProcessServerDef {
+            name: code_execution::EXTENSION_NAME,
+            display_name: "Code Mode",
+            description: "Sauron will make extension calls through code execution, saving tokens",
+            default_enabled: false,
+            unprefixed_tools: true,
+            hidden: false,
+            client_factory: |ctx| {
+                Some(Box::new(
+                    code_execution::CodeExecutionClient::new(
+                        ctx,
+                        code_execution::get_tool_disclosure(),
+                    )
+                    .unwrap(),
+                ))
             },
-        );
+        },
+    );
 
-        map.insert(
-            summarize::EXTENSION_NAME,
-            PlatformExtensionDef {
-                name: summarize::EXTENSION_NAME,
-                display_name: "Summarize",
-                description: "Load files/directories and get an LLM summary in a single call",
-                default_enabled: false,
-                unprefixed_tools: false,
-                hidden: false,
-                client_factory: |ctx| Some(Box::new(summarize::SummarizeClient::new(ctx).unwrap())),
-            },
-        );
+    map.insert(
+        developer::EXTENSION_NAME,
+        InProcessServerDef {
+            name: developer::EXTENSION_NAME,
+            display_name: "Developer",
+            description: "Write and edit files, and execute shell commands",
+            default_enabled: true,
+            unprefixed_tools: true,
+            hidden: false,
+            client_factory: |ctx| Some(Box::new(developer::DeveloperClient::new(ctx).unwrap())),
+        },
+    );
 
-        #[cfg(feature = "code-mode")]
-        map.insert(
-            code_execution::EXTENSION_NAME,
-            PlatformExtensionDef {
-                name: code_execution::EXTENSION_NAME,
-                display_name: "Code Mode",
-                description:
-                    "Sauron will make extension calls through code execution, saving tokens",
-                default_enabled: false,
-                unprefixed_tools: true,
-                hidden: false,
-                client_factory: |ctx| {
-                    Some(Box::new(
-                        code_execution::CodeExecutionClient::new(
-                            ctx,
-                            code_execution::get_tool_disclosure(),
-                        )
-                        .unwrap(),
-                    ))
-                },
-            },
-        );
-
-        map.insert(
-            developer::EXTENSION_NAME,
-            PlatformExtensionDef {
-                name: developer::EXTENSION_NAME,
-                display_name: "Developer",
-                description: "Write and edit files, and execute shell commands",
-                default_enabled: true,
-                unprefixed_tools: true,
-                hidden: false,
-                client_factory: |ctx| Some(Box::new(developer::DeveloperClient::new(ctx).unwrap())),
-            },
-        );
-
-        map.insert(
+    map.insert(
             orchestrator::EXTENSION_NAME,
-            PlatformExtensionDef {
+            InProcessServerDef {
                 name: orchestrator::EXTENSION_NAME,
                 display_name: "Orchestrator",
                 description:
@@ -201,9 +196,9 @@ pub static PLATFORM_EXTENSIONS: Lazy<HashMap<&'static str, PlatformExtensionDef>
             },
         );
 
-        map.insert(
+    map.insert(
             tom::EXTENSION_NAME,
-            PlatformExtensionDef {
+            InProcessServerDef {
                 name: tom::EXTENSION_NAME,
                 display_name: "Top Of Mind",
                 description:
@@ -215,36 +210,32 @@ pub static PLATFORM_EXTENSIONS: Lazy<HashMap<&'static str, PlatformExtensionDef>
             },
         );
 
-        map.insert(
-            crate::skills::EXTENSION_NAME,
-            PlatformExtensionDef {
-                name: crate::skills::EXTENSION_NAME,
-                display_name: "Skills",
-                description: "Discover and provide skill instructions from filesystem and builtins",
-                default_enabled: true,
-                unprefixed_tools: true,
-                hidden: false,
-                client_factory: |ctx| {
-                    Some(Box::new(crate::skills::SkillsClient::new(ctx).unwrap()))
-                },
-            },
-        );
+    map.insert(
+        crate::skills::EXTENSION_NAME,
+        InProcessServerDef {
+            name: crate::skills::EXTENSION_NAME,
+            display_name: "Skills",
+            description: "Discover and provide skill instructions from filesystem and builtins",
+            default_enabled: true,
+            unprefixed_tools: true,
+            hidden: false,
+            client_factory: |ctx| Some(Box::new(crate::skills::SkillsClient::new(ctx).unwrap())),
+        },
+    );
 
-        map
-    },
-);
+    map
+});
 
 #[derive(Clone)]
-pub struct PlatformExtensionContext {
-    pub extension_manager:
-        Option<std::sync::Weak<crate::agents::extension_manager::ExtensionManager>>,
+pub struct InProcessContext {
+    pub mcp_manager: Option<std::sync::Weak<crate::agents::mcp_manager::McpManager>>,
     pub session_manager: std::sync::Arc<crate::session::SessionManager>,
     pub scheduler: Option<std::sync::Arc<dyn crate::scheduler_trait::SchedulerTrait>>,
     pub session: Option<std::sync::Arc<Session>>,
     pub use_login_shell_path: bool,
 }
 
-impl PlatformExtensionContext {
+impl InProcessContext {
     pub async fn model_config_for_session(
         &self,
         session_id: &str,
@@ -301,7 +292,7 @@ impl PlatformExtensionContext {
 
 /// Definition for a platform extension that runs in-process with direct agent access.
 #[derive(Debug, Clone)]
-pub struct PlatformExtensionDef {
+pub struct InProcessServerDef {
     pub name: &'static str,
     pub display_name: &'static str,
     pub description: &'static str,
@@ -310,5 +301,5 @@ pub struct PlatformExtensionDef {
     pub unprefixed_tools: bool,
     /// If true, the extension is not shown in the UI or discoverable via search_available_extensions.
     pub hidden: bool,
-    pub client_factory: fn(PlatformExtensionContext) -> Option<Box<dyn McpClientTrait>>,
+    pub client_factory: fn(InProcessContext) -> Option<Box<dyn McpClientTrait>>,
 }

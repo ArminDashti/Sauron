@@ -6,9 +6,9 @@ use super::pipeline::{
     test_pipeline, test_pipeline_with, test_pipeline_with_scheduler, MessageKind::Agent,
     MessageKind::Error, MessageKind::ToolResponse,
 };
-use crate::agents::extension::ExtensionConfig;
 use crate::agents::final_output_tool::{FINAL_OUTPUT_CONTINUATION_MESSAGE, FINAL_OUTPUT_TOOL_NAME};
-use crate::agents::platform_extensions::scheduler::MANAGE_SCHEDULE_TOOL_NAME_COMPLETE;
+use crate::agents::in_process::scheduler::MANAGE_SCHEDULE_TOOL_NAME_COMPLETE;
+use crate::agents::mcp_server::McpServerConfig;
 #[cfg(feature = "code-mode")]
 use crate::agents::state_machine::ops_tool_approval::TOOL_EXECUTABLE_KEY;
 use crate::agents::state_machine::MAX_TURNS_MESSAGE;
@@ -97,7 +97,7 @@ async fn recipe_delegation_respects_mode_and_child_turn_limit() -> Result<()> {
         .title("Chat recipe")
         .description("Chat recipe")
         .prompt("Try to delegate")
-        .extensions(vec![ExtensionConfig::Platform {
+        .extensions(vec![McpServerConfig::Platform {
             name: "summon".to_string(),
             description: "Delegate work".to_string(),
             display_name: None,
@@ -134,7 +134,7 @@ settings:
         .title("Delegating recipe")
         .description("Delegates bounded work")
         .prompt("Delegate the bounded child")
-        .extensions(vec![ExtensionConfig::Platform {
+        .extensions(vec![McpServerConfig::Platform {
             name: "summon".to_string(),
             description: "Delegate work".to_string(),
             display_name: None,
@@ -239,7 +239,7 @@ async fn unadvertised_final_output_is_neither_approved_nor_executed() -> Result<
         .build()
         .expect("valid recipe");
     pipeline.set_recipe(recipe).await?;
-    pipeline.add_extension("code_execution").await?;
+    pipeline.add_mcp_server("code_execution").await?;
     pipeline.set_permission(FINAL_OUTPUT_TOOL_NAME, PermissionLevel::AlwaysAllow);
     let pipeline = pipeline
         .with_max_turns(2)

@@ -5285,4 +5285,17 @@
   "usageStats.writeTokens": {
     "defaultMessage": "Write tokens"
   }
+,
+  "worktreeSettings.description": {
+    "defaultMessage": "控制工作目錄選擇器提供哪些目錄"
+  },
+  "worktreeSettings.title": {
+    "defaultMessage": "Git 工作樹"
+  },
+  "worktreeSettings.toggleDescription": {
+    "defaultMessage": "在工作目錄選擇器中列出目前儲存庫的其他工作樹。"
+  },
+  "worktreeSettings.toggleLabel": {
+    "defaultMessage": "考慮 Git 工作樹"
+  }
 }

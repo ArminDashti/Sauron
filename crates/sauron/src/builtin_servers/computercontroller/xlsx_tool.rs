@@ -310,6 +310,7 @@ mod tests {
     fn get_test_file() -> PathBuf {
         PathBuf::from(env!("CARGO_MANIFEST_DIR"))
             .join("src")
+            .join("builtin_servers")
             .join("computercontroller")
             .join("tests")
             .join("data")

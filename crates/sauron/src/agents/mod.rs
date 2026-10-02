@@ -1,15 +1,15 @@
 mod agent;
 pub mod container;
 pub mod execute_commands;
-pub mod extension;
-pub mod extension_malware_check;
-pub mod extension_manager;
 pub mod final_output_tool;
 pub(crate) mod gen_ai_telemetry;
+pub mod in_process;
 mod large_response_handler;
 pub mod mcp_client;
+pub mod mcp_manager;
+pub mod mcp_server;
+pub mod mcp_server_malware_check;
 pub mod moim;
-pub mod platform_extensions;
 #[cfg(feature = "scheduler")]
 pub mod platform_tools;
 pub mod prompt_manager;
@@ -26,14 +26,14 @@ mod tool_confirmation_router;
 pub mod tool_execution;
 mod tool_schema_normalize;
 pub mod types;
-pub mod validate_extensions;
+pub mod validate_mcp_servers;
 
-pub use agent::{Agent, AgentConfig, ExtensionLoadResult, SauronPlatform};
+pub use agent::{Agent, AgentConfig, McpServerLoadResult, SauronPlatform};
 pub use container::Container;
 pub use execute_commands::{context_management_unsupported_message, COMPACT_TRIGGERS};
-pub use extension::{ExtensionConfig, ExtensionError};
-pub use extension_manager::ExtensionManager;
 pub(crate) use large_response_handler::max_tool_response_size;
+pub use mcp_manager::McpManager;
+pub use mcp_server::{McpServerConfig, McpServerError};
 pub use prompt_manager::PromptManager;
 pub use sauron_agent::events::AgentEvent;
 #[cfg(feature = "scheduler")]

@@ -1,6 +1,6 @@
 pub use sauron_providers::local_inference::*;
 
-use crate::config::ExtensionConfig;
+use crate::config::McpServerConfig;
 use crate::providers::api_client::TlsConfig;
 use crate::providers::base::ProviderDef;
 use anyhow::Result;
@@ -64,7 +64,7 @@ impl ProviderDef for LocalInferenceProvider {
     type Provider = Self;
 
     fn from_env(
-        _extensions: Vec<ExtensionConfig>,
+        _extensions: Vec<McpServerConfig>,
         _tls_config: Option<TlsConfig>,
     ) -> BoxFuture<'static, Result<Self::Provider>>
     where

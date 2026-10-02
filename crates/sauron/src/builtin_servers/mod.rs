@@ -1,4 +1,5 @@
-use etcetera::AppStrategyArgs;
+//! MCP servers that ship with sauron and are served in-process over a duplex
+//! transport. Registered into the builtin server registry by the CLI.
 use once_cell::sync::Lazy;
 #[cfg(any(
     feature = "autovisualiser",
@@ -8,14 +9,6 @@ use once_cell::sync::Lazy;
 ))]
 use rmcp::{ServerHandler, ServiceExt};
 use std::collections::HashMap;
-
-// NOTE: "Block" is kept here for backwards compatibility with existing
-// user config/data directories. Changing this would orphan existing installations.
-pub static APP_STRATEGY: Lazy<AppStrategyArgs> = Lazy::new(|| AppStrategyArgs {
-    top_level_domain: "Block".to_string(),
-    author: "Block".to_string(),
-    app_name: "sauron".to_string(),
-});
 
 #[cfg(feature = "autovisualiser")]
 pub mod autovisualiser;
@@ -32,8 +25,6 @@ pub mod mcp_server_runner;
 mod memory;
 #[cfg(all(target_os = "macos", feature = "computer-controller"))]
 pub mod peekaboo;
-#[cfg(feature = "computer-controller")]
-pub mod subprocess;
 #[cfg(feature = "tutorial-server")]
 pub mod tutorial;
 
@@ -86,16 +77,16 @@ macro_rules! builtin {
     }};
 }
 
-pub static BUILTIN_EXTENSIONS: Lazy<HashMap<&'static str, SpawnServerFn>> = Lazy::new(|| {
+pub static BUILTIN_SERVERS: Lazy<HashMap<&'static str, SpawnServerFn>> = Lazy::new(|| {
     #[allow(unused_mut)]
-    let mut extensions = HashMap::new();
+    let mut servers = HashMap::new();
     #[cfg(feature = "autovisualiser")]
-    extensions.extend([builtin!(autovisualiser, AutoVisualiserRouter)]);
+    servers.extend([builtin!(autovisualiser, AutoVisualiserRouter)]);
     #[cfg(feature = "computer-controller")]
-    extensions.extend([builtin!(computercontroller, ComputerControllerServer)]);
+    servers.extend([builtin!(computercontroller, ComputerControllerServer)]);
     #[cfg(feature = "memory-server")]
-    extensions.extend([builtin!(memory, MemoryServer)]);
+    servers.extend([builtin!(memory, MemoryServer)]);
     #[cfg(feature = "tutorial-server")]
-    extensions.extend([builtin!(tutorial, TutorialServer)]);
-    extensions
+    servers.extend([builtin!(tutorial, TutorialServer)]);
+    servers
 });

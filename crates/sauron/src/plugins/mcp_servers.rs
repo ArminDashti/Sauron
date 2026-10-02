@@ -1,4 +1,4 @@
-use crate::agents::extension::{Envs, ExtensionConfig};
+use crate::agents::mcp_server::{Envs, McpServerConfig};
 use crate::config::{DEFAULT_EXTENSION_DESCRIPTION, DEFAULT_EXTENSION_TIMEOUT};
 use crate::plugins::discovery::discover_enabled_plugins;
 use crate::plugins::formats::open_plugins;
@@ -15,11 +15,11 @@ const PLUGIN_ROOT: &str = "${PLUGIN_ROOT}";
 #[derive(Debug, Deserialize)]
 struct McpServersDocument {
     #[serde(default, rename = "mcpServers")]
-    mcp_servers: HashMap<String, McpServerConfig>,
+    mcp_servers: HashMap<String, PluginMcpServerEntry>,
 }
 
 #[derive(Debug, Deserialize)]
-struct McpServerConfig {
+struct PluginMcpServerEntry {
     command: String,
     #[serde(default)]
     args: Vec<String>,
@@ -29,7 +29,7 @@ struct McpServerConfig {
     cwd: Option<String>,
 }
 
-pub fn enabled_plugin_mcp_servers(project_root: Option<&Path>) -> Vec<ExtensionConfig> {
+pub fn enabled_plugin_mcp_servers(project_root: Option<&Path>) -> Vec<McpServerConfig> {
     let mut configs = Vec::new();
     for plugin in discover_enabled_plugins(project_root) {
         match plugin_mcp_servers(&plugin.name, &plugin.root) {
@@ -45,7 +45,7 @@ pub fn enabled_plugin_mcp_servers(project_root: Option<&Path>) -> Vec<ExtensionC
     configs
 }
 
-pub fn plugin_mcp_servers(plugin_name: &str, plugin_root: &Path) -> Result<Vec<ExtensionConfig>> {
+pub fn plugin_mcp_servers(plugin_name: &str, plugin_root: &Path) -> Result<Vec<McpServerConfig>> {
     let manifest = open_plugins::read_manifest(plugin_root, "")?;
     let mut configs = Vec::new();
     let mut seen = HashSet::new();
@@ -57,7 +57,7 @@ pub fn plugin_mcp_servers(plugin_name: &str, plugin_root: &Path) -> Result<Vec<E
 
         let document = serde_json::from_str::<McpServersDocument>(&fs::read_to_string(&path)?)
             .with_context(|| format!("Failed to parse {}", path.display()))?;
-        configs.extend(document_to_extension_configs(
+        configs.extend(document_to_mcp_server_configs(
             plugin_name,
             plugin_root,
             document.mcp_servers,
@@ -70,7 +70,7 @@ pub fn plugin_mcp_servers(plugin_name: &str, plugin_root: &Path) -> Result<Vec<E
         .filter(|value| is_inline_config(value))
     {
         let servers = parse_inline_servers(value)?;
-        configs.extend(document_to_extension_configs(
+        configs.extend(document_to_mcp_server_configs(
             plugin_name,
             plugin_root,
             servers,
@@ -110,33 +110,35 @@ fn is_inline_config(value: &serde_json::Value) -> bool {
     })
 }
 
-fn parse_inline_servers(value: &serde_json::Value) -> Result<HashMap<String, McpServerConfig>> {
+fn parse_inline_servers(
+    value: &serde_json::Value,
+) -> Result<HashMap<String, PluginMcpServerEntry>> {
     serde_json::from_value(value.clone())
         .with_context(|| "Failed to parse inline Open Plugins MCP servers")
 }
 
-fn document_to_extension_configs(
+fn document_to_mcp_server_configs(
     plugin_name: &str,
     plugin_root: &Path,
-    servers: HashMap<String, McpServerConfig>,
-) -> Vec<ExtensionConfig> {
+    servers: HashMap<String, PluginMcpServerEntry>,
+) -> Vec<McpServerConfig> {
     let mut entries: Vec<_> = servers.into_iter().collect();
     entries.sort_by(|a, b| a.0.cmp(&b.0));
 
     entries
         .into_iter()
         .map(|(server_name, server)| {
-            server_to_extension_config(plugin_name, plugin_root, server_name, server)
+            plugin_server_to_config(plugin_name, plugin_root, server_name, server)
         })
         .collect()
 }
 
-fn server_to_extension_config(
+fn plugin_server_to_config(
     plugin_name: &str,
     plugin_root: &Path,
     server_name: String,
-    server: McpServerConfig,
-) -> ExtensionConfig {
+    server: PluginMcpServerEntry,
+) -> McpServerConfig {
     let root = plugin_root.to_string_lossy();
     let mut env = HashMap::from([("PLUGIN_ROOT".to_string(), root.to_string())]);
     env.extend(
@@ -146,7 +148,7 @@ fn server_to_extension_config(
             .map(|(key, value)| (key, expand_plugin_root(&value, &root))),
     );
 
-    ExtensionConfig::Stdio {
+    McpServerConfig::Stdio {
         name: format!("{plugin_name}:{server_name}"),
         description: DEFAULT_EXTENSION_DESCRIPTION.to_string(),
         cmd: expand_plugin_root(&server.command, &root),
@@ -183,7 +185,7 @@ pub fn validate_mcp_server_document(value: &serde_json::Value) -> Result<()> {
     validate_servers(document.mcp_servers)
 }
 
-fn validate_servers(servers: HashMap<String, McpServerConfig>) -> Result<()> {
+fn validate_servers(servers: HashMap<String, PluginMcpServerEntry>) -> Result<()> {
     for (name, server) in servers {
         if server.command.trim().is_empty() {
             bail!(
@@ -198,7 +200,7 @@ fn validate_servers(servers: HashMap<String, McpServerConfig>) -> Result<()> {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::agents::extension::ExtensionConfig;
+    use crate::agents::mcp_server::McpServerConfig;
 
     #[test]
     fn loads_default_mcp_json_with_plugin_root_expansion() {
@@ -220,7 +222,7 @@ mod tests {
 
         let configs = plugin_mcp_servers("test-plugin", plugin.path()).unwrap();
         assert_eq!(configs.len(), 1);
-        let ExtensionConfig::Stdio {
+        let McpServerConfig::Stdio {
             name,
             cmd,
             args,

@@ -1,6 +1,6 @@
-use crate::agents::extension::PlatformExtensionContext;
-use crate::agents::extension_manager::{get_tool_owner, get_tool_resource_uri};
 use crate::agents::mcp_client::{Error, McpClientTrait};
+use crate::agents::mcp_manager::{get_tool_owner, get_tool_resource_uri};
+use crate::agents::mcp_server::InProcessContext;
 use crate::agents::reply_parts::is_tool_visible_to_model;
 use crate::agents::tool_execution::ToolCallContext;
 use anyhow::Result;
@@ -32,7 +32,7 @@ pub static EXTENSION_NAME: &str = "code_execution";
 
 pub struct CodeExecutionClient {
     info: InitializeResult,
-    context: PlatformExtensionContext,
+    context: InProcessContext,
     disclosure: ToolDisclosure,
     state: RwLock<Option<CodeModeState>>,
 }
@@ -59,7 +59,7 @@ pub struct ExecuteWithToolGraph {
 }
 
 impl CodeExecutionClient {
-    pub fn new(context: PlatformExtensionContext, disclosure: ToolDisclosure) -> Result<Self> {
+    pub fn new(context: InProcessContext, disclosure: ToolDisclosure) -> Result<Self> {
         let info = InitializeResult::new(ServerCapabilities::builder().enable_tools().build())
             .with_server_info(
                 Implementation::new(EXTENSION_NAME.to_string(), "1.0.0".to_string())
@@ -78,7 +78,7 @@ impl CodeExecutionClient {
     async fn load_callback_configs(&self, session_id: &str) -> Option<Vec<CallbackConfig>> {
         let manager = self
             .context
-            .extension_manager
+            .mcp_manager
             .as_ref()
             .and_then(|w| w.upgrade())?;
 
@@ -156,7 +156,7 @@ impl CodeExecutionClient {
     ) -> Result<PctxRegistry, String> {
         let manager = self
             .context
-            .extension_manager
+            .mcp_manager
             .as_ref()
             .and_then(|w| w.upgrade())
             .ok_or("Extension manager not available")?;
@@ -359,7 +359,7 @@ where
 fn create_tool_callback(
     ctx: ToolCallContext,
     full_name: String,
-    manager: Arc<crate::agents::ExtensionManager>,
+    manager: Arc<crate::agents::McpManager>,
     cancellation_token: CancellationToken,
     rt: tokio::runtime::Handle,
 ) -> CallbackFn {
@@ -672,8 +672,8 @@ impl CodeModeState {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::agents::extension::ExtensionConfig;
-    use crate::agents::extension_manager::ExtensionManager;
+    use crate::agents::mcp_manager::McpManager;
+    use crate::agents::mcp_server::McpServerConfig;
     use pctx_code_mode::model::FunctionId;
     use rmcp::model::{Annotations, EmbeddedResource, MetaObject, ResourceContents, TextContent};
 
@@ -784,13 +784,13 @@ mod tests {
     #[tokio::test]
     async fn callback_configs_exclude_tools_hidden_from_model() {
         let temp = tempfile::tempdir().unwrap();
-        let manager = Arc::new(ExtensionManager::new_without_provider(
+        let manager = Arc::new(McpManager::new_without_provider(
             temp.path().join("manager"),
         ));
         manager
             .add_client(
                 "visibility".to_string(),
-                ExtensionConfig::Builtin {
+                McpServerConfig::Builtin {
                     name: "visibility".to_string(),
                     description: "Visibility test tools".to_string(),
                     display_name: None,
@@ -804,7 +804,7 @@ mod tests {
             .await;
 
         let mut context = manager.get_context().clone();
-        context.extension_manager = Some(Arc::downgrade(&manager));
+        context.mcp_manager = Some(Arc::downgrade(&manager));
         let client = CodeExecutionClient::new(context, ToolDisclosure::Catalog).unwrap();
         let configs = client.load_callback_configs("test-session").await.unwrap();
         let names = configs
@@ -1035,8 +1035,8 @@ mod tests {
     async fn execute_bash_annotations_require_approval() {
         let temp = tempfile::tempdir().unwrap();
         let client = CodeExecutionClient::new(
-            PlatformExtensionContext {
-                extension_manager: None,
+            InProcessContext {
+                mcp_manager: None,
                 session_manager: Arc::new(crate::session::SessionManager::new(
                     temp.path().join("sessions"),
                 )),

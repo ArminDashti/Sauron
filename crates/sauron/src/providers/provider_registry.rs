@@ -1,7 +1,7 @@
 use super::api_client::TlsConfig;
 use super::base::{ConfigKey, ModelInfo, Provider, ProviderDef, ProviderMetadata, ProviderType};
 use super::inventory::{InventoryIdentityInput, InventoryRegistration, InventoryResolvers};
-use crate::config::{DeclarativeProviderConfig, ExtensionConfig};
+use crate::config::{DeclarativeProviderConfig, McpServerConfig};
 use anyhow::Result;
 use futures::future::BoxFuture;
 use sauron_providers::model::ModelConfig;
@@ -11,7 +11,7 @@ use std::sync::Arc;
 
 pub type ProviderConstructor = Arc<
     dyn Fn(
-            Vec<ExtensionConfig>,
+            Vec<McpServerConfig>,
             Option<PathBuf>,
             Option<TlsConfig>,
             bool,
@@ -69,18 +69,18 @@ impl ProviderEntry {
 
     pub async fn create_with_default_model(
         &self,
-        extensions: Vec<ExtensionConfig>,
+        extensions: Vec<McpServerConfig>,
     ) -> Result<Arc<dyn Provider>> {
         (self.constructor)(extensions, None, self.tls_config.clone(), true).await
     }
 
-    pub async fn create(&self, extensions: Vec<ExtensionConfig>) -> Result<Arc<dyn Provider>> {
+    pub async fn create(&self, extensions: Vec<McpServerConfig>) -> Result<Arc<dyn Provider>> {
         (self.constructor)(extensions, None, self.tls_config.clone(), false).await
     }
 
     pub async fn create_with_working_dir(
         &self,
-        extensions: Vec<ExtensionConfig>,
+        extensions: Vec<McpServerConfig>,
         working_dir: PathBuf,
     ) -> Result<Arc<dyn Provider>> {
         (self.constructor)(
@@ -340,7 +340,7 @@ impl ProviderRegistry {
     pub async fn create(
         &self,
         name: &str,
-        extensions: Vec<ExtensionConfig>,
+        extensions: Vec<McpServerConfig>,
     ) -> Result<Arc<dyn Provider>> {
         let entry = self
             .entries

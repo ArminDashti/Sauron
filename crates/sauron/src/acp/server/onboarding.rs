@@ -1,5 +1,5 @@
 use super::*;
-use crate::config::extensions::name_to_key;
+use crate::config::mcp_servers::name_to_key;
 use serde::Deserialize;
 use serde_yaml::Mapping;
 use std::collections::{HashMap, HashSet};
@@ -512,9 +512,9 @@ fn apply_claude_desktop_candidate(
             continue;
         }
 
-        let entry = crate::config::extensions::ExtensionEntry {
+        let entry = crate::config::mcp_servers::McpServerEntry {
             enabled: enable_imported_extensions,
-            config: ExtensionConfig::Stdio {
+            config: McpServerConfig::Stdio {
                 name,
                 description: "Imported from Claude Desktop".to_string(),
                 cmd: command,

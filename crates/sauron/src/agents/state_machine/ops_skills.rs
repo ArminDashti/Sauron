@@ -254,7 +254,7 @@ impl Operation<Session, SauronEffect> for SkillOperation {
         let prompt = match crate::slash_commands::skill_slash_command::resolve_command(
             command.command,
             command.params_str,
-            Some(&session.working_dir),
+            session.working_dir.as_deref(),
         ) {
             Ok(Some(prompt)) => prompt,
             Ok(None) => return not_applicable(),
@@ -290,7 +290,8 @@ impl Operation<Session, SauronEffect> for SkillOperation {
         session: &Session,
         _conversation: &Conversation,
     ) -> Result<Vec<(String, String)>> {
-        Ok(skill_instructions(&session.working_dir)
+        Ok(session.working_dir.as_deref()
+            .and_then(skill_instructions)
             .map(|instructions| ("skills".to_string(), instructions))
             .into_iter()
             .collect())
@@ -356,7 +357,7 @@ impl Operation<Session, SauronEffect> for SkillOperation {
                         Ok(()) => {
                             let result = {
                                 let _entered = span.enter();
-                                execute_skill(&session.working_dir, tool_call.arguments.clone())
+                                execute_skill(session.working_dir.as_deref().unwrap_or(Path::new(".")), tool_call.arguments.clone())
                             };
                             if result.is_error == Some(true) {
                                 span.record("error.type", "tool_error");
@@ -370,7 +371,7 @@ impl Operation<Session, SauronEffect> for SkillOperation {
                             emit_post_tool_use(
                                 &self.hook_manager,
                                 &session.id,
-                                &session.working_dir.to_string_lossy(),
+                                &session.working_dir.as_deref().unwrap_or(Path::new(".")).to_string_lossy(),
                                 &tool_call.name,
                                 &request.id,
                                 tool_input.as_ref(),

@@ -12,8 +12,8 @@ use schemars::{schema_for, JsonSchema};
 use serde::Deserialize;
 use tokio_util::sync::CancellationToken;
 
-use crate::agents::extension::PlatformExtensionContext;
 use crate::agents::mcp_client::{Error, McpClientTrait};
+use crate::agents::mcp_server::InProcessContext;
 use crate::conversation::message::Message;
 use crate::providers::base::Provider;
 
@@ -34,11 +34,11 @@ struct SummarizeParams {
 
 pub struct SummarizeClient {
     info: InitializeResult,
-    context: PlatformExtensionContext,
+    context: InProcessContext,
 }
 
 impl SummarizeClient {
-    pub fn new(context: PlatformExtensionContext) -> anyhow::Result<Self> {
+    pub fn new(context: InProcessContext) -> anyhow::Result<Self> {
         let info = InitializeResult::new(ServerCapabilities::builder().enable_tools().build())
             .with_server_info(
                 Implementation::new(EXTENSION_NAME.to_string(), "1.0.0".to_string())
@@ -49,14 +49,14 @@ impl SummarizeClient {
     }
 
     async fn get_provider(&self) -> Result<Arc<dyn Provider>, String> {
-        let extension_manager = self
+        let mcp_manager = self
             .context
-            .extension_manager
+            .mcp_manager
             .as_ref()
             .and_then(|weak| weak.upgrade())
             .ok_or("Extension manager not available")?;
 
-        let provider_guard = extension_manager.get_provider().lock().await;
+        let provider_guard = mcp_manager.get_provider().lock().await;
 
         let provider = provider_guard
             .as_ref()

@@ -5,9 +5,9 @@ use tokio::io::AsyncReadExt;
 use tokio::process::Command;
 
 use super::super::container::Container;
-use super::super::extension::{ExtensionError, ExtensionResult, ProcessExit};
-use super::super::extension_malware_check;
 use super::super::mcp_client::{ConnectContext, McpClient};
+use super::super::mcp_server::{McpServerError, McpServerResult, ProcessExit};
+use super::super::mcp_server_malware_check;
 use crate::config::search_path::SearchPaths;
 use crate::subprocess::spawn_long_lived_mcp_subprocess;
 
@@ -17,8 +17,8 @@ pub(super) async fn connect(
     envs: HashMap<String, String>,
     container: Option<&Container>,
     mut ctx: ConnectContext,
-) -> ExtensionResult<McpClient> {
-    extension_malware_check::deny_if_malicious_cmd_args(cmd, args).await?;
+) -> McpServerResult<McpClient> {
+    mcp_server_malware_check::deny_if_malicious_cmd_args(cmd, args).await?;
 
     let command = match container {
         Some(container) => {
@@ -62,7 +62,7 @@ fn resolve_command(cmd: &str) -> std::path::PathBuf {
         })
 }
 
-pub(super) async fn spawn(mut command: Command, ctx: ConnectContext) -> ExtensionResult<McpClient> {
+pub(super) async fn spawn(mut command: Command, ctx: ConnectContext) -> McpServerResult<McpClient> {
     if let Ok(path) = SearchPaths::builder().path() {
         command.env("PATH", path);
     }
@@ -82,7 +82,7 @@ pub(super) async fn spawn(mut command: Command, ctx: ConnectContext) -> Extensio
 
     let (transport, mut stderr) = spawn_long_lived_mcp_subprocess(command).await?;
     let mut stderr = stderr.take().ok_or_else(|| {
-        ExtensionError::SetupError("failed to attach child process stderr".to_owned())
+        McpServerError::SetupError("failed to attach child process stderr".to_owned())
     })?;
 
     let stderr_task = tokio::spawn(async move {

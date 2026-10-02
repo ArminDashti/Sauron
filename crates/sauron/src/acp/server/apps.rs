@@ -23,7 +23,7 @@ impl SauronAcpAgent {
         };
 
         let agent = self.get_session_agent(&session_id).await?;
-        let mut apps = fetch_mcp_apps(&agent.extension_manager, &session_id)
+        let mut apps = fetch_mcp_apps(&agent.mcp_manager, &session_id)
             .await
             .map_err(|error| {
                 agent_client_protocol::Error::internal_error()

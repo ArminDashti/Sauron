@@ -192,6 +192,7 @@ type ElectronAPI = {
   listGitWorktreeDirs: (dir: string) => Promise<string[]>;
   getGitBranchInfo: (dir: string) => Promise<{ branch: string } | null>;
   listGitBranches: (dir: string) => Promise<string[]>;
+  getGitOriginUrl: (dir: string) => Promise<string | null>;
   switchGitBranch: (dir: string, branch: string) => Promise<{ success: boolean; error?: string }>;
   getGitChanges: (dir: string) => Promise<GitChangesResult | null>;
   getGitChangeDiff: (dir: string, filePath: string) => Promise<string>;
@@ -366,6 +367,7 @@ const electronAPI: ElectronAPI = {
   listGitWorktreeDirs: (dir: string) => ipcRenderer.invoke('list-git-worktree-dirs', dir),
   getGitBranchInfo: (dir: string) => ipcRenderer.invoke('get-git-branch-info', dir),
   listGitBranches: (dir: string) => ipcRenderer.invoke('list-git-branches', dir),
+  getGitOriginUrl: (dir: string) => ipcRenderer.invoke('get-git-origin-url', dir),
   switchGitBranch: (dir: string, branch: string) =>
     ipcRenderer.invoke('switch-git-branch', dir, branch),
   getGitChanges: (dir: string) => ipcRenderer.invoke('get-git-changes', dir),

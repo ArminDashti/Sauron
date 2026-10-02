@@ -398,7 +398,7 @@ impl SauronAcpAgent {
             })?;
 
         let cwd = effective_session_cwd(self.session_cwd.as_deref(), &args.cwd);
-        validate_absolute_cwd(&cwd)?;
+        validate_session_cwd(cwd.as_deref())?;
 
         session = self
             .prepare_session_for_activation(session, cwd, args.mcp_servers, true)
@@ -427,7 +427,7 @@ impl SauronAcpAgent {
             .internal_err_ctx("Failed to reload session")?;
 
         agent
-            .extension_manager
+            .mcp_manager
             .update_working_dir(&session.working_dir)
             .await;
 

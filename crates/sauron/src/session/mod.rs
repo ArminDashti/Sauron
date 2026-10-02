@@ -1,10 +1,10 @@
 mod chat_history_search;
 mod diagnostics;
 mod export_markdown;
-pub mod extension_data;
 pub mod import_formats;
 mod last_message_snippet;
 mod legacy;
+pub mod mcp_server_data;
 pub mod session_manager;
 mod session_naming;
 
@@ -17,7 +17,7 @@ pub use diagnostics::{
 pub use export_markdown::{
     export_session_to_markdown, message_to_markdown, user_projected_message_to_markdown,
 };
-pub use extension_data::{EnabledExtensionsState, ExtensionData, ExtensionState, TodoState};
+pub use mcp_server_data::{EnabledExtensionsState, McpServerData, McpServerState, TodoState};
 pub use session_manager::{
     Session, SessionInsights, SessionManager, SessionNameUpdate, SessionType, SessionUpdateBuilder,
 };

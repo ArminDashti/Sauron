@@ -101,23 +101,31 @@ export const DirSwitcher: React.FC<DirSwitcherProps> = ({
   const [recentDirs, setRecentDirs] = useState<string[]>([]);
   const [worktreeDirs, setWorktreeDirs] = useState<string[]>([]);
   const [customDirInput, setCustomDirInput] = useState('');
+  const [worktreesEnabled, setWorktreesEnabled] = useState(true);
   const refreshVersionRef = useRef(0);
+
+  useEffect(() => {
+    window.electron
+      .getSetting('enableWorktrees')
+      .then((value) => setWorktreesEnabled(value !== false))
+      .catch(() => setWorktreesEnabled(true));
+  }, []);
 
   const refreshMenuData = useCallback(async () => {
     const version = ++refreshVersionRef.current;
     setRecentDirs([]);
     setWorktreeDirs([]);
 
-    const [recent, worktrees] = await Promise.all([
-      window.electron.listRecentDirs().catch(() => []),
-      window.electron.listGitWorktreeDirs(workingDir).catch(() => []),
-    ]);
+    const recent = await window.electron.listRecentDirs().catch(() => []);
+    const worktrees = worktreesEnabled
+      ? await window.electron.listGitWorktreeDirs(workingDir).catch(() => [])
+      : [];
 
     if (version !== refreshVersionRef.current) return;
 
     setRecentDirs(recent);
     setWorktreeDirs(worktrees);
-  }, [workingDir]);
+  }, [workingDir, worktreesEnabled]);
 
   useEffect(() => {
     if (!isMenuOpen) {
@@ -265,22 +273,26 @@ export const DirSwitcher: React.FC<DirSwitcherProps> = ({
             </div>
 
             <DropdownMenuSeparator />
-            <DropdownMenuLabel>{intl.formatMessage(i18n.gitWorktrees)}</DropdownMenuLabel>
-            {filteredWorktreeDirs.length > 0 ? (
-              filteredWorktreeDirs.map((dir) => (
-                <DropdownMenuItem
-                  key={`worktree-${dir}`}
-                  onSelect={() => void handleSelectDirectory(dir)}
-                >
-                  <GitBranch className="mr-2 h-4 w-4 flex-shrink-0" />
-                  <DirNameLabel dir={dir} />
-                </DropdownMenuItem>
-              ))
-            ) : (
-              <DropdownMenuItem disabled>
-                <GitBranch className="mr-2 h-4 w-4" />
-                <span>{intl.formatMessage(i18n.noWorktreesFound)}</span>
-              </DropdownMenuItem>
+            {worktreesEnabled && (
+              <>
+                <DropdownMenuLabel>{intl.formatMessage(i18n.gitWorktrees)}</DropdownMenuLabel>
+                {filteredWorktreeDirs.length > 0 ? (
+                  filteredWorktreeDirs.map((dir) => (
+                    <DropdownMenuItem
+                      key={`worktree-${dir}`}
+                      onSelect={() => void handleSelectDirectory(dir)}
+                    >
+                      <GitBranch className="mr-2 h-4 w-4 flex-shrink-0" />
+                      <DirNameLabel dir={dir} />
+                    </DropdownMenuItem>
+                  ))
+                ) : (
+                  <DropdownMenuItem disabled>
+                    <GitBranch className="mr-2 h-4 w-4" />
+                    <span>{intl.formatMessage(i18n.noWorktreesFound)}</span>
+                  </DropdownMenuItem>
+                )}
+              </>
             )}
 
             {filteredRecentDirs.length > 0 && (

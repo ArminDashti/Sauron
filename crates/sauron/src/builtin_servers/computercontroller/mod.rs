@@ -236,7 +236,7 @@ impl ComputerControllerServer {
         // - macOS/Linux: ~/.cache/sauron/computer_controller/
         // - Windows:     ~\AppData\Local\Block\sauron\cache\computer_controller\
         // keep previous behavior of defaulting to /tmp/
-        let cache_dir = choose_app_strategy(crate::APP_STRATEGY.clone())
+        let cache_dir = choose_app_strategy(crate::config::paths::APP_STRATEGY.clone())
             .map(|strategy| strategy.in_cache_dir("computer_controller"))
             .unwrap_or_else(|_| std::env::temp_dir());
 
@@ -374,7 +374,9 @@ impl ComputerControllerServer {
             cache_dir,
             instructions,
             #[cfg(target_os = "macos")]
-            peekaboo_installed: Arc::new(AtomicBool::new(crate::peekaboo::is_peekaboo_installed())),
+            peekaboo_installed: Arc::new(AtomicBool::new(
+                crate::builtin_servers::peekaboo::is_peekaboo_installed(),
+            )),
         }
     }
 
@@ -391,12 +393,12 @@ impl ComputerControllerServer {
         if self.peekaboo_installed.load(Ordering::Relaxed) {
             return Ok(());
         }
-        if crate::peekaboo::is_peekaboo_installed() {
+        if crate::builtin_servers::peekaboo::is_peekaboo_installed() {
             self.peekaboo_installed.store(true, Ordering::Relaxed);
             return Ok(());
         }
         tracing::info!("Peekaboo not found, attempting auto-install via brew");
-        match crate::peekaboo::auto_install_peekaboo() {
+        match crate::builtin_servers::peekaboo::auto_install_peekaboo() {
             Ok(()) => {
                 self.peekaboo_installed.store(true, Ordering::Relaxed);
                 tracing::info!("Peekaboo installed successfully");
@@ -796,7 +798,7 @@ impl ComputerControllerServer {
             .as_ref()
             .map(|p| serde_json::to_value(p).unwrap_or(serde_json::Value::Null));
 
-        let result = crate::computercontroller::docx_tool::docx_tool(
+        let result = crate::builtin_servers::computercontroller::docx_tool::docx_tool(
             path,
             operation_str,
             params.content.as_deref(),
@@ -834,10 +836,13 @@ impl ComputerControllerServer {
             PdfOperation::ExtractImages => "extract_images",
         };
 
-        let result =
-            crate::computercontroller::pdf_tool::pdf_tool(path, operation_str, &self.cache_dir)
-                .await
-                .map_err(|e| ErrorData::new(e.code, e.message, e.data))?;
+        let result = crate::builtin_servers::computercontroller::pdf_tool::pdf_tool(
+            path,
+            operation_str,
+            &self.cache_dir,
+        )
+        .await
+        .map_err(|e| ErrorData::new(e.code, e.message, e.data))?;
 
         Ok(CallToolResult::success(result))
     }

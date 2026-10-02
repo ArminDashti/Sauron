@@ -1,4 +1,4 @@
-use crate::agents::platform_extensions::MANAGE_EXTENSIONS_TOOL_NAME_COMPLETE;
+use crate::agents::in_process::MANAGE_EXTENSIONS_TOOL_NAME_COMPLETE;
 use crate::agents::types::SharedProvider;
 use crate::config::permission::PermissionLevel;
 use crate::config::{PermissionManager, SauronMode};

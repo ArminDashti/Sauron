@@ -1,15 +1,15 @@
-use crate::agents::extension::PlatformExtensionContext;
 use crate::agents::mcp_client::{Error, McpClientTrait};
+use crate::agents::mcp_server::InProcessContext;
 use crate::agents::tool_execution::ToolCallContext;
 use crate::agents::{AgentEvent, SessionConfig};
-use crate::config::{Config, ExtensionConfig, SauronMode};
+use crate::config::{Config, McpServerConfig, SauronMode};
 use crate::context_mgmt::format_message_for_compacting;
 use crate::conversation::message::Message;
 use crate::conversation::Conversation;
 use crate::execution::manager::AgentManager;
 use crate::providers;
 use crate::providers::base::Provider;
-use crate::session::extension_data::EnabledExtensionsState;
+use crate::session::mcp_server_data::EnabledExtensionsState;
 use crate::session::session_manager::{Session, SessionType};
 use anyhow::Result;
 use async_trait::async_trait;
@@ -105,11 +105,11 @@ struct InterruptAgentParams {
 
 pub struct OrchestratorClient {
     info: InitializeResult,
-    context: PlatformExtensionContext,
+    context: InProcessContext,
 }
 
 impl OrchestratorClient {
-    pub fn new(context: PlatformExtensionContext) -> Result<Self> {
+    pub fn new(context: InProcessContext) -> Result<Self> {
         let info = InitializeResult::new(ServerCapabilities::builder().enable_tools().build())
             .with_server_info(
                 Implementation::new(EXTENSION_NAME, "1.0.0").with_title("Orchestrator"),
@@ -128,14 +128,14 @@ impl OrchestratorClient {
     }
 
     async fn get_provider(&self) -> Result<Arc<dyn Provider>, String> {
-        let extension_manager = self
+        let mcp_manager = self
             .context
-            .extension_manager
+            .mcp_manager
             .as_ref()
             .and_then(|weak| weak.upgrade())
             .ok_or("Extension manager not available")?;
 
-        let provider_guard = extension_manager.get_provider().lock().await;
+        let provider_guard = mcp_manager.get_provider().lock().await;
         provider_guard
             .as_ref()
             .cloned()
@@ -157,7 +157,7 @@ impl OrchestratorClient {
             .map_err(|e| format!("Could not resolve model config: {e}"))
     }
 
-    fn parent_extensions(&self) -> Vec<ExtensionConfig> {
+    fn parent_extensions(&self) -> Vec<McpServerConfig> {
         let extension_data = self.context.session.as_ref().map(|s| &s.extension_data);
         EnabledExtensionsState::extensions_or_default(extension_data, Config::global())
     }
@@ -759,8 +759,8 @@ mod tests {
         session_manager: Arc<SessionManager>,
         session: Option<crate::session::Session>,
     ) -> OrchestratorClient {
-        OrchestratorClient::new(PlatformExtensionContext {
-            extension_manager: None,
+        OrchestratorClient::new(InProcessContext {
+            mcp_manager: None,
             session_manager,
             scheduler: None,
             session: session.map(Arc::new),

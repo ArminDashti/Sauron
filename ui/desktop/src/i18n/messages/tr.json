@@ -5285,4 +5285,17 @@
   "usageStats.writeTokens": {
     "defaultMessage": "Write tokens"
   }
+,
+  "worktreeSettings.description": {
+    "defaultMessage": "Çalışma dizini seçicinin sunduğu dizinleri denetler"
+  },
+  "worktreeSettings.title": {
+    "defaultMessage": "Git worktree’leri"
+  },
+  "worktreeSettings.toggleDescription": {
+    "defaultMessage": "Geçerli deponun diğer worktree’lerini çalışma dizini seçicisinde listele."
+  },
+  "worktreeSettings.toggleLabel": {
+    "defaultMessage": "Git worktree’lerini dikkate al"
+  }
 }

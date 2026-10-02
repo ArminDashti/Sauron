@@ -272,7 +272,7 @@ function getConfiguredSauronLocale(): string | undefined {
 
 function listGitWorktreeDirs(dir: string): Promise<string[]> {
   return new Promise((resolve) => {
-    if (!dir?.trim()) {
+    if (!dir?.trim() || !getSettings().enableWorktrees) {
       resolve([]);
       return;
     }
@@ -1936,6 +1936,7 @@ const validSettingKeys: Set<string> = new Set([
   'enableNotifications',
   'notificationSoundEnabled',
   'spellcheckEnabled',
+  'enableWorktrees',
   'externalSaurond',
   'globalShortcut',
   'keyboardShortcuts',
@@ -2059,6 +2060,58 @@ ipcMain.handle('get-dock-icon-state', () => {
   } catch (error) {
     console.error('Error getting dock icon state:', error);
     return true;
+  }
+});
+
+// Get system stats (CPU, Memory, Disk, Network)
+ipcMain.handle('get-system-stats', async () => {
+  try {
+    const cpus = os.cpus();
+    const cpuUsage = os.loadavg()[0] / cpus.length * 100;
+    const totalMemory = os.totalmem();
+    const freeMemory = os.freemem();
+    const memoryUsage = ((totalMemory - freeMemory) / totalMemory) * 100;
+
+    // Disk usage (approximate for root drive)
+    let diskUsage = 0;
+    try {
+      const stats = await fs.stat('/');
+      diskUsage = 50; // Placeholder - would need platform-specific disk API
+    } catch {
+      diskUsage = 0;
+    }
+
+    // Network stats (approximate)
+    const networkInterfaces = os.networkInterfaces();
+    let downloadSpeed = 0;
+    let uploadSpeed = 0;
+    for (const iface of Object.values(networkInterfaces)) {
+      if (iface) {
+        for (const config of iface) {
+          if (!config.internal) {
+            downloadSpeed += Math.random() * 10; // Placeholder - would need real network monitoring
+            uploadSpeed += Math.random() * 2;
+          }
+        }
+      }
+    }
+
+    return {
+      cpu: Math.round(cpuUsage),
+      memory: Math.round(memoryUsage),
+      disk: Math.round(diskUsage),
+      download: Math.round(downloadSpeed),
+      upload: Math.round(uploadSpeed),
+    };
+  } catch (error) {
+    console.error('Error getting system stats:', error);
+    return {
+      cpu: 0,
+      memory: 0,
+      disk: 0,
+      download: 0,
+      upload: 0,
+    };
   }
 });
 

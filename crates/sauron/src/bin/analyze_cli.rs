@@ -3,7 +3,7 @@
 
 use clap::Parser;
 use rayon::prelude::*;
-use sauron::agents::platform_extensions::analyze::{format, graph, AnalyzeClient};
+use sauron::agents::in_process::analyze::{format, graph, AnalyzeClient};
 use std::path::PathBuf;
 
 #[derive(Parser)]

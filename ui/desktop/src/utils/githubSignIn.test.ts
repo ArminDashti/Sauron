@@ -3,6 +3,7 @@ import {
   classifyGitHubTokenResponse,
   parseGitHubDeviceCode,
   describeGitHubSignInError,
+  githubSignInBrowserUrl,
   GITHUB_DEVICE_URL,
 } from './githubSignIn';
 
@@ -89,6 +90,32 @@ describe('parseGitHubDeviceCode', () => {
     );
     expect(() => parseGitHubDeviceCode(500, null)).toThrow('device_code_request_failed_500');
     expect(() => parseGitHubDeviceCode(200, { device_code: 'x' })).toThrow();
+  });
+});
+
+describe('githubSignInBrowserUrl', () => {
+  it('prefers verificationUriComplete', () => {
+    expect(
+      githubSignInBrowserUrl({
+        verificationUri: 'https://github.com/login/device',
+        verificationUriComplete: 'https://github.com/login/device?user_code=ABCD-1234',
+      })
+    ).toBe('https://github.com/login/device?user_code=ABCD-1234');
+  });
+
+  it('falls back to verificationUri then the default device URL', () => {
+    expect(
+      githubSignInBrowserUrl({
+        verificationUri: 'https://github.com/login/device',
+        verificationUriComplete: null,
+      })
+    ).toBe('https://github.com/login/device');
+    expect(
+      githubSignInBrowserUrl({
+        verificationUri: '',
+        verificationUriComplete: null,
+      })
+    ).toBe(GITHUB_DEVICE_URL);
   });
 });
 

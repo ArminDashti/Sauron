@@ -4,17 +4,19 @@ use clap_complete::{generate, Shell as ClapShell};
 use clap_complete_nushell::Nushell as ClapNushell;
 use sauron::agents::SauronPlatform;
 #[cfg(feature = "bundled-mcp")]
-use sauron::builtin_extension::register_builtin_extensions;
+use sauron::builtin_mcp_server::register_builtin_mcp_servers;
+#[cfg(feature = "bundled-mcp")]
+use sauron::builtin_servers::mcp_server_runner::{serve, McpCommand};
+#[cfg(feature = "bundled-mcp")]
+use sauron::builtin_servers::{
+    AutoVisualiserRouter, ComputerControllerServer, MemoryServer, TutorialServer,
+};
 use sauron::config::{Config, SauronMode};
 #[cfg(feature = "telemetry")]
 use sauron::posthog::get_telemetry_choice;
 use sauron::recipe::Recipe;
 #[cfg(feature = "acp-http")]
 use sauron::source_roots::SourceRoot;
-#[cfg(feature = "bundled-mcp")]
-use sauron_mcp::mcp_server_runner::{serve, McpCommand};
-#[cfg(feature = "bundled-mcp")]
-use sauron_mcp::{AutoVisualiserRouter, ComputerControllerServer, MemoryServer, TutorialServer};
 
 #[cfg(feature = "telemetry")]
 use crate::commands::configure::configure_telemetry_consent_dialog;
@@ -1450,7 +1452,7 @@ enum McpProbeElicitation {
 async fn handle_mcp_probe(extension_command: String, script_path: Option<String>) -> Result<()> {
     use rmcp::model::{ElicitRequestParams, ElicitResult, ElicitationAction};
     use sauron::agents::{Agent, AgentConfig, ToolCallContext};
-    use sauron::config::ExtensionConfig;
+    use sauron::config::McpServerConfig;
     use tokio_util::sync::CancellationToken;
 
     let script = if let Some(path) = script_path {
@@ -1486,7 +1488,7 @@ async fn handle_mcp_probe(extension_command: String, script_path: Option<String>
         crate::session::CliSession::parse_stdio_extension(&extension_command)?
     };
     match &mut extension {
-        ExtensionConfig::Stdio { name, .. } | ExtensionConfig::StreamableHttp { name, .. } => {
+        McpServerConfig::Stdio { name, .. } | McpServerConfig::StreamableHttp { name, .. } => {
             *name = "probe".to_string();
         }
         _ => unreachable!("MCP probe only creates stdio or streamable HTTP extensions"),
@@ -1560,14 +1562,14 @@ async fn handle_mcp_probe(extension_command: String, script_path: Option<String>
         )
         .await?;
     let session_id = session.id.as_str();
-    agent.add_extension(extension, session_id).await?;
+    agent.add_mcp_server(extension, session_id).await?;
 
     let mut results = Vec::new();
     for step in script.steps {
         let result = match step {
             McpProbeStep::ListTools => serde_json::json!({
                 "action": "listTools",
-                "result": agent.extension_manager.list_tools_from_extension(
+                "result": agent.mcp_manager.list_tools_from_extension(
                     session_id,
                     "probe",
                     CancellationToken::new(),
@@ -1575,7 +1577,7 @@ async fn handle_mcp_probe(extension_command: String, script_path: Option<String>
             }),
             McpProbeStep::ListPrompts => serde_json::json!({
                 "action": "listPrompts",
-                "result": agent.extension_manager.list_prompts_from_extension(
+                "result": agent.mcp_manager.list_prompts_from_extension(
                     session_id,
                     "probe",
                     CancellationToken::new(),
@@ -1583,7 +1585,7 @@ async fn handle_mcp_probe(extension_command: String, script_path: Option<String>
             }),
             McpProbeStep::ListResources => serde_json::json!({
                 "action": "listResources",
-                "result": agent.extension_manager.list_resources_result_from_extension(
+                "result": agent.mcp_manager.list_resources_result_from_extension(
                     session_id,
                     "probe",
                     CancellationToken::new(),
@@ -1597,7 +1599,7 @@ async fn handle_mcp_probe(extension_command: String, script_path: Option<String>
                     Some("mcp-probe-tool-call".to_string()),
                 );
                 let result = agent
-                    .extension_manager
+                    .mcp_manager
                     .dispatch_tool_call(
                         &ctx,
                         rmcp::model::CallToolRequestParams::new(scoped_name)
@@ -2806,7 +2808,7 @@ async fn handle_default_session() -> Result<()> {
 
 pub async fn cli() -> anyhow::Result<()> {
     #[cfg(feature = "bundled-mcp")]
-    register_builtin_extensions(sauron_mcp::BUILTIN_EXTENSIONS.clone());
+    register_builtin_mcp_servers(sauron::builtin_servers::BUILTIN_SERVERS.clone());
 
     let cli = Cli::parse();
 
@@ -2970,8 +2972,8 @@ pub async fn cli() -> anyhow::Result<()> {
             .await
         }
         Some(Command::ValidateExtensions { file }) => {
-            use sauron::agents::validate_extensions::validate_bundled_extensions;
-            match validate_bundled_extensions(&file) {
+            use sauron::agents::validate_mcp_servers::validate_bundled_mcp_servers;
+            match validate_bundled_mcp_servers(&file) {
                 Ok(msg) => {
                     println!("{msg}");
                     Ok(())

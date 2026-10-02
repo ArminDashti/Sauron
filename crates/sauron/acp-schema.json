@@ -5030,6 +5030,7 @@
       "enum": [
         "skill",
         "builtinSkill",
+        "rule",
         "recipe",
         "subrecipe",
         "agent",

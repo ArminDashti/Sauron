@@ -16,8 +16,8 @@ use tokio_util::sync::CancellationToken;
 use super::calculator_extension::{value, CalculatorExtension, ADD};
 use super::dummy_api::{DummyApi, ProviderFeatures};
 use crate::acp::server::SauronAcpAgent;
-use crate::agents::extension::ExtensionConfig;
 use crate::agents::mcp_client::McpClientTrait;
+use crate::agents::mcp_server::McpServerConfig;
 use crate::agents::{Agent, AgentConfig, AgentEvent, SauronPlatform, SessionConfig};
 use crate::config::permission::PermissionManager;
 use crate::config::SauronMode;
@@ -86,10 +86,10 @@ async fn agent_with_calculator() -> Result<(
         agent.config.session_manager.action_required(),
     ));
     agent
-        .extension_manager
+        .mcp_manager
         .add_client(
             "calculator".to_string(),
-            ExtensionConfig::Platform {
+            McpServerConfig::Platform {
                 name: "calculator".to_string(),
                 description: "Stateful test calculator".to_string(),
                 display_name: None,

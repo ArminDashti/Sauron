@@ -230,7 +230,7 @@ extensions:
 ### Technical Details
 
 - Extension types: `crates/sauron/src/agents/extension.rs` (ExtensionConfig enum)
-- Built-in MCP servers: `crates/sauron-mcp/`
+- Built-in MCP servers: `crates/sauron/src/builtin_servers/`
 - Extension loading: `crates/sauron/src/agents/extension_manager.rs`
 
 ---

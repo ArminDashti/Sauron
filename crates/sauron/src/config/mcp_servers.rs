@@ -1,6 +1,6 @@
 use super::base::Config;
-use crate::agents::extension::PLATFORM_EXTENSIONS;
-use crate::agents::ExtensionConfig;
+use crate::agents::mcp_server::IN_PROCESS_SERVERS;
+use crate::agents::McpServerConfig;
 use indexmap::IndexMap;
 use serde::{Deserialize, Serialize};
 use serde_yaml::Mapping;
@@ -13,10 +13,10 @@ pub const DEFAULT_DISPLAY_NAME: &str = "Developer";
 const EXTENSIONS_CONFIG_KEY: &str = "extensions";
 
 #[derive(Debug, Deserialize, Serialize, Clone)]
-pub struct ExtensionEntry {
+pub struct McpServerEntry {
     pub enabled: bool,
     #[serde(flatten)]
-    pub config: ExtensionConfig,
+    pub config: McpServerConfig,
 }
 
 pub fn name_to_key(name: &str) -> String {
@@ -31,10 +31,10 @@ pub fn name_to_key(name: &str) -> String {
     result.to_lowercase()
 }
 
-pub(crate) fn is_extension_available(config: &ExtensionConfig) -> bool {
+pub(crate) fn is_mcp_server_available(config: &McpServerConfig) -> bool {
     match config {
-        ExtensionConfig::Platform { name, .. } => {
-            crate::agents::extension::PLATFORM_EXTENSIONS.contains_key(name_to_key(name).as_str())
+        McpServerConfig::Platform { name, .. } => {
+            crate::agents::mcp_server::IN_PROCESS_SERVERS.contains_key(name_to_key(name).as_str())
         }
         _ => true,
     }
@@ -52,7 +52,7 @@ fn inject_name_if_missing(key: &str, value: serde_yaml::Value) -> serde_yaml::Va
     }
 }
 
-fn parse_extensions_map(raw: &Mapping) -> IndexMap<String, ExtensionEntry> {
+fn parse_mcp_servers_map(raw: &Mapping) -> IndexMap<String, McpServerEntry> {
     let mut extensions_map = IndexMap::with_capacity(raw.len());
     for (k, v) in raw {
         let Some(key) = k.as_str() else {
@@ -61,9 +61,9 @@ fn parse_extensions_map(raw: &Mapping) -> IndexMap<String, ExtensionEntry> {
         };
 
         let v = inject_name_if_missing(key, v.clone());
-        match serde_yaml::from_value::<ExtensionEntry>(v) {
+        match serde_yaml::from_value::<McpServerEntry>(v) {
             Ok(entry) => {
-                if !is_extension_available(&entry.config) {
+                if !is_mcp_server_available(&entry.config) {
                     continue;
                 }
                 extensions_map.insert(key.to_string(), entry);
@@ -81,7 +81,7 @@ fn parse_extensions_map(raw: &Mapping) -> IndexMap<String, ExtensionEntry> {
     extensions_map
 }
 
-fn get_extensions_map_with_config(config: &Config) -> IndexMap<String, ExtensionEntry> {
+fn get_mcp_servers_map_with_config(config: &Config) -> IndexMap<String, McpServerEntry> {
     let raw: Mapping = config
         .get_param(EXTENSIONS_CONFIG_KEY)
         .unwrap_or_else(|err| {
@@ -92,29 +92,29 @@ fn get_extensions_map_with_config(config: &Config) -> IndexMap<String, Extension
             Default::default()
         });
 
-    parse_extensions_map(&raw)
+    parse_mcp_servers_map(&raw)
 }
 
-fn get_extensions_map() -> IndexMap<String, ExtensionEntry> {
-    get_extensions_map_with_config(Config::global())
+fn get_mcp_servers_map() -> IndexMap<String, McpServerEntry> {
+    get_mcp_servers_map_with_config(Config::global())
 }
 
-enum ExtensionMutation {
-    Upsert(String, Box<ExtensionEntry>),
+enum McpServerMutation {
+    Upsert(String, Box<McpServerEntry>),
     Remove(String),
     Noop,
 }
 
-fn with_raw_extensions_mapping<F>(config: &Config, mutate: F)
+fn with_raw_mcp_servers_mapping<F>(config: &Config, mutate: F)
 where
-    F: FnOnce(&mut IndexMap<String, ExtensionEntry>) -> ExtensionMutation,
+    F: FnOnce(&mut IndexMap<String, McpServerEntry>) -> McpServerMutation,
 {
     let mut serialize_error = None;
     let result = config.update_param::<Mapping, Mapping, _>(EXTENSIONS_CONFIG_KEY, |mut raw| {
-        let mut extensions = parse_extensions_map(&raw);
+        let mut extensions = parse_mcp_servers_map(&raw);
 
         match mutate(&mut extensions) {
-            ExtensionMutation::Upsert(key, entry) => match serde_yaml::to_value(entry) {
+            McpServerMutation::Upsert(key, entry) => match serde_yaml::to_value(entry) {
                 Ok(value) => {
                     raw.insert(serde_yaml::Value::String(key), value);
                 }
@@ -122,10 +122,10 @@ where
                     serialize_error = Some(err);
                 }
             },
-            ExtensionMutation::Remove(key) => {
+            McpServerMutation::Remove(key) => {
                 raw.shift_remove(key.as_str());
             }
-            ExtensionMutation::Noop => {}
+            McpServerMutation::Noop => {}
         }
 
         raw
@@ -138,12 +138,12 @@ where
     }
 }
 
-pub fn get_extension_by_name(name: &str) -> Option<ExtensionConfig> {
+pub fn get_mcp_server_by_name(name: &str) -> Option<McpServerConfig> {
     get_extension_by_name_with_config(Config::global(), name)
 }
 
-fn get_extension_by_name_with_config(config: &Config, name: &str) -> Option<ExtensionConfig> {
-    let extensions = get_extensions_map_with_config(config);
+fn get_extension_by_name_with_config(config: &Config, name: &str) -> Option<McpServerConfig> {
+    let extensions = get_mcp_servers_map_with_config(config);
     let key = name_to_key(name);
 
     if let Some(entry) = extensions
@@ -154,66 +154,66 @@ fn get_extension_by_name_with_config(config: &Config, name: &str) -> Option<Exte
         return Some(entry.config.clone());
     }
 
-    get_available_extensions()
+    get_available_mcp_servers()
         .into_iter()
         .find(|config| config.name() == name || config.key() == key)
 }
 
-pub fn set_extension(entry: ExtensionEntry) {
+pub fn set_extension(entry: McpServerEntry) {
     set_extension_with_config(Config::global(), entry);
 }
 
-fn set_extension_with_config(config: &Config, entry: ExtensionEntry) {
+fn set_extension_with_config(config: &Config, entry: McpServerEntry) {
     let key = entry.config.key();
-    with_raw_extensions_mapping(config, |_| ExtensionMutation::Upsert(key, Box::new(entry)));
+    with_raw_mcp_servers_mapping(config, |_| McpServerMutation::Upsert(key, Box::new(entry)));
 }
 
-pub fn remove_extension(key: &str) {
+pub fn remove_mcp_server(key: &str) {
     remove_extension_with_config(Config::global(), key);
 }
 
 fn remove_extension_with_config(config: &Config, key: &str) {
-    with_raw_extensions_mapping(config, |_| ExtensionMutation::Remove(key.to_string()));
+    with_raw_mcp_servers_mapping(config, |_| McpServerMutation::Remove(key.to_string()));
 }
 
 /// Returns true when an existing extension was updated, false when the key was missing.
-pub fn set_extension_enabled(key: &str, enabled: bool) -> bool {
+pub fn set_mcp_server_enabled(key: &str, enabled: bool) -> bool {
     set_extension_enabled_with_config(Config::global(), key, enabled)
 }
 
 fn set_extension_enabled_with_config(config: &Config, key: &str, enabled: bool) -> bool {
     let mut updated = false;
-    with_raw_extensions_mapping(config, |extensions| {
+    with_raw_mcp_servers_mapping(config, |extensions| {
         let Some(entry) = extensions.get_mut(key) else {
-            return ExtensionMutation::Noop;
+            return McpServerMutation::Noop;
         };
 
         entry.enabled = enabled;
         updated = true;
-        ExtensionMutation::Upsert(key.to_string(), Box::new(entry.clone()))
+        McpServerMutation::Upsert(key.to_string(), Box::new(entry.clone()))
     });
 
     updated
 }
 
-pub fn get_all_extensions() -> Vec<ExtensionEntry> {
-    let extensions = get_extensions_map();
+pub fn get_all_mcp_servers() -> Vec<McpServerEntry> {
+    let extensions = get_mcp_servers_map();
     extensions.into_values().collect()
 }
 
-pub fn get_all_extension_names() -> Vec<String> {
-    let extensions = get_extensions_map();
+pub fn get_all_mcp_server_names() -> Vec<String> {
+    let extensions = get_mcp_servers_map();
     extensions.keys().cloned().collect()
 }
 
-pub fn is_extension_enabled(key: &str) -> bool {
-    let extensions = get_extensions_map();
+pub fn is_mcp_server_enabled(key: &str) -> bool {
+    let extensions = get_mcp_servers_map();
     extensions.get(key).map(|e| e.enabled).unwrap_or(false)
 }
 
 /// Returns the configured enabled state for an extension, or `None` when it has no entry.
 pub fn configured_enabled_state(config: &Config, name: &str) -> Option<bool> {
-    let extensions = get_extensions_map_with_config(config);
+    let extensions = get_mcp_servers_map_with_config(config);
     let key = name_to_key(name);
     extensions
         .values()
@@ -222,27 +222,27 @@ pub fn configured_enabled_state(config: &Config, name: &str) -> Option<bool> {
         .map(|entry| entry.enabled)
 }
 
-pub fn get_enabled_extensions() -> Vec<ExtensionConfig> {
-    get_all_extensions()
+pub fn get_enabled_mcp_servers() -> Vec<McpServerConfig> {
+    get_all_mcp_servers()
         .into_iter()
         .filter(|ext| ext.enabled)
         .map(|ext| ext.config)
         .collect()
 }
 
-pub fn get_enabled_extensions_with_config(config: &Config) -> Vec<ExtensionConfig> {
-    get_extensions_map_with_config(config)
+pub fn get_enabled_mcp_servers_with_config(config: &Config) -> Vec<McpServerConfig> {
+    get_mcp_servers_map_with_config(config)
         .into_values()
         .filter(|ext| ext.enabled)
         .map(|ext| ext.config)
         .collect()
 }
 
-pub fn get_available_extensions() -> Vec<ExtensionConfig> {
-    let mut builtin_names = crate::builtin_extension::get_builtin_extension_names();
+pub fn get_available_mcp_servers() -> Vec<McpServerConfig> {
+    let mut builtin_names = crate::builtin_mcp_server::get_builtin_mcp_server_names();
     builtin_names.sort_unstable();
 
-    let mut platform_definitions = PLATFORM_EXTENSIONS
+    let mut platform_definitions = IN_PROCESS_SERVERS
         .values()
         .filter(|definition| !definition.hidden)
         .collect::<Vec<_>>();
@@ -250,7 +250,7 @@ pub fn get_available_extensions() -> Vec<ExtensionConfig> {
 
     builtin_names
         .into_iter()
-        .map(|name| ExtensionConfig::Builtin {
+        .map(|name| McpServerConfig::Builtin {
             name: name.to_string(),
             description: String::new(),
             display_name: Some(name.to_string()),
@@ -261,7 +261,7 @@ pub fn get_available_extensions() -> Vec<ExtensionConfig> {
         .chain(
             platform_definitions
                 .into_iter()
-                .map(|definition| ExtensionConfig::Platform {
+                .map(|definition| McpServerConfig::Platform {
                     name: definition.name.to_string(),
                     description: definition.description.to_string(),
                     display_name: Some(definition.display_name.to_string()),
@@ -298,21 +298,21 @@ pub fn get_warnings() -> Vec<String> {
     warnings
 }
 
-pub fn resolve_extensions_for_new_session(
-    recipe_extensions: Option<&[ExtensionConfig]>,
-    override_extensions: Option<Vec<ExtensionConfig>>,
-) -> Vec<ExtensionConfig> {
+pub fn resolve_mcp_servers_for_new_session(
+    recipe_extensions: Option<&[McpServerConfig]>,
+    override_extensions: Option<Vec<McpServerConfig>>,
+) -> Vec<McpServerConfig> {
     let extensions = if let Some(exts) = recipe_extensions {
         exts.to_vec()
     } else if let Some(exts) = override_extensions {
         exts
     } else {
-        get_enabled_extensions()
+        get_enabled_mcp_servers()
     };
 
     extensions
         .into_iter()
-        .filter(is_extension_available)
+        .filter(is_mcp_server_available)
         .collect()
 }
 
@@ -345,10 +345,10 @@ mod tests {
             .clone()
     }
 
-    fn builtin_entry(name: &str, enabled: bool) -> ExtensionEntry {
-        ExtensionEntry {
+    fn builtin_entry(name: &str, enabled: bool) -> McpServerEntry {
+        McpServerEntry {
             enabled,
-            config: ExtensionConfig::Builtin {
+            config: McpServerConfig::Builtin {
                 name: name.to_string(),
                 description: format!("{name} description"),
                 display_name: Some(name.to_string()),
@@ -361,7 +361,7 @@ mod tests {
 
     #[test]
     fn test_is_extension_available_filters_unknown_platform() {
-        let unknown_platform = ExtensionConfig::Platform {
+        let unknown_platform = McpServerConfig::Platform {
             name: "definitely_not_real_platform_extension".to_string(),
             description: "unknown".to_string(),
             display_name: None,
@@ -369,7 +369,7 @@ mod tests {
             available_tools: Vec::new(),
         };
 
-        let builtin = ExtensionConfig::Builtin {
+        let builtin = McpServerConfig::Builtin {
             name: "developer".to_string(),
             description: "".to_string(),
             display_name: Some("Developer".to_string()),
@@ -378,8 +378,8 @@ mod tests {
             available_tools: Vec::new(),
         };
 
-        assert!(!is_extension_available(&unknown_platform));
-        assert!(is_extension_available(&builtin));
+        assert!(!is_mcp_server_available(&unknown_platform));
+        assert!(is_mcp_server_available(&builtin));
     }
 
     #[test]
@@ -488,21 +488,21 @@ extensions:
     #[test]
     fn test_get_extension_by_name_falls_back_to_available_builtin() {
         fn spawn_builtin(_: tokio::io::DuplexStream, _: tokio::io::DuplexStream) {}
-        crate::builtin_extension::register_builtin_extension("memory", spawn_builtin);
+        crate::builtin_mcp_server::register_builtin_mcp_server("memory", spawn_builtin);
 
-        let extension = get_extension_by_name("memory").unwrap();
+        let extension = get_mcp_server_by_name("memory").unwrap();
 
         assert!(matches!(
             extension,
-            ExtensionConfig::Builtin { ref name, .. } if name == "memory"
+            McpServerConfig::Builtin { ref name, .. } if name == "memory"
         ));
     }
 
     #[test]
     fn test_get_extension_by_name_resolves_saved_entry_by_key() {
-        let saved = ExtensionEntry {
+        let saved = McpServerEntry {
             enabled: true,
-            config: ExtensionConfig::Stdio {
+            config: McpServerConfig::Stdio {
                 name: "My Tool".to_string(),
                 description: "saved description".to_string(),
                 cmd: "my-tool".to_string(),
@@ -524,7 +524,7 @@ extensions:
         let resolved = get_extension_by_name_with_config(&config, &key).unwrap();
 
         match resolved {
-            ExtensionConfig::Stdio {
+            McpServerConfig::Stdio {
                 timeout,
                 available_tools,
                 ..
@@ -633,7 +633,7 @@ extensions:
 "#,
         );
 
-        let extensions = get_extensions_map_with_config(&config);
+        let extensions = get_mcp_servers_map_with_config(&config);
         let entry = extensions
             .get("firecrawl")
             .expect("firecrawl extension should parse");
@@ -657,12 +657,12 @@ extensions:
 "#,
         );
 
-        let extensions = get_extensions_map_with_config(&config);
+        let extensions = get_mcp_servers_map_with_config(&config);
         let entry = extensions
             .get("brave-search")
             .expect("brave-search extension should parse");
         match &entry.config {
-            ExtensionConfig::Stdio { envs, .. } => {
+            McpServerConfig::Stdio { envs, .. } => {
                 assert_eq!(
                     envs.get_env().get("BRAVE_API_KEY"),
                     Some(&"test-key".to_string())
@@ -687,13 +687,13 @@ extensions:
 "#,
         );
 
-        let extensions = get_extensions_map_with_config(&config);
+        let extensions = get_mcp_servers_map_with_config(&config);
         let entry = extensions
             .get("brave-search")
             .expect("brave-search extension should parse when name is missing and env: is used");
         assert_eq!(entry.config.name(), "brave-search");
         match &entry.config {
-            ExtensionConfig::Stdio { envs, .. } => {
+            McpServerConfig::Stdio { envs, .. } => {
                 assert_eq!(
                     envs.get_env().get("BRAVE_API_KEY"),
                     Some(&"test-key".to_string())
@@ -726,13 +726,13 @@ extensions:
         let subscriber = tracing_subscriber::registry().with(logs.clone());
 
         tracing::subscriber::with_default(subscriber, || {
-            let extensions = get_enabled_extensions_with_config(&config);
+            let extensions = get_enabled_mcp_servers_with_config(&config);
             // Bundled platform extensions are auto-injected; filter to user-declared entries
             // (Builtin or anything with the test YAML's names) for the invariant check.
             let user_names: Vec<&str> = extensions
                 .iter()
                 .filter_map(|ext| match ext {
-                    ExtensionConfig::Builtin { name, .. } => Some(name.as_str()),
+                    McpServerConfig::Builtin { name, .. } => Some(name.as_str()),
                     _ => None,
                 })
                 .collect();
