@@ -1379,15 +1379,6 @@
   "headersSection.value": {
     "defaultMessage": "Valor"
   },
-  "hub.goodAfternoon": {
-    "defaultMessage": "Buenas tardes"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "Buenas noches"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "Buenos días"
-  },
   "hubView.description": {
     "defaultMessage": "Descubre skills y servidores MCP de diversas fuentes."
   },
@@ -2399,8 +2390,14 @@
   "navigationFooter.you": {
     "defaultMessage": "Tú"
   },
-  "navigationPanel.chats": {
-    "defaultMessage": "Chats"
+  "navigationPanel.goBack": {
+    "defaultMessage": "Atrás"
+  },
+  "navigationPanel.goForward": {
+    "defaultMessage": "Adelante"
+  },
+  "navigationPanel.groupChats": {
+    "defaultMessage": "Agrupar chats por espacio de trabajo"
   },
   "navigationPanel.loadingChats": {
     "defaultMessage": "Cargando chats…"
@@ -2420,8 +2417,14 @@
   "navigationPanel.metaUpdated": {
     "defaultMessage": "Actualizado"
   },
+  "navigationPanel.newProject": {
+    "defaultMessage": "Nuevo proyecto"
+  },
   "navigationPanel.noChats": {
     "defaultMessage": "No hay chats recientes"
+  },
+  "navigationPanel.projects": {
+    "defaultMessage": "Proyectos"
   },
   "navigationPanel.statusError": {
     "defaultMessage": "Error"
@@ -2437,6 +2440,9 @@
   },
   "navigationPanel.untitledSession": {
     "defaultMessage": "Sesión sin título"
+  },
+  "navigationPanel.workspaces": {
+    "defaultMessage": "Espacios de trabajo"
   },
   "onboardingGuard.checkProviderErrorDescription": {
     "defaultMessage": "Puede que el servidor se esté iniciando o no esté disponible temporalmente."

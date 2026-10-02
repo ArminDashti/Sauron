@@ -1379,15 +1379,6 @@
   "headersSection.value": {
     "defaultMessage": "Nilai"
   },
-  "hub.goodAfternoon": {
-    "defaultMessage": "Selamat siang"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "Selamat malam"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "Selamat pagi"
-  },
   "hubView.description": {
     "defaultMessage": "Temukan Skills dan server MCP dari berbagai sumber."
   },
@@ -2399,8 +2390,14 @@
   "navigationFooter.you": {
     "defaultMessage": "Anda"
   },
-  "navigationPanel.chats": {
-    "defaultMessage": "Obrolan"
+  "navigationPanel.goBack": {
+    "defaultMessage": "Kembali"
+  },
+  "navigationPanel.goForward": {
+    "defaultMessage": "Maju"
+  },
+  "navigationPanel.groupChats": {
+    "defaultMessage": "Kelompokkan obrolan berdasarkan ruang kerja"
   },
   "navigationPanel.loadingChats": {
     "defaultMessage": "Memuat obrolan…"
@@ -2420,8 +2417,14 @@
   "navigationPanel.metaUpdated": {
     "defaultMessage": "Diperbarui"
   },
+  "navigationPanel.newProject": {
+    "defaultMessage": "Proyek baru"
+  },
   "navigationPanel.noChats": {
     "defaultMessage": "Tidak ada obrolan terbaru"
+  },
+  "navigationPanel.projects": {
+    "defaultMessage": "Proyek"
   },
   "navigationPanel.statusError": {
     "defaultMessage": "Kesalahan"
@@ -2437,6 +2440,9 @@
   },
   "navigationPanel.untitledSession": {
     "defaultMessage": "Sesi tanpa judul"
+  },
+  "navigationPanel.workspaces": {
+    "defaultMessage": "Ruang kerja"
   },
   "onboardingGuard.checkProviderErrorDescription": {
     "defaultMessage": "Server mungkin sedang dimulai atau tidak tersedia untuk sementara."

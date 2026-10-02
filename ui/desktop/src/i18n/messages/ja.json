@@ -1379,15 +1379,6 @@
   "headersSection.value": {
     "defaultMessage": "値"
   },
-  "hub.goodAfternoon": {
-    "defaultMessage": "こんにちは"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "こんばんは"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "おはようございます"
-  },
   "hubView.description": {
     "defaultMessage": "さまざまなソースからスキルとMCPサーバーを見つける。"
   },
@@ -2399,8 +2390,14 @@
   "navigationFooter.you": {
     "defaultMessage": "あなた"
   },
-  "navigationPanel.chats": {
-    "defaultMessage": "チャット"
+  "navigationPanel.goBack": {
+    "defaultMessage": "戻る"
+  },
+  "navigationPanel.goForward": {
+    "defaultMessage": "進む"
+  },
+  "navigationPanel.groupChats": {
+    "defaultMessage": "チャットをワークスペース別にグループ化"
   },
   "navigationPanel.loadingChats": {
     "defaultMessage": "チャットを読み込み中…"
@@ -2420,8 +2417,14 @@
   "navigationPanel.metaUpdated": {
     "defaultMessage": "更新"
   },
+  "navigationPanel.newProject": {
+    "defaultMessage": "新しいプロジェクト"
+  },
   "navigationPanel.noChats": {
     "defaultMessage": "最近のチャットはありません"
+  },
+  "navigationPanel.projects": {
+    "defaultMessage": "プロジェクト"
   },
   "navigationPanel.statusError": {
     "defaultMessage": "エラー"
@@ -2437,6 +2440,9 @@
   },
   "navigationPanel.untitledSession": {
     "defaultMessage": "無題のセッション"
+  },
+  "navigationPanel.workspaces": {
+    "defaultMessage": "ワークスペース"
   },
   "onboardingGuard.checkProviderErrorDescription": {
     "defaultMessage": "サーバーの起動中、または一時的に利用できない可能性があります。"

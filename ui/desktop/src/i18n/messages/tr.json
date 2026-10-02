@@ -1379,15 +1379,6 @@
   "headersSection.value": {
     "defaultMessage": "Değer"
   },
-  "hub.goodAfternoon": {
-    "defaultMessage": "İyi günler"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "İyi akşamlar"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "Günaydın"
-  },
   "hubView.description": {
     "defaultMessage": "Çeşitli kaynaklardan Skills ve MCP sunucuları keşfedin."
   },
@@ -2399,8 +2390,14 @@
   "navigationFooter.you": {
     "defaultMessage": "Siz"
   },
-  "navigationPanel.chats": {
-    "defaultMessage": "Sohbetler"
+  "navigationPanel.goBack": {
+    "defaultMessage": "Geri"
+  },
+  "navigationPanel.goForward": {
+    "defaultMessage": "İleri"
+  },
+  "navigationPanel.groupChats": {
+    "defaultMessage": "Sohbetleri çalışma alanına göre grupla"
   },
   "navigationPanel.loadingChats": {
     "defaultMessage": "Sohbetler yükleniyor…"
@@ -2420,8 +2417,14 @@
   "navigationPanel.metaUpdated": {
     "defaultMessage": "Güncellendi"
   },
+  "navigationPanel.newProject": {
+    "defaultMessage": "Yeni proje"
+  },
   "navigationPanel.noChats": {
     "defaultMessage": "Son sohbet yok"
+  },
+  "navigationPanel.projects": {
+    "defaultMessage": "Projeler"
   },
   "navigationPanel.statusError": {
     "defaultMessage": "Hata"
@@ -2437,6 +2440,9 @@
   },
   "navigationPanel.untitledSession": {
     "defaultMessage": "Başlıksız oturum"
+  },
+  "navigationPanel.workspaces": {
+    "defaultMessage": "Çalışma alanları"
   },
   "onboardingGuard.checkProviderErrorDescription": {
     "defaultMessage": "Sunucu başlatılıyor veya geçici olarak kullanılamıyor olabilir."

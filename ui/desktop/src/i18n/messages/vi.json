@@ -1379,15 +1379,6 @@
   "headersSection.value": {
     "defaultMessage": "Giá trị"
   },
-  "hub.goodAfternoon": {
-    "defaultMessage": "Chào buổi chiều"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "Chào buổi tối"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "Chào buổi sáng"
-  },
   "hubView.description": {
     "defaultMessage": "Khám phá Skills và máy chủ MCP từ nhiều nguồn khác nhau."
   },
@@ -2399,8 +2390,14 @@
   "navigationFooter.you": {
     "defaultMessage": "Bạn"
   },
-  "navigationPanel.chats": {
-    "defaultMessage": "Cuộc trò chuyện"
+  "navigationPanel.goBack": {
+    "defaultMessage": "Quay lại"
+  },
+  "navigationPanel.goForward": {
+    "defaultMessage": "Tiến tới"
+  },
+  "navigationPanel.groupChats": {
+    "defaultMessage": "Nhóm trò chuyện theo không gian làm việc"
   },
   "navigationPanel.loadingChats": {
     "defaultMessage": "Đang tải cuộc trò chuyện…"
@@ -2420,8 +2417,14 @@
   "navigationPanel.metaUpdated": {
     "defaultMessage": "Đã cập nhật"
   },
+  "navigationPanel.newProject": {
+    "defaultMessage": "Dự án mới"
+  },
   "navigationPanel.noChats": {
     "defaultMessage": "Không có cuộc trò chuyện gần đây"
+  },
+  "navigationPanel.projects": {
+    "defaultMessage": "Dự án"
   },
   "navigationPanel.statusError": {
     "defaultMessage": "Lỗi"
@@ -2437,6 +2440,9 @@
   },
   "navigationPanel.untitledSession": {
     "defaultMessage": "Phiên chưa đặt tên"
+  },
+  "navigationPanel.workspaces": {
+    "defaultMessage": "Không gian làm việc"
   },
   "onboardingGuard.checkProviderErrorDescription": {
     "defaultMessage": "Máy chủ có thể đang khởi động hoặc tạm thời không khả dụng."
