@@ -56,6 +56,7 @@ import { UPDATES_ENABLED } from './updates';
 import './utils/gitBranchIpc';
 import './utils/userProfileIpc';
 import './utils/recipeHash';
+import './utils/usageStatsIpc';
 import type { GooseApp } from './types/apps';
 import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer';
 import { WEB_PROTOCOLS } from './utils/urlSecurity';

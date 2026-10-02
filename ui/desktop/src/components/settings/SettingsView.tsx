@@ -11,6 +11,7 @@ import McpSettingsSection from './mcp/McpSettingsSection';
 import PluginsSettingsSection from './plugins/PluginsSettingsSection';
 import ConfigSettings from './config/ConfigSettings';
 import PromptsSettingsSection from './PromptsSettingsSection';
+import UsageStatsSection from './stats/UsageStatsSection';
 import type { ExtensionConfig } from '../../types/extensions';
 import {
   Bot,
@@ -25,6 +26,7 @@ import {
   Plug,
   Puzzle,
   Server,
+  BarChart3,
 } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 import ChatSettingsSection from './chat/ChatSettingsSection';
@@ -91,6 +93,10 @@ const i18n = defineMessages({
     id: 'settingsView.tabApp',
     defaultMessage: 'App',
   },
+  tabStats: {
+    id: 'settingsView.tabStats',
+    defaultMessage: 'Stats',
+  },
 });
 
 const settingsTabClass =
@@ -130,6 +136,7 @@ export default function SettingsView({
     plugins: intl.formatMessage(i18n.tabPlugins),
     appearance: intl.formatMessage(i18n.tabAppearance),
     app: intl.formatMessage(i18n.tabApp),
+    stats: intl.formatMessage(i18n.tabStats),
   }[activeTab];
 
   const handleTabChange = (tab: string) => {
@@ -161,6 +168,7 @@ export default function SettingsView({
         theme: 'appearance',
         language: 'appearance',
         'local-inference': 'local-inference',
+        stats: 'stats',
       };
 
       const targetTab = sectionToTab[viewOptions.section];
@@ -310,6 +318,14 @@ export default function SettingsView({
                 <Monitor className="h-5 w-5 text-text-secondary" />
                 {intl.formatMessage(i18n.tabApp)}
               </TabsTrigger>
+              <TabsTrigger
+                value="stats"
+                className={settingsTabClass}
+                data-testid="settings-stats-tab"
+              >
+                <BarChart3 className="h-5 w-5 text-text-secondary" />
+                {intl.formatMessage(i18n.tabStats)}
+              </TabsTrigger>
             </TabsList>
           </aside>
         </div>
@@ -413,6 +429,13 @@ export default function SettingsView({
                   {CONFIGURATION_ENABLED && <ConfigSettings />}
                   <AppSettingsSection scrollToSection={viewOptions.section} />
                 </div>
+              </TabsContent>
+
+              <TabsContent
+                value="stats"
+                className="mt-0 focus-visible:outline-none focus-visible:ring-0"
+              >
+                <UsageStatsSection />
               </TabsContent>
             </div>
           </ScrollArea>
