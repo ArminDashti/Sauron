@@ -1379,15 +1379,6 @@
   "headersSection.value": {
     "defaultMessage": "Valor"
   },
-  "hub.goodAfternoon": {
-    "defaultMessage": "Buenas tardes"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "Buenas noches"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "Buenos días"
-  },
   "hubView.description": {
     "defaultMessage": "Descubre skills y servidores MCP de diversas fuentes."
   },

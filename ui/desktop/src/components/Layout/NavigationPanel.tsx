@@ -1,9 +1,8 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router';
 import { AudioLines, ChevronDown, ChevronRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useNavigationContext } from './NavigationContext';
-import { useConfig } from '../ConfigContext';
 import { useNavigationSessions } from '../../hooks/useNavigationSessions';
 import {
   NAV_ITEMS,
@@ -249,16 +248,6 @@ export const Navigation: React.FC<{
   const intl = useIntl();
   const { isNavExpanded } = useNavigationContext();
   const location = useLocation();
-  const { extensionsList } = useConfig();
-
-  const appsExtensionEnabled = !!extensionsList?.find((ext) => ext.name === 'apps')?.enabled;
-
-  const visibleItems = useMemo<NavItem[]>(() => {
-    return NAV_ITEMS.filter((item) => {
-      if (item.path === '/apps') return appsExtensionEnabled;
-      return true;
-    });
-  }, [appsExtensionEnabled]);
 
   const isActive = useCallback((path: string) => location.pathname === path, [location.pathname]);
 
@@ -344,7 +333,7 @@ export const Navigation: React.FC<{
       <div className="h-[48px] no-drag" />
 
       <div className="px-2 flex flex-col gap-0.5">
-        {visibleItems.map((item) => (
+        {NAV_ITEMS.map((item) => (
           <NavRow
             key={item.id}
             item={item}

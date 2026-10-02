@@ -1379,15 +1379,6 @@
   "headersSection.value": {
     "defaultMessage": "Nilai"
   },
-  "hub.goodAfternoon": {
-    "defaultMessage": "Selamat tengah hari"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "Selamat petang"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "Selamat pagi"
-  },
   "hubView.description": {
     "defaultMessage": "Temui Skills dan pelayan MCP dari pelbagai sumber."
   },

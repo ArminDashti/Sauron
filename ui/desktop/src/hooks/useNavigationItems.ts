@@ -25,10 +25,17 @@ export interface NavItem {
 export const NAV_ITEMS: NavItem[] = [
   { id: 'home', path: '/', label: 'New Chat', icon: MessageSquarePlus },
   { id: 'hub', path: '/hub', label: 'Hub', icon: LayoutGrid },
+  { id: 'scheduler', path: '/schedules', label: 'Scheduler', icon: Clock },
+];
+
+/**
+ * Nav items removed from the sidebar; they are surfaced as tabs inside the
+ * Settings view instead.
+ */
+export const SETTINGS_NAV_ITEMS: NavItem[] = [
   { id: 'recipes', path: '/recipes', label: 'Recipes', icon: FileText },
   { id: 'skills', path: '/skills', label: 'Skills', icon: Zap },
   { id: 'apps', path: '/apps', label: 'Apps', icon: AppWindow },
-  { id: 'scheduler', path: '/schedules', label: 'Scheduler', icon: Clock },
   { id: 'extensions', path: '/extensions', label: 'Extensions', icon: Puzzle },
   { id: 'sessions', path: '/sessions', label: 'Session History', icon: History },
 ];

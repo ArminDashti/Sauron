@@ -1379,15 +1379,6 @@
   "headersSection.value": {
     "defaultMessage": "Значение"
   },
-  "hub.goodAfternoon": {
-    "defaultMessage": "Добрый день"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "Добрый вечер"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "Доброе утро"
-  },
   "hubView.description": {
     "defaultMessage": "Ищите навыки и MCP-серверы из различных источников."
   },

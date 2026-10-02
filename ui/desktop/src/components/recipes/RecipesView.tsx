@@ -299,7 +299,7 @@ const i18n = defineMessages({
   },
 });
 
-export default function RecipesView() {
+export default function RecipesView({ embedded = false }: { embedded?: boolean }) {
   const intl = useIntl();
   const setView = useNavigation();
   const [savedRecipes, setSavedRecipes] = useState<RecipeManifest[]>([]);
@@ -903,7 +903,7 @@ export default function RecipesView() {
 
   return (
     <>
-      <MainPanelLayout>
+      <MainPanelLayout embedded={embedded}>
         <div className="flex-1 flex flex-col min-h-0">
           <div className="bg-background-primary px-8 pb-8 pt-16">
             <div className="flex flex-col page-transition">

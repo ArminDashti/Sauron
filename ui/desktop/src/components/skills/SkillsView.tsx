@@ -93,7 +93,7 @@ function SkillSkeleton() {
   );
 }
 
-export default function SkillsView() {
+export default function SkillsView({ embedded = false }: { embedded?: boolean }) {
   const intl = useIntl();
   const [skills, setSkills] = useState<SkillEntry[]>([]);
   const [loading, setLoading] = useState(true);
@@ -201,7 +201,7 @@ export default function SkillsView() {
   };
 
   return (
-    <MainPanelLayout>
+    <MainPanelLayout embedded={embedded}>
       <div className="flex-1 flex flex-col min-h-0">
         <div className="bg-background-primary px-8 pb-8 pt-16">
           <div className="flex flex-col page-transition">

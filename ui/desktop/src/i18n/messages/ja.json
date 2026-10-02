@@ -1379,15 +1379,6 @@
   "headersSection.value": {
     "defaultMessage": "値"
   },
-  "hub.goodAfternoon": {
-    "defaultMessage": "こんにちは"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "こんばんは"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "おはようございます"
-  },
   "hubView.description": {
     "defaultMessage": "さまざまなソースからスキルとMCPサーバーを見つける。"
   },

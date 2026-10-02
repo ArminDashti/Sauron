@@ -277,9 +277,10 @@ function useDebounce<T>(value: T, delay: number): T {
 
 interface SessionListViewProps {
   onSelectSession: (sessionId: string) => void;
+  embedded?: boolean;
 }
 
-const SessionListView: React.FC<SessionListViewProps> = React.memo(({ onSelectSession }) => {
+const SessionListView: React.FC<SessionListViewProps> = React.memo(({ onSelectSession, embedded = false }) => {
   const intl = useIntl();
   const [sessions, setSessions] = useState<SessionListItem[]>([]);
   const [isPrefetchingSessions, setIsPrefetchingSessions] = useState(false);
@@ -972,7 +973,7 @@ const SessionListView: React.FC<SessionListViewProps> = React.memo(({ onSelectSe
 
   return (
     <>
-      <MainPanelLayout>
+      <MainPanelLayout embedded={embedded}>
         <div className="flex-1 flex flex-col min-h-0">
           <div className="bg-background-primary px-8 pb-8 pt-16">
             <div className="flex flex-col page-transition">

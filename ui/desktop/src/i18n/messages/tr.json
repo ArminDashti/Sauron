@@ -1379,15 +1379,6 @@
   "headersSection.value": {
     "defaultMessage": "Değer"
   },
-  "hub.goodAfternoon": {
-    "defaultMessage": "İyi günler"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "İyi akşamlar"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "Günaydın"
-  },
   "hubView.description": {
     "defaultMessage": "Çeşitli kaynaklardan Skills ve MCP sunucuları keşfedin."
   },
