@@ -4085,6 +4085,12 @@
   "settings.notifications.openSettings": {
     "defaultMessage": "設定を開く"
   },
+  "settings.notifications.sound.description": {
+    "defaultMessage": "タスク完了通知で音を鳴らす"
+  },
+  "settings.notifications.sound.title": {
+    "defaultMessage": "通知音"
+  },
   "settings.notifications.task.description": {
     "defaultMessage": "ウィンドウがバックグラウンドにある間にGooseがタスクを完了したら通知します"
   },

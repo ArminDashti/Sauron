@@ -4085,6 +4085,12 @@
   "settings.notifications.openSettings": {
     "defaultMessage": "Buka Tetapan"
   },
+  "settings.notifications.sound.description": {
+    "defaultMessage": "Mainkan bunyi bersama notifikasi tugas selesai"
+  },
+  "settings.notifications.sound.title": {
+    "defaultMessage": "Bunyi notifikasi"
+  },
   "settings.notifications.task.description": {
     "defaultMessage": "Beritahu apabila Goose menyelesaikan tugasan semasa tetingkap berada di latar belakang"
   },

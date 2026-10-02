@@ -15,6 +15,7 @@ import { COST_TRACKING_ENABLED } from '../../../updates';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../ui/card';
 import ThemeSelector from '../../GooseSidebar/ThemeSelector';
 import { trackSettingToggled } from '../../../utils/analytics';
+import { playNotificationSound } from '../../../utils/notificationSound';
 import type { LanguageSetting } from '../../../utils/settings';
 
 const i18n = defineMessages({
@@ -37,6 +38,14 @@ const i18n = defineMessages({
   taskNotificationsDesc: {
     id: 'settings.notifications.task.description',
     defaultMessage: 'Notify when Goose finishes a task while the window is in the background',
+  },
+  notificationSound: {
+    id: 'settings.notifications.sound.title',
+    defaultMessage: 'Notification sound',
+  },
+  notificationSoundDesc: {
+    id: 'settings.notifications.sound.description',
+    defaultMessage: 'Play a sound with task completion notifications',
   },
   menuBarIcon: { id: 'settings.menuBarIcon.title', defaultMessage: 'Menu bar icon' },
   menuBarIconDesc: {
@@ -161,6 +170,7 @@ export default function AppearanceSettingsSection() {
   const [dockIconEnabled, setDockIconEnabled] = useState(true);
   const [wakelockEnabled, setWakelockEnabled] = useState(true);
   const [notificationsEnabled, setNotificationsEnabled] = useState(true);
+  const [notificationSoundEnabled, setNotificationSoundEnabled] = useState(true);
   const [isMacOS, setIsMacOS] = useState(false);
   const [isDockSwitchDisabled, setIsDockSwitchDisabled] = useState(false);
   const [showNotificationModal, setShowNotificationModal] = useState(false);
@@ -187,6 +197,10 @@ export default function AppearanceSettingsSection() {
 
     window.electron.getSetting('enableNotifications').then((enabled) => {
       setNotificationsEnabled(enabled ?? true);
+    });
+
+    window.electron.getSetting('notificationSoundEnabled').then((enabled) => {
+      setNotificationSoundEnabled(enabled ?? true);
     });
 
     if (isMacOS) {
@@ -251,6 +265,15 @@ export default function AppearanceSettingsSection() {
     setNotificationsEnabled(checked);
     await window.electron.setSetting('enableNotifications', checked);
     trackSettingToggled('task_notifications', checked);
+  };
+
+  const handleNotificationSoundToggle = async (checked: boolean) => {
+    setNotificationSoundEnabled(checked);
+    await window.electron.setSetting('notificationSoundEnabled', checked);
+    trackSettingToggled('notification_sound', checked);
+    if (checked) {
+      await playNotificationSound();
+    }
   };
 
   const handleShowPricingToggle = async (checked: boolean) => {
@@ -339,6 +362,24 @@ export default function AppearanceSettingsSection() {
               <Switch
                 checked={notificationsEnabled}
                 onCheckedChange={handleNotificationsToggle}
+                variant="mono"
+              />
+            </div>
+          </div>
+
+          <div className="flex items-center justify-between">
+            <div>
+              <h3 className="text-text-primary text-xs">
+                {intl.formatMessage(i18n.notificationSound)}
+              </h3>
+              <p className="text-xs text-text-secondary max-w-md mt-[2px]">
+                {intl.formatMessage(i18n.notificationSoundDesc)}
+              </p>
+            </div>
+            <div className="flex items-center">
+              <Switch
+                checked={notificationSoundEnabled}
+                onCheckedChange={handleNotificationSoundToggle}
                 variant="mono"
               />
             </div>

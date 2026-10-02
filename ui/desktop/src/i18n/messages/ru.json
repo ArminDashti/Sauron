@@ -4085,6 +4085,12 @@
   "settings.notifications.openSettings": {
     "defaultMessage": "Откройте «Параметры»"
   },
+  "settings.notifications.sound.description": {
+    "defaultMessage": "Воспроизводить звук при уведомлении о завершении задачи"
+  },
+  "settings.notifications.sound.title": {
+    "defaultMessage": "Звук уведомлений"
+  },
   "settings.notifications.task.description": {
     "defaultMessage": "Уведомлять, когда Goose завершает задачу, пока окно в фоне"
   },

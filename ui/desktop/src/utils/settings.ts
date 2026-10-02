@@ -42,6 +42,7 @@ export interface Settings {
   showDockIcon: boolean;
   enableWakelock: boolean;
   enableNotifications: boolean;
+  notificationSoundEnabled: boolean;
   spellcheckEnabled: boolean;
   // Key is kept as `externalGoosed` for backward compat with persisted user settings.
   externalGoosed: ExternalBackendConfig;
@@ -82,6 +83,7 @@ export const defaultSettings: Settings = {
   showDockIcon: true,
   enableWakelock: false,
   enableNotifications: true,
+  notificationSoundEnabled: true,
   spellcheckEnabled: true,
   keyboardShortcuts: defaultKeyboardShortcuts,
   externalGoosed: {

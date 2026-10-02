@@ -4085,6 +4085,12 @@
   "settings.notifications.openSettings": {
     "defaultMessage": "Settings खोलें"
   },
+  "settings.notifications.sound.description": {
+    "defaultMessage": "कार्य पूरा होने की सूचनाओं के साथ ध्वनि चलाएँ"
+  },
+  "settings.notifications.sound.title": {
+    "defaultMessage": "सूचना ध्वनि"
+  },
   "settings.notifications.task.description": {
     "defaultMessage": "जब विंडो पृष्ठभूमि में हो तो Goose कोई कार्य पूरा कर ले तो सूचित करें"
   },

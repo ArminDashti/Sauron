@@ -4085,6 +4085,12 @@
   "settings.notifications.openSettings": {
     "defaultMessage": "Ouvrir les Paramètres"
   },
+  "settings.notifications.sound.description": {
+    "defaultMessage": "Jouer un son avec les notifications de fin de tâche"
+  },
+  "settings.notifications.sound.title": {
+    "defaultMessage": "Son des notifications"
+  },
   "settings.notifications.task.description": {
     "defaultMessage": "Notifier lorsque Goose termine une tâche pendant que la fenêtre est en arrière-plan"
   },
