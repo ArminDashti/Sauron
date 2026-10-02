@@ -4112,6 +4112,12 @@
   "settings.notifications.openSettings": {
     "defaultMessage": "Buka Pengaturan"
   },
+  "settings.notifications.sound.description": {
+    "defaultMessage": "Putar suara bersama notifikasi tugas selesai"
+  },
+  "settings.notifications.sound.title": {
+    "defaultMessage": "Suara notifikasi"
+  },
   "settings.notifications.task.description": {
     "defaultMessage": "Beri tahu saat Sauron menyelesaikan tugas selagi jendela berada di latar belakang"
   },
