@@ -12,6 +12,7 @@ import McpSettingsSection from './mcp/McpSettingsSection';
 import PluginsSettingsSection from './plugins/PluginsSettingsSection';
 import ConfigSettings from './config/ConfigSettings';
 import PromptsSettingsSection from './PromptsSettingsSection';
+import UsageStatsSection from './stats/UsageStatsSection';
 import RecipesView from '../recipes/RecipesView';
 import SkillsView from '../skills/SkillsView';
 import AppsView from '../apps/AppsView';
@@ -30,6 +31,7 @@ import {
   Puzzle,
   Search,
   Server,
+  BarChart3,
   Blocks,
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
@@ -95,6 +97,10 @@ const i18n = defineMessages({
   tabApp: {
     id: 'settingsView.tabApp',
     defaultMessage: 'App',
+  },
+  tabStats: {
+    id: 'settingsView.tabStats',
+    defaultMessage: 'Stats',
   },
   searchPlaceholder: {
     id: 'settingsView.searchPlaceholder',
@@ -206,6 +212,14 @@ const SETTINGS_TABS: SettingsTab[] = [
     testId: 'settings-app-tab',
     group: 2,
   },
+  {
+    value: 'stats',
+    label: i18n.tabStats,
+    icon: BarChart3,
+    color: 'stats',
+    testId: 'settings-stats-tab',
+    group: 2,
+  },
 ];
 
 const settingsTabClass =
@@ -257,6 +271,7 @@ export default function SettingsView({
     plugins: intl.formatMessage(i18n.tabPlugins),
     appearance: intl.formatMessage(i18n.tabAppearance),
     app: intl.formatMessage(i18n.tabApp),
+    stats: intl.formatMessage(i18n.tabStats),
   }[activeTab];
 
   const handleTabChange = (tab: string) => {
@@ -289,6 +304,7 @@ export default function SettingsView({
         theme: 'appearance',
         language: 'appearance',
         'local-inference': 'providers',
+        stats: 'stats',
       };
 
       const targetTab = sectionToTab[viewOptions.section];
@@ -544,6 +560,13 @@ export default function SettingsView({
                       {CONFIGURATION_ENABLED && <ConfigSettings />}
                       <AppSettingsSection scrollToSection={viewOptions.section} />
                     </div>
+                  </TabsContent>
+
+                  <TabsContent
+                    value="stats"
+                    className="mt-0 focus-visible:outline-none focus-visible:ring-0"
+                  >
+                    <UsageStatsSection />
                   </TabsContent>
                 </div>
               </ScrollArea>
