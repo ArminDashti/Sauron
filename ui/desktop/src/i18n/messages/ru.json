@@ -1466,6 +1466,36 @@
   "groupedExtensionLoadingToast.successfullyLoaded": {
     "defaultMessage": "{count, plural, one {Успешно загружено # расширение} few {Успешно загружено # расширения} many {Успешно загружено # расширений} other {Успешно загружено # расширения}}"
   },
+  "harnessesSection.title": {
+    "defaultMessage": "Harness'ы агентов"
+  },
+  "harnessesSection.description": {
+    "defaultMessage": "Используйте агентов из другой harness, такой как Cursor, Claude Code, Codex или Copilot. Включите здесь, затем выберите их в Models для общения."
+  },
+  "harnessesSection.loading": {
+    "defaultMessage": "Загрузка harness'ов..."
+  },
+  "harnessesSection.loadFailed": {
+    "defaultMessage": "Не удалось загрузить harness'ы"
+  },
+  "harnessesSection.empty": {
+    "defaultMessage": "Внешние harness'ы агентов недоступны."
+  },
+  "harnessesSection.installed": {
+    "defaultMessage": "Установлено"
+  },
+  "harnessesSection.notInstalled": {
+    "defaultMessage": "Не установлено"
+  },
+  "harnessesSection.configure": {
+    "defaultMessage": "Настроить"
+  },
+  "harnessesSection.configured": {
+    "defaultMessage": "Включено"
+  },
+  "harnessesSection.notConfigured": {
+    "defaultMessage": "Не включено"
+  },
   "headersSection.add": {
     "defaultMessage": "Добавить"
   },
@@ -4555,6 +4585,9 @@
   },
   "settingsView.tabExternalBackend": {
     "defaultMessage": "Внешний бэкенд"
+  },
+  "settingsView.tabHarnesses": {
+    "defaultMessage": "Harness'ы"
   },
   "settingsView.tabKeyboard": {
     "defaultMessage": "Клавиатура"

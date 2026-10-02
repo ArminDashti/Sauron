@@ -3,6 +3,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs';
 import { View, ViewOptions } from '../../utils/navigationUtils';
 import ModelsSection from './models/ModelsSection';
 import ProvidersSection from './providers/ProvidersSection';
+import HarnessesSection from './harnesses/HarnessesSection';
 import ExternalBackendSection from './app/ExternalBackendSection';
 import AgentLoopSettings from './AgentLoopSettings';
 import AppSettingsSection from './app/AppSettingsSection';
@@ -29,6 +30,7 @@ import {
   Puzzle,
   Search,
   Server,
+  Blocks,
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
@@ -57,6 +59,10 @@ const i18n = defineMessages({
   tabProviders: {
     id: 'settingsView.tabProviders',
     defaultMessage: 'Providers',
+  },
+  tabHarnesses: {
+    id: 'settingsView.tabHarnesses',
+    defaultMessage: 'Harnesses',
   },
   tabChat: {
     id: 'settingsView.tabChat',
@@ -126,6 +132,14 @@ const SETTINGS_TABS: SettingsTab[] = [
     icon: Server,
     color: 'providers',
     testId: 'settings-providers-tab',
+    group: 1,
+  },
+  {
+    value: 'harnesses',
+    label: i18n.tabHarnesses,
+    icon: Blocks,
+    color: 'harnesses',
+    testId: 'settings-harnesses-tab',
     group: 1,
   },
   {
@@ -234,6 +248,7 @@ export default function SettingsView({
   const activeTabTitle = {
     models: intl.formatMessage(i18n.tabModels),
     providers: intl.formatMessage(i18n.tabProviders),
+    harnesses: intl.formatMessage(i18n.tabHarnesses),
     chat: intl.formatMessage(i18n.tabChat),
     sharing: intl.formatMessage(i18n.tabAgent),
     prompts: intl.formatMessage(i18n.tabPrompts),
@@ -257,6 +272,7 @@ export default function SettingsView({
         update: 'app',
         models: 'models',
         providers: 'providers',
+        harnesses: 'harnesses',
         modes: 'chat',
         sharing: 'sharing',
         styles: 'chat',
@@ -459,6 +475,13 @@ export default function SettingsView({
                     className="mt-0 focus-visible:outline-none focus-visible:ring-0"
                   >
                     <ProvidersSection setView={setView} />
+                  </TabsContent>
+
+                  <TabsContent
+                    value="harnesses"
+                    className="mt-0 focus-visible:outline-none focus-visible:ring-0"
+                  >
+                    <HarnessesSection />
                   </TabsContent>
 
                   <TabsContent

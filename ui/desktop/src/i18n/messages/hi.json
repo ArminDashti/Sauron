@@ -1466,6 +1466,36 @@
   "groupedExtensionLoadingToast.successfullyLoaded": {
     "defaultMessage": "{count,plural,one{# एक्सटेंशन सफलतापूर्वक लोड हो गया} other{# एक्सटेंशन सफलतापूर्वक लोड हो गए}}"
   },
+  "harnessesSection.title": {
+    "defaultMessage": "एजेंट harness"
+  },
+  "harnessesSection.description": {
+    "defaultMessage": "Cursor, Claude Code, Codex या Copilot जैसे दूसरे harness के एजेंट्स का उपयोग करें। यहाँ एक सक्षम करें, फिर चैट के लिए Models में उसे चुनें।"
+  },
+  "harnessesSection.loading": {
+    "defaultMessage": "harness लोड हो रहे हैं..."
+  },
+  "harnessesSection.loadFailed": {
+    "defaultMessage": "harness लोड करना विफल रहा"
+  },
+  "harnessesSection.empty": {
+    "defaultMessage": "कोई बाहरी एजेंट harness उपलब्ध नहीं हैं।"
+  },
+  "harnessesSection.installed": {
+    "defaultMessage": "इंस्टॉल किया गया"
+  },
+  "harnessesSection.notInstalled": {
+    "defaultMessage": "इंस्टॉल नहीं किया गया"
+  },
+  "harnessesSection.configure": {
+    "defaultMessage": "कॉन्फ़िगर करें"
+  },
+  "harnessesSection.configured": {
+    "defaultMessage": "सक्षम"
+  },
+  "harnessesSection.notConfigured": {
+    "defaultMessage": "सक्षम नहीं"
+  },
   "headersSection.add": {
     "defaultMessage": "जोड़ें"
   },
@@ -4555,6 +4585,9 @@
   },
   "settingsView.tabExternalBackend": {
     "defaultMessage": "बाहरी बैकएंड"
+  },
+  "settingsView.tabHarnesses": {
+    "defaultMessage": "Harnesses"
   },
   "settingsView.tabKeyboard": {
     "defaultMessage": "कीबोर्ड"

@@ -1466,6 +1466,36 @@
   "groupedExtensionLoadingToast.successfullyLoaded": {
     "defaultMessage": "{count,plural,one{# 個の拡張機能を読み込みました} other{# 個の拡張機能を読み込みました}}"
   },
+  "harnessesSection.title": {
+    "defaultMessage": "エージェントハーネス"
+  },
+  "harnessesSection.description": {
+    "defaultMessage": "Cursor、Claude Code、Codex、Copilot などの別のハーネスのエージェントを使用します。ここで有効にし、Models で選択してチャットできます。"
+  },
+  "harnessesSection.loading": {
+    "defaultMessage": "ハーネスを読み込み中..."
+  },
+  "harnessesSection.loadFailed": {
+    "defaultMessage": "ハーネスの読み込みに失敗しました"
+  },
+  "harnessesSection.empty": {
+    "defaultMessage": "外部エージェントハーネスはありません。"
+  },
+  "harnessesSection.installed": {
+    "defaultMessage": "インストール済み"
+  },
+  "harnessesSection.notInstalled": {
+    "defaultMessage": "未インストール"
+  },
+  "harnessesSection.configure": {
+    "defaultMessage": "設定"
+  },
+  "harnessesSection.configured": {
+    "defaultMessage": "有効"
+  },
+  "harnessesSection.notConfigured": {
+    "defaultMessage": "無効"
+  },
   "headersSection.add": {
     "defaultMessage": "追加"
   },
@@ -4555,6 +4585,9 @@
   },
   "settingsView.tabExternalBackend": {
     "defaultMessage": "外部バックエンド"
+  },
+  "settingsView.tabHarnesses": {
+    "defaultMessage": "ハーネス"
   },
   "settingsView.tabKeyboard": {
     "defaultMessage": "キーボード"

@@ -1466,6 +1466,36 @@
   "groupedExtensionLoadingToast.successfullyLoaded": {
     "defaultMessage": "{count,plural,one{Berjaya memuatkan # sambungan} other{Berjaya memuatkan # sambungan}}"
   },
+  "harnessesSection.title": {
+    "defaultMessage": "Harness ejen"
+  },
+  "harnessesSection.description": {
+    "defaultMessage": "Gunakan ejen dari harness lain seperti Cursor, Claude Code, Codex atau Copilot. Dayakan salah satu di sini, kemudian pilih dalam Models untuk berbual dengannya."
+  },
+  "harnessesSection.loading": {
+    "defaultMessage": "Memuat harness..."
+  },
+  "harnessesSection.loadFailed": {
+    "defaultMessage": "Gagal memuat harness"
+  },
+  "harnessesSection.empty": {
+    "defaultMessage": "Tiada harness ejen luaran tersedia."
+  },
+  "harnessesSection.installed": {
+    "defaultMessage": "Dipasang"
+  },
+  "harnessesSection.notInstalled": {
+    "defaultMessage": "Tidak dipasang"
+  },
+  "harnessesSection.configure": {
+    "defaultMessage": "Konfigurasikan"
+  },
+  "harnessesSection.configured": {
+    "defaultMessage": "Didayakan"
+  },
+  "harnessesSection.notConfigured": {
+    "defaultMessage": "Tidak didayakan"
+  },
   "headersSection.add": {
     "defaultMessage": "Tambah"
   },
@@ -4555,6 +4585,9 @@
   },
   "settingsView.tabExternalBackend": {
     "defaultMessage": "Backend Luaran"
+  },
+  "settingsView.tabHarnesses": {
+    "defaultMessage": "Harness"
   },
   "settingsView.tabKeyboard": {
     "defaultMessage": "Papan Kekunci"

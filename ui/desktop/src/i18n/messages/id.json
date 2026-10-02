@@ -1466,6 +1466,36 @@
   "groupedExtensionLoadingToast.successfullyLoaded": {
     "defaultMessage": "{count,plural,one{Berhasil memuat # ekstensi} other{Berhasil memuat # ekstensi}}"
   },
+  "harnessesSection.title": {
+    "defaultMessage": "Harness agen"
+  },
+  "harnessesSection.description": {
+    "defaultMessage": "Gunakan agen dari harness lain seperti Cursor, Claude Code, Codex, atau Copilot. Aktifkan salah satunya di sini, lalu pilih di Models untuk mengobrol dengannya."
+  },
+  "harnessesSection.loading": {
+    "defaultMessage": "Memuat harness..."
+  },
+  "harnessesSection.loadFailed": {
+    "defaultMessage": "Gagal memuat harness"
+  },
+  "harnessesSection.empty": {
+    "defaultMessage": "Tidak ada harness agen eksternal yang tersedia."
+  },
+  "harnessesSection.installed": {
+    "defaultMessage": "Terpasang"
+  },
+  "harnessesSection.notInstalled": {
+    "defaultMessage": "Tidak terpasang"
+  },
+  "harnessesSection.configure": {
+    "defaultMessage": "Konfigurasikan"
+  },
+  "harnessesSection.configured": {
+    "defaultMessage": "Diaktifkan"
+  },
+  "harnessesSection.notConfigured": {
+    "defaultMessage": "Tidak diaktifkan"
+  },
   "headersSection.add": {
     "defaultMessage": "Tambah"
   },
@@ -4555,6 +4585,9 @@
   },
   "settingsView.tabExternalBackend": {
     "defaultMessage": "Backend Eksternal"
+  },
+  "settingsView.tabHarnesses": {
+    "defaultMessage": "Harnesses"
   },
   "settingsView.tabKeyboard": {
     "defaultMessage": "Keyboard"

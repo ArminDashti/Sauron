@@ -1466,6 +1466,36 @@
   "groupedExtensionLoadingToast.successfullyLoaded": {
     "defaultMessage": "{count,plural,one{成功加载 # 个扩展} other{成功加载 # 个扩展}}"
   },
+  "harnessesSection.title": {
+    "defaultMessage": "智能体 Harness"
+  },
+  "harnessesSection.description": {
+    "defaultMessage": "使用来自其他 Harness（如 Cursor、Claude Code、Codex 或 Copilot）的智能体。在此启用一个，然后在 Models 中选择它进行对话。"
+  },
+  "harnessesSection.loading": {
+    "defaultMessage": "正在加载 Harness..."
+  },
+  "harnessesSection.loadFailed": {
+    "defaultMessage": "加载 Harness 失败"
+  },
+  "harnessesSection.empty": {
+    "defaultMessage": "没有可用的外部智能体 Harness。"
+  },
+  "harnessesSection.installed": {
+    "defaultMessage": "已安装"
+  },
+  "harnessesSection.notInstalled": {
+    "defaultMessage": "未安装"
+  },
+  "harnessesSection.configure": {
+    "defaultMessage": "配置"
+  },
+  "harnessesSection.configured": {
+    "defaultMessage": "已启用"
+  },
+  "harnessesSection.notConfigured": {
+    "defaultMessage": "未启用"
+  },
   "headersSection.add": {
     "defaultMessage": "添加"
   },
@@ -4555,6 +4585,9 @@
   },
   "settingsView.tabExternalBackend": {
     "defaultMessage": "外部后端"
+  },
+  "settingsView.tabHarnesses": {
+    "defaultMessage": "Harness"
   },
   "settingsView.tabKeyboard": {
     "defaultMessage": "键盘"

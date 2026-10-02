@@ -1466,6 +1466,36 @@
   "groupedExtensionLoadingToast.successfullyLoaded": {
     "defaultMessage": "{count,plural,one{# uzantı başarıyla yüklendi} other{# uzantı başarıyla yüklendi}}"
   },
+  "harnessesSection.title": {
+    "defaultMessage": "Ajan harness'ları"
+  },
+  "harnessesSection.description": {
+    "defaultMessage": "Cursor, Claude Code, Codex veya Copilot gibi başka bir harness'tan ajanlar kullanın. Burada birini etkinleştirin, ardından sohbet için Models'de seçin."
+  },
+  "harnessesSection.loading": {
+    "defaultMessage": "Harness'lar yükleniyor..."
+  },
+  "harnessesSection.loadFailed": {
+    "defaultMessage": "Harness'lar yüklenemedi"
+  },
+  "harnessesSection.empty": {
+    "defaultMessage": "Harici ajan harness\"ı yok."
+  },
+  "harnessesSection.installed": {
+    "defaultMessage": "Yüklü"
+  },
+  "harnessesSection.notInstalled": {
+    "defaultMessage": "Yüklü değil"
+  },
+  "harnessesSection.configure": {
+    "defaultMessage": "Yapılandır"
+  },
+  "harnessesSection.configured": {
+    "defaultMessage": "Etkin"
+  },
+  "harnessesSection.notConfigured": {
+    "defaultMessage": "Etkin değil"
+  },
   "headersSection.add": {
     "defaultMessage": "Ekle"
   },
@@ -4555,6 +4585,9 @@
   },
   "settingsView.tabExternalBackend": {
     "defaultMessage": "Harici Arka Uç"
+  },
+  "settingsView.tabHarnesses": {
+    "defaultMessage": "Harness'lar"
   },
   "settingsView.tabKeyboard": {
     "defaultMessage": "Klavye"
