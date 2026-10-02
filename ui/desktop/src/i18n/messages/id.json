@@ -1379,15 +1379,6 @@
   "headersSection.value": {
     "defaultMessage": "Nilai"
   },
-  "hub.goodAfternoon": {
-    "defaultMessage": "Selamat siang"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "Selamat malam"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "Selamat pagi"
-  },
   "hubView.description": {
     "defaultMessage": "Temukan Skills dan server MCP dari berbagai sumber."
   },
@@ -4118,9 +4109,6 @@
   "settingsView.tabApp": {
     "defaultMessage": "Aplikasi"
   },
-  "settingsView.tabAuth": {
-    "defaultMessage": "Autentikasi"
-  },
   "settingsView.tabChat": {
     "defaultMessage": "Obrolan"
   },
@@ -4129,9 +4117,6 @@
   },
   "settingsView.tabKeyboard": {
     "defaultMessage": "Keyboard"
-  },
-  "settingsView.tabLocalInference": {
-    "defaultMessage": "Inferensi Lokal"
   },
   "settingsView.tabModels": {
     "defaultMessage": "Model"

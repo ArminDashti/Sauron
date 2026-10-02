@@ -1442,15 +1442,6 @@
   "headersSection.value": {
     "defaultMessage": "Value"
   },
-  "hub.goodAfternoon": {
-    "defaultMessage": "Good afternoon"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "Good evening"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "Good morning"
-  },
   "hubView.description": {
     "defaultMessage": "Discover Skills and MCP servers from various sources."
   },
@@ -4376,9 +4367,6 @@
   "settingsView.tabAppearance": {
     "defaultMessage": "Appearance"
   },
-  "settingsView.tabAuth": {
-    "defaultMessage": "Auth"
-  },
   "settingsView.tabChat": {
     "defaultMessage": "Chat"
   },
@@ -4387,9 +4375,6 @@
   },
   "settingsView.tabKeyboard": {
     "defaultMessage": "Keyboard"
-  },
-  "settingsView.tabLocalInference": {
-    "defaultMessage": "Local Inference"
   },
   "settingsView.tabMcp": {
     "defaultMessage": "MCP"

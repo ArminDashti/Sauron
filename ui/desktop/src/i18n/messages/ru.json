@@ -1379,15 +1379,6 @@
   "headersSection.value": {
     "defaultMessage": "Значение"
   },
-  "hub.goodAfternoon": {
-    "defaultMessage": "Добрый день"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "Добрый вечер"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "Доброе утро"
-  },
   "hubView.description": {
     "defaultMessage": "Ищите навыки и MCP-серверы из различных источников."
   },
@@ -4118,9 +4109,6 @@
   "settingsView.tabApp": {
     "defaultMessage": "Приложение"
   },
-  "settingsView.tabAuth": {
-    "defaultMessage": "Авторизация"
-  },
   "settingsView.tabChat": {
     "defaultMessage": "Чат"
   },
@@ -4129,9 +4117,6 @@
   },
   "settingsView.tabKeyboard": {
     "defaultMessage": "Клавиатура"
-  },
-  "settingsView.tabLocalInference": {
-    "defaultMessage": "Локальный инференс"
   },
   "settingsView.tabModels": {
     "defaultMessage": "Модели"

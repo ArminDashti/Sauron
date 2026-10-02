@@ -1379,15 +1379,6 @@
   "headersSection.value": {
     "defaultMessage": "Nilai"
   },
-  "hub.goodAfternoon": {
-    "defaultMessage": "Selamat tengah hari"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "Selamat petang"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "Selamat pagi"
-  },
   "hubView.description": {
     "defaultMessage": "Temui Skills dan pelayan MCP dari pelbagai sumber."
   },
@@ -4118,9 +4109,6 @@
   "settingsView.tabApp": {
     "defaultMessage": "Aplikasi"
   },
-  "settingsView.tabAuth": {
-    "defaultMessage": "Pengesahan"
-  },
   "settingsView.tabChat": {
     "defaultMessage": "Sembang"
   },
@@ -4129,9 +4117,6 @@
   },
   "settingsView.tabKeyboard": {
     "defaultMessage": "Papan Kekunci"
-  },
-  "settingsView.tabLocalInference": {
-    "defaultMessage": "Inferens Tempatan"
   },
   "settingsView.tabModels": {
     "defaultMessage": "Model"

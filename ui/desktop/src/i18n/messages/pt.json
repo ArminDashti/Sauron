@@ -1379,15 +1379,6 @@
   "headersSection.value": {
     "defaultMessage": "Valor"
   },
-  "hub.goodAfternoon": {
-    "defaultMessage": "Boa tarde"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "Boa noite"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "Bom dia"
-  },
   "hubView.description": {
     "defaultMessage": "Descubra skills e servidores MCP de várias fontes."
   },
@@ -4118,9 +4109,6 @@
   "settingsView.tabApp": {
     "defaultMessage": "Aplicação"
   },
-  "settingsView.tabAuth": {
-    "defaultMessage": "Autenticação"
-  },
   "settingsView.tabChat": {
     "defaultMessage": "Conversa"
   },
@@ -4129,9 +4117,6 @@
   },
   "settingsView.tabKeyboard": {
     "defaultMessage": "Teclado"
-  },
-  "settingsView.tabLocalInference": {
-    "defaultMessage": "Inferência local"
   },
   "settingsView.tabModels": {
     "defaultMessage": "Modelos"

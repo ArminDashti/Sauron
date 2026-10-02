@@ -1379,15 +1379,6 @@
   "headersSection.value": {
     "defaultMessage": "मूल्य"
   },
-  "hub.goodAfternoon": {
-    "defaultMessage": "शुभ दोपहर"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "शुभ संध्या"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "सुप्रभात"
-  },
   "hubView.description": {
     "defaultMessage": "विभिन्न स्रोतों से स्किल्स और MCP सर्वर खोजें।"
   },
@@ -4118,9 +4109,6 @@
   "settingsView.tabApp": {
     "defaultMessage": "ऐप"
   },
-  "settingsView.tabAuth": {
-    "defaultMessage": "प्रामाणिक"
-  },
   "settingsView.tabChat": {
     "defaultMessage": "बातचीत"
   },
@@ -4129,9 +4117,6 @@
   },
   "settingsView.tabKeyboard": {
     "defaultMessage": "कीबोर्ड"
-  },
-  "settingsView.tabLocalInference": {
-    "defaultMessage": "स्थानीय अनुमान"
   },
   "settingsView.tabModels": {
     "defaultMessage": "मॉडल"

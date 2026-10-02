@@ -1379,15 +1379,6 @@
   "headersSection.value": {
     "defaultMessage": "Giá trị"
   },
-  "hub.goodAfternoon": {
-    "defaultMessage": "Chào buổi chiều"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "Chào buổi tối"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "Chào buổi sáng"
-  },
   "hubView.description": {
     "defaultMessage": "Khám phá Skills và máy chủ MCP từ nhiều nguồn khác nhau."
   },
@@ -4118,9 +4109,6 @@
   "settingsView.tabApp": {
     "defaultMessage": "Ứng dụng"
   },
-  "settingsView.tabAuth": {
-    "defaultMessage": "Xác thực"
-  },
   "settingsView.tabChat": {
     "defaultMessage": "Trò chuyện"
   },
@@ -4129,9 +4117,6 @@
   },
   "settingsView.tabKeyboard": {
     "defaultMessage": "Bàn phím"
-  },
-  "settingsView.tabLocalInference": {
-    "defaultMessage": "Suy luận cục bộ"
   },
   "settingsView.tabModels": {
     "defaultMessage": "Mô hình"

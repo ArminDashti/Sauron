@@ -1379,15 +1379,6 @@
   "headersSection.value": {
     "defaultMessage": "Değer"
   },
-  "hub.goodAfternoon": {
-    "defaultMessage": "İyi günler"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "İyi akşamlar"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "Günaydın"
-  },
   "hubView.description": {
     "defaultMessage": "Çeşitli kaynaklardan Skills ve MCP sunucuları keşfedin."
   },
@@ -4118,9 +4109,6 @@
   "settingsView.tabApp": {
     "defaultMessage": "Uygulama"
   },
-  "settingsView.tabAuth": {
-    "defaultMessage": "Kimlik Doğrulama"
-  },
   "settingsView.tabChat": {
     "defaultMessage": "Sohbet"
   },
@@ -4129,9 +4117,6 @@
   },
   "settingsView.tabKeyboard": {
     "defaultMessage": "Klavye"
-  },
-  "settingsView.tabLocalInference": {
-    "defaultMessage": "Yerel Çıkarım"
   },
   "settingsView.tabModels": {
     "defaultMessage": "Modeller"
