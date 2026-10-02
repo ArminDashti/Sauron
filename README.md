@@ -61,3 +61,14 @@ curl -fsSL https://github.com/ArminDashti/Sauron/releases/download/stable/downlo
 - [YouTube](https://www.youtube.com/@sauron-oss)
 - [LinkedIn](https://www.linkedin.com/company/sauron-oss)
 - [Twitter/X](https://x.com/sauron_oss)
+
+## Web app development
+
+The repository root contains a Vite + React web app with hot module replacement:
+
+```sh
+npm install
+npm run dev
+```
+
+Edits under `src/` apply instantly in the browser without a reload. Other scripts: `npm run build` (type-check and production build), `npm run lint`, `npm run preview`.
