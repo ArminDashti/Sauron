@@ -20,6 +20,7 @@ import {
   acpSaveThinkingEffort,
 } from '../../../../acp/providers';
 import { useModelAndProvider } from '../../../ModelAndProviderContext';
+import ModelIcon from '../../../logos/ModelIcon';
 import type { View } from '../../../../utils/navigationUtils';
 import Model, {
   fetchModelReasoning,
@@ -30,6 +31,7 @@ import { getPredefinedModelsFromEnv, shouldShowPredefinedModels } from '../prede
 import type { ProviderDetails, ProviderType, ThinkingEffort } from '../../../../types/providers';
 import { trackModelChanged } from '../../../../utils/analytics';
 import { addToRecentModels } from '../../../../utils/recentModels';
+import { BrandIcon } from '../../../logos/BrandLogos';
 
 const i18n = defineMessages({
   thinkingEffortOff: {
@@ -770,11 +772,19 @@ export const SwitchModelModal = ({
                       } rounded-lg transition-all`}
                       onClick={() => handlePredefinedModelChange(model)}
                     >
+                      <BrandIcon
+                        model={model.name}
+                        provider={model.provider}
+                        className="w-7 h-7 shrink-0 mr-3"
+                      />
                       <div className="flex-1">
                         <div className="flex items-center justify-between">
-                          <span className="text-text-primary font-medium">
-                            {model.alias || model.name}
-                          </span>
+                          <div className="flex items-center gap-2 min-w-0">
+                            <ModelIcon provider={model.provider} className="h-4 w-4" />
+                            <span className="text-text-primary font-medium">
+                              {model.alias || model.name}
+                            </span>
+                          </div>
                           {model.alias?.includes('recommended') && (
                             <span className="text-xs bg-background-secondary text-text-primary px-2 py-1 rounded-full border border-border-primary ml-2">
                               {intl.formatMessage(i18n.recommended)}
@@ -822,6 +832,15 @@ export const SwitchModelModal = ({
                 <Select
                   options={providerOptions}
                   value={providerOptions.find((option) => option.value === provider) || null}
+                  formatOptionLabel={(option: unknown) => {
+                    const opt = option as { value?: string; label?: string };
+                    return (
+                      <span className="flex items-center gap-2">
+                        <BrandIcon provider={opt.value} className="w-5 h-5 shrink-0" />
+                        <span>{opt.label}</span>
+                      </span>
+                    );
+                  }}
                   onChange={(newValue: unknown) => {
                     const option = newValue as { value: string; label: string } | null;
                     if (option?.value === 'configure_providers') {
@@ -930,6 +949,23 @@ export const SwitchModelModal = ({
                         placeholder={intl.formatMessage(i18n.selectModelPlaceholder)}
                         isClearable
                         isDisabled={loadingModels}
+                        formatOptionLabel={(option: unknown) => {
+                          const opt = option as {
+                            value?: string;
+                            label?: string;
+                            provider?: string;
+                          };
+                          return (
+                            <span className="flex items-center gap-2">
+                              <BrandIcon
+                                model={opt.value}
+                                provider={opt.provider}
+                                className="w-5 h-5 shrink-0"
+                              />
+                              <span>{opt.label}</span>
+                            </span>
+                          );
+                        }}
                       />
 
                       {attemptedSubmit && validationErrors.model && (

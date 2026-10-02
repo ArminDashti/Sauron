@@ -66,6 +66,7 @@ export const ProviderCard = function ProviderCard({
           name={metadata.display_name || provider?.name || intl.formatMessage(i18n.unknownProvider)}
           description={description}
           isConfigured={provider?.is_configured || false}
+          providerId={provider.name}
         />
       }
       body={

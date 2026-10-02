@@ -3,11 +3,12 @@ import { Button } from '../../../../ui/button';
 import { Search, ExternalLink, Check } from 'lucide-react';
 import { Input } from '../../../../ui/input';
 import { Select } from '../../../../ui/Select';
-import type { ProviderTemplateCatalogEntryDto, ProviderTemplateDto } from '@aaif/goose-acp-client';
+import type { ProviderTemplateCatalogEntryDto, ProviderTemplateDto } from '@aaif/sauron-acp-client';
 import {
   acpGetProviderTemplate,
   acpListProviderCatalogEntries,
 } from '../../../../../acp/providers';
+import { BrandIcon } from '../../../../logos/BrandLogos';
 import { defineMessages, useIntl } from '../../../../../i18n';
 
 const i18n = defineMessages({
@@ -210,6 +211,7 @@ export default function ProviderCatalogPicker({
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2">
+                      <BrandIcon provider={provider.providerId} className="w-7 h-7 shrink-0" />
                       <div className="font-medium text-textStandard">{provider.name}</div>
                       {provider.docUrl && (
                         <a

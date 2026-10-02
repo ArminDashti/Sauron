@@ -4,6 +4,7 @@ import { Input } from '../../ui/input';
 import { acpListProviderDetails } from '../../../acp/providers';
 import { fetchModelsForProviders } from '../../settings/models/modelInterface';
 import { defineMessages, useIntl } from '../../../i18n';
+import { BrandIcon } from '../../logos/BrandLogos';
 
 const i18n = defineMessages({
   fetchError: {
@@ -195,6 +196,15 @@ export const RecipeModelSelector = ({
               ? providerOptions.find((opt) => opt.value === selectedProvider) || null
               : providerOptions.find((opt) => opt.value === '') || null
           }
+          formatOptionLabel={(option: unknown) => {
+            const opt = option as { value?: string; label?: string };
+            return (
+              <span className="flex items-center gap-2">
+                <BrandIcon provider={opt.value} className="w-5 h-5 shrink-0" />
+                <span>{opt.label}</span>
+              </span>
+            );
+          }}
           onChange={handleProviderChange}
           placeholder={intl.formatMessage(i18n.selectProvider)}
           isClearable
@@ -237,6 +247,15 @@ export const RecipeModelSelector = ({
                   ? { value: selectedModel, label: selectedModel }
                   : null
             }
+            formatOptionLabel={(option: unknown) => {
+              const opt = option as { value?: string; label?: string; provider?: string };
+              return (
+                <span className="flex items-center gap-2">
+                  <BrandIcon model={opt.value} provider={opt.provider} className="w-5 h-5 shrink-0" />
+                  <span>{opt.label}</span>
+                </span>
+              );
+            }}
             onChange={handleModelChange}
             placeholder={intl.formatMessage(i18n.selectModel)}
             isClearable

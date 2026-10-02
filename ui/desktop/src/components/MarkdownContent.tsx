@@ -13,12 +13,12 @@ const customOneDarkTheme = {
   'code[class*="language-"]': {
     ...oneDark['code[class*="language-"]'],
     color: '#e6e6e6',
-    fontSize: '14px',
+    fontSize: '0.875rem',
   },
   'pre[class*="language-"]': {
     ...oneDark['pre[class*="language-"]'],
     color: '#e6e6e6',
-    fontSize: '14px',
+    fontSize: '0.875rem',
   },
   comment: { ...oneDark.comment, color: '#a0a0a0', fontStyle: 'italic' },
   prolog: { ...oneDark.prolog, color: '#a0a0a0' },
@@ -195,7 +195,7 @@ const CodeBlock = memo(function CodeBlock({
             wordBreak: 'break-all',
             overflowWrap: 'break-word',
             fontFamily: 'var(--font-mono)',
-            fontSize: '14px',
+            fontSize: '0.875rem',
           },
         }}
         // Performance optimizations for SyntaxHighlighter

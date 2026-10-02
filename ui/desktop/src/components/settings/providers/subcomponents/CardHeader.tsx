@@ -2,11 +2,13 @@ import { memo } from 'react';
 import { GreenCheckButton } from './buttons/CardButtons';
 import { ConfiguredProviderTooltipMessage, ProviderDescription } from './utils/StringUtils';
 import { useIntl } from '../../../../i18n';
+import { BrandIcon } from '../../../logos/BrandLogos';
 
 interface CardHeaderProps {
   name: string;
   description: string;
   isConfigured: boolean;
+  providerId?: string;
 }
 
 // Make CardTitle a proper React component
@@ -19,13 +21,17 @@ CardTitle.displayName = 'CardTitle';
 interface ProviderNameAndStatusProps {
   name: string;
   isConfigured: boolean;
+  providerId?: string;
 }
 
-const ProviderNameAndStatus = memo(({ name, isConfigured }: ProviderNameAndStatusProps) => {
+const ProviderNameAndStatus = memo(({ name, isConfigured, providerId }: ProviderNameAndStatusProps) => {
   const intl = useIntl();
   return (
     <div className="flex items-center justify-between w-full">
-      <CardTitle name={name} />
+      <div className="flex items-center gap-2 min-w-0">
+        {providerId && <BrandIcon provider={providerId} className="w-6 h-6 shrink-0" />}
+        <CardTitle name={name} />
+      </div>
 
       {/* Configured state: Green check */}
       {isConfigured && <GreenCheckButton tooltip={ConfiguredProviderTooltipMessage(intl, name)} />}
@@ -35,10 +41,10 @@ const ProviderNameAndStatus = memo(({ name, isConfigured }: ProviderNameAndStatu
 ProviderNameAndStatus.displayName = 'ProviderNameAndStatus';
 
 // Add a container div to the CardHeader
-const CardHeader = memo(function CardHeader({ name, description, isConfigured }: CardHeaderProps) {
+const CardHeader = memo(function CardHeader({ name, description, isConfigured, providerId }: CardHeaderProps) {
   return (
     <>
-      <ProviderNameAndStatus name={name} isConfigured={isConfigured} />
+      <ProviderNameAndStatus name={name} isConfigured={isConfigured} providerId={providerId} />
       <ProviderDescription description={description} />
     </>
   );

@@ -1,5 +1,30 @@
 import { currentLocale } from '../i18n';
 
+/**
+ * Compact relative timestamp for dense lists (e.g. "7m", "10h", "23d").
+ * Takes a Unix timestamp in seconds, like formatMessageTimestamp.
+ */
+export function formatRelativeTimestamp(timestamp?: number): string {
+  if (!timestamp) return '';
+  const date = new Date(timestamp * 1000);
+  if (Number.isNaN(date.getTime())) return '';
+
+  const elapsedSeconds = Math.max(0, Math.floor((Date.now() - date.getTime()) / 1000));
+
+  if (elapsedSeconds < 60) return 'now';
+
+  const minutes = Math.floor(elapsedSeconds / 60);
+  if (minutes < 60) return `${minutes}m`;
+
+  const hours = Math.floor(minutes / 60);
+  if (hours < 24) return `${hours}h`;
+
+  const days = Math.floor(hours / 24);
+  if (days < 365) return `${days}d`;
+
+  return `${Math.floor(days / 365)}y`;
+}
+
 export function formatMessageTimestamp(timestamp?: number): string {
   const date = timestamp ? new Date(timestamp * 1000) : new Date();
   const now = new Date();
@@ -66,4 +91,3 @@ export function formatClockDisplay(
     return { time, meridiem, hour };
   }
 }
-

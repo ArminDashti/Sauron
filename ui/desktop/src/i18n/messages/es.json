@@ -8,6 +8,9 @@
   "alertBox.failedToSaveThreshold": {
     "defaultMessage": "No se pudo guardar el umbral: {error}"
   },
+  "allProviderModels.addPreferred": {
+    "defaultMessage": "Añadir {model} a los modelos preferidos"
+  },
   "announcementModal.gotIt": {
     "defaultMessage": "¡Entendido!"
   },
@@ -27,7 +30,7 @@
     "defaultMessage": "Delete \"{name}\"? This cannot be undone."
   },
   "appsView.description": {
-    "defaultMessage": "Aplicaciones de tus servidores MCP y Apps creadas por goose. Puedes pedirle que cree nuevas apps desde la interfaz de chat y aparecerán aquí."
+    "defaultMessage": "Aplicaciones de tus servidores MCP y Apps creadas por sauron. Puedes pedirle que cree nuevas apps desde la interfaz de chat y aparecerán aquí."
   },
   "appsView.errorLoading": {
     "defaultMessage": "Error al cargar las apps: {error}"
@@ -45,7 +48,7 @@
     "defaultMessage": "Cargando apps..."
   },
   "appsView.noAppsDescription": {
-    "defaultMessage": "Abre un chat y pídele a goose la app que quieras tener. Puede crearte una y aparecerá aquí. O si alguien compartió una app, puedes importarla con el botón de arriba."
+    "defaultMessage": "Abre un chat y pídele a sauron la app que quieras tener. Puede crearte una y aparecerá aquí. O si alguien compartió una app, puedes importarla con el botón de arriba."
   },
   "appsView.noAppsTitle": {
     "defaultMessage": "No hay apps disponibles"
@@ -84,7 +87,7 @@
     "defaultMessage": "Credencial eliminada"
   },
   "authSettings.description": {
-    "defaultMessage": "Gestiona las credenciales de proveedores que goose guarda localmente."
+    "defaultMessage": "Gestiona las credenciales de proveedores que sauron guarda localmente."
   },
   "authSettings.empty": {
     "defaultMessage": "No se encontraron credenciales de proveedores guardadas localmente."
@@ -171,10 +174,10 @@
     "defaultMessage": "Abrir"
   },
   "chat.notification.taskComplete.body": {
-    "defaultMessage": "Haz clic aquí para volver a poner el foco en Goose."
+    "defaultMessage": "Haz clic aquí para volver a poner el foco en Sauron."
   },
   "chat.notification.taskComplete.title": {
-    "defaultMessage": "Goose terminó la tarea."
+    "defaultMessage": "Sauron terminó la tarea."
   },
   "chatInput.contextWindow": {
     "defaultMessage": "Ventana de contexto"
@@ -225,13 +228,13 @@
     "defaultMessage": "Esperando a que se guarden las imágenes..."
   },
   "chatSettings.modeDescription": {
-    "defaultMessage": "Configura cómo interactúa Goose con las herramientas y las extensiones"
+    "defaultMessage": "Configura cómo interactúa Sauron con las herramientas y las extensiones"
   },
   "chatSettings.modeTitle": {
     "defaultMessage": "Modo"
   },
   "chatSettings.responseStylesDescription": {
-    "defaultMessage": "Elige cómo debe formatear y dar estilo Goose a sus respuestas"
+    "defaultMessage": "Elige cómo debe formatear y dar estilo Sauron a sus respuestas"
   },
   "chatSettings.responseStylesTitle": {
     "defaultMessage": "Estilos de respuesta"
@@ -252,10 +255,10 @@
     "defaultMessage": "Editor de configuración"
   },
   "configSettings.description": {
-    "defaultMessage": "Edita los ajustes de configuración de goose"
+    "defaultMessage": "Edita los ajustes de configuración de sauron"
   },
   "configSettings.descriptionWithProvider": {
-    "defaultMessage": "Edita los ajustes de configuración de goose (ajustes actuales de {provider})"
+    "defaultMessage": "Edita los ajustes de configuración de sauron (ajustes actuales de {provider})"
   },
   "configSettings.done": {
     "defaultMessage": "Listo"
@@ -327,7 +330,7 @@
     "defaultMessage": "Turnos máximos"
   },
   "conversationLimitsDropdown.maxTurnsDescription": {
-    "defaultMessage": "Turnos máximos del agente antes de que Goose pida la intervención del usuario"
+    "defaultMessage": "Turnos máximos del agente antes de que Sauron pida la intervención del usuario"
   },
   "costTracker.costUnavailable": {
     "defaultMessage": "Datos de costo no disponibles para {model} ({inputTokens} de entrada, {outputTokens} tokens de salida)"
@@ -783,7 +786,7 @@
     "defaultMessage": "Editar los ajustes de {name}"
   },
   "defaultCardButtons.getStarted": {
-    "defaultMessage": "¡Empieza con goose!"
+    "defaultMessage": "¡Empieza con sauron!"
   },
   "defaultProviderSetupForm.apiHostLabel": {
     "defaultMessage": "Host de la API"
@@ -924,7 +927,7 @@
     "defaultMessage": "Enter path"
   },
   "dirSwitcher.enterPathPlaceholder": {
-    "defaultMessage": "Enter an absolute path (e.g. /home/goose/workspace)"
+    "defaultMessage": "Enter an absolute path (e.g. /home/sauron/workspace)"
   },
   "dirSwitcher.enterPathInvalid": {
     "defaultMessage": "Working directory must be an absolute path"
@@ -963,7 +966,7 @@
     "defaultMessage": "La solicitud de información fue cancelada."
   },
   "elicitationRequest.defaultMessage": {
-    "defaultMessage": "Goose necesita algo de información de tu parte."
+    "defaultMessage": "Sauron necesita algo de información de tu parte."
   },
   "elicitationRequest.expired": {
     "defaultMessage": "Esta solicitud ha expirado. La extensión tendrá que preguntar de nuevo."
@@ -1008,7 +1011,7 @@
     "defaultMessage": "Ocurrió un error."
   },
   "errorBoundary.errorWithVersion": {
-    "defaultMessage": "Ocurrió un error en Goose v{version}."
+    "defaultMessage": "Ocurrió un error en Sauron v{version}."
   },
   "errorBoundary.heading": {
     "defaultMessage": "¡Honk!"
@@ -1191,7 +1194,7 @@
     "defaultMessage": "Las extensiones habilitadas aquí se usan por defecto en los chats nuevos. También puedes activar extensiones durante el chat."
   },
   "extensionsView.description": {
-    "defaultMessage": "Estas extensiones usan el Model Context Protocol (MCP). Pueden ampliar las capacidades de Goose mediante tres componentes principales: Prompts, Recursos y Herramientas. {searchShortcut} para buscar."
+    "defaultMessage": "Estas extensiones usan el Model Context Protocol (MCP). Pueden ampliar las capacidades de Sauron mediante tres componentes principales: Prompts, Recursos y Herramientas. {searchShortcut} para buscar."
   },
   "extensionsView.heading": {
     "defaultMessage": "Extensiones"
@@ -1209,19 +1212,19 @@
     "defaultMessage": "AA:BB:CC:... o sha256/base64"
   },
   "externalBackendSection.description": {
-    "defaultMessage": "Por defecto goose lanza un servidor por ti; usa esto para conectarte a un servidor goose externo"
+    "defaultMessage": "Por defecto sauron lanza un servidor por ti; usa esto para conectarte a un servidor sauron externo"
   },
   "externalBackendSection.fingerprintRequiresHttps": {
     "defaultMessage": "Certificate fingerprint requires an https URL"
   },
   "externalBackendSection.restartNote": {
-    "defaultMessage": "Los cambios requieren reiniciar Goose para que surtan efecto. Las nuevas ventanas de chat se conectarán al servidor externo."
+    "defaultMessage": "Los cambios requieren reiniciar Sauron para que surtan efecto. Las nuevas ventanas de chat se conectarán al servidor externo."
   },
   "externalBackendSection.secretKey": {
     "defaultMessage": "Secret Key"
   },
   "externalBackendSection.secretKeyHelp": {
-    "defaultMessage": "La clave secreta configurada en el servidor Goose (GOOSE_SERVER__SECRET_KEY)"
+    "defaultMessage": "La clave secreta configurada en el servidor Sauron (SAURON_SERVER__SECRET_KEY)"
   },
   "externalBackendSection.secretKeyPlaceholder": {
     "defaultMessage": "Introduce la secret key del servidor"
@@ -1230,10 +1233,10 @@
     "defaultMessage": "URL del servidor"
   },
   "externalBackendSection.serverUrlHelp": {
-    "defaultMessage": "Enter the HTTP(S) base URL. Goose checks /status and connects to /acp under this base."
+    "defaultMessage": "Enter the HTTP(S) base URL. Sauron checks /status and connects to /acp under this base."
   },
   "externalBackendSection.title": {
-    "defaultMessage": "Goose Server"
+    "defaultMessage": "Sauron Server"
   },
   "externalBackendSection.urlBaseError": {
     "defaultMessage": "URL must be the backend base URL before /acp, without query parameters or fragments"
@@ -1248,7 +1251,7 @@
     "defaultMessage": "Usar servidor externo"
   },
   "externalBackendSection.useExternalServerDescription": {
-    "defaultMessage": "Conéctate a un servidor goose que se ejecuta en otro lugar (requiere reiniciar la app)"
+    "defaultMessage": "Conéctate a un servidor sauron que se ejecuta en otro lugar (requiere reiniciar la app)"
   },
   "externalBackendSection.workingDir": {
     "defaultMessage": "Directorio de trabajo remoto (opcional)"
@@ -1257,70 +1260,70 @@
     "defaultMessage": "Ruta absoluta en el backend externo. Déjelo vacío para enviar el directorio de trabajo local."
   },
   "externalBackendSection.workingDirPlaceholder": {
-    "defaultMessage": "/home/goose/workspace"
+    "defaultMessage": "/home/sauron/workspace"
   },
-  "goosehintsModal.close": {
+  "sauronhintsModal.close": {
     "defaultMessage": "Cerrar"
   },
-  "goosehintsModal.developer": {
+  "sauronhintsModal.developer": {
     "defaultMessage": "Developer"
   },
-  "goosehintsModal.dialogDescription": {
-    "defaultMessage": "Proporciona contexto adicional sobre tu proyecto para mejorar la comunicación con Goose"
+  "sauronhintsModal.dialogDescription": {
+    "defaultMessage": "Proporciona contexto adicional sobre tu proyecto para mejorar la comunicación con Sauron"
   },
-  "goosehintsModal.dialogTitle": {
-    "defaultMessage": "Configurar pistas del proyecto (.goosehints)"
+  "sauronhintsModal.dialogTitle": {
+    "defaultMessage": "Configurar pistas del proyecto (.sauronhints)"
   },
-  "goosehintsModal.errorReading": {
-    "defaultMessage": "Error al leer el archivo .goosehints: {error}"
+  "sauronhintsModal.errorReading": {
+    "defaultMessage": "Error al leer el archivo .sauronhints: {error}"
   },
-  "goosehintsModal.failedToAccess": {
-    "defaultMessage": "No se pudo acceder al archivo .goosehints"
+  "sauronhintsModal.failedToAccess": {
+    "defaultMessage": "No se pudo acceder al archivo .sauronhints"
   },
-  "goosehintsModal.failedToSave": {
-    "defaultMessage": "No se pudo guardar el archivo .goosehints"
+  "sauronhintsModal.failedToSave": {
+    "defaultMessage": "No se pudo guardar el archivo .sauronhints"
   },
-  "goosehintsModal.fileCreating": {
-    "defaultMessage": "Creando un nuevo archivo .goosehints en: {filePath}"
+  "sauronhintsModal.fileCreating": {
+    "defaultMessage": "Creando un nuevo archivo .sauronhints en: {filePath}"
   },
-  "goosehintsModal.fileFound": {
-    "defaultMessage": "Archivo .goosehints encontrado en: {filePath}"
+  "sauronhintsModal.fileFound": {
+    "defaultMessage": "Archivo .sauronhints encontrado en: {filePath}"
   },
-  "goosehintsModal.helpText1": {
-    "defaultMessage": ".goosehints es un archivo de texto usado para proporcionar contexto adicional sobre tu proyecto y mejorar la comunicación con Goose."
+  "sauronhintsModal.helpText1": {
+    "defaultMessage": ".sauronhints es un archivo de texto usado para proporcionar contexto adicional sobre tu proyecto y mejorar la comunicación con Sauron."
   },
-  "goosehintsModal.helpText2": {
-    "defaultMessage": "Asegúrate de que la extensión {bold} esté habilitada en la página de extensiones. Esta extensión es necesaria para usar .goosehints. Tendrás que reiniciar tu sesión para que las actualizaciones de .goosehints surtan efecto."
+  "sauronhintsModal.helpText2": {
+    "defaultMessage": "Asegúrate de que la extensión {bold} esté habilitada en la página de extensiones. Esta extensión es necesaria para usar .sauronhints. Tendrás que reiniciar tu sesión para que las actualizaciones de .sauronhints surtan efecto."
   },
-  "goosehintsModal.helpText3": {
+  "sauronhintsModal.helpText3": {
     "defaultMessage": "Consulta {link} para más información."
   },
-  "goosehintsModal.helpTextLink": {
-    "defaultMessage": "usar .goosehints"
+  "sauronhintsModal.helpTextLink": {
+    "defaultMessage": "usar .sauronhints"
   },
-  "goosehintsModal.placeholder": {
+  "sauronhintsModal.placeholder": {
     "defaultMessage": "Introduce aquí las pistas del proyecto..."
   },
-  "goosehintsModal.save": {
+  "sauronhintsModal.save": {
     "defaultMessage": "Guardar"
   },
-  "goosehintsModal.savedSuccessfully": {
+  "sauronhintsModal.savedSuccessfully": {
     "defaultMessage": "Guardado correctamente"
   },
-  "goosehintsModal.saving": {
+  "sauronhintsModal.saving": {
     "defaultMessage": "Guardando..."
   },
-  "goosehintsSection.configure": {
+  "sauronhintsSection.configure": {
     "defaultMessage": "Configurar"
   },
-  "goosehintsSection.description": {
-    "defaultMessage": "Configura el archivo .goosehints de tu proyecto para proporcionar contexto adicional a Goose"
+  "sauronhintsSection.description": {
+    "defaultMessage": "Configura el archivo .sauronhints de tu proyecto para proporcionar contexto adicional a Sauron"
   },
-  "goosehintsSection.title": {
-    "defaultMessage": "Pistas del proyecto (.goosehints)"
+  "sauronhintsSection.title": {
+    "defaultMessage": "Pistas del proyecto (.sauronhints)"
   },
-  "groupedExtensionLoadingToast.askGoose": {
-    "defaultMessage": "Pregunta a goose"
+  "groupedExtensionLoadingToast.askSauron": {
+    "defaultMessage": "Pregunta a sauron"
   },
   "groupedExtensionLoadingToast.collapseDetails": {
     "defaultMessage": "Contraer detalles"
@@ -1378,15 +1381,6 @@
   },
   "headersSection.value": {
     "defaultMessage": "Valor"
-  },
-  "hub.goodAfternoon": {
-    "defaultMessage": "Buenas tardes"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "Buenas noches"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "Buenos días"
   },
   "hubView.description": {
     "defaultMessage": "Descubre skills y servidores MCP de diversas fuentes."
@@ -1458,7 +1452,7 @@
     "defaultMessage": "Hugging Face"
   },
   "imagePreview.altText": {
-    "defaultMessage": "imagen de goose"
+    "defaultMessage": "imagen de sauron"
   },
   "imagePreview.clickToCollapse": {
     "defaultMessage": "Haz clic para contraer"
@@ -1473,10 +1467,10 @@
     "defaultMessage": "Cancelar"
   },
   "importRecipeForm.deeplinkHint": {
-    "defaultMessage": "Pega un deeplink de receta que empiece por \"goose://recipe?config=\""
+    "defaultMessage": "Pega un deeplink de receta que empiece por \"sauron://recipe?config=\""
   },
   "importRecipeForm.deeplinkPlaceholder": {
-    "defaultMessage": "Pega aquí tu deeplink goose://recipe?config=..."
+    "defaultMessage": "Pega aquí tu deeplink sauron://recipe?config=..."
   },
   "importRecipeForm.example": {
     "defaultMessage": "ejemplo"
@@ -1506,7 +1500,7 @@
     "defaultMessage": "Archivo de receta"
   },
   "importRecipeForm.reviewWarning": {
-    "defaultMessage": "Asegúrate de revisar el contenido de los archivos de receta antes de añadirlos a tu interfaz de goose."
+    "defaultMessage": "Asegúrate de revisar el contenido de los archivos de receta antes de añadirlos a tu interfaz de sauron."
   },
   "importRecipeForm.schemaDescription": {
     "defaultMessage": "Tu archivo YAML o JSON debe seguir esta estructura. Los campos obligatorios son: title, description y, o bien instructions, o bien prompt."
@@ -1617,13 +1611,13 @@
     "defaultMessage": "Atajos de la aplicación"
   },
   "keyboardShortcuts.categoryApplicationDescription": {
-    "defaultMessage": "Estos atajos funcionan cuando Goose es la aplicación activa"
+    "defaultMessage": "Estos atajos funcionan cuando Sauron es la aplicación activa"
   },
   "keyboardShortcuts.categoryGlobal": {
     "defaultMessage": "Atajos globales"
   },
   "keyboardShortcuts.categoryGlobalDescription": {
-    "defaultMessage": "Estos atajos funcionan en todo el sistema, incluso cuando Goose no está enfocado"
+    "defaultMessage": "Estos atajos funcionan en todo el sistema, incluso cuando Sauron no está enfocado"
   },
   "keyboardShortcuts.categorySearch": {
     "defaultMessage": "Atajos de búsqueda"
@@ -1665,10 +1659,10 @@
     "defaultMessage": "Buscar anterior"
   },
   "keyboardShortcuts.focusWindowDescription": {
-    "defaultMessage": "Traer al frente la ventana de Goose desde cualquier lugar"
+    "defaultMessage": "Traer al frente la ventana de Sauron desde cualquier lugar"
   },
   "keyboardShortcuts.focusWindowLabel": {
-    "defaultMessage": "Enfocar la ventana de Goose"
+    "defaultMessage": "Enfocar la ventana de Sauron"
   },
   "keyboardShortcuts.loading": {
     "defaultMessage": "Cargando..."
@@ -1680,7 +1674,7 @@
     "defaultMessage": "Nuevo chat"
   },
   "keyboardShortcuts.newChatWindowDescription": {
-    "defaultMessage": "Abrir una nueva ventana de Goose"
+    "defaultMessage": "Abrir una nueva ventana de Sauron"
   },
   "keyboardShortcuts.newChatWindowLabel": {
     "defaultMessage": "Nueva ventana de chat"
@@ -1719,7 +1713,7 @@
     "defaultMessage": "Restablecer a los valores predeterminados"
   },
   "keyboardShortcuts.restartDescription": {
-    "defaultMessage": "Los cambios en los atajos de la aplicación (como Nuevo chat, Ajustes, etc.) requieren reiniciar Goose para que surtan efecto. Los atajos globales (Enfocar ventana, Lanzador rápido) funcionan de inmediato."
+    "defaultMessage": "Los cambios en los atajos de la aplicación (como Nuevo chat, Ajustes, etc.) requieren reiniciar Sauron para que surtan efecto. Los atajos globales (Enfocar ventana, Lanzador rápido) funcionan de inmediato."
   },
   "keyboardShortcuts.restartRequired": {
     "defaultMessage": "Reinicio necesario"
@@ -1749,7 +1743,7 @@
     "defaultMessage": "Alternar navegación"
   },
   "launcher.placeholder": {
-    "defaultMessage": "Pregúntale lo que sea a goose..."
+    "defaultMessage": "Pregúntale lo que sea a sauron..."
   },
   "liveVoice.connecting": {
     "defaultMessage": "Connecting Live voice"
@@ -1776,31 +1770,31 @@
     "defaultMessage": "Unmute microphone"
   },
   "liveVoiceSettings.description": {
-    "defaultMessage": "Mantén una conversación de voz en tiempo real con Goose"
+    "defaultMessage": "Mantén una conversación de voz en tiempo real con Sauron"
   },
   "liveVoiceSettings.title": {
     "defaultMessage": "Voz en directo"
   },
-  "loadingGoose.compacting": {
-    "defaultMessage": "goose está compactando la conversación..."
+  "loadingSauron.compacting": {
+    "defaultMessage": "sauron está compactando la conversación..."
   },
-  "loadingGoose.idle": {
-    "defaultMessage": "goose está trabajando en ello…"
+  "loadingSauron.idle": {
+    "defaultMessage": "sauron está trabajando en ello…"
   },
-  "loadingGoose.loadingConversation": {
+  "loadingSauron.loadingConversation": {
     "defaultMessage": "cargando conversación..."
   },
-  "loadingGoose.restartingAgent": {
+  "loadingSauron.restartingAgent": {
     "defaultMessage": "reiniciando sesión..."
   },
-  "loadingGoose.streaming": {
-    "defaultMessage": "goose está trabajando en ello…"
+  "loadingSauron.streaming": {
+    "defaultMessage": "sauron está trabajando en ello…"
   },
-  "loadingGoose.thinking": {
-    "defaultMessage": "goose está pensando…"
+  "loadingSauron.thinking": {
+    "defaultMessage": "sauron está pensando…"
   },
-  "loadingGoose.waiting": {
-    "defaultMessage": "goose está esperando…"
+  "loadingSauron.waiting": {
+    "defaultMessage": "sauron está esperando…"
   },
   "localInferenceSettings.deleteConfirm": {
     "defaultMessage": "¿Eliminar este modelo? Podrás volver a descargarlo más tarde."
@@ -2360,6 +2354,9 @@
   "modelsBottomBar.localModelSettingsTitle": {
     "defaultMessage": "Ajustes del modelo local — {modelName}"
   },
+  "modelsBottomBar.preferredModels": {
+    "defaultMessage": "Preferidos"
+  },
   "modelsBottomBar.resolvedModel": {
     "defaultMessage": "Modelo resuelto"
   },
@@ -2399,8 +2396,14 @@
   "navigationFooter.you": {
     "defaultMessage": "Tú"
   },
-  "navigationPanel.chats": {
-    "defaultMessage": "Chats"
+  "navigationPanel.goBack": {
+    "defaultMessage": "Atrás"
+  },
+  "navigationPanel.goForward": {
+    "defaultMessage": "Adelante"
+  },
+  "navigationPanel.groupChats": {
+    "defaultMessage": "Agrupar chats por espacio de trabajo"
   },
   "navigationPanel.loadingChats": {
     "defaultMessage": "Cargando chats…"
@@ -2420,8 +2423,14 @@
   "navigationPanel.metaUpdated": {
     "defaultMessage": "Actualizado"
   },
+  "navigationPanel.newProject": {
+    "defaultMessage": "Nuevo proyecto"
+  },
   "navigationPanel.noChats": {
     "defaultMessage": "No hay chats recientes"
+  },
+  "navigationPanel.projects": {
+    "defaultMessage": "Proyectos"
   },
   "navigationPanel.statusError": {
     "defaultMessage": "Error"
@@ -2438,11 +2447,14 @@
   "navigationPanel.untitledSession": {
     "defaultMessage": "Sesión sin título"
   },
+  "navigationPanel.workspaces": {
+    "defaultMessage": "Espacios de trabajo"
+  },
   "onboardingGuard.checkProviderErrorDescription": {
     "defaultMessage": "Puede que el servidor se esté iniciando o no esté disponible temporalmente."
   },
   "onboardingGuard.checkProviderErrorTitle": {
-    "defaultMessage": "No se pudo conectar con el servidor de Goose"
+    "defaultMessage": "No se pudo conectar con el servidor de Sauron"
   },
   "onboardingGuard.retry": {
     "defaultMessage": "Reintentar"
@@ -2451,10 +2463,10 @@
     "defaultMessage": "Tu agente de IA local. Conecta un proveedor de modelos de IA para empezar."
   },
   "onboardingGuard.welcomeTitle": {
-    "defaultMessage": "Te damos la bienvenida a goose"
+    "defaultMessage": "Te damos la bienvenida a sauron"
   },
   "onboardingSuccess.allSet": {
-    "defaultMessage": "Todo está listo para que empieces a usar goose."
+    "defaultMessage": "Todo está listo para que empieces a usar sauron."
   },
   "onboardingSuccess.connectedTo": {
     "defaultMessage": "Conectado a {providerName}"
@@ -2469,7 +2481,7 @@
     "defaultMessage": "Modelo local listo"
   },
   "onboardingSuccess.privacyDescription": {
-    "defaultMessage": "Los datos de uso anónimos ayudan a mejorar goose. Nunca recopilamos tus conversaciones, código ni datos personales."
+    "defaultMessage": "Los datos de uso anónimos ayudan a mejorar sauron. Nunca recopilamos tus conversaciones, código ni datos personales."
   },
   "onboardingSuccess.privacyTitle": {
     "defaultMessage": "Privacidad"
@@ -2637,10 +2649,10 @@
     "defaultMessage": "Métricas de sesión (duración, número de interacciones, uso de tokens)"
   },
   "privacyInfoModal.collectVersion": {
-    "defaultMessage": "Versión de goose y método de instalación"
+    "defaultMessage": "Versión de sauron y método de instalación"
   },
   "privacyInfoModal.description": {
-    "defaultMessage": "Los datos de uso anónimos nos ayudan a entender cómo se usa goose e identificar áreas de mejora."
+    "defaultMessage": "Los datos de uso anónimos nos ayudan a entender cómo se usa sauron e identificar áreas de mejora."
   },
   "privacyInfoModal.neverCollect": {
     "defaultMessage": "Nunca recopilamos tus conversaciones, código, argumentos de herramientas, mensajes de error ni ningún dato personal. Puedes cambiar este ajuste en cualquier momento en Ajustes."
@@ -2709,7 +2721,7 @@
     "defaultMessage": "No se pudo guardar el prompt"
   },
   "promptsSettings.promptEditingDescription": {
-    "defaultMessage": "Personaliza los prompts que definen el comportamiento de goose en distintos contextos. Estos prompts usan la sintaxis de plantillas Jinja2. Ten cuidado al modificar las variables de plantilla, ya que los cambios incorrectos pueden romper la funcionalidad. Comparte cualquier mejora con la comunidad."
+    "defaultMessage": "Personaliza los prompts que definen el comportamiento de sauron en distintos contextos. Estos prompts usan la sintaxis de plantillas Jinja2. Ten cuidado al modificar las variables de plantilla, ya que los cambios incorrectos pueden romper la funcionalidad. Comparte cualquier mejora con la comunidad."
   },
   "promptsSettings.promptEditingTitle": {
     "defaultMessage": "Edición de prompts"
@@ -2805,7 +2817,7 @@
     "defaultMessage": "Iniciando sesión..."
   },
   "providerConfigurationModal.addApiKeyDescription": {
-    "defaultMessage": "Añade tu(s) clave(s) de API de este proveedor para integrarlo en goose"
+    "defaultMessage": "Añade tu(s) clave(s) de API de este proveedor para integrarlo en sauron"
   },
   "providerConfigurationModal.browserWindowHint": {
     "defaultMessage": "Se abrirá una ventana del navegador para que completes el inicio de sesión."
@@ -2841,7 +2853,7 @@
     "defaultMessage": "Error"
   },
   "providerConfigurationModal.externalSetupIntro": {
-    "defaultMessage": "Este proveedor se configura fuera de goose. Sigue estos pasos:"
+    "defaultMessage": "Este proveedor se configura fuera de sauron. Sigue estos pasos:"
   },
   "providerConfigurationModal.goBack": {
     "defaultMessage": "Volver"
@@ -2925,7 +2937,7 @@
     "defaultMessage": "Cargando proveedores..."
   },
   "providerSettings.onboardingDescription": {
-    "defaultMessage": "Selecciona un proveedor de modelos de IA para empezar con goose. Necesitarás usar claves de API generadas por cada proveedor, que se cifrarán y se almacenarán localmente. Puedes cambiar de proveedor en cualquier momento en los ajustes."
+    "defaultMessage": "Selecciona un proveedor de modelos de IA para empezar con sauron. Necesitarás usar claves de API generadas por cada proveedor, que se cifrarán y se almacenarán localmente. Puedes cambiar de proveedor en cualquier momento en los ajustes."
   },
   "providerSettings.otherProviders": {
     "defaultMessage": "Otros proveedores"
@@ -3498,7 +3510,7 @@
     "defaultMessage": "Deep link"
   },
   "scheduleModal.deepLinkPlaceholder": {
-    "defaultMessage": "Pega aquí el enlace goose://recipe..."
+    "defaultMessage": "Pega aquí el enlace sauron://recipe..."
   },
   "scheduleModal.editSchedule": {
     "defaultMessage": "Editar programación"
@@ -3513,7 +3525,7 @@
     "defaultMessage": "No se pudo leer el archivo seleccionado."
   },
   "scheduleModal.invalidDeepLink": {
-    "defaultMessage": "Deep link no válido. Usa un enlace goose://recipe."
+    "defaultMessage": "Deep link no válido. Usa un enlace sauron://recipe."
   },
   "scheduleModal.invalidFileType": {
     "defaultMessage": "Tipo de archivo no válido: selecciona un archivo YAML (.yaml o .yml)"
@@ -3855,7 +3867,7 @@
     "defaultMessage": "Historial de chats"
   },
   "sessions.chatHistoryDesc": {
-    "defaultMessage": "Consulta y busca tus conversaciones anteriores con Goose. {shortcut} para buscar."
+    "defaultMessage": "Consulta y busca tus conversaciones anteriores con Sauron. {shortcut} para buscar."
   },
   "sessions.close": {
     "defaultMessage": "Cerrar"
@@ -3948,7 +3960,7 @@
     "defaultMessage": "Descripción de la sesión actualizada correctamente"
   },
   "settings.appearance.description": {
-    "defaultMessage": "Configura cómo se ve goose en tu sistema"
+    "defaultMessage": "Configura cómo se ve sauron en tu sistema"
   },
   "settings.appearance.title": {
     "defaultMessage": "Apariencia"
@@ -3963,13 +3975,28 @@
     "defaultMessage": "Seguimiento de costos"
   },
   "settings.dockIcon.description": {
-    "defaultMessage": "Muestra goose en el dock"
+    "defaultMessage": "Muestra sauron en el dock"
   },
   "settings.dockIcon.title": {
     "defaultMessage": "Icono del dock"
   },
+  "settings.fontSize.decrease": {
+    "defaultMessage": "Reducir el tamaño de fuente"
+  },
+  "settings.fontSize.description": {
+    "defaultMessage": "Cambiar el tamaño del texto en goose"
+  },
+  "settings.fontSize.increase": {
+    "defaultMessage": "Aumentar el tamaño de fuente"
+  },
+  "settings.fontSize.reset": {
+    "defaultMessage": "Restablecer"
+  },
+  "settings.fontSize.title": {
+    "defaultMessage": "Tamaño de fuente"
+  },
   "settings.help.description": {
-    "defaultMessage": "Ayúdanos a mejorar goose reportando problemas o solicitando nuevas funciones"
+    "defaultMessage": "Ayúdanos a mejorar sauron reportando problemas o solicitando nuevas funciones"
   },
   "settings.help.reportBug": {
     "defaultMessage": "Reportar un error"
@@ -3981,7 +4008,7 @@
     "defaultMessage": "Ayuda y comentarios"
   },
   "settings.language.description": {
-    "defaultMessage": "Elige el idioma de la interfaz de goose"
+    "defaultMessage": "Elige el idioma de la interfaz de sauron"
   },
   "settings.language.english": {
     "defaultMessage": "Inglés"
@@ -4038,7 +4065,7 @@
     "defaultMessage": "Chino (tradicional)"
   },
   "settings.menuBarIcon.description": {
-    "defaultMessage": "Muestra goose en la barra de menús"
+    "defaultMessage": "Muestra sauron en la barra de menús"
   },
   "settings.menuBarIcon.title": {
     "defaultMessage": "Icono de la barra de menús"
@@ -4059,7 +4086,7 @@
     "defaultMessage": "Haz clic en Notificaciones"
   },
   "settings.notifications.modal.macStep3": {
-    "defaultMessage": "Encuentra y selecciona goose en la lista de aplicaciones"
+    "defaultMessage": "Encuentra y selecciona sauron en la lista de aplicaciones"
   },
   "settings.notifications.modal.macStep4": {
     "defaultMessage": "Activa las notificaciones y ajusta la configuración como prefieras"
@@ -4077,7 +4104,7 @@
     "defaultMessage": "Ve a Sistema > Notificaciones"
   },
   "settings.notifications.modal.winStep3": {
-    "defaultMessage": "Encuentra y selecciona goose en la lista de aplicaciones"
+    "defaultMessage": "Encuentra y selecciona sauron en la lista de aplicaciones"
   },
   "settings.notifications.modal.winStep4": {
     "defaultMessage": "Activa las notificaciones y ajusta la configuración como prefieras"
@@ -4085,8 +4112,14 @@
   "settings.notifications.openSettings": {
     "defaultMessage": "Abrir configuración"
   },
+  "settings.notifications.sound.description": {
+    "defaultMessage": "Reproducir un sonido con las notificaciones de tareas completadas"
+  },
+  "settings.notifications.sound.title": {
+    "defaultMessage": "Sonido de notificación"
+  },
   "settings.notifications.task.description": {
-    "defaultMessage": "Notifica cuando Goose termina una tarea mientras la ventana está en segundo plano"
+    "defaultMessage": "Notifica cuando Sauron termina una tarea mientras la ventana está en segundo plano"
   },
   "settings.notifications.task.title": {
     "defaultMessage": "Notificaciones de tareas completadas"
@@ -4095,19 +4128,19 @@
     "defaultMessage": "Notificaciones"
   },
   "settings.preventSleep.description": {
-    "defaultMessage": "Mantén tu computadora despierta mientras goose ejecuta una tarea (la pantalla aún puede bloquearse)"
+    "defaultMessage": "Mantén tu computadora despierta mientras sauron ejecuta una tarea (la pantalla aún puede bloquearse)"
   },
   "settings.preventSleep.title": {
     "defaultMessage": "Evitar suspensión"
   },
   "settings.theme.description": {
-    "defaultMessage": "Personaliza la apariencia de goose"
+    "defaultMessage": "Personaliza la apariencia de sauron"
   },
   "settings.theme.title": {
     "defaultMessage": "Tema"
   },
   "settings.updates.description": {
-    "defaultMessage": "Busca e instala actualizaciones para mantener goose funcionando al máximo"
+    "defaultMessage": "Busca e instala actualizaciones para mantener sauron funcionando al máximo"
   },
   "settings.updates.title": {
     "defaultMessage": "Actualizaciones"
@@ -4118,9 +4151,6 @@
   "settingsView.tabApp": {
     "defaultMessage": "App"
   },
-  "settingsView.tabAuth": {
-    "defaultMessage": "Auth"
-  },
   "settingsView.tabChat": {
     "defaultMessage": "Chat"
   },
@@ -4129,9 +4159,6 @@
   },
   "settingsView.tabKeyboard": {
     "defaultMessage": "Teclado"
-  },
-  "settingsView.tabLocalInference": {
-    "defaultMessage": "Inferencia local"
   },
   "settingsView.tabModels": {
     "defaultMessage": "Modelos"
@@ -4173,7 +4200,7 @@
     "defaultMessage": "No se encontraron Skills que coincidan"
   },
   "skillsView.noSkillsDescription": {
-    "defaultMessage": "Las Skills se cargan desde archivos SKILL.md en ~/.config/agents/skills/, .goose/skills/ u otros directorios admitidos."
+    "defaultMessage": "Las Skills se cargan desde archivos SKILL.md en ~/.config/agents/skills/, .sauron/skills/ u otros directorios admitidos."
   },
   "skillsView.noSkillsInstalled": {
     "defaultMessage": "No hay Skills instaladas"
@@ -4182,7 +4209,7 @@
     "defaultMessage": "Buscar Skills..."
   },
   "skillsView.skillsDescription": {
-    "defaultMessage": "Mira las Skills instaladas que amplían las capacidades de Goose. {shortcut} para buscar."
+    "defaultMessage": "Mira las Skills instaladas que amplían las capacidades de Sauron. {shortcut} para buscar."
   },
   "skillsView.skillsTitle": {
     "defaultMessage": "Skills"
@@ -4425,10 +4452,10 @@
     "defaultMessage": "Usar otro proveedor"
   },
   "telemetryConsentPrompt.description": {
-    "defaultMessage": "¿Te gustaría compartir datos de uso anónimos para ayudar a mejorar goose? Nunca recopilamos tus conversaciones, código ni datos personales."
+    "defaultMessage": "¿Te gustaría compartir datos de uso anónimos para ayudar a mejorar sauron? Nunca recopilamos tus conversaciones, código ni datos personales."
   },
   "telemetryConsentPrompt.heading": {
-    "defaultMessage": "Ayuda a mejorar goose"
+    "defaultMessage": "Ayuda a mejorar sauron"
   },
   "telemetryConsentPrompt.learnMore": {
     "defaultMessage": "Más información"
@@ -4455,7 +4482,7 @@
     "defaultMessage": "Privacidad"
   },
   "telemetrySettings.toggleDescription": {
-    "defaultMessage": "Ayuda a mejorar goose compartiendo estadísticas de uso anónimas."
+    "defaultMessage": "Ayuda a mejorar sauron compartiendo estadísticas de uso anónimas."
   },
   "telemetrySettings.toggleLabel": {
     "defaultMessage": "Datos de uso anónimos"
@@ -4535,14 +4562,14 @@
   "toolConfirmation.allowToolCallWithName": {
     "defaultMessage": "¿Permitir {toolName}?"
   },
-  "toolConfirmation.gooseWouldLikeToCallWithName": {
-    "defaultMessage": "Goose quiere invocar {toolName}. ¿Permitir?"
+  "toolConfirmation.sauronWouldLikeToCallWithName": {
+    "defaultMessage": "Sauron quiere invocar {toolName}. ¿Permitir?"
   },
   "updateSection.autoDownload": {
     "defaultMessage": "La actualización se descargará automáticamente en segundo plano."
   },
   "updateSection.autoDownloadDisabledByEnv": {
-    "defaultMessage": "Las descargas automáticas están desactivadas mediante la variable de entorno GOOSE_DISABLE_AUTO_DOWNLOAD."
+    "defaultMessage": "Las descargas automáticas están desactivadas mediante la variable de entorno SAURON_DISABLE_AUTO_DOWNLOAD."
   },
   "updateSection.autoDownloadDisabledNote": {
     "defaultMessage": "La descarga automática está desactivada. Haz clic en «Descargar ahora» para descargar manualmente."
@@ -4560,7 +4587,7 @@
     "defaultMessage": "Desactivar la descarga automática de actualizaciones"
   },
   "updateSection.disableAutoDownloadDesc": {
-    "defaultMessage": "Cuando está activado, Goose te avisará de nuevas versiones pero no las descargará automáticamente."
+    "defaultMessage": "Cuando está activado, Sauron te avisará de nuevas versiones pero no las descargará automáticamente."
   },
   "updateSection.downloadNow": {
     "defaultMessage": "Descargar ahora"
@@ -4820,6 +4847,150 @@
   "settingsView.tabProviders": {
     "defaultMessage": "Providers"
   },
+  "authSettings.cancelSignIn": {
+    "defaultMessage": "Cancelar"
+  },
+  "authSettings.checkingStatus": {
+    "defaultMessage": "Comprobando..."
+  },
+  "authSettings.connectedAccounts": {
+    "defaultMessage": "Cuentas conectadas"
+  },
+  "authSettings.connectedAccountsDescription": {
+    "defaultMessage": "Inicia sesión para que Sauron trabaje con tus cuentas externas."
+  },
+  "authSettings.githubAccountDescription": {
+    "defaultMessage": "Busca repositorios, trabaja con código, gestiona issues y abre pull requests."
+  },
+  "authSettings.githubAccountName": {
+    "defaultMessage": "GitHub"
+  },
+  "authSettings.githubConnected": {
+    "defaultMessage": "Conectado"
+  },
+  "authSettings.githubEnterCode": {
+    "defaultMessage": "Introduce este código en {url} para autorizar a Sauron:"
+  },
+  "authSettings.githubNotConnected": {
+    "defaultMessage": "No conectado"
+  },
+  "authSettings.githubOpenDevicePage": {
+    "defaultMessage": "Abrir la página de dispositivo de GitHub"
+  },
+  "allProviderModels.preferredUpdateFailed": {
+    "defaultMessage": "No se pudieron actualizar los modelos preferidos"
+  },
+  "allProviderModels.refreshAll": {
+    "defaultMessage": "Refresh models"
+  },
+  "authSettings.githubSignInUnavailable": {
+    "defaultMessage": "El inicio de sesión con GitHub solo está disponible en la aplicación de escritorio."
+  },
+  "authSettings.githubSignOutMessage": {
+    "defaultMessage": "Sauron no podrá trabajar con tus repositorios de GitHub hasta que vuelvas a iniciar sesión."
+  },
+  "allProviderModels.removePreferred": {
+    "defaultMessage": "Quitar {model} de los modelos preferidos"
+  },
+  "allProviderModels.title": {
+    "defaultMessage": "Models from your providers"
+  },
+  "authSettings.githubSignedIn": {
+    "defaultMessage": "Sesión iniciada en GitHub. La extensión de GitHub está lista para usar."
+  },
+  "authSettings.githubSignedOut": {
+    "defaultMessage": "Sesión cerrada de GitHub"
+  },
+  "authSettings.githubStatusFailed": {
+    "defaultMessage": "No se pudo comprobar el estado de inicio de sesión de GitHub"
+  },
+  "authSettings.githubWaitingForAuthorization": {
+    "defaultMessage": "Esperando la autorización de GitHub..."
+  },
+  "authSettings.signInWithGitHub": {
+    "defaultMessage": "Iniciar sesión con GitHub"
+  },
+  "pluginsSettings.loadFailed": {
+    "defaultMessage": "Could not load plugins"
+  },
+  "pluginsSettings.loading": {
+    "defaultMessage": "Loading plugins..."
+  },
+  "pluginsSettings.manageSkills": {
+    "defaultMessage": "Manage skills"
+  },
+  "pluginsSettings.pluginCount": {
+    "defaultMessage": "{count,plural,=0{No plugins} one{# plugin} other{# plugins}}"
+  },
+  "pluginsSettings.refresh": {
+    "defaultMessage": "Refresh"
+  },
+  "pluginsSettings.skillCount": {
+    "defaultMessage": "{count,plural,one{# skill} other{# skills}}"
+  },
+  "pluginsSettings.title": {
+    "defaultMessage": "Plugins"
+  },
+  "preferredModels.empty": {
+    "defaultMessage": "Marca modelos con una estrella abajo para tenerlos a mano aquí y en los chats."
+  },
+  "preferredModels.remove": {
+    "defaultMessage": "Quitar {model} de los modelos preferidos"
+  },
+  "preferredModels.removeFailed": {
+    "defaultMessage": "No se pudieron actualizar los modelos preferidos"
+  },
+  "preferredModels.title": {
+    "defaultMessage": "Modelos preferidos"
+  },
+  "providersSection.resetDescription": {
+    "defaultMessage": "Clear your selected model and provider settings to start fresh"
+  },
+  "providersSection.resetTitle": {
+    "defaultMessage": "Reset Provider and Model"
+  },
+  "settingsView.tabAppearance": {
+    "defaultMessage": "Appearance"
+  },
+  "settingsView.tabMcp": {
+    "defaultMessage": "MCP"
+  },
+  "settingsView.tabPlugins": {
+    "defaultMessage": "Plugins"
+  },
+  "themeSelector.popular": {
+    "defaultMessage": "Popular themes"
+  },
+  "allProviderModels.clearSearch": {
+    "defaultMessage": "Borrar búsqueda"
+  },
+  "allProviderModels.clearSearchInput": {
+    "defaultMessage": "Borrar campo de búsqueda"
+  },
+  "allProviderModels.noSearchResults": {
+    "defaultMessage": "Ningún modelo coincide con \"{query}\"."
+  },
+  "allProviderModels.searchLabel": {
+    "defaultMessage": "Buscar modelos"
+  },
+  "allProviderModels.searchPlaceholder": {
+    "defaultMessage": "Buscar modelos..."
+  },
+  "allProviderModels.showingCount": {
+    "defaultMessage": "Mostrando {shown, number} de {total, number} modelos"
+  },
+  "modelBadges.contextShort": {
+    "defaultMessage": "{amount, number}k"
+  },
+  "modelBadges.contextWindow": {
+    "defaultMessage": "Contexto de {amount, number}k"
+  },
+  "modelBadges.default": {
+    "defaultMessage": "Predeterminado"
+  },
+  "modelBadges.reasoning": {
+    "defaultMessage": "Razonamiento"
+  },
   "allProviderModels.configureProviders": {
     "defaultMessage": "Configure providers"
   },
@@ -4850,17 +5021,20 @@
   "allProviderModels.noModels": {
     "defaultMessage": "No models reported by this provider."
   },
-  "allProviderModels.refreshAll": {
-    "defaultMessage": "Refresh models"
-  },
   "allProviderModels.refreshFailed": {
     "defaultMessage": "Could not refresh {provider}: {error}"
   },
   "allProviderModels.refreshing": {
     "defaultMessage": "Refreshing..."
   },
-  "allProviderModels.title": {
-    "defaultMessage": "Models from your providers"
+  "authSettings.githubSignInFailed": {
+    "defaultMessage": "GitHub sign-in failed: {error}"
+  },
+  "authSettings.githubSignOutTitle": {
+    "defaultMessage": "Sign out of GitHub"
+  },
+  "authSettings.signOutFromGitHub": {
+    "defaultMessage": "Sign out"
   },
   "mcpSettings.description": {
     "defaultMessage": "Connect Model Context Protocol servers to give goose new tools, resources, and data sources. Extensions added here are available to every chat."
@@ -4876,44 +5050,5 @@
   },
   "pluginsSettings.emptyHint": {
     "defaultMessage": "Install a plugin with `goose plugin install` and it will show up here."
-  },
-  "pluginsSettings.loadFailed": {
-    "defaultMessage": "Could not load plugins"
-  },
-  "pluginsSettings.loading": {
-    "defaultMessage": "Loading plugins..."
-  },
-  "pluginsSettings.manageSkills": {
-    "defaultMessage": "Manage skills"
-  },
-  "pluginsSettings.pluginCount": {
-    "defaultMessage": "{count,plural,=0{No plugins} one{# plugin} other{# plugins}}"
-  },
-  "pluginsSettings.refresh": {
-    "defaultMessage": "Refresh"
-  },
-  "pluginsSettings.skillCount": {
-    "defaultMessage": "{count,plural,one{# skill} other{# skills}}"
-  },
-  "pluginsSettings.title": {
-    "defaultMessage": "Plugins"
-  },
-  "providersSection.resetDescription": {
-    "defaultMessage": "Clear your selected model and provider settings to start fresh"
-  },
-  "providersSection.resetTitle": {
-    "defaultMessage": "Reset Provider and Model"
-  },
-  "settingsView.tabAppearance": {
-    "defaultMessage": "Appearance"
-  },
-  "settingsView.tabMcp": {
-    "defaultMessage": "MCP"
-  },
-  "settingsView.tabPlugins": {
-    "defaultMessage": "Plugins"
-  },
-  "themeSelector.popular": {
-    "defaultMessage": "Popular themes"
   }
 }
