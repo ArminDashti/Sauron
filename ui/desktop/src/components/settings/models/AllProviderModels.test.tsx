@@ -22,6 +22,8 @@ vi.mock('../../../acp/providers', () => ({
   acpReadDefaults: vi.fn(),
   acpRefreshProviderDetails: vi.fn(),
   acpSaveDefaults: vi.fn(),
+  acpListProviderSecrets: vi.fn().mockResolvedValue([]),
+  acpIsProviderTokenSet: vi.fn().mockResolvedValue(true),
 }));
 
 vi.mock('../../../toasts', () => ({

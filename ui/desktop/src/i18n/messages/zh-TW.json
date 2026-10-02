@@ -4112,6 +4112,12 @@
   "settings.notifications.openSettings": {
     "defaultMessage": "開啟設定"
   },
+  "settings.notifications.sound.description": {
+    "defaultMessage": "任務完成通知時播放聲音"
+  },
+  "settings.notifications.sound.title": {
+    "defaultMessage": "通知聲音"
+  },
   "settings.notifications.task.description": {
     "defaultMessage": "當視窗在背景執行時，Sauron 完成工作後發出通知"
   },
@@ -4141,6 +4147,12 @@
   },
   "settings.version.title": {
     "defaultMessage": "版本"
+  },
+  "settingsView.noResults": {
+    "defaultMessage": "無結果"
+  },
+  "settingsView.searchPlaceholder": {
+    "defaultMessage": "搜尋設定"
   },
   "settingsView.tabApp": {
     "defaultMessage": "應用程式"

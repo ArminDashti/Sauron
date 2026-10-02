@@ -4475,6 +4475,12 @@
   "settings.notifications.openSettings": {
     "defaultMessage": "Open Settings"
   },
+  "settings.notifications.sound.description": {
+    "defaultMessage": "Play a sound with task completion notifications"
+  },
+  "settings.notifications.sound.title": {
+    "defaultMessage": "Notification sound"
+  },
   "settings.notifications.task.description": {
     "defaultMessage": "Notify when Sauron finishes a task while the window is in the background"
   },
@@ -4504,6 +4510,12 @@
   },
   "settings.version.title": {
     "defaultMessage": "Version"
+  },
+  "settingsView.noResults": {
+    "defaultMessage": "No results"
+  },
+  "settingsView.searchPlaceholder": {
+    "defaultMessage": "Search Settings"
   },
   "settingsView.tabApp": {
     "defaultMessage": "App"

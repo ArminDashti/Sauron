@@ -4112,6 +4112,12 @@
   "settings.notifications.openSettings": {
     "defaultMessage": "Mở Settings"
   },
+  "settings.notifications.sound.description": {
+    "defaultMessage": "Phát âm thanh cùng thông báo hoàn tất tác vụ"
+  },
+  "settings.notifications.sound.title": {
+    "defaultMessage": "Âm thông báo"
+  },
   "settings.notifications.task.description": {
     "defaultMessage": "Thông báo khi Sauron hoàn thành một tác vụ trong khi cửa sổ đang ở chế độ nền"
   },
@@ -4141,6 +4147,12 @@
   },
   "settings.version.title": {
     "defaultMessage": "Phiên bản"
+  },
+  "settingsView.noResults": {
+    "defaultMessage": "Không có kết quả"
+  },
+  "settingsView.searchPlaceholder": {
+    "defaultMessage": "Tìm trong cài đặt"
   },
   "settingsView.tabApp": {
     "defaultMessage": "Ứng dụng"

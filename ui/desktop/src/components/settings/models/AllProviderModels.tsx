@@ -12,6 +12,8 @@ import {
   formatContextLimit,
 } from './subcomponents/ModelBadges';
 import {
+  acpIsProviderTokenSet,
+  acpListProviderSecrets,
   acpListSettingsProviderDetails,
   acpReadDefaults,
   acpRefreshProviderDetails,
@@ -162,7 +164,17 @@ export default function AllProviderModels({
         acpListSettingsProviderDetails(),
         acpReadDefaults(),
       ]);
-      setProviders(all.filter((provider) => provider.is_configured));
+      const configured = all.filter((provider) => provider.is_configured);
+      // Only load models for providers whose token key is set; the secrets
+      // list is shared across checks so each provider needs at most one
+      // extra config read.
+      const storedSecrets = await acpListProviderSecrets().catch(() => []);
+      const withToken = await Promise.all(
+        configured.map(async (provider) =>
+          (await acpIsProviderTokenSet(provider, storedSecrets)) ? provider : null
+        )
+      );
+      setProviders(withToken.filter((provider): provider is ProviderDetails => provider !== null));
       setDefaults(currentDefaults);
     } catch (error) {
       setLoadError(errorMessage(error));
@@ -468,7 +480,9 @@ export default function AllProviderModels({
                                     : 'text-text-secondary opacity-60 hover:text-text-primary hover:opacity-100'
                                 }`}
                               >
-                                <Star className={`h-3.5 w-3.5 ${isPreferred ? 'fill-current' : ''}`} />
+                                <Star
+                                  className={`h-3.5 w-3.5 ${isPreferred ? 'fill-current' : ''}`}
+                                />
                               </button>
                             </div>
                           );

@@ -4112,6 +4112,12 @@
   "settings.notifications.openSettings": {
     "defaultMessage": "設定を開く"
   },
+  "settings.notifications.sound.description": {
+    "defaultMessage": "タスク完了通知で音を鳴らす"
+  },
+  "settings.notifications.sound.title": {
+    "defaultMessage": "通知音"
+  },
   "settings.notifications.task.description": {
     "defaultMessage": "ウィンドウがバックグラウンドにある間にSauronがタスクを完了したら通知します"
   },
@@ -4141,6 +4147,12 @@
   },
   "settings.version.title": {
     "defaultMessage": "バージョン"
+  },
+  "settingsView.noResults": {
+    "defaultMessage": "結果がありません"
+  },
+  "settingsView.searchPlaceholder": {
+    "defaultMessage": "設定を検索"
   },
   "settingsView.tabApp": {
     "defaultMessage": "アプリ"

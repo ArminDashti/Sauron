@@ -4112,6 +4112,12 @@
   "settings.notifications.openSettings": {
     "defaultMessage": "Ayarları Aç"
   },
+  "settings.notifications.sound.description": {
+    "defaultMessage": "Görev tamamlama bildirimleriyle ses çal"
+  },
+  "settings.notifications.sound.title": {
+    "defaultMessage": "Bildirim sesi"
+  },
   "settings.notifications.task.description": {
     "defaultMessage": "Pencere arka plandayken Sauron bir görevi tamamladığında bildirim al"
   },
@@ -4141,6 +4147,12 @@
   },
   "settings.version.title": {
     "defaultMessage": "Sürüm"
+  },
+  "settingsView.noResults": {
+    "defaultMessage": "Sonuç yok"
+  },
+  "settingsView.searchPlaceholder": {
+    "defaultMessage": "Ayarlarında Ara"
   },
   "settingsView.tabApp": {
     "defaultMessage": "Uygulama"

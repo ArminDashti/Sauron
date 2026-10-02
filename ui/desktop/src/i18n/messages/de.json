@@ -4112,6 +4112,12 @@
   "settings.notifications.openSettings": {
     "defaultMessage": "Einstellungen öffnen"
   },
+  "settings.notifications.sound.description": {
+    "defaultMessage": "Bei fertiggestellten Aufgaben einen Ton abspielen"
+  },
+  "settings.notifications.sound.title": {
+    "defaultMessage": "Benachrichtigungston"
+  },
   "settings.notifications.task.description": {
     "defaultMessage": "Benachrichtigen, wenn Sauron eine Aufgabe abschließt, während sich das Fenster im Hintergrund befindet"
   },
@@ -4141,6 +4147,12 @@
   },
   "settings.version.title": {
     "defaultMessage": "Version"
+  },
+  "settingsView.noResults": {
+    "defaultMessage": "Keine Ergebnisse"
+  },
+  "settingsView.searchPlaceholder": {
+    "defaultMessage": "Einstellungen durchsuchen"
   },
   "settingsView.tabApp": {
     "defaultMessage": "App"

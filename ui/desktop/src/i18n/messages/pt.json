@@ -4112,6 +4112,12 @@
   "settings.notifications.openSettings": {
     "defaultMessage": "Abrir Definições"
   },
+  "settings.notifications.sound.description": {
+    "defaultMessage": "Reproduzir um som com as notificações de conclusão de tarefas"
+  },
+  "settings.notifications.sound.title": {
+    "defaultMessage": "Som de notificação"
+  },
   "settings.notifications.task.description": {
     "defaultMessage": "Notificar quando o Sauron concluir uma tarefa enquanto a janela está em segundo plano"
   },
@@ -4141,6 +4147,12 @@
   },
   "settings.version.title": {
     "defaultMessage": "Versão"
+  },
+  "settingsView.noResults": {
+    "defaultMessage": "Nenhum resultado"
+  },
+  "settingsView.searchPlaceholder": {
+    "defaultMessage": "Pesquisar nas configurações"
   },
   "settingsView.tabApp": {
     "defaultMessage": "Aplicação"

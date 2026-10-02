@@ -4112,6 +4112,12 @@
   "settings.notifications.openSettings": {
     "defaultMessage": "Buka Tetapan"
   },
+  "settings.notifications.sound.description": {
+    "defaultMessage": "Mainkan bunyi bersama notifikasi tugas selesai"
+  },
+  "settings.notifications.sound.title": {
+    "defaultMessage": "Bunyi notifikasi"
+  },
   "settings.notifications.task.description": {
     "defaultMessage": "Beritahu apabila Sauron menyelesaikan tugasan semasa tetingkap berada di latar belakang"
   },
@@ -4141,6 +4147,12 @@
   },
   "settings.version.title": {
     "defaultMessage": "Versi"
+  },
+  "settingsView.noResults": {
+    "defaultMessage": "Tiada hasil"
+  },
+  "settingsView.searchPlaceholder": {
+    "defaultMessage": "Cari Tetapan"
   },
   "settingsView.tabApp": {
     "defaultMessage": "Aplikasi"
