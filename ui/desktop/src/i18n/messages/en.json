@@ -32,6 +32,12 @@
   "allProviderModels.addPreferred": {
     "defaultMessage": "Add {model} to preferred models"
   },
+  "allProviderModels.clearSearch": {
+    "defaultMessage": "Clear search"
+  },
+  "allProviderModels.clearSearchInput": {
+    "defaultMessage": "Clear search input"
+  },
   "allProviderModels.configureProviders": {
     "defaultMessage": "Configure providers"
   },
@@ -50,6 +56,15 @@
   "allProviderModels.emptyHint": {
     "defaultMessage": "Configure a provider to see the models it offers."
   },
+  "allProviderModels.filterAll": {
+    "defaultMessage": "All"
+  },
+  "allProviderModels.filterFree": {
+    "defaultMessage": "Free"
+  },
+  "allProviderModels.freeCount": {
+    "defaultMessage": "{count} free"
+  },
   "allProviderModels.loadFailed": {
     "defaultMessage": "Could not load provider models"
   },
@@ -59,8 +74,17 @@
   "allProviderModels.modelCount": {
     "defaultMessage": "{count,plural,one{# model} other{# models}}"
   },
+  "allProviderModels.noFreeModels": {
+    "defaultMessage": "No free models from your providers."
+  },
+  "allProviderModels.noFreeModelsHint": {
+    "defaultMessage": "Models show as free when a provider runs them locally (Ollama, local models) or lists free variants, such as the :free models from OpenRouter."
+  },
   "allProviderModels.noModels": {
     "defaultMessage": "No models reported by this provider."
+  },
+  "allProviderModels.noSearchResults": {
+    "defaultMessage": "No models match \"{query}\"."
   },
   "allProviderModels.preferredUpdateFailed": {
     "defaultMessage": "Failed to update preferred models"
@@ -77,6 +101,18 @@
   "allProviderModels.removePreferred": {
     "defaultMessage": "Remove {model} from preferred models"
   },
+  "allProviderModels.searchLabel": {
+    "defaultMessage": "Search models"
+  },
+  "allProviderModels.searchPlaceholder": {
+    "defaultMessage": "Search models..."
+  },
+  "allProviderModels.showAll": {
+    "defaultMessage": "Show all models"
+  },
+  "allProviderModels.showingCount": {
+    "defaultMessage": "Showing {shown, number} of {total, number} models"
+  },
   "allProviderModels.title": {
     "defaultMessage": "Models from your providers"
   },
@@ -86,8 +122,14 @@
   "appLayout.collapseNavigation": {
     "defaultMessage": "Collapse navigation"
   },
+  "appLayout.hideChanges": {
+    "defaultMessage": "Hide changes panel"
+  },
   "appLayout.openNavigation": {
     "defaultMessage": "Open navigation"
+  },
+  "appLayout.showChanges": {
+    "defaultMessage": "Show changes panel"
   },
   "appsView.customApp": {
     "defaultMessage": "Custom app"
@@ -301,6 +343,81 @@
   },
   "cardButtons.launch": {
     "defaultMessage": "Launch"
+  },
+  "changesPanel.cleanTree": {
+    "defaultMessage": "Working tree clean"
+  },
+  "changesPanel.close": {
+    "defaultMessage": "Close changes panel"
+  },
+  "changesPanel.commitAndPush": {
+    "defaultMessage": "Commit & Push"
+  },
+  "changesPanel.commitFailed": {
+    "defaultMessage": "Commit failed"
+  },
+  "changesPanel.commitPlaceholder": {
+    "defaultMessage": "Commit message"
+  },
+  "changesPanel.commitSuccess": {
+    "defaultMessage": "Committed and pushed"
+  },
+  "changesPanel.committing": {
+    "defaultMessage": "Committing…"
+  },
+  "changesPanel.loadFailed": {
+    "defaultMessage": "Could not load git changes"
+  },
+  "changesPanel.loading": {
+    "defaultMessage": "Loading changes…"
+  },
+  "changesPanel.loadingDiff": {
+    "defaultMessage": "Loading diff…"
+  },
+  "changesPanel.noChanges": {
+    "defaultMessage": "No changes"
+  },
+  "changesPanel.noDirectory": {
+    "defaultMessage": "No working directory selected"
+  },
+  "changesPanel.notARepo": {
+    "defaultMessage": "Not a git repository"
+  },
+  "changesPanel.pushFailed": {
+    "defaultMessage": "Committed, but push failed"
+  },
+  "changesPanel.refresh": {
+    "defaultMessage": "Refresh changes"
+  },
+  "changesPanel.retry": {
+    "defaultMessage": "Retry"
+  },
+  "changesPanel.statusAdded": {
+    "defaultMessage": "Added"
+  },
+  "changesPanel.statusConflicted": {
+    "defaultMessage": "Conflicted"
+  },
+  "changesPanel.statusCopied": {
+    "defaultMessage": "Copied"
+  },
+  "changesPanel.statusDeleted": {
+    "defaultMessage": "Deleted"
+  },
+  "changesPanel.statusModified": {
+    "defaultMessage": "Modified"
+  },
+  "changesPanel.statusRenamed": {
+    "defaultMessage": "Renamed"
+  },
+  "changesPanel.statusUntracked": {
+    "defaultMessage": "Untracked"
+  },
+  "changesPanel.title": {
+    "defaultMessage": "Changes"
+  },
+  "changesPanel.uncommitted": {
+    "defaultMessage": "Uncommitted"
   },
   "chat.notification.taskComplete.body": {
     "defaultMessage": "Click here to bring Sauron back into focus."
@@ -767,6 +884,9 @@
   "customProviderForm.apiKey": {
     "defaultMessage": "API Key"
   },
+  "customProviderForm.apiKeyEnvHint": {
+    "defaultMessage": "Enter {example} to read the key from an environment variable instead of storing it."
+  },
   "customProviderForm.apiKeyPlaceholderExisting": {
     "defaultMessage": "Leave blank to keep existing key"
   },
@@ -923,6 +1043,9 @@
   "defaultProviderSetupForm.apiHostPlaceholder": {
     "defaultMessage": "https://api.example.com"
   },
+  "defaultProviderSetupForm.apiKeyEnvHint": {
+    "defaultMessage": "Enter {example} to read the key from an environment variable instead of storing it."
+  },
   "defaultProviderSetupForm.apiKeyLabel": {
     "defaultMessage": "API Key"
   },
@@ -1045,6 +1168,12 @@
   },
   "dictationSettings.voiceDictationProvider": {
     "defaultMessage": "Voice Dictation Provider"
+  },
+  "diffViewer.noDiff": {
+    "defaultMessage": "No textual changes to display"
+  },
+  "diffViewer.unmodifiedLines": {
+    "defaultMessage": "{count} unmodified lines"
   },
   "dirSwitcher.chooseDirectory": {
     "defaultMessage": "Choose directory…"
@@ -1379,6 +1508,9 @@
   "externalBackendSection.workingDirPlaceholder": {
     "defaultMessage": "/home/sauron/workspace"
   },
+  "freeModelBadge.label": {
+    "defaultMessage": "Free"
+  },
   "gitBranchIndicator.failedToSwitch": {
     "defaultMessage": "Failed to switch to {branch}"
   },
@@ -1426,6 +1558,36 @@
   },
   "groupedExtensionLoadingToast.successfullyLoaded": {
     "defaultMessage": "{count,plural,one{Successfully loaded # extension} other{Successfully loaded # extensions}}"
+  },
+  "harnessesSection.configure": {
+    "defaultMessage": "Configure"
+  },
+  "harnessesSection.configured": {
+    "defaultMessage": "Enabled"
+  },
+  "harnessesSection.description": {
+    "defaultMessage": "Use agents from another harness such as Cursor, Claude Code, Codex, or Copilot. Enable one here, then select it in Models to chat with it."
+  },
+  "harnessesSection.empty": {
+    "defaultMessage": "No external agent harnesses are available."
+  },
+  "harnessesSection.installed": {
+    "defaultMessage": "Installed"
+  },
+  "harnessesSection.loadFailed": {
+    "defaultMessage": "Failed to load harnesses"
+  },
+  "harnessesSection.loading": {
+    "defaultMessage": "Loading harnesses..."
+  },
+  "harnessesSection.notConfigured": {
+    "defaultMessage": "Not enabled"
+  },
+  "harnessesSection.notInstalled": {
+    "defaultMessage": "Not installed"
+  },
+  "harnessesSection.title": {
+    "defaultMessage": "Agent Harnesses"
   },
   "headersSection.add": {
     "defaultMessage": "Add"
@@ -2479,6 +2641,12 @@
   },
   "navigation.itemSkills": {
     "defaultMessage": "Skills"
+  },
+  "navigationFooter.cpuUsage": {
+    "defaultMessage": "CPU {percent}%"
+  },
+  "navigationFooter.memoryUsage": {
+    "defaultMessage": "Memory {percent}%"
   },
   "navigationFooter.sendFeedback": {
     "defaultMessage": "Send feedback"
@@ -4457,6 +4625,12 @@
   "settings.notifications.openSettings": {
     "defaultMessage": "Open Settings"
   },
+  "settings.notifications.sound.description": {
+    "defaultMessage": "Play a sound with task completion notifications"
+  },
+  "settings.notifications.sound.title": {
+    "defaultMessage": "Notification sound"
+  },
   "settings.notifications.task.description": {
     "defaultMessage": "Notify when Sauron finishes a task while the window is in the background"
   },
@@ -4487,6 +4661,12 @@
   "settings.version.title": {
     "defaultMessage": "Version"
   },
+  "settingsView.noResults": {
+    "defaultMessage": "No results"
+  },
+  "settingsView.searchPlaceholder": {
+    "defaultMessage": "Search Settings"
+  },
   "settingsView.tabApp": {
     "defaultMessage": "App"
   },
@@ -4498,6 +4678,9 @@
   },
   "settingsView.tabExternalBackend": {
     "defaultMessage": "Agent"
+  },
+  "settingsView.tabHarnesses": {
+    "defaultMessage": "Harnesses"
   },
   "settingsView.tabKeyboard": {
     "defaultMessage": "Keyboard"
@@ -4516,6 +4699,9 @@
   },
   "settingsView.tabProviders": {
     "defaultMessage": "Providers"
+  },
+  "settingsView.tabStats": {
+    "defaultMessage": "Stats"
   },
   "settingsView.title": {
     "defaultMessage": "Settings"
@@ -4975,6 +5161,78 @@
   },
   "updateSection.versionIsAvailable": {
     "defaultMessage": "Version {version} is available"
+  },
+  "usageStats.byModel": {
+    "defaultMessage": "Per model"
+  },
+  "usageStats.byProvider": {
+    "defaultMessage": "Per provider"
+  },
+  "usageStats.cost": {
+    "defaultMessage": "Cost"
+  },
+  "usageStats.empty": {
+    "defaultMessage": "No usage was recorded in this date range."
+  },
+  "usageStats.inputCacheTokens": {
+    "defaultMessage": "Input cache tokens"
+  },
+  "usageStats.inputTokens": {
+    "defaultMessage": "Input tokens"
+  },
+  "usageStats.loading": {
+    "defaultMessage": "Loading usage stats…"
+  },
+  "usageStats.modelColumn": {
+    "defaultMessage": "Model"
+  },
+  "usageStats.preset30": {
+    "defaultMessage": "Last 30 days"
+  },
+  "usageStats.preset7": {
+    "defaultMessage": "Last 7 days"
+  },
+  "usageStats.presetAll": {
+    "defaultMessage": "All time"
+  },
+  "usageStats.presetYear": {
+    "defaultMessage": "This year"
+  },
+  "usageStats.providerColumn": {
+    "defaultMessage": "Provider"
+  },
+  "usageStats.rangeDescription": {
+    "defaultMessage": "Usage is grouped by model and by provider for the selected dates."
+  },
+  "usageStats.rangeFrom": {
+    "defaultMessage": "From"
+  },
+  "usageStats.rangeLabel": {
+    "defaultMessage": "Date range"
+  },
+  "usageStats.rangeTo": {
+    "defaultMessage": "To"
+  },
+  "usageStats.sessions": {
+    "defaultMessage": "{count,plural,one{# session} other{# sessions}}"
+  },
+  "usageStats.sourceLedger": {
+    "defaultMessage": "Recorded usage"
+  },
+  "usageStats.sourceMessages": {
+    "defaultMessage": "Estimated from stored messages"
+  },
+  "usageStats.total": {
+    "defaultMessage": "Total"
+  },
+  "usageStats.unknown": {
+    "defaultMessage": "Unknown"
+  },
+  "usageStats.writeCacheTokens": {
+    "defaultMessage": "Write cache tokens"
+  },
+  "usageStats.writeTokens": {
+    "defaultMessage": "Write tokens"
   },
   "userMessage.cancel": {
     "defaultMessage": "Cancel"

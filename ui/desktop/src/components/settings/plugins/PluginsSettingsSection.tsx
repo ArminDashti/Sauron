@@ -8,7 +8,7 @@ import { getInitialWorkingDir } from '../../../utils/workingDir';
 import { errorMessage } from '../../../utils/conversionUtils';
 import { defineMessages, useIntl } from '../../../i18n';
 import type { View } from '../../../utils/navigationUtils';
-import type { SourceEntry } from '@aaif/goose-acp-client';
+import type { SourceEntry } from '@aaif/sauron-acp-client';
 import { iconColor } from '../../../theme/iconColors';
 
 const i18n = defineMessages({
