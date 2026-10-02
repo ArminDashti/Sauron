@@ -598,7 +598,9 @@ export default function AllProviderModels({
                                     : 'text-text-secondary opacity-60 hover:text-text-primary hover:opacity-100'
                                 }`}
                               >
-                                <Star className={`h-3.5 w-3.5 ${isPreferred ? 'fill-current' : ''}`} />
+                                <Star
+                                  className={`h-3.5 w-3.5 ${isPreferred ? 'fill-current' : ''}`}
+                                />
                               </button>
                             </div>
                           );

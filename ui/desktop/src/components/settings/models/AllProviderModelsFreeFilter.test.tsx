@@ -24,10 +24,9 @@ vi.mock('../../../toasts', () => ({
 }));
 
 const renderSection = () =>
-  render(
-    <AllProviderModels preferredModels={[]} onPreferredModelsChange={vi.fn()} />,
-    { wrapper: IntlTestWrapper }
-  );
+  render(<AllProviderModels preferredModels={[]} onPreferredModelsChange={vi.fn()} />, {
+    wrapper: IntlTestWrapper,
+  });
 
 function createProvider(
   name: string,
@@ -123,10 +122,7 @@ describe('AllProviderModels free filter', () => {
     localStorage.setItem('modelsFreeOnly', 'true');
     renderSection();
 
-    expect(await screen.findByTestId('models-filter-free')).toHaveAttribute(
-      'aria-pressed',
-      'true'
-    );
+    expect(await screen.findByTestId('models-filter-free')).toHaveAttribute('aria-pressed', 'true');
     expect(screen.queryByText('openai/gpt-5')).toBeNull();
   });
 });

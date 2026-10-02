@@ -940,7 +940,12 @@ export const SwitchModelModal = ({
                         onChange={handleModelChange}
                         onInputChange={handleInputChange}
                         formatOptionLabel={(option: unknown, meta: { context: string }) => {
-                          const { free, label, provider: optionProvider, value } = option as {
+                          const {
+                            free,
+                            label,
+                            provider: optionProvider,
+                            value,
+                          } = option as {
                             free?: boolean;
                             label?: string;
                             provider?: string;

@@ -84,7 +84,7 @@ describe('ACP providers', () => {
       models: [{ id: 'mistral-large-latest', name: 'mistral-large-latest' }],
     };
     const client = {
-      goose: {
+      sauron: {
         providersList_unstable: vi
           .fn()
           .mockResolvedValueOnce({ entries: [entry] })
@@ -101,7 +101,7 @@ describe('ACP providers', () => {
 
     const result = await acpRefreshProviderDetails('mistral');
 
-    expect(client.goose.providersReadinessCheck_unstable).not.toHaveBeenCalled();
+    expect(client.sauron.providersReadinessCheck_unstable).not.toHaveBeenCalled();
     expect(result.readinessError).toBeNull();
     expect(result.provider.metadata.known_models.map((model) => model.name)).toEqual([
       'mistral-large-latest',
