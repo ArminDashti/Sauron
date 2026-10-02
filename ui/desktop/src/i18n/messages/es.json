@@ -14,8 +14,14 @@
   "appLayout.collapseNavigation": {
     "defaultMessage": "Contraer navegación"
   },
+  "appLayout.hideChanges": {
+    "defaultMessage": "Ocultar panel de cambios"
+  },
   "appLayout.openNavigation": {
     "defaultMessage": "Abrir navegación"
+  },
+  "appLayout.showChanges": {
+    "defaultMessage": "Mostrar panel de cambios"
   },
   "appsView.customApp": {
     "defaultMessage": "App personalizada"
@@ -169,6 +175,81 @@
   },
   "cardButtons.launch": {
     "defaultMessage": "Abrir"
+  },
+  "changesPanel.cleanTree": {
+    "defaultMessage": "Árbol de trabajo limpio"
+  },
+  "changesPanel.close": {
+    "defaultMessage": "Cerrar panel de cambios"
+  },
+  "changesPanel.commitAndPush": {
+    "defaultMessage": "Confirmar y enviar"
+  },
+  "changesPanel.commitFailed": {
+    "defaultMessage": "Error al confirmar"
+  },
+  "changesPanel.commitPlaceholder": {
+    "defaultMessage": "Mensaje de confirmación"
+  },
+  "changesPanel.commitSuccess": {
+    "defaultMessage": "Confirmado y enviado"
+  },
+  "changesPanel.committing": {
+    "defaultMessage": "Confirmando…"
+  },
+  "changesPanel.loadFailed": {
+    "defaultMessage": "No se pudieron cargar los cambios de git"
+  },
+  "changesPanel.loading": {
+    "defaultMessage": "Cargando cambios…"
+  },
+  "changesPanel.loadingDiff": {
+    "defaultMessage": "Cargando diff…"
+  },
+  "changesPanel.noChanges": {
+    "defaultMessage": "Sin cambios"
+  },
+  "changesPanel.noDirectory": {
+    "defaultMessage": "No se seleccionó ningún directorio de trabajo"
+  },
+  "changesPanel.notARepo": {
+    "defaultMessage": "No es un repositorio de git"
+  },
+  "changesPanel.pushFailed": {
+    "defaultMessage": "Confirmado, pero falló el envío"
+  },
+  "changesPanel.refresh": {
+    "defaultMessage": "Actualizar cambios"
+  },
+  "changesPanel.retry": {
+    "defaultMessage": "Reintentar"
+  },
+  "changesPanel.statusAdded": {
+    "defaultMessage": "Añadido"
+  },
+  "changesPanel.statusConflicted": {
+    "defaultMessage": "En conflicto"
+  },
+  "changesPanel.statusCopied": {
+    "defaultMessage": "Copiado"
+  },
+  "changesPanel.statusDeleted": {
+    "defaultMessage": "Eliminado"
+  },
+  "changesPanel.statusModified": {
+    "defaultMessage": "Modificado"
+  },
+  "changesPanel.statusRenamed": {
+    "defaultMessage": "Renombrado"
+  },
+  "changesPanel.statusUntracked": {
+    "defaultMessage": "Sin seguimiento"
+  },
+  "changesPanel.title": {
+    "defaultMessage": "Cambios"
+  },
+  "changesPanel.uncommitted": {
+    "defaultMessage": "Sin confirmar"
   },
   "chat.notification.taskComplete.body": {
     "defaultMessage": "Haz clic aquí para volver a poner el foco en Goose."
@@ -914,6 +995,12 @@
   "dictationSettings.voiceDictationProvider": {
     "defaultMessage": "Proveedor de dictado por voz"
   },
+  "diffViewer.noDiff": {
+    "defaultMessage": "No hay cambios de texto para mostrar"
+  },
+  "diffViewer.unmodifiedLines": {
+    "defaultMessage": "{count} líneas sin cambios"
+  },
   "dirSwitcher.chooseDirectory": {
     "defaultMessage": "Elegir directorio…"
   },
@@ -1378,15 +1465,6 @@
   },
   "headersSection.value": {
     "defaultMessage": "Valor"
-  },
-  "hub.goodAfternoon": {
-    "defaultMessage": "Buenas tardes"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "Buenas noches"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "Buenos días"
   },
   "hubView.description": {
     "defaultMessage": "Descubre skills y servidores MCP de diversas fuentes."

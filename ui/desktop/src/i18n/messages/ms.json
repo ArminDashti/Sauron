@@ -14,8 +14,14 @@
   "appLayout.collapseNavigation": {
     "defaultMessage": "Runtuhkan navigasi"
   },
+  "appLayout.hideChanges": {
+    "defaultMessage": "Sembunyikan panel perubahan"
+  },
   "appLayout.openNavigation": {
     "defaultMessage": "Buka navigasi"
+  },
+  "appLayout.showChanges": {
+    "defaultMessage": "Tunjukkan panel perubahan"
   },
   "appsView.customApp": {
     "defaultMessage": "Apl tersuai"
@@ -169,6 +175,81 @@
   },
   "cardButtons.launch": {
     "defaultMessage": "Lancarkan"
+  },
+  "changesPanel.cleanTree": {
+    "defaultMessage": "Pokok kerja bersih"
+  },
+  "changesPanel.close": {
+    "defaultMessage": "Tutup panel perubahan"
+  },
+  "changesPanel.commitAndPush": {
+    "defaultMessage": "Commit & Push"
+  },
+  "changesPanel.commitFailed": {
+    "defaultMessage": "Commit gagal"
+  },
+  "changesPanel.commitPlaceholder": {
+    "defaultMessage": "Mesej commit"
+  },
+  "changesPanel.commitSuccess": {
+    "defaultMessage": "Berjaya commit dan push"
+  },
+  "changesPanel.committing": {
+    "defaultMessage": "Sedang commit…"
+  },
+  "changesPanel.loadFailed": {
+    "defaultMessage": "Gagal memuat perubahan git"
+  },
+  "changesPanel.loading": {
+    "defaultMessage": "Memuat perubahan…"
+  },
+  "changesPanel.loadingDiff": {
+    "defaultMessage": "Memuat diff…"
+  },
+  "changesPanel.noChanges": {
+    "defaultMessage": "Tiada perubahan"
+  },
+  "changesPanel.noDirectory": {
+    "defaultMessage": "Tiada direktori kerja dipilih"
+  },
+  "changesPanel.notARepo": {
+    "defaultMessage": "Bukan repositori git"
+  },
+  "changesPanel.pushFailed": {
+    "defaultMessage": "Berjaya commit tetapi push gagal"
+  },
+  "changesPanel.refresh": {
+    "defaultMessage": "Segar semula perubahan"
+  },
+  "changesPanel.retry": {
+    "defaultMessage": "Cuba lagi"
+  },
+  "changesPanel.statusAdded": {
+    "defaultMessage": "Ditambah"
+  },
+  "changesPanel.statusConflicted": {
+    "defaultMessage": "Bertentangan"
+  },
+  "changesPanel.statusCopied": {
+    "defaultMessage": "Disalin"
+  },
+  "changesPanel.statusDeleted": {
+    "defaultMessage": "Dipadam"
+  },
+  "changesPanel.statusModified": {
+    "defaultMessage": "Diubah"
+  },
+  "changesPanel.statusRenamed": {
+    "defaultMessage": "Dinamakan semula"
+  },
+  "changesPanel.statusUntracked": {
+    "defaultMessage": "Tidak dijejaki"
+  },
+  "changesPanel.title": {
+    "defaultMessage": "Perubahan"
+  },
+  "changesPanel.uncommitted": {
+    "defaultMessage": "Belum di-commit"
   },
   "chat.notification.taskComplete.body": {
     "defaultMessage": "Klik di sini untuk membawa Goose kembali ke fokus."
@@ -914,6 +995,12 @@
   "dictationSettings.voiceDictationProvider": {
     "defaultMessage": "Pembekal Imlak Suara"
   },
+  "diffViewer.noDiff": {
+    "defaultMessage": "Tiada perubahan teks untuk dipaparkan"
+  },
+  "diffViewer.unmodifiedLines": {
+    "defaultMessage": "{count} baris tidak berubah"
+  },
   "dirSwitcher.chooseDirectory": {
     "defaultMessage": "Pilih direktori…"
   },
@@ -1378,15 +1465,6 @@
   },
   "headersSection.value": {
     "defaultMessage": "Nilai"
-  },
-  "hub.goodAfternoon": {
-    "defaultMessage": "Selamat tengah hari"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "Selamat petang"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "Selamat pagi"
   },
   "hubView.description": {
     "defaultMessage": "Temui Skills dan pelayan MCP dari pelbagai sumber."

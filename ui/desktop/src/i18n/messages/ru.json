@@ -14,8 +14,14 @@
   "appLayout.collapseNavigation": {
     "defaultMessage": "Collapse navigation"
   },
+  "appLayout.hideChanges": {
+    "defaultMessage": "Скрыть панель изменений"
+  },
   "appLayout.openNavigation": {
     "defaultMessage": "Открыть навигацию"
+  },
+  "appLayout.showChanges": {
+    "defaultMessage": "Показать панель изменений"
   },
   "appsView.customApp": {
     "defaultMessage": "Пользовательское приложение"
@@ -169,6 +175,81 @@
   },
   "cardButtons.launch": {
     "defaultMessage": "Запустить"
+  },
+  "changesPanel.cleanTree": {
+    "defaultMessage": "Рабочее дерево чистое"
+  },
+  "changesPanel.close": {
+    "defaultMessage": "Закрыть панель изменений"
+  },
+  "changesPanel.commitAndPush": {
+    "defaultMessage": "Коммит и пуш"
+  },
+  "changesPanel.commitFailed": {
+    "defaultMessage": "Не удалось выполнить коммит"
+  },
+  "changesPanel.commitPlaceholder": {
+    "defaultMessage": "Сообщение коммита"
+  },
+  "changesPanel.commitSuccess": {
+    "defaultMessage": "Закоммичено и отправлено"
+  },
+  "changesPanel.committing": {
+    "defaultMessage": "Коммит…"
+  },
+  "changesPanel.loadFailed": {
+    "defaultMessage": "Не удалось загрузить изменения git"
+  },
+  "changesPanel.loading": {
+    "defaultMessage": "Загрузка изменений…"
+  },
+  "changesPanel.loadingDiff": {
+    "defaultMessage": "Загрузка диффа…"
+  },
+  "changesPanel.noChanges": {
+    "defaultMessage": "Нет изменений"
+  },
+  "changesPanel.noDirectory": {
+    "defaultMessage": "Рабочий каталог не выбран"
+  },
+  "changesPanel.notARepo": {
+    "defaultMessage": "Не git-репозиторий"
+  },
+  "changesPanel.pushFailed": {
+    "defaultMessage": "Закоммичено, но не удалось отправить"
+  },
+  "changesPanel.refresh": {
+    "defaultMessage": "Обновить изменения"
+  },
+  "changesPanel.retry": {
+    "defaultMessage": "Повторить"
+  },
+  "changesPanel.statusAdded": {
+    "defaultMessage": "Добавлено"
+  },
+  "changesPanel.statusConflicted": {
+    "defaultMessage": "Конфликт"
+  },
+  "changesPanel.statusCopied": {
+    "defaultMessage": "Скопировано"
+  },
+  "changesPanel.statusDeleted": {
+    "defaultMessage": "Удалено"
+  },
+  "changesPanel.statusModified": {
+    "defaultMessage": "Изменено"
+  },
+  "changesPanel.statusRenamed": {
+    "defaultMessage": "Переименовано"
+  },
+  "changesPanel.statusUntracked": {
+    "defaultMessage": "Не отслеживается"
+  },
+  "changesPanel.title": {
+    "defaultMessage": "Изменения"
+  },
+  "changesPanel.uncommitted": {
+    "defaultMessage": "Незакоммичено"
   },
   "chat.notification.taskComplete.body": {
     "defaultMessage": "Нажмите здесь, чтобы сфокусироваться на Goose."
@@ -914,6 +995,12 @@
   "dictationSettings.voiceDictationProvider": {
     "defaultMessage": "Провайдер голосовой диктовки"
   },
+  "diffViewer.noDiff": {
+    "defaultMessage": "Нет текстовых изменений для отображения"
+  },
+  "diffViewer.unmodifiedLines": {
+    "defaultMessage": "{count} неизменённых строк"
+  },
   "dirSwitcher.chooseDirectory": {
     "defaultMessage": "Выбрать каталог…"
   },
@@ -1378,15 +1465,6 @@
   },
   "headersSection.value": {
     "defaultMessage": "Значение"
-  },
-  "hub.goodAfternoon": {
-    "defaultMessage": "Добрый день"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "Добрый вечер"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "Доброе утро"
   },
   "hubView.description": {
     "defaultMessage": "Ищите навыки и MCP-серверы из различных источников."

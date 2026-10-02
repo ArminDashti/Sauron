@@ -14,8 +14,14 @@
   "appLayout.collapseNavigation": {
     "defaultMessage": "Collapse navigation"
   },
+  "appLayout.hideChanges": {
+    "defaultMessage": "परिवर्तन पैनल छिपाएँ"
+  },
   "appLayout.openNavigation": {
     "defaultMessage": "नेविगेशन खोलें"
+  },
+  "appLayout.showChanges": {
+    "defaultMessage": "परिवर्तन पैनल दिखाएँ"
   },
   "appsView.customApp": {
     "defaultMessage": "कस्टम ऐप"
@@ -169,6 +175,81 @@
   },
   "cardButtons.launch": {
     "defaultMessage": "लॉन्च करें"
+  },
+  "changesPanel.cleanTree": {
+    "defaultMessage": "वर्किंग ट्री साफ़ है"
+  },
+  "changesPanel.close": {
+    "defaultMessage": "परिवर्तन पैनल बंद करें"
+  },
+  "changesPanel.commitAndPush": {
+    "defaultMessage": "कमिट करें और पुश करें"
+  },
+  "changesPanel.commitFailed": {
+    "defaultMessage": "कमिट विफल रही"
+  },
+  "changesPanel.commitPlaceholder": {
+    "defaultMessage": "कमिट संदेश"
+  },
+  "changesPanel.commitSuccess": {
+    "defaultMessage": "कमिट और पुश हो गया"
+  },
+  "changesPanel.committing": {
+    "defaultMessage": "कमिट हो रहा है…"
+  },
+  "changesPanel.loadFailed": {
+    "defaultMessage": "git परिवर्तन लोड नहीं हो सके"
+  },
+  "changesPanel.loading": {
+    "defaultMessage": "परिवर्तन लोड हो रहे हैं…"
+  },
+  "changesPanel.loadingDiff": {
+    "defaultMessage": "डिफ़ लोड हो रहा है…"
+  },
+  "changesPanel.noChanges": {
+    "defaultMessage": "कोई परिवर्तन नहीं"
+  },
+  "changesPanel.noDirectory": {
+    "defaultMessage": "कोई वर्किंग डायरेक्टरी चयनित नहीं"
+  },
+  "changesPanel.notARepo": {
+    "defaultMessage": "यह एक git रिपॉजिटरी नहीं है"
+  },
+  "changesPanel.pushFailed": {
+    "defaultMessage": "कमिट हो गई, लेकिन पुश विफल रहा"
+  },
+  "changesPanel.refresh": {
+    "defaultMessage": "परिवर्तन रीफ्रेश करें"
+  },
+  "changesPanel.retry": {
+    "defaultMessage": "पुनः प्रयास करें"
+  },
+  "changesPanel.statusAdded": {
+    "defaultMessage": "जोड़ा गया"
+  },
+  "changesPanel.statusConflicted": {
+    "defaultMessage": "द्वंद्व"
+  },
+  "changesPanel.statusCopied": {
+    "defaultMessage": "कॉपी किया गया"
+  },
+  "changesPanel.statusDeleted": {
+    "defaultMessage": "हटाया गया"
+  },
+  "changesPanel.statusModified": {
+    "defaultMessage": "संशोधित"
+  },
+  "changesPanel.statusRenamed": {
+    "defaultMessage": "नाम बदला गया"
+  },
+  "changesPanel.statusUntracked": {
+    "defaultMessage": "अनट्रैक्ड"
+  },
+  "changesPanel.title": {
+    "defaultMessage": "परिवर्तन"
+  },
+  "changesPanel.uncommitted": {
+    "defaultMessage": "अनकमिटेड"
   },
   "chat.notification.taskComplete.body": {
     "defaultMessage": "Goose को फोकस में वापस लाने के लिए यहां क्लिक करें।"
@@ -914,6 +995,12 @@
   "dictationSettings.voiceDictationProvider": {
     "defaultMessage": "वॉयस डिक्टेशन प्रदाता"
   },
+  "diffViewer.noDiff": {
+    "defaultMessage": "दिखाने के लिए कोई टेक्स्ट परिवर्तन नहीं"
+  },
+  "diffViewer.unmodifiedLines": {
+    "defaultMessage": "{count} अपरिवर्तित पंक्तियाँ"
+  },
   "dirSwitcher.chooseDirectory": {
     "defaultMessage": "निर्देशिका चुनें..."
   },
@@ -1378,15 +1465,6 @@
   },
   "headersSection.value": {
     "defaultMessage": "मूल्य"
-  },
-  "hub.goodAfternoon": {
-    "defaultMessage": "शुभ दोपहर"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "शुभ संध्या"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "सुप्रभात"
   },
   "hubView.description": {
     "defaultMessage": "विभिन्न स्रोतों से स्किल्स और MCP सर्वर खोजें।"

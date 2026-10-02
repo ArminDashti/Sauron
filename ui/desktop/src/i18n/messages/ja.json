@@ -14,8 +14,14 @@
   "appLayout.collapseNavigation": {
     "defaultMessage": "ナビを折りたたむ"
   },
+  "appLayout.hideChanges": {
+    "defaultMessage": "変更パネルを非表示"
+  },
   "appLayout.openNavigation": {
     "defaultMessage": "ナビゲーションを開く"
+  },
+  "appLayout.showChanges": {
+    "defaultMessage": "変更パネルを表示"
   },
   "appsView.customApp": {
     "defaultMessage": "カスタムアプリ"
@@ -169,6 +175,81 @@
   },
   "cardButtons.launch": {
     "defaultMessage": "起動"
+  },
+  "changesPanel.cleanTree": {
+    "defaultMessage": "作業ツリーはクリーンです"
+  },
+  "changesPanel.close": {
+    "defaultMessage": "変更パネルを閉じる"
+  },
+  "changesPanel.commitAndPush": {
+    "defaultMessage": "コミットしてプッシュ"
+  },
+  "changesPanel.commitFailed": {
+    "defaultMessage": "コミットに失敗しました"
+  },
+  "changesPanel.commitPlaceholder": {
+    "defaultMessage": "コミットメッセージ"
+  },
+  "changesPanel.commitSuccess": {
+    "defaultMessage": "コミットしてプッシュしました"
+  },
+  "changesPanel.committing": {
+    "defaultMessage": "コミット中…"
+  },
+  "changesPanel.loadFailed": {
+    "defaultMessage": "git の変更を読み込めませんでした"
+  },
+  "changesPanel.loading": {
+    "defaultMessage": "変更を読み込み中…"
+  },
+  "changesPanel.loadingDiff": {
+    "defaultMessage": "差分を読み込み中…"
+  },
+  "changesPanel.noChanges": {
+    "defaultMessage": "変更はありません"
+  },
+  "changesPanel.noDirectory": {
+    "defaultMessage": "作業ディレクトリが選択されていません"
+  },
+  "changesPanel.notARepo": {
+    "defaultMessage": "Git リポジトリではありません"
+  },
+  "changesPanel.pushFailed": {
+    "defaultMessage": "コミットしましたが、プッシュに失敗しました"
+  },
+  "changesPanel.refresh": {
+    "defaultMessage": "変更を更新"
+  },
+  "changesPanel.retry": {
+    "defaultMessage": "再試行"
+  },
+  "changesPanel.statusAdded": {
+    "defaultMessage": "追加"
+  },
+  "changesPanel.statusConflicted": {
+    "defaultMessage": "競合"
+  },
+  "changesPanel.statusCopied": {
+    "defaultMessage": "コピー"
+  },
+  "changesPanel.statusDeleted": {
+    "defaultMessage": "削除"
+  },
+  "changesPanel.statusModified": {
+    "defaultMessage": "変更"
+  },
+  "changesPanel.statusRenamed": {
+    "defaultMessage": "名前変更"
+  },
+  "changesPanel.statusUntracked": {
+    "defaultMessage": "未追跡"
+  },
+  "changesPanel.title": {
+    "defaultMessage": "変更"
+  },
+  "changesPanel.uncommitted": {
+    "defaultMessage": "未コミット"
   },
   "chat.notification.taskComplete.body": {
     "defaultMessage": "クリックしてGooseにフォーカスを戻します。"
@@ -914,6 +995,12 @@
   "dictationSettings.voiceDictationProvider": {
     "defaultMessage": "音声入力プロバイダー"
   },
+  "diffViewer.noDiff": {
+    "defaultMessage": "表示できるテキストの変更はありません"
+  },
+  "diffViewer.unmodifiedLines": {
+    "defaultMessage": "{count} 行変更なし"
+  },
   "dirSwitcher.chooseDirectory": {
     "defaultMessage": "ディレクトリを選択…"
   },
@@ -1378,15 +1465,6 @@
   },
   "headersSection.value": {
     "defaultMessage": "値"
-  },
-  "hub.goodAfternoon": {
-    "defaultMessage": "こんにちは"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "こんばんは"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "おはようございます"
   },
   "hubView.description": {
     "defaultMessage": "さまざまなソースからスキルとMCPサーバーを見つける。"

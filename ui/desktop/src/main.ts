@@ -54,6 +54,7 @@ import {
 } from './utils/autoUpdater';
 import { UPDATES_ENABLED } from './updates';
 import './utils/gitBranchIpc';
+import './utils/gitChangesIpc';
 import './utils/userProfileIpc';
 import './utils/recipeHash';
 import type { GooseApp } from './types/apps';

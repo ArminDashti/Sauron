@@ -14,8 +14,14 @@
   "appLayout.collapseNavigation": {
     "defaultMessage": "Collapse navigation"
   },
+  "appLayout.hideChanges": {
+    "defaultMessage": "Değişiklikler panelini gizle"
+  },
   "appLayout.openNavigation": {
     "defaultMessage": "Gezinmeyi aç"
+  },
+  "appLayout.showChanges": {
+    "defaultMessage": "Değişiklikler panelini göster"
   },
   "appsView.customApp": {
     "defaultMessage": "Özel uygulama"
@@ -169,6 +175,81 @@
   },
   "cardButtons.launch": {
     "defaultMessage": "Başlat"
+  },
+  "changesPanel.cleanTree": {
+    "defaultMessage": "Çalışma ağacı temiz"
+  },
+  "changesPanel.close": {
+    "defaultMessage": "Değişiklikler panelini kapat"
+  },
+  "changesPanel.commitAndPush": {
+    "defaultMessage": "Commit & Push"
+  },
+  "changesPanel.commitFailed": {
+    "defaultMessage": "Commit başarısız oldu"
+  },
+  "changesPanel.commitPlaceholder": {
+    "defaultMessage": "Commit mesajı"
+  },
+  "changesPanel.commitSuccess": {
+    "defaultMessage": "Commit edildi ve push edildi"
+  },
+  "changesPanel.committing": {
+    "defaultMessage": "Commit ediliyor…"
+  },
+  "changesPanel.loadFailed": {
+    "defaultMessage": "Git değişiklikleri yüklenemedi"
+  },
+  "changesPanel.loading": {
+    "defaultMessage": "Değişiklikler yükleniyor…"
+  },
+  "changesPanel.loadingDiff": {
+    "defaultMessage": "Fark yükleniyor…"
+  },
+  "changesPanel.noChanges": {
+    "defaultMessage": "Değişiklik yok"
+  },
+  "changesPanel.noDirectory": {
+    "defaultMessage": "Çalışma dizini seçili değil"
+  },
+  "changesPanel.notARepo": {
+    "defaultMessage": "Git deposu değil"
+  },
+  "changesPanel.pushFailed": {
+    "defaultMessage": "Commit edildi ama push başarısız oldu"
+  },
+  "changesPanel.refresh": {
+    "defaultMessage": "Değişiklikleri yenile"
+  },
+  "changesPanel.retry": {
+    "defaultMessage": "Tekrar dene"
+  },
+  "changesPanel.statusAdded": {
+    "defaultMessage": "Eklendi"
+  },
+  "changesPanel.statusConflicted": {
+    "defaultMessage": "Çakışma"
+  },
+  "changesPanel.statusCopied": {
+    "defaultMessage": "Kopyalandı"
+  },
+  "changesPanel.statusDeleted": {
+    "defaultMessage": "Silindi"
+  },
+  "changesPanel.statusModified": {
+    "defaultMessage": "Değiştirildi"
+  },
+  "changesPanel.statusRenamed": {
+    "defaultMessage": "Yeniden adlandırıldı"
+  },
+  "changesPanel.statusUntracked": {
+    "defaultMessage": "İzlenmiyor"
+  },
+  "changesPanel.title": {
+    "defaultMessage": "Değişiklikler"
+  },
+  "changesPanel.uncommitted": {
+    "defaultMessage": "Commit edilmedi"
   },
   "chat.notification.taskComplete.body": {
     "defaultMessage": "Goose'yi tekrar odağa almak için buraya tıklayın."
@@ -914,6 +995,12 @@
   "dictationSettings.voiceDictationProvider": {
     "defaultMessage": "Ses Dikte Sağlayıcısı"
   },
+  "diffViewer.noDiff": {
+    "defaultMessage": "Gösterilecek metin değişikliği yok"
+  },
+  "diffViewer.unmodifiedLines": {
+    "defaultMessage": "{count} değişmeyen satır"
+  },
   "dirSwitcher.chooseDirectory": {
     "defaultMessage": "Dizin seç…"
   },
@@ -1378,15 +1465,6 @@
   },
   "headersSection.value": {
     "defaultMessage": "Değer"
-  },
-  "hub.goodAfternoon": {
-    "defaultMessage": "İyi günler"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "İyi akşamlar"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "Günaydın"
   },
   "hubView.description": {
     "defaultMessage": "Çeşitli kaynaklardan Skills ve MCP sunucuları keşfedin."

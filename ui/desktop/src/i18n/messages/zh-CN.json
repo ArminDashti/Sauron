@@ -14,8 +14,14 @@
   "appLayout.collapseNavigation": {
     "defaultMessage": "Collapse navigation"
   },
+  "appLayout.hideChanges": {
+    "defaultMessage": "隐藏更改面板"
+  },
   "appLayout.openNavigation": {
     "defaultMessage": "展开导航"
+  },
+  "appLayout.showChanges": {
+    "defaultMessage": "显示更改面板"
   },
   "appsView.customApp": {
     "defaultMessage": "自定义应用"
@@ -169,6 +175,81 @@
   },
   "cardButtons.launch": {
     "defaultMessage": "启动"
+  },
+  "changesPanel.cleanTree": {
+    "defaultMessage": "工作树干净"
+  },
+  "changesPanel.close": {
+    "defaultMessage": "关闭更改面板"
+  },
+  "changesPanel.commitAndPush": {
+    "defaultMessage": "提交并推送"
+  },
+  "changesPanel.commitFailed": {
+    "defaultMessage": "提交失败"
+  },
+  "changesPanel.commitPlaceholder": {
+    "defaultMessage": "提交信息"
+  },
+  "changesPanel.commitSuccess": {
+    "defaultMessage": "已提交并推送"
+  },
+  "changesPanel.committing": {
+    "defaultMessage": "正在提交…"
+  },
+  "changesPanel.loadFailed": {
+    "defaultMessage": "无法加载 git 更改"
+  },
+  "changesPanel.loading": {
+    "defaultMessage": "正在加载更改…"
+  },
+  "changesPanel.loadingDiff": {
+    "defaultMessage": "正在加载差异…"
+  },
+  "changesPanel.noChanges": {
+    "defaultMessage": "没有更改"
+  },
+  "changesPanel.noDirectory": {
+    "defaultMessage": "未选择工作目录"
+  },
+  "changesPanel.notARepo": {
+    "defaultMessage": "不是 git 仓库"
+  },
+  "changesPanel.pushFailed": {
+    "defaultMessage": "已提交，但推送失败"
+  },
+  "changesPanel.refresh": {
+    "defaultMessage": "刷新更改"
+  },
+  "changesPanel.retry": {
+    "defaultMessage": "重试"
+  },
+  "changesPanel.statusAdded": {
+    "defaultMessage": "新增"
+  },
+  "changesPanel.statusConflicted": {
+    "defaultMessage": "冲突"
+  },
+  "changesPanel.statusCopied": {
+    "defaultMessage": "复制"
+  },
+  "changesPanel.statusDeleted": {
+    "defaultMessage": "删除"
+  },
+  "changesPanel.statusModified": {
+    "defaultMessage": "修改"
+  },
+  "changesPanel.statusRenamed": {
+    "defaultMessage": "重命名"
+  },
+  "changesPanel.statusUntracked": {
+    "defaultMessage": "未跟踪"
+  },
+  "changesPanel.title": {
+    "defaultMessage": "更改"
+  },
+  "changesPanel.uncommitted": {
+    "defaultMessage": "未提交"
   },
   "chat.notification.taskComplete.body": {
     "defaultMessage": "点击这里让 Goose 窗口回到前台。"
@@ -914,6 +995,12 @@
   "dictationSettings.voiceDictationProvider": {
     "defaultMessage": "语音输入提供商"
   },
+  "diffViewer.noDiff": {
+    "defaultMessage": "没有可显示的文本更改"
+  },
+  "diffViewer.unmodifiedLines": {
+    "defaultMessage": "{count} 行未更改"
+  },
   "dirSwitcher.chooseDirectory": {
     "defaultMessage": "选择目录…"
   },
@@ -1378,15 +1465,6 @@
   },
   "headersSection.value": {
     "defaultMessage": "值"
-  },
-  "hub.goodAfternoon": {
-    "defaultMessage": "下午好"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "晚上好"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "早上好"
   },
   "hubView.description": {
     "defaultMessage": "从各种来源发现技能和 MCP 服务器。"

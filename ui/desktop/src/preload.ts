@@ -5,6 +5,7 @@ import type { Settings, SettingKey } from './utils/settings';
 import { defaultSettings } from './utils/settings';
 import type { OpenExternalUrlResult } from './utils/urlSecurity';
 import type { UserProfile } from './utils/userProfile';
+import type { GitChangesResult, GitCommitPushResult } from './utils/gitChangesIpc';
 
 // Mapping from settings keys to their old localStorage keys for lazy migration
 const localStorageKeyMap: Partial<Record<SettingKey, string>> = {
@@ -185,6 +186,9 @@ type ElectronAPI = {
   getGitBranchInfo: (dir: string) => Promise<{ branch: string } | null>;
   listGitBranches: (dir: string) => Promise<string[]>;
   switchGitBranch: (dir: string, branch: string) => Promise<{ success: boolean; error?: string }>;
+  getGitChanges: (dir: string) => Promise<GitChangesResult | null>;
+  getGitChangeDiff: (dir: string, filePath: string) => Promise<string>;
+  commitAndPushGitChanges: (dir: string, message: string) => Promise<GitCommitPushResult>;
   getUserProfile: () => Promise<UserProfile>;
 };
 
@@ -349,6 +353,11 @@ const electronAPI: ElectronAPI = {
   listGitBranches: (dir: string) => ipcRenderer.invoke('list-git-branches', dir),
   switchGitBranch: (dir: string, branch: string) =>
     ipcRenderer.invoke('switch-git-branch', dir, branch),
+  getGitChanges: (dir: string) => ipcRenderer.invoke('get-git-changes', dir),
+  getGitChangeDiff: (dir: string, filePath: string) =>
+    ipcRenderer.invoke('get-git-change-diff', dir, filePath),
+  commitAndPushGitChanges: (dir: string, message: string) =>
+    ipcRenderer.invoke('commit-and-push-git-changes', dir, message),
   getUserProfile: () => ipcRenderer.invoke('get-user-profile'),
 };
 

@@ -14,8 +14,14 @@
   "appLayout.collapseNavigation": {
     "defaultMessage": "탐색 접기"
   },
+  "appLayout.hideChanges": {
+    "defaultMessage": "변경 사항 패널 숨기기"
+  },
   "appLayout.openNavigation": {
     "defaultMessage": "탐색 열기"
+  },
+  "appLayout.showChanges": {
+    "defaultMessage": "변경 사항 패널 표시"
   },
   "appsView.customApp": {
     "defaultMessage": "사용자 지정 앱"
@@ -169,6 +175,81 @@
   },
   "cardButtons.launch": {
     "defaultMessage": "실행"
+  },
+  "changesPanel.cleanTree": {
+    "defaultMessage": "작업 트리가 깨끗합니다"
+  },
+  "changesPanel.close": {
+    "defaultMessage": "변경 사항 패널 닫기"
+  },
+  "changesPanel.commitAndPush": {
+    "defaultMessage": "커밋 및 푸시"
+  },
+  "changesPanel.commitFailed": {
+    "defaultMessage": "커밋 실패"
+  },
+  "changesPanel.commitPlaceholder": {
+    "defaultMessage": "커밋 메시지"
+  },
+  "changesPanel.commitSuccess": {
+    "defaultMessage": "커밋하고 푸시했습니다"
+  },
+  "changesPanel.committing": {
+    "defaultMessage": "커밋 중…"
+  },
+  "changesPanel.loadFailed": {
+    "defaultMessage": "git 변경 사항을 불러올 수 없습니다"
+  },
+  "changesPanel.loading": {
+    "defaultMessage": "변경 사항 불러오는 중…"
+  },
+  "changesPanel.loadingDiff": {
+    "defaultMessage": "차이 불러오는 중…"
+  },
+  "changesPanel.noChanges": {
+    "defaultMessage": "변경 사항 없음"
+  },
+  "changesPanel.noDirectory": {
+    "defaultMessage": "작업 디렉토리가 선택되지 않았습니다"
+  },
+  "changesPanel.notARepo": {
+    "defaultMessage": "Git 저장소가 아닙니다"
+  },
+  "changesPanel.pushFailed": {
+    "defaultMessage": "커밋했지만 푸시에 실패했습니다"
+  },
+  "changesPanel.refresh": {
+    "defaultMessage": "변경 사항 새로고침"
+  },
+  "changesPanel.retry": {
+    "defaultMessage": "다시 시도"
+  },
+  "changesPanel.statusAdded": {
+    "defaultMessage": "추가됨"
+  },
+  "changesPanel.statusConflicted": {
+    "defaultMessage": "충돌"
+  },
+  "changesPanel.statusCopied": {
+    "defaultMessage": "복사됨"
+  },
+  "changesPanel.statusDeleted": {
+    "defaultMessage": "삭제됨"
+  },
+  "changesPanel.statusModified": {
+    "defaultMessage": "수정됨"
+  },
+  "changesPanel.statusRenamed": {
+    "defaultMessage": "이름 변경됨"
+  },
+  "changesPanel.statusUntracked": {
+    "defaultMessage": "추적되지 않음"
+  },
+  "changesPanel.title": {
+    "defaultMessage": "변경 사항"
+  },
+  "changesPanel.uncommitted": {
+    "defaultMessage": "커밋되지 않음"
   },
   "chat.notification.taskComplete.body": {
     "defaultMessage": "goose에 다시 포커스를 맞추려면 여기를 클릭하세요."
@@ -914,6 +995,12 @@
   "dictationSettings.voiceDictationProvider": {
     "defaultMessage": "음성 받아쓰기 제공업체"
   },
+  "diffViewer.noDiff": {
+    "defaultMessage": "표시할 텍스트 변경 사항이 없습니다"
+  },
+  "diffViewer.unmodifiedLines": {
+    "defaultMessage": "변경되지 않은 줄 {count}개"
+  },
   "dirSwitcher.chooseDirectory": {
     "defaultMessage": "디렉터리 선택…"
   },
@@ -1378,15 +1465,6 @@
   },
   "headersSection.value": {
     "defaultMessage": "값"
-  },
-  "hub.goodAfternoon": {
-    "defaultMessage": "좋은 오후예요"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "좋은 저녁이에요"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "좋은 아침이에요"
   },
   "hubView.description": {
     "defaultMessage": "다양한 소스에서 스킬과 MCP 서버를 찾아보세요."
