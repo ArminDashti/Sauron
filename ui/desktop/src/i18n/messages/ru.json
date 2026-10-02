@@ -2390,6 +2390,12 @@
   "navigation.itemSkills": {
     "defaultMessage": "Навыки"
   },
+  "navigationFooter.cpuUsage": {
+    "defaultMessage": "CPU {percent}%"
+  },
+  "navigationFooter.memoryUsage": {
+    "defaultMessage": "Память {percent}%"
+  },
   "navigationFooter.sendFeedback": {
     "defaultMessage": "Отправить отзыв"
   },

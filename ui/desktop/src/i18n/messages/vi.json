@@ -2390,6 +2390,12 @@
   "navigation.itemSkills": {
     "defaultMessage": "Kỹ năng"
   },
+  "navigationFooter.cpuUsage": {
+    "defaultMessage": "CPU {percent}%"
+  },
+  "navigationFooter.memoryUsage": {
+    "defaultMessage": "Bộ nhớ {percent}%"
+  },
   "navigationFooter.sendFeedback": {
     "defaultMessage": "Gửi phản hồi"
   },

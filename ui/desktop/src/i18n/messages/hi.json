@@ -2390,6 +2390,12 @@
   "navigation.itemSkills": {
     "defaultMessage": "कौशल"
   },
+  "navigationFooter.cpuUsage": {
+    "defaultMessage": "CPU {percent}%"
+  },
+  "navigationFooter.memoryUsage": {
+    "defaultMessage": "मेमोरी {percent}%"
+  },
   "navigationFooter.sendFeedback": {
     "defaultMessage": "प्रतिक्रिया भेजें"
   },

@@ -2498,6 +2498,12 @@
   "navigation.itemSkills": {
     "defaultMessage": "Skills"
   },
+  "navigationFooter.cpuUsage": {
+    "defaultMessage": "CPU {percent}%"
+  },
+  "navigationFooter.memoryUsage": {
+    "defaultMessage": "Memory {percent}%"
+  },
   "navigationFooter.sendFeedback": {
     "defaultMessage": "Send feedback"
   },

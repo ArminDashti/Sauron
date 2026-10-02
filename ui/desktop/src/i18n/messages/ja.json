@@ -2390,6 +2390,12 @@
   "navigation.itemSkills": {
     "defaultMessage": "スキル"
   },
+  "navigationFooter.cpuUsage": {
+    "defaultMessage": "CPU {percent}%"
+  },
+  "navigationFooter.memoryUsage": {
+    "defaultMessage": "メモリ {percent}%"
+  },
   "navigationFooter.sendFeedback": {
     "defaultMessage": "フィードバックを送信"
   },

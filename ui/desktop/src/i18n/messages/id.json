@@ -2390,6 +2390,12 @@
   "navigation.itemSkills": {
     "defaultMessage": "Keterampilan"
   },
+  "navigationFooter.cpuUsage": {
+    "defaultMessage": "CPU {percent}%"
+  },
+  "navigationFooter.memoryUsage": {
+    "defaultMessage": "Memori {percent}%"
+  },
   "navigationFooter.sendFeedback": {
     "defaultMessage": "Kirim masukan"
   },

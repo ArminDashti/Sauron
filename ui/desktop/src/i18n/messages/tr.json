@@ -2390,6 +2390,12 @@
   "navigation.itemSkills": {
     "defaultMessage": "Beceriler"
   },
+  "navigationFooter.cpuUsage": {
+    "defaultMessage": "CPU {percent}%"
+  },
+  "navigationFooter.memoryUsage": {
+    "defaultMessage": "Bellek {percent}%"
+  },
   "navigationFooter.sendFeedback": {
     "defaultMessage": "Geri bildirim gönder"
   },

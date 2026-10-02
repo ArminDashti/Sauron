@@ -2390,6 +2390,12 @@
   "navigation.itemSkills": {
     "defaultMessage": "技能"
   },
+  "navigationFooter.cpuUsage": {
+    "defaultMessage": "CPU {percent}%"
+  },
+  "navigationFooter.memoryUsage": {
+    "defaultMessage": "内存 {percent}%"
+  },
   "navigationFooter.sendFeedback": {
     "defaultMessage": "发送反馈"
   },

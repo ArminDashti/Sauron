@@ -2390,6 +2390,12 @@
   "navigation.itemSkills": {
     "defaultMessage": "스킬"
   },
+  "navigationFooter.cpuUsage": {
+    "defaultMessage": "CPU {percent}%"
+  },
+  "navigationFooter.memoryUsage": {
+    "defaultMessage": "메모리 {percent}%"
+  },
   "navigationFooter.sendFeedback": {
     "defaultMessage": "피드백 보내기"
   },
