@@ -8,6 +8,9 @@
   "alertBox.failedToSaveThreshold": {
     "defaultMessage": "Gagal menyimpan ambang batas: {error}"
   },
+  "allProviderModels.addPreferred": {
+    "defaultMessage": "Tambahkan {model} ke model favorit"
+  },
   "announcementModal.gotIt": {
     "defaultMessage": "Mengerti!"
   },
@@ -27,7 +30,7 @@
     "defaultMessage": "Delete \"{name}\"? This cannot be undone."
   },
   "appsView.description": {
-    "defaultMessage": "Aplikasi dari server MCP Anda dan Aplikasi yang dibuat oleh goose sendiri. Anda dapat memintanya membuat aplikasi baru melalui antarmuka obrolan dan aplikasi tersebut akan muncul di sini."
+    "defaultMessage": "Aplikasi dari server MCP Anda dan Aplikasi yang dibuat oleh sauron sendiri. Anda dapat memintanya membuat aplikasi baru melalui antarmuka obrolan dan aplikasi tersebut akan muncul di sini."
   },
   "appsView.errorLoading": {
     "defaultMessage": "Kesalahan saat memuat aplikasi: {error}"
@@ -45,7 +48,7 @@
     "defaultMessage": "Memuat aplikasi..."
   },
   "appsView.noAppsDescription": {
-    "defaultMessage": "Buka obrolan dan mintalah goose membuat aplikasi yang Anda inginkan. goose dapat membuatkannya untuk Anda dan aplikasi tersebut akan muncul di sini. Atau jika seseorang membagikan sebuah aplikasi, Anda dapat mengimpornya menggunakan tombol di atas."
+    "defaultMessage": "Buka obrolan dan mintalah sauron membuat aplikasi yang Anda inginkan. sauron dapat membuatkannya untuk Anda dan aplikasi tersebut akan muncul di sini. Atau jika seseorang membagikan sebuah aplikasi, Anda dapat mengimpornya menggunakan tombol di atas."
   },
   "appsView.noAppsTitle": {
     "defaultMessage": "Tidak ada aplikasi yang tersedia"
@@ -84,7 +87,7 @@
     "defaultMessage": "Kredensial dihapus"
   },
   "authSettings.description": {
-    "defaultMessage": "Kelola kredensial penyedia yang disimpan secara lokal oleh goose."
+    "defaultMessage": "Kelola kredensial penyedia yang disimpan secara lokal oleh sauron."
   },
   "authSettings.empty": {
     "defaultMessage": "Tidak ditemukan kredensial penyedia yang tersimpan secara lokal."
@@ -171,10 +174,10 @@
     "defaultMessage": "Jalankan"
   },
   "chat.notification.taskComplete.body": {
-    "defaultMessage": "Klik di sini untuk membawa Goose kembali ke fokus."
+    "defaultMessage": "Klik di sini untuk membawa Sauron kembali ke fokus."
   },
   "chat.notification.taskComplete.title": {
-    "defaultMessage": "Goose telah menyelesaikan tugas."
+    "defaultMessage": "Sauron telah menyelesaikan tugas."
   },
   "chatInput.contextWindow": {
     "defaultMessage": "Jendela konteks"
@@ -225,13 +228,13 @@
     "defaultMessage": "Menunggu gambar disimpan..."
   },
   "chatSettings.modeDescription": {
-    "defaultMessage": "Pilih mode default yang digunakan Goose untuk sesi baru. Sesi yang sudah ada tetap menggunakan mode saat ini."
+    "defaultMessage": "Pilih mode default yang digunakan Sauron untuk sesi baru. Sesi yang sudah ada tetap menggunakan mode saat ini."
   },
   "chatSettings.modeTitle": {
     "defaultMessage": "Mode Default"
   },
   "chatSettings.responseStylesDescription": {
-    "defaultMessage": "Pilih bagaimana Goose memformat dan menata respons-nya"
+    "defaultMessage": "Pilih bagaimana Sauron memformat dan menata respons-nya"
   },
   "chatSettings.responseStylesTitle": {
     "defaultMessage": "Gaya Respons"
@@ -252,10 +255,10 @@
     "defaultMessage": "Editor Konfigurasi"
   },
   "configSettings.description": {
-    "defaultMessage": "Edit pengaturan konfigurasi goose Anda"
+    "defaultMessage": "Edit pengaturan konfigurasi sauron Anda"
   },
   "configSettings.descriptionWithProvider": {
-    "defaultMessage": "Edit pengaturan konfigurasi goose Anda (pengaturan saat ini untuk {provider})"
+    "defaultMessage": "Edit pengaturan konfigurasi sauron Anda (pengaturan saat ini untuk {provider})"
   },
   "configSettings.done": {
     "defaultMessage": "Selesai"
@@ -327,7 +330,7 @@
     "defaultMessage": "Giliran Maksimum"
   },
   "conversationLimitsDropdown.maxTurnsDescription": {
-    "defaultMessage": "Giliran agen maksimum sebelum Goose meminta masukan pengguna"
+    "defaultMessage": "Giliran agen maksimum sebelum Sauron meminta masukan pengguna"
   },
   "costTracker.costUnavailable": {
     "defaultMessage": "Data biaya tidak tersedia untuk {model} ({inputTokens} token masukan, {outputTokens} token keluaran)"
@@ -783,7 +786,7 @@
     "defaultMessage": "Edit pengaturan {name}"
   },
   "defaultCardButtons.getStarted": {
-    "defaultMessage": "Mulai dengan goose!"
+    "defaultMessage": "Mulai dengan sauron!"
   },
   "defaultProviderSetupForm.apiHostLabel": {
     "defaultMessage": "Host API"
@@ -924,7 +927,7 @@
     "defaultMessage": "Enter path"
   },
   "dirSwitcher.enterPathPlaceholder": {
-    "defaultMessage": "Enter an absolute path (e.g. /home/goose/workspace)"
+    "defaultMessage": "Enter an absolute path (e.g. /home/sauron/workspace)"
   },
   "dirSwitcher.enterPathInvalid": {
     "defaultMessage": "Working directory must be an absolute path"
@@ -963,7 +966,7 @@
     "defaultMessage": "Permintaan informasi dibatalkan."
   },
   "elicitationRequest.defaultMessage": {
-    "defaultMessage": "Goose memerlukan beberapa informasi dari Anda."
+    "defaultMessage": "Sauron memerlukan beberapa informasi dari Anda."
   },
   "elicitationRequest.expired": {
     "defaultMessage": "Permintaan ini telah kedaluwarsa. Ekstensi perlu menanyakan lagi."
@@ -1008,7 +1011,7 @@
     "defaultMessage": "Terjadi kesalahan."
   },
   "errorBoundary.errorWithVersion": {
-    "defaultMessage": "Terjadi kesalahan di Goose v{version}."
+    "defaultMessage": "Terjadi kesalahan di Sauron v{version}."
   },
   "errorBoundary.heading": {
     "defaultMessage": "Honk!"
@@ -1191,7 +1194,7 @@
     "defaultMessage": "Ekstensi yang diaktifkan di sini digunakan sebagai bawaan untuk obrolan baru. Anda juga dapat mengaktifkan ekstensi aktif selama obrolan."
   },
   "extensionsView.description": {
-    "defaultMessage": "Ekstensi ini menggunakan Model Context Protocol (MCP). Mereka dapat memperluas kemampuan Goose menggunakan tiga komponen utama: Prompt, Sumber Daya, dan Alat. {searchShortcut} untuk mencari."
+    "defaultMessage": "Ekstensi ini menggunakan Model Context Protocol (MCP). Mereka dapat memperluas kemampuan Sauron menggunakan tiga komponen utama: Prompt, Sumber Daya, dan Alat. {searchShortcut} untuk mencari."
   },
   "extensionsView.heading": {
     "defaultMessage": "Ekstensi"
@@ -1209,19 +1212,19 @@
     "defaultMessage": "AA:BB:CC:... atau sha256/base64"
   },
   "externalBackendSection.description": {
-    "defaultMessage": "Secara bawaan goose menjalankan server untuk Anda, gunakan ini untuk terhubung ke server goose eksternal"
+    "defaultMessage": "Secara bawaan sauron menjalankan server untuk Anda, gunakan ini untuk terhubung ke server sauron eksternal"
   },
   "externalBackendSection.fingerprintRequiresHttps": {
     "defaultMessage": "Certificate fingerprint requires an https URL"
   },
   "externalBackendSection.restartNote": {
-    "defaultMessage": "Perubahan memerlukan mulai ulang Goose agar berlaku. Jendela obrolan baru akan terhubung ke server eksternal."
+    "defaultMessage": "Perubahan memerlukan mulai ulang Sauron agar berlaku. Jendela obrolan baru akan terhubung ke server eksternal."
   },
   "externalBackendSection.secretKey": {
     "defaultMessage": "Kunci Rahasia"
   },
   "externalBackendSection.secretKeyHelp": {
-    "defaultMessage": "Kunci rahasia yang dikonfigurasi pada server Goose (GOOSE_SERVER__SECRET_KEY)"
+    "defaultMessage": "Kunci rahasia yang dikonfigurasi pada server Sauron (SAURON_SERVER__SECRET_KEY)"
   },
   "externalBackendSection.secretKeyPlaceholder": {
     "defaultMessage": "Masukkan kunci rahasia server"
@@ -1230,10 +1233,10 @@
     "defaultMessage": "URL Server"
   },
   "externalBackendSection.serverUrlHelp": {
-    "defaultMessage": "Enter the HTTP(S) base URL. Goose checks /status and connects to /acp under this base."
+    "defaultMessage": "Enter the HTTP(S) base URL. Sauron checks /status and connects to /acp under this base."
   },
   "externalBackendSection.title": {
-    "defaultMessage": "Server Goose"
+    "defaultMessage": "Server Sauron"
   },
   "externalBackendSection.urlBaseError": {
     "defaultMessage": "URL must be the backend base URL before /acp, without query parameters or fragments"
@@ -1248,7 +1251,7 @@
     "defaultMessage": "Gunakan server eksternal"
   },
   "externalBackendSection.useExternalServerDescription": {
-    "defaultMessage": "Terhubung ke server goose yang berjalan di tempat lain (memerlukan mulai ulang aplikasi)"
+    "defaultMessage": "Terhubung ke server sauron yang berjalan di tempat lain (memerlukan mulai ulang aplikasi)"
   },
   "externalBackendSection.workingDir": {
     "defaultMessage": "Direktori kerja jarak jauh (opsional)"
@@ -1257,70 +1260,70 @@
     "defaultMessage": "Jalur absolut pada backend eksternal. Biarkan kosong untuk mengirim direktori kerja lokal."
   },
   "externalBackendSection.workingDirPlaceholder": {
-    "defaultMessage": "/home/goose/workspace"
+    "defaultMessage": "/home/sauron/workspace"
   },
-  "goosehintsModal.close": {
+  "sauronhintsModal.close": {
     "defaultMessage": "Tutup"
   },
-  "goosehintsModal.developer": {
+  "sauronhintsModal.developer": {
     "defaultMessage": "Pengembang"
   },
-  "goosehintsModal.dialogDescription": {
-    "defaultMessage": "Berikan konteks tambahan tentang proyek Anda untuk meningkatkan komunikasi dengan Goose"
+  "sauronhintsModal.dialogDescription": {
+    "defaultMessage": "Berikan konteks tambahan tentang proyek Anda untuk meningkatkan komunikasi dengan Sauron"
   },
-  "goosehintsModal.dialogTitle": {
-    "defaultMessage": "Konfigurasikan Petunjuk Proyek (.goosehints)"
+  "sauronhintsModal.dialogTitle": {
+    "defaultMessage": "Konfigurasikan Petunjuk Proyek (.sauronhints)"
   },
-  "goosehintsModal.errorReading": {
-    "defaultMessage": "Kesalahan membaca file .goosehints: {error}"
+  "sauronhintsModal.errorReading": {
+    "defaultMessage": "Kesalahan membaca file .sauronhints: {error}"
   },
-  "goosehintsModal.failedToAccess": {
-    "defaultMessage": "Gagal mengakses file .goosehints"
+  "sauronhintsModal.failedToAccess": {
+    "defaultMessage": "Gagal mengakses file .sauronhints"
   },
-  "goosehintsModal.failedToSave": {
-    "defaultMessage": "Gagal menyimpan file .goosehints"
+  "sauronhintsModal.failedToSave": {
+    "defaultMessage": "Gagal menyimpan file .sauronhints"
   },
-  "goosehintsModal.fileCreating": {
-    "defaultMessage": "Membuat file .goosehints baru di: {filePath}"
+  "sauronhintsModal.fileCreating": {
+    "defaultMessage": "Membuat file .sauronhints baru di: {filePath}"
   },
-  "goosehintsModal.fileFound": {
-    "defaultMessage": "File .goosehints ditemukan di: {filePath}"
+  "sauronhintsModal.fileFound": {
+    "defaultMessage": "File .sauronhints ditemukan di: {filePath}"
   },
-  "goosehintsModal.helpText1": {
-    "defaultMessage": ".goosehints adalah file teks yang digunakan untuk memberikan konteks tambahan tentang proyek Anda dan meningkatkan komunikasi dengan Goose."
+  "sauronhintsModal.helpText1": {
+    "defaultMessage": ".sauronhints adalah file teks yang digunakan untuk memberikan konteks tambahan tentang proyek Anda dan meningkatkan komunikasi dengan Sauron."
   },
-  "goosehintsModal.helpText2": {
-    "defaultMessage": "Pastikan ekstensi {bold} diaktifkan di halaman ekstensi. Ekstensi ini diperlukan untuk menggunakan .goosehints. Anda perlu memulai ulang sesi agar pembaruan .goosehints berlaku."
+  "sauronhintsModal.helpText2": {
+    "defaultMessage": "Pastikan ekstensi {bold} diaktifkan di halaman ekstensi. Ekstensi ini diperlukan untuk menggunakan .sauronhints. Anda perlu memulai ulang sesi agar pembaruan .sauronhints berlaku."
   },
-  "goosehintsModal.helpText3": {
+  "sauronhintsModal.helpText3": {
     "defaultMessage": "Lihat {link} untuk informasi lebih lanjut."
   },
-  "goosehintsModal.helpTextLink": {
-    "defaultMessage": "menggunakan .goosehints"
+  "sauronhintsModal.helpTextLink": {
+    "defaultMessage": "menggunakan .sauronhints"
   },
-  "goosehintsModal.placeholder": {
+  "sauronhintsModal.placeholder": {
     "defaultMessage": "Masukkan petunjuk proyek di sini..."
   },
-  "goosehintsModal.save": {
+  "sauronhintsModal.save": {
     "defaultMessage": "Simpan"
   },
-  "goosehintsModal.savedSuccessfully": {
+  "sauronhintsModal.savedSuccessfully": {
     "defaultMessage": "Berhasil disimpan"
   },
-  "goosehintsModal.saving": {
+  "sauronhintsModal.saving": {
     "defaultMessage": "Menyimpan..."
   },
-  "goosehintsSection.configure": {
+  "sauronhintsSection.configure": {
     "defaultMessage": "Konfigurasikan"
   },
-  "goosehintsSection.description": {
-    "defaultMessage": "Konfigurasikan file .goosehints proyek Anda untuk memberikan konteks tambahan ke Goose"
+  "sauronhintsSection.description": {
+    "defaultMessage": "Konfigurasikan file .sauronhints proyek Anda untuk memberikan konteks tambahan ke Sauron"
   },
-  "goosehintsSection.title": {
-    "defaultMessage": "Petunjuk Proyek (.goosehints)"
+  "sauronhintsSection.title": {
+    "defaultMessage": "Petunjuk Proyek (.sauronhints)"
   },
-  "groupedExtensionLoadingToast.askGoose": {
-    "defaultMessage": "Tanya goose"
+  "groupedExtensionLoadingToast.askSauron": {
+    "defaultMessage": "Tanya sauron"
   },
   "groupedExtensionLoadingToast.collapseDetails": {
     "defaultMessage": "Ciutkan detail"
@@ -1479,7 +1482,7 @@
     "defaultMessage": "Hugging Face"
   },
   "imagePreview.altText": {
-    "defaultMessage": "gambar goose"
+    "defaultMessage": "gambar sauron"
   },
   "imagePreview.clickToCollapse": {
     "defaultMessage": "Klik untuk menciutkan"
@@ -1494,10 +1497,10 @@
     "defaultMessage": "Batal"
   },
   "importRecipeForm.deeplinkHint": {
-    "defaultMessage": "Tempelkan deeplink resep yang dimulai dengan \"goose://recipe?config=\""
+    "defaultMessage": "Tempelkan deeplink resep yang dimulai dengan \"sauron://recipe?config=\""
   },
   "importRecipeForm.deeplinkPlaceholder": {
-    "defaultMessage": "Tempelkan deeplink goose://recipe?config=... Anda di sini"
+    "defaultMessage": "Tempelkan deeplink sauron://recipe?config=... Anda di sini"
   },
   "importRecipeForm.example": {
     "defaultMessage": "contoh"
@@ -1527,7 +1530,7 @@
     "defaultMessage": "File Resep"
   },
   "importRecipeForm.reviewWarning": {
-    "defaultMessage": "Pastikan Anda meninjau konten file resep sebelum menambahkannya ke antarmuka goose Anda."
+    "defaultMessage": "Pastikan Anda meninjau konten file resep sebelum menambahkannya ke antarmuka sauron Anda."
   },
   "importRecipeForm.schemaDescription": {
     "defaultMessage": "File YAML atau JSON Anda harus mengikuti struktur ini. Bidang yang diperlukan adalah: title, description, dan salah satu dari instructions atau prompt."
@@ -1638,13 +1641,13 @@
     "defaultMessage": "Pintasan Aplikasi"
   },
   "keyboardShortcuts.categoryApplicationDescription": {
-    "defaultMessage": "Pintasan ini berfungsi saat Goose menjadi aplikasi aktif"
+    "defaultMessage": "Pintasan ini berfungsi saat Sauron menjadi aplikasi aktif"
   },
   "keyboardShortcuts.categoryGlobal": {
     "defaultMessage": "Pintasan Global"
   },
   "keyboardShortcuts.categoryGlobalDescription": {
-    "defaultMessage": "Pintasan ini berfungsi di seluruh sistem, bahkan saat Goose tidak difokuskan"
+    "defaultMessage": "Pintasan ini berfungsi di seluruh sistem, bahkan saat Sauron tidak difokuskan"
   },
   "keyboardShortcuts.categorySearch": {
     "defaultMessage": "Pintasan Pencarian"
@@ -1686,10 +1689,10 @@
     "defaultMessage": "Cari Sebelumnya"
   },
   "keyboardShortcuts.focusWindowDescription": {
-    "defaultMessage": "Bawa jendela Goose ke depan dari mana saja"
+    "defaultMessage": "Bawa jendela Sauron ke depan dari mana saja"
   },
   "keyboardShortcuts.focusWindowLabel": {
-    "defaultMessage": "Fokuskan Jendela Goose"
+    "defaultMessage": "Fokuskan Jendela Sauron"
   },
   "keyboardShortcuts.loading": {
     "defaultMessage": "Memuat..."
@@ -1701,7 +1704,7 @@
     "defaultMessage": "Obrolan Baru"
   },
   "keyboardShortcuts.newChatWindowDescription": {
-    "defaultMessage": "Buka jendela Goose baru"
+    "defaultMessage": "Buka jendela Sauron baru"
   },
   "keyboardShortcuts.newChatWindowLabel": {
     "defaultMessage": "Jendela Obrolan Baru"
@@ -1740,7 +1743,7 @@
     "defaultMessage": "Atur Ulang ke Default"
   },
   "keyboardShortcuts.restartDescription": {
-    "defaultMessage": "Perubahan pada pintasan aplikasi (seperti Obrolan Baru, Pengaturan, dll.) memerlukan memulai ulang Goose agar berlaku. Pintasan global (Fokuskan Jendela, Peluncur Cepat) berfungsi segera."
+    "defaultMessage": "Perubahan pada pintasan aplikasi (seperti Obrolan Baru, Pengaturan, dll.) memerlukan memulai ulang Sauron agar berlaku. Pintasan global (Fokuskan Jendela, Peluncur Cepat) berfungsi segera."
   },
   "keyboardShortcuts.restartRequired": {
     "defaultMessage": "Perlu Memulai Ulang"
@@ -1770,7 +1773,7 @@
     "defaultMessage": "Alihkan Navigasi"
   },
   "launcher.placeholder": {
-    "defaultMessage": "Tanyakan apa saja kepada goose..."
+    "defaultMessage": "Tanyakan apa saja kepada sauron..."
   },
   "liveVoice.connecting": {
     "defaultMessage": "Connecting Live voice"
@@ -1797,31 +1800,31 @@
     "defaultMessage": "Unmute microphone"
   },
   "liveVoiceSettings.description": {
-    "defaultMessage": "Lakukan percakapan suara real-time dengan Goose"
+    "defaultMessage": "Lakukan percakapan suara real-time dengan Sauron"
   },
   "liveVoiceSettings.title": {
     "defaultMessage": "Suara langsung"
   },
-  "loadingGoose.compacting": {
-    "defaultMessage": "goose sedang meringkas percakapan..."
+  "loadingSauron.compacting": {
+    "defaultMessage": "sauron sedang meringkas percakapan..."
   },
-  "loadingGoose.idle": {
-    "defaultMessage": "goose sedang mengerjakannya…"
+  "loadingSauron.idle": {
+    "defaultMessage": "sauron sedang mengerjakannya…"
   },
-  "loadingGoose.loadingConversation": {
+  "loadingSauron.loadingConversation": {
     "defaultMessage": "memuat percakapan..."
   },
-  "loadingGoose.restartingAgent": {
+  "loadingSauron.restartingAgent": {
     "defaultMessage": "memulai ulang sesi..."
   },
-  "loadingGoose.streaming": {
-    "defaultMessage": "goose sedang mengerjakannya…"
+  "loadingSauron.streaming": {
+    "defaultMessage": "sauron sedang mengerjakannya…"
   },
-  "loadingGoose.thinking": {
-    "defaultMessage": "goose sedang berpikir…"
+  "loadingSauron.thinking": {
+    "defaultMessage": "sauron sedang berpikir…"
   },
-  "loadingGoose.waiting": {
-    "defaultMessage": "goose sedang menunggu…"
+  "loadingSauron.waiting": {
+    "defaultMessage": "sauron sedang menunggu…"
   },
   "localInferenceSettings.deleteConfirm": {
     "defaultMessage": "Hapus model ini? Anda dapat mengunduhnya kembali nanti."
@@ -2381,6 +2384,9 @@
   "modelsBottomBar.localModelSettingsTitle": {
     "defaultMessage": "Pengaturan Model Lokal — {modelName}"
   },
+  "modelsBottomBar.preferredModels": {
+    "defaultMessage": "Favorit"
+  },
   "modelsBottomBar.resolvedModel": {
     "defaultMessage": "Model yang diselesaikan"
   },
@@ -2420,8 +2426,14 @@
   "navigationFooter.you": {
     "defaultMessage": "Anda"
   },
-  "navigationPanel.chats": {
-    "defaultMessage": "Obrolan"
+  "navigationPanel.goBack": {
+    "defaultMessage": "Kembali"
+  },
+  "navigationPanel.goForward": {
+    "defaultMessage": "Maju"
+  },
+  "navigationPanel.groupChats": {
+    "defaultMessage": "Kelompokkan obrolan berdasarkan ruang kerja"
   },
   "navigationPanel.loadingChats": {
     "defaultMessage": "Memuat obrolan…"
@@ -2441,8 +2453,14 @@
   "navigationPanel.metaUpdated": {
     "defaultMessage": "Diperbarui"
   },
+  "navigationPanel.newProject": {
+    "defaultMessage": "Proyek baru"
+  },
   "navigationPanel.noChats": {
     "defaultMessage": "Tidak ada obrolan terbaru"
+  },
+  "navigationPanel.projects": {
+    "defaultMessage": "Proyek"
   },
   "navigationPanel.statusError": {
     "defaultMessage": "Kesalahan"
@@ -2459,11 +2477,14 @@
   "navigationPanel.untitledSession": {
     "defaultMessage": "Sesi tanpa judul"
   },
+  "navigationPanel.workspaces": {
+    "defaultMessage": "Ruang kerja"
+  },
   "onboardingGuard.checkProviderErrorDescription": {
     "defaultMessage": "Server mungkin sedang dimulai atau tidak tersedia untuk sementara."
   },
   "onboardingGuard.checkProviderErrorTitle": {
-    "defaultMessage": "Tidak dapat terhubung ke server Goose"
+    "defaultMessage": "Tidak dapat terhubung ke server Sauron"
   },
   "onboardingGuard.retry": {
     "defaultMessage": "Coba Lagi"
@@ -2472,10 +2493,10 @@
     "defaultMessage": "Agen AI lokal Anda. Hubungkan penyedia model AI untuk memulai."
   },
   "onboardingGuard.welcomeTitle": {
-    "defaultMessage": "Selamat datang di goose"
+    "defaultMessage": "Selamat datang di sauron"
   },
   "onboardingSuccess.allSet": {
-    "defaultMessage": "Anda siap untuk mulai menggunakan goose."
+    "defaultMessage": "Anda siap untuk mulai menggunakan sauron."
   },
   "onboardingSuccess.connectedTo": {
     "defaultMessage": "Terhubung ke {providerName}"
@@ -2490,7 +2511,7 @@
     "defaultMessage": "Model lokal siap"
   },
   "onboardingSuccess.privacyDescription": {
-    "defaultMessage": "Data penggunaan anonim membantu meningkatkan goose. Kami tidak pernah mengumpulkan percakapan, kode, atau data pribadi Anda."
+    "defaultMessage": "Data penggunaan anonim membantu meningkatkan sauron. Kami tidak pernah mengumpulkan percakapan, kode, atau data pribadi Anda."
   },
   "onboardingSuccess.privacyTitle": {
     "defaultMessage": "Privasi"
@@ -2658,10 +2679,10 @@
     "defaultMessage": "Metrik sesi (durasi, jumlah interaksi, penggunaan token)"
   },
   "privacyInfoModal.collectVersion": {
-    "defaultMessage": "Versi goose dan metode instalasi"
+    "defaultMessage": "Versi sauron dan metode instalasi"
   },
   "privacyInfoModal.description": {
-    "defaultMessage": "Data penggunaan anonim membantu kami memahami cara goose digunakan dan mengidentifikasi area yang dapat ditingkatkan."
+    "defaultMessage": "Data penggunaan anonim membantu kami memahami cara sauron digunakan dan mengidentifikasi area yang dapat ditingkatkan."
   },
   "privacyInfoModal.neverCollect": {
     "defaultMessage": "Kami tidak pernah mengumpulkan percakapan, kode, argumen alat, pesan kesalahan, atau data pribadi Anda. Anda dapat mengubah pengaturan ini kapan saja di Pengaturan."
@@ -2730,7 +2751,7 @@
     "defaultMessage": "Gagal menyimpan prompt"
   },
   "promptsSettings.promptEditingDescription": {
-    "defaultMessage": "Sesuaikan prompt yang menentukan perilaku goose dalam berbagai konteks. Prompt ini menggunakan sintaks templat Jinja2. Berhati-hatilah saat memodifikasi variabel templat, karena perubahan yang salah dapat merusak fungsionalitas. Mohon bagikan setiap peningkatan dengan komunitas."
+    "defaultMessage": "Sesuaikan prompt yang menentukan perilaku sauron dalam berbagai konteks. Prompt ini menggunakan sintaks templat Jinja2. Berhati-hatilah saat memodifikasi variabel templat, karena perubahan yang salah dapat merusak fungsionalitas. Mohon bagikan setiap peningkatan dengan komunitas."
   },
   "promptsSettings.promptEditingTitle": {
     "defaultMessage": "Pengeditan Prompt"
@@ -2826,7 +2847,7 @@
     "defaultMessage": "Sedang masuk..."
   },
   "providerConfigurationModal.addApiKeyDescription": {
-    "defaultMessage": "Tambahkan kunci API Anda untuk penyedia ini agar terintegrasi ke dalam goose"
+    "defaultMessage": "Tambahkan kunci API Anda untuk penyedia ini agar terintegrasi ke dalam sauron"
   },
   "providerConfigurationModal.browserWindowHint": {
     "defaultMessage": "Jendela browser akan terbuka agar Anda dapat menyelesaikan proses masuk."
@@ -2862,7 +2883,7 @@
     "defaultMessage": "Kesalahan"
   },
   "providerConfigurationModal.externalSetupIntro": {
-    "defaultMessage": "Penyedia ini dikonfigurasi di luar goose. Ikuti langkah-langkah berikut:"
+    "defaultMessage": "Penyedia ini dikonfigurasi di luar sauron. Ikuti langkah-langkah berikut:"
   },
   "providerConfigurationModal.goBack": {
     "defaultMessage": "Kembali"
@@ -2946,7 +2967,7 @@
     "defaultMessage": "Memuat penyedia..."
   },
   "providerSettings.onboardingDescription": {
-    "defaultMessage": "Pilih penyedia model AI untuk memulai dengan goose. Anda perlu menggunakan kunci API yang dihasilkan oleh setiap penyedia yang akan dienkripsi dan disimpan secara lokal. Anda dapat mengubah penyedia kapan saja di pengaturan."
+    "defaultMessage": "Pilih penyedia model AI untuk memulai dengan sauron. Anda perlu menggunakan kunci API yang dihasilkan oleh setiap penyedia yang akan dienkripsi dan disimpan secara lokal. Anda dapat mengubah penyedia kapan saja di pengaturan."
   },
   "providerSettings.otherProviders": {
     "defaultMessage": "Penyedia lain"
@@ -3519,7 +3540,7 @@
     "defaultMessage": "Tautan dalam"
   },
   "scheduleModal.deepLinkPlaceholder": {
-    "defaultMessage": "Tempel tautan goose://recipe di sini..."
+    "defaultMessage": "Tempel tautan sauron://recipe di sini..."
   },
   "scheduleModal.editSchedule": {
     "defaultMessage": "Edit Jadwal"
@@ -3534,7 +3555,7 @@
     "defaultMessage": "Gagal membaca berkas yang dipilih."
   },
   "scheduleModal.invalidDeepLink": {
-    "defaultMessage": "Tautan dalam tidak valid. Harap gunakan tautan goose://recipe."
+    "defaultMessage": "Tautan dalam tidak valid. Harap gunakan tautan sauron://recipe."
   },
   "scheduleModal.invalidFileType": {
     "defaultMessage": "Jenis berkas tidak valid: Harap pilih berkas YAML (.yaml atau .yml)"
@@ -3876,7 +3897,7 @@
     "defaultMessage": "Riwayat obrolan"
   },
   "sessions.chatHistoryDesc": {
-    "defaultMessage": "Lihat dan cari percakapan Anda sebelumnya dengan Goose. {shortcut} untuk mencari."
+    "defaultMessage": "Lihat dan cari percakapan Anda sebelumnya dengan Sauron. {shortcut} untuk mencari."
   },
   "sessions.close": {
     "defaultMessage": "Tutup"
@@ -3969,7 +3990,7 @@
     "defaultMessage": "Deskripsi sesi berhasil diperbarui"
   },
   "settings.appearance.description": {
-    "defaultMessage": "Konfigurasikan tampilan goose di sistem Anda"
+    "defaultMessage": "Konfigurasikan tampilan sauron di sistem Anda"
   },
   "settings.appearance.title": {
     "defaultMessage": "Tampilan"
@@ -3984,13 +4005,28 @@
     "defaultMessage": "Pelacakan Biaya"
   },
   "settings.dockIcon.description": {
-    "defaultMessage": "Tampilkan goose di dock"
+    "defaultMessage": "Tampilkan sauron di dock"
   },
   "settings.dockIcon.title": {
     "defaultMessage": "Ikon dock"
   },
+  "settings.fontSize.decrease": {
+    "defaultMessage": "Perkecil ukuran huruf"
+  },
+  "settings.fontSize.description": {
+    "defaultMessage": "Ubah ukuran teks di goose"
+  },
+  "settings.fontSize.increase": {
+    "defaultMessage": "Perbesar ukuran huruf"
+  },
+  "settings.fontSize.reset": {
+    "defaultMessage": "Atur ulang"
+  },
+  "settings.fontSize.title": {
+    "defaultMessage": "Ukuran huruf"
+  },
   "settings.help.description": {
-    "defaultMessage": "Bantu kami meningkatkan goose dengan melaporkan masalah atau meminta fitur baru"
+    "defaultMessage": "Bantu kami meningkatkan sauron dengan melaporkan masalah atau meminta fitur baru"
   },
   "settings.help.reportBug": {
     "defaultMessage": "Laporkan Bug"
@@ -4002,7 +4038,7 @@
     "defaultMessage": "Bantuan & masukan"
   },
   "settings.language.description": {
-    "defaultMessage": "Pilih bahasa tampilan untuk goose"
+    "defaultMessage": "Pilih bahasa tampilan untuk sauron"
   },
   "settings.language.english": {
     "defaultMessage": "English"
@@ -4059,7 +4095,7 @@
     "defaultMessage": "Bahasa Tionghoa (Tradisional)"
   },
   "settings.menuBarIcon.description": {
-    "defaultMessage": "Tampilkan goose di bilah menu"
+    "defaultMessage": "Tampilkan sauron di bilah menu"
   },
   "settings.menuBarIcon.title": {
     "defaultMessage": "Ikon bilah menu"
@@ -4080,7 +4116,7 @@
     "defaultMessage": "Klik Notifications"
   },
   "settings.notifications.modal.macStep3": {
-    "defaultMessage": "Temukan dan pilih goose di daftar aplikasi"
+    "defaultMessage": "Temukan dan pilih sauron di daftar aplikasi"
   },
   "settings.notifications.modal.macStep4": {
     "defaultMessage": "Aktifkan notifikasi dan sesuaikan pengaturan sesuai keinginan"
@@ -4098,7 +4134,7 @@
     "defaultMessage": "Buka System > Notifications"
   },
   "settings.notifications.modal.winStep3": {
-    "defaultMessage": "Temukan dan pilih goose di daftar aplikasi"
+    "defaultMessage": "Temukan dan pilih sauron di daftar aplikasi"
   },
   "settings.notifications.modal.winStep4": {
     "defaultMessage": "Aktifkan notifikasi dan sesuaikan pengaturan sesuai keinginan"
@@ -4106,8 +4142,14 @@
   "settings.notifications.openSettings": {
     "defaultMessage": "Buka Pengaturan"
   },
+  "settings.notifications.sound.description": {
+    "defaultMessage": "Putar suara bersama notifikasi tugas selesai"
+  },
+  "settings.notifications.sound.title": {
+    "defaultMessage": "Suara notifikasi"
+  },
   "settings.notifications.task.description": {
-    "defaultMessage": "Beri tahu saat Goose menyelesaikan tugas selagi jendela berada di latar belakang"
+    "defaultMessage": "Beri tahu saat Sauron menyelesaikan tugas selagi jendela berada di latar belakang"
   },
   "settings.notifications.task.title": {
     "defaultMessage": "Notifikasi penyelesaian tugas"
@@ -4116,19 +4158,19 @@
     "defaultMessage": "Notifikasi"
   },
   "settings.preventSleep.description": {
-    "defaultMessage": "Jaga komputer Anda tetap menyala saat goose menjalankan tugas (layar tetap dapat terkunci)"
+    "defaultMessage": "Jaga komputer Anda tetap menyala saat sauron menjalankan tugas (layar tetap dapat terkunci)"
   },
   "settings.preventSleep.title": {
     "defaultMessage": "Cegah Tidur"
   },
   "settings.theme.description": {
-    "defaultMessage": "Sesuaikan tampilan dan nuansa goose"
+    "defaultMessage": "Sesuaikan tampilan dan nuansa sauron"
   },
   "settings.theme.title": {
     "defaultMessage": "Tema"
   },
   "settings.updates.description": {
-    "defaultMessage": "Periksa dan instal pembaruan agar goose berjalan optimal"
+    "defaultMessage": "Periksa dan instal pembaruan agar sauron berjalan optimal"
   },
   "settings.updates.title": {
     "defaultMessage": "Pembaruan"
@@ -4138,9 +4180,6 @@
   },
   "settingsView.tabApp": {
     "defaultMessage": "Aplikasi"
-  },
-  "settingsView.tabAuth": {
-    "defaultMessage": "Autentikasi"
   },
   "settingsView.tabChat": {
     "defaultMessage": "Obrolan"
@@ -4153,9 +4192,6 @@
   },
   "settingsView.tabKeyboard": {
     "defaultMessage": "Keyboard"
-  },
-  "settingsView.tabLocalInference": {
-    "defaultMessage": "Inferensi Lokal"
   },
   "settingsView.tabModels": {
     "defaultMessage": "Model"
@@ -4197,7 +4233,7 @@
     "defaultMessage": "Tidak ada keterampilan yang cocok ditemukan"
   },
   "skillsView.noSkillsDescription": {
-    "defaultMessage": "Keterampilan dimuat dari file SKILL.md di ~/.config/agents/skills/, .goose/skills/, atau direktori lain yang didukung."
+    "defaultMessage": "Keterampilan dimuat dari file SKILL.md di ~/.config/agents/skills/, .sauron/skills/, atau direktori lain yang didukung."
   },
   "skillsView.noSkillsInstalled": {
     "defaultMessage": "Tidak ada keterampilan yang terpasang"
@@ -4206,7 +4242,7 @@
     "defaultMessage": "Cari keterampilan..."
   },
   "skillsView.skillsDescription": {
-    "defaultMessage": "Lihat keterampilan terpasang yang memperluas kemampuan Goose. {shortcut} untuk mencari."
+    "defaultMessage": "Lihat keterampilan terpasang yang memperluas kemampuan Sauron. {shortcut} untuk mencari."
   },
   "skillsView.skillsTitle": {
     "defaultMessage": "Keterampilan"
@@ -4449,10 +4485,10 @@
     "defaultMessage": "Gunakan penyedia lain"
   },
   "telemetryConsentPrompt.description": {
-    "defaultMessage": "Apakah Anda ingin membagikan data penggunaan anonim untuk membantu meningkatkan goose? Kami tidak pernah mengumpulkan percakapan, kode, atau data pribadi Anda."
+    "defaultMessage": "Apakah Anda ingin membagikan data penggunaan anonim untuk membantu meningkatkan sauron? Kami tidak pernah mengumpulkan percakapan, kode, atau data pribadi Anda."
   },
   "telemetryConsentPrompt.heading": {
-    "defaultMessage": "Bantu tingkatkan goose"
+    "defaultMessage": "Bantu tingkatkan sauron"
   },
   "telemetryConsentPrompt.learnMore": {
     "defaultMessage": "Pelajari lebih lanjut"
@@ -4479,7 +4515,7 @@
     "defaultMessage": "Privasi"
   },
   "telemetrySettings.toggleDescription": {
-    "defaultMessage": "Bantu tingkatkan goose dengan membagikan statistik penggunaan anonim."
+    "defaultMessage": "Bantu tingkatkan sauron dengan membagikan statistik penggunaan anonim."
   },
   "telemetrySettings.toggleLabel": {
     "defaultMessage": "Data penggunaan anonim"
@@ -4559,14 +4595,14 @@
   "toolConfirmation.allowToolCallWithName": {
     "defaultMessage": "Izinkan {toolName}?"
   },
-  "toolConfirmation.gooseWouldLikeToCallWithName": {
-    "defaultMessage": "Goose ingin memanggil {toolName}. Izinkan?"
+  "toolConfirmation.sauronWouldLikeToCallWithName": {
+    "defaultMessage": "Sauron ingin memanggil {toolName}. Izinkan?"
   },
   "updateSection.autoDownload": {
-    "defaultMessage": "Goose akan mengunduh pembaruan di latar belakang dan menginstalnya saat Anda keluar atau memulai ulang berikutnya."
+    "defaultMessage": "Sauron akan mengunduh pembaruan di latar belakang dan menginstalnya saat Anda keluar atau memulai ulang berikutnya."
   },
   "updateSection.autoDownloadDisabledByEnv": {
-    "defaultMessage": "Pengunduhan otomatis dinonaktifkan melalui variabel lingkungan GOOSE_DISABLE_AUTO_DOWNLOAD."
+    "defaultMessage": "Pengunduhan otomatis dinonaktifkan melalui variabel lingkungan SAURON_DISABLE_AUTO_DOWNLOAD."
   },
   "updateSection.autoDownloadDisabledNote": {
     "defaultMessage": "Pengunduhan otomatis dinonaktifkan. Klik \"Download Now\" untuk mengunduh secara manual."
@@ -4584,7 +4620,7 @@
     "defaultMessage": "Nonaktifkan pengunduhan pembaruan otomatis"
   },
   "updateSection.disableAutoDownloadDesc": {
-    "defaultMessage": "Saat diaktifkan, Goose akan memberi tahu Anda tentang versi baru tetapi tidak akan mengunduhnya secara otomatis."
+    "defaultMessage": "Saat diaktifkan, Sauron akan memberi tahu Anda tentang versi baru tetapi tidak akan mengunduhnya secara otomatis."
   },
   "updateSection.downloadNow": {
     "defaultMessage": "Unduh Sekarang"
@@ -4844,6 +4880,150 @@
   "settingsView.tabProviders": {
     "defaultMessage": "Providers"
   },
+  "authSettings.cancelSignIn": {
+    "defaultMessage": "Batal"
+  },
+  "authSettings.checkingStatus": {
+    "defaultMessage": "Memeriksa..."
+  },
+  "authSettings.connectedAccounts": {
+    "defaultMessage": "Akun terhubung"
+  },
+  "authSettings.connectedAccountsDescription": {
+    "defaultMessage": "Masuk agar Sauron dapat bekerja dengan akun eksternal Anda."
+  },
+  "authSettings.githubAccountDescription": {
+    "defaultMessage": "Cari repositori, bekerja dengan kode, kelola issue, dan buka pull request."
+  },
+  "authSettings.githubAccountName": {
+    "defaultMessage": "GitHub"
+  },
+  "authSettings.githubConnected": {
+    "defaultMessage": "Terhubung"
+  },
+  "authSettings.githubEnterCode": {
+    "defaultMessage": "Masukkan kode ini di {url} untuk memberi otorisasi kepada Sauron:"
+  },
+  "authSettings.githubNotConnected": {
+    "defaultMessage": "Tidak terhubung"
+  },
+  "authSettings.githubOpenDevicePage": {
+    "defaultMessage": "Buka halaman perangkat GitHub"
+  },
+  "allProviderModels.preferredUpdateFailed": {
+    "defaultMessage": "Gagal memperbarui model favorit"
+  },
+  "allProviderModels.refreshAll": {
+    "defaultMessage": "Refresh models"
+  },
+  "authSettings.githubSignInUnavailable": {
+    "defaultMessage": "Masuk GitHub hanya tersedia di aplikasi desktop."
+  },
+  "authSettings.githubSignOutMessage": {
+    "defaultMessage": "Sauron tidak akan dapat bekerja dengan repositori GitHub Anda sampai Anda masuk kembali."
+  },
+  "allProviderModels.removePreferred": {
+    "defaultMessage": "Hapus {model} dari model favorit"
+  },
+  "allProviderModels.title": {
+    "defaultMessage": "Models from your providers"
+  },
+  "authSettings.githubSignedIn": {
+    "defaultMessage": "Berhasil masuk ke GitHub. Ekstensi GitHub siap digunakan."
+  },
+  "authSettings.githubSignedOut": {
+    "defaultMessage": "Berhasil keluar dari GitHub"
+  },
+  "authSettings.githubStatusFailed": {
+    "defaultMessage": "Tidak dapat memeriksa status masuk GitHub"
+  },
+  "authSettings.githubWaitingForAuthorization": {
+    "defaultMessage": "Menunggu otorisasi GitHub..."
+  },
+  "authSettings.signInWithGitHub": {
+    "defaultMessage": "Masuk dengan GitHub"
+  },
+  "pluginsSettings.loadFailed": {
+    "defaultMessage": "Could not load plugins"
+  },
+  "pluginsSettings.loading": {
+    "defaultMessage": "Loading plugins..."
+  },
+  "pluginsSettings.manageSkills": {
+    "defaultMessage": "Manage skills"
+  },
+  "pluginsSettings.pluginCount": {
+    "defaultMessage": "{count,plural,=0{No plugins} one{# plugin} other{# plugins}}"
+  },
+  "pluginsSettings.refresh": {
+    "defaultMessage": "Refresh"
+  },
+  "pluginsSettings.skillCount": {
+    "defaultMessage": "{count,plural,one{# skill} other{# skills}}"
+  },
+  "pluginsSettings.title": {
+    "defaultMessage": "Plugins"
+  },
+  "preferredModels.empty": {
+    "defaultMessage": "Beri tanda bintang pada model di bawah agar mudah diakses di sini dan di obrolan."
+  },
+  "preferredModels.remove": {
+    "defaultMessage": "Hapus {model} dari model favorit"
+  },
+  "preferredModels.removeFailed": {
+    "defaultMessage": "Gagal memperbarui model favorit"
+  },
+  "preferredModels.title": {
+    "defaultMessage": "Model favorit"
+  },
+  "providersSection.resetDescription": {
+    "defaultMessage": "Clear your selected model and provider settings to start fresh"
+  },
+  "providersSection.resetTitle": {
+    "defaultMessage": "Reset Provider and Model"
+  },
+  "settingsView.tabAppearance": {
+    "defaultMessage": "Appearance"
+  },
+  "settingsView.tabMcp": {
+    "defaultMessage": "MCP"
+  },
+  "settingsView.tabPlugins": {
+    "defaultMessage": "Plugins"
+  },
+  "themeSelector.popular": {
+    "defaultMessage": "Popular themes"
+  },
+  "allProviderModels.clearSearch": {
+    "defaultMessage": "Hapus pencarian"
+  },
+  "allProviderModels.clearSearchInput": {
+    "defaultMessage": "Hapus kolom pencarian"
+  },
+  "allProviderModels.noSearchResults": {
+    "defaultMessage": "Tidak ada model yang cocok dengan \"{query}\"."
+  },
+  "allProviderModels.searchLabel": {
+    "defaultMessage": "Cari model"
+  },
+  "allProviderModels.searchPlaceholder": {
+    "defaultMessage": "Cari model..."
+  },
+  "allProviderModels.showingCount": {
+    "defaultMessage": "Menampilkan {shown, number} dari {total, number} model"
+  },
+  "modelBadges.contextShort": {
+    "defaultMessage": "{amount, number}k"
+  },
+  "modelBadges.contextWindow": {
+    "defaultMessage": "Konteks {amount, number}k"
+  },
+  "modelBadges.default": {
+    "defaultMessage": "Bawaan"
+  },
+  "modelBadges.reasoning": {
+    "defaultMessage": "Penalaran"
+  },
   "allProviderModels.configureProviders": {
     "defaultMessage": "Configure providers"
   },
@@ -4874,17 +5054,20 @@
   "allProviderModels.noModels": {
     "defaultMessage": "No models reported by this provider."
   },
-  "allProviderModels.refreshAll": {
-    "defaultMessage": "Refresh models"
-  },
   "allProviderModels.refreshFailed": {
     "defaultMessage": "Could not refresh {provider}: {error}"
   },
   "allProviderModels.refreshing": {
     "defaultMessage": "Refreshing..."
   },
-  "allProviderModels.title": {
-    "defaultMessage": "Models from your providers"
+  "authSettings.githubSignInFailed": {
+    "defaultMessage": "GitHub sign-in failed: {error}"
+  },
+  "authSettings.githubSignOutTitle": {
+    "defaultMessage": "Sign out of GitHub"
+  },
+  "authSettings.signOutFromGitHub": {
+    "defaultMessage": "Sign out"
   },
   "mcpSettings.description": {
     "defaultMessage": "Connect Model Context Protocol servers to give goose new tools, resources, and data sources. Extensions added here are available to every chat."
@@ -4900,44 +5083,5 @@
   },
   "pluginsSettings.emptyHint": {
     "defaultMessage": "Install a plugin with `goose plugin install` and it will show up here."
-  },
-  "pluginsSettings.loadFailed": {
-    "defaultMessage": "Could not load plugins"
-  },
-  "pluginsSettings.loading": {
-    "defaultMessage": "Loading plugins..."
-  },
-  "pluginsSettings.manageSkills": {
-    "defaultMessage": "Manage skills"
-  },
-  "pluginsSettings.pluginCount": {
-    "defaultMessage": "{count,plural,=0{No plugins} one{# plugin} other{# plugins}}"
-  },
-  "pluginsSettings.refresh": {
-    "defaultMessage": "Refresh"
-  },
-  "pluginsSettings.skillCount": {
-    "defaultMessage": "{count,plural,one{# skill} other{# skills}}"
-  },
-  "pluginsSettings.title": {
-    "defaultMessage": "Plugins"
-  },
-  "providersSection.resetDescription": {
-    "defaultMessage": "Clear your selected model and provider settings to start fresh"
-  },
-  "providersSection.resetTitle": {
-    "defaultMessage": "Reset Provider and Model"
-  },
-  "settingsView.tabAppearance": {
-    "defaultMessage": "Appearance"
-  },
-  "settingsView.tabMcp": {
-    "defaultMessage": "MCP"
-  },
-  "settingsView.tabPlugins": {
-    "defaultMessage": "Plugins"
-  },
-  "themeSelector.popular": {
-    "defaultMessage": "Popular themes"
   }
 }

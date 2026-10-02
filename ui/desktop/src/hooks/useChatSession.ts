@@ -15,6 +15,7 @@ import {
   type UserInput,
 } from '../types/message';
 import { errorMessage } from '../utils/conversionUtils';
+import { playNotificationSound } from '../utils/notificationSound';
 import type { UseChatSessionParams, UseChatSessionResult } from './useChatSessionTypes';
 import { resolveAcpElicitationRequest } from '../acp/elicitationRequests';
 import { acpChatSessionController } from '../acp/chatSessionController';
@@ -46,11 +47,11 @@ function isSlashCommand(message: string): boolean {
 const i18n = defineMessages({
   notificationTitle: {
     id: 'chat.notification.taskComplete.title',
-    defaultMessage: 'Goose finished the task.',
+    defaultMessage: 'Sauron finished the task.',
   },
   notificationBody: {
     id: 'chat.notification.taskComplete.body',
-    defaultMessage: 'Click here to bring Goose back into focus.',
+    defaultMessage: 'Click here to bring Sauron back into focus.',
   },
 });
 
@@ -123,6 +124,7 @@ export function useChatSession({
               title: intl.formatMessage(i18n.notificationTitle),
               body: intl.formatMessage(i18n.notificationBody),
             });
+            void playNotificationSound();
           }
         } catch (notifyError) {
           console.warn('Failed to show task completion notification:', notifyError);

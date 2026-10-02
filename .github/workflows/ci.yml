@@ -32,8 +32,8 @@ jobs:
             code:
               - '!documentation/**'
 
-  goose-acp-npm-packages:
-    name: goose ACP npm packages
+  sauron-acp-npm-packages:
+    name: sauron ACP npm packages
     runs-on: ubuntu-latest
     needs: changes
     if: needs.changes.outputs.code == 'true' || github.event_name != 'pull_request'
@@ -47,19 +47,19 @@ jobs:
       - name: Check npm versions
         run: source bin/activate-hermit && node ui/scripts/npm-versions.mjs check
 
-      - name: Test goose-acp
-        run: source bin/activate-hermit && pnpm --dir ui/goose-acp test
+      - name: Test sauron-acp
+        run: source bin/activate-hermit && pnpm --dir ui/sauron-acp test
 
       - name: Pack npm packages
         run: |
           source bin/activate-hermit
           set -euo pipefail
-          client_pack_dir="$RUNNER_TEMP/goose-acp-client"
-          wrapper_pack_dir="$RUNNER_TEMP/goose-acp"
+          client_pack_dir="$RUNNER_TEMP/sauron-acp-client"
+          wrapper_pack_dir="$RUNNER_TEMP/sauron-acp"
           mkdir -p "$client_pack_dir" "$wrapper_pack_dir"
 
-          pnpm --dir ui/goose-acp-client pack --pack-destination "$client_pack_dir"
-          pnpm --dir ui/goose-acp pack --pack-destination "$wrapper_pack_dir"
+          pnpm --dir ui/sauron-acp-client pack --pack-destination "$client_pack_dir"
+          pnpm --dir ui/sauron-acp pack --pack-destination "$wrapper_pack_dir"
 
           wrapper_tarball=$(find "$wrapper_pack_dir" -name '*.tgz' -print -quit)
           tar -xzf "$wrapper_tarball" -C "$wrapper_pack_dir"
@@ -154,19 +154,19 @@ jobs:
           cargo install wasm-bindgen-cli --version "$version" --locked
 
       - name: Check wasm32 build
-        run: cargo check --locked --target wasm32-unknown-unknown -p goose-agent -p goose-provider-types
+        run: cargo check --locked --target wasm32-unknown-unknown -p sauron-agent -p sauron-provider-types
         env:
           CARGO_INCREMENTAL: "0"
           RUSTFLAGS: "-D warnings"
 
       - name: Run agent loop on wasm32
-        run: cargo test --locked --target wasm32-unknown-unknown -p goose-agent --test wasm
+        run: cargo test --locked --target wasm32-unknown-unknown -p sauron-agent --test wasm
         env:
           CARGO_INCREMENTAL: "0"
           RUSTFLAGS: "-D warnings"
 
-  goose-sdk-uniffi:
-    name: Check goose-sdk UniFFI
+  sauron-sdk-uniffi:
+    name: Check sauron-sdk UniFFI
     runs-on: ubuntu-latest
     needs: changes
     if: needs.changes.outputs.code == 'true' || github.event_name != 'pull_request'
@@ -184,8 +184,8 @@ jobs:
       - name: Check UniFFI feature
         run: |
           export CARGO_INCREMENTAL=0
-          cargo check -p goose-sdk --features uniffi --locked
-          cargo test -p goose-sdk --features uniffi --locked
+          cargo check -p sauron-sdk --features uniffi --locked
+          cargo test -p sauron-sdk --features uniffi --locked
         env:
           RUST_MIN_STACK: 8388608
 
@@ -231,10 +231,10 @@ jobs:
         run: |
           gnome-keyring-daemon --components=secrets --daemonize --unlock <<< 'foobar'
           export CARGO_INCREMENTAL=0
-          cargo test -p goose --no-default-features --features ${{ matrix.tls-feature }},code-mode,tree-sitter,live-voice,scheduler,platform-apps,chat-recall,acp-http
-          cargo test -p goose-providers --no-default-features --features ${{ matrix.tls-feature }},live-websocket
-          cargo test -p goose-cli --no-default-features --features ${{ matrix.tls-feature }},code-mode,tree-sitter,live-voice,scheduler,platform-apps,chat-recall,acp-http -- --skip scenario_tests::scenarios::tests
-          cargo test -p goose-cli --no-default-features --features ${{ matrix.tls-feature }},code-mode,tree-sitter,live-voice,scheduler,platform-apps,chat-recall,acp-http --jobs 1 scenario_tests::scenarios::tests
+          cargo test -p sauron --no-default-features --features ${{ matrix.tls-feature }},code-mode,tree-sitter,live-voice,scheduler,platform-apps,chat-recall,acp-http
+          cargo test -p sauron-providers --no-default-features --features ${{ matrix.tls-feature }},live-websocket
+          cargo test -p sauron-cli --no-default-features --features ${{ matrix.tls-feature }},code-mode,tree-sitter,live-voice,scheduler,platform-apps,chat-recall,acp-http -- --skip scenario_tests::scenarios::tests
+          cargo test -p sauron-cli --no-default-features --features ${{ matrix.tls-feature }},code-mode,tree-sitter,live-voice,scheduler,platform-apps,chat-recall,acp-http --jobs 1 scenario_tests::scenarios::tests
         env:
           RUST_MIN_STACK: 8388608
 
@@ -264,9 +264,9 @@ jobs:
         run: |
           gnome-keyring-daemon --components=secrets --daemonize --unlock <<< 'foobar'
           export CARGO_INCREMENTAL=0
-          cargo test -p goose-roaming
-          cargo build -p goose-cli --features roaming
-          cargo test -p goose-cli --features roaming --test roam_acp_client
+          cargo test -p sauron-roaming
+          cargo build -p sauron-cli --features roaming
+          cargo test -p sauron-cli --features roaming --test roam_acp_client
         env:
           RUST_MIN_STACK: 8388608
 
@@ -382,7 +382,7 @@ jobs:
       - name: Check ACP Client SDK
         run: |
           source ./bin/activate-hermit
-          cd ui/goose-acp-client
+          cd ui/sauron-acp-client
           pnpm run lint
 
   gdk-release-config-check:
@@ -393,7 +393,7 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
 
       - name: Check GDK crate membership and publication order
-        run: python3 crates/goose-sdk/scripts/gdk-release.py check-config
+        run: python3 crates/sauron-sdk/scripts/gdk-release.py check-config
 
   gdk-api-docs-check:
     name: Check GDK API Reference is Up-to-Date

@@ -1,14 +1,14 @@
 export const configLabels: Record<string, string> = {
-  // goose settings
-  GOOSE_PROVIDER: 'Provider',
-  GOOSE_MODEL: 'Model',
-  GOOSE_TEMPERATURE: 'Temperature',
-  GOOSE_MODE: 'Mode',
-  GOOSE_TOOLSHIM: 'Tool Shim',
-  GOOSE_TOOLSHIM_OLLAMA_MODEL: 'Tool Shim Ollama Model',
-  GOOSE_CLI_MIN_PRIORITY: 'CLI Min Priority',
-  GOOSE_ALLOWLIST: 'Allow List',
-  GOOSE_RECIPE_GITHUB_REPO: 'Recipe GitHub Repo',
+  // sauron settings
+  SAURON_PROVIDER: 'Provider',
+  SAURON_MODEL: 'Model',
+  SAURON_TEMPERATURE: 'Temperature',
+  SAURON_MODE: 'Mode',
+  SAURON_TOOLSHIM: 'Tool Shim',
+  SAURON_TOOLSHIM_OLLAMA_MODEL: 'Tool Shim Ollama Model',
+  SAURON_CLI_MIN_PRIORITY: 'CLI Min Priority',
+  SAURON_ALLOWLIST: 'Allow List',
+  SAURON_RECIPE_GITHUB_REPO: 'Recipe GitHub Repo',
 
   // security settings
   SECURITY_PROMPT_ENABLED: 'Prompt Injection Detection Enabled',
