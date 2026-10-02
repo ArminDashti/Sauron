@@ -15,6 +15,7 @@ import {
   type UserInput,
 } from '../types/message';
 import { errorMessage } from '../utils/conversionUtils';
+import { playNotificationSound } from '../utils/notificationSound';
 import type { UseChatSessionParams, UseChatSessionResult } from './useChatSessionTypes';
 import { resolveAcpElicitationRequest } from '../acp/elicitationRequests';
 import { acpChatSessionController } from '../acp/chatSessionController';
@@ -123,6 +124,7 @@ export function useChatSession({
               title: intl.formatMessage(i18n.notificationTitle),
               body: intl.formatMessage(i18n.notificationBody),
             });
+            void playNotificationSound();
           }
         } catch (notifyError) {
           console.warn('Failed to show task completion notification:', notifyError);

@@ -2,14 +2,15 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { IpcRendererEvent } from 'electron';
 import { Outlet, useLocation } from 'react-router';
 import { motion } from 'framer-motion';
-import { PanelLeft } from 'lucide-react';
+import { GitCompareArrows, PanelLeft } from 'lucide-react';
 import { defineMessages, useIntl } from '../../i18n';
 import { Button } from '../ui/button';
 import ChatSessionsContainer from '../ChatSessionsContainer';
+import { ChangesPanel } from '../changes/ChangesPanel';
 import { useChatContext } from '../../contexts/ChatContext';
 import { NavigationProvider, useNavigationContext } from './NavigationContext';
 import { Navigation } from './NavigationPanel';
-import { Z_INDEX } from './constants';
+import { CHANGES_DIMENSIONS, Z_INDEX } from './constants';
 import { cn } from '../../utils';
 import { UserInput } from '../../types/message';
 import type { LiveVoiceController } from '../../liveVoice/useLiveVoice';
@@ -22,6 +23,14 @@ const i18n = defineMessages({
   collapseNavigation: {
     id: 'appLayout.collapseNavigation',
     defaultMessage: 'Collapse navigation',
+  },
+  showChanges: {
+    id: 'appLayout.showChanges',
+    defaultMessage: 'Show changes panel',
+  },
+  hideChanges: {
+    id: 'appLayout.hideChanges',
+    defaultMessage: 'Hide changes panel',
   },
 });
 
@@ -59,13 +68,47 @@ const AppLayoutContent: React.FC<AppLayoutContentProps> = ({ activeSessions, liv
 
   const { isNavExpanded, setIsNavExpanded, navWidth, setNavWidth } = useNavigationContext();
   const [isDragging, setIsDragging] = useState(false);
-  const isResizing = useRef(false);
+  const resizeTarget = useRef<'nav' | 'changes' | null>(null);
   const startX = useRef(0);
   const startWidth = useRef(0);
 
-  const handleResizeMouseDown = useCallback(
+  const [isChangesExpanded, setIsChangesExpandedState] = useState<boolean>(() => {
+    const stored = localStorage.getItem('changes_panel_expanded');
+    return stored !== 'false';
+  });
+
+  const setIsChangesExpanded = useCallback((expanded: boolean) => {
+    setIsChangesExpandedState(expanded);
+    localStorage.setItem('changes_panel_expanded', String(expanded));
+  }, []);
+
+  const [changesWidth, setChangesWidthState] = useState<number>(() => {
+    const stored = localStorage.getItem('changes_panel_width');
+    if (stored) {
+      const parsed = parseInt(stored, 10);
+      if (
+        !isNaN(parsed) &&
+        parsed >= CHANGES_DIMENSIONS.MIN_WIDTH &&
+        parsed <= CHANGES_DIMENSIONS.MAX_WIDTH
+      ) {
+        return parsed;
+      }
+    }
+    return CHANGES_DIMENSIONS.CHANGES_WIDTH;
+  });
+
+  const setChangesWidth = useCallback((width: number) => {
+    const clamped = Math.min(
+      CHANGES_DIMENSIONS.MAX_WIDTH,
+      Math.max(CHANGES_DIMENSIONS.MIN_WIDTH, width)
+    );
+    setChangesWidthState(clamped);
+    localStorage.setItem('changes_panel_width', String(clamped));
+  }, []);
+
+  const handleNavResizeMouseDown = useCallback(
     (e: React.MouseEvent) => {
-      isResizing.current = true;
+      resizeTarget.current = 'nav';
       startX.current = e.clientX;
       startWidth.current = navWidth;
       setIsDragging(true);
@@ -74,14 +117,32 @@ const AppLayoutContent: React.FC<AppLayoutContentProps> = ({ activeSessions, liv
     [navWidth]
   );
 
+  const handleChangesResizeMouseDown = useCallback(
+    (e: React.MouseEvent) => {
+      resizeTarget.current = 'changes';
+      startX.current = e.clientX;
+      startWidth.current = changesWidth;
+      setIsDragging(true);
+      e.preventDefault();
+    },
+    [changesWidth]
+  );
+
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      if (!isResizing.current) return;
-      setNavWidth(startWidth.current + (e.clientX - startX.current));
+      const target = resizeTarget.current;
+      if (!target) return;
+      const delta = e.clientX - startX.current;
+      if (target === 'nav') {
+        setNavWidth(startWidth.current + delta);
+      } else {
+        // Dragging the left edge leftwards makes the panel wider.
+        setChangesWidth(startWidth.current - delta);
+      }
     };
     const handleMouseUp = () => {
-      if (isResizing.current) {
-        isResizing.current = false;
+      if (resizeTarget.current) {
+        resizeTarget.current = null;
         setIsDragging(false);
       }
     };
@@ -91,7 +152,7 @@ const AppLayoutContent: React.FC<AppLayoutContentProps> = ({ activeSessions, liv
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('mouseup', handleMouseUp);
     };
-  }, [setNavWidth]);
+  }, [setNavWidth, setChangesWidth]);
 
   if (!chatContext) {
     throw new Error('AppLayoutContent must be used within ChatProvider');
@@ -120,6 +181,9 @@ const AppLayoutContent: React.FC<AppLayoutContentProps> = ({ activeSessions, liv
   const navToggleTitle = intl.formatMessage(
     isNavExpanded ? i18n.collapseNavigation : i18n.openNavigation
   );
+  const changesToggleTitle = intl.formatMessage(
+    isChangesExpanded ? i18n.hideChanges : i18n.showChanges
+  );
 
   return (
     <div className="flex flex-1 w-full h-full relative animate-fade-in bg-background-primary flex-row">
@@ -136,6 +200,18 @@ const AppLayoutContent: React.FC<AppLayoutContentProps> = ({ activeSessions, liv
           aria-label={navToggleTitle}
         >
           <PanelLeft className="w-5 h-5" />
+        </Button>
+        {/* Toggles the right-hand changes panel. Lives in the left cluster so it
+            never collides with the chat watermark at the top-right corner. */}
+        <Button
+          onClick={() => setIsChangesExpanded(!isChangesExpanded)}
+          className="no-drag hover:!bg-background-tertiary"
+          variant="ghost"
+          size="xs"
+          title={changesToggleTitle}
+          aria-label={changesToggleTitle}
+        >
+          <GitCompareArrows className="w-5 h-5" />
         </Button>
       </div>
 
@@ -158,7 +234,7 @@ const AppLayoutContent: React.FC<AppLayoutContentProps> = ({ activeSessions, liv
           {isNavExpanded && (
             <div
               className="absolute right-0 top-0 h-full w-2 cursor-col-resize hover:bg-border-primary/30 transition-colors"
-              onMouseDown={handleResizeMouseDown}
+              onMouseDown={handleNavResizeMouseDown}
             />
           )}
         </motion.div>
@@ -176,6 +252,28 @@ const AppLayoutContent: React.FC<AppLayoutContentProps> = ({ activeSessions, liv
             />
           </div>
         </div>
+
+        {/* Right panel: git changes and diffs, mirroring the sidebar card. */}
+        <motion.div
+          key="changes"
+          initial={false}
+          animate={{ width: isChangesExpanded ? changesWidth : 0 }}
+          transition={
+            isDragging ? { duration: 0 } : { type: 'spring', stiffness: 400, damping: 40 }
+          }
+          style={{ height: '100%' }}
+          className="relative flex-shrink-0 overflow-hidden h-full p-2"
+        >
+          <div className="w-full h-full overflow-hidden rounded-xl border border-border-primary">
+            {isChangesExpanded && <ChangesPanel onClose={() => setIsChangesExpanded(false)} />}
+          </div>
+          {isChangesExpanded && (
+            <div
+              className="absolute left-0 top-0 h-full w-2 cursor-col-resize hover:bg-border-primary/30 transition-colors"
+              onMouseDown={handleChangesResizeMouseDown}
+            />
+          )}
+        </motion.div>
       </div>
     </div>
   );
