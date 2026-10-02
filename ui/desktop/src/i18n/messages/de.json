@@ -4124,9 +4124,6 @@
   "settingsView.tabApp": {
     "defaultMessage": "App"
   },
-  "settingsView.tabAuth": {
-    "defaultMessage": "Authentifizierung"
-  },
   "settingsView.tabChat": {
     "defaultMessage": "Chat"
   },
@@ -4135,9 +4132,6 @@
   },
   "settingsView.tabKeyboard": {
     "defaultMessage": "Tastatur"
-  },
-  "settingsView.tabLocalInference": {
-    "defaultMessage": "Lokale Inferenz"
   },
   "settingsView.tabModels": {
     "defaultMessage": "Modelle"

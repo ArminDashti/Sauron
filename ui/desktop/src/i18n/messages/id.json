@@ -4124,9 +4124,6 @@
   "settingsView.tabApp": {
     "defaultMessage": "Aplikasi"
   },
-  "settingsView.tabAuth": {
-    "defaultMessage": "Autentikasi"
-  },
   "settingsView.tabChat": {
     "defaultMessage": "Obrolan"
   },
@@ -4135,9 +4132,6 @@
   },
   "settingsView.tabKeyboard": {
     "defaultMessage": "Keyboard"
-  },
-  "settingsView.tabLocalInference": {
-    "defaultMessage": "Inferensi Lokal"
   },
   "settingsView.tabModels": {
     "defaultMessage": "Model"

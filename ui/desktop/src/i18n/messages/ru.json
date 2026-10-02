@@ -4124,9 +4124,6 @@
   "settingsView.tabApp": {
     "defaultMessage": "Приложение"
   },
-  "settingsView.tabAuth": {
-    "defaultMessage": "Авторизация"
-  },
   "settingsView.tabChat": {
     "defaultMessage": "Чат"
   },
@@ -4135,9 +4132,6 @@
   },
   "settingsView.tabKeyboard": {
     "defaultMessage": "Клавиатура"
-  },
-  "settingsView.tabLocalInference": {
-    "defaultMessage": "Локальный инференс"
   },
   "settingsView.tabModels": {
     "defaultMessage": "Модели"

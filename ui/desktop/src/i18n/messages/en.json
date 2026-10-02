@@ -4442,9 +4442,6 @@
   "settingsView.tabAppearance": {
     "defaultMessage": "Appearance"
   },
-  "settingsView.tabAuth": {
-    "defaultMessage": "Auth"
-  },
   "settingsView.tabChat": {
     "defaultMessage": "Chat"
   },
@@ -4453,9 +4450,6 @@
   },
   "settingsView.tabKeyboard": {
     "defaultMessage": "Keyboard"
-  },
-  "settingsView.tabLocalInference": {
-    "defaultMessage": "Local Inference"
   },
   "settingsView.tabMcp": {
     "defaultMessage": "MCP"

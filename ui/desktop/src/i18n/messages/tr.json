@@ -4124,9 +4124,6 @@
   "settingsView.tabApp": {
     "defaultMessage": "Uygulama"
   },
-  "settingsView.tabAuth": {
-    "defaultMessage": "Kimlik Doğrulama"
-  },
   "settingsView.tabChat": {
     "defaultMessage": "Sohbet"
   },
@@ -4135,9 +4132,6 @@
   },
   "settingsView.tabKeyboard": {
     "defaultMessage": "Klavye"
-  },
-  "settingsView.tabLocalInference": {
-    "defaultMessage": "Yerel Çıkarım"
   },
   "settingsView.tabModels": {
     "defaultMessage": "Modeller"

@@ -4124,9 +4124,6 @@
   "settingsView.tabApp": {
     "defaultMessage": "應用程式"
   },
-  "settingsView.tabAuth": {
-    "defaultMessage": "驗證"
-  },
   "settingsView.tabChat": {
     "defaultMessage": "聊天"
   },
@@ -4135,9 +4132,6 @@
   },
   "settingsView.tabKeyboard": {
     "defaultMessage": "鍵盤"
-  },
-  "settingsView.tabLocalInference": {
-    "defaultMessage": "本機推論"
   },
   "settingsView.tabModels": {
     "defaultMessage": "模型"

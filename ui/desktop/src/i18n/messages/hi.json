@@ -4124,9 +4124,6 @@
   "settingsView.tabApp": {
     "defaultMessage": "ऐप"
   },
-  "settingsView.tabAuth": {
-    "defaultMessage": "प्रामाणिक"
-  },
   "settingsView.tabChat": {
     "defaultMessage": "बातचीत"
   },
@@ -4135,9 +4132,6 @@
   },
   "settingsView.tabKeyboard": {
     "defaultMessage": "कीबोर्ड"
-  },
-  "settingsView.tabLocalInference": {
-    "defaultMessage": "स्थानीय अनुमान"
   },
   "settingsView.tabModels": {
     "defaultMessage": "मॉडल"

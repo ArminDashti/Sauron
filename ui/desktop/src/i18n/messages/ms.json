@@ -4124,9 +4124,6 @@
   "settingsView.tabApp": {
     "defaultMessage": "Aplikasi"
   },
-  "settingsView.tabAuth": {
-    "defaultMessage": "Pengesahan"
-  },
   "settingsView.tabChat": {
     "defaultMessage": "Sembang"
   },
@@ -4135,9 +4132,6 @@
   },
   "settingsView.tabKeyboard": {
     "defaultMessage": "Papan Kekunci"
-  },
-  "settingsView.tabLocalInference": {
-    "defaultMessage": "Inferens Tempatan"
   },
   "settingsView.tabModels": {
     "defaultMessage": "Model"

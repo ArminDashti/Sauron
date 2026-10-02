@@ -4124,9 +4124,6 @@
   "settingsView.tabApp": {
     "defaultMessage": "アプリ"
   },
-  "settingsView.tabAuth": {
-    "defaultMessage": "認証"
-  },
   "settingsView.tabChat": {
     "defaultMessage": "チャット"
   },
@@ -4135,9 +4132,6 @@
   },
   "settingsView.tabKeyboard": {
     "defaultMessage": "キーボード"
-  },
-  "settingsView.tabLocalInference": {
-    "defaultMessage": "ローカル推論"
   },
   "settingsView.tabModels": {
     "defaultMessage": "モデル"
