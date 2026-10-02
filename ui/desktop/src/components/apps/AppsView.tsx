@@ -89,7 +89,7 @@ const GridLayout = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export default function AppsView() {
+export default function AppsView({ embedded = false }: { embedded?: boolean }) {
   const intl = useIntl();
   const [apps, setApps] = useState<SauronApp[]>([]);
   const [error, setError] = useState<string | null>(null);
@@ -263,7 +263,7 @@ export default function AppsView() {
   // Only show error-only UI if we have no apps to display
   if (error && apps.length === 0) {
     return (
-      <MainPanelLayout>
+      <MainPanelLayout embedded={embedded}>
         <div className="flex flex-col items-center justify-center h-64 text-center">
           <p className="text-red-500 mb-4">{intl.formatMessage(i18n.errorLoading, { error })}</p>
           <Button onClick={loadApps}>{intl.formatMessage(i18n.retry)}</Button>
@@ -273,7 +273,7 @@ export default function AppsView() {
   }
 
   return (
-    <MainPanelLayout>
+    <MainPanelLayout embedded={embedded}>
       <div className="flex-1 flex flex-col min-h-0">
         <input
           ref={fileInputRef}

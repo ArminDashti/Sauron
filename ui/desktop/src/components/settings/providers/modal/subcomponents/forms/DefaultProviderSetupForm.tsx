@@ -19,6 +19,10 @@ const i18n = defineMessages({
     id: 'defaultProviderSetupForm.apiKeyPlaceholder',
     defaultMessage: 'Your API key',
   },
+  apiKeyEnvHint: {
+    id: 'defaultProviderSetupForm.apiKeyEnvHint',
+    defaultMessage: 'Enter {example} to read the key from an environment variable instead of storing it.',
+  },
   apiHostPlaceholder: {
     id: 'defaultProviderSetupForm.apiHostPlaceholder',
     defaultMessage: 'https://api.example.com',
@@ -288,6 +292,11 @@ export default function DefaultProviderSetupForm({
             } bg-background-primary text-lg placeholder:text-text-secondary font-regular text-text-primary`}
             required={parameter.required}
           />
+          {parameter.secret && parameter.name.toLowerCase().includes('api_key') && (
+            <p className="text-sm text-text-secondary mt-1">
+              {intl.formatMessage(i18n.apiKeyEnvHint, { example: '{MY_API_KEY}' })}
+            </p>
+          )}
           {validationErrors[parameter.name] && (
             <p className="text-red-500 text-sm mt-1">{validationErrors[parameter.name]}</p>
           )}

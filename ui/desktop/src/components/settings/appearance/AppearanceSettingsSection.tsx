@@ -13,7 +13,7 @@ import {
 } from '../../ui/dropdown-menu';
 import { COST_TRACKING_ENABLED } from '../../../updates';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../ui/card';
-import ThemeSelector from '../../GooseSidebar/ThemeSelector';
+import ThemeSelector from '../../SauronSidebar/ThemeSelector';
 import { useFontSize } from '../../../contexts/FontSizeContext';
 import {
   DEFAULT_FONT_SIZE,
@@ -22,13 +22,14 @@ import {
   MIN_FONT_SIZE,
 } from '../../../utils/fontSize';
 import { trackSettingToggled } from '../../../utils/analytics';
+import { playNotificationSound } from '../../../utils/notificationSound';
 import type { LanguageSetting } from '../../../utils/settings';
 
 const i18n = defineMessages({
   appearanceTitle: { id: 'settings.appearance.title', defaultMessage: 'Appearance' },
   appearanceDesc: {
     id: 'settings.appearance.description',
-    defaultMessage: 'Configure how goose appears on your system',
+    defaultMessage: 'Configure how sauron appears on your system',
   },
   notifications: { id: 'settings.notifications.title', defaultMessage: 'Notifications' },
   notificationsDesc: {
@@ -43,20 +44,28 @@ const i18n = defineMessages({
   },
   taskNotificationsDesc: {
     id: 'settings.notifications.task.description',
-    defaultMessage: 'Notify when Goose finishes a task while the window is in the background',
+    defaultMessage: 'Notify when Sauron finishes a task while the window is in the background',
+  },
+  notificationSound: {
+    id: 'settings.notifications.sound.title',
+    defaultMessage: 'Notification sound',
+  },
+  notificationSoundDesc: {
+    id: 'settings.notifications.sound.description',
+    defaultMessage: 'Play a sound with task completion notifications',
   },
   menuBarIcon: { id: 'settings.menuBarIcon.title', defaultMessage: 'Menu bar icon' },
   menuBarIconDesc: {
     id: 'settings.menuBarIcon.description',
-    defaultMessage: 'Show goose in the menu bar',
+    defaultMessage: 'Show sauron in the menu bar',
   },
   dockIcon: { id: 'settings.dockIcon.title', defaultMessage: 'Dock icon' },
-  dockIconDesc: { id: 'settings.dockIcon.description', defaultMessage: 'Show goose in the dock' },
+  dockIconDesc: { id: 'settings.dockIcon.description', defaultMessage: 'Show sauron in the dock' },
   preventSleep: { id: 'settings.preventSleep.title', defaultMessage: 'Prevent Sleep' },
   preventSleepDesc: {
     id: 'settings.preventSleep.description',
     defaultMessage:
-      'Keep your computer awake while goose is running a task (screen can still lock)',
+      'Keep your computer awake while sauron is running a task (screen can still lock)',
   },
   costTracking: { id: 'settings.costTracking.title', defaultMessage: 'Cost Tracking' },
   costTrackingDesc: {
@@ -66,7 +75,7 @@ const i18n = defineMessages({
   themeTitle: { id: 'settings.theme.title', defaultMessage: 'Theme' },
   themeDesc: {
     id: 'settings.theme.description',
-    defaultMessage: 'Customize the look and feel of goose',
+    defaultMessage: 'Customize the look and feel of sauron',
   },
   fontSizeTitle: { id: 'settings.fontSize.title', defaultMessage: 'Font size' },
   fontSizeDesc: {
@@ -85,7 +94,7 @@ const i18n = defineMessages({
   languageTitle: { id: 'settings.language.title', defaultMessage: 'Language' },
   languageDesc: {
     id: 'settings.language.description',
-    defaultMessage: 'Choose the display language for goose',
+    defaultMessage: 'Choose the display language for sauron',
   },
   languageSystem: { id: 'settings.language.systemDefault', defaultMessage: 'System Default' },
   languageEnglish: { id: 'settings.language.english', defaultMessage: 'English' },
@@ -128,7 +137,7 @@ const i18n = defineMessages({
   },
   notificationsMacStep3: {
     id: 'settings.notifications.modal.macStep3',
-    defaultMessage: 'Find and select goose in the application list',
+    defaultMessage: 'Find and select sauron in the application list',
   },
   notificationsMacStep4: {
     id: 'settings.notifications.modal.macStep4',
@@ -148,7 +157,7 @@ const i18n = defineMessages({
   },
   notificationsWinStep3: {
     id: 'settings.notifications.modal.winStep3',
-    defaultMessage: 'Find and select goose in the application list',
+    defaultMessage: 'Find and select sauron in the application list',
   },
   notificationsWinStep4: {
     id: 'settings.notifications.modal.winStep4',
@@ -182,6 +191,7 @@ export default function AppearanceSettingsSection() {
   const [dockIconEnabled, setDockIconEnabled] = useState(true);
   const [wakelockEnabled, setWakelockEnabled] = useState(true);
   const [notificationsEnabled, setNotificationsEnabled] = useState(true);
+  const [notificationSoundEnabled, setNotificationSoundEnabled] = useState(true);
   const [isMacOS, setIsMacOS] = useState(false);
   const [isDockSwitchDisabled, setIsDockSwitchDisabled] = useState(false);
   const [showNotificationModal, setShowNotificationModal] = useState(false);
@@ -208,6 +218,10 @@ export default function AppearanceSettingsSection() {
 
     window.electron.getSetting('enableNotifications').then((enabled) => {
       setNotificationsEnabled(enabled ?? true);
+    });
+
+    window.electron.getSetting('notificationSoundEnabled').then((enabled) => {
+      setNotificationSoundEnabled(enabled ?? true);
     });
 
     if (isMacOS) {
@@ -272,6 +286,15 @@ export default function AppearanceSettingsSection() {
     setNotificationsEnabled(checked);
     await window.electron.setSetting('enableNotifications', checked);
     trackSettingToggled('task_notifications', checked);
+  };
+
+  const handleNotificationSoundToggle = async (checked: boolean) => {
+    setNotificationSoundEnabled(checked);
+    await window.electron.setSetting('notificationSoundEnabled', checked);
+    trackSettingToggled('notification_sound', checked);
+    if (checked) {
+      await playNotificationSound();
+    }
   };
 
   const handleShowPricingToggle = async (checked: boolean) => {
@@ -361,6 +384,24 @@ export default function AppearanceSettingsSection() {
               <Switch
                 checked={notificationsEnabled}
                 onCheckedChange={handleNotificationsToggle}
+                variant="mono"
+              />
+            </div>
+          </div>
+
+          <div className="flex items-center justify-between">
+            <div>
+              <h3 className="text-text-primary text-xs">
+                {intl.formatMessage(i18n.notificationSound)}
+              </h3>
+              <p className="text-xs text-text-secondary max-w-md mt-[2px]">
+                {intl.formatMessage(i18n.notificationSoundDesc)}
+              </p>
+            </div>
+            <div className="flex items-center">
+              <Switch
+                checked={notificationSoundEnabled}
+                onCheckedChange={handleNotificationSoundToggle}
                 variant="mono"
               />
             </div>
