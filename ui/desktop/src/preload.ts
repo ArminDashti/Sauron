@@ -1,9 +1,10 @@
 import Electron, { contextBridge, ipcRenderer, webUtils } from 'electron';
 import { Recipe } from './recipe';
-import type { GooseApp } from './types/apps';
+import type { SauronApp } from './types/apps';
 import type { Settings, SettingKey } from './utils/settings';
 import { defaultSettings } from './utils/settings';
 import type { OpenExternalUrlResult } from './utils/urlSecurity';
+import type { GitHubDeviceCode, GitHubTokenPollResult } from './utils/githubSignIn';
 import type { UserProfile } from './utils/userProfile';
 import type { SystemUsage } from './utils/systemUsage';
 
@@ -122,8 +123,8 @@ type ElectronAPI = {
   } | null>;
   getBinaryPath: (binaryName: string) => Promise<string>;
   selectRecipeFile: () => Promise<FileResponse | null>;
-  readGoosehints: () => Promise<FileResponse>;
-  writeGoosehints: (content: string) => Promise<boolean>;
+  readSauronhints: () => Promise<FileResponse>;
+  writeSauronhints: (content: string) => Promise<boolean>;
   writeFile: (directory: string, content: string) => Promise<boolean>;
   ensureDirectory: (dirPath: string) => Promise<boolean>;
   listFiles: (dirPath: string, extension?: string) => Promise<string[]>;
@@ -161,7 +162,10 @@ type ElectronAPI = {
     theme: string;
     tokensUpdated?: boolean;
   }) => void;
+  broadcastFontSizeChange: (fontSize: number) => void;
   openExternal: (url: string) => Promise<OpenExternalUrlResult>;
+  githubDeviceStart: () => Promise<GitHubDeviceCode>;
+  githubDevicePoll: (deviceCode: string) => Promise<GitHubTokenPollResult>;
   // Update-related functions
   getVersion: () => string;
   checkForUpdates: () => Promise<{ updateInfo: unknown; error: string | null }>;
@@ -177,8 +181,8 @@ type ElectronAPI = {
   hasAcceptedRecipeBefore: (recipe: Recipe) => Promise<boolean>;
   recordRecipeHash: (recipe: Recipe) => Promise<boolean>;
   openDirectoryInExplorer: (directoryPath: string) => Promise<boolean>;
-  launchApp: (app: GooseApp) => Promise<void>;
-  refreshApp: (app: GooseApp) => Promise<void>;
+  launchApp: (app: SauronApp) => Promise<void>;
+  refreshApp: (app: SauronApp) => Promise<void>;
   closeApp: (appName: string) => Promise<void>;
   addRecentDir: (dir: string) => Promise<boolean>;
   listRecentDirs: () => Promise<string[]>;
@@ -224,8 +228,8 @@ const electronAPI: ElectronAPI = {
   selectImportSessionFile: () => ipcRenderer.invoke('select-import-session-file'),
   getBinaryPath: (binaryName: string) => ipcRenderer.invoke('get-binary-path', binaryName),
   selectRecipeFile: () => ipcRenderer.invoke('select-recipe-file'),
-  readGoosehints: () => ipcRenderer.invoke('read-goosehints'),
-  writeGoosehints: (content: string) => ipcRenderer.invoke('write-goosehints', content),
+  readSauronhints: () => ipcRenderer.invoke('read-sauronhints'),
+  writeSauronhints: (content: string) => ipcRenderer.invoke('write-sauronhints', content),
   writeFile: (filePath: string, content: string) =>
     ipcRenderer.invoke('write-file', filePath, content),
   ensureDirectory: (dirPath: string) => ipcRenderer.invoke('ensure-directory', dirPath),
@@ -305,11 +309,17 @@ const electronAPI: ElectronAPI = {
   }) => {
     ipcRenderer.send('broadcast-theme-change', themeData);
   },
+  broadcastFontSizeChange: (fontSize: number): void => {
+    ipcRenderer.send('broadcast-font-size-change', fontSize);
+  },
   openExternal: (url: string): Promise<OpenExternalUrlResult> => {
     return ipcRenderer.invoke('open-external', url);
   },
+  githubDeviceStart: (): Promise<GitHubDeviceCode> => ipcRenderer.invoke('github-device-start'),
+  githubDevicePoll: (deviceCode: string): Promise<GitHubTokenPollResult> =>
+    ipcRenderer.invoke('github-device-poll', deviceCode),
   getVersion: (): string => {
-    return config.GOOSE_VERSION || ipcRenderer.sendSync('get-app-version') || '';
+    return config.SAURON_VERSION || ipcRenderer.sendSync('get-app-version') || '';
   },
   checkForUpdates: (): Promise<{ updateInfo: unknown; error: string | null }> => {
     return ipcRenderer.invoke('check-for-updates');
@@ -341,8 +351,8 @@ const electronAPI: ElectronAPI = {
   recordRecipeHash: (recipe: Recipe) => ipcRenderer.invoke('record-recipe-hash', recipe),
   openDirectoryInExplorer: (directoryPath: string) =>
     ipcRenderer.invoke('open-directory-in-explorer', directoryPath),
-  launchApp: (app: GooseApp) => ipcRenderer.invoke('launch-app', app),
-  refreshApp: (app: GooseApp) => ipcRenderer.invoke('refresh-app', app),
+  launchApp: (app: SauronApp) => ipcRenderer.invoke('launch-app', app),
+  refreshApp: (app: SauronApp) => ipcRenderer.invoke('refresh-app', app),
   closeApp: (appName: string) => ipcRenderer.invoke('close-app', appName),
   addRecentDir: (dir: string) => ipcRenderer.invoke('add-recent-dir', dir),
   listRecentDirs: () => ipcRenderer.invoke('list-recent-dirs'),
@@ -357,15 +367,15 @@ const electronAPI: ElectronAPI = {
 
 function getAppLocale(): unknown {
   try {
-    return ipcRenderer.sendSync('get-app-locale') ?? config.GOOSE_LOCALE;
+    return ipcRenderer.sendSync('get-app-locale') ?? config.SAURON_LOCALE;
   } catch {
-    return config.GOOSE_LOCALE;
+    return config.SAURON_LOCALE;
   }
 }
 
 const appConfigAPI: AppConfigAPI = {
-  get: (key: string) => (key === 'GOOSE_LOCALE' ? getAppLocale() : config[key]),
-  getAll: () => ({ ...config, GOOSE_LOCALE: getAppLocale() }),
+  get: (key: string) => (key === 'SAURON_LOCALE' ? getAppLocale() : config[key]),
+  getAll: () => ({ ...config, SAURON_LOCALE: getAppLocale() }),
 };
 
 // Expose the APIs

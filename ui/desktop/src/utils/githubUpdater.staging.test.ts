@@ -25,12 +25,12 @@ describe('GitHubUpdater download staging', () => {
     'does not adopt a predictable directory or follow a pre-positioned archive symlink',
     async () => {
       const tempRoot = await fs.realpath(os.tmpdir());
-      const workspace = await fs.mkdtemp(path.join(tempRoot, 'goose-updater-race-test-'));
+      const workspace = await fs.mkdtemp(path.join(tempRoot, 'sauron-updater-race-test-'));
       const victimPath = path.join(workspace, 'victim.txt');
       const version = '9.9.9';
       const fixedNow = Date.now() + process.pid;
-      const predictableDir = path.join(tempRoot, `goose-update-${version}-${fixedNow}`);
-      const predictableArchive = path.join(predictableDir, `Goose-${version}.zip`);
+      const predictableDir = path.join(tempRoot, `sauron-update-${version}-${fixedNow}`);
+      const predictableArchive = path.join(predictableDir, `Sauron-${version}.zip`);
       cleanupPaths.add(workspace);
       cleanupPaths.add(predictableDir);
 
@@ -50,7 +50,7 @@ describe('GitHubUpdater download staging', () => {
       );
 
       const result = await new GitHubUpdater().downloadUpdate(
-        'https://example.invalid/Goose.zip',
+        'https://example.invalid/Sauron.zip',
         version
       );
       expect(result.success).toBe(true);

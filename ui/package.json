@@ -1,10 +1,10 @@
 {
   "private": true,
   "workspaces": [
-    "goose-acp-client",
-    "goose-acp",
+    "sauron-acp-client",
+    "sauron-acp",
     "desktop",
-    "goose-binary/*"
+    "sauron-binary/*"
   ],
   "scripts": {
     "changeset": "changeset",

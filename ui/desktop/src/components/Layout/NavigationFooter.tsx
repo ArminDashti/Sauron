@@ -6,6 +6,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/Tooltip';
 import { getNavItemLabel, SETTINGS_NAV_ITEM } from '../../hooks/useNavigationItems';
 import { formatUserName, getUserInitials } from '../../utils/userProfile';
 import type { SystemUsage } from '../../utils/systemUsage';
+import { iconColor } from '../../theme/iconColors';
 import { cn } from '../../utils';
 
 const FEEDBACK_URL = 'https://github.com/aaif-goose/goose/issues/new/choose';
@@ -118,7 +119,7 @@ const NavigationFooter: React.FC<NavigationFooterProps> = ({ settingsActive, onO
               onClick={() => window.electron.openExternal(FEEDBACK_URL)}
               className="text-text-secondary hover:text-text-primary"
             >
-              <MessageCircleHeart />
+              <MessageCircleHeart style={{ color: iconColor('feedback') }} />
             </Button>
           </TooltipTrigger>
           <TooltipContent side="top">{feedbackLabel}</TooltipContent>
@@ -137,7 +138,7 @@ const NavigationFooter: React.FC<NavigationFooterProps> = ({ settingsActive, onO
                 settingsActive && 'bg-background-tertiary text-text-primary'
               )}
             >
-              <SettingsIcon />
+              <SettingsIcon style={{ color: iconColor(SETTINGS_NAV_ITEM.color) }} />
             </Button>
           </TooltipTrigger>
           <TooltipContent side="top">{settingsLabel}</TooltipContent>

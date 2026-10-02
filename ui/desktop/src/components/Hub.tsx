@@ -16,7 +16,7 @@ import { View, ViewOptions } from '../utils/navigationUtils';
 import { useConfig } from './ConfigContext';
 import { getEffectiveWorkingDir, getInitialWorkingDir } from '../utils/workingDir';
 import { createSession } from '../sessions';
-import LoadingGoose from './LoadingGoose';
+import LoadingSauron from './LoadingSauron';
 import { UserInput } from '../types/message';
 import {
   createNextChatExtensionDraft,
@@ -26,7 +26,7 @@ import {
 import { formatAcpError } from '../acp/errors';
 import { toastError } from '../toasts';
 import { acpGetLiveVoiceAvailability } from '../acp/liveVoice';
-import type { LiveVoiceAvailabilityResponse_unstable } from '@aaif/goose-acp-client';
+import type { LiveVoiceAvailabilityResponse_unstable } from '@aaif/sauron-acp-client';
 import { subscribeToAcpRecovery } from '../acp/acpConnection';
 import type { LiveVoiceController } from '../liveVoice/useLiveVoice';
 
@@ -50,7 +50,7 @@ export default function Hub({
     useState<NextChatExtensionDraft | null>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
-  // Re-resolve the working dir on mount: GOOSE_WORKING_DIR is fixed at window
+  // Re-resolve the working dir on mount: SAURON_WORKING_DIR is fixed at window
   // creation, so a configured remote directory may have changed since then.
   useEffect(() => {
     let active = true;
@@ -230,7 +230,7 @@ export default function Hub({
 
       {isCreatingSession && (
         <div className="absolute bottom-4 left-4 z-20 pointer-events-none">
-          <LoadingGoose chatState={ChatState.LoadingConversation} />
+          <LoadingSauron chatState={ChatState.LoadingConversation} />
         </div>
       )}
     </div>

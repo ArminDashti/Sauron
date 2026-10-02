@@ -10,13 +10,13 @@ repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 package_dir="$1"
 release_version="$2"
 packages=(
-  @aaif/goose-binary-darwin-arm64
-  @aaif/goose-binary-darwin-x64
-  @aaif/goose-binary-linux-arm64
-  @aaif/goose-binary-linux-x64
-  @aaif/goose-binary-win32-x64
-  @aaif/goose-acp
-  @aaif/goose-acp-client
+  @aaif/sauron-binary-darwin-arm64
+  @aaif/sauron-binary-darwin-x64
+  @aaif/sauron-binary-linux-arm64
+  @aaif/sauron-binary-linux-x64
+  @aaif/sauron-binary-win32-x64
+  @aaif/sauron-acp
+  @aaif/sauron-acp-client
 )
 
 calculate_integrity() {
