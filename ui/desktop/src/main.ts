@@ -1931,6 +1931,7 @@ const validSettingKeys: Set<string> = new Set([
   'showDockIcon',
   'enableWakelock',
   'enableNotifications',
+  'notificationSoundEnabled',
   'spellcheckEnabled',
   'externalSaurond',
   'globalShortcut',
@@ -2921,6 +2922,9 @@ async function appMain() {
       const notification = new Notification({
         title: sanitizeText(data.title),
         body: sanitizeText(data.body),
+        // The renderer plays the app's own chime, gated by the
+        // notificationSoundEnabled setting, so the OS must stay quiet.
+        silent: true,
       });
 
       // Add click handler to focus the window

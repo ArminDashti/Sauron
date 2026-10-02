@@ -4112,6 +4112,12 @@
   "settings.notifications.openSettings": {
     "defaultMessage": "Abrir configuración"
   },
+  "settings.notifications.sound.description": {
+    "defaultMessage": "Reproducir un sonido con las notificaciones de tareas completadas"
+  },
+  "settings.notifications.sound.title": {
+    "defaultMessage": "Sonido de notificación"
+  },
   "settings.notifications.task.description": {
     "defaultMessage": "Notifica cuando Sauron termina una tarea mientras la ventana está en segundo plano"
   },

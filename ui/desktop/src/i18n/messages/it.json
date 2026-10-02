@@ -4112,6 +4112,12 @@
   "settings.notifications.openSettings": {
     "defaultMessage": "Apri Impostazioni"
   },
+  "settings.notifications.sound.description": {
+    "defaultMessage": "Riproduci un suono con le notifiche di completamento attività"
+  },
+  "settings.notifications.sound.title": {
+    "defaultMessage": "Suono delle notifiche"
+  },
   "settings.notifications.task.description": {
     "defaultMessage": "Notifica quando Sauron completa un'attività mentre la finestra è in secondo piano"
   },
