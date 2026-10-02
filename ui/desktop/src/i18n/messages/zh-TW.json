@@ -1379,15 +1379,6 @@
   "headersSection.value": {
     "defaultMessage": "值"
   },
-  "hub.goodAfternoon": {
-    "defaultMessage": "午安"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "晚安"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "早安"
-  },
   "hubView.description": {
     "defaultMessage": "從各種來源尋找技能和 MCP 伺服器。"
   },
@@ -4915,5 +4906,35 @@
   },
   "themeSelector.popular": {
     "defaultMessage": "Popular themes"
+  },
+  "allProviderModels.clearSearch": {
+    "defaultMessage": "清除搜尋"
+  },
+  "allProviderModels.clearSearchInput": {
+    "defaultMessage": "清除搜尋輸入"
+  },
+  "allProviderModels.noSearchResults": {
+    "defaultMessage": "沒有符合 \"{query}\" 的模型。"
+  },
+  "allProviderModels.searchLabel": {
+    "defaultMessage": "搜尋模型"
+  },
+  "allProviderModels.searchPlaceholder": {
+    "defaultMessage": "搜尋模型..."
+  },
+  "allProviderModels.showingCount": {
+    "defaultMessage": "正在顯示 {total, number} 個模型中的 {shown, number} 個"
+  },
+  "modelBadges.contextShort": {
+    "defaultMessage": "{amount, number}k"
+  },
+  "modelBadges.contextWindow": {
+    "defaultMessage": "{amount, number}k 上下文"
+  },
+  "modelBadges.default": {
+    "defaultMessage": "預設"
+  },
+  "modelBadges.reasoning": {
+    "defaultMessage": "推理"
   }
 }

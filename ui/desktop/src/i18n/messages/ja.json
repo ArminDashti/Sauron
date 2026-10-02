@@ -1379,15 +1379,6 @@
   "headersSection.value": {
     "defaultMessage": "値"
   },
-  "hub.goodAfternoon": {
-    "defaultMessage": "こんにちは"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "こんばんは"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "おはようございます"
-  },
   "hubView.description": {
     "defaultMessage": "さまざまなソースからスキルとMCPサーバーを見つける。"
   },
@@ -4915,5 +4906,35 @@
   },
   "themeSelector.popular": {
     "defaultMessage": "Popular themes"
+  },
+  "allProviderModels.clearSearch": {
+    "defaultMessage": "検索をクリア"
+  },
+  "allProviderModels.clearSearchInput": {
+    "defaultMessage": "検索入力をクリア"
+  },
+  "allProviderModels.noSearchResults": {
+    "defaultMessage": "\"{query}\" に一致するモデルはありません。"
+  },
+  "allProviderModels.searchLabel": {
+    "defaultMessage": "モデルを検索"
+  },
+  "allProviderModels.searchPlaceholder": {
+    "defaultMessage": "モデルを検索..."
+  },
+  "allProviderModels.showingCount": {
+    "defaultMessage": "{total, number} 件中 {shown, number} 件のモデルを表示"
+  },
+  "modelBadges.contextShort": {
+    "defaultMessage": "{amount, number}k"
+  },
+  "modelBadges.contextWindow": {
+    "defaultMessage": "コンテキスト {amount, number}k"
+  },
+  "modelBadges.default": {
+    "defaultMessage": "デフォルト"
+  },
+  "modelBadges.reasoning": {
+    "defaultMessage": "思考"
   }
 }

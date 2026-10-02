@@ -1379,15 +1379,6 @@
   "headersSection.value": {
     "defaultMessage": "값"
   },
-  "hub.goodAfternoon": {
-    "defaultMessage": "좋은 오후예요"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "좋은 저녁이에요"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "좋은 아침이에요"
-  },
   "hubView.description": {
     "defaultMessage": "다양한 소스에서 스킬과 MCP 서버를 찾아보세요."
   },
@@ -4915,5 +4906,35 @@
   },
   "themeSelector.popular": {
     "defaultMessage": "Popular themes"
+  },
+  "allProviderModels.clearSearch": {
+    "defaultMessage": "검색 지우기"
+  },
+  "allProviderModels.clearSearchInput": {
+    "defaultMessage": "검색 입력 지우기"
+  },
+  "allProviderModels.noSearchResults": {
+    "defaultMessage": "\"{query}\"와 일치하는 모델이 없습니다."
+  },
+  "allProviderModels.searchLabel": {
+    "defaultMessage": "모델 검색"
+  },
+  "allProviderModels.searchPlaceholder": {
+    "defaultMessage": "모델 검색..."
+  },
+  "allProviderModels.showingCount": {
+    "defaultMessage": "{total, number}개 중 {shown, number}개 모델 표시"
+  },
+  "modelBadges.contextShort": {
+    "defaultMessage": "{amount, number}k"
+  },
+  "modelBadges.contextWindow": {
+    "defaultMessage": "컨텍스트 {amount, number}k"
+  },
+  "modelBadges.default": {
+    "defaultMessage": "기본"
+  },
+  "modelBadges.reasoning": {
+    "defaultMessage": "추론"
   }
 }

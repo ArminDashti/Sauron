@@ -1379,15 +1379,6 @@
   "headersSection.value": {
     "defaultMessage": "Valor"
   },
-  "hub.goodAfternoon": {
-    "defaultMessage": "Buenas tardes"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "Buenas noches"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "Buenos días"
-  },
   "hubView.description": {
     "defaultMessage": "Descubre skills y servidores MCP de diversas fuentes."
   },
@@ -4915,5 +4906,35 @@
   },
   "themeSelector.popular": {
     "defaultMessage": "Popular themes"
+  },
+  "allProviderModels.clearSearch": {
+    "defaultMessage": "Borrar búsqueda"
+  },
+  "allProviderModels.clearSearchInput": {
+    "defaultMessage": "Borrar campo de búsqueda"
+  },
+  "allProviderModels.noSearchResults": {
+    "defaultMessage": "Ningún modelo coincide con \"{query}\"."
+  },
+  "allProviderModels.searchLabel": {
+    "defaultMessage": "Buscar modelos"
+  },
+  "allProviderModels.searchPlaceholder": {
+    "defaultMessage": "Buscar modelos..."
+  },
+  "allProviderModels.showingCount": {
+    "defaultMessage": "Mostrando {shown, number} de {total, number} modelos"
+  },
+  "modelBadges.contextShort": {
+    "defaultMessage": "{amount, number}k"
+  },
+  "modelBadges.contextWindow": {
+    "defaultMessage": "Contexto de {amount, number}k"
+  },
+  "modelBadges.default": {
+    "defaultMessage": "Predeterminado"
+  },
+  "modelBadges.reasoning": {
+    "defaultMessage": "Razonamiento"
   }
 }

@@ -1379,15 +1379,6 @@
   "headersSection.value": {
     "defaultMessage": "Giá trị"
   },
-  "hub.goodAfternoon": {
-    "defaultMessage": "Chào buổi chiều"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "Chào buổi tối"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "Chào buổi sáng"
-  },
   "hubView.description": {
     "defaultMessage": "Khám phá Skills và máy chủ MCP từ nhiều nguồn khác nhau."
   },
@@ -4915,5 +4906,35 @@
   },
   "themeSelector.popular": {
     "defaultMessage": "Popular themes"
+  },
+  "allProviderModels.clearSearch": {
+    "defaultMessage": "Xóa tìm kiếm"
+  },
+  "allProviderModels.clearSearchInput": {
+    "defaultMessage": "Xóa ô tìm kiếm"
+  },
+  "allProviderModels.noSearchResults": {
+    "defaultMessage": "Không có mô hình nào khớp với \"{query}\"."
+  },
+  "allProviderModels.searchLabel": {
+    "defaultMessage": "Tìm kiếm mô hình"
+  },
+  "allProviderModels.searchPlaceholder": {
+    "defaultMessage": "Tìm kiếm mô hình..."
+  },
+  "allProviderModels.showingCount": {
+    "defaultMessage": "Đang hiển thị {shown, number} trong {total, number} mô hình"
+  },
+  "modelBadges.contextShort": {
+    "defaultMessage": "{amount, number}k"
+  },
+  "modelBadges.contextWindow": {
+    "defaultMessage": "Ngữ cảnh {amount, number}k"
+  },
+  "modelBadges.default": {
+    "defaultMessage": "Mặc định"
+  },
+  "modelBadges.reasoning": {
+    "defaultMessage": "Suy luận"
   }
 }

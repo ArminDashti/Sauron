@@ -1379,15 +1379,6 @@
   "headersSection.value": {
     "defaultMessage": "Nilai"
   },
-  "hub.goodAfternoon": {
-    "defaultMessage": "Selamat siang"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "Selamat malam"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "Selamat pagi"
-  },
   "hubView.description": {
     "defaultMessage": "Temukan Skills dan server MCP dari berbagai sumber."
   },
@@ -4915,5 +4906,35 @@
   },
   "themeSelector.popular": {
     "defaultMessage": "Popular themes"
+  },
+  "allProviderModels.clearSearch": {
+    "defaultMessage": "Hapus pencarian"
+  },
+  "allProviderModels.clearSearchInput": {
+    "defaultMessage": "Hapus kolom pencarian"
+  },
+  "allProviderModels.noSearchResults": {
+    "defaultMessage": "Tidak ada model yang cocok dengan \"{query}\"."
+  },
+  "allProviderModels.searchLabel": {
+    "defaultMessage": "Cari model"
+  },
+  "allProviderModels.searchPlaceholder": {
+    "defaultMessage": "Cari model..."
+  },
+  "allProviderModels.showingCount": {
+    "defaultMessage": "Menampilkan {shown, number} dari {total, number} model"
+  },
+  "modelBadges.contextShort": {
+    "defaultMessage": "{amount, number}k"
+  },
+  "modelBadges.contextWindow": {
+    "defaultMessage": "Konteks {amount, number}k"
+  },
+  "modelBadges.default": {
+    "defaultMessage": "Bawaan"
+  },
+  "modelBadges.reasoning": {
+    "defaultMessage": "Penalaran"
   }
 }

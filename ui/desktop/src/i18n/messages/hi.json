@@ -1379,15 +1379,6 @@
   "headersSection.value": {
     "defaultMessage": "मूल्य"
   },
-  "hub.goodAfternoon": {
-    "defaultMessage": "शुभ दोपहर"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "शुभ संध्या"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "सुप्रभात"
-  },
   "hubView.description": {
     "defaultMessage": "विभिन्न स्रोतों से स्किल्स और MCP सर्वर खोजें।"
   },
@@ -4915,5 +4906,35 @@
   },
   "themeSelector.popular": {
     "defaultMessage": "Popular themes"
+  },
+  "allProviderModels.clearSearch": {
+    "defaultMessage": "खोज साफ़ करें"
+  },
+  "allProviderModels.clearSearchInput": {
+    "defaultMessage": "खोज इनपुट साफ़ करें"
+  },
+  "allProviderModels.noSearchResults": {
+    "defaultMessage": "कोई मॉडल \"{query}\" से मेल नहीं खाता।"
+  },
+  "allProviderModels.searchLabel": {
+    "defaultMessage": "मॉडल खोजें"
+  },
+  "allProviderModels.searchPlaceholder": {
+    "defaultMessage": "मॉडल खोजें..."
+  },
+  "allProviderModels.showingCount": {
+    "defaultMessage": "{total, number} में से {shown, number} मॉडल दिखाए जा रहे हैं"
+  },
+  "modelBadges.contextShort": {
+    "defaultMessage": "{amount, number}k"
+  },
+  "modelBadges.contextWindow": {
+    "defaultMessage": "{amount, number}k कॉन्टेक्स्ट"
+  },
+  "modelBadges.default": {
+    "defaultMessage": "डिफ़ॉल्ट"
+  },
+  "modelBadges.reasoning": {
+    "defaultMessage": "रीज़निंग"
   }
 }

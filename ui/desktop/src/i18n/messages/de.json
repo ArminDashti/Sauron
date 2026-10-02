@@ -1379,15 +1379,6 @@
   "headersSection.value": {
     "defaultMessage": "Wert"
   },
-  "hub.goodAfternoon": {
-    "defaultMessage": "Guten Tag"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "Guten Abend"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "Guten Morgen"
-  },
   "hubView.description": {
     "defaultMessage": "Entdecke Skills und MCP-Server aus verschiedenen Quellen."
   },
@@ -4915,5 +4906,35 @@
   },
   "themeSelector.popular": {
     "defaultMessage": "Popular themes"
+  },
+  "allProviderModels.clearSearch": {
+    "defaultMessage": "Suche löschen"
+  },
+  "allProviderModels.clearSearchInput": {
+    "defaultMessage": "Sucheingabe löschen"
+  },
+  "allProviderModels.noSearchResults": {
+    "defaultMessage": "Keine Modelle für \"{query}\" gefunden."
+  },
+  "allProviderModels.searchLabel": {
+    "defaultMessage": "Modelle durchsuchen"
+  },
+  "allProviderModels.searchPlaceholder": {
+    "defaultMessage": "Modelle durchsuchen..."
+  },
+  "allProviderModels.showingCount": {
+    "defaultMessage": "{shown, number} von {total, number} Modellen angezeigt"
+  },
+  "modelBadges.contextShort": {
+    "defaultMessage": "{amount, number}k"
+  },
+  "modelBadges.contextWindow": {
+    "defaultMessage": "{amount, number}k Kontext"
+  },
+  "modelBadges.default": {
+    "defaultMessage": "Standard"
+  },
+  "modelBadges.reasoning": {
+    "defaultMessage": "Reasoning"
   }
 }

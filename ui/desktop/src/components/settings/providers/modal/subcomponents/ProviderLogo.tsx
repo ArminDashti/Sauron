@@ -39,9 +39,11 @@ const providerLogos: Record<string, string> = {
 
 interface ProviderLogoProps {
   providerName: string;
+  /** 'md' matches the modal styling; 'sm' renders a compact inline avatar. */
+  size?: 'sm' | 'md';
 }
 
-export default function ProviderLogo({ providerName }: ProviderLogoProps) {
+export default function ProviderLogo({ providerName, size = 'md' }: ProviderLogoProps) {
   const intl = useIntl();
   // Convert provider name to lowercase and fetch the logo
   const logoKey = providerName.toLowerCase();
@@ -53,12 +55,20 @@ export default function ProviderLogo({ providerName }: ProviderLogoProps) {
 
   // Use smaller size for xAI logo to fit better in circle
   const imageClassName = isXai
-    ? 'w-8 h-8 object-contain' // Smaller size for xAI
-    : 'w-16 h-16 object-contain'; // Default size for others
+    ? size === 'sm'
+      ? 'w-5 h-5 object-contain' // Compact xAI logo
+      : 'w-8 h-8 object-contain' // Smaller size for xAI
+    : size === 'sm'
+      ? 'w-10 h-10 object-contain' // Compact default logo
+      : 'w-16 h-16 object-contain'; // Default size for others
+
+  const circleClassName = size === 'sm' ? 'w-8 h-8' : 'w-12 h-12';
 
   return (
-    <div className="flex justify-center mb-2">
-      <div className="w-12 h-12 bg-black rounded-full overflow-hidden flex items-center justify-center">
+    <div className={`flex justify-center${size === 'md' ? ' mb-2' : ''}`}>
+      <div
+        className={`${circleClassName} bg-black rounded-full overflow-hidden flex items-center justify-center`}
+      >
         <img
           src={logo}
           alt={intl.formatMessage(i18n.logoAlt, { providerName })}

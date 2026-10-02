@@ -1379,15 +1379,6 @@
   "headersSection.value": {
     "defaultMessage": "Значение"
   },
-  "hub.goodAfternoon": {
-    "defaultMessage": "Добрый день"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "Добрый вечер"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "Доброе утро"
-  },
   "hubView.description": {
     "defaultMessage": "Ищите навыки и MCP-серверы из различных источников."
   },
@@ -4915,5 +4906,35 @@
   },
   "themeSelector.popular": {
     "defaultMessage": "Popular themes"
+  },
+  "allProviderModels.clearSearch": {
+    "defaultMessage": "Очистить поиск"
+  },
+  "allProviderModels.clearSearchInput": {
+    "defaultMessage": "Очистить поле поиска"
+  },
+  "allProviderModels.noSearchResults": {
+    "defaultMessage": "Нет моделей по запросу \"{query}\"."
+  },
+  "allProviderModels.searchLabel": {
+    "defaultMessage": "Поиск моделей"
+  },
+  "allProviderModels.searchPlaceholder": {
+    "defaultMessage": "Поиск моделей..."
+  },
+  "allProviderModels.showingCount": {
+    "defaultMessage": "Показано {shown, number} из {total, number} моделей"
+  },
+  "modelBadges.contextShort": {
+    "defaultMessage": "{amount, number}k"
+  },
+  "modelBadges.contextWindow": {
+    "defaultMessage": "Контекст {amount, number}k"
+  },
+  "modelBadges.default": {
+    "defaultMessage": "По умолчанию"
+  },
+  "modelBadges.reasoning": {
+    "defaultMessage": "Рассуждение"
   }
 }

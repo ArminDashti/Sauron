@@ -1379,15 +1379,6 @@
   "headersSection.value": {
     "defaultMessage": "Değer"
   },
-  "hub.goodAfternoon": {
-    "defaultMessage": "İyi günler"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "İyi akşamlar"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "Günaydın"
-  },
   "hubView.description": {
     "defaultMessage": "Çeşitli kaynaklardan Skills ve MCP sunucuları keşfedin."
   },
@@ -4915,5 +4906,35 @@
   },
   "themeSelector.popular": {
     "defaultMessage": "Popular themes"
+  },
+  "allProviderModels.clearSearch": {
+    "defaultMessage": "Aramayı temizle"
+  },
+  "allProviderModels.clearSearchInput": {
+    "defaultMessage": "Arama alanını temizle"
+  },
+  "allProviderModels.noSearchResults": {
+    "defaultMessage": "\"{query}\" eşleşen model yok."
+  },
+  "allProviderModels.searchLabel": {
+    "defaultMessage": "Modelleri ara"
+  },
+  "allProviderModels.searchPlaceholder": {
+    "defaultMessage": "Modelleri ara..."
+  },
+  "allProviderModels.showingCount": {
+    "defaultMessage": "{total, number} modelden {shown, number} tanesi gösteriliyor"
+  },
+  "modelBadges.contextShort": {
+    "defaultMessage": "{amount, number}k"
+  },
+  "modelBadges.contextWindow": {
+    "defaultMessage": "{amount, number}k bağlam"
+  },
+  "modelBadges.default": {
+    "defaultMessage": "Varsayılan"
+  },
+  "modelBadges.reasoning": {
+    "defaultMessage": "Akıl yürütme"
   }
 }
