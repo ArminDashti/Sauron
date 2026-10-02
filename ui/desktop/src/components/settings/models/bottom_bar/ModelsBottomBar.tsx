@@ -1,5 +1,4 @@
 import { Sliders, LoaderCircle, Settings, History } from 'lucide-react';
-import ModelIcon from '../../../logos/ModelIcon';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useModelAndProvider } from '../../../ModelAndProviderContext';
 import { SwitchModelModal } from '../subcomponents/SwitchModelModal';
@@ -22,6 +21,7 @@ import type { Message } from '../../../../types/message';
 import type { RecentModel } from '../../../../utils/settings';
 import { addToRecentModels } from '../../../../utils/recentModels';
 import { trackModelChanged } from '../../../../utils/analytics';
+import { BrandIcon } from '../../../logos/BrandLogos';
 
 const i18n = defineMessages({
   selectModel: {
@@ -225,7 +225,11 @@ export default function ModelsBottomBar({
       <DropdownMenu open={isModelMenuOpen} onOpenChange={setIsModelMenuOpen}>
         <DropdownMenuTrigger className="flex items-center hover:cursor-pointer max-w-[180px] md:max-w-[200px] lg:max-w-[380px] min-w-0 text-text-primary/70 hover:text-text-primary transition-colors">
           <div className="flex items-center truncate max-w-[130px] md:max-w-[200px] lg:max-w-[360px] min-w-0">
-            <ModelIcon provider={currentProvider} className="mr-1 h-4 w-4" />
+            <BrandIcon
+              model={currentModel}
+              provider={currentProvider}
+              className="mr-1 h-4 w-4 flex-shrink-0"
+            />
             {isModelLoading ? (
               <span
                 data-testid="model-loading-state"

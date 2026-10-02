@@ -1,8 +1,8 @@
 packages:
-  - 'goose-acp-client'
-  - 'goose-acp'
+  - 'sauron-acp-client'
+  - 'sauron-acp'
   - 'desktop'
-  - 'goose-binary/*'
+  - 'sauron-binary/*'
 
 registry: https://registry.npmjs.org/
 preferOffline: true

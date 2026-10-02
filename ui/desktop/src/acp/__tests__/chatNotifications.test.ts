@@ -5,7 +5,7 @@ import { ChatState } from '../../types/chatState';
 import type { Session } from '../../types/session';
 import { maybeHandlePlatformEvent } from '../../utils/platform_events';
 import {
-  handleAcpGooseSessionNotification,
+  handleAcpSauronSessionNotification,
   handleAcpSessionNotification,
 } from '../chatNotifications';
 import type { AcpChatSessionSnapshot } from '../chatSessionStore';
@@ -18,7 +18,7 @@ vi.mock('../chatSessionStore', () => ({
   },
   acpChatSessionActions: {
     applyAcpSessionNotification: vi.fn(),
-    applyAcpGooseSessionNotification: vi.fn(),
+    applyAcpSauronSessionNotification: vi.fn(),
   },
 }));
 
@@ -193,7 +193,7 @@ describe('handleAcpSessionNotification', () => {
     const listener = vi.fn();
     const unsubscribe = subscribeToLiveVoiceInteractionEnded(listener);
 
-    await handleAcpGooseSessionNotification({
+    await handleAcpSauronSessionNotification({
       sessionId: SESSION_ID,
       update: {
         sessionUpdate: 'live_voice_interaction_ended',
@@ -210,7 +210,7 @@ describe('handleAcpSessionNotification', () => {
         outcome: 'failed',
       },
     });
-    expect(acpChatSessionActions.applyAcpGooseSessionNotification).not.toHaveBeenCalled();
+    expect(acpChatSessionActions.applyAcpSauronSessionNotification).not.toHaveBeenCalled();
     unsubscribe();
   });
 });
