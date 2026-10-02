@@ -1379,6 +1379,33 @@
   "headersSection.value": {
     "defaultMessage": "मूल्य"
   },
+  "hub.goodAfternoon": {
+    "defaultMessage": "शुभ दोपहर"
+  },
+  "hub.goodEvening": {
+    "defaultMessage": "शुभ संध्या"
+  },
+  "hub.goodMorning": {
+    "defaultMessage": "सुप्रभात"
+  },
+  "hubView.description": {
+    "defaultMessage": "विभिन्न स्रोतों से स्किल्स और MCP सर्वर खोजें।"
+  },
+  "hubView.mcpsDescription": {
+    "defaultMessage": "इन रजिस्ट्रियों के MCP सर्वर से टूल और इंटीग्रेशन कनेक्ट करें।"
+  },
+  "hubView.mcpsHeading": {
+    "defaultMessage": "MCP"
+  },
+  "hubView.skillsDescription": {
+    "defaultMessage": "इन स्रोतों से पुनः उपयोग योग्य स्किल्स के साथ अपने एजेंट का विस्तार करें।"
+  },
+  "hubView.skillsHeading": {
+    "defaultMessage": "कौशल"
+  },
+  "hubView.title": {
+    "defaultMessage": "हब"
+  },
   "huggingFaceModelSearch.download": {
     "defaultMessage": "डाउनलोड करें"
   },
@@ -2347,6 +2374,9 @@
   },
   "navigation.itemHome": {
     "defaultMessage": "नई चैट"
+  },
+  "navigation.itemHub": {
+    "defaultMessage": "हब"
   },
   "navigation.itemRecipes": {
     "defaultMessage": "व्यंजन विधि"

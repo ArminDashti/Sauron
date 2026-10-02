@@ -1379,6 +1379,33 @@
   "headersSection.value": {
     "defaultMessage": "Nilai"
   },
+  "hub.goodAfternoon": {
+    "defaultMessage": "Selamat siang"
+  },
+  "hub.goodEvening": {
+    "defaultMessage": "Selamat malam"
+  },
+  "hub.goodMorning": {
+    "defaultMessage": "Selamat pagi"
+  },
+  "hubView.description": {
+    "defaultMessage": "Temukan Skills dan server MCP dari berbagai sumber."
+  },
+  "hubView.mcpsDescription": {
+    "defaultMessage": "Hubungkan alat dan integrasi dengan server MCP dari registri-registri ini."
+  },
+  "hubView.mcpsHeading": {
+    "defaultMessage": "MCPs"
+  },
+  "hubView.skillsDescription": {
+    "defaultMessage": "Perluas agen Anda dengan skill yang dapat digunakan ulang dari sumber-sumber ini."
+  },
+  "hubView.skillsHeading": {
+    "defaultMessage": "Keterampilan"
+  },
+  "hubView.title": {
+    "defaultMessage": "Hub"
+  },
   "huggingFaceModelSearch.download": {
     "defaultMessage": "Unduh"
   },
@@ -2347,6 +2374,9 @@
   },
   "navigation.itemHome": {
     "defaultMessage": "Obrolan Baru"
+  },
+  "navigation.itemHub": {
+    "defaultMessage": "Hub"
   },
   "navigation.itemRecipes": {
     "defaultMessage": "Resep"

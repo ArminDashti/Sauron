@@ -1379,6 +1379,33 @@
   "headersSection.value": {
     "defaultMessage": "Nilai"
   },
+  "hub.goodAfternoon": {
+    "defaultMessage": "Selamat tengah hari"
+  },
+  "hub.goodEvening": {
+    "defaultMessage": "Selamat petang"
+  },
+  "hub.goodMorning": {
+    "defaultMessage": "Selamat pagi"
+  },
+  "hubView.description": {
+    "defaultMessage": "Temui Skills dan pelayan MCP dari pelbagai sumber."
+  },
+  "hubView.mcpsDescription": {
+    "defaultMessage": "Hubungkan alat dan integrasi dengan pelayan MCP dari daftar ini."
+  },
+  "hubView.mcpsHeading": {
+    "defaultMessage": "MCPs"
+  },
+  "hubView.skillsDescription": {
+    "defaultMessage": "Luaskan ejen anda dengan skill boleh guna semula dari sumber-sumber ini."
+  },
+  "hubView.skillsHeading": {
+    "defaultMessage": "Kemahiran"
+  },
+  "hubView.title": {
+    "defaultMessage": "Hub"
+  },
   "huggingFaceModelSearch.download": {
     "defaultMessage": "Muat Turun"
   },
@@ -2347,6 +2374,9 @@
   },
   "navigation.itemHome": {
     "defaultMessage": "Sembang Baharu"
+  },
+  "navigation.itemHub": {
+    "defaultMessage": "Hub"
   },
   "navigation.itemRecipes": {
     "defaultMessage": "Resipi"

@@ -1379,6 +1379,33 @@
   "headersSection.value": {
     "defaultMessage": "Valeur"
   },
+  "hub.goodAfternoon": {
+    "defaultMessage": "Bon après-midi"
+  },
+  "hub.goodEvening": {
+    "defaultMessage": "Bonsoir"
+  },
+  "hub.goodMorning": {
+    "defaultMessage": "Bonjour"
+  },
+  "hubView.description": {
+    "defaultMessage": "Découvrez des compétences et des serveurs MCP provenant de sources variées."
+  },
+  "hubView.mcpsDescription": {
+    "defaultMessage": "Connectez outils et intégrations avec des serveurs MCP de ces registres."
+  },
+  "hubView.mcpsHeading": {
+    "defaultMessage": "MCPs"
+  },
+  "hubView.skillsDescription": {
+    "defaultMessage": "Étendez votre agent avec des compétences réutilisables issues de ces sources."
+  },
+  "hubView.skillsHeading": {
+    "defaultMessage": "Compétences"
+  },
+  "hubView.title": {
+    "defaultMessage": "Hub"
+  },
   "huggingFaceModelSearch.download": {
     "defaultMessage": "Télécharger"
   },
@@ -2347,6 +2374,9 @@
   },
   "navigation.itemHome": {
     "defaultMessage": "Nouvelle discussion"
+  },
+  "navigation.itemHub": {
+    "defaultMessage": "Hub"
   },
   "navigation.itemRecipes": {
     "defaultMessage": "Recettes"

@@ -1379,6 +1379,33 @@
   "headersSection.value": {
     "defaultMessage": "Значение"
   },
+  "hub.goodAfternoon": {
+    "defaultMessage": "Добрый день"
+  },
+  "hub.goodEvening": {
+    "defaultMessage": "Добрый вечер"
+  },
+  "hub.goodMorning": {
+    "defaultMessage": "Доброе утро"
+  },
+  "hubView.description": {
+    "defaultMessage": "Ищите навыки и MCP-серверы из различных источников."
+  },
+  "hubView.mcpsDescription": {
+    "defaultMessage": "Подключайте инструменты и интеграции с помощью MCP-серверов из этих реестров."
+  },
+  "hubView.mcpsHeading": {
+    "defaultMessage": "MCPs"
+  },
+  "hubView.skillsDescription": {
+    "defaultMessage": "Расширьте своего агента с помощью переиспользуемых навыков из этих источников."
+  },
+  "hubView.skillsHeading": {
+    "defaultMessage": "Навыки"
+  },
+  "hubView.title": {
+    "defaultMessage": "Хаб"
+  },
   "huggingFaceModelSearch.download": {
     "defaultMessage": "Скачать"
   },
@@ -2347,6 +2374,9 @@
   },
   "navigation.itemHome": {
     "defaultMessage": "Новый чат"
+  },
+  "navigation.itemHub": {
+    "defaultMessage": "Хаб"
   },
   "navigation.itemRecipes": {
     "defaultMessage": "Рецепты"

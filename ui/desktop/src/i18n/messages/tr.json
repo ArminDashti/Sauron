@@ -1379,6 +1379,33 @@
   "headersSection.value": {
     "defaultMessage": "Değer"
   },
+  "hub.goodAfternoon": {
+    "defaultMessage": "İyi günler"
+  },
+  "hub.goodEvening": {
+    "defaultMessage": "İyi akşamlar"
+  },
+  "hub.goodMorning": {
+    "defaultMessage": "Günaydın"
+  },
+  "hubView.description": {
+    "defaultMessage": "Çeşitli kaynaklardan Skills ve MCP sunucuları keşfedin."
+  },
+  "hubView.mcpsDescription": {
+    "defaultMessage": "Bu kayıt defterlerindeki MCP sunucularıyla araçları ve entegrasyonları bağlayın."
+  },
+  "hubView.mcpsHeading": {
+    "defaultMessage": "MCPs"
+  },
+  "hubView.skillsDescription": {
+    "defaultMessage": "Bu kaynaklardan yeniden kullanılabilir becerilerle ajanınızı genişletin."
+  },
+  "hubView.skillsHeading": {
+    "defaultMessage": "Beceriler"
+  },
+  "hubView.title": {
+    "defaultMessage": "Hub"
+  },
   "huggingFaceModelSearch.download": {
     "defaultMessage": "İndir"
   },
@@ -2347,6 +2374,9 @@
   },
   "navigation.itemHome": {
     "defaultMessage": "Yeni Sohbet"
+  },
+  "navigation.itemHub": {
+    "defaultMessage": "Hub"
   },
   "navigation.itemRecipes": {
     "defaultMessage": "Tarifler"
