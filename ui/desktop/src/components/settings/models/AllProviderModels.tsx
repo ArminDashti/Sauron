@@ -10,6 +10,7 @@ import {
   acpSaveDefaults,
 } from '../../../acp/providers';
 import type { ProviderDetails } from '../../../types/providers';
+import ModelIcon from '../../logos/ModelIcon';
 import { defineMessages, useIntl } from '../../../i18n';
 import { errorMessage } from '../../../utils/conversionUtils';
 import { toastError, toastSuccess } from '../../../toasts';
@@ -230,6 +231,7 @@ export default function AllProviderModels() {
               return (
                 <div key={provider.name} data-testid={`all-provider-models-${provider.name}`}>
                   <div className="flex flex-wrap items-center gap-2">
+                    <ModelIcon provider={provider.name} className="h-4 w-4" />
                     <h3 className="text-sm text-text-primary">
                       {provider.metadata.display_name}
                     </h3>

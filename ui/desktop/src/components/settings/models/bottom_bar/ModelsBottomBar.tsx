@@ -1,4 +1,5 @@
-import { Sliders, Bot, LoaderCircle, Settings, History } from 'lucide-react';
+import { Sliders, LoaderCircle, Settings, History } from 'lucide-react';
+import ModelIcon from '../../../logos/ModelIcon';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useModelAndProvider } from '../../../ModelAndProviderContext';
 import { SwitchModelModal } from '../subcomponents/SwitchModelModal';
@@ -224,7 +225,7 @@ export default function ModelsBottomBar({
       <DropdownMenu open={isModelMenuOpen} onOpenChange={setIsModelMenuOpen}>
         <DropdownMenuTrigger className="flex items-center hover:cursor-pointer max-w-[180px] md:max-w-[200px] lg:max-w-[380px] min-w-0 text-text-primary/70 hover:text-text-primary transition-colors">
           <div className="flex items-center truncate max-w-[130px] md:max-w-[200px] lg:max-w-[360px] min-w-0">
-            <Bot className="mr-1 h-4 w-4 flex-shrink-0" />
+            <ModelIcon provider={currentProvider} className="mr-1 h-4 w-4" />
             {isModelLoading ? (
               <span
                 data-testid="model-loading-state"
