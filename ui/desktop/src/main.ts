@@ -59,6 +59,7 @@ import './utils/gitChangesIpc';
 import './utils/userProfileIpc';
 import './utils/systemUsageIpc';
 import './utils/recipeHash';
+import './utils/usageStatsIpc';
 import type { SauronApp } from './types/apps';
 import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer';
 import { WEB_PROTOCOLS } from './utils/urlSecurity';

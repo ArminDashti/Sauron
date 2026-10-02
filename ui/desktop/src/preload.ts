@@ -7,6 +7,7 @@ import type { OpenExternalUrlResult } from './utils/urlSecurity';
 import type { GitHubDeviceCode, GitHubTokenPollResult } from './utils/githubSignIn';
 import type { UserProfile } from './utils/userProfile';
 import type { GitChangesResult, GitCommitPushResult } from './utils/gitChangesIpc';
+import type { UsageStatsRange, UsageStatsResult } from './types/usageStats';
 import type { SystemUsage } from './utils/systemUsage';
 
 // Mapping from settings keys to their old localStorage keys for lazy migration
@@ -129,6 +130,7 @@ type ElectronAPI = {
   writeFile: (directory: string, content: string) => Promise<boolean>;
   ensureDirectory: (dirPath: string) => Promise<boolean>;
   listFiles: (dirPath: string, extension?: string) => Promise<string[]>;
+  getUsageStats: (range: UsageStatsRange) => Promise<UsageStatsResult>;
   getAllowedExtensions: () => Promise<string[]>;
   getPathForFile: (file: File) => string;
   setMenuBarIcon: (show: boolean) => Promise<boolean>;
@@ -239,6 +241,7 @@ const electronAPI: ElectronAPI = {
   ensureDirectory: (dirPath: string) => ipcRenderer.invoke('ensure-directory', dirPath),
   listFiles: (dirPath: string, extension?: string) =>
     ipcRenderer.invoke('list-files', dirPath, extension),
+  getUsageStats: (range: UsageStatsRange) => ipcRenderer.invoke('get-usage-stats', range),
   getPathForFile: (file: File) => webUtils.getPathForFile(file),
   getAllowedExtensions: () => ipcRenderer.invoke('get-allowed-extensions'),
   setMenuBarIcon: (show: boolean) => ipcRenderer.invoke('set-menu-bar-icon', show),

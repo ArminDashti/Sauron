@@ -34,6 +34,7 @@ export const ICON_COLORS = {
   plugins: '#ec4899', // pink
   appearance: '#d946ef', // fuchsia
   app: '#eab308', // yellow
+  stats: '#06b6d4', // cyan
 } as const;
 
 export type IconColorKey = keyof typeof ICON_COLORS;

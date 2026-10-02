@@ -884,6 +884,9 @@
   "customProviderForm.apiKey": {
     "defaultMessage": "API 金鑰"
   },
+  "customProviderForm.apiKeyEnvHint": {
+    "defaultMessage": "輸入 {example} 可從環境變數讀取金鑰，而不是儲存它。"
+  },
   "customProviderForm.apiKeyPlaceholderExisting": {
     "defaultMessage": "留空以保留現有金鑰"
   },
@@ -1039,6 +1042,9 @@
   },
   "defaultProviderSetupForm.apiHostPlaceholder": {
     "defaultMessage": "https://api.example.com"
+  },
+  "defaultProviderSetupForm.apiKeyEnvHint": {
+    "defaultMessage": "輸入 {example} 可從環境變數讀取金鑰，而不是儲存它。"
   },
   "defaultProviderSetupForm.apiKeyLabel": {
     "defaultMessage": "API 金鑰"
@@ -5203,5 +5209,80 @@
   },
   "userMessage.removeImageFromEdit": {
     "defaultMessage": "從訊息中移除圖片"
+  },
+  "settingsView.tabStats": {
+    "defaultMessage": "Stats"
+  },
+  "usageStats.byModel": {
+    "defaultMessage": "Per model"
+  },
+  "usageStats.byProvider": {
+    "defaultMessage": "Per provider"
+  },
+  "usageStats.cost": {
+    "defaultMessage": "Cost"
+  },
+  "usageStats.empty": {
+    "defaultMessage": "No usage was recorded in this date range."
+  },
+  "usageStats.inputCacheTokens": {
+    "defaultMessage": "Input cache tokens"
+  },
+  "usageStats.inputTokens": {
+    "defaultMessage": "Input tokens"
+  },
+  "usageStats.loading": {
+    "defaultMessage": "Loading usage stats…"
+  },
+  "usageStats.modelColumn": {
+    "defaultMessage": "Model"
+  },
+  "usageStats.preset30": {
+    "defaultMessage": "Last 30 days"
+  },
+  "usageStats.preset7": {
+    "defaultMessage": "Last 7 days"
+  },
+  "usageStats.presetAll": {
+    "defaultMessage": "All time"
+  },
+  "usageStats.presetYear": {
+    "defaultMessage": "This year"
+  },
+  "usageStats.providerColumn": {
+    "defaultMessage": "Provider"
+  },
+  "usageStats.rangeDescription": {
+    "defaultMessage": "Usage is grouped by model and by provider for the selected dates."
+  },
+  "usageStats.rangeFrom": {
+    "defaultMessage": "From"
+  },
+  "usageStats.rangeLabel": {
+    "defaultMessage": "Date range"
+  },
+  "usageStats.rangeTo": {
+    "defaultMessage": "To"
+  },
+  "usageStats.sessions": {
+    "defaultMessage": "{count,plural,one{# session} other{# sessions}}"
+  },
+  "usageStats.sourceLedger": {
+    "defaultMessage": "Recorded usage"
+  },
+  "usageStats.sourceMessages": {
+    "defaultMessage": "Estimated from stored messages"
+  },
+  "usageStats.total": {
+    "defaultMessage": "Total"
+  },
+  "usageStats.unknown": {
+    "defaultMessage": "Unknown"
+  },
+  "usageStats.writeCacheTokens": {
+    "defaultMessage": "Write cache tokens"
+  },
+  "usageStats.writeTokens": {
+    "defaultMessage": "Write tokens"
   }
 }
