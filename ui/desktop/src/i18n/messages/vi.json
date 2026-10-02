@@ -1379,15 +1379,6 @@
   "headersSection.value": {
     "defaultMessage": "Giá trị"
   },
-  "hub.goodAfternoon": {
-    "defaultMessage": "Chào buổi chiều"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "Chào buổi tối"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "Chào buổi sáng"
-  },
   "hubView.description": {
     "defaultMessage": "Khám phá Skills và máy chủ MCP từ nhiều nguồn khác nhau."
   },
@@ -3967,6 +3958,21 @@
   },
   "settings.dockIcon.title": {
     "defaultMessage": "Biểu tượng dock"
+  },
+  "settings.fontSize.decrease": {
+    "defaultMessage": "Giảm cỡ chữ"
+  },
+  "settings.fontSize.description": {
+    "defaultMessage": "Thay đổi cỡ chữ trong goose"
+  },
+  "settings.fontSize.increase": {
+    "defaultMessage": "Tăng cỡ chữ"
+  },
+  "settings.fontSize.reset": {
+    "defaultMessage": "Đặt lại"
+  },
+  "settings.fontSize.title": {
+    "defaultMessage": "Cỡ chữ"
   },
   "settings.help.description": {
     "defaultMessage": "Giúp chúng tôi cải thiện goose bằng cách báo cáo sự cố hoặc yêu cầu tính năng mới"

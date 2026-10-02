@@ -1379,15 +1379,6 @@
   "headersSection.value": {
     "defaultMessage": "Nilai"
   },
-  "hub.goodAfternoon": {
-    "defaultMessage": "Selamat siang"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "Selamat malam"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "Selamat pagi"
-  },
   "hubView.description": {
     "defaultMessage": "Temukan Skills dan server MCP dari berbagai sumber."
   },
@@ -3967,6 +3958,21 @@
   },
   "settings.dockIcon.title": {
     "defaultMessage": "Ikon dock"
+  },
+  "settings.fontSize.decrease": {
+    "defaultMessage": "Perkecil ukuran huruf"
+  },
+  "settings.fontSize.description": {
+    "defaultMessage": "Ubah ukuran teks di goose"
+  },
+  "settings.fontSize.increase": {
+    "defaultMessage": "Perbesar ukuran huruf"
+  },
+  "settings.fontSize.reset": {
+    "defaultMessage": "Atur ulang"
+  },
+  "settings.fontSize.title": {
+    "defaultMessage": "Ukuran huruf"
   },
   "settings.help.description": {
     "defaultMessage": "Bantu kami meningkatkan goose dengan melaporkan masalah atau meminta fitur baru"

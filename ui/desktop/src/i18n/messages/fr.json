@@ -1379,15 +1379,6 @@
   "headersSection.value": {
     "defaultMessage": "Valeur"
   },
-  "hub.goodAfternoon": {
-    "defaultMessage": "Bon après-midi"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "Bonsoir"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "Bonjour"
-  },
   "hubView.description": {
     "defaultMessage": "Découvrez des compétences et des serveurs MCP provenant de sources variées."
   },
@@ -3967,6 +3958,21 @@
   },
   "settings.dockIcon.title": {
     "defaultMessage": "Icône du Dock"
+  },
+  "settings.fontSize.decrease": {
+    "defaultMessage": "Réduire la taille de police"
+  },
+  "settings.fontSize.description": {
+    "defaultMessage": "Modifier la taille du texte dans goose"
+  },
+  "settings.fontSize.increase": {
+    "defaultMessage": "Augmenter la taille de police"
+  },
+  "settings.fontSize.reset": {
+    "defaultMessage": "Réinitialiser"
+  },
+  "settings.fontSize.title": {
+    "defaultMessage": "Taille de police"
   },
   "settings.help.description": {
     "defaultMessage": "Aidez-nous à améliorer goose en signalant des problèmes ou en demandant de nouvelles fonctionnalités"

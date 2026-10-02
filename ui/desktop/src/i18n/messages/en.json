@@ -1502,15 +1502,6 @@
   "headersSection.value": {
     "defaultMessage": "Value"
   },
-  "hub.goodAfternoon": {
-    "defaultMessage": "Good afternoon"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "Good evening"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "Good morning"
-  },
   "hubView.description": {
     "defaultMessage": "Discover Skills and MCP servers from various sources."
   },
@@ -4282,6 +4273,21 @@
   },
   "settings.dockIcon.title": {
     "defaultMessage": "Dock icon"
+  },
+  "settings.fontSize.decrease": {
+    "defaultMessage": "Decrease font size"
+  },
+  "settings.fontSize.description": {
+    "defaultMessage": "Change how large text appears in goose"
+  },
+  "settings.fontSize.increase": {
+    "defaultMessage": "Increase font size"
+  },
+  "settings.fontSize.reset": {
+    "defaultMessage": "Reset"
+  },
+  "settings.fontSize.title": {
+    "defaultMessage": "Font size"
   },
   "settings.help.description": {
     "defaultMessage": "Help us improve goose by reporting issues or requesting new features"

@@ -1379,15 +1379,6 @@
   "headersSection.value": {
     "defaultMessage": "값"
   },
-  "hub.goodAfternoon": {
-    "defaultMessage": "좋은 오후예요"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "좋은 저녁이에요"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "좋은 아침이에요"
-  },
   "hubView.description": {
     "defaultMessage": "다양한 소스에서 스킬과 MCP 서버를 찾아보세요."
   },
@@ -3967,6 +3958,21 @@
   },
   "settings.dockIcon.title": {
     "defaultMessage": "Dock 아이콘"
+  },
+  "settings.fontSize.decrease": {
+    "defaultMessage": "글꼴 크기 줄이기"
+  },
+  "settings.fontSize.description": {
+    "defaultMessage": "goose의 텍스트 크기 변경"
+  },
+  "settings.fontSize.increase": {
+    "defaultMessage": "글꼴 크기 키우기"
+  },
+  "settings.fontSize.reset": {
+    "defaultMessage": "초기화"
+  },
+  "settings.fontSize.title": {
+    "defaultMessage": "글꼴 크기"
   },
   "settings.help.description": {
     "defaultMessage": "문제를 신고하거나 새 기능을 요청하여 goose 개선에 도움을 주세요."

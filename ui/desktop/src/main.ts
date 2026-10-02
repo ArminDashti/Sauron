@@ -41,6 +41,7 @@ import { formatAppName, errorMessage, formatErrorForLogging } from './utils/conv
 import { isRetiredGooseChatApp } from './utils/retiredApps';
 import type { Settings, SettingKey } from './utils/settings';
 import { defaultSettings, getKeyboardShortcuts } from './utils/settings';
+import { isValidFontSizeSetting } from './utils/fontSize';
 import * as crypto from 'crypto';
 import * as yaml from 'yaml';
 import windowStateKeeper from 'electron-window-state';
@@ -1936,6 +1937,7 @@ const validSettingKeys: Set<string> = new Set([
   'keyboardShortcuts',
   'theme',
   'useSystemTheme',
+  'fontSize',
   'language',
   'responseStyle',
   'showPricing',
@@ -1954,6 +1956,11 @@ ipcMain.handle('set-setting', (_event, key: SettingKey, value: unknown) => {
 
   if (key === 'language' && !isValidLanguageSetting(value)) {
     console.error(`Invalid language setting rejected: ${String(value)}`);
+    return;
+  }
+
+  if (key === 'fontSize' && !isValidFontSizeSetting(value)) {
+    console.error(`Invalid font size rejected: ${String(value)}`);
     return;
   }
 
@@ -2965,6 +2972,22 @@ async function appMain() {
     allWindows.forEach((window) => {
       if (window.id !== senderWindow?.id) {
         window.webContents.send('theme-changed', themeData);
+      }
+    });
+  });
+
+  ipcMain.on('broadcast-font-size-change', (event, fontSize) => {
+    if (!isValidFontSizeSetting(fontSize)) {
+      console.error(`Invalid font size broadcast rejected: ${String(fontSize)}`);
+      return;
+    }
+
+    const senderWindow = BrowserWindow.fromWebContents(event.sender);
+    const allWindows = BrowserWindow.getAllWindows();
+
+    allWindows.forEach((window) => {
+      if (window.id !== senderWindow?.id) {
+        window.webContents.send('font-size-changed', fontSize);
       }
     });
   });

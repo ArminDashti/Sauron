@@ -1379,15 +1379,6 @@
   "headersSection.value": {
     "defaultMessage": "Değer"
   },
-  "hub.goodAfternoon": {
-    "defaultMessage": "İyi günler"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "İyi akşamlar"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "Günaydın"
-  },
   "hubView.description": {
     "defaultMessage": "Çeşitli kaynaklardan Skills ve MCP sunucuları keşfedin."
   },
@@ -3967,6 +3958,21 @@
   },
   "settings.dockIcon.title": {
     "defaultMessage": "Bağlantı noktası simgesi"
+  },
+  "settings.fontSize.decrease": {
+    "defaultMessage": "Yazı tipi boyutunu azalt"
+  },
+  "settings.fontSize.description": {
+    "defaultMessage": "goose içindeki metin boyutunu değiştir"
+  },
+  "settings.fontSize.increase": {
+    "defaultMessage": "Yazı tipi boyutunu artır"
+  },
+  "settings.fontSize.reset": {
+    "defaultMessage": "Sıfırla"
+  },
+  "settings.fontSize.title": {
+    "defaultMessage": "Yazı tipi boyutu"
   },
   "settings.help.description": {
     "defaultMessage": "Sorunları bildirerek veya yeni özellikler talep ederek goose'yi geliştirmemize yardımcı olun"
