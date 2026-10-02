@@ -1379,15 +1379,6 @@
   "headersSection.value": {
     "defaultMessage": "值"
   },
-  "hub.goodAfternoon": {
-    "defaultMessage": "下午好"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "晚上好"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "早上好"
-  },
   "hubView.description": {
     "defaultMessage": "从各种来源发现技能和 MCP 服务器。"
   },
@@ -4114,6 +4105,12 @@
   },
   "settings.version.title": {
     "defaultMessage": "版本"
+  },
+  "settingsView.noResults": {
+    "defaultMessage": "无结果"
+  },
+  "settingsView.searchPlaceholder": {
+    "defaultMessage": "搜索设置"
   },
   "settingsView.tabApp": {
     "defaultMessage": "应用"

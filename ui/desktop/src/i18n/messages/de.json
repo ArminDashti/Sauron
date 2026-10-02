@@ -1379,15 +1379,6 @@
   "headersSection.value": {
     "defaultMessage": "Wert"
   },
-  "hub.goodAfternoon": {
-    "defaultMessage": "Guten Tag"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "Guten Abend"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "Guten Morgen"
-  },
   "hubView.description": {
     "defaultMessage": "Entdecke Skills und MCP-Server aus verschiedenen Quellen."
   },
@@ -4114,6 +4105,12 @@
   },
   "settings.version.title": {
     "defaultMessage": "Version"
+  },
+  "settingsView.noResults": {
+    "defaultMessage": "Keine Ergebnisse"
+  },
+  "settingsView.searchPlaceholder": {
+    "defaultMessage": "Einstellungen durchsuchen"
   },
   "settingsView.tabApp": {
     "defaultMessage": "App"

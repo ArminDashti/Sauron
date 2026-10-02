@@ -1379,15 +1379,6 @@
   "headersSection.value": {
     "defaultMessage": "मूल्य"
   },
-  "hub.goodAfternoon": {
-    "defaultMessage": "शुभ दोपहर"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "शुभ संध्या"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "सुप्रभात"
-  },
   "hubView.description": {
     "defaultMessage": "विभिन्न स्रोतों से स्किल्स और MCP सर्वर खोजें।"
   },
@@ -4114,6 +4105,12 @@
   },
   "settings.version.title": {
     "defaultMessage": "संस्करण"
+  },
+  "settingsView.noResults": {
+    "defaultMessage": "कोई परिणाम नहीं"
+  },
+  "settingsView.searchPlaceholder": {
+    "defaultMessage": "सेटिंग खोजें"
   },
   "settingsView.tabApp": {
     "defaultMessage": "ऐप"

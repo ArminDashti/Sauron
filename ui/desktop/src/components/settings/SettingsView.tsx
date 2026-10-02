@@ -24,9 +24,13 @@ import {
   Palette,
   Plug,
   Puzzle,
+  Search,
   Server,
 } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
+import { Input } from '../ui/input';
+import { cn } from '../../utils';
 import ChatSettingsSection from './chat/ChatSettingsSection';
 import KeyboardShortcutsSection from './keyboard/KeyboardShortcutsSection';
 import AuthSettingsSection from './auth/AuthSettingsSection';
@@ -91,10 +95,98 @@ const i18n = defineMessages({
     id: 'settingsView.tabApp',
     defaultMessage: 'App',
   },
+  searchPlaceholder: {
+    id: 'settingsView.searchPlaceholder',
+    defaultMessage: 'Search Settings',
+  },
+  noResults: {
+    id: 'settingsView.noResults',
+    defaultMessage: 'No results',
+  },
 });
 
+type SettingsTab = {
+  value: string;
+  label: (typeof i18n)[keyof typeof i18n];
+  icon: LucideIcon;
+  testId: string;
+  group: 1 | 2;
+  requires?: 'localInference';
+};
+
+/** Sidebar entries grouped like the reference layout: agent config first, app config below. */
+const SETTINGS_TABS: SettingsTab[] = [
+  { value: 'models', label: i18n.tabModels, icon: Bot, testId: 'settings-models-tab', group: 1 },
+  {
+    value: 'providers',
+    label: i18n.tabProviders,
+    icon: Server,
+    testId: 'settings-providers-tab',
+    group: 1,
+  },
+  {
+    value: 'local-inference',
+    label: i18n.tabLocalInference,
+    icon: HardDrive,
+    testId: 'settings-local-inference-tab',
+    group: 1,
+    requires: 'localInference',
+  },
+  {
+    value: 'chat',
+    label: i18n.tabChat,
+    icon: MessageSquare,
+    testId: 'settings-chat-tab',
+    group: 1,
+  },
+  {
+    value: 'sharing',
+    label: i18n.tabAgent,
+    icon: Share2,
+    testId: 'settings-sharing-tab',
+    group: 1,
+  },
+  {
+    value: 'prompts',
+    label: i18n.tabPrompts,
+    icon: FileText,
+    testId: 'settings-prompts-tab',
+    group: 1,
+  },
+  {
+    value: 'keyboard',
+    label: i18n.tabKeyboard,
+    icon: Keyboard,
+    testId: 'settings-keyboard-tab',
+    group: 2,
+  },
+  { value: 'auth', label: i18n.tabAuth, icon: KeyRound, testId: 'settings-auth-tab', group: 2 },
+  { value: 'mcp', label: i18n.tabMcp, icon: Plug, testId: 'settings-mcp-tab', group: 2 },
+  {
+    value: 'plugins',
+    label: i18n.tabPlugins,
+    icon: Puzzle,
+    testId: 'settings-plugins-tab',
+    group: 2,
+  },
+  {
+    value: 'appearance',
+    label: i18n.tabAppearance,
+    icon: Palette,
+    testId: 'settings-appearance-tab',
+    group: 2,
+  },
+  {
+    value: 'app',
+    label: i18n.tabApp,
+    icon: Monitor,
+    testId: 'settings-app-tab',
+    group: 2,
+  },
+];
+
 const settingsTabClass =
-  'w-full gap-3 rounded-full px-3 py-2 text-sm font-medium hover:bg-background-tertiary/60 data-[state=active]:bg-background-tertiary data-[state=active]:shadow-none';
+  'group w-full gap-3 rounded-lg px-3 py-2 text-sm font-normal text-text-secondary hover:bg-background-tertiary/60 data-[state=active]:bg-background-tertiary data-[state=active]:text-text-primary data-[state=active]:shadow-none';
 
 export type SettingsViewOptions = {
   deepLinkConfig?: ExtensionConfig;
@@ -112,6 +204,7 @@ export default function SettingsView({
   viewOptions: SettingsViewOptions;
 }) {
   const [activeTab, setActiveTab] = useState('models');
+  const [searchQuery, setSearchQuery] = useState('');
   const hasTrackedInitialTab = useRef(false);
   const { localInference } = useFeatures();
   const { navWidth } = useNavigationContext();
@@ -216,100 +309,64 @@ export default function SettingsView({
               <BackButton
                 onClick={onClose}
                 variant="ghost"
-                className="mb-3 w-full justify-start rounded-full px-3 text-sm font-medium hover:bg-background-tertiary/60"
+                className="mb-3 w-full justify-start rounded-lg px-3 text-sm font-medium hover:bg-background-tertiary/60"
               />
+              <div className="relative mb-3">
+                <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-text-secondary" />
+                <Input
+                  type="search"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Escape' && searchQuery) {
+                      // Clear the filter first; only let Escape close Settings when empty.
+                      e.stopPropagation();
+                      setSearchQuery('');
+                    }
+                  }}
+                  placeholder={intl.formatMessage(i18n.searchPlaceholder)}
+                  aria-label={intl.formatMessage(i18n.searchPlaceholder)}
+                  data-testid="settings-search-input"
+                  className="h-9 rounded-lg pl-9 text-sm [&::-webkit-search-cancel-button]:cursor-pointer"
+                />
+              </div>
             </div>
             <TabsList className="w-full min-h-0 flex-1 flex-col items-stretch gap-0.5 overflow-y-auto bg-transparent px-2 py-0">
-              <TabsTrigger
-                value="models"
-                className={settingsTabClass}
-                data-testid="settings-models-tab"
-              >
-                <Bot className="h-5 w-5 text-text-secondary" />
-                {intl.formatMessage(i18n.tabModels)}
-              </TabsTrigger>
-              <TabsTrigger
-                value="providers"
-                className={settingsTabClass}
-                data-testid="settings-providers-tab"
-              >
-                <Server className="h-5 w-5 text-text-secondary" />
-                {intl.formatMessage(i18n.tabProviders)}
-              </TabsTrigger>
-              {localInference && (
-                <TabsTrigger
-                  value="local-inference"
-                  className={settingsTabClass}
-                  data-testid="settings-local-inference-tab"
-                >
-                  <HardDrive className="h-5 w-5 text-text-secondary" />
-                  {intl.formatMessage(i18n.tabLocalInference)}
-                </TabsTrigger>
-              )}
-              <TabsTrigger
-                value="chat"
-                className={settingsTabClass}
-                data-testid="settings-chat-tab"
-              >
-                <MessageSquare className="h-5 w-5 text-text-secondary" />
-                {intl.formatMessage(i18n.tabChat)}
-              </TabsTrigger>
-              <TabsTrigger
-                value="sharing"
-                className={settingsTabClass}
-                data-testid="settings-sharing-tab"
-              >
-                <Share2 className="h-5 w-5 text-text-secondary" />
-                {intl.formatMessage(i18n.tabAgent)}
-              </TabsTrigger>
-              <TabsTrigger
-                value="prompts"
-                className={settingsTabClass}
-                data-testid="settings-prompts-tab"
-              >
-                <FileText className="h-5 w-5 text-text-secondary" />
-                {intl.formatMessage(i18n.tabPrompts)}
-              </TabsTrigger>
-              <TabsTrigger
-                value="keyboard"
-                className={settingsTabClass}
-                data-testid="settings-keyboard-tab"
-              >
-                <Keyboard className="h-5 w-5 text-text-secondary" />
-                {intl.formatMessage(i18n.tabKeyboard)}
-              </TabsTrigger>
-              <TabsTrigger
-                value="auth"
-                className={settingsTabClass}
-                data-testid="settings-auth-tab"
-              >
-                <KeyRound className="h-5 w-5 text-text-secondary" />
-                {intl.formatMessage(i18n.tabAuth)}
-              </TabsTrigger>
-              <TabsTrigger value="mcp" className={settingsTabClass} data-testid="settings-mcp-tab">
-                <Plug className="h-5 w-5 text-text-secondary" />
-                {intl.formatMessage(i18n.tabMcp)}
-              </TabsTrigger>
-              <TabsTrigger
-                value="plugins"
-                className={settingsTabClass}
-                data-testid="settings-plugins-tab"
-              >
-                <Puzzle className="h-5 w-5 text-text-secondary" />
-                {intl.formatMessage(i18n.tabPlugins)}
-              </TabsTrigger>
-              <TabsTrigger
-                value="appearance"
-                className={settingsTabClass}
-                data-testid="settings-appearance-tab"
-              >
-                <Palette className="h-5 w-5 text-text-secondary" />
-                {intl.formatMessage(i18n.tabAppearance)}
-              </TabsTrigger>
-              <TabsTrigger value="app" className={settingsTabClass} data-testid="settings-app-tab">
-                <Monitor className="h-5 w-5 text-text-secondary" />
-                {intl.formatMessage(i18n.tabApp)}
-              </TabsTrigger>
+              {SETTINGS_TABS.filter((tab) => {
+                if (tab.requires === 'localInference' && !localInference) return false;
+                if (!searchQuery.trim()) return true;
+                return intl
+                  .formatMessage(tab.label)
+                  .toLowerCase()
+                  .includes(searchQuery.trim().toLowerCase());
+              }).map((tab, index, visible) => {
+                const Icon = tab.icon;
+                const startsGroup = index === 0 || visible[index - 1].group !== tab.group;
+                return (
+                  <TabsTrigger
+                    key={tab.value}
+                    value={tab.value}
+                    className={cn(settingsTabClass, startsGroup && index > 0 && 'mt-4')}
+                    data-testid={tab.testId}
+                  >
+                    <Icon className="h-5 w-5 text-text-secondary group-data-[state=active]:text-text-primary" />
+                    {intl.formatMessage(tab.label)}
+                  </TabsTrigger>
+                );
+              })}
+              {searchQuery.trim() &&
+                !SETTINGS_TABS.some(
+                  (tab) =>
+                    (tab.requires !== 'localInference' || localInference) &&
+                    intl
+                      .formatMessage(tab.label)
+                      .toLowerCase()
+                      .includes(searchQuery.trim().toLowerCase())
+                ) && (
+                  <p className="px-3 py-2 text-sm text-text-secondary">
+                    {intl.formatMessage(i18n.noResults)}
+                  </p>
+                )}
             </TabsList>
           </aside>
         </div>

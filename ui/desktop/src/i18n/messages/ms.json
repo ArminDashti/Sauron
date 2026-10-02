@@ -1379,15 +1379,6 @@
   "headersSection.value": {
     "defaultMessage": "Nilai"
   },
-  "hub.goodAfternoon": {
-    "defaultMessage": "Selamat tengah hari"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "Selamat petang"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "Selamat pagi"
-  },
   "hubView.description": {
     "defaultMessage": "Temui Skills dan pelayan MCP dari pelbagai sumber."
   },
@@ -4114,6 +4105,12 @@
   },
   "settings.version.title": {
     "defaultMessage": "Versi"
+  },
+  "settingsView.noResults": {
+    "defaultMessage": "Tiada hasil"
+  },
+  "settingsView.searchPlaceholder": {
+    "defaultMessage": "Cari Tetapan"
   },
   "settingsView.tabApp": {
     "defaultMessage": "Aplikasi"

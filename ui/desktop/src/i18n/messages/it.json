@@ -1379,15 +1379,6 @@
   "headersSection.value": {
     "defaultMessage": "Valore"
   },
-  "hub.goodAfternoon": {
-    "defaultMessage": "Buon pomeriggio"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "Buonasera"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "Buongiorno"
-  },
   "hubView.description": {
     "defaultMessage": "Scopri skill e server MCP da diverse fonti."
   },
@@ -4114,6 +4105,12 @@
   },
   "settings.version.title": {
     "defaultMessage": "Versione"
+  },
+  "settingsView.noResults": {
+    "defaultMessage": "Nessun risultato"
+  },
+  "settingsView.searchPlaceholder": {
+    "defaultMessage": "Cerca nelle impostazioni"
   },
   "settingsView.tabApp": {
     "defaultMessage": "App"

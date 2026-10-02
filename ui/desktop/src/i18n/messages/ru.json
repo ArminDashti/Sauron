@@ -1379,15 +1379,6 @@
   "headersSection.value": {
     "defaultMessage": "Значение"
   },
-  "hub.goodAfternoon": {
-    "defaultMessage": "Добрый день"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "Добрый вечер"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "Доброе утро"
-  },
   "hubView.description": {
     "defaultMessage": "Ищите навыки и MCP-серверы из различных источников."
   },
@@ -4114,6 +4105,12 @@
   },
   "settings.version.title": {
     "defaultMessage": "Версия"
+  },
+  "settingsView.noResults": {
+    "defaultMessage": "Нет результатов"
+  },
+  "settingsView.searchPlaceholder": {
+    "defaultMessage": "Поиск в настройках"
   },
   "settingsView.tabApp": {
     "defaultMessage": "Приложение"

@@ -1379,15 +1379,6 @@
   "headersSection.value": {
     "defaultMessage": "Giá trị"
   },
-  "hub.goodAfternoon": {
-    "defaultMessage": "Chào buổi chiều"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "Chào buổi tối"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "Chào buổi sáng"
-  },
   "hubView.description": {
     "defaultMessage": "Khám phá Skills và máy chủ MCP từ nhiều nguồn khác nhau."
   },
@@ -4114,6 +4105,12 @@
   },
   "settings.version.title": {
     "defaultMessage": "Phiên bản"
+  },
+  "settingsView.noResults": {
+    "defaultMessage": "Không có kết quả"
+  },
+  "settingsView.searchPlaceholder": {
+    "defaultMessage": "Tìm trong cài đặt"
   },
   "settingsView.tabApp": {
     "defaultMessage": "Ứng dụng"
