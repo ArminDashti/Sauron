@@ -4532,6 +4532,12 @@
   "settings.version.title": {
     "defaultMessage": "Versi"
   },
+  "settingsView.noResults": {
+    "defaultMessage": "Tidak ada hasil"
+  },
+  "settingsView.searchPlaceholder": {
+    "defaultMessage": "Cari Pengaturan"
+  },
   "settingsView.tabApp": {
     "defaultMessage": "Aplikasi"
   },

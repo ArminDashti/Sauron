@@ -173,18 +173,14 @@ export async function acpRefreshProviderDetails(
     };
   }
 
-  // The readiness probe is only implemented for ACP providers; the server
-  // rejects it with invalid-params for everything else.
-  if (entry.acp) {
-    const readiness = await client.sauron.providersReadinessCheck_unstable({ providerId });
-    throwIfAborted(signal);
-    if (!readiness.ready) {
-      return {
-        provider: providerEntryToDetails(entry),
-        connectionChecked: true,
-        readinessError: readiness.error ?? 'Provider is not ready',
-      };
-    }
+  const readiness = await client.sauron.providersReadinessCheck_unstable({ providerId });
+  throwIfAborted(signal);
+  if (!readiness.ready) {
+    return {
+      provider: providerEntryToDetails(entry),
+      connectionChecked: true,
+      readinessError: readiness.error ?? 'Provider is not ready',
+    };
   }
 
   if (entry.supportsRefresh) {
@@ -302,6 +298,38 @@ export async function acpListProviderSecrets(): Promise<ProviderSecretDto[]> {
 export async function acpDeleteProviderSecret(id: string): Promise<void> {
   const client = await getAcpClient();
   await client.sauron.providersSecretsDelete_unstable({ id });
+}
+
+/**
+ * Whether a provider's token key has a value set (env var, stored secret, or
+ * cached OAuth credential).
+ *
+ * Providers that declare no secret config key are treated as not requiring a
+ * token. When the token status cannot be determined the check fails closed so
+ * models are only loaded for providers known to have their token set.
+ */
+export async function acpIsProviderTokenSet(
+  provider: ProviderDetails,
+  secrets?: ProviderSecretDto[]
+): Promise<boolean> {
+  const tokenKey =
+    provider.metadata.config_keys.find((key) => key.secret && key.primary) ??
+    provider.metadata.config_keys.find((key) => key.secret);
+  if (!tokenKey) {
+    return true;
+  }
+
+  try {
+    const storedSecrets = secrets ?? (await acpListProviderSecrets());
+    if (storedSecrets.some((secret) => secret.provider === provider.name && secret.hasSecret)) {
+      return true;
+    }
+    const fields = await acpReadProviderConfig(provider.name);
+    return fields.find((field) => field.key === tokenKey.name)?.isSet ?? false;
+  } catch (error) {
+    console.warn(`Could not read token status for provider ${provider.name}:`, error);
+    return false;
+  }
 }
 
 export async function acpGetCanonicalModelInfo(

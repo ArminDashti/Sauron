@@ -4,12 +4,14 @@ import { getAcpClient } from '../acpConnection';
 import {
   acpEnableProvider,
   acpGetProviderDetails,
+  acpIsProviderTokenSet,
   acpListProviderDetails,
   acpListSettingsProviderDetails,
   acpListSetupProviderDetails,
   acpRefreshProviderDetails,
   acpSetSessionProviderModel,
 } from '../providers';
+import type { ProviderDetails } from '../../types/providers';
 
 vi.mock('../acpConnection', () => ({
   getAcpClient: vi.fn(),
@@ -73,7 +75,7 @@ describe('ACP providers', () => {
     ]);
   });
 
-  it('refreshes a non-ACP provider inventory without probing readiness', async () => {
+  it('refreshes a non-ACP provider inventory after a readiness probe', async () => {
     const entry = providerEntry({
       providerId: 'mistral',
       providerType: 'Declarative',
@@ -89,7 +91,10 @@ describe('ACP providers', () => {
           .fn()
           .mockResolvedValueOnce({ entries: [entry] })
           .mockResolvedValueOnce({ entries: [refreshed] }),
-        providersReadinessCheck_unstable: vi.fn().mockRejectedValue(new Error('Invalid params')),
+        providersReadinessCheck_unstable: vi.fn().mockResolvedValue({
+          providerId: 'mistral',
+          ready: true,
+        }),
         providersInventoryRefresh_unstable: vi
           .fn()
           .mockResolvedValue({ started: ['mistral'], skipped: [] }),
@@ -101,7 +106,9 @@ describe('ACP providers', () => {
 
     const result = await acpRefreshProviderDetails('mistral');
 
-    expect(client.sauron.providersReadinessCheck_unstable).not.toHaveBeenCalled();
+    expect(client.sauron.providersReadinessCheck_unstable).toHaveBeenCalledWith({
+      providerId: 'mistral',
+    });
     expect(result.readinessError).toBeNull();
     expect(result.provider.metadata.known_models.map((model) => model.name)).toEqual([
       'mistral-large-latest',
@@ -403,6 +410,111 @@ describe('ACP providers', () => {
 
     await expect(refresh).rejects.toMatchObject({ name: 'AbortError' });
     expect(client.sauron.providersList_unstable).toHaveBeenCalledTimes(2);
+  });
+
+  describe('acpIsProviderTokenSet', () => {
+    const tokenProvider = (overrides: Partial<ProviderDetails> = {}): ProviderDetails => ({
+      name: 'openai',
+      is_configured: true,
+      is_available: true,
+      visible_in_setup: true,
+      deprecated: false,
+      provider_type: 'Preferred',
+      uses_acp: false,
+      metadata: {
+        name: 'openai',
+        display_name: 'OpenAI',
+        description: '',
+        default_model: 'gpt-5',
+        model_doc_link: '',
+        config_keys: [
+          {
+            name: 'OPENAI_API_KEY',
+            required: true,
+            secret: true,
+            oauth_flow: false,
+            primary: true,
+          },
+        ],
+        known_models: [],
+      },
+      ...overrides,
+    });
+
+    const mockClient = (configRead: unknown, secrets: unknown[] = []) => {
+      const client = {
+        sauron: {
+          providersConfigRead_unstable: vi.fn().mockResolvedValue(configRead),
+          providersSecretsList_unstable: vi.fn().mockResolvedValue({ secrets }),
+        },
+      };
+      vi.mocked(getAcpClient).mockResolvedValue(
+        client as unknown as Awaited<ReturnType<typeof getAcpClient>>
+      );
+      return client;
+    };
+
+    it('treats providers without a secret config key as not requiring a token', async () => {
+      const provider = tokenProvider({
+        metadata: {
+          name: 'local',
+          display_name: 'Local',
+          description: '',
+          default_model: '',
+          model_doc_link: '',
+          config_keys: [],
+          known_models: [],
+        },
+      });
+      const client = mockClient({ fields: [] });
+
+      await expect(acpIsProviderTokenSet(provider)).resolves.toBe(true);
+      expect(client.sauron.providersConfigRead_unstable).not.toHaveBeenCalled();
+    });
+
+    it('accepts a provider with a stored secret without reading config', async () => {
+      const provider = tokenProvider();
+      const client = mockClient(
+        { fields: [{ key: 'OPENAI_API_KEY', isSet: false, isSecret: true, required: true }] },
+        [{ provider: 'openai', hasSecret: true }]
+      );
+
+      await expect(acpIsProviderTokenSet(provider)).resolves.toBe(true);
+      expect(client.sauron.providersConfigRead_unstable).not.toHaveBeenCalled();
+    });
+
+    it('uses the token key config field when no secret is stored', async () => {
+      const provider = tokenProvider();
+      mockClient({
+        fields: [{ key: 'OPENAI_API_KEY', isSet: true, isSecret: true, required: true }],
+      });
+
+      await expect(acpIsProviderTokenSet(provider)).resolves.toBe(true);
+    });
+
+    it('fails closed when the token key is unset', async () => {
+      const provider = tokenProvider();
+      mockClient({
+        fields: [{ key: 'OPENAI_API_KEY', isSet: false, isSecret: true, required: true }],
+      });
+
+      await expect(acpIsProviderTokenSet(provider)).resolves.toBe(false);
+    });
+
+    it('fails closed when the token status cannot be read', async () => {
+      const provider = tokenProvider();
+      const client = {
+        sauron: {
+          providersConfigRead_unstable: vi.fn().mockRejectedValue(new Error('Unknown provider')),
+          providersSecretsList_unstable: vi.fn().mockResolvedValue({ secrets: [] }),
+        },
+      };
+      vi.mocked(getAcpClient).mockResolvedValue(
+        client as unknown as Awaited<ReturnType<typeof getAcpClient>>
+      );
+
+      await expect(acpIsProviderTokenSet(provider)).resolves.toBe(false);
+    });
   });
 });
 

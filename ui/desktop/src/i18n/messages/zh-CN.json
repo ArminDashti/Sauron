@@ -4532,6 +4532,12 @@
   "settings.version.title": {
     "defaultMessage": "版本"
   },
+  "settingsView.noResults": {
+    "defaultMessage": "无结果"
+  },
+  "settingsView.searchPlaceholder": {
+    "defaultMessage": "搜索设置"
+  },
   "settingsView.tabApp": {
     "defaultMessage": "应用"
   },

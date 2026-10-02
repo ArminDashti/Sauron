@@ -4532,6 +4532,12 @@
   "settings.version.title": {
     "defaultMessage": "バージョン"
   },
+  "settingsView.noResults": {
+    "defaultMessage": "結果がありません"
+  },
+  "settingsView.searchPlaceholder": {
+    "defaultMessage": "設定を検索"
+  },
   "settingsView.tabApp": {
     "defaultMessage": "アプリ"
   },

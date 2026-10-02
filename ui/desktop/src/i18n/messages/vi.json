@@ -4532,6 +4532,12 @@
   "settings.version.title": {
     "defaultMessage": "Phiên bản"
   },
+  "settingsView.noResults": {
+    "defaultMessage": "Không có kết quả"
+  },
+  "settingsView.searchPlaceholder": {
+    "defaultMessage": "Tìm trong cài đặt"
+  },
   "settingsView.tabApp": {
     "defaultMessage": "Ứng dụng"
   },

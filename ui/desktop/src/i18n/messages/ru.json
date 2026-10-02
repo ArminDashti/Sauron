@@ -4532,6 +4532,12 @@
   "settings.version.title": {
     "defaultMessage": "Версия"
   },
+  "settingsView.noResults": {
+    "defaultMessage": "Нет результатов"
+  },
+  "settingsView.searchPlaceholder": {
+    "defaultMessage": "Поиск в настройках"
+  },
   "settingsView.tabApp": {
     "defaultMessage": "Приложение"
   },

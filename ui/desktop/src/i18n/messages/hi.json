@@ -4532,6 +4532,12 @@
   "settings.version.title": {
     "defaultMessage": "संस्करण"
   },
+  "settingsView.noResults": {
+    "defaultMessage": "कोई परिणाम नहीं"
+  },
+  "settingsView.searchPlaceholder": {
+    "defaultMessage": "सेटिंग खोजें"
+  },
   "settingsView.tabApp": {
     "defaultMessage": "ऐप"
   },
