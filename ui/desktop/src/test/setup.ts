@@ -60,13 +60,14 @@ const mockSettings: Record<string, unknown> = {
     findPrevious: 'CommandOrControl+Shift+G',
     alwaysOnTop: 'CommandOrControl+Shift+T',
   },
-  externalGoosed: {
+  externalSaurond: {
     enabled: false,
     url: '',
     secret: '',
   },
   theme: 'light',
   useSystemTheme: true,
+  fontSize: 100,
   language: 'system',
   responseStyle: 'concise',
   showPricing: true,
@@ -91,5 +92,6 @@ Object.defineProperty(window, 'electron', {
     logError: vi.fn(),
     on: vi.fn(),
     off: vi.fn(),
+    broadcastFontSizeChange: vi.fn(),
   },
 });

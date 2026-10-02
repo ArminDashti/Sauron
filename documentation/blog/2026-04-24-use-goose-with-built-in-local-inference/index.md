@@ -22,7 +22,7 @@ There's no separate server to start, no port to configure, no background daemon.
 
 How to do this on the desktop app:
 
-1. Open **Settings → Local Inference**
+1. Open **Settings → Providers** (the Local Inference card lives here)
 2. Search Hugging Face for a compatible model.
 3. Click download — the model files land in the shared Hugging Face cache.
 4. Start building. That's it.

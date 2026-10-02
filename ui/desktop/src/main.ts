@@ -29,18 +29,19 @@ import 'dotenv/config';
 import { connectRemoteBackend } from './remoteBackends';
 import { installBackendCertificateVerifiers } from './backendCertificateVerifier';
 import { configureProxy } from './proxy';
-import { startGooseServe } from './gooseServe';
+import { startSauronServe } from './sauronServe';
 import { getLoginShellPath } from './loginShellPath';
-import { GooseServeLeaseRegistry, type GooseServeLease } from './gooseServeLeaseRegistry';
+import { SauronServeLeaseRegistry, type SauronServeLease } from './sauronServeLeaseRegistry';
 import { normalizeAcpHttpBaseUrl } from './acp/url';
-import { expandTilde, sanitizeGoosePathRoot } from './utils/pathUtils';
+import { expandTilde, sanitizeSauronPathRoot } from './utils/pathUtils';
 import log from './utils/logger';
 import { ensureWinShims } from './utils/winShims';
 import { addRecentDir, loadRecentDirs } from './utils/recentDirs';
 import { formatAppName, errorMessage, formatErrorForLogging } from './utils/conversionUtils';
-import { isRetiredGooseChatApp } from './utils/retiredApps';
+import { isRetiredSauronChatApp } from './utils/retiredApps';
 import type { Settings, SettingKey } from './utils/settings';
 import { defaultSettings, getKeyboardShortcuts } from './utils/settings';
+import { isValidFontSizeSetting } from './utils/fontSize';
 import * as crypto from 'crypto';
 import * as yaml from 'yaml';
 import windowStateKeeper from 'electron-window-state';
@@ -56,10 +57,21 @@ import { UPDATES_ENABLED } from './updates';
 import './utils/gitBranchIpc';
 import './utils/userProfileIpc';
 import './utils/recipeHash';
-import type { GooseApp } from './types/apps';
+import type { SauronApp } from './types/apps';
 import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer';
 import { WEB_PROTOCOLS } from './utils/urlSecurity';
 import { openExternalUrl } from './utils/openExternalUrl';
+import {
+  classifyGitHubTokenResponse,
+  parseGitHubDeviceCode,
+  GITHUB_ACCESS_TOKEN_URL,
+  GITHUB_CLIENT_ID,
+  GITHUB_DEVICE_CODE_URL,
+  GITHUB_DEVICE_GRANT_TYPE,
+  GITHUB_SIGN_IN_SCOPES,
+  type GitHubDeviceCode,
+  type GitHubTokenPollResult,
+} from './utils/githubSignIn';
 import { buildCSP, leaseBackendOrigin, shouldApplyRendererCsp } from './utils/csp';
 import { resolveWorkingDir } from './utils/workingDir';
 import {
@@ -95,7 +107,7 @@ const MENU_TRANSLATIONS_ZH_CN: Record<string, string> = {
   Cut: '剪切',
   Copy: '复制',
   Paste: '粘贴',
-  // Goose-added items
+  // Sauron-added items
   'New Window': '新建窗口',
   Settings: '设置',
   'Find…': '查找…',
@@ -107,11 +119,11 @@ const MENU_TRANSLATIONS_ZH_CN: Record<string, string> = {
   'New Chat Window': '新建聊天窗口',
   'Open Directory...': '打开目录…',
   'Recent Directories': '最近的目录',
-  'Focus Goose Window': '聚焦 Goose 窗口',
+  'Focus Sauron Window': '聚焦 Sauron 窗口',
   'Quick Launcher': '快速启动器',
   'Always on Top': '窗口置顶',
   'Toggle Navigation': '切换导航',
-  'About Goose': '关于 Goose',
+  'About Sauron': '关于 Sauron',
   // Electron's default role-based labels we want to translate as well.
   // (The menu role itself still provides the correct behaviour; only the
   // display string is overridden.)
@@ -137,14 +149,14 @@ const MENU_TRANSLATIONS_ZH_CN: Record<string, string> = {
   'Bring All to Front': '全部置于最前',
   'Emoji & Symbols': '表情符号',
   'Start Dictation…': '开始听写…',
-  'Hide Goose': '隐藏 Goose',
+  'Hide Sauron': '隐藏 Sauron',
   'Hide Others': '隐藏其他',
   'Show All': '全部显示',
   Services: '服务',
 };
 
 function detectMenuLocale(): string {
-  return getConfiguredGooseLocale() ?? 'en';
+  return getConfiguredSauronLocale() ?? 'en';
 }
 
 function menuT(label: string): string {
@@ -219,9 +231,9 @@ function getSettings(): Settings {
     return {
       ...defaultSettings,
       ...stored,
-      externalGoosed: {
-        ...defaultSettings.externalGoosed,
-        ...(stored.externalGoosed ?? {}),
+      externalSaurond: {
+        ...defaultSettings.externalSaurond,
+        ...(stored.externalSaurond ?? {}),
       },
       keyboardShortcuts: {
         ...defaultSettings.keyboardShortcuts,
@@ -238,14 +250,14 @@ function updateSettings(modifier: (settings: Settings) => void): void {
   fsSync.writeFileSync(SETTINGS_FILE, JSON.stringify(settings, null, 2));
 }
 
-function getConfiguredGooseLocale(): string | undefined {
+function getConfiguredSauronLocale(): string | undefined {
   const language = getSettings().language;
   if (isValidLanguageSetting(language) && language !== 'system') {
     return language;
   }
 
-  if (process.env.GOOSE_LOCALE) {
-    return process.env.GOOSE_LOCALE;
+  if (process.env.SAURON_LOCALE) {
+    return process.env.SAURON_LOCALE;
   }
 
   try {
@@ -388,13 +400,13 @@ app.on('certificate-error', (event, _webContents, url, _error, certificate, call
 });
 
 app.whenReady().then(() => {
-  appConfig.GOOSE_LOCALE = getConfiguredGooseLocale();
+  appConfig.SAURON_LOCALE = getConfiguredSauronLocale();
 });
 
 // Main-process net.fetch and renderer WebSockets: pin to the exact cert once known.
 app.whenReady().then(() => {
   installBackendCertificateVerifiers(
-    [session.defaultSession, session.fromPartition('persist:goose')],
+    [session.defaultSession, session.fromPartition('persist:sauron')],
     {
       has: isTrustedHost,
       verify: verifyBackendCertificate,
@@ -412,13 +424,13 @@ if (process.env.ENABLE_PLAYWRIGHT) {
 // In production, register normally
 if (MAIN_WINDOW_VITE_DEV_SERVER_URL) {
   // Development mode - force registration
-  console.log('[Main] Development mode: Forcing protocol registration for goose://');
-  app.setAsDefaultProtocolClient('goose');
+  console.log('[Main] Development mode: Forcing protocol registration for sauron://');
+  app.setAsDefaultProtocolClient('sauron');
 
   if (process.platform === 'darwin') {
     try {
       // Reset the default handler to ensure dev version takes precedence
-      spawn('open', ['-a', process.execPath, '--args', '--reset-protocol-handler', 'goose'], {
+      spawn('open', ['-a', process.execPath, '--args', '--reset-protocol-handler', 'sauron'], {
         detached: true,
         stdio: 'ignore',
       });
@@ -428,7 +440,7 @@ if (MAIN_WINDOW_VITE_DEV_SERVER_URL) {
   }
 } else {
   // Production mode - normal registration
-  app.setAsDefaultProtocolClient('goose');
+  app.setAsDefaultProtocolClient('sauron');
 }
 
 // Apply single instance lock on Windows and Linux where it's needed for deep links
@@ -442,7 +454,7 @@ if (process.platform !== 'darwin') {
     app.quit();
   } else {
     app.on('second-instance', (_event, commandLine) => {
-      const protocolUrl = commandLine.find((arg) => arg.startsWith('goose://'));
+      const protocolUrl = commandLine.find((arg) => arg.startsWith('sauron://'));
       if (protocolUrl) {
         const parsedUrl = new URL(protocolUrl);
         // If it's a bot/recipe URL, handle it directly by creating a new window
@@ -511,7 +523,7 @@ if (process.platform !== 'darwin') {
   }
 
   // Handle protocol URLs on Windows and Linux startup
-  const protocolUrl = process.argv.find((arg) => arg.startsWith('goose://'));
+  const protocolUrl = process.argv.find((arg) => arg.startsWith('sauron://'));
   if (protocolUrl) {
     app.whenReady().then(async () => {
       let parsedUrl: URL;
@@ -568,7 +580,7 @@ function getResumeSessionId(parsedUrl: URL): string | null {
 async function createResumeChatWindow(parsedUrl: URL, dir?: string): Promise<boolean> {
   const resumeSessionId = getResumeSessionId(parsedUrl);
   if (!resumeSessionId) {
-    log.warn('[Main] Ignoring goose://resume URL without a session id');
+    log.warn('[Main] Ignoring sauron://resume URL without a session id');
     return false;
   }
 
@@ -720,7 +732,7 @@ app.on('open-url', async (_event, url) => {
 app.on('will-finish-launching', () => {
   if (process.platform === 'darwin') {
     app.setAboutPanelOptions({
-      applicationName: 'Goose',
+      applicationName: 'Sauron',
       applicationVersion: app.getVersion(),
     });
   }
@@ -775,7 +787,7 @@ async function handleFileOpen(filePath: string) {
 
     // Show user-friendly error notification
     new Notification({
-      title: 'Goose',
+      title: 'Sauron',
       body: `Could not open directory: ${path.basename(filePath)}`,
     }).show();
   }
@@ -826,13 +838,13 @@ interface BundledConfig {
 
 const getBundledConfig = (): BundledConfig => {
   //{env-macro-start}//
-  //needed when goose is bundled for a specific provider
+  //needed when sauron is bundled for a specific provider
   //{env-macro-end}//
   return {
-    defaultProvider: process.env.GOOSE_DEFAULT_PROVIDER,
-    defaultModel: process.env.GOOSE_DEFAULT_MODEL,
-    predefinedModels: process.env.GOOSE_PREDEFINED_MODELS,
-    version: process.env.GOOSE_VERSION,
+    defaultProvider: process.env.SAURON_DEFAULT_PROVIDER,
+    defaultModel: process.env.SAURON_DEFAULT_MODEL,
+    predefinedModels: process.env.SAURON_PREDEFINED_MODELS,
+    version: process.env.SAURON_VERSION,
   };
 };
 
@@ -849,16 +861,16 @@ interface ExternalBackend {
 }
 
 const getExternalBackendUrlFromEnv = (): string | null => {
-  if (!process.env.GOOSE_EXTERNAL_BACKEND) {
+  if (!process.env.SAURON_EXTERNAL_BACKEND) {
     return null;
   }
 
-  const configuredUrl = process.env.GOOSE_EXTERNAL_BACKEND_URL?.trim();
+  const configuredUrl = process.env.SAURON_EXTERNAL_BACKEND_URL?.trim();
   if (configuredUrl) {
     return configuredUrl;
   }
 
-  return `http://127.0.0.1:${process.env.GOOSE_PORT || '3000'}`;
+  return `http://127.0.0.1:${process.env.SAURON_PORT || '3000'}`;
 };
 
 const getExternalBackendFromEnv = (): ExternalBackend | null => {
@@ -867,10 +879,10 @@ const getExternalBackendFromEnv = (): ExternalBackend | null => {
     return null;
   }
 
-  const secret = process.env.GOOSE_SERVER__SECRET_KEY;
+  const secret = process.env.SAURON_SERVER__SECRET_KEY;
   if (!secret) {
     throw new Error(
-      'GOOSE_SERVER__SECRET_KEY must be set when using GOOSE_EXTERNAL_BACKEND. ' +
+      'SAURON_SERVER__SECRET_KEY must be set when using SAURON_EXTERNAL_BACKEND. ' +
         'Set it to the same value on both the server and the desktop client.'
     );
   }
@@ -883,8 +895,8 @@ const getExternalBackendFromEnv = (): ExternalBackend | null => {
 };
 
 const getServerSecret = (settings: Settings): string => {
-  if (settings.externalGoosed?.enabled && settings.externalGoosed.secret) {
-    return settings.externalGoosed.secret;
+  if (settings.externalSaurond?.enabled && settings.externalSaurond.secret) {
+    return settings.externalSaurond.secret;
   }
   return GENERATED_SECRET;
 };
@@ -894,17 +906,17 @@ const getActiveExternalBackend = (settings: Settings): ExternalBackend | null =>
   if (envBackend) {
     return {
       ...envBackend,
-      workingDir: settings.externalGoosed?.workingDir,
+      workingDir: settings.externalSaurond?.workingDir,
     };
   }
 
-  if (settings.externalGoosed?.enabled && settings.externalGoosed.url) {
+  if (settings.externalSaurond?.enabled && settings.externalSaurond.url) {
     return {
       source: 'settings',
-      url: settings.externalGoosed.url,
+      url: settings.externalSaurond.url,
       secret: getServerSecret(settings),
-      certFingerprint: settings.externalGoosed.certFingerprint,
-      workingDir: settings.externalGoosed.workingDir,
+      certFingerprint: settings.externalSaurond.certFingerprint,
+      workingDir: settings.externalSaurond.workingDir,
     };
   }
 
@@ -914,32 +926,32 @@ const getActiveExternalBackend = (settings: Settings): ExternalBackend | null =>
 const getExternalBackendForCsp = (settings: Settings) => {
   const envUrl = getExternalBackendUrlFromEnv();
   if (!envUrl) {
-    return settings.externalGoosed;
+    return settings.externalSaurond;
   }
 
   return {
-    ...settings.externalGoosed,
+    ...settings.externalSaurond,
     enabled: true,
     url: envUrl,
   };
 };
 
 let appConfig = {
-  GOOSE_DEFAULT_PROVIDER: defaultProvider,
-  GOOSE_DEFAULT_MODEL: defaultModel,
-  GOOSE_PREDEFINED_MODELS: predefinedModels,
-  GOOSE_PATH_ROOT: sanitizeGoosePathRoot(process.env),
-  GOOSE_WORKING_DIR: '',
+  SAURON_DEFAULT_PROVIDER: defaultProvider,
+  SAURON_DEFAULT_MODEL: defaultModel,
+  SAURON_PREDEFINED_MODELS: predefinedModels,
+  SAURON_PATH_ROOT: sanitizeSauronPathRoot(process.env),
+  SAURON_WORKING_DIR: '',
   // Whether the window is bound to an external backend (fixed at window
-  // creation via gooseServeLeases) and which URL it is bound to.
-  GOOSE_EXTERNAL_BACKEND: false,
-  GOOSE_EXTERNAL_BACKEND_URL: '',
-  GOOSE_EXTERNAL_BACKEND_SOURCE: '',
+  // creation via sauronServeLeases) and which URL it is bound to.
+  SAURON_EXTERNAL_BACKEND: false,
+  SAURON_EXTERNAL_BACKEND_URL: '',
+  SAURON_EXTERNAL_BACKEND_SOURCE: '',
   // Start with the env-var override; the OS region locale is filled in after app.ready
   // (see updateLocaleFromSystem below) since getSystemLocale() cannot be called earlier.
-  GOOSE_LOCALE: process.env.GOOSE_LOCALE || undefined,
-  // If GOOSE_ALLOWLIST_WARNING env var is not set, defaults to false (strict blocking mode)
-  GOOSE_ALLOWLIST_WARNING: process.env.GOOSE_ALLOWLIST_WARNING === 'true',
+  SAURON_LOCALE: process.env.SAURON_LOCALE || undefined,
+  // If SAURON_ALLOWLIST_WARNING env var is not set, defaults to false (strict blocking mode)
+  SAURON_ALLOWLIST_WARNING: process.env.SAURON_ALLOWLIST_WARNING === 'true',
 };
 
 const windowMap = new Map<number, BrowserWindow>();
@@ -970,7 +982,7 @@ function getRegularWindows(): BrowserWindow[] {
   return [...windowMap.values()].filter((w) => !w.isDestroyed());
 }
 
-const gooseServeLeases = new GooseServeLeaseRegistry(log);
+const sauronServeLeases = new SauronServeLeaseRegistry(log);
 
 const windowPowerSaveBlockers = new Map<number, number>(); // windowId -> blockerId
 // Track pending initial messages per window
@@ -1044,8 +1056,8 @@ const createChat = async (
 
       if (response === 0) {
         updateSettings((s) => {
-          if (s.externalGoosed) {
-            s.externalGoosed.enabled = false;
+          if (s.externalSaurond) {
+            s.externalSaurond.enabled = false;
           }
         });
         return createChat(app, options);
@@ -1058,7 +1070,7 @@ const createChat = async (
 
   const serverSecret = externalBackend ? externalBackend.secret : GENERATED_SECRET;
   let workingDir = resolveWorkingDir(externalBackend?.workingDir, dir, os.homedir());
-  let gooseServeLease: GooseServeLease | null = null;
+  let sauronServeLease: SauronServeLease | null = null;
 
   if (externalBackend) {
     let externalCertificateTrust: BackendCertificateTrustRegistration | null = null;
@@ -1096,8 +1108,8 @@ const createChat = async (
 
         if (canDisableExternalBackend && response === 0) {
           updateSettings((s) => {
-            if (s.externalGoosed) {
-              s.externalGoosed.enabled = false;
+            if (s.externalSaurond) {
+              s.externalSaurond.enabled = false;
             }
           });
           return createChat(app, options);
@@ -1115,7 +1127,7 @@ const createChat = async (
       const originLease = leaseBackendOrigin(resolvedAcpUrl);
       const leaseCertificateTrust = externalCertificateTrust;
       externalCertificateTrust = null;
-      gooseServeLease = gooseServeLeases.createExternal(resolvedAcpUrl, serverSecret, async () => {
+      sauronServeLease = sauronServeLeases.createExternal(resolvedAcpUrl, serverSecret, async () => {
         originLease.release();
         leaseCertificateTrust?.release();
       });
@@ -1137,8 +1149,8 @@ const createChat = async (
 
       if (canDisableExternalBackend && response === 0) {
         updateSettings((s) => {
-          if (s.externalGoosed) {
-            s.externalGoosed.enabled = false;
+          if (s.externalSaurond) {
+            s.externalSaurond.enabled = false;
           }
         });
         return createChat(app, options);
@@ -1152,14 +1164,14 @@ const createChat = async (
 
     const loginShellPath = await getLoginShellPath(log);
 
-    let gooseServeResult: Awaited<ReturnType<typeof startGooseServe>>;
+    let sauronServeResult: Awaited<ReturnType<typeof startSauronServe>>;
     try {
-      gooseServeResult = await startGooseServe({
+      sauronServeResult = await startSauronServe({
         serverSecret,
         dir: workingDir,
         tls: true,
         env: {
-          GOOSE_PATH_ROOT: appConfig.GOOSE_PATH_ROOT as string | undefined,
+          SAURON_PATH_ROOT: appConfig.SAURON_PATH_ROOT as string | undefined,
         },
         loginShellPath,
         isPackaged: app.isPackaged,
@@ -1168,31 +1180,31 @@ const createChat = async (
         diagnosticsDir: STARTUP_LOGS_DIR,
         readinessFetch: net.fetch as unknown as typeof globalThis.fetch,
       });
-      if (!gooseServeResult.certFingerprint) {
-        await gooseServeResult.cleanup();
+      if (!sauronServeResult.certFingerprint) {
+        await sauronServeResult.cleanup();
         throw new Error(
-          'goose serve started with TLS but did not return a certificate fingerprint'
+          'sauron serve started with TLS but did not return a certificate fingerprint'
         );
       }
 
-      const localCertFingerprint = normalizeFingerprint(gooseServeResult.certFingerprint);
+      const localCertFingerprint = normalizeFingerprint(sauronServeResult.certFingerprint);
       if (
         localCertificateTrust.trust.fingerprint &&
         localCertificateTrust.trust.fingerprint !== localCertFingerprint
       ) {
-        await gooseServeResult.cleanup();
-        throw new Error('goose serve TLS certificate fingerprint did not match readiness probe');
+        await sauronServeResult.cleanup();
+        throw new Error('sauron serve TLS certificate fingerprint did not match readiness probe');
       }
       localCertificateTrust.trust.fingerprint = localCertFingerprint;
     } catch (error) {
       localCertificateTrust.release();
-      log.error('goose serve failed to start', error);
+      log.error('sauron serve failed to start', error);
       dialog.showMessageBoxSync({
         type: 'error',
-        title: 'Goose Failed to Start',
+        title: 'Sauron Failed to Start',
         message: 'The backend server failed to start.',
         detail: [
-          'Backend: goose serve',
+          'Backend: sauron serve',
           'Readiness check: HTTPS GET /status',
           `Startup error:\n${errorMessage(error)}`,
         ].join('\n\n'),
@@ -1202,26 +1214,26 @@ const createChat = async (
       return;
     }
 
-    workingDir = gooseServeResult.workingDir;
-    const cleanupGooseServe = gooseServeResult.cleanup;
-    gooseServeResult.cleanup = async () => {
+    workingDir = sauronServeResult.workingDir;
+    const cleanupSauronServe = sauronServeResult.cleanup;
+    sauronServeResult.cleanup = async () => {
       try {
-        await cleanupGooseServe();
+        await cleanupSauronServe();
       } finally {
         localCertificateTrust.release();
       }
     };
-    gooseServeLease = gooseServeLeases.create(gooseServeResult, serverSecret);
+    sauronServeLease = sauronServeLeases.create(sauronServeResult, serverSecret);
   }
 
-  const cleanupUnregisteredGooseServeLease = async () => {
-    if (!gooseServeLease) {
+  const cleanupUnregisteredSauronServeLease = async () => {
+    if (!sauronServeLease) {
       return;
     }
 
-    const lease = gooseServeLease;
-    gooseServeLease = null;
-    await gooseServeLeases.cleanupLease(lease);
+    const lease = sauronServeLease;
+    sauronServeLease = null;
+    await sauronServeLeases.cleanupLease(lease);
   };
 
   let mainWindowState: ReturnType<typeof windowStateKeeper>;
@@ -1259,13 +1271,13 @@ const createChat = async (
         additionalArguments: [
           JSON.stringify({
             ...appConfig,
-            GOOSE_LOCALE: getConfiguredGooseLocale(),
-            GOOSE_WORKING_DIR: workingDir,
-            GOOSE_EXTERNAL_BACKEND: externalBackend !== null,
-            GOOSE_EXTERNAL_BACKEND_URL: externalBackend?.url ?? '',
-            GOOSE_EXTERNAL_BACKEND_SOURCE: externalBackend?.source ?? '',
+            SAURON_LOCALE: getConfiguredSauronLocale(),
+            SAURON_WORKING_DIR: workingDir,
+            SAURON_EXTERNAL_BACKEND: externalBackend !== null,
+            SAURON_EXTERNAL_BACKEND_URL: externalBackend?.url ?? '',
+            SAURON_EXTERNAL_BACKEND_SOURCE: externalBackend?.source ?? '',
             REQUEST_DIR: dir,
-            GOOSE_VERSION: version,
+            SAURON_VERSION: version,
             recipeDeeplink: recipeDeeplink,
             recipeId: recipeId,
             recipeParameters: recipeParameters,
@@ -1276,21 +1288,21 @@ const createChat = async (
               process.env.SECURITY_COMMAND_CLASSIFIER_ENABLED_OVERRIDE,
           }),
         ],
-        partition: 'persist:goose',
+        partition: 'persist:sauron',
       },
     });
   } catch (error) {
-    await cleanupUnregisteredGooseServeLease();
+    await cleanupUnregisteredSauronServeLease();
     throw error;
   }
 
-  if (gooseServeLease) {
-    const lease = gooseServeLease;
+  if (sauronServeLease) {
+    const lease = sauronServeLease;
     mainWindow.once('closed', () => {
-      void gooseServeLeases.releaseWindow(mainWindow.id);
+      void sauronServeLeases.releaseWindow(mainWindow.id);
     });
-    gooseServeLeases.attachWindow(mainWindow.id, lease);
-    gooseServeLease = null;
+    sauronServeLeases.attachWindow(mainWindow.id, lease);
+    sauronServeLease = null;
   }
 
   if (!app.isPackaged) {
@@ -1369,7 +1381,7 @@ const createChat = async (
 
   // Handle new window creation for links (fallback for any links not handled by onClick)
   mainWindow.webContents.setWindowOpenHandler(({ url }) => {
-    void openExternalUrl(url, mainWindow, getConfiguredGooseLocale()).catch((error) => {
+    void openExternalUrl(url, mainWindow, getConfiguredSauronLocale()).catch((error) => {
       log.error('Failed to open external URL:', error);
     });
     return { action: 'deny' };
@@ -1380,7 +1392,7 @@ const createChat = async (
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   mainWindow.webContents.on('new-window' as any, function (event: any, url: string) {
     event.preventDefault();
-    void openExternalUrl(url, mainWindow, getConfiguredGooseLocale()).catch((error) => {
+    void openExternalUrl(url, mainWindow, getConfiguredSauronLocale()).catch((error) => {
       log.error('Failed to open external URL:', error);
     });
   });
@@ -1419,7 +1431,7 @@ const createChat = async (
     }
   }
 
-  // Goose's react app uses HashRouter, so the path + search params follow a #/
+  // Sauron's react app uses HashRouter, so the path + search params follow a #/
   url.hash = `${appPath}?${searchParams.toString()}`;
   let formattedUrl = formatUrl(url);
   log.info('Opening URL: ', formattedUrl);
@@ -1534,10 +1546,10 @@ const createLauncher = () => {
       additionalArguments: [
         JSON.stringify({
           ...appConfig,
-          GOOSE_LOCALE: getConfiguredGooseLocale(),
+          SAURON_LOCALE: getConfiguredSauronLocale(),
         }),
       ],
-      partition: 'persist:goose',
+      partition: 'persist:sauron',
     },
     skipTaskbar: true,
     alwaysOnTop: true,
@@ -1691,7 +1703,7 @@ const openDirectoryDialog = async (): Promise<OpenDialogReturnValue> => {
   if (currentWindow) {
     try {
       const currentWorkingDir = await currentWindow.webContents.executeJavaScript(
-        `window.appConfig ? window.appConfig.get('GOOSE_WORKING_DIR') : null`
+        `window.appConfig ? window.appConfig.get('SAURON_WORKING_DIR') : null`
       );
 
       if (currentWorkingDir && typeof currentWorkingDir === 'string') {
@@ -1884,7 +1896,7 @@ ipcMain.on('react-ready', (event) => {
 
 ipcMain.handle('open-external', async (event, url: string) => {
   const senderWindow = BrowserWindow.fromWebContents(event.sender) ?? undefined;
-  return openExternalUrl(url, senderWindow, getConfiguredGooseLocale());
+  return openExternalUrl(url, senderWindow, getConfiguredSauronLocale());
 });
 
 ipcMain.handle('directory-chooser', async () => {
@@ -1920,17 +1932,19 @@ const validSettingKeys: Set<string> = new Set([
   'enableWakelock',
   'enableNotifications',
   'spellcheckEnabled',
-  'externalGoosed',
+  'externalSaurond',
   'globalShortcut',
   'keyboardShortcuts',
   'theme',
   'useSystemTheme',
+  'fontSize',
   'language',
   'responseStyle',
   'showPricing',
   'seenAnnouncementIds',
   'disableAutoDownload',
   'recentModels',
+  'preferredModels',
   'useLegacyAgentLoop',
 ]);
 
@@ -1946,13 +1960,18 @@ ipcMain.handle('set-setting', (_event, key: SettingKey, value: unknown) => {
     return;
   }
 
+  if (key === 'fontSize' && !isValidFontSizeSetting(value)) {
+    console.error(`Invalid font size rejected: ${String(value)}`);
+    return;
+  }
+
   const settings = getSettings();
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   (settings as any)[key] = value;
   fsSync.writeFileSync(SETTINGS_FILE, JSON.stringify(settings, null, 2));
 
   if (key === 'language') {
-    appConfig.GOOSE_LOCALE = getConfiguredGooseLocale();
+    appConfig.SAURON_LOCALE = getConfiguredSauronLocale();
   }
 
   // Re-register shortcuts if keyboard shortcuts changed
@@ -1970,7 +1989,7 @@ ipcMain.handle('get-secret-key', (event) => {
   if (!windowId) {
     return null;
   }
-  return gooseServeLeases.getSecretKey(windowId) ?? null;
+  return sauronServeLeases.getSecretKey(windowId) ?? null;
 });
 
 ipcMain.handle('get-acp-url', async (event) => {
@@ -1978,7 +1997,7 @@ ipcMain.handle('get-acp-url', async (event) => {
   if (!windowId) {
     return null;
   }
-  return gooseServeLeases.getAcpUrl(windowId) ?? null;
+  return sauronServeLeases.getAcpUrl(windowId) ?? null;
 });
 
 // Handle menu bar icon visibility
@@ -2192,10 +2211,10 @@ ipcMain.handle('select-file-or-directory', async (_event, defaultPath?: string) 
 
 ipcMain.handle('select-recipe-file', async (event) => {
   const senderWindow = requireRegularRendererWindow(event);
-  const pathRoot = appConfig.GOOSE_PATH_ROOT as string | undefined;
+  const pathRoot = appConfig.SAURON_PATH_ROOT as string | undefined;
   const recipeDirectory = pathRoot
     ? path.join(pathRoot, 'config', 'recipes')
-    : path.join(os.homedir(), '.config', 'goose', 'recipes');
+    : path.join(os.homedir(), '.config', 'sauron', 'recipes');
   let defaultPath = os.homedir();
   try {
     if ((await fs.stat(recipeDirectory)).isDirectory()) {
@@ -2217,14 +2236,14 @@ ipcMain.handle('select-recipe-file', async (event) => {
   return readSelectedRecipe(result.filePaths[0]);
 });
 
-ipcMain.handle('read-goosehints', async (event) => {
+ipcMain.handle('read-sauronhints', async (event) => {
   const senderWindow = requireRegularRendererWindow(event);
-  return desktopFileAccess.readGoosehints(senderWindow.id);
+  return desktopFileAccess.readSauronhints(senderWindow.id);
 });
 
-ipcMain.handle('write-goosehints', async (event, content) => {
+ipcMain.handle('write-sauronhints', async (event, content) => {
   const senderWindow = requireRegularRendererWindow(event);
-  return desktopFileAccess.writeGoosehints(senderWindow.id, content);
+  return desktopFileAccess.writeSauronhints(senderWindow.id, content);
 });
 
 // Native picker tailored for session imports: shows hidden files (so users can
@@ -2308,6 +2327,48 @@ ipcMain.handle('check-ollama', async () => {
     return false;
   }
 });
+
+async function postGitHubDeviceFlow(
+  url: string,
+  params: Record<string, string>
+): Promise<Response> {
+  return fetch(url, {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'User-Agent': 'Sauron',
+    },
+    body: new URLSearchParams(params).toString(),
+  });
+}
+
+// GitHub device flow runs here (main process) because github.com does not send
+// CORS headers, so the renderer cannot call these endpoints directly.
+ipcMain.handle('github-device-start', async (): Promise<GitHubDeviceCode> => {
+  const response = await postGitHubDeviceFlow(GITHUB_DEVICE_CODE_URL, {
+    client_id: GITHUB_CLIENT_ID,
+    scope: GITHUB_SIGN_IN_SCOPES,
+  });
+  const body: unknown = await response.json().catch(() => null);
+  return parseGitHubDeviceCode(response.status, body);
+});
+
+ipcMain.handle(
+  'github-device-poll',
+  async (_event, deviceCode: string): Promise<GitHubTokenPollResult> => {
+    if (typeof deviceCode !== 'string' || deviceCode.length === 0) {
+      return { status: 'error', error: 'incorrect_device_code' };
+    }
+    const response = await postGitHubDeviceFlow(GITHUB_ACCESS_TOKEN_URL, {
+      client_id: GITHUB_CLIENT_ID,
+      device_code: deviceCode,
+      grant_type: GITHUB_DEVICE_GRANT_TYPE,
+    });
+    const body: unknown = await response.json().catch(() => null);
+    return classifyGitHubTokenResponse(response.status, body);
+  }
+);
 
 ipcMain.handle('write-file', async (_event, filePath, content) => {
   try {
@@ -2417,7 +2478,7 @@ async function appMain() {
     }
   });
 
-  const rendererSession = session.fromPartition('persist:goose');
+  const rendererSession = session.fromPartition('persist:sauron');
   await configureProxy(session.defaultSession, rendererSession);
 
   // Ensure Windows shims are available before any MCP processes are spawned
@@ -2518,7 +2579,7 @@ async function appMain() {
 
   const shortcuts = getKeyboardShortcuts(settings);
 
-  const appMenu = menu?.items.find((item) => item.label === 'Goose');
+  const appMenu = menu?.items.find((item) => item.label === 'Sauron');
   if (appMenu?.submenu) {
     appMenu.submenu.insert(1, new MenuItem({ type: 'separator' }));
     if (shortcuts.settings) {
@@ -2646,7 +2707,7 @@ async function appMain() {
     if (shortcuts.focusWindow) {
       fileMenu.submenu.append(
         new MenuItem({
-          label: menuT('Focus Goose Window'),
+          label: menuT('Focus Sauron Window'),
           accelerator: shortcuts.focusWindow,
           click() {
             focusWindow();
@@ -2753,15 +2814,15 @@ async function appMain() {
         helpMenu.submenu.append(new MenuItem({ type: 'separator' }));
       }
 
-      // Create the About Goose menu item with a submenu
-      const aboutGooseMenuItem = new MenuItem({
-        label: menuT('About Goose'),
+      // Create the About Sauron menu item with a submenu
+      const aboutSauronMenuItem = new MenuItem({
+        label: menuT('About Sauron'),
         submenu: Menu.buildFromTemplate([]), // Start with an empty submenu for About
       });
 
-      // Add the Version menu item (display only) to the About Goose submenu
-      if (aboutGooseMenuItem.submenu) {
-        aboutGooseMenuItem.submenu.append(
+      // Add the Version menu item (display only) to the About Sauron submenu
+      if (aboutSauronMenuItem.submenu) {
+        aboutSauronMenuItem.submenu.append(
           new MenuItem({
             label: `Version ${version || app.getVersion()}`,
             enabled: false,
@@ -2769,7 +2830,7 @@ async function appMain() {
         );
       }
 
-      helpMenu.submenu.append(aboutGooseMenuItem);
+      helpMenu.submenu.append(aboutSauronMenuItem);
     }
   }
 
@@ -2916,6 +2977,22 @@ async function appMain() {
     });
   });
 
+  ipcMain.on('broadcast-font-size-change', (event, fontSize) => {
+    if (!isValidFontSizeSetting(fontSize)) {
+      console.error(`Invalid font size broadcast rejected: ${String(fontSize)}`);
+      return;
+    }
+
+    const senderWindow = BrowserWindow.fromWebContents(event.sender);
+    const allWindows = BrowserWindow.getAllWindows();
+
+    allWindows.forEach((window) => {
+      if (window.id !== senderWindow?.id) {
+        window.webContents.send('font-size-changed', fontSize);
+      }
+    });
+  });
+
   ipcMain.on('reload-app', (event) => {
     // Get the window that sent the event
     const window = BrowserWindow.fromWebContents(event.sender);
@@ -2962,7 +3039,7 @@ async function appMain() {
   });
 
   ipcMain.on('get-app-locale', (event) => {
-    event.returnValue = getConfiguredGooseLocale();
+    event.returnValue = getConfiguredSauronLocale();
   });
 
   ipcMain.handle('open-directory-in-explorer', async (_event, path: string) => {
@@ -2974,9 +3051,9 @@ async function appMain() {
     }
   });
 
-  ipcMain.handle('launch-app', async (event, gooseApp: GooseApp) => {
+  ipcMain.handle('launch-app', async (event, sauronApp: SauronApp) => {
     try {
-      if (isRetiredGooseChatApp(gooseApp)) {
+      if (isRetiredSauronChatApp(sauronApp)) {
         throw new Error('This built-in Chat app is no longer supported.');
       }
 
@@ -2986,13 +3063,13 @@ async function appMain() {
       }
 
       const launchingWindowId = launchingWindow.id;
-      const launchingGooseServeLease = gooseServeLeases.get(launchingWindowId);
-      if (!launchingGooseServeLease) {
+      const launchingSauronServeLease = sauronServeLeases.get(launchingWindowId);
+      if (!launchingSauronServeLease) {
         throw new Error('No backend lease found for launching window');
       }
 
       const launchingWorkingDir = await launchingWindow.webContents
-        .executeJavaScript(`window.appConfig ? window.appConfig.get('GOOSE_WORKING_DIR') : null`)
+        .executeJavaScript(`window.appConfig ? window.appConfig.get('SAURON_WORKING_DIR') : null`)
         .catch((error) => {
           console.warn('Failed to get working directory from launching window:', error);
           return undefined;
@@ -3003,10 +3080,10 @@ async function appMain() {
         app.getPath('home')
       );
       const appWindow = new BrowserWindow({
-        title: formatAppName(gooseApp.name),
-        width: gooseApp.width ?? 800,
-        height: gooseApp.height ?? 600,
-        resizable: gooseApp.resizable ?? true,
+        title: formatAppName(sauronApp.name),
+        width: sauronApp.width ?? 800,
+        height: sauronApp.height ?? 600,
+        resizable: sauronApp.resizable ?? true,
         useContentSize: true,
         webPreferences: {
           preload: path.join(__dirname, 'preload.js'),
@@ -3016,32 +3093,32 @@ async function appMain() {
           additionalArguments: [
             JSON.stringify({
               ...appConfig,
-              GOOSE_LOCALE: getConfiguredGooseLocale(),
-              GOOSE_WORKING_DIR: workingDir,
-              GOOSE_VERSION: version,
+              SAURON_LOCALE: getConfiguredSauronLocale(),
+              SAURON_WORKING_DIR: workingDir,
+              SAURON_VERSION: version,
             }),
           ],
-          partition: 'persist:goose',
+          partition: 'persist:sauron',
         },
       });
 
-      gooseServeLeases.attachWindow(appWindow.id, launchingGooseServeLease);
+      sauronServeLeases.attachWindow(appWindow.id, launchingSauronServeLease);
 
-      appWindows.set(gooseApp.name, appWindow);
+      appWindows.set(sauronApp.name, appWindow);
 
       appWindow.on('closed', () => {
-        void gooseServeLeases.releaseWindow(appWindow.id);
-        appWindows.delete(gooseApp.name);
+        void sauronServeLeases.releaseWindow(appWindow.id);
+        appWindows.delete(sauronApp.name);
       });
 
-      const extensionName = gooseApp.mcpServers?.[0] ?? '';
+      const extensionName = sauronApp.mcpServers?.[0] ?? '';
 
       const url = getAppUrl();
 
       const searchParams = new URLSearchParams();
-      searchParams.set('resourceUri', gooseApp.uri);
+      searchParams.set('resourceUri', sauronApp.uri);
       searchParams.set('extensionName', extensionName);
-      searchParams.set('appName', gooseApp.name);
+      searchParams.set('appName', sauronApp.name);
       searchParams.set('workingDir', workingDir);
 
       url.hash = `/standalone-app?${searchParams.toString()}`;
@@ -3053,11 +3130,11 @@ async function appMain() {
     }
   });
 
-  ipcMain.handle('refresh-app', async (_event, gooseApp: GooseApp) => {
+  ipcMain.handle('refresh-app', async (_event, sauronApp: SauronApp) => {
     try {
-      const appWindow = appWindows.get(gooseApp.name);
+      const appWindow = appWindows.get(sauronApp.name);
       if (!appWindow || appWindow.isDestroyed()) {
-        console.log(`App window for '${gooseApp.name}' not found or destroyed, skipping refresh`);
+        console.log(`App window for '${sauronApp.name}' not found or destroyed, skipping refresh`);
         return;
       }
 
@@ -3096,17 +3173,17 @@ app.whenReady().then(async () => {
   try {
     await appMain();
   } catch (error) {
-    dialog.showErrorBox('Goose Error', `Failed to create main window: ${error}`);
+    dialog.showErrorBox('Sauron Error', `Failed to create main window: ${error}`);
     app.quit();
   }
 });
 
 async function getAllowList(): Promise<string[]> {
-  if (!process.env.GOOSE_ALLOWLIST) {
+  if (!process.env.SAURON_ALLOWLIST) {
     return [];
   }
 
-  const response = await fetch(process.env.GOOSE_ALLOWLIST);
+  const response = await fetch(process.env.SAURON_ALLOWLIST);
 
   if (!response.ok) {
     throw new Error(
@@ -3132,10 +3209,10 @@ async function getAllowList(): Promise<string[]> {
 }
 
 app.on('will-quit', async () => {
-  const gooseServeLeaseCount = gooseServeLeases.activeLeaseCount();
-  if (gooseServeLeaseCount > 0) {
-    log.info(`App quitting, cleaning up ${gooseServeLeaseCount} backend lease(s)`);
-    await gooseServeLeases.cleanupAll();
+  const sauronServeLeaseCount = sauronServeLeases.activeLeaseCount();
+  if (sauronServeLeaseCount > 0) {
+    log.info(`App quitting, cleaning up ${sauronServeLeaseCount} backend lease(s)`);
+    await sauronServeLeases.cleanupAll();
   }
 
   for (const [windowId, blockerId] of windowPowerSaveBlockers.entries()) {

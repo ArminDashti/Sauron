@@ -8,7 +8,8 @@ import { getInitialWorkingDir } from '../../../utils/workingDir';
 import { errorMessage } from '../../../utils/conversionUtils';
 import { defineMessages, useIntl } from '../../../i18n';
 import type { View } from '../../../utils/navigationUtils';
-import type { SourceEntry } from '@aaif/goose-acp-client';
+import type { SourceEntry } from '@aaif/sauron-acp-client';
+import { iconColor } from '../../../theme/iconColors';
 
 const i18n = defineMessages({
   title: {
@@ -145,7 +146,11 @@ export default function PluginsSettingsSection({ setView }: PluginsSettingsSecti
       ) : plugins.length === 0 ? (
         <Card className="rounded-lg">
           <CardContent className="flex items-start gap-3 px-4 py-4">
-            <Package className="mt-0.5 h-5 w-5 text-text-secondary" aria-hidden="true" />
+            <Package
+              className="mt-0.5 h-5 w-5"
+              style={{ color: iconColor('plugins') }}
+              aria-hidden="true"
+            />
             <div>
               <p className="text-sm text-text-primary">{intl.formatMessage(i18n.empty)}</p>
               <p className="mt-1 text-xs text-text-secondary">
@@ -159,7 +164,11 @@ export default function PluginsSettingsSection({ setView }: PluginsSettingsSecti
           <Card key={plugin} className="rounded-lg" data-testid={`plugins-section-${plugin}`}>
             <CardHeader className="pb-0">
               <CardTitle className="flex items-center gap-2 text-base">
-                <Package className="h-4 w-4 text-text-secondary" aria-hidden="true" />
+                <Package
+                  className="h-4 w-4"
+                  style={{ color: iconColor('plugins') }}
+                  aria-hidden="true"
+                />
                 {plugin}
               </CardTitle>
               <CardDescription>
