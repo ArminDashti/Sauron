@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router';
-import { AlertCircle, Check, Loader2, RefreshCw } from 'lucide-react';
+import { AlertCircle, Check, Loader2, RefreshCw, Star } from 'lucide-react';
 import { Button } from '../../ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../ui/card';
 import {
@@ -10,6 +10,12 @@ import {
   acpSaveDefaults,
 } from '../../../acp/providers';
 import type { ProviderDetails } from '../../../types/providers';
+import type { RecentModel } from '../../../utils/settings';
+import {
+  addPreferredModel,
+  isPreferredModel,
+  removePreferredModel,
+} from '../../../utils/preferredModels';
 import { defineMessages, useIntl } from '../../../i18n';
 import { errorMessage } from '../../../utils/conversionUtils';
 import { toastError, toastSuccess } from '../../../toasts';
@@ -72,13 +78,33 @@ const i18n = defineMessages({
     id: 'allProviderModels.refreshFailed',
     defaultMessage: 'Could not refresh {provider}: {error}',
   },
+  addPreferred: {
+    id: 'allProviderModels.addPreferred',
+    defaultMessage: 'Add {model} to preferred models',
+  },
+  removePreferred: {
+    id: 'allProviderModels.removePreferred',
+    defaultMessage: 'Remove {model} from preferred models',
+  },
+  preferredUpdateFailed: {
+    id: 'allProviderModels.preferredUpdateFailed',
+    defaultMessage: 'Failed to update preferred models',
+  },
 });
 
 /**
  * Aggregates the model inventory of every activated provider so the Models
  * section shows all selectable models in one place.
  */
-export default function AllProviderModels() {
+interface AllProviderModelsProps {
+  preferredModels: RecentModel[];
+  onPreferredModelsChange: (next: RecentModel[]) => void;
+}
+
+export default function AllProviderModels({
+  preferredModels,
+  onPreferredModelsChange,
+}: AllProviderModelsProps) {
   const intl = useIntl();
   const navigate = useNavigate();
   const [providers, setProviders] = useState<ProviderDetails[]>([]);
@@ -159,6 +185,25 @@ export default function AllProviderModels() {
       }
     },
     [intl]
+  );
+
+  const handleTogglePreferred = useCallback(
+    async (provider: ProviderDetails, model: string) => {
+      const isPreferred = isPreferredModel(preferredModels, provider.name, model);
+      const next = isPreferred
+        ? removePreferredModel(preferredModels, provider.name, model)
+        : addPreferredModel(preferredModels, provider.name, model);
+      try {
+        await window.electron.setSetting('preferredModels', next);
+        onPreferredModelsChange(next);
+      } catch (error) {
+        toastError({
+          title: intl.formatMessage(i18n.preferredUpdateFailed),
+          msg: errorMessage(error),
+        });
+      }
+    },
+    [preferredModels, onPreferredModelsChange, intl]
   );
 
   const totalModels = useMemo(
@@ -255,26 +300,54 @@ export default function AllProviderModels() {
                     <div className="mt-2 flex flex-wrap gap-1.5">
                       {models.map((model) => {
                         const isCurrent = isCurrentProvider && defaults.modelId === model.name;
+                        const isPreferred = isPreferredModel(
+                          preferredModels,
+                          provider.name,
+                          model.name
+                        );
                         return (
-                          <button
+                          <div
                             key={model.name}
-                            type="button"
-                            onClick={() => handleSelectModel(provider, model.name)}
-                            title={
-                              model.context_limit
-                                ? `${model.name} (${Math.round(model.context_limit / 1024)}k context)`
-                                : model.name
-                            }
-                            aria-pressed={isCurrent}
-                            className={`inline-flex items-center gap-1 rounded-full border px-2.5 py-1 text-xs transition-colors ${
+                            className={`inline-flex items-center rounded-full border transition-colors ${
                               isCurrent
                                 ? 'border-text-inverse bg-background-inverse text-text-inverse'
                                 : 'border-border-primary bg-background-secondary text-text-primary hover:border-border-secondary hover:bg-background-tertiary'
                             }`}
                           >
-                            {isCurrent && <Check className="h-3 w-3" aria-hidden="true" />}
-                            {model.name}
-                          </button>
+                            <button
+                              type="button"
+                              onClick={() => handleSelectModel(provider, model.name)}
+                              title={
+                                model.context_limit
+                                  ? `${model.name} (${Math.round(model.context_limit / 1024)}k context)`
+                                  : model.name
+                              }
+                              aria-pressed={isCurrent}
+                              className="inline-flex items-center gap-1 px-2.5 py-1 text-xs"
+                            >
+                              {isCurrent && <Check className="h-3 w-3" aria-hidden="true" />}
+                              {model.name}
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => void handleTogglePreferred(provider, model.name)}
+                              aria-label={intl.formatMessage(
+                                isPreferred ? i18n.removePreferred : i18n.addPreferred,
+                                { model: model.name }
+                              )}
+                              aria-pressed={isPreferred}
+                              className={`px-1.5 py-1 transition-colors ${
+                                isPreferred
+                                  ? 'text-amber-500 hover:text-amber-600'
+                                  : 'text-text-secondary opacity-60 hover:opacity-100'
+                              }`}
+                            >
+                              <Star
+                                className={`h-3 w-3 ${isPreferred ? 'fill-current' : ''}`}
+                                aria-hidden="true"
+                              />
+                            </button>
+                          </div>
                         );
                       })}
                     </div>

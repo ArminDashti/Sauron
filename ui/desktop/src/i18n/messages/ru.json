@@ -8,6 +8,9 @@
   "alertBox.failedToSaveThreshold": {
     "defaultMessage": "Не удалось сохранить пороговое значение: {error}"
   },
+  "allProviderModels.addPreferred": {
+    "defaultMessage": "Добавить {model} в предпочтительные модели"
+  },
   "announcementModal.gotIt": {
     "defaultMessage": "Понятно!"
   },
@@ -1379,15 +1382,6 @@
   "headersSection.value": {
     "defaultMessage": "Значение"
   },
-  "hub.goodAfternoon": {
-    "defaultMessage": "Добрый день"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "Добрый вечер"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "Доброе утро"
-  },
   "hubView.description": {
     "defaultMessage": "Ищите навыки и MCP-серверы из различных источников."
   },
@@ -2359,6 +2353,9 @@
   },
   "modelsBottomBar.localModelSettingsTitle": {
     "defaultMessage": "Настройки локальной модели — {modelName}"
+  },
+  "modelsBottomBar.preferredModels": {
+    "defaultMessage": "Избранные"
   },
   "modelsBottomBar.resolvedModel": {
     "defaultMessage": "Разрешенная модель"
@@ -4850,6 +4847,9 @@
   "allProviderModels.noModels": {
     "defaultMessage": "No models reported by this provider."
   },
+  "allProviderModels.preferredUpdateFailed": {
+    "defaultMessage": "Не удалось обновить предпочтительные модели"
+  },
   "allProviderModels.refreshAll": {
     "defaultMessage": "Refresh models"
   },
@@ -4858,6 +4858,9 @@
   },
   "allProviderModels.refreshing": {
     "defaultMessage": "Refreshing..."
+  },
+  "allProviderModels.removePreferred": {
+    "defaultMessage": "Убрать {model} из предпочтительных моделей"
   },
   "allProviderModels.title": {
     "defaultMessage": "Models from your providers"
@@ -4897,6 +4900,18 @@
   },
   "pluginsSettings.title": {
     "defaultMessage": "Plugins"
+  },
+  "preferredModels.empty": {
+    "defaultMessage": "Отметьте модели звёздой ниже, чтобы они всегда были под рукой здесь и в чатах."
+  },
+  "preferredModels.remove": {
+    "defaultMessage": "Убрать {model} из предпочтительных моделей"
+  },
+  "preferredModels.removeFailed": {
+    "defaultMessage": "Не удалось обновить предпочтительные modelos"
+  },
+  "preferredModels.title": {
+    "defaultMessage": "Предпочтительные модели"
   },
   "providersSection.resetDescription": {
     "defaultMessage": "Clear your selected model and provider settings to start fresh"

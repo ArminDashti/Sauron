@@ -8,6 +8,9 @@
   "alertBox.failedToSaveThreshold": {
     "defaultMessage": "無法儲存閾值：{error}"
   },
+  "allProviderModels.addPreferred": {
+    "defaultMessage": "將 {model} 加入偏好模型"
+  },
   "announcementModal.gotIt": {
     "defaultMessage": "知道了！"
   },
@@ -1379,15 +1382,6 @@
   "headersSection.value": {
     "defaultMessage": "值"
   },
-  "hub.goodAfternoon": {
-    "defaultMessage": "午安"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "晚安"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "早安"
-  },
   "hubView.description": {
     "defaultMessage": "從各種來源尋找技能和 MCP 伺服器。"
   },
@@ -2359,6 +2353,9 @@
   },
   "modelsBottomBar.localModelSettingsTitle": {
     "defaultMessage": "本機模型設定 — {modelName}"
+  },
+  "modelsBottomBar.preferredModels": {
+    "defaultMessage": "偏好"
   },
   "modelsBottomBar.resolvedModel": {
     "defaultMessage": "已解析的模型"
@@ -4850,6 +4847,9 @@
   "allProviderModels.noModels": {
     "defaultMessage": "No models reported by this provider."
   },
+  "allProviderModels.preferredUpdateFailed": {
+    "defaultMessage": "無法更新偏好模型"
+  },
   "allProviderModels.refreshAll": {
     "defaultMessage": "Refresh models"
   },
@@ -4858,6 +4858,9 @@
   },
   "allProviderModels.refreshing": {
     "defaultMessage": "Refreshing..."
+  },
+  "allProviderModels.removePreferred": {
+    "defaultMessage": "將 {model} 從偏好模型移除"
   },
   "allProviderModels.title": {
     "defaultMessage": "Models from your providers"
@@ -4897,6 +4900,18 @@
   },
   "pluginsSettings.title": {
     "defaultMessage": "Plugins"
+  },
+  "preferredModels.empty": {
+    "defaultMessage": "為下方模型加上星號，即可在此及聊天中隨時使用。"
+  },
+  "preferredModels.remove": {
+    "defaultMessage": "將 {model} 從偏好模型移除"
+  },
+  "preferredModels.removeFailed": {
+    "defaultMessage": "無法更新偏好模型"
+  },
+  "preferredModels.title": {
+    "defaultMessage": "偏好模型"
   },
   "providersSection.resetDescription": {
     "defaultMessage": "Clear your selected model and provider settings to start fresh"

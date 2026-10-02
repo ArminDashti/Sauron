@@ -8,6 +8,9 @@
   "alertBox.failedToSaveThreshold": {
     "defaultMessage": "Schwellenwert konnte nicht gespeichert werden: {error}"
   },
+  "allProviderModels.addPreferred": {
+    "defaultMessage": "{model} zu den bevorzugten Modellen hinzufügen"
+  },
   "announcementModal.gotIt": {
     "defaultMessage": "Verstanden!"
   },
@@ -1379,15 +1382,6 @@
   "headersSection.value": {
     "defaultMessage": "Wert"
   },
-  "hub.goodAfternoon": {
-    "defaultMessage": "Guten Tag"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "Guten Abend"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "Guten Morgen"
-  },
   "hubView.description": {
     "defaultMessage": "Entdecke Skills und MCP-Server aus verschiedenen Quellen."
   },
@@ -2359,6 +2353,9 @@
   },
   "modelsBottomBar.localModelSettingsTitle": {
     "defaultMessage": "Lokale Modelleinstellungen — {modelName}"
+  },
+  "modelsBottomBar.preferredModels": {
+    "defaultMessage": "Bevorzugt"
   },
   "modelsBottomBar.resolvedModel": {
     "defaultMessage": "Aufgelöstes Modell"
@@ -4850,6 +4847,9 @@
   "allProviderModels.noModels": {
     "defaultMessage": "No models reported by this provider."
   },
+  "allProviderModels.preferredUpdateFailed": {
+    "defaultMessage": "Bevorzugte Modelle konnten nicht aktualisiert werden"
+  },
   "allProviderModels.refreshAll": {
     "defaultMessage": "Refresh models"
   },
@@ -4858,6 +4858,9 @@
   },
   "allProviderModels.refreshing": {
     "defaultMessage": "Refreshing..."
+  },
+  "allProviderModels.removePreferred": {
+    "defaultMessage": "{model} aus den bevorzugten Modellen entfernen"
   },
   "allProviderModels.title": {
     "defaultMessage": "Models from your providers"
@@ -4897,6 +4900,18 @@
   },
   "pluginsSettings.title": {
     "defaultMessage": "Plugins"
+  },
+  "preferredModels.empty": {
+    "defaultMessage": "Markieren Sie unten Modelle mit einem Stern, um sie hier und in Chats griffbereit zu halten."
+  },
+  "preferredModels.remove": {
+    "defaultMessage": "{model} aus den bevorzugten Modellen entfernen"
+  },
+  "preferredModels.removeFailed": {
+    "defaultMessage": "Bevorzugte Modelle konnten nicht aktualisiert werden"
+  },
+  "preferredModels.title": {
+    "defaultMessage": "Bevorzugte Modelle"
   },
   "providersSection.resetDescription": {
     "defaultMessage": "Clear your selected model and provider settings to start fresh"

@@ -8,6 +8,9 @@
   "alertBox.failedToSaveThreshold": {
     "defaultMessage": "Không thể lưu ngưỡng: {error}"
   },
+  "allProviderModels.addPreferred": {
+    "defaultMessage": "Thêm {model} vào mô hình yêu thích"
+  },
   "announcementModal.gotIt": {
     "defaultMessage": "Đã hiểu!"
   },
@@ -1379,15 +1382,6 @@
   "headersSection.value": {
     "defaultMessage": "Giá trị"
   },
-  "hub.goodAfternoon": {
-    "defaultMessage": "Chào buổi chiều"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "Chào buổi tối"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "Chào buổi sáng"
-  },
   "hubView.description": {
     "defaultMessage": "Khám phá Skills và máy chủ MCP từ nhiều nguồn khác nhau."
   },
@@ -2359,6 +2353,9 @@
   },
   "modelsBottomBar.localModelSettingsTitle": {
     "defaultMessage": "Cài đặt mô hình cục bộ — {modelName}"
+  },
+  "modelsBottomBar.preferredModels": {
+    "defaultMessage": "Yêu thích"
   },
   "modelsBottomBar.resolvedModel": {
     "defaultMessage": "Mô hình đã phân giải"
@@ -4850,6 +4847,9 @@
   "allProviderModels.noModels": {
     "defaultMessage": "No models reported by this provider."
   },
+  "allProviderModels.preferredUpdateFailed": {
+    "defaultMessage": "Không thể cập nhật mô hình yêu thích"
+  },
   "allProviderModels.refreshAll": {
     "defaultMessage": "Refresh models"
   },
@@ -4858,6 +4858,9 @@
   },
   "allProviderModels.refreshing": {
     "defaultMessage": "Refreshing..."
+  },
+  "allProviderModels.removePreferred": {
+    "defaultMessage": "Bỏ {model} khỏi mô hình yêu thích"
   },
   "allProviderModels.title": {
     "defaultMessage": "Models from your providers"
@@ -4897,6 +4900,18 @@
   },
   "pluginsSettings.title": {
     "defaultMessage": "Plugins"
+  },
+  "preferredModels.empty": {
+    "defaultMessage": "Đánh dấu sao cho các mô hình bên dưới để dùng nhanh ở đây và trong chat."
+  },
+  "preferredModels.remove": {
+    "defaultMessage": "Bỏ {model} khỏi mô hình yêu thích"
+  },
+  "preferredModels.removeFailed": {
+    "defaultMessage": "Không thể cập nhật mô hình yêu thích"
+  },
+  "preferredModels.title": {
+    "defaultMessage": "Mô hình yêu thích"
   },
   "providersSection.resetDescription": {
     "defaultMessage": "Clear your selected model and provider settings to start fresh"

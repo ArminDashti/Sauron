@@ -8,6 +8,9 @@
   "alertBox.failedToSaveThreshold": {
     "defaultMessage": "しきい値の保存に失敗しました: {error}"
   },
+  "allProviderModels.addPreferred": {
+    "defaultMessage": "{model} を優先モデルに追加"
+  },
   "announcementModal.gotIt": {
     "defaultMessage": "了解しました"
   },
@@ -1379,15 +1382,6 @@
   "headersSection.value": {
     "defaultMessage": "値"
   },
-  "hub.goodAfternoon": {
-    "defaultMessage": "こんにちは"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "こんばんは"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "おはようございます"
-  },
   "hubView.description": {
     "defaultMessage": "さまざまなソースからスキルとMCPサーバーを見つける。"
   },
@@ -2359,6 +2353,9 @@
   },
   "modelsBottomBar.localModelSettingsTitle": {
     "defaultMessage": "ローカルモデル設定 — {modelName}"
+  },
+  "modelsBottomBar.preferredModels": {
+    "defaultMessage": "優先"
   },
   "modelsBottomBar.resolvedModel": {
     "defaultMessage": "解決済みモデル"
@@ -4850,6 +4847,9 @@
   "allProviderModels.noModels": {
     "defaultMessage": "No models reported by this provider."
   },
+  "allProviderModels.preferredUpdateFailed": {
+    "defaultMessage": "優先モデルを更新できませんでした"
+  },
   "allProviderModels.refreshAll": {
     "defaultMessage": "Refresh models"
   },
@@ -4858,6 +4858,9 @@
   },
   "allProviderModels.refreshing": {
     "defaultMessage": "Refreshing..."
+  },
+  "allProviderModels.removePreferred": {
+    "defaultMessage": "{model} を優先モデルから削除"
   },
   "allProviderModels.title": {
     "defaultMessage": "Models from your providers"
@@ -4897,6 +4900,18 @@
   },
   "pluginsSettings.title": {
     "defaultMessage": "Plugins"
+  },
+  "preferredModels.empty": {
+    "defaultMessage": "下のモデルに星を付けると、ここやチャットでいつでも使いやすくなります。"
+  },
+  "preferredModels.remove": {
+    "defaultMessage": "{model} を優先モデルから削除"
+  },
+  "preferredModels.removeFailed": {
+    "defaultMessage": "優先モデルを更新できませんでした"
+  },
+  "preferredModels.title": {
+    "defaultMessage": "優先モデル"
   },
   "providersSection.resetDescription": {
     "defaultMessage": "Clear your selected model and provider settings to start fresh"

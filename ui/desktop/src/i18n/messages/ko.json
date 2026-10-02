@@ -8,6 +8,9 @@
   "alertBox.failedToSaveThreshold": {
     "defaultMessage": "임계값 저장 실패: {error}"
   },
+  "allProviderModels.addPreferred": {
+    "defaultMessage": "{model}을 선호 모델에 추가"
+  },
   "announcementModal.gotIt": {
     "defaultMessage": "알았어요!"
   },
@@ -1379,15 +1382,6 @@
   "headersSection.value": {
     "defaultMessage": "값"
   },
-  "hub.goodAfternoon": {
-    "defaultMessage": "좋은 오후예요"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "좋은 저녁이에요"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "좋은 아침이에요"
-  },
   "hubView.description": {
     "defaultMessage": "다양한 소스에서 스킬과 MCP 서버를 찾아보세요."
   },
@@ -2359,6 +2353,9 @@
   },
   "modelsBottomBar.localModelSettingsTitle": {
     "defaultMessage": "로컬 모델 설정 — {modelName}"
+  },
+  "modelsBottomBar.preferredModels": {
+    "defaultMessage": "선호"
   },
   "modelsBottomBar.resolvedModel": {
     "defaultMessage": "확인된 모델"
@@ -4850,6 +4847,9 @@
   "allProviderModels.noModels": {
     "defaultMessage": "No models reported by this provider."
   },
+  "allProviderModels.preferredUpdateFailed": {
+    "defaultMessage": "선호 모델을 업데이트하지 못했습니다"
+  },
   "allProviderModels.refreshAll": {
     "defaultMessage": "Refresh models"
   },
@@ -4858,6 +4858,9 @@
   },
   "allProviderModels.refreshing": {
     "defaultMessage": "Refreshing..."
+  },
+  "allProviderModels.removePreferred": {
+    "defaultMessage": "{model}을 선호 모델에서 제거"
   },
   "allProviderModels.title": {
     "defaultMessage": "Models from your providers"
@@ -4897,6 +4900,18 @@
   },
   "pluginsSettings.title": {
     "defaultMessage": "Plugins"
+  },
+  "preferredModels.empty": {
+    "defaultMessage": "아래 모델에 별을 표시하면 여기와 채트에서 쉽게 사용할 수 있습니다."
+  },
+  "preferredModels.remove": {
+    "defaultMessage": "{model}을 선호 모델에서 제거"
+  },
+  "preferredModels.removeFailed": {
+    "defaultMessage": "선호 모델을 업데이트하지 못했습니다"
+  },
+  "preferredModels.title": {
+    "defaultMessage": "선호 모델"
   },
   "providersSection.resetDescription": {
     "defaultMessage": "Clear your selected model and provider settings to start fresh"

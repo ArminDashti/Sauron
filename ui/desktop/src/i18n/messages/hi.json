@@ -8,6 +8,9 @@
   "alertBox.failedToSaveThreshold": {
     "defaultMessage": "सीमा सहेजने में विफल: {error}"
   },
+  "allProviderModels.addPreferred": {
+    "defaultMessage": "{model} को पसंदीदा मॉडल में जोड़ें"
+  },
   "announcementModal.gotIt": {
     "defaultMessage": "समझ गया!"
   },
@@ -1379,15 +1382,6 @@
   "headersSection.value": {
     "defaultMessage": "मूल्य"
   },
-  "hub.goodAfternoon": {
-    "defaultMessage": "शुभ दोपहर"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "शुभ संध्या"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "सुप्रभात"
-  },
   "hubView.description": {
     "defaultMessage": "विभिन्न स्रोतों से स्किल्स और MCP सर्वर खोजें।"
   },
@@ -2359,6 +2353,9 @@
   },
   "modelsBottomBar.localModelSettingsTitle": {
     "defaultMessage": "स्थानीय मॉडल Settings — {modelName}"
+  },
+  "modelsBottomBar.preferredModels": {
+    "defaultMessage": "पसंदीदा"
   },
   "modelsBottomBar.resolvedModel": {
     "defaultMessage": "हल किया गया मॉडल"
@@ -4850,6 +4847,9 @@
   "allProviderModels.noModels": {
     "defaultMessage": "No models reported by this provider."
   },
+  "allProviderModels.preferredUpdateFailed": {
+    "defaultMessage": "पसंदीदा मॉडल अपडेट नहीं हो सके"
+  },
   "allProviderModels.refreshAll": {
     "defaultMessage": "Refresh models"
   },
@@ -4858,6 +4858,9 @@
   },
   "allProviderModels.refreshing": {
     "defaultMessage": "Refreshing..."
+  },
+  "allProviderModels.removePreferred": {
+    "defaultMessage": "{model} को पसंदीदा मॉडल से हटाएँ"
   },
   "allProviderModels.title": {
     "defaultMessage": "Models from your providers"
@@ -4897,6 +4900,18 @@
   },
   "pluginsSettings.title": {
     "defaultMessage": "Plugins"
+  },
+  "preferredModels.empty": {
+    "defaultMessage": "इन्हें यहाँ और चैट में आसानी से उपलब्ध रखने के लिए नीचे मॉडलों पर तारा लगाएँ।"
+  },
+  "preferredModels.remove": {
+    "defaultMessage": "{model} को पसंदीदा मॉडल से हटाएँ"
+  },
+  "preferredModels.removeFailed": {
+    "defaultMessage": "पसंदीदा मॉडल अपडेट नहीं हो सके"
+  },
+  "preferredModels.title": {
+    "defaultMessage": "पसंदीदा मॉडल"
   },
   "providersSection.resetDescription": {
     "defaultMessage": "Clear your selected model and provider settings to start fresh"

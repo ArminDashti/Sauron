@@ -8,6 +8,9 @@
   "alertBox.failedToSaveThreshold": {
     "defaultMessage": "Eşik kaydedilemedi: {error}"
   },
+  "allProviderModels.addPreferred": {
+    "defaultMessage": "{model} modelini tercih edilenlere ekle"
+  },
   "announcementModal.gotIt": {
     "defaultMessage": "Anladım!"
   },
@@ -1379,15 +1382,6 @@
   "headersSection.value": {
     "defaultMessage": "Değer"
   },
-  "hub.goodAfternoon": {
-    "defaultMessage": "İyi günler"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "İyi akşamlar"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "Günaydın"
-  },
   "hubView.description": {
     "defaultMessage": "Çeşitli kaynaklardan Skills ve MCP sunucuları keşfedin."
   },
@@ -2359,6 +2353,9 @@
   },
   "modelsBottomBar.localModelSettingsTitle": {
     "defaultMessage": "Yerel Model Ayarları — {modelName}"
+  },
+  "modelsBottomBar.preferredModels": {
+    "defaultMessage": "Tercih edilen"
   },
   "modelsBottomBar.resolvedModel": {
     "defaultMessage": "Çözümlenen model"
@@ -4850,6 +4847,9 @@
   "allProviderModels.noModels": {
     "defaultMessage": "No models reported by this provider."
   },
+  "allProviderModels.preferredUpdateFailed": {
+    "defaultMessage": "Tercih edilen modeller güncellenemedi"
+  },
   "allProviderModels.refreshAll": {
     "defaultMessage": "Refresh models"
   },
@@ -4858,6 +4858,9 @@
   },
   "allProviderModels.refreshing": {
     "defaultMessage": "Refreshing..."
+  },
+  "allProviderModels.removePreferred": {
+    "defaultMessage": "{model} modelini tercih edilenlerden kaldır"
   },
   "allProviderModels.title": {
     "defaultMessage": "Models from your providers"
@@ -4897,6 +4900,18 @@
   },
   "pluginsSettings.title": {
     "defaultMessage": "Plugins"
+  },
+  "preferredModels.empty": {
+    "defaultMessage": "Burada ve sohbetlerde kullanmak için aşağıdaki modellere yıldız ekleyin."
+  },
+  "preferredModels.remove": {
+    "defaultMessage": "{model} modelini tercih edilenlerden kaldır"
+  },
+  "preferredModels.removeFailed": {
+    "defaultMessage": "Tercih edilen modeller güncellenemedi"
+  },
+  "preferredModels.title": {
+    "defaultMessage": "Tercih edilen modeller"
   },
   "providersSection.resetDescription": {
     "defaultMessage": "Clear your selected model and provider settings to start fresh"

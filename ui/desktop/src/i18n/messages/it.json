@@ -8,6 +8,9 @@
   "alertBox.failedToSaveThreshold": {
     "defaultMessage": "Impossibile salvare la soglia: {error}"
   },
+  "allProviderModels.addPreferred": {
+    "defaultMessage": "Aggiungi {model} ai modelli preferiti"
+  },
   "announcementModal.gotIt": {
     "defaultMessage": "Capito!"
   },
@@ -1379,15 +1382,6 @@
   "headersSection.value": {
     "defaultMessage": "Valore"
   },
-  "hub.goodAfternoon": {
-    "defaultMessage": "Buon pomeriggio"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "Buonasera"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "Buongiorno"
-  },
   "hubView.description": {
     "defaultMessage": "Scopri skill e server MCP da diverse fonti."
   },
@@ -2359,6 +2353,9 @@
   },
   "modelsBottomBar.localModelSettingsTitle": {
     "defaultMessage": "Impostazioni modello locale — {modelName}"
+  },
+  "modelsBottomBar.preferredModels": {
+    "defaultMessage": "Preferiti"
   },
   "modelsBottomBar.resolvedModel": {
     "defaultMessage": "Modello risolto"
@@ -4850,6 +4847,9 @@
   "allProviderModels.noModels": {
     "defaultMessage": "No models reported by this provider."
   },
+  "allProviderModels.preferredUpdateFailed": {
+    "defaultMessage": "Impossibile aggiornare i modelli preferiti"
+  },
   "allProviderModels.refreshAll": {
     "defaultMessage": "Refresh models"
   },
@@ -4858,6 +4858,9 @@
   },
   "allProviderModels.refreshing": {
     "defaultMessage": "Refreshing..."
+  },
+  "allProviderModels.removePreferred": {
+    "defaultMessage": "Rimuovi {model} dai modelli preferiti"
   },
   "allProviderModels.title": {
     "defaultMessage": "Models from your providers"
@@ -4897,6 +4900,18 @@
   },
   "pluginsSettings.title": {
     "defaultMessage": "Plugins"
+  },
+  "preferredModels.empty": {
+    "defaultMessage": "Metti una stella ai modelli qui sotto per averli a portata qui e nelle chat."
+  },
+  "preferredModels.remove": {
+    "defaultMessage": "Rimuovi {model} dai modelli preferiti"
+  },
+  "preferredModels.removeFailed": {
+    "defaultMessage": "Impossibile aggiornare i modelli preferiti"
+  },
+  "preferredModels.title": {
+    "defaultMessage": "Modelli preferiti"
   },
   "providersSection.resetDescription": {
     "defaultMessage": "Clear your selected model and provider settings to start fresh"

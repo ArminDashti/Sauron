@@ -2,9 +2,11 @@ import { useEffect, useState, useCallback, useRef } from 'react';
 import { View } from '../../../utils/navigationUtils';
 import ModelSettingsButtons from './subcomponents/ModelSettingsButtons';
 import AllProviderModels from './AllProviderModels';
+import PreferredModels from './PreferredModels';
 import { acpGetProviderDetails, acpReadDefaults } from '../../../acp/providers';
 import { modelAndProviderMessages, useModelAndProvider } from '../../ModelAndProviderContext';
 import { toastError } from '../../../toasts';
+import type { RecentModel } from '../../../utils/settings';
 
 import { Card, CardContent } from '../../ui/card';
 import { useIntl } from '../../../i18n';
@@ -18,12 +20,28 @@ export default function ModelsSection({ setView }: ModelsSectionProps) {
   const [provider, setProvider] = useState<string | null>(null);
   const [displayModelName, setDisplayModelName] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [preferredModels, setPreferredModels] = useState<RecentModel[]>([]);
   const {
     getCurrentModelDisplayName,
     getCurrentProviderDisplayName,
     currentModel,
     currentProvider,
   } = useModelAndProvider();
+
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const stored = (await window.electron.getSetting('preferredModels')) ?? [];
+        if (!cancelled) setPreferredModels(stored);
+      } catch (error) {
+        console.error('Error loading preferred models:', error);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   const loadModelData = useCallback(async () => {
     try {
@@ -101,7 +119,15 @@ export default function ModelsSection({ setView }: ModelsSectionProps) {
         </CardContent>
       </Card>
 
-      <AllProviderModels />
+      <PreferredModels
+        preferredModels={preferredModels}
+        onPreferredModelsChange={setPreferredModels}
+      />
+
+      <AllProviderModels
+        preferredModels={preferredModels}
+        onPreferredModelsChange={setPreferredModels}
+      />
     </section>
   );
 }

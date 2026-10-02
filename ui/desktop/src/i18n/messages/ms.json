@@ -8,6 +8,9 @@
   "alertBox.failedToSaveThreshold": {
     "defaultMessage": "Gagal menyimpan ambang: {error}"
   },
+  "allProviderModels.addPreferred": {
+    "defaultMessage": "Tambah {model} ke model kegemaran"
+  },
   "announcementModal.gotIt": {
     "defaultMessage": "Faham!"
   },
@@ -1379,15 +1382,6 @@
   "headersSection.value": {
     "defaultMessage": "Nilai"
   },
-  "hub.goodAfternoon": {
-    "defaultMessage": "Selamat tengah hari"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "Selamat petang"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "Selamat pagi"
-  },
   "hubView.description": {
     "defaultMessage": "Temui Skills dan pelayan MCP dari pelbagai sumber."
   },
@@ -2359,6 +2353,9 @@
   },
   "modelsBottomBar.localModelSettingsTitle": {
     "defaultMessage": "Tetapan Model Tempatan — {modelName}"
+  },
+  "modelsBottomBar.preferredModels": {
+    "defaultMessage": "Kegemaran"
   },
   "modelsBottomBar.resolvedModel": {
     "defaultMessage": "Model diselesaikan"
@@ -4850,6 +4847,9 @@
   "allProviderModels.noModels": {
     "defaultMessage": "No models reported by this provider."
   },
+  "allProviderModels.preferredUpdateFailed": {
+    "defaultMessage": "Gagal mengemas kini model kegemaran"
+  },
   "allProviderModels.refreshAll": {
     "defaultMessage": "Refresh models"
   },
@@ -4858,6 +4858,9 @@
   },
   "allProviderModels.refreshing": {
     "defaultMessage": "Refreshing..."
+  },
+  "allProviderModels.removePreferred": {
+    "defaultMessage": "Alih keluar {model} daripada model kegemaran"
   },
   "allProviderModels.title": {
     "defaultMessage": "Models from your providers"
@@ -4897,6 +4900,18 @@
   },
   "pluginsSettings.title": {
     "defaultMessage": "Plugins"
+  },
+  "preferredModels.empty": {
+    "defaultMessage": "Bintangkan model di bawah untuk memudahkannya di sini dan dalam sembang."
+  },
+  "preferredModels.remove": {
+    "defaultMessage": "Alih keluar {model} daripada model kegemaran"
+  },
+  "preferredModels.removeFailed": {
+    "defaultMessage": "Gagal mengemas kini model kegemaran"
+  },
+  "preferredModels.title": {
+    "defaultMessage": "Model kegemaran"
   },
   "providersSection.resetDescription": {
     "defaultMessage": "Clear your selected model and provider settings to start fresh"
