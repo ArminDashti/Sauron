@@ -1,4 +1,25 @@
 {
+  "acpReadinessPanel.adapterFound": {
+    "defaultMessage": "ACP अडैप्टर मिल गया"
+  },
+  "acpReadinessPanel.adapterNotFound": {
+    "defaultMessage": "ACP अडैप्टर नहीं मिला"
+  },
+  "acpReadinessPanel.authenticationHelp": {
+    "defaultMessage": "प्रदाता CLI से साइन इन करें, फिर दोबारा जाँचें।"
+  },
+  "acpReadinessPanel.checkAgain": {
+    "defaultMessage": "दोबारा जाँचें"
+  },
+  "acpReadinessPanel.checking": {
+    "defaultMessage": "जाँच की जा रही है..."
+  },
+  "acpReadinessPanel.connected": {
+    "defaultMessage": "सफलतापूर्वक कनेक्ट हो गया"
+  },
+  "acpReadinessPanel.connectionNotChecked": {
+    "defaultMessage": "आगे बढ़ने से पहले अपने खाते का कनेक्शन जाँचें।"
+  },
   "alertBox.autoCompactAt": {
     "defaultMessage": "ऑटो कॉम्पैक्ट पर"
   },
@@ -11,14 +32,104 @@
   "allProviderModels.addPreferred": {
     "defaultMessage": "{model} को पसंदीदा मॉडल में जोड़ें"
   },
+  "allProviderModels.clearSearch": {
+    "defaultMessage": "खोज साफ़ करें"
+  },
+  "allProviderModels.clearSearchInput": {
+    "defaultMessage": "खोज इनपुट साफ़ करें"
+  },
+  "allProviderModels.configureProviders": {
+    "defaultMessage": "Configure providers"
+  },
+  "allProviderModels.defaultSet": {
+    "defaultMessage": "{model} is now your default model."
+  },
+  "allProviderModels.defaultSetFailed": {
+    "defaultMessage": "Failed to set default model"
+  },
+  "allProviderModels.description": {
+    "defaultMessage": "Every model exposed by your activated providers. Select one to make it the default model."
+  },
+  "allProviderModels.empty": {
+    "defaultMessage": "No activated providers yet."
+  },
+  "allProviderModels.emptyHint": {
+    "defaultMessage": "Configure a provider to see the models it offers."
+  },
+  "allProviderModels.filterAll": {
+    "defaultMessage": "सभी"
+  },
+  "allProviderModels.filterFree": {
+    "defaultMessage": "मुफ़्त"
+  },
+  "allProviderModels.freeCount": {
+    "defaultMessage": "{count} मुफ़्त"
+  },
+  "allProviderModels.loadFailed": {
+    "defaultMessage": "Could not load provider models"
+  },
+  "allProviderModels.loading": {
+    "defaultMessage": "Loading models from your providers..."
+  },
+  "allProviderModels.modelCount": {
+    "defaultMessage": "{count,plural,one{# model} other{# models}}"
+  },
+  "allProviderModels.noFreeModels": {
+    "defaultMessage": "आपके प्रोवाइडरों से कोई मुफ़्त मॉडल नहीं हैं।"
+  },
+  "allProviderModels.noFreeModelsHint": {
+    "defaultMessage": "मॉडल तब मुफ़्त माने जाते हैं जब कोई प्रोवाइडर उन्हें स्थानीय रूप से चलाता है (Ollama, स्थानीय मॉडल) या मुफ़्त वेरिएंट सूचीबद्ध करता है, जैसे OpenRouter के :free मॉडल।"
+  },
+  "allProviderModels.noModels": {
+    "defaultMessage": "No models reported by this provider."
+  },
+  "allProviderModels.noSearchResults": {
+    "defaultMessage": "कोई मॉडल \"{query}\" से मेल नहीं खाता।"
+  },
+  "allProviderModels.preferredUpdateFailed": {
+    "defaultMessage": "पसंदीदा मॉडल अपडेट नहीं हो सके"
+  },
+  "allProviderModels.refreshAll": {
+    "defaultMessage": "Refresh models"
+  },
+  "allProviderModels.refreshFailed": {
+    "defaultMessage": "Could not refresh {provider}: {error}"
+  },
+  "allProviderModels.refreshing": {
+    "defaultMessage": "Refreshing..."
+  },
+  "allProviderModels.removePreferred": {
+    "defaultMessage": "{model} को पसंदीदा मॉडल से हटाएँ"
+  },
+  "allProviderModels.searchLabel": {
+    "defaultMessage": "मॉडल खोजें"
+  },
+  "allProviderModels.searchPlaceholder": {
+    "defaultMessage": "मॉडल खोजें..."
+  },
+  "allProviderModels.showAll": {
+    "defaultMessage": "सभी मॉडल दिखाएँ"
+  },
+  "allProviderModels.showingCount": {
+    "defaultMessage": "{total, number} में से {shown, number} मॉडल दिखाए जा रहे हैं"
+  },
+  "allProviderModels.title": {
+    "defaultMessage": "Models from your providers"
+  },
   "announcementModal.gotIt": {
     "defaultMessage": "समझ गया!"
   },
   "appLayout.collapseNavigation": {
     "defaultMessage": "Collapse navigation"
   },
+  "appLayout.hideChanges": {
+    "defaultMessage": "परिवर्तन पैनल छिपाएँ"
+  },
   "appLayout.openNavigation": {
     "defaultMessage": "नेविगेशन खोलें"
+  },
+  "appLayout.showChanges": {
+    "defaultMessage": "परिवर्तन पैनल दिखाएँ"
   },
   "appsView.customApp": {
     "defaultMessage": "कस्टम ऐप"
@@ -71,6 +182,18 @@
   "authSettings.cancel": {
     "defaultMessage": "रद्द करें"
   },
+  "authSettings.cancelSignIn": {
+    "defaultMessage": "रद्द करें"
+  },
+  "authSettings.checkingStatus": {
+    "defaultMessage": "जाँच हो रही है..."
+  },
+  "authSettings.connectedAccounts": {
+    "defaultMessage": "कनेक्ट किए गए खाते"
+  },
+  "authSettings.connectedAccountsDescription": {
+    "defaultMessage": "Sauron को अपने बाहरी खातों के साथ काम करने देने के लिए साइन इन करें।"
+  },
   "authSettings.delete": {
     "defaultMessage": "हटाएँ"
   },
@@ -104,6 +227,48 @@
   "authSettings.failedToLoad": {
     "defaultMessage": "प्रदाता क्रेडेंशियल लोड करने में विफल"
   },
+  "authSettings.githubAccountDescription": {
+    "defaultMessage": "रिपॉज़िटरी खोजें, कोड के साथ काम करें, इश्यू प्रबंधित करें और पुल रिक्वेस्ट खोलें।"
+  },
+  "authSettings.githubAccountName": {
+    "defaultMessage": "GitHub"
+  },
+  "authSettings.githubConnected": {
+    "defaultMessage": "कनेक्टेड"
+  },
+  "authSettings.githubEnterCode": {
+    "defaultMessage": "Sauron को अधिकृत करने के लिए {url} पर यह कोड दर्ज करें:"
+  },
+  "authSettings.githubNotConnected": {
+    "defaultMessage": "कनेक्टेड नहीं"
+  },
+  "authSettings.githubOpenDevicePage": {
+    "defaultMessage": "GitHub डिवाइस पेज खोलें"
+  },
+  "authSettings.githubSignInFailed": {
+    "defaultMessage": "GitHub sign-in failed: {error}"
+  },
+  "authSettings.githubSignInUnavailable": {
+    "defaultMessage": "GitHub साइन-इन केवल डेस्कटॉप ऐप में उपलब्ध है।"
+  },
+  "authSettings.githubSignOutMessage": {
+    "defaultMessage": "जब तक आप फिर से साइन इन नहीं करते, Sauron आपके GitHub रिपॉज़िटरी के साथ काम नहीं कर पाएगा।"
+  },
+  "authSettings.githubSignOutTitle": {
+    "defaultMessage": "Sign out of GitHub"
+  },
+  "authSettings.githubSignedIn": {
+    "defaultMessage": "GitHub पर साइन इन हो गया। GitHub एक्सटेंशन उपयोग के लिए तैयार है।"
+  },
+  "authSettings.githubSignedOut": {
+    "defaultMessage": "GitHub से साइन आउट हो गया"
+  },
+  "authSettings.githubStatusFailed": {
+    "defaultMessage": "GitHub साइन-इन स्थिति जाँच नहीं सकी"
+  },
+  "authSettings.githubWaitingForAuthorization": {
+    "defaultMessage": "GitHub प्राधिकरण की प्रतीक्षा है..."
+  },
   "authSettings.loading": {
     "defaultMessage": "क्रेडेंशियल लोड हो रहा है..."
   },
@@ -112,6 +277,12 @@
   },
   "authSettings.signIn": {
     "defaultMessage": "साइन इन करें"
+  },
+  "authSettings.signInWithGitHub": {
+    "defaultMessage": "GitHub से साइन इन करें"
+  },
+  "authSettings.signOutFromGitHub": {
+    "defaultMessage": "Sign out"
   },
   "authSettings.signedIn": {
     "defaultMessage": "क्रेडेंशियल कॉन्फ़िगर किया गया"
@@ -172,6 +343,81 @@
   },
   "cardButtons.launch": {
     "defaultMessage": "लॉन्च करें"
+  },
+  "changesPanel.cleanTree": {
+    "defaultMessage": "वर्किंग ट्री साफ़ है"
+  },
+  "changesPanel.close": {
+    "defaultMessage": "परिवर्तन पैनल बंद करें"
+  },
+  "changesPanel.commitAndPush": {
+    "defaultMessage": "कमिट करें और पुश करें"
+  },
+  "changesPanel.commitFailed": {
+    "defaultMessage": "कमिट विफल रही"
+  },
+  "changesPanel.commitPlaceholder": {
+    "defaultMessage": "कमिट संदेश"
+  },
+  "changesPanel.commitSuccess": {
+    "defaultMessage": "कमिट और पुश हो गया"
+  },
+  "changesPanel.committing": {
+    "defaultMessage": "कमिट हो रहा है…"
+  },
+  "changesPanel.loadFailed": {
+    "defaultMessage": "git परिवर्तन लोड नहीं हो सके"
+  },
+  "changesPanel.loading": {
+    "defaultMessage": "परिवर्तन लोड हो रहे हैं…"
+  },
+  "changesPanel.loadingDiff": {
+    "defaultMessage": "डिफ़ लोड हो रहा है…"
+  },
+  "changesPanel.noChanges": {
+    "defaultMessage": "कोई परिवर्तन नहीं"
+  },
+  "changesPanel.noDirectory": {
+    "defaultMessage": "कोई वर्किंग डायरेक्टरी चयनित नहीं"
+  },
+  "changesPanel.notARepo": {
+    "defaultMessage": "यह एक git रिपॉजिटरी नहीं है"
+  },
+  "changesPanel.pushFailed": {
+    "defaultMessage": "कमिट हो गई, लेकिन पुश विफल रहा"
+  },
+  "changesPanel.refresh": {
+    "defaultMessage": "परिवर्तन रीफ्रेश करें"
+  },
+  "changesPanel.retry": {
+    "defaultMessage": "पुनः प्रयास करें"
+  },
+  "changesPanel.statusAdded": {
+    "defaultMessage": "जोड़ा गया"
+  },
+  "changesPanel.statusConflicted": {
+    "defaultMessage": "द्वंद्व"
+  },
+  "changesPanel.statusCopied": {
+    "defaultMessage": "कॉपी किया गया"
+  },
+  "changesPanel.statusDeleted": {
+    "defaultMessage": "हटाया गया"
+  },
+  "changesPanel.statusModified": {
+    "defaultMessage": "संशोधित"
+  },
+  "changesPanel.statusRenamed": {
+    "defaultMessage": "नाम बदला गया"
+  },
+  "changesPanel.statusUntracked": {
+    "defaultMessage": "अनट्रैक्ड"
+  },
+  "changesPanel.title": {
+    "defaultMessage": "परिवर्तन"
+  },
+  "changesPanel.uncommitted": {
+    "defaultMessage": "अनकमिटेड"
   },
   "chat.notification.taskComplete.body": {
     "defaultMessage": "Sauron को फोकस में वापस लाने के लिए यहां क्लिक करें।"
@@ -638,6 +884,9 @@
   "customProviderForm.apiKey": {
     "defaultMessage": "API कुंजी"
   },
+  "customProviderForm.apiKeyEnvHint": {
+    "defaultMessage": "{example} दर्ज करें, ताकि कुंजी संग्रहीत करने के बजाय एनवायरनमेंट वेरिएबल से पढ़ी जा सके।"
+  },
   "customProviderForm.apiKeyPlaceholderExisting": {
     "defaultMessage": "मौजूदा कुंजी रखने के लिए खाली छोड़ दें"
   },
@@ -794,6 +1043,9 @@
   "defaultProviderSetupForm.apiHostPlaceholder": {
     "defaultMessage": "https://api.example.com"
   },
+  "defaultProviderSetupForm.apiKeyEnvHint": {
+    "defaultMessage": "{example} दर्ज करें, ताकि कुंजी संग्रहीत करने के बजाय एनवायरनमेंट वेरिएबल से पढ़ी जा सके।"
+  },
   "defaultProviderSetupForm.apiKeyLabel": {
     "defaultMessage": "API कुंजी"
   },
@@ -917,6 +1169,12 @@
   "dictationSettings.voiceDictationProvider": {
     "defaultMessage": "वॉयस डिक्टेशन प्रदाता"
   },
+  "diffViewer.noDiff": {
+    "defaultMessage": "दिखाने के लिए कोई टेक्स्ट परिवर्तन नहीं"
+  },
+  "diffViewer.unmodifiedLines": {
+    "defaultMessage": "{count} अपरिवर्तित पंक्तियाँ"
+  },
   "dirSwitcher.chooseDirectory": {
     "defaultMessage": "निर्देशिका चुनें..."
   },
@@ -926,11 +1184,11 @@
   "dirSwitcher.enterPath": {
     "defaultMessage": "Enter path"
   },
-  "dirSwitcher.enterPathPlaceholder": {
-    "defaultMessage": "Enter an absolute path (e.g. /home/sauron/workspace)"
-  },
   "dirSwitcher.enterPathInvalid": {
     "defaultMessage": "Working directory must be an absolute path"
+  },
+  "dirSwitcher.enterPathPlaceholder": {
+    "defaultMessage": "Enter an absolute path (e.g. /home/sauron/workspace)"
   },
   "dirSwitcher.failedToUpdateWorkingDir": {
     "defaultMessage": "कार्यशील निर्देशिका अद्यतन करने में विफल"
@@ -946,18 +1204,6 @@
   },
   "dirSwitcher.recentDirectories": {
     "defaultMessage": "हाल की निर्देशिकाएँ"
-  },
-  "gitBranchIndicator.failedToSwitch": {
-    "defaultMessage": "{branch} पर स्विच नहीं किया जा सका"
-  },
-  "gitBranchIndicator.noBranchesFound": {
-    "defaultMessage": "कोई ब्रांच नहीं मिली"
-  },
-  "gitBranchIndicator.searchBranches": {
-    "defaultMessage": "ब्रांच खोजें…"
-  },
-  "gitBranchIndicator.uncommittedChanges": {
-    "defaultMessage": "आपके कुछ बदलाव कमिट नहीं हुए हो सकते हैं।"
   },
   "elicitationRequest.accept": {
     "defaultMessage": "स्वीकार करो"
@@ -1262,65 +1508,20 @@
   "externalBackendSection.workingDirPlaceholder": {
     "defaultMessage": "/home/sauron/workspace"
   },
-  "sauronhintsModal.close": {
-    "defaultMessage": "बंद करें"
+  "freeModelBadge.label": {
+    "defaultMessage": "मुफ़्त"
   },
-  "sauronhintsModal.developer": {
-    "defaultMessage": "डेवलपर"
+  "gitBranchIndicator.failedToSwitch": {
+    "defaultMessage": "{branch} पर स्विच नहीं किया जा सका"
   },
-  "sauronhintsModal.dialogDescription": {
-    "defaultMessage": "Sauron के साथ संचार को बेहतर बनाने के लिए अपने प्रोजेक्ट के बारे में अतिरिक्त संदर्भ प्रदान करें"
+  "gitBranchIndicator.noBranchesFound": {
+    "defaultMessage": "कोई ब्रांच नहीं मिली"
   },
-  "sauronhintsModal.dialogTitle": {
-    "defaultMessage": "प्रोजेक्ट संकेत कॉन्फ़िगर करें (.sauronhints)"
+  "gitBranchIndicator.searchBranches": {
+    "defaultMessage": "ब्रांच खोजें…"
   },
-  "sauronhintsModal.errorReading": {
-    "defaultMessage": ".sauronhints फ़ाइल पढ़ने में त्रुटि: {error}"
-  },
-  "sauronhintsModal.failedToAccess": {
-    "defaultMessage": ".sauronhints फ़ाइल तक पहुँचने में विफल"
-  },
-  "sauronhintsModal.failedToSave": {
-    "defaultMessage": ".sauronhints फ़ाइल सहेजने में विफल"
-  },
-  "sauronhintsModal.fileCreating": {
-    "defaultMessage": "नई .sauronhints फ़ाइल यहां बनाई जा रही है: {filePath}"
-  },
-  "sauronhintsModal.fileFound": {
-    "defaultMessage": ".sauronhints फ़ाइल यहां मिली: {filePath}"
-  },
-  "sauronhintsModal.helpText1": {
-    "defaultMessage": ".sauronhints एक टेक्स्ट फ़ाइल है जिसका उपयोग आपके प्रोजेक्ट के बारे में अतिरिक्त संदर्भ प्रदान करने और Sauron के साथ संचार को बेहतर बनाने के लिए किया जाता है।"
-  },
-  "sauronhintsModal.helpText2": {
-    "defaultMessage": "कृपया सुनिश्चित करें कि एक्सटेंशन पृष्ठ में {bold} एक्सटेंशन सक्षम है। .sauronhints का उपयोग करने के लिए यह एक्सटेंशन आवश्यक है। .sauronhints अपडेट को प्रभावी बनाने के लिए आपको अपना सत्र पुनः आरंभ करना होगा।"
-  },
-  "sauronhintsModal.helpText3": {
-    "defaultMessage": "अधिक जानकारी के लिए {link} देखें।"
-  },
-  "sauronhintsModal.helpTextLink": {
-    "defaultMessage": ".sauronhints का उपयोग करना"
-  },
-  "sauronhintsModal.placeholder": {
-    "defaultMessage": "प्रोजेक्ट संकेत यहां दर्ज करें..."
-  },
-  "sauronhintsModal.save": {
-    "defaultMessage": "सहेजें"
-  },
-  "sauronhintsModal.savedSuccessfully": {
-    "defaultMessage": "सफलतापूर्वक सहेजा गया"
-  },
-  "sauronhintsModal.saving": {
-    "defaultMessage": "सहेजा जा रहा है..."
-  },
-  "sauronhintsSection.configure": {
-    "defaultMessage": "कॉन्फ़िगर करें"
-  },
-  "sauronhintsSection.description": {
-    "defaultMessage": "Sauron को अतिरिक्त संदर्भ प्रदान करने के लिए अपने प्रोजेक्ट की .sauronhints फ़ाइल को कॉन्फ़िगर करें"
-  },
-  "sauronhintsSection.title": {
-    "defaultMessage": "प्रोजेक्ट संकेत (.sauronhints)"
+  "gitBranchIndicator.uncommittedChanges": {
+    "defaultMessage": "आपके कुछ बदलाव कमिट नहीं हुए हो सकते हैं।"
   },
   "groupedExtensionLoadingToast.askSauron": {
     "defaultMessage": "पूछें sauron"
@@ -1357,6 +1558,36 @@
   },
   "groupedExtensionLoadingToast.successfullyLoaded": {
     "defaultMessage": "{count,plural,one{# एक्सटेंशन सफलतापूर्वक लोड हो गया} other{# एक्सटेंशन सफलतापूर्वक लोड हो गए}}"
+  },
+  "harnessesSection.title": {
+    "defaultMessage": "एजेंट harness"
+  },
+  "harnessesSection.description": {
+    "defaultMessage": "Cursor, Claude Code, Codex या Copilot जैसे दूसरे harness के एजेंट्स का उपयोग करें। यहाँ एक सक्षम करें, फिर चैट के लिए Models में उसे चुनें।"
+  },
+  "harnessesSection.loading": {
+    "defaultMessage": "harness लोड हो रहे हैं..."
+  },
+  "harnessesSection.loadFailed": {
+    "defaultMessage": "harness लोड करना विफल रहा"
+  },
+  "harnessesSection.empty": {
+    "defaultMessage": "कोई बाहरी एजेंट harness उपलब्ध नहीं हैं।"
+  },
+  "harnessesSection.installed": {
+    "defaultMessage": "इंस्टॉल किया गया"
+  },
+  "harnessesSection.notInstalled": {
+    "defaultMessage": "इंस्टॉल नहीं किया गया"
+  },
+  "harnessesSection.configure": {
+    "defaultMessage": "कॉन्फ़िगर करें"
+  },
+  "harnessesSection.configured": {
+    "defaultMessage": "सक्षम"
+  },
+  "harnessesSection.notConfigured": {
+    "defaultMessage": "सक्षम नहीं"
   },
   "headersSection.add": {
     "defaultMessage": "जोड़ें"
@@ -1985,6 +2216,12 @@
   "mcpAppRenderer.resizePipWindow": {
     "defaultMessage": "पिक्चर-इन-पिक्चर विंडो का आकार बदलें"
   },
+  "mcpSettings.description": {
+    "defaultMessage": "Connect Model Context Protocol servers to give goose new tools, resources, and data sources. Extensions added here are available to every chat."
+  },
+  "mcpSettings.title": {
+    "defaultMessage": "MCP Servers"
+  },
   "mentionPopover.itemsFound": {
     "defaultMessage": "{count,plural,one{# आइटम मिला} other{# आइटम मिले}}"
   },
@@ -2183,6 +2420,18 @@
   "modelAndProviderContext.unknownProviderTitle": {
     "defaultMessage": "प्रदाता का नाम लुकअप"
   },
+  "modelBadges.contextShort": {
+    "defaultMessage": "{amount, number}k"
+  },
+  "modelBadges.contextWindow": {
+    "defaultMessage": "{amount, number}k कॉन्टेक्स्ट"
+  },
+  "modelBadges.default": {
+    "defaultMessage": "डिफ़ॉल्ट"
+  },
+  "modelBadges.reasoning": {
+    "defaultMessage": "रीज़निंग"
+  },
   "modelSettingsButtons.switchModels": {
     "defaultMessage": "मॉडल स्विच करें"
   },
@@ -2357,6 +2606,9 @@
   "modelsBottomBar.preferredModels": {
     "defaultMessage": "पसंदीदा"
   },
+  "modelsBottomBar.recentModels": {
+    "defaultMessage": "हाल के"
+  },
   "modelsBottomBar.resolvedModel": {
     "defaultMessage": "हल किया गया मॉडल"
   },
@@ -2389,6 +2641,12 @@
   },
   "navigation.itemSkills": {
     "defaultMessage": "कौशल"
+  },
+  "navigationFooter.cpuUsage": {
+    "defaultMessage": "CPU {percent}%"
+  },
+  "navigationFooter.memoryUsage": {
+    "defaultMessage": "मेमोरी {percent}%"
   },
   "navigationFooter.sendFeedback": {
     "defaultMessage": "प्रतिक्रिया भेजें"
@@ -2633,6 +2891,48 @@
   "permissionSetting.permissionRulesDescription": {
     "defaultMessage": "छिपे हुए निर्देश जो आपकी प्रतिक्रियाओं को निर्देशित करने और संदर्भ जोड़ने में सहायता के लिए प्रदाता को भेजे जाएंगे।"
   },
+  "pluginsSettings.description": {
+    "defaultMessage": "Plugins installed under .agents/plugins contribute skills and MCP servers to goose. Manage the skills they provide from the Skills view."
+  },
+  "pluginsSettings.empty": {
+    "defaultMessage": "No plugins installed."
+  },
+  "pluginsSettings.emptyHint": {
+    "defaultMessage": "Install a plugin with `goose plugin install` and it will show up here."
+  },
+  "pluginsSettings.loadFailed": {
+    "defaultMessage": "Could not load plugins"
+  },
+  "pluginsSettings.loading": {
+    "defaultMessage": "Loading plugins..."
+  },
+  "pluginsSettings.manageSkills": {
+    "defaultMessage": "Manage skills"
+  },
+  "pluginsSettings.pluginCount": {
+    "defaultMessage": "{count,plural,=0{No plugins} one{# plugin} other{# plugins}}"
+  },
+  "pluginsSettings.refresh": {
+    "defaultMessage": "Refresh"
+  },
+  "pluginsSettings.skillCount": {
+    "defaultMessage": "{count,plural,one{# skill} other{# skills}}"
+  },
+  "pluginsSettings.title": {
+    "defaultMessage": "Plugins"
+  },
+  "preferredModels.empty": {
+    "defaultMessage": "इन्हें यहाँ और चैट में आसानी से उपलब्ध रखने के लिए नीचे मॉडलों पर तारा लगाएँ।"
+  },
+  "preferredModels.remove": {
+    "defaultMessage": "{model} को पसंदीदा मॉडल से हटाएँ"
+  },
+  "preferredModels.removeFailed": {
+    "defaultMessage": "पसंदीदा मॉडल अपडेट नहीं हो सके"
+  },
+  "preferredModels.title": {
+    "defaultMessage": "पसंदीदा मॉडल"
+  },
   "privacyInfoModal.collectErrors": {
     "defaultMessage": "त्रुटि प्रकार (उदाहरण के लिए, \"रेट_लिमिट\", \"ऑथ\" - कोई विवरण नहीं)"
   },
@@ -2750,6 +3050,9 @@
   "promptsSettings.unsavedChanges": {
     "defaultMessage": "आपके पास सहेजे नहीं गए परिवर्तन हैं"
   },
+  "providerCard.deprecatedReplacement": {
+    "defaultMessage": "अप्रचलित — इसके बजाय {replacement} का उपयोग करें।"
+  },
   "providerCard.noMetadata": {
     "defaultMessage": "प्रदाता कार्ड त्रुटि: कोई मेटाडेटा प्रदान नहीं किया गया"
   },
@@ -2804,8 +3107,17 @@
   "providerConfigForm.continue": {
     "defaultMessage": "जारी रखें"
   },
+  "providerConfigForm.deviceCodeAndEnter": {
+    "defaultMessage": "और दर्ज करें:"
+  },
+  "providerConfigForm.deviceCodeCopy": {
+    "defaultMessage": "कॉपी करें"
+  },
   "providerConfigForm.deviceCodeFlowHint": {
     "defaultMessage": "एक ब्राउज़र विंडो खुलेगी। सत्यापन कोड यहाँ दिखाई देगा, ताकि आप उसे दर्ज करके साइन-इन पूरा कर सकें।"
+  },
+  "providerConfigForm.deviceCodeVisit": {
+    "defaultMessage": "जाएं"
   },
   "providerConfigForm.noApiKey": {
     "defaultMessage": "क्या आपके पास API कुंजी नहीं है?"
@@ -2831,6 +3143,9 @@
   "providerConfigurationModal.checkConfigAgain": {
     "defaultMessage": "इस प्रदाता का उपयोग करने के लिए अपनी कॉन्फ़िगरेशन दोबारा जांचें।"
   },
+  "providerConfigurationModal.chooseModel": {
+    "defaultMessage": "मॉडल चुनें"
+  },
   "providerConfigurationModal.close": {
     "defaultMessage": "बंद करें"
   },
@@ -2843,8 +3158,17 @@
   "providerConfigurationModal.deleteConfirmation": {
     "defaultMessage": "यह वर्तमान प्रदाता कॉन्फ़िगरेशन को स्थायी रूप से हटा देगा।"
   },
+  "providerConfigurationModal.deviceCodeAndEnter": {
+    "defaultMessage": "और दर्ज करें:"
+  },
+  "providerConfigurationModal.deviceCodeCopy": {
+    "defaultMessage": "कॉपी करें"
+  },
   "providerConfigurationModal.deviceCodeFlowHint": {
     "defaultMessage": "एक ब्राउज़र विंडो खुलेगी। सत्यापन कोड यहाँ दिखाई देगा, ताकि आप उसे दर्ज करके साइन-इन पूरा कर सकें।"
+  },
+  "providerConfigurationModal.deviceCodeVisit": {
+    "defaultMessage": "जाएं"
   },
   "providerConfigurationModal.errorCheckingConfig": {
     "defaultMessage": "इस प्रदाता कॉन्फ़िगरेशन की जाँच करने में त्रुटि हुई।"
@@ -2965,6 +3289,66 @@
   },
   "providerSetupActions.submit": {
     "defaultMessage": "सबमिट करें"
+  },
+  "providersSection.configure": {
+    "defaultMessage": "Configure"
+  },
+  "providersSection.configured": {
+    "defaultMessage": "Configured"
+  },
+  "providersSection.defaultSet": {
+    "defaultMessage": "{model} is now your default model."
+  },
+  "providersSection.defaultSetFailed": {
+    "defaultMessage": "Failed to set default model"
+  },
+  "providersSection.description": {
+    "defaultMessage": "Configure your AI model providers and load their available models directly from each provider API."
+  },
+  "providersSection.hideModels": {
+    "defaultMessage": "Hide models"
+  },
+  "providersSection.loadFailed": {
+    "defaultMessage": "Failed to load providers"
+  },
+  "providersSection.loadModels": {
+    "defaultMessage": "Load Models"
+  },
+  "providersSection.loading": {
+    "defaultMessage": "Loading providers..."
+  },
+  "providersSection.manageAll": {
+    "defaultMessage": "Manage all providers"
+  },
+  "providersSection.modelsError": {
+    "defaultMessage": "Could not load models from {provider}: {error}"
+  },
+  "providersSection.modelsLoaded": {
+    "defaultMessage": "{count} models loaded from {provider}"
+  },
+  "providersSection.needsConfig": {
+    "defaultMessage": "Configure this provider first to load its models."
+  },
+  "providersSection.notConfigured": {
+    "defaultMessage": "Not configured"
+  },
+  "providersSection.reloadingModels": {
+    "defaultMessage": "Reloading models..."
+  },
+  "providersSection.resetDescription": {
+    "defaultMessage": "Clear your selected model and provider settings to start fresh"
+  },
+  "providersSection.resetTitle": {
+    "defaultMessage": "Reset Provider and Model"
+  },
+  "providersSection.setDefault": {
+    "defaultMessage": "Click a model to use it as your default."
+  },
+  "providersSection.showModels": {
+    "defaultMessage": "Show models"
+  },
+  "providersSection.title": {
+    "defaultMessage": "Model Providers"
   },
   "recipeActivityEditor.activitiesDescription": {
     "defaultMessage": "शीर्ष-पंक्ति संकेत और गतिविधि बटन जो रेसिपी चैट विंडो में प्रदर्शित होंगे।"
@@ -3334,6 +3718,66 @@
   },
   "responseStyle.detailedLabel": {
     "defaultMessage": "विस्तृत"
+  },
+  "sauronhintsModal.close": {
+    "defaultMessage": "बंद करें"
+  },
+  "sauronhintsModal.developer": {
+    "defaultMessage": "डेवलपर"
+  },
+  "sauronhintsModal.dialogDescription": {
+    "defaultMessage": "Sauron के साथ संचार को बेहतर बनाने के लिए अपने प्रोजेक्ट के बारे में अतिरिक्त संदर्भ प्रदान करें"
+  },
+  "sauronhintsModal.dialogTitle": {
+    "defaultMessage": "प्रोजेक्ट संकेत कॉन्फ़िगर करें (.sauronhints)"
+  },
+  "sauronhintsModal.errorReading": {
+    "defaultMessage": ".sauronhints फ़ाइल पढ़ने में त्रुटि: {error}"
+  },
+  "sauronhintsModal.failedToAccess": {
+    "defaultMessage": ".sauronhints फ़ाइल तक पहुँचने में विफल"
+  },
+  "sauronhintsModal.failedToSave": {
+    "defaultMessage": ".sauronhints फ़ाइल सहेजने में विफल"
+  },
+  "sauronhintsModal.fileCreating": {
+    "defaultMessage": "नई .sauronhints फ़ाइल यहां बनाई जा रही है: {filePath}"
+  },
+  "sauronhintsModal.fileFound": {
+    "defaultMessage": ".sauronhints फ़ाइल यहां मिली: {filePath}"
+  },
+  "sauronhintsModal.helpText1": {
+    "defaultMessage": ".sauronhints एक टेक्स्ट फ़ाइल है जिसका उपयोग आपके प्रोजेक्ट के बारे में अतिरिक्त संदर्भ प्रदान करने और Sauron के साथ संचार को बेहतर बनाने के लिए किया जाता है।"
+  },
+  "sauronhintsModal.helpText2": {
+    "defaultMessage": "कृपया सुनिश्चित करें कि एक्सटेंशन पृष्ठ में {bold} एक्सटेंशन सक्षम है। .sauronhints का उपयोग करने के लिए यह एक्सटेंशन आवश्यक है। .sauronhints अपडेट को प्रभावी बनाने के लिए आपको अपना सत्र पुनः आरंभ करना होगा।"
+  },
+  "sauronhintsModal.helpText3": {
+    "defaultMessage": "अधिक जानकारी के लिए {link} देखें।"
+  },
+  "sauronhintsModal.helpTextLink": {
+    "defaultMessage": ".sauronhints का उपयोग करना"
+  },
+  "sauronhintsModal.placeholder": {
+    "defaultMessage": "प्रोजेक्ट संकेत यहां दर्ज करें..."
+  },
+  "sauronhintsModal.save": {
+    "defaultMessage": "सहेजें"
+  },
+  "sauronhintsModal.savedSuccessfully": {
+    "defaultMessage": "सफलतापूर्वक सहेजा गया"
+  },
+  "sauronhintsModal.saving": {
+    "defaultMessage": "सहेजा जा रहा है..."
+  },
+  "sauronhintsSection.configure": {
+    "defaultMessage": "कॉन्फ़िगर करें"
+  },
+  "sauronhintsSection.description": {
+    "defaultMessage": "Sauron को अतिरिक्त संदर्भ प्रदान करने के लिए अपने प्रोजेक्ट की .sauronhints फ़ाइल को कॉन्फ़िगर करें"
+  },
+  "sauronhintsSection.title": {
+    "defaultMessage": "प्रोजेक्ट संकेत (.sauronhints)"
   },
   "scheduleDetailView.actions": {
     "defaultMessage": "क्रियाएँ"
@@ -3959,6 +4403,75 @@
   "sessions.toast.updated": {
     "defaultMessage": "सत्र विवरण सफलतापूर्वक अपडेट किया गया"
   },
+  "settings.agentLoop.description": {
+    "defaultMessage": "ऑपरेशन-आधारित एजेंट लूप का उपयोग करें। लेगेसी लूप का उपयोग करने के लिए इसे बंद करें।"
+  },
+  "settings.agentLoop.operations.auto.placeholder": {
+    "defaultMessage": "स्वचालित"
+  },
+  "settings.agentLoop.operations.blockLimit.label": {
+    "defaultMessage": "ब्लॉक सीमा"
+  },
+  "settings.agentLoop.operations.contextCompaction.description": {
+    "defaultMessage": "कॉन्टेक्स्ट विंडो भरने से पहले बातचीत के इतिहास का सारांश बनाता है।"
+  },
+  "settings.agentLoop.operations.contextCompaction.title": {
+    "defaultMessage": "कॉन्टेक्स्ट संक्षेपण"
+  },
+  "settings.agentLoop.operations.cutoff.label": {
+    "defaultMessage": "कटऑफ"
+  },
+  "settings.agentLoop.operations.enable": {
+    "defaultMessage": "{operation} सक्षम करें"
+  },
+  "settings.agentLoop.operations.failureTimeout.label": {
+    "defaultMessage": "विफलता टाइमआउट"
+  },
+  "settings.agentLoop.operations.heading": {
+    "defaultMessage": "कॉन्फ़िगर करने योग्य ऑपरेशन"
+  },
+  "settings.agentLoop.operations.maxTurns.description": {
+    "defaultMessage": "स्वायत्त काम रोकता है और जारी रखने से पहले उपयोगकर्ता से पूछता है।"
+  },
+  "settings.agentLoop.operations.maxTurns.title": {
+    "defaultMessage": "अधिकतम टर्न"
+  },
+  "settings.agentLoop.operations.recipeRetry.description": {
+    "defaultMessage": "कॉन्फ़िगर की गई सफलता जाँच विफल होने पर रेसिपी जाँच फिर से चलाता है।"
+  },
+  "settings.agentLoop.operations.recipeRetry.title": {
+    "defaultMessage": "रेसिपी पुनः प्रयास"
+  },
+  "settings.agentLoop.operations.retryTimeout.label": {
+    "defaultMessage": "पुनः प्रयास टाइमआउट"
+  },
+  "settings.agentLoop.operations.slashCommands.description": {
+    "defaultMessage": "/compact, /skills और रेसिपी शॉर्टकट जैसे कमांड पहचानता है।"
+  },
+  "settings.agentLoop.operations.slashCommands.title": {
+    "defaultMessage": "स्लैश कमांड"
+  },
+  "settings.agentLoop.operations.stopHooks.description": {
+    "defaultMessage": "हुक को पूर्णता रोकने देता है और अंतहीन स्टॉप चक्रों से बचाता है।"
+  },
+  "settings.agentLoop.operations.stopHooks.title": {
+    "defaultMessage": "स्टॉप हुक"
+  },
+  "settings.agentLoop.operations.threshold.label": {
+    "defaultMessage": "थ्रेशोल्ड %"
+  },
+  "settings.agentLoop.operations.toolPairCompaction.description": {
+    "defaultMessage": "कॉन्टेक्स्ट बचाने के लिए पुराने टूल अनुरोधों और उत्तरों का सारांश बनाता है। खाली छोड़ने पर कटऑफ स्वचालित होता है।"
+  },
+  "settings.agentLoop.operations.toolPairCompaction.title": {
+    "defaultMessage": "टूल पेयर संक्षेपण"
+  },
+  "settings.agentLoop.operations.turns.label": {
+    "defaultMessage": "टर्न"
+  },
+  "settings.agentLoop.title": {
+    "defaultMessage": "एजेंट लूप"
+  },
   "settings.appearance.description": {
     "defaultMessage": "कॉन्फ़िगर करें कि sauron आपके सिस्टम पर कैसे दिखाई देता है"
   },
@@ -4112,6 +4625,12 @@
   "settings.notifications.openSettings": {
     "defaultMessage": "Settings खोलें"
   },
+  "settings.notifications.sound.description": {
+    "defaultMessage": "कार्य पूरा होने की सूचनाओं के साथ ध्वनि चलाएँ"
+  },
+  "settings.notifications.sound.title": {
+    "defaultMessage": "सूचना ध्वनि"
+  },
   "settings.notifications.task.description": {
     "defaultMessage": "जब विंडो पृष्ठभूमि में हो तो Sauron कोई कार्य पूरा कर ले तो सूचित करें"
   },
@@ -4142,8 +4661,17 @@
   "settings.version.title": {
     "defaultMessage": "संस्करण"
   },
+  "settingsView.noResults": {
+    "defaultMessage": "कोई परिणाम नहीं"
+  },
+  "settingsView.searchPlaceholder": {
+    "defaultMessage": "सेटिंग खोजें"
+  },
   "settingsView.tabApp": {
     "defaultMessage": "ऐप"
+  },
+  "settingsView.tabAppearance": {
+    "defaultMessage": "Appearance"
   },
   "settingsView.tabChat": {
     "defaultMessage": "बातचीत"
@@ -4151,14 +4679,26 @@
   "settingsView.tabExternalBackend": {
     "defaultMessage": "बाहरी बैकएंड"
   },
+  "settingsView.tabHarnesses": {
+    "defaultMessage": "Harnesses"
+  },
   "settingsView.tabKeyboard": {
     "defaultMessage": "कीबोर्ड"
+  },
+  "settingsView.tabMcp": {
+    "defaultMessage": "MCP"
   },
   "settingsView.tabModels": {
     "defaultMessage": "मॉडल"
   },
+  "settingsView.tabPlugins": {
+    "defaultMessage": "Plugins"
+  },
   "settingsView.tabPrompts": {
     "defaultMessage": "संकेत"
+  },
+  "settingsView.tabProviders": {
+    "defaultMessage": "Providers"
   },
   "settingsView.title": {
     "defaultMessage": "Settings"
@@ -4493,6 +5033,9 @@
   "themeSelector.light": {
     "defaultMessage": "रोशनी"
   },
+  "themeSelector.popular": {
+    "defaultMessage": "Popular themes"
+  },
   "themeSelector.system": {
     "defaultMessage": "सिस्टम"
   },
@@ -4667,382 +5210,79 @@
   "userMessage.removeImageFromEdit": {
     "defaultMessage": "संदेश से छवि हटाएँ"
   },
-  "modelsBottomBar.recentModels": {
-    "defaultMessage": "हाल के"
+  "settingsView.tabStats": {
+    "defaultMessage": "Stats"
   },
-  "providerConfigurationModal.chooseModel": {
-    "defaultMessage": "मॉडल चुनें"
+  "usageStats.byModel": {
+    "defaultMessage": "Per model"
   },
-  "providerCard.deprecatedReplacement": {
-    "defaultMessage": "अप्रचलित — इसके बजाय {replacement} का उपयोग करें।"
+  "usageStats.byProvider": {
+    "defaultMessage": "Per provider"
   },
-  "acpReadinessPanel.adapterFound": {
-    "defaultMessage": "ACP अडैप्टर मिल गया"
+  "usageStats.cost": {
+    "defaultMessage": "Cost"
   },
-  "acpReadinessPanel.adapterNotFound": {
-    "defaultMessage": "ACP अडैप्टर नहीं मिला"
+  "usageStats.empty": {
+    "defaultMessage": "No usage was recorded in this date range."
   },
-  "acpReadinessPanel.authenticationHelp": {
-    "defaultMessage": "प्रदाता CLI से साइन इन करें, फिर दोबारा जाँचें।"
+  "usageStats.inputCacheTokens": {
+    "defaultMessage": "Input cache tokens"
   },
-  "acpReadinessPanel.checkAgain": {
-    "defaultMessage": "दोबारा जाँचें"
+  "usageStats.inputTokens": {
+    "defaultMessage": "Input tokens"
   },
-  "acpReadinessPanel.checking": {
-    "defaultMessage": "जाँच की जा रही है..."
+  "usageStats.loading": {
+    "defaultMessage": "Loading usage stats…"
   },
-  "acpReadinessPanel.connected": {
-    "defaultMessage": "सफलतापूर्वक कनेक्ट हो गया"
+  "usageStats.modelColumn": {
+    "defaultMessage": "Model"
   },
-  "acpReadinessPanel.connectionNotChecked": {
-    "defaultMessage": "आगे बढ़ने से पहले अपने खाते का कनेक्शन जाँचें।"
+  "usageStats.preset30": {
+    "defaultMessage": "Last 30 days"
   },
-  "providerConfigForm.deviceCodeAndEnter": {
-    "defaultMessage": "और दर्ज करें:"
+  "usageStats.preset7": {
+    "defaultMessage": "Last 7 days"
   },
-  "providerConfigForm.deviceCodeCopy": {
-    "defaultMessage": "कॉपी करें"
+  "usageStats.presetAll": {
+    "defaultMessage": "All time"
   },
-  "providerConfigForm.deviceCodeVisit": {
-    "defaultMessage": "जाएं"
+  "usageStats.presetYear": {
+    "defaultMessage": "This year"
   },
-  "providerConfigurationModal.deviceCodeAndEnter": {
-    "defaultMessage": "और दर्ज करें:"
+  "usageStats.providerColumn": {
+    "defaultMessage": "Provider"
   },
-  "providerConfigurationModal.deviceCodeCopy": {
-    "defaultMessage": "कॉपी करें"
+  "usageStats.rangeDescription": {
+    "defaultMessage": "Usage is grouped by model and by provider for the selected dates."
   },
-  "providerConfigurationModal.deviceCodeVisit": {
-    "defaultMessage": "जाएं"
+  "usageStats.rangeFrom": {
+    "defaultMessage": "From"
   },
-  "settings.agentLoop.description": {
-    "defaultMessage": "ऑपरेशन-आधारित एजेंट लूप का उपयोग करें। लेगेसी लूप का उपयोग करने के लिए इसे बंद करें।"
+  "usageStats.rangeLabel": {
+    "defaultMessage": "Date range"
   },
-  "settings.agentLoop.operations.auto.placeholder": {
-    "defaultMessage": "स्वचालित"
+  "usageStats.rangeTo": {
+    "defaultMessage": "To"
   },
-  "settings.agentLoop.operations.blockLimit.label": {
-    "defaultMessage": "ब्लॉक सीमा"
+  "usageStats.sessions": {
+    "defaultMessage": "{count,plural,one{# session} other{# sessions}}"
   },
-  "settings.agentLoop.operations.contextCompaction.description": {
-    "defaultMessage": "कॉन्टेक्स्ट विंडो भरने से पहले बातचीत के इतिहास का सारांश बनाता है।"
+  "usageStats.sourceLedger": {
+    "defaultMessage": "Recorded usage"
   },
-  "settings.agentLoop.operations.contextCompaction.title": {
-    "defaultMessage": "कॉन्टेक्स्ट संक्षेपण"
+  "usageStats.sourceMessages": {
+    "defaultMessage": "Estimated from stored messages"
   },
-  "settings.agentLoop.operations.cutoff.label": {
-    "defaultMessage": "कटऑफ"
+  "usageStats.total": {
+    "defaultMessage": "Total"
   },
-  "settings.agentLoop.operations.enable": {
-    "defaultMessage": "{operation} सक्षम करें"
+  "usageStats.unknown": {
+    "defaultMessage": "Unknown"
   },
-  "settings.agentLoop.operations.failureTimeout.label": {
-    "defaultMessage": "विफलता टाइमआउट"
+  "usageStats.writeCacheTokens": {
+    "defaultMessage": "Write cache tokens"
   },
-  "settings.agentLoop.operations.heading": {
-    "defaultMessage": "कॉन्फ़िगर करने योग्य ऑपरेशन"
-  },
-  "settings.agentLoop.operations.maxTurns.description": {
-    "defaultMessage": "स्वायत्त काम रोकता है और जारी रखने से पहले उपयोगकर्ता से पूछता है।"
-  },
-  "settings.agentLoop.operations.maxTurns.title": {
-    "defaultMessage": "अधिकतम टर्न"
-  },
-  "settings.agentLoop.operations.recipeRetry.description": {
-    "defaultMessage": "कॉन्फ़िगर की गई सफलता जाँच विफल होने पर रेसिपी जाँच फिर से चलाता है।"
-  },
-  "settings.agentLoop.operations.recipeRetry.title": {
-    "defaultMessage": "रेसिपी पुनः प्रयास"
-  },
-  "settings.agentLoop.operations.retryTimeout.label": {
-    "defaultMessage": "पुनः प्रयास टाइमआउट"
-  },
-  "settings.agentLoop.operations.slashCommands.description": {
-    "defaultMessage": "/compact, /skills और रेसिपी शॉर्टकट जैसे कमांड पहचानता है।"
-  },
-  "settings.agentLoop.operations.slashCommands.title": {
-    "defaultMessage": "स्लैश कमांड"
-  },
-  "settings.agentLoop.operations.stopHooks.description": {
-    "defaultMessage": "हुक को पूर्णता रोकने देता है और अंतहीन स्टॉप चक्रों से बचाता है।"
-  },
-  "settings.agentLoop.operations.stopHooks.title": {
-    "defaultMessage": "स्टॉप हुक"
-  },
-  "settings.agentLoop.operations.threshold.label": {
-    "defaultMessage": "थ्रेशोल्ड %"
-  },
-  "settings.agentLoop.operations.toolPairCompaction.description": {
-    "defaultMessage": "कॉन्टेक्स्ट बचाने के लिए पुराने टूल अनुरोधों और उत्तरों का सारांश बनाता है। खाली छोड़ने पर कटऑफ स्वचालित होता है।"
-  },
-  "settings.agentLoop.operations.toolPairCompaction.title": {
-    "defaultMessage": "टूल पेयर संक्षेपण"
-  },
-  "settings.agentLoop.operations.turns.label": {
-    "defaultMessage": "टर्न"
-  },
-  "settings.agentLoop.title": {
-    "defaultMessage": "एजेंट लूप"
-  },
-  "providersSection.configure": {
-    "defaultMessage": "Configure"
-  },
-  "providersSection.configured": {
-    "defaultMessage": "Configured"
-  },
-  "providersSection.defaultSet": {
-    "defaultMessage": "{model} is now your default model."
-  },
-  "providersSection.defaultSetFailed": {
-    "defaultMessage": "Failed to set default model"
-  },
-  "providersSection.description": {
-    "defaultMessage": "Configure your AI model providers and load their available models directly from each provider API."
-  },
-  "providersSection.hideModels": {
-    "defaultMessage": "Hide models"
-  },
-  "providersSection.loadFailed": {
-    "defaultMessage": "Failed to load providers"
-  },
-  "providersSection.loadModels": {
-    "defaultMessage": "Load Models"
-  },
-  "providersSection.loading": {
-    "defaultMessage": "Loading providers..."
-  },
-  "providersSection.manageAll": {
-    "defaultMessage": "Manage all providers"
-  },
-  "providersSection.modelsError": {
-    "defaultMessage": "Could not load models from {provider}: {error}"
-  },
-  "providersSection.modelsLoaded": {
-    "defaultMessage": "{count} models loaded from {provider}"
-  },
-  "providersSection.needsConfig": {
-    "defaultMessage": "Configure this provider first to load its models."
-  },
-  "providersSection.notConfigured": {
-    "defaultMessage": "Not configured"
-  },
-  "providersSection.reloadingModels": {
-    "defaultMessage": "Reloading models..."
-  },
-  "providersSection.setDefault": {
-    "defaultMessage": "Click a model to use it as your default."
-  },
-  "providersSection.showModels": {
-    "defaultMessage": "Show models"
-  },
-  "providersSection.title": {
-    "defaultMessage": "Model Providers"
-  },
-  "settingsView.tabProviders": {
-    "defaultMessage": "Providers"
-  },
-  "authSettings.cancelSignIn": {
-    "defaultMessage": "रद्द करें"
-  },
-  "authSettings.checkingStatus": {
-    "defaultMessage": "जाँच हो रही है..."
-  },
-  "authSettings.connectedAccounts": {
-    "defaultMessage": "कनेक्ट किए गए खाते"
-  },
-  "authSettings.connectedAccountsDescription": {
-    "defaultMessage": "Sauron को अपने बाहरी खातों के साथ काम करने देने के लिए साइन इन करें।"
-  },
-  "authSettings.githubAccountDescription": {
-    "defaultMessage": "रिपॉज़िटरी खोजें, कोड के साथ काम करें, इश्यू प्रबंधित करें और पुल रिक्वेस्ट खोलें।"
-  },
-  "authSettings.githubAccountName": {
-    "defaultMessage": "GitHub"
-  },
-  "authSettings.githubConnected": {
-    "defaultMessage": "कनेक्टेड"
-  },
-  "authSettings.githubEnterCode": {
-    "defaultMessage": "Sauron को अधिकृत करने के लिए {url} पर यह कोड दर्ज करें:"
-  },
-  "authSettings.githubNotConnected": {
-    "defaultMessage": "कनेक्टेड नहीं"
-  },
-  "authSettings.githubOpenDevicePage": {
-    "defaultMessage": "GitHub डिवाइस पेज खोलें"
-  },
-  "allProviderModels.preferredUpdateFailed": {
-    "defaultMessage": "पसंदीदा मॉडल अपडेट नहीं हो सके"
-  },
-  "allProviderModels.refreshAll": {
-    "defaultMessage": "Refresh models"
-  },
-  "authSettings.githubSignInUnavailable": {
-    "defaultMessage": "GitHub साइन-इन केवल डेस्कटॉप ऐप में उपलब्ध है।"
-  },
-  "authSettings.githubSignOutMessage": {
-    "defaultMessage": "जब तक आप फिर से साइन इन नहीं करते, Sauron आपके GitHub रिपॉज़िटरी के साथ काम नहीं कर पाएगा।"
-  },
-  "allProviderModels.removePreferred": {
-    "defaultMessage": "{model} को पसंदीदा मॉडल से हटाएँ"
-  },
-  "allProviderModels.title": {
-    "defaultMessage": "Models from your providers"
-  },
-  "authSettings.githubSignedIn": {
-    "defaultMessage": "GitHub पर साइन इन हो गया। GitHub एक्सटेंशन उपयोग के लिए तैयार है।"
-  },
-  "authSettings.githubSignedOut": {
-    "defaultMessage": "GitHub से साइन आउट हो गया"
-  },
-  "authSettings.githubStatusFailed": {
-    "defaultMessage": "GitHub साइन-इन स्थिति जाँच नहीं सकी"
-  },
-  "authSettings.githubWaitingForAuthorization": {
-    "defaultMessage": "GitHub प्राधिकरण की प्रतीक्षा है..."
-  },
-  "authSettings.signInWithGitHub": {
-    "defaultMessage": "GitHub से साइन इन करें"
-  },
-  "pluginsSettings.loadFailed": {
-    "defaultMessage": "Could not load plugins"
-  },
-  "pluginsSettings.loading": {
-    "defaultMessage": "Loading plugins..."
-  },
-  "pluginsSettings.manageSkills": {
-    "defaultMessage": "Manage skills"
-  },
-  "pluginsSettings.pluginCount": {
-    "defaultMessage": "{count,plural,=0{No plugins} one{# plugin} other{# plugins}}"
-  },
-  "pluginsSettings.refresh": {
-    "defaultMessage": "Refresh"
-  },
-  "pluginsSettings.skillCount": {
-    "defaultMessage": "{count,plural,one{# skill} other{# skills}}"
-  },
-  "pluginsSettings.title": {
-    "defaultMessage": "Plugins"
-  },
-  "preferredModels.empty": {
-    "defaultMessage": "इन्हें यहाँ और चैट में आसानी से उपलब्ध रखने के लिए नीचे मॉडलों पर तारा लगाएँ।"
-  },
-  "preferredModels.remove": {
-    "defaultMessage": "{model} को पसंदीदा मॉडल से हटाएँ"
-  },
-  "preferredModels.removeFailed": {
-    "defaultMessage": "पसंदीदा मॉडल अपडेट नहीं हो सके"
-  },
-  "preferredModels.title": {
-    "defaultMessage": "पसंदीदा मॉडल"
-  },
-  "providersSection.resetDescription": {
-    "defaultMessage": "Clear your selected model and provider settings to start fresh"
-  },
-  "providersSection.resetTitle": {
-    "defaultMessage": "Reset Provider and Model"
-  },
-  "settingsView.tabAppearance": {
-    "defaultMessage": "Appearance"
-  },
-  "settingsView.tabMcp": {
-    "defaultMessage": "MCP"
-  },
-  "settingsView.tabPlugins": {
-    "defaultMessage": "Plugins"
-  },
-  "themeSelector.popular": {
-    "defaultMessage": "Popular themes"
-  },
-  "allProviderModels.clearSearch": {
-    "defaultMessage": "खोज साफ़ करें"
-  },
-  "allProviderModels.clearSearchInput": {
-    "defaultMessage": "खोज इनपुट साफ़ करें"
-  },
-  "allProviderModels.noSearchResults": {
-    "defaultMessage": "कोई मॉडल \"{query}\" से मेल नहीं खाता।"
-  },
-  "allProviderModels.searchLabel": {
-    "defaultMessage": "मॉडल खोजें"
-  },
-  "allProviderModels.searchPlaceholder": {
-    "defaultMessage": "मॉडल खोजें..."
-  },
-  "allProviderModels.showingCount": {
-    "defaultMessage": "{total, number} में से {shown, number} मॉडल दिखाए जा रहे हैं"
-  },
-  "modelBadges.contextShort": {
-    "defaultMessage": "{amount, number}k"
-  },
-  "modelBadges.contextWindow": {
-    "defaultMessage": "{amount, number}k कॉन्टेक्स्ट"
-  },
-  "modelBadges.default": {
-    "defaultMessage": "डिफ़ॉल्ट"
-  },
-  "modelBadges.reasoning": {
-    "defaultMessage": "रीज़निंग"
-  },
-  "allProviderModels.configureProviders": {
-    "defaultMessage": "Configure providers"
-  },
-  "allProviderModels.defaultSet": {
-    "defaultMessage": "{model} is now your default model."
-  },
-  "allProviderModels.defaultSetFailed": {
-    "defaultMessage": "Failed to set default model"
-  },
-  "allProviderModels.description": {
-    "defaultMessage": "Every model exposed by your activated providers. Select one to make it the default model."
-  },
-  "allProviderModels.empty": {
-    "defaultMessage": "No activated providers yet."
-  },
-  "allProviderModels.emptyHint": {
-    "defaultMessage": "Configure a provider to see the models it offers."
-  },
-  "allProviderModels.loadFailed": {
-    "defaultMessage": "Could not load provider models"
-  },
-  "allProviderModels.loading": {
-    "defaultMessage": "Loading models from your providers..."
-  },
-  "allProviderModels.modelCount": {
-    "defaultMessage": "{count,plural,one{# model} other{# models}}"
-  },
-  "allProviderModels.noModels": {
-    "defaultMessage": "No models reported by this provider."
-  },
-  "allProviderModels.refreshFailed": {
-    "defaultMessage": "Could not refresh {provider}: {error}"
-  },
-  "allProviderModels.refreshing": {
-    "defaultMessage": "Refreshing..."
-  },
-  "authSettings.githubSignInFailed": {
-    "defaultMessage": "GitHub sign-in failed: {error}"
-  },
-  "authSettings.githubSignOutTitle": {
-    "defaultMessage": "Sign out of GitHub"
-  },
-  "authSettings.signOutFromGitHub": {
-    "defaultMessage": "Sign out"
-  },
-  "mcpSettings.description": {
-    "defaultMessage": "Connect Model Context Protocol servers to give goose new tools, resources, and data sources. Extensions added here are available to every chat."
-  },
-  "mcpSettings.title": {
-    "defaultMessage": "MCP Servers"
-  },
-  "pluginsSettings.description": {
-    "defaultMessage": "Plugins installed under .agents/plugins contribute skills and MCP servers to goose. Manage the skills they provide from the Skills view."
-  },
-  "pluginsSettings.empty": {
-    "defaultMessage": "No plugins installed."
-  },
-  "pluginsSettings.emptyHint": {
-    "defaultMessage": "Install a plugin with `goose plugin install` and it will show up here."
+  "usageStats.writeTokens": {
+    "defaultMessage": "Write tokens"
   }
 }

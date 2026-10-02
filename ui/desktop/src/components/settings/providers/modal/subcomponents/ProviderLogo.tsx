@@ -21,7 +21,9 @@ export default function ProviderLogo({ providerName, size = 'md' }: ProviderLogo
   return (
     <div className={`flex justify-center${size === 'md' ? ' mb-2' : ''}`}>
       <BrandIcon provider={providerName} className={iconClassName} />
-      <span className="sr-only">{intl.formatMessage(i18n.logoAlt, { providerName })}</span>
+      <span className="sr-only">
+        {intl.formatMessage(i18n.logoAlt, { providerName })}
+      </span>
     </div>
   );
 }

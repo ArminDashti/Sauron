@@ -31,6 +31,7 @@ import { getPredefinedModelsFromEnv, shouldShowPredefinedModels } from '../prede
 import type { ProviderDetails, ProviderType, ThinkingEffort } from '../../../../types/providers';
 import { trackModelChanged } from '../../../../utils/analytics';
 import { addToRecentModels } from '../../../../utils/recentModels';
+import FreeModelBadge from '../FreeModelBadge';
 import { BrandIcon } from '../../../logos/BrandLogos';
 
 const i18n = defineMessages({
@@ -286,6 +287,7 @@ export const SwitchModelModal = ({
     provider: string;
     isDisabled?: boolean;
     reasoning?: boolean;
+    free?: boolean;
   };
   const [modelOptions, setModelOptions] = useState<{ options: ModelOption[] }[]>([]);
   const [provider, setProvider] = useState<string | null>(
@@ -550,12 +552,14 @@ export const SwitchModelModal = ({
             provider: string;
             providerType: ProviderType;
             reasoning?: boolean;
+            free?: boolean;
           }[] = modelList.map((m) => ({
             value: m.name,
             label: m.name,
             provider: p.name,
             providerType: p.provider_type,
             reasoning: m.reasoning,
+            free: m.free,
           }));
 
           if (p.provider_type !== 'Custom') {
@@ -935,6 +939,41 @@ export const SwitchModelModal = ({
                         }
                         onChange={handleModelChange}
                         onInputChange={handleInputChange}
+                        formatOptionLabel={(option: unknown, meta: { context: string }) => {
+                          const {
+                            free,
+                            label,
+                            provider: optionProvider,
+                            value,
+                          } = option as {
+                            free?: boolean;
+                            label?: string;
+                            provider?: string;
+                            value?: string;
+                          };
+                          const brand = (
+                            <BrandIcon
+                              model={value}
+                              provider={optionProvider}
+                              className="w-5 h-5 shrink-0"
+                            />
+                          );
+                          if (meta.context !== 'menu') {
+                            return (
+                              <span className="flex items-center gap-2">
+                                {brand}
+                                <span>{label}</span>
+                              </span>
+                            );
+                          }
+                          return (
+                            <span className="flex w-full items-center gap-2">
+                              {brand}
+                              <span className="flex-1">{label}</span>
+                              {free && <FreeModelBadge />}
+                            </span>
+                          );
+                        }}
                         value={
                           loadingModels
                             ? {
@@ -949,23 +988,6 @@ export const SwitchModelModal = ({
                         placeholder={intl.formatMessage(i18n.selectModelPlaceholder)}
                         isClearable
                         isDisabled={loadingModels}
-                        formatOptionLabel={(option: unknown) => {
-                          const opt = option as {
-                            value?: string;
-                            label?: string;
-                            provider?: string;
-                          };
-                          return (
-                            <span className="flex items-center gap-2">
-                              <BrandIcon
-                                model={opt.value}
-                                provider={opt.provider}
-                                className="w-5 h-5 shrink-0"
-                              />
-                              <span>{opt.label}</span>
-                            </span>
-                          );
-                        }}
                       />
 
                       {attemptedSubmit && validationErrors.model && (

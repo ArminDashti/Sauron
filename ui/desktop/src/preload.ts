@@ -6,6 +6,9 @@ import { defaultSettings } from './utils/settings';
 import type { OpenExternalUrlResult } from './utils/urlSecurity';
 import type { GitHubDeviceCode, GitHubTokenPollResult } from './utils/githubSignIn';
 import type { UserProfile } from './utils/userProfile';
+import type { GitChangesResult, GitCommitPushResult } from './utils/gitChangesIpc';
+import type { UsageStatsRange, UsageStatsResult } from './types/usageStats';
+import type { SystemUsage } from './utils/systemUsage';
 
 // Mapping from settings keys to their old localStorage keys for lazy migration
 const localStorageKeyMap: Partial<Record<SettingKey, string>> = {
@@ -127,6 +130,7 @@ type ElectronAPI = {
   writeFile: (directory: string, content: string) => Promise<boolean>;
   ensureDirectory: (dirPath: string) => Promise<boolean>;
   listFiles: (dirPath: string, extension?: string) => Promise<string[]>;
+  getUsageStats: (range: UsageStatsRange) => Promise<UsageStatsResult>;
   getAllowedExtensions: () => Promise<string[]>;
   getPathForFile: (file: File) => string;
   setMenuBarIcon: (show: boolean) => Promise<boolean>;
@@ -189,7 +193,11 @@ type ElectronAPI = {
   getGitBranchInfo: (dir: string) => Promise<{ branch: string } | null>;
   listGitBranches: (dir: string) => Promise<string[]>;
   switchGitBranch: (dir: string, branch: string) => Promise<{ success: boolean; error?: string }>;
+  getGitChanges: (dir: string) => Promise<GitChangesResult | null>;
+  getGitChangeDiff: (dir: string, filePath: string) => Promise<string>;
+  commitAndPushGitChanges: (dir: string, message: string) => Promise<GitCommitPushResult>;
   getUserProfile: () => Promise<UserProfile>;
+  getSystemUsage: () => Promise<SystemUsage>;
 };
 
 type AppConfigAPI = {
@@ -233,6 +241,7 @@ const electronAPI: ElectronAPI = {
   ensureDirectory: (dirPath: string) => ipcRenderer.invoke('ensure-directory', dirPath),
   listFiles: (dirPath: string, extension?: string) =>
     ipcRenderer.invoke('list-files', dirPath, extension),
+  getUsageStats: (range: UsageStatsRange) => ipcRenderer.invoke('get-usage-stats', range),
   getPathForFile: (file: File) => webUtils.getPathForFile(file),
   getAllowedExtensions: () => ipcRenderer.invoke('get-allowed-extensions'),
   setMenuBarIcon: (show: boolean) => ipcRenderer.invoke('set-menu-bar-icon', show),
@@ -359,7 +368,13 @@ const electronAPI: ElectronAPI = {
   listGitBranches: (dir: string) => ipcRenderer.invoke('list-git-branches', dir),
   switchGitBranch: (dir: string, branch: string) =>
     ipcRenderer.invoke('switch-git-branch', dir, branch),
+  getGitChanges: (dir: string) => ipcRenderer.invoke('get-git-changes', dir),
+  getGitChangeDiff: (dir: string, filePath: string) =>
+    ipcRenderer.invoke('get-git-change-diff', dir, filePath),
+  commitAndPushGitChanges: (dir: string, message: string) =>
+    ipcRenderer.invoke('commit-and-push-git-changes', dir, message),
   getUserProfile: () => ipcRenderer.invoke('get-user-profile'),
+  getSystemUsage: () => ipcRenderer.invoke('get-system-usage'),
 };
 
 function getAppLocale(): unknown {

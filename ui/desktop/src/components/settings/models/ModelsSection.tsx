@@ -12,6 +12,9 @@ import { toastError } from '../../../toasts';
 import type { RecentModel } from '../../../utils/settings';
 
 import { Card, CardContent } from '../../ui/card';
+import { Skeleton } from '../../ui/skeleton';
+import ProviderLogo from '../providers/modal/subcomponents/ProviderLogo';
+import { ContextBadge, DefaultBadge, ReasoningBadge } from './subcomponents/ModelBadges';
 import { useIntl } from '../../../i18n';
 import type { View } from '../../../utils/navigationUtils';
 
@@ -171,6 +174,7 @@ export default function ModelsSection({ setView }: ModelsSectionProps) {
       <AllProviderModels
         preferredModels={preferredModels}
         onPreferredModelsChange={setPreferredModels}
+        onModelSelected={loadModelData}
       />
     </section>
   );
