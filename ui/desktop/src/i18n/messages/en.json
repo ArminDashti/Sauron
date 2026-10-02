@@ -2910,7 +2910,7 @@
     "defaultMessage": "Manage skills"
   },
   "pluginsSettings.pluginCount": {
-    "defaultMessage": "{count,plural,=0{No plugins} one{# plugin} other{# plugins}}"
+    "defaultMessage": "{count,plural,one{# plugin} other{# plugins} =0{No plugins}}"
   },
   "pluginsSettings.refresh": {
     "defaultMessage": "Refresh"
