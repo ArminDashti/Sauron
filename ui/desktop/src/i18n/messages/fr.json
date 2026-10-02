@@ -8,6 +8,9 @@
   "alertBox.failedToSaveThreshold": {
     "defaultMessage": "Échec de l'enregistrement du seuil : {error}"
   },
+  "allProviderModels.addPreferred": {
+    "defaultMessage": "Ajouter {model} aux modèles favoris"
+  },
   "announcementModal.gotIt": {
     "defaultMessage": "Compris !"
   },
@@ -2351,6 +2354,9 @@
   "modelsBottomBar.localModelSettingsTitle": {
     "defaultMessage": "Paramètres du modèle local — {modelName}"
   },
+  "modelsBottomBar.preferredModels": {
+    "defaultMessage": "Favoris"
+  },
   "modelsBottomBar.resolvedModel": {
     "defaultMessage": "Modèle résolu"
   },
@@ -2390,8 +2396,14 @@
   "navigationFooter.you": {
     "defaultMessage": "Vous"
   },
-  "navigationPanel.chats": {
-    "defaultMessage": "Discussions"
+  "navigationPanel.goBack": {
+    "defaultMessage": "Retour"
+  },
+  "navigationPanel.goForward": {
+    "defaultMessage": "Avant"
+  },
+  "navigationPanel.groupChats": {
+    "defaultMessage": "Regrouper les discussions par espace de travail"
   },
   "navigationPanel.loadingChats": {
     "defaultMessage": "Chargement des discussions…"
@@ -2411,8 +2423,14 @@
   "navigationPanel.metaUpdated": {
     "defaultMessage": "Mis à jour"
   },
+  "navigationPanel.newProject": {
+    "defaultMessage": "Nouveau projet"
+  },
   "navigationPanel.noChats": {
     "defaultMessage": "Aucune discussion récente"
+  },
+  "navigationPanel.projects": {
+    "defaultMessage": "Projets"
   },
   "navigationPanel.statusError": {
     "defaultMessage": "Erreur"
@@ -2428,6 +2446,9 @@
   },
   "navigationPanel.untitledSession": {
     "defaultMessage": "Session sans titre"
+  },
+  "navigationPanel.workspaces": {
+    "defaultMessage": "Espaces de travail"
   },
   "onboardingGuard.checkProviderErrorDescription": {
     "defaultMessage": "Le serveur est peut-être en cours de démarrage ou temporairement indisponible."
@@ -4850,8 +4871,11 @@
   "authSettings.githubOpenDevicePage": {
     "defaultMessage": "Ouvrir la page d’appareil GitHub"
   },
-  "authSettings.githubSignInFailed": {
-    "defaultMessage": "Échec de la connexion à GitHub : {error}"
+  "allProviderModels.preferredUpdateFailed": {
+    "defaultMessage": "Impossible de mettre à jour les modèles favoris"
+  },
+  "allProviderModels.refreshAll": {
+    "defaultMessage": "Refresh models"
   },
   "authSettings.githubSignInUnavailable": {
     "defaultMessage": "La connexion GitHub est uniquement disponible dans l’application de bureau."
@@ -4859,8 +4883,11 @@
   "authSettings.githubSignOutMessage": {
     "defaultMessage": "Sauron ne pourra plus travailler avec vos dépôts GitHub jusqu’à votre prochaine connexion."
   },
-  "authSettings.githubSignOutTitle": {
-    "defaultMessage": "Se déconnecter de GitHub"
+  "allProviderModels.removePreferred": {
+    "defaultMessage": "Retirer {model} des modèles favoris"
+  },
+  "allProviderModels.title": {
+    "defaultMessage": "Models from your providers"
   },
   "authSettings.githubSignedIn": {
     "defaultMessage": "Connecté à GitHub. L’extension GitHub est prête à l’emploi."
@@ -4897,6 +4924,18 @@
   },
   "pluginsSettings.title": {
     "defaultMessage": "Plugins"
+  },
+  "preferredModels.empty": {
+    "defaultMessage": "Marquez des modèles d'une étoile ci-dessous pour les garder à portée ici et dans les chats."
+  },
+  "preferredModels.remove": {
+    "defaultMessage": "Retirer {model} des modèles favoris"
+  },
+  "preferredModels.removeFailed": {
+    "defaultMessage": "Impossible de mettre à jour les modèles favoris"
+  },
+  "preferredModels.title": {
+    "defaultMessage": "Modèles favoris"
   },
   "providersSection.resetDescription": {
     "defaultMessage": "Clear your selected model and provider settings to start fresh"

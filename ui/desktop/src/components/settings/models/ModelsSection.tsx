@@ -1,13 +1,12 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import ModelSettingsButtons from './subcomponents/ModelSettingsButtons';
 import AllProviderModels from './AllProviderModels';
-import ProviderLogo from '../providers/modal/subcomponents/ProviderLogo';
-import { ContextBadge, DefaultBadge, ReasoningBadge } from './subcomponents/ModelBadges';
-import { Skeleton } from '../../ui/skeleton';
+import PreferredModels from './PreferredModels';
 import { acpGetProviderDetails, acpReadDefaults } from '../../../acp/providers';
 import type { ModelInfo, ProviderDetails } from '../../../types/providers';
 import { modelAndProviderMessages, useModelAndProvider } from '../../ModelAndProviderContext';
 import { toastError } from '../../../toasts';
+import type { RecentModel } from '../../../utils/settings';
 
 import { Card, CardContent } from '../../ui/card';
 import { useIntl } from '../../../i18n';
@@ -27,12 +26,28 @@ export default function ModelsSection({ setView }: ModelsSectionProps) {
   const [displayModelName, setDisplayModelName] = useState<string>('');
   const [modelInfo, setModelInfo] = useState<ModelInfo | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [preferredModels, setPreferredModels] = useState<RecentModel[]>([]);
   const {
     getCurrentModelDisplayName,
     getCurrentProviderDisplayName,
     currentModel,
     currentProvider,
   } = useModelAndProvider();
+
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const stored = (await window.electron.getSetting('preferredModels')) ?? [];
+        if (!cancelled) setPreferredModels(stored);
+      } catch (error) {
+        console.error('Error loading preferred models:', error);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   const loadModelData = useCallback(async () => {
     try {
@@ -145,7 +160,15 @@ export default function ModelsSection({ setView }: ModelsSectionProps) {
         </CardContent>
       </Card>
 
-      <AllProviderModels onModelSelected={loadModelData} />
+      <PreferredModels
+        preferredModels={preferredModels}
+        onPreferredModelsChange={setPreferredModels}
+      />
+
+      <AllProviderModels
+        preferredModels={preferredModels}
+        onPreferredModelsChange={setPreferredModels}
+      />
     </section>
   );
 }

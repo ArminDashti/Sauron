@@ -8,6 +8,9 @@
   "alertBox.failedToSaveThreshold": {
     "defaultMessage": "Eşik kaydedilemedi: {error}"
   },
+  "allProviderModels.addPreferred": {
+    "defaultMessage": "{model} modelini tercih edilenlere ekle"
+  },
   "announcementModal.gotIt": {
     "defaultMessage": "Anladım!"
   },
@@ -2351,6 +2354,9 @@
   "modelsBottomBar.localModelSettingsTitle": {
     "defaultMessage": "Yerel Model Ayarları — {modelName}"
   },
+  "modelsBottomBar.preferredModels": {
+    "defaultMessage": "Tercih edilen"
+  },
   "modelsBottomBar.resolvedModel": {
     "defaultMessage": "Çözümlenen model"
   },
@@ -2390,8 +2396,14 @@
   "navigationFooter.you": {
     "defaultMessage": "Siz"
   },
-  "navigationPanel.chats": {
-    "defaultMessage": "Sohbetler"
+  "navigationPanel.goBack": {
+    "defaultMessage": "Geri"
+  },
+  "navigationPanel.goForward": {
+    "defaultMessage": "İleri"
+  },
+  "navigationPanel.groupChats": {
+    "defaultMessage": "Sohbetleri çalışma alanına göre grupla"
   },
   "navigationPanel.loadingChats": {
     "defaultMessage": "Sohbetler yükleniyor…"
@@ -2411,8 +2423,14 @@
   "navigationPanel.metaUpdated": {
     "defaultMessage": "Güncellendi"
   },
+  "navigationPanel.newProject": {
+    "defaultMessage": "Yeni proje"
+  },
   "navigationPanel.noChats": {
     "defaultMessage": "Son sohbet yok"
+  },
+  "navigationPanel.projects": {
+    "defaultMessage": "Projeler"
   },
   "navigationPanel.statusError": {
     "defaultMessage": "Hata"
@@ -2428,6 +2446,9 @@
   },
   "navigationPanel.untitledSession": {
     "defaultMessage": "Başlıksız oturum"
+  },
+  "navigationPanel.workspaces": {
+    "defaultMessage": "Çalışma alanları"
   },
   "onboardingGuard.checkProviderErrorDescription": {
     "defaultMessage": "Sunucu başlatılıyor veya geçici olarak kullanılamıyor olabilir."
@@ -4850,8 +4871,11 @@
   "authSettings.githubOpenDevicePage": {
     "defaultMessage": "GitHub cihaz sayfasını aç"
   },
-  "authSettings.githubSignInFailed": {
-    "defaultMessage": "GitHub oturum açma başarısız: {error}"
+  "allProviderModels.preferredUpdateFailed": {
+    "defaultMessage": "Tercih edilen modeller güncellenemedi"
+  },
+  "allProviderModels.refreshAll": {
+    "defaultMessage": "Refresh models"
   },
   "authSettings.githubSignInUnavailable": {
     "defaultMessage": "GitHub oturum açma yalnızca masaüstü uygulamasında kullanılabilir."
@@ -4859,8 +4883,11 @@
   "authSettings.githubSignOutMessage": {
     "defaultMessage": "Yeniden oturum açana kadar Sauron GitHub depolarınızla çalışamaz."
   },
-  "authSettings.githubSignOutTitle": {
-    "defaultMessage": "GitHub'dan çık"
+  "allProviderModels.removePreferred": {
+    "defaultMessage": "{model} modelini tercih edilenlerden kaldır"
+  },
+  "allProviderModels.title": {
+    "defaultMessage": "Models from your providers"
   },
   "authSettings.githubSignedIn": {
     "defaultMessage": "GitHub'a giriş yapıldı. GitHub eklentisi kullanıma hazır."
@@ -4897,6 +4924,18 @@
   },
   "pluginsSettings.title": {
     "defaultMessage": "Plugins"
+  },
+  "preferredModels.empty": {
+    "defaultMessage": "Burada ve sohbetlerde kullanmak için aşağıdaki modellere yıldız ekleyin."
+  },
+  "preferredModels.remove": {
+    "defaultMessage": "{model} modelini tercih edilenlerden kaldır"
+  },
+  "preferredModels.removeFailed": {
+    "defaultMessage": "Tercih edilen modeller güncellenemedi"
+  },
+  "preferredModels.title": {
+    "defaultMessage": "Tercih edilen modeller"
   },
   "providersSection.resetDescription": {
     "defaultMessage": "Clear your selected model and provider settings to start fresh"

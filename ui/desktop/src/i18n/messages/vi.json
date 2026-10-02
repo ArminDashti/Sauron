@@ -8,6 +8,9 @@
   "alertBox.failedToSaveThreshold": {
     "defaultMessage": "Không thể lưu ngưỡng: {error}"
   },
+  "allProviderModels.addPreferred": {
+    "defaultMessage": "Thêm {model} vào mô hình yêu thích"
+  },
   "announcementModal.gotIt": {
     "defaultMessage": "Đã hiểu!"
   },
@@ -2351,6 +2354,9 @@
   "modelsBottomBar.localModelSettingsTitle": {
     "defaultMessage": "Cài đặt mô hình cục bộ — {modelName}"
   },
+  "modelsBottomBar.preferredModels": {
+    "defaultMessage": "Yêu thích"
+  },
   "modelsBottomBar.resolvedModel": {
     "defaultMessage": "Mô hình đã phân giải"
   },
@@ -2390,8 +2396,14 @@
   "navigationFooter.you": {
     "defaultMessage": "Bạn"
   },
-  "navigationPanel.chats": {
-    "defaultMessage": "Cuộc trò chuyện"
+  "navigationPanel.goBack": {
+    "defaultMessage": "Quay lại"
+  },
+  "navigationPanel.goForward": {
+    "defaultMessage": "Tiến tới"
+  },
+  "navigationPanel.groupChats": {
+    "defaultMessage": "Nhóm trò chuyện theo không gian làm việc"
   },
   "navigationPanel.loadingChats": {
     "defaultMessage": "Đang tải cuộc trò chuyện…"
@@ -2411,8 +2423,14 @@
   "navigationPanel.metaUpdated": {
     "defaultMessage": "Đã cập nhật"
   },
+  "navigationPanel.newProject": {
+    "defaultMessage": "Dự án mới"
+  },
   "navigationPanel.noChats": {
     "defaultMessage": "Không có cuộc trò chuyện gần đây"
+  },
+  "navigationPanel.projects": {
+    "defaultMessage": "Dự án"
   },
   "navigationPanel.statusError": {
     "defaultMessage": "Lỗi"
@@ -2428,6 +2446,9 @@
   },
   "navigationPanel.untitledSession": {
     "defaultMessage": "Phiên chưa đặt tên"
+  },
+  "navigationPanel.workspaces": {
+    "defaultMessage": "Không gian làm việc"
   },
   "onboardingGuard.checkProviderErrorDescription": {
     "defaultMessage": "Máy chủ có thể đang khởi động hoặc tạm thời không khả dụng."
@@ -4850,8 +4871,11 @@
   "authSettings.githubOpenDevicePage": {
     "defaultMessage": "Mở trang thiết bị GitHub"
   },
-  "authSettings.githubSignInFailed": {
-    "defaultMessage": "Đăng nhập GitHub thất bại: {error}"
+  "allProviderModels.preferredUpdateFailed": {
+    "defaultMessage": "Không thể cập nhật mô hình yêu thích"
+  },
+  "allProviderModels.refreshAll": {
+    "defaultMessage": "Refresh models"
   },
   "authSettings.githubSignInUnavailable": {
     "defaultMessage": "Đăng nhập GitHub chỉ có sẵn trong ứng dụng máy tính để bàn."
@@ -4859,8 +4883,11 @@
   "authSettings.githubSignOutMessage": {
     "defaultMessage": "Sauron sẽ không thể làm việc với các kho GitHub của bạn cho đến khi bạn đăng nhập lại."
   },
-  "authSettings.githubSignOutTitle": {
-    "defaultMessage": "Đăng xuất khỏi GitHub"
+  "allProviderModels.removePreferred": {
+    "defaultMessage": "Bỏ {model} khỏi mô hình yêu thích"
+  },
+  "allProviderModels.title": {
+    "defaultMessage": "Models from your providers"
   },
   "authSettings.githubSignedIn": {
     "defaultMessage": "Đã đăng nhập GitHub. Tiện ích mở rộng GitHub đã sẵn sàng sử dụng."
@@ -4897,6 +4924,18 @@
   },
   "pluginsSettings.title": {
     "defaultMessage": "Plugins"
+  },
+  "preferredModels.empty": {
+    "defaultMessage": "Đánh dấu sao cho các mô hình bên dưới để dùng nhanh ở đây và trong chat."
+  },
+  "preferredModels.remove": {
+    "defaultMessage": "Bỏ {model} khỏi mô hình yêu thích"
+  },
+  "preferredModels.removeFailed": {
+    "defaultMessage": "Không thể cập nhật mô hình yêu thích"
+  },
+  "preferredModels.title": {
+    "defaultMessage": "Mô hình yêu thích"
   },
   "providersSection.resetDescription": {
     "defaultMessage": "Clear your selected model and provider settings to start fresh"

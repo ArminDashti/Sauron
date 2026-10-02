@@ -32,6 +32,8 @@ node_modules
 # Generated sauron DLLs (built at build time, not checked in)
 ui/desktop/src/bin/sauron_ffi.dll
 ui/desktop/src/bin/sauron_llm.dll
+ui/desktop/src/bin/sauron_sdk.dll
+ui/desktop/src/bin/sauron_acp_macros.dll
 
 # Hermit
 .hermit/

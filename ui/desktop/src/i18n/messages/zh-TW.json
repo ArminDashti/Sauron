@@ -8,6 +8,9 @@
   "alertBox.failedToSaveThreshold": {
     "defaultMessage": "無法儲存閾值：{error}"
   },
+  "allProviderModels.addPreferred": {
+    "defaultMessage": "將 {model} 加入偏好模型"
+  },
   "announcementModal.gotIt": {
     "defaultMessage": "知道了！"
   },
@@ -2351,6 +2354,9 @@
   "modelsBottomBar.localModelSettingsTitle": {
     "defaultMessage": "本機模型設定 — {modelName}"
   },
+  "modelsBottomBar.preferredModels": {
+    "defaultMessage": "偏好"
+  },
   "modelsBottomBar.resolvedModel": {
     "defaultMessage": "已解析的模型"
   },
@@ -2390,8 +2396,14 @@
   "navigationFooter.you": {
     "defaultMessage": "你"
   },
-  "navigationPanel.chats": {
-    "defaultMessage": "交談"
+  "navigationPanel.goBack": {
+    "defaultMessage": "返回"
+  },
+  "navigationPanel.goForward": {
+    "defaultMessage": "前進"
+  },
+  "navigationPanel.groupChats": {
+    "defaultMessage": "依工作區群組聊天"
   },
   "navigationPanel.loadingChats": {
     "defaultMessage": "正在載入聊天…"
@@ -2411,8 +2423,14 @@
   "navigationPanel.metaUpdated": {
     "defaultMessage": "更新時間"
   },
+  "navigationPanel.newProject": {
+    "defaultMessage": "新增專案"
+  },
   "navigationPanel.noChats": {
     "defaultMessage": "沒有最近的交談"
+  },
+  "navigationPanel.projects": {
+    "defaultMessage": "專案"
   },
   "navigationPanel.statusError": {
     "defaultMessage": "錯誤"
@@ -2428,6 +2446,9 @@
   },
   "navigationPanel.untitledSession": {
     "defaultMessage": "未命名工作階段"
+  },
+  "navigationPanel.workspaces": {
+    "defaultMessage": "工作區"
   },
   "onboardingGuard.checkProviderErrorDescription": {
     "defaultMessage": "伺服器可能正在啟動或暫時無法使用。"
@@ -4850,8 +4871,11 @@
   "authSettings.githubOpenDevicePage": {
     "defaultMessage": "開啟 GitHub 裝置頁面"
   },
-  "authSettings.githubSignInFailed": {
-    "defaultMessage": "GitHub 登入失敗：{error}"
+  "allProviderModels.preferredUpdateFailed": {
+    "defaultMessage": "無法更新偏好模型"
+  },
+  "allProviderModels.refreshAll": {
+    "defaultMessage": "Refresh models"
   },
   "authSettings.githubSignInUnavailable": {
     "defaultMessage": "GitHub 登入僅在桌面應用程式中可用。"
@@ -4859,8 +4883,11 @@
   "authSettings.githubSignOutMessage": {
     "defaultMessage": "在你重新登入之前，Sauron 將無法操作 GitHub 儲存庫。"
   },
-  "authSettings.githubSignOutTitle": {
-    "defaultMessage": "登出 GitHub"
+  "allProviderModels.removePreferred": {
+    "defaultMessage": "將 {model} 從偏好模型移除"
+  },
+  "allProviderModels.title": {
+    "defaultMessage": "Models from your providers"
   },
   "authSettings.githubSignedIn": {
     "defaultMessage": "已登入 GitHub。GitHub 擴充功能已可使用。"
@@ -4897,6 +4924,18 @@
   },
   "pluginsSettings.title": {
     "defaultMessage": "Plugins"
+  },
+  "preferredModels.empty": {
+    "defaultMessage": "為下方模型加上星號，即可在此及聊天中隨時使用。"
+  },
+  "preferredModels.remove": {
+    "defaultMessage": "將 {model} 從偏好模型移除"
+  },
+  "preferredModels.removeFailed": {
+    "defaultMessage": "無法更新偏好模型"
+  },
+  "preferredModels.title": {
+    "defaultMessage": "偏好模型"
   },
   "providersSection.resetDescription": {
     "defaultMessage": "Clear your selected model and provider settings to start fresh"

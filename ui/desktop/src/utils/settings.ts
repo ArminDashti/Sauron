@@ -59,6 +59,7 @@ export interface Settings {
   showPricing: boolean;
   seenAnnouncementIds: string[];
   recentModels: RecentModel[];
+  preferredModels: RecentModel[];
   useLegacyAgentLoop: boolean;
 }
 
@@ -102,6 +103,7 @@ export const defaultSettings: Settings = {
   showPricing: true,
   seenAnnouncementIds: [],
   recentModels: [],
+  preferredModels: [],
   useLegacyAgentLoop: false,
 };
 

@@ -1,4 +1,4 @@
-import { Sliders, LoaderCircle, Settings, History } from 'lucide-react';
+import { Sliders, Bot, LoaderCircle, Settings, History, Star } from 'lucide-react';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useModelAndProvider } from '../../../ModelAndProviderContext';
 import { SwitchModelModal } from '../subcomponents/SwitchModelModal';
@@ -56,6 +56,10 @@ const i18n = defineMessages({
     id: 'modelsBottomBar.recentModels',
     defaultMessage: 'Recent',
   },
+  preferredModels: {
+    id: 'modelsBottomBar.preferredModels',
+    defaultMessage: 'Preferred',
+  },
 });
 
 interface ModelsBottomBarProps {
@@ -102,15 +106,22 @@ export default function ModelsBottomBar({
   const [isLocalModelSettingsOpen, setIsLocalModelSettingsOpen] = useState(false);
   const [providerDefaultModel, setProviderDefaultModel] = useState<string | null>(null);
   const [recentModels, setRecentModels] = useState<RecentModel[]>([]);
+  const [preferredModels, setPreferredModels] = useState<RecentModel[]>([]);
 
   const loadRecentModels = useCallback(async () => {
     const stored = (await window.electron.getSetting('recentModels')) ?? [];
     setRecentModels(stored);
   }, []);
 
+  const loadPreferredModels = useCallback(async () => {
+    const stored = (await window.electron.getSetting('preferredModels')) ?? [];
+    setPreferredModels(stored);
+  }, []);
+
   useEffect(() => {
     void loadRecentModels();
-  }, [loadRecentModels]);
+    void loadPreferredModels();
+  }, [loadRecentModels, loadPreferredModels]);
 
   // Show a visible loading placeholder while session metadata is still being fetched,
   // rather than flashing the config default or leaving the footer blank.
@@ -171,6 +182,15 @@ export default function ModelsBottomBar({
     onModelChanged({ model, provider });
   };
 
+  const handleMenuOpenChange = (open: boolean) => {
+    setIsModelMenuOpen(open);
+    if (open) {
+      // Re-read both lists so changes made in Settings are reflected here.
+      void loadRecentModels();
+      void loadPreferredModels();
+    }
+  };
+
   const openModalAfterMenuCloses = (modal: ModelMenuModal) => {
     pendingModalRef.current = modal;
     setIsModelMenuOpen(false);
@@ -220,9 +240,13 @@ export default function ModelsBottomBar({
     (r) => !(r.model === currentModel && r.provider === currentProvider)
   );
 
+  const filteredPreferredModels = preferredModels.filter(
+    (p) => !(p.model === currentModel && p.provider === currentProvider)
+  );
+
   return (
     <div className="relative flex items-center" ref={dropdownRef}>
-      <DropdownMenu open={isModelMenuOpen} onOpenChange={setIsModelMenuOpen}>
+      <DropdownMenu open={isModelMenuOpen} onOpenChange={handleMenuOpenChange}>
         <DropdownMenuTrigger className="flex items-center hover:cursor-pointer max-w-[180px] md:max-w-[200px] lg:max-w-[380px] min-w-0 text-text-primary/70 hover:text-text-primary transition-colors">
           <div className="flex items-center truncate max-w-[130px] md:max-w-[200px] lg:max-w-[360px] min-w-0">
             <BrandIcon
@@ -265,6 +289,25 @@ export default function ModelsBottomBar({
                 {resolvedDisplayModelName}
               </p>
             </div>
+          )}
+          {filteredPreferredModels.length > 0 && (
+            <>
+              <h6 className="text-xs text-text-primary mt-2 ml-2">
+                {intl.formatMessage(i18n.preferredModels)}
+              </h6>
+              {filteredPreferredModels.map((preferred) => (
+                <DropdownMenuItem
+                  key={`${preferred.provider}/${preferred.model}`}
+                  onClick={() => void handleRecentModelClick(preferred)}
+                >
+                  <Star className="mr-2 h-3.5 w-3.5 flex-shrink-0 text-amber-500 fill-current" />
+                  <span className="truncate">
+                    {getModelDisplayName(preferred.model)} — {preferred.provider}
+                  </span>
+                </DropdownMenuItem>
+              ))}
+              <DropdownMenuSeparator />
+            </>
           )}
           {filteredRecentModels.length > 0 && (
             <>

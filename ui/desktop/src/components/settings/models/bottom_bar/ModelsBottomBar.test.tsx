@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { fireEvent, render, type RenderOptions, screen } from '@testing-library/react';
 import ModelsBottomBar from './ModelsBottomBar';
 import { IntlTestWrapper } from '../../../../i18n/test-utils';
@@ -101,6 +101,10 @@ describe('ModelsBottomBar', () => {
     mockGetProviders.mockResolvedValue([]);
   });
 
+  afterEach(async () => {
+    await window.electron.setSetting('preferredModels', []);
+  });
+
   it('shows a loading placeholder while the active session model is still loading', async () => {
     renderWithIntl(
       <ModelsBottomBar
@@ -144,6 +148,46 @@ describe('ModelsBottomBar', () => {
 
     expect(screen.getByText('config-model')).toBeInTheDocument();
     expect(screen.queryByTestId('model-loading-state')).not.toBeInTheDocument();
+  });
+
+  it('lists preferred models in the model menu', async () => {
+    await window.electron.setSetting('preferredModels', [
+      { provider: 'anthropic', model: 'claude-sonnet-4-5' },
+      { provider: 'openai', model: 'gpt-5' },
+    ]);
+
+    renderWithIntl(
+      <ModelsBottomBar
+        sessionId={null}
+        dropdownRef={createDropdownRef()}
+        setView={vi.fn()}
+        onModelChanged={mockOnModelChanged}
+      />
+    );
+
+    expect(await screen.findByText('Preferred')).toBeInTheDocument();
+    expect(screen.getByText('Display claude-sonnet-4-5 — anthropic')).toBeInTheDocument();
+    expect(screen.getByText('Display gpt-5 — openai')).toBeInTheDocument();
+  });
+
+  it('hides the active model from the preferred list', async () => {
+    await window.electron.setSetting('preferredModels', [
+      { provider: 'config-provider', model: 'config-model' },
+      { provider: 'openai', model: 'gpt-5' },
+    ]);
+
+    renderWithIntl(
+      <ModelsBottomBar
+        sessionId={null}
+        dropdownRef={createDropdownRef()}
+        setView={vi.fn()}
+        onModelChanged={mockOnModelChanged}
+      />
+    );
+
+    expect(await screen.findByText('Preferred')).toBeInTheDocument();
+    expect(screen.getByText('Display gpt-5 — openai')).toBeInTheDocument();
+    expect(screen.queryByText('Display config-model — config-provider')).not.toBeInTheDocument();
   });
 
   it('opens model overlays after the menu closes with the appropriate focus behavior', () => {

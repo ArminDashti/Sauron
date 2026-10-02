@@ -8,6 +8,9 @@
   "alertBox.failedToSaveThreshold": {
     "defaultMessage": "सीमा सहेजने में विफल: {error}"
   },
+  "allProviderModels.addPreferred": {
+    "defaultMessage": "{model} को पसंदीदा मॉडल में जोड़ें"
+  },
   "announcementModal.gotIt": {
     "defaultMessage": "समझ गया!"
   },
@@ -2351,6 +2354,9 @@
   "modelsBottomBar.localModelSettingsTitle": {
     "defaultMessage": "स्थानीय मॉडल Settings — {modelName}"
   },
+  "modelsBottomBar.preferredModels": {
+    "defaultMessage": "पसंदीदा"
+  },
   "modelsBottomBar.resolvedModel": {
     "defaultMessage": "हल किया गया मॉडल"
   },
@@ -2390,8 +2396,14 @@
   "navigationFooter.you": {
     "defaultMessage": "आप"
   },
-  "navigationPanel.chats": {
-    "defaultMessage": "चैट"
+  "navigationPanel.goBack": {
+    "defaultMessage": "वापस"
+  },
+  "navigationPanel.goForward": {
+    "defaultMessage": "आगे"
+  },
+  "navigationPanel.groupChats": {
+    "defaultMessage": "चैट को वर्कस्पेस के अनुसार समूहित करें"
   },
   "navigationPanel.loadingChats": {
     "defaultMessage": "चैट लोड हो रही हैं…"
@@ -2411,8 +2423,14 @@
   "navigationPanel.metaUpdated": {
     "defaultMessage": "अपडेट किया गया"
   },
+  "navigationPanel.newProject": {
+    "defaultMessage": "नया प्रोजेक्ट"
+  },
   "navigationPanel.noChats": {
     "defaultMessage": "कोई हालिया चैट नहीं"
+  },
+  "navigationPanel.projects": {
+    "defaultMessage": "प्रोजेक्ट"
   },
   "navigationPanel.statusError": {
     "defaultMessage": "त्रुटि"
@@ -2428,6 +2446,9 @@
   },
   "navigationPanel.untitledSession": {
     "defaultMessage": "शीर्षकहीन सत्र"
+  },
+  "navigationPanel.workspaces": {
+    "defaultMessage": "वर्कस्पेस"
   },
   "onboardingGuard.checkProviderErrorDescription": {
     "defaultMessage": "सर्वर चालू हो सकता है या अस्थायी रूप से अनुपलब्ध हो सकता है।"
@@ -4850,8 +4871,11 @@
   "authSettings.githubOpenDevicePage": {
     "defaultMessage": "GitHub डिवाइस पेज खोलें"
   },
-  "authSettings.githubSignInFailed": {
-    "defaultMessage": "GitHub साइन-इन विफल रहा: {error}"
+  "allProviderModels.preferredUpdateFailed": {
+    "defaultMessage": "पसंदीदा मॉडल अपडेट नहीं हो सके"
+  },
+  "allProviderModels.refreshAll": {
+    "defaultMessage": "Refresh models"
   },
   "authSettings.githubSignInUnavailable": {
     "defaultMessage": "GitHub साइन-इन केवल डेस्कटॉप ऐप में उपलब्ध है।"
@@ -4859,8 +4883,11 @@
   "authSettings.githubSignOutMessage": {
     "defaultMessage": "जब तक आप फिर से साइन इन नहीं करते, Sauron आपके GitHub रिपॉज़िटरी के साथ काम नहीं कर पाएगा।"
   },
-  "authSettings.githubSignOutTitle": {
-    "defaultMessage": "GitHub से साइन आउट करें"
+  "allProviderModels.removePreferred": {
+    "defaultMessage": "{model} को पसंदीदा मॉडल से हटाएँ"
+  },
+  "allProviderModels.title": {
+    "defaultMessage": "Models from your providers"
   },
   "authSettings.githubSignedIn": {
     "defaultMessage": "GitHub पर साइन इन हो गया। GitHub एक्सटेंशन उपयोग के लिए तैयार है।"
@@ -4897,6 +4924,18 @@
   },
   "pluginsSettings.title": {
     "defaultMessage": "Plugins"
+  },
+  "preferredModels.empty": {
+    "defaultMessage": "इन्हें यहाँ और चैट में आसानी से उपलब्ध रखने के लिए नीचे मॉडलों पर तारा लगाएँ।"
+  },
+  "preferredModels.remove": {
+    "defaultMessage": "{model} को पसंदीदा मॉडल से हटाएँ"
+  },
+  "preferredModels.removeFailed": {
+    "defaultMessage": "पसंदीदा मॉडल अपडेट नहीं हो सके"
+  },
+  "preferredModels.title": {
+    "defaultMessage": "पसंदीदा मॉडल"
   },
   "providersSection.resetDescription": {
     "defaultMessage": "Clear your selected model and provider settings to start fresh"

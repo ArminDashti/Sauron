@@ -29,11 +29,8 @@
   "alertBox.failedToSaveThreshold": {
     "defaultMessage": "Failed to save threshold: {error}"
   },
-  "allProviderModels.clearSearch": {
-    "defaultMessage": "Clear search"
-  },
-  "allProviderModels.clearSearchInput": {
-    "defaultMessage": "Clear search input"
+  "allProviderModels.addPreferred": {
+    "defaultMessage": "Add {model} to preferred models"
   },
   "allProviderModels.configureProviders": {
     "defaultMessage": "Configure providers"
@@ -65,8 +62,8 @@
   "allProviderModels.noModels": {
     "defaultMessage": "No models reported by this provider."
   },
-  "allProviderModels.noSearchResults": {
-    "defaultMessage": "No models match \"{query}\"."
+  "allProviderModels.preferredUpdateFailed": {
+    "defaultMessage": "Failed to update preferred models"
   },
   "allProviderModels.refreshAll": {
     "defaultMessage": "Refresh models"
@@ -77,14 +74,8 @@
   "allProviderModels.refreshing": {
     "defaultMessage": "Refreshing..."
   },
-  "allProviderModels.searchLabel": {
-    "defaultMessage": "Search models"
-  },
-  "allProviderModels.searchPlaceholder": {
-    "defaultMessage": "Search models..."
-  },
-  "allProviderModels.showingCount": {
-    "defaultMessage": "Showing {shown, number} of {total, number} models"
+  "allProviderModels.removePreferred": {
+    "defaultMessage": "Remove {model} from preferred models"
   },
   "allProviderModels.title": {
     "defaultMessage": "Models from your providers"
@@ -2450,6 +2441,9 @@
   "modelsBottomBar.localModelSettingsTitle": {
     "defaultMessage": "Local Model Settings — {modelName}"
   },
+  "modelsBottomBar.preferredModels": {
+    "defaultMessage": "Preferred"
+  },
   "modelsBottomBar.recentModels": {
     "defaultMessage": "Recent"
   },
@@ -2492,8 +2486,14 @@
   "navigationFooter.you": {
     "defaultMessage": "You"
   },
-  "navigationPanel.chats": {
-    "defaultMessage": "Chats"
+  "navigationPanel.goBack": {
+    "defaultMessage": "Back"
+  },
+  "navigationPanel.goForward": {
+    "defaultMessage": "Forward"
+  },
+  "navigationPanel.groupChats": {
+    "defaultMessage": "Group chats by workspace"
   },
   "navigationPanel.loadingChats": {
     "defaultMessage": "Loading chats…"
@@ -2513,8 +2513,14 @@
   "navigationPanel.metaUpdated": {
     "defaultMessage": "Updated"
   },
+  "navigationPanel.newProject": {
+    "defaultMessage": "New Project"
+  },
   "navigationPanel.noChats": {
     "defaultMessage": "No recent chats"
+  },
+  "navigationPanel.projects": {
+    "defaultMessage": "Projects"
   },
   "navigationPanel.statusError": {
     "defaultMessage": "Error"
@@ -2530,6 +2536,9 @@
   },
   "navigationPanel.untitledSession": {
     "defaultMessage": "Untitled session"
+  },
+  "navigationPanel.workspaces": {
+    "defaultMessage": "Workspaces"
   },
   "onboardingGuard.checkProviderErrorDescription": {
     "defaultMessage": "The server may be starting up or temporarily unavailable."
@@ -2743,6 +2752,18 @@
   },
   "pluginsSettings.title": {
     "defaultMessage": "Plugins"
+  },
+  "preferredModels.empty": {
+    "defaultMessage": "Star models below to keep them handy here and in chats."
+  },
+  "preferredModels.remove": {
+    "defaultMessage": "Remove {model} from preferred models"
+  },
+  "preferredModels.removeFailed": {
+    "defaultMessage": "Failed to update preferred models"
+  },
+  "preferredModels.title": {
+    "defaultMessage": "Preferred models"
   },
   "privacyInfoModal.collectErrors": {
     "defaultMessage": "Error types (e.g., \"rate_limit\", \"auth\" - no details)"

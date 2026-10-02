@@ -8,6 +8,9 @@
   "alertBox.failedToSaveThreshold": {
     "defaultMessage": "임계값 저장 실패: {error}"
   },
+  "allProviderModels.addPreferred": {
+    "defaultMessage": "{model}을 선호 모델에 추가"
+  },
   "announcementModal.gotIt": {
     "defaultMessage": "알았어요!"
   },
@@ -2351,6 +2354,9 @@
   "modelsBottomBar.localModelSettingsTitle": {
     "defaultMessage": "로컬 모델 설정 — {modelName}"
   },
+  "modelsBottomBar.preferredModels": {
+    "defaultMessage": "선호"
+  },
   "modelsBottomBar.resolvedModel": {
     "defaultMessage": "확인된 모델"
   },
@@ -2390,8 +2396,14 @@
   "navigationFooter.you": {
     "defaultMessage": "나"
   },
-  "navigationPanel.chats": {
-    "defaultMessage": "채팅"
+  "navigationPanel.goBack": {
+    "defaultMessage": "뒤로"
+  },
+  "navigationPanel.goForward": {
+    "defaultMessage": "앞으로"
+  },
+  "navigationPanel.groupChats": {
+    "defaultMessage": "채팅을 워크스페이스별로 그룹화"
   },
   "navigationPanel.loadingChats": {
     "defaultMessage": "채팅 불러오는 중…"
@@ -2411,8 +2423,14 @@
   "navigationPanel.metaUpdated": {
     "defaultMessage": "업데이트됨"
   },
+  "navigationPanel.newProject": {
+    "defaultMessage": "새 프로젝트"
+  },
   "navigationPanel.noChats": {
     "defaultMessage": "최근 채팅 없음"
+  },
+  "navigationPanel.projects": {
+    "defaultMessage": "프로젝트"
   },
   "navigationPanel.statusError": {
     "defaultMessage": "오류"
@@ -2428,6 +2446,9 @@
   },
   "navigationPanel.untitledSession": {
     "defaultMessage": "제목 없는 세션"
+  },
+  "navigationPanel.workspaces": {
+    "defaultMessage": "워크스페이스"
   },
   "onboardingGuard.checkProviderErrorDescription": {
     "defaultMessage": "서버가 시작 중이거나 일시적으로 사용할 수 없습니다."
@@ -4850,8 +4871,11 @@
   "authSettings.githubOpenDevicePage": {
     "defaultMessage": "GitHub 기기 페이지 열기"
   },
-  "authSettings.githubSignInFailed": {
-    "defaultMessage": "GitHub 로그인 실패: {error}"
+  "allProviderModels.preferredUpdateFailed": {
+    "defaultMessage": "선호 모델을 업데이트하지 못했습니다"
+  },
+  "allProviderModels.refreshAll": {
+    "defaultMessage": "Refresh models"
   },
   "authSettings.githubSignInUnavailable": {
     "defaultMessage": "GitHub 로그인은 데스크톱 앱에서만 사용할 수 있습니다."
@@ -4859,8 +4883,11 @@
   "authSettings.githubSignOutMessage": {
     "defaultMessage": "다시 로그인할 때까지 Sauron은 GitHub 리포지토리로 작업할 수 없습니다."
   },
-  "authSettings.githubSignOutTitle": {
-    "defaultMessage": "GitHub 로그아웃"
+  "allProviderModels.removePreferred": {
+    "defaultMessage": "{model}을 선호 모델에서 제거"
+  },
+  "allProviderModels.title": {
+    "defaultMessage": "Models from your providers"
   },
   "authSettings.githubSignedIn": {
     "defaultMessage": "GitHub에 로그인했습니다. GitHub 확장을 사용할 준비가 되었습니다."
@@ -4897,6 +4924,18 @@
   },
   "pluginsSettings.title": {
     "defaultMessage": "Plugins"
+  },
+  "preferredModels.empty": {
+    "defaultMessage": "아래 모델에 별을 표시하면 여기와 채트에서 쉽게 사용할 수 있습니다."
+  },
+  "preferredModels.remove": {
+    "defaultMessage": "{model}을 선호 모델에서 제거"
+  },
+  "preferredModels.removeFailed": {
+    "defaultMessage": "선호 모델을 업데이트하지 못했습니다"
+  },
+  "preferredModels.title": {
+    "defaultMessage": "선호 모델"
   },
   "providersSection.resetDescription": {
     "defaultMessage": "Clear your selected model and provider settings to start fresh"
