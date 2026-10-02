@@ -11,6 +11,7 @@ import { defineMessages, useIntl } from '../../i18n';
 import { SearchView } from '../conversation/SearchView';
 import { getSearchShortcutText } from '../../utils/keyboardShortcuts';
 import { listSkillSources } from '../../acp/sources';
+import { iconColor } from '../../theme/iconColors';
 
 const i18n = defineMessages({
   errorLoadingSkills: {
@@ -28,7 +29,7 @@ const i18n = defineMessages({
   noSkillsDescription: {
     id: 'skillsView.noSkillsDescription',
     defaultMessage:
-      'Skills are loaded from SKILL.md files in ~/.config/agents/skills/, .goose/skills/, or other supported directories.',
+      'Skills are loaded from SKILL.md files in ~/.config/agents/skills/, .sauron/skills/, or other supported directories.',
   },
   noMatchingSkills: {
     id: 'skillsView.noMatchingSkills',
@@ -48,7 +49,7 @@ const i18n = defineMessages({
   },
   skillsDescription: {
     id: 'skillsView.skillsDescription',
-    defaultMessage: 'View installed skills that extend Goose capabilities. {shortcut} to search.',
+    defaultMessage: 'View installed skills that extend Sauron capabilities. {shortcut} to search.',
   },
   searchSkillsPlaceholder: {
     id: 'skillsView.searchSkillsPlaceholder',
@@ -184,7 +185,7 @@ export default function SkillsView() {
     if (filteredSkills.length === 0 && searchTerm) {
       return (
         <div className="flex flex-col items-center justify-center h-full text-text-secondary mt-4">
-          <Zap className="h-12 w-12 mb-4" />
+          <Zap className="h-12 w-12 mb-4" style={{ color: iconColor('skills') }} />
           <p className="text-lg mb-2">{intl.formatMessage(i18n.noMatchingSkills)}</p>
           <p className="text-sm">{intl.formatMessage(i18n.adjustSearchTerms)}</p>
         </div>

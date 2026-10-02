@@ -1,6 +1,15 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { useLocation } from 'react-router';
-import { AudioLines, ChevronDown, ChevronRight } from 'lucide-react';
+import { useLocation, useNavigate } from 'react-router';
+import {
+  ArrowLeft,
+  ArrowRight,
+  AudioLines,
+  Folder,
+  FolderOpen,
+  ListFilter,
+  Plus,
+  SquarePen,
+} from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useNavigationContext } from './NavigationContext';
 import { useConfig } from '../ConfigContext';
@@ -13,12 +22,14 @@ import {
 } from '../../hooks/useNavigationItems';
 import { AppEvents } from '../../constants/events';
 import { InlineEditText } from '../common/InlineEditText';
+import { Button } from '../ui/button';
 import NavigationFooter from './NavigationFooter';
 import { SessionIndicators } from '../SessionIndicators';
 import { acpRenameSession, type SessionListItem } from '../../acp/sessions';
 import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/Tooltip';
-import { formatMessageTimestamp } from '../../utils/timeUtils';
+import { formatMessageTimestamp, formatRelativeTimestamp } from '../../utils/timeUtils';
 import { cn } from '../../utils';
+import { iconColor } from '../../theme/iconColors';
 import type { ProjectGroup } from '../../utils/projectSessions';
 import { defineMessages, useIntl } from '../../i18n';
 
@@ -30,9 +41,29 @@ interface SessionStatus {
 }
 
 const i18n = defineMessages({
-  chats: {
-    id: 'navigationPanel.chats',
-    defaultMessage: 'Chats',
+  projects: {
+    id: 'navigationPanel.projects',
+    defaultMessage: 'Projects',
+  },
+  workspaces: {
+    id: 'navigationPanel.workspaces',
+    defaultMessage: 'Workspaces',
+  },
+  newProject: {
+    id: 'navigationPanel.newProject',
+    defaultMessage: 'New Project',
+  },
+  goBack: {
+    id: 'navigationPanel.goBack',
+    defaultMessage: 'Back',
+  },
+  goForward: {
+    id: 'navigationPanel.goForward',
+    defaultMessage: 'Forward',
+  },
+  groupChats: {
+    id: 'navigationPanel.groupChats',
+    defaultMessage: 'Group chats by workspace',
   },
   noChats: {
     id: 'navigationPanel.noChats',
@@ -90,8 +121,8 @@ const i18n = defineMessages({
 
 const navItemClass = (active: boolean) =>
   cn(
-    'flex flex-row items-center gap-3 outline-none no-drag w-full',
-    'rounded-full px-3 py-2 text-sm font-medium transition-colors',
+    'flex flex-row items-center gap-2.5 outline-none no-drag w-full',
+    'h-8 px-2 rounded-[10px] text-sm font-medium transition-colors',
     active
       ? 'bg-background-tertiary text-text-primary'
       : 'text-text-primary hover:bg-background-tertiary/60'
@@ -108,7 +139,7 @@ const NavRow: React.FC<NavRowProps> = ({ item, active, onClick }) => {
   const Icon = item.icon;
   return (
     <button onClick={onClick} className={navItemClass(active)}>
-      <Icon className="w-5 h-5 flex-shrink-0 text-text-secondary" />
+      <Icon className="w-3.5 h-3.5 flex-shrink-0" />
       <span className="text-left flex-1 truncate">{getNavItemLabel(item, intl)}</span>
       {item.getTag && (
         <span className="text-xs font-mono text-text-secondary">{item.getTag()}</span>
@@ -131,6 +162,13 @@ const formatTimestamp = (value?: string): string | null => {
   const parsed = Date.parse(value);
   if (Number.isNaN(parsed)) return null;
   return formatMessageTimestamp(parsed / 1000);
+};
+
+const relativeTimestamp = (value?: string): string | null => {
+  if (!value) return null;
+  const parsed = Date.parse(value);
+  if (Number.isNaN(parsed)) return null;
+  return formatRelativeTimestamp(parsed / 1000) || null;
 };
 
 const MetaRow: React.FC<{ label: string; value: string }> = ({ label, value }) => (
@@ -196,17 +234,28 @@ const SessionRow: React.FC<SessionRowProps> = ({
         ? intl.formatMessage(i18n.statusUnread)
         : intl.formatMessage(i18n.statusIdle);
 
+  const isEmptySession = (session.messageCount ?? 0) === 0;
+  const updatedLabel = relativeTimestamp(session.lastMessageAt ?? session.updatedAt);
+
   return (
     <Tooltip open={tooltipOpen && !isEditing} onOpenChange={setTooltipOpen} delayDuration={400}>
       <TooltipTrigger asChild>
         <div
           onClick={() => !isEditing && onClick()}
           className={cn(
-            'flex items-center gap-2 px-3 py-1.5 rounded-full cursor-pointer text-sm',
+            'flex items-center gap-2 h-8 px-2 rounded-[10px] cursor-pointer text-sm',
             'hover:bg-background-tertiary/60 transition-colors',
             active && 'bg-background-tertiary'
           )}
         >
+          <span aria-hidden="true" className="flex w-3.5 flex-shrink-0 items-center justify-center">
+            <span
+              className={cn(
+                'block h-[7px] w-[7px] rounded-full',
+                isEmptySession ? 'border border-text-tertiary' : 'bg-text-tertiary'
+              )}
+            />
+          </span>
           <InlineEditText
             value={session.name}
             onSave={async (newName) => {
@@ -221,7 +270,14 @@ const SessionRow: React.FC<SessionRowProps> = ({
             placeholder={intl.formatMessage(i18n.untitledSession)}
             disabled={isStreaming}
             singleClickEdit={false}
-            className="truncate text-text-primary flex-1 !px-0 !py-0 hover:bg-transparent"
+            className={cn(
+              'truncate flex-1 !px-0 !py-0 hover:bg-transparent',
+              isEmptySession
+                ? 'text-text-secondary'
+                : active
+                  ? 'text-text-primary'
+                  : 'text-text-primary/80'
+            )}
             editClassName="!text-sm"
             onEditStart={() => setIsEditing(true)}
             onEditEnd={() => setIsEditing(false)}
@@ -233,6 +289,9 @@ const SessionRow: React.FC<SessionRowProps> = ({
             />
           )}
           <SessionIndicators isStreaming={isStreaming} hasUnread={hasUnread} hasError={hasError} />
+          {updatedLabel && (
+            <span className="flex-shrink-0 text-text-secondary tabular-nums">{updatedLabel}</span>
+          )}
         </div>
       </TooltipTrigger>
       <TooltipContent side="right" align="start" className="max-w-xs text-left">
@@ -242,6 +301,18 @@ const SessionRow: React.FC<SessionRowProps> = ({
   );
 };
 
+interface SectionHeaderProps {
+  label: string;
+  actions?: React.ReactNode;
+}
+
+const SectionHeader: React.FC<SectionHeaderProps> = ({ label, actions }) => (
+  <div className="flex h-8 items-center justify-between">
+    <span className="pl-2.5 text-xs font-semibold text-text-secondary">{label}</span>
+    {actions}
+  </div>
+);
+
 export const Navigation: React.FC<{
   className?: string;
   activeLiveVoiceSessionId: string | null;
@@ -249,6 +320,7 @@ export const Navigation: React.FC<{
   const intl = useIntl();
   const { isNavExpanded } = useNavigationContext();
   const location = useLocation();
+  const navigate = useNavigate();
   const { extensionsList } = useConfig();
 
   const appsExtensionEnabled = !!extensionsList?.find((ext) => ext.name === 'apps')?.enabled;
@@ -314,7 +386,7 @@ export const Navigation: React.FC<{
     }
   }, [isNavExpanded, fetchSessions]);
 
-  const [isChatsExpanded, setIsChatsExpanded] = useState(true);
+  const [groupedByWorkspace, setGroupedByWorkspace] = useState(true);
   const [collapsedProjects, setCollapsedProjects] = useState<Set<string>>(new Set());
 
   const toggleProjectCollapsed = useCallback((path: string) => {
@@ -331,6 +403,12 @@ export const Navigation: React.FC<{
 
   if (!isNavExpanded) return null;
 
+  const homeNavItem = NAV_ITEMS.find((item) => item.id === 'home');
+  const newChatLabel = homeNavItem ? getNavItemLabel(homeNavItem, intl) : '';
+  const backLabel = intl.formatMessage(i18n.goBack);
+  const forwardLabel = intl.formatMessage(i18n.goForward);
+  const groupLabel = intl.formatMessage(i18n.groupChats);
+
   return (
     <motion.div
       ref={navFocusRef}
@@ -341,9 +419,40 @@ export const Navigation: React.FC<{
       transition={{ duration: 0.15 }}
       className={cn('bg-background-primary outline-none flex flex-col h-full', className)}
     >
-      <div className="h-[48px] no-drag" />
+      {/* The panel-toggle button floats above the sidebar in AppLayout (kept
+          traffic-light aware); history controls sit at the top-right. */}
+      <div className="flex h-[48px] flex-shrink-0 items-start justify-end gap-1 pr-1.5 pt-[3px] no-drag">
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button
+              variant="ghost"
+              size="xs"
+              shape="round"
+              aria-label={backLabel}
+              onClick={() => navigate(-1)}
+            >
+              <ArrowLeft />
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent side="bottom">{backLabel}</TooltipContent>
+        </Tooltip>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button
+              variant="ghost"
+              size="xs"
+              shape="round"
+              aria-label={forwardLabel}
+              onClick={() => navigate(1)}
+            >
+              <ArrowRight />
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent side="bottom">{forwardLabel}</TooltipContent>
+        </Tooltip>
+      </div>
 
-      <div className="px-2 flex flex-col gap-0.5">
+      <div className="mt-1.5 flex flex-col gap-[1.5px] px-[3px]">
         {visibleItems.map((item) => (
           <NavRow
             key={item.id}
@@ -354,41 +463,84 @@ export const Navigation: React.FC<{
         ))}
       </div>
 
-      <div className="flex-1 min-h-0 flex flex-col mt-3">
+      <div className="mt-3.5 flex min-h-0 flex-1 flex-col overflow-y-auto px-[3px] pb-2">
+        <SectionHeader label={intl.formatMessage(i18n.projects)} />
         <button
-          onClick={() => setIsChatsExpanded((v) => !v)}
-          className="flex items-center gap-1 px-4 py-1 text-xs font-semibold uppercase tracking-wider text-text-secondary hover:text-text-primary transition-colors self-start"
+          onClick={() => handleNavClick('/')}
+          className="flex h-8 w-full items-center gap-2.5 rounded-[10px] px-2 text-sm text-text-secondary transition-colors hover:bg-background-tertiary/60 hover:text-text-primary"
         >
-          {isChatsExpanded ? (
-            <ChevronDown className="w-3 h-3" />
-          ) : (
-            <ChevronRight className="w-3 h-3" />
-          )}
-          <span>{intl.formatMessage(i18n.chats)}</span>
+          <Plus className="w-3.5 h-3.5 flex-shrink-0" />
+          <span className="truncate text-left">{intl.formatMessage(i18n.newProject)}</span>
         </button>
-        {isChatsExpanded && (
-          <div className="flex-1 min-h-0 overflow-y-auto px-2 pb-2 mt-1">
+
+        <div className="mt-3.5">
+          <SectionHeader
+            label={intl.formatMessage(i18n.workspaces)}
+            actions={
+              <div className="flex items-center gap-3 pr-3">
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button
+                      variant="ghost"
+                      size="xs"
+                      shape="round"
+                      aria-pressed={groupedByWorkspace}
+                      aria-label={groupLabel}
+                      onClick={() => setGroupedByWorkspace((value) => !value)}
+                    >
+                      <ListFilter />
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent side="bottom">{groupLabel}</TooltipContent>
+                </Tooltip>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button
+                      variant="ghost"
+                      size="xs"
+                      shape="round"
+                      aria-label={newChatLabel}
+                      onClick={() => handleNavClick('/')}
+                    >
+                      <SquarePen />
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent side="bottom">{newChatLabel}</TooltipContent>
+                </Tooltip>
+              </div>
+            }
+          />
+          <div className="flex flex-col gap-[1.5px]">
             {recentSessions.length === 0 ? (
               <div className="px-3 py-2 text-xs text-text-secondary">
                 {intl.formatMessage(isLoadingSessions ? i18n.loadingChats : i18n.noChats)}
               </div>
-            ) : recentSessionsByProject.length > 1 ? (
-              recentSessionsByProject.map((group: ProjectGroup) => {
+            ) : groupedByWorkspace ? (
+              recentSessionsByProject.map((group: ProjectGroup, index: number) => {
                 const isCollapsed = collapsedProjects.has(group.path);
+                const previousGroup = index > 0 ? recentSessionsByProject[index - 1] : null;
+                const previousRenderedSessions =
+                  previousGroup !== null &&
+                  previousGroup.sessions.length > 0 &&
+                  !collapsedProjects.has(previousGroup.path);
                 return (
                   <React.Fragment key={group.path}>
                     <button
                       onClick={() => toggleProjectCollapsed(group.path)}
                       aria-expanded={!isCollapsed}
-                      className="flex items-center gap-1 w-full px-3 pt-2 pb-0.5 text-[10px] uppercase tracking-wider text-text-tertiary hover:text-text-secondary transition-colors"
+                      className={cn(
+                        'flex h-8 w-full items-center gap-2.5 rounded-[10px] px-2 text-sm transition-colors',
+                        'text-text-primary hover:bg-background-tertiary/60',
+                        previousRenderedSessions && 'mt-2.5'
+                      )}
                       title={group.path}
                     >
                       {isCollapsed ? (
-                        <ChevronRight className="w-3 h-3 flex-shrink-0" />
+                        <Folder className="w-3.5 h-3.5 flex-shrink-0 text-text-secondary" />
                       ) : (
-                        <ChevronDown className="w-3 h-3 flex-shrink-0" />
+                        <FolderOpen className="w-3.5 h-3.5 flex-shrink-0 text-text-secondary" />
                       )}
-                      <span className="truncate">{group.label}</span>
+                      <span className="truncate text-left">{group.label}</span>
                     </button>
                     {!isCollapsed &&
                       group.sessions.map((session) => (
@@ -425,7 +577,7 @@ export const Navigation: React.FC<{
               ))
             )}
           </div>
-        )}
+        </div>
       </div>
 
       <NavigationFooter

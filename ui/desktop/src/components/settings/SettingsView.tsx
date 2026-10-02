@@ -19,8 +19,6 @@ import {
   MessageSquare,
   FileText,
   Keyboard,
-  HardDrive,
-  KeyRound,
   Palette,
   Plug,
   Puzzle,
@@ -33,14 +31,12 @@ import { Input } from '../ui/input';
 import { cn } from '../../utils';
 import ChatSettingsSection from './chat/ChatSettingsSection';
 import KeyboardShortcutsSection from './keyboard/KeyboardShortcutsSection';
-import AuthSettingsSection from './auth/AuthSettingsSection';
-import LocalInferenceSection from './localInference/LocalInferenceSection';
 import { CONFIGURATION_ENABLED } from '../../updates';
 import { trackSettingsTabViewed } from '../../utils/analytics';
-import { useFeatures } from '../../contexts/FeaturesContext';
 import { defineMessages, useIntl } from '../../i18n';
 import BackButton from '../ui/BackButton';
 import { useNavigationContext } from '../Layout/NavigationContext';
+import { iconColor, type IconColorKey } from '../../theme/iconColors';
 
 const i18n = defineMessages({
   title: {
@@ -54,10 +50,6 @@ const i18n = defineMessages({
   tabProviders: {
     id: 'settingsView.tabProviders',
     defaultMessage: 'Providers',
-  },
-  tabLocalInference: {
-    id: 'settingsView.tabLocalInference',
-    defaultMessage: 'Local Inference',
   },
   tabChat: {
     id: 'settingsView.tabChat',
@@ -74,10 +66,6 @@ const i18n = defineMessages({
   tabKeyboard: {
     id: 'settingsView.tabKeyboard',
     defaultMessage: 'Keyboard',
-  },
-  tabAuth: {
-    id: 'settingsView.tabAuth',
-    defaultMessage: 'Auth',
   },
   tabMcp: {
     id: 'settingsView.tabMcp',
@@ -109,33 +97,35 @@ type SettingsTab = {
   value: string;
   label: (typeof i18n)[keyof typeof i18n];
   icon: LucideIcon;
+  /** Palette key so each destination keeps the same color as elsewhere in the app. */
+  color: IconColorKey;
   testId: string;
   group: 1 | 2;
-  requires?: 'localInference';
 };
 
 /** Sidebar entries grouped like the reference layout: agent config first, app config below. */
 const SETTINGS_TABS: SettingsTab[] = [
-  { value: 'models', label: i18n.tabModels, icon: Bot, testId: 'settings-models-tab', group: 1 },
+  {
+    value: 'models',
+    label: i18n.tabModels,
+    icon: Bot,
+    color: 'models',
+    testId: 'settings-models-tab',
+    group: 1,
+  },
   {
     value: 'providers',
     label: i18n.tabProviders,
     icon: Server,
+    color: 'providers',
     testId: 'settings-providers-tab',
     group: 1,
-  },
-  {
-    value: 'local-inference',
-    label: i18n.tabLocalInference,
-    icon: HardDrive,
-    testId: 'settings-local-inference-tab',
-    group: 1,
-    requires: 'localInference',
   },
   {
     value: 'chat',
     label: i18n.tabChat,
     icon: MessageSquare,
+    color: 'chat',
     testId: 'settings-chat-tab',
     group: 1,
   },
@@ -143,6 +133,7 @@ const SETTINGS_TABS: SettingsTab[] = [
     value: 'sharing',
     label: i18n.tabAgent,
     icon: Share2,
+    color: 'sharing',
     testId: 'settings-sharing-tab',
     group: 1,
   },
@@ -150,6 +141,7 @@ const SETTINGS_TABS: SettingsTab[] = [
     value: 'prompts',
     label: i18n.tabPrompts,
     icon: FileText,
+    color: 'prompts',
     testId: 'settings-prompts-tab',
     group: 1,
   },
@@ -157,15 +149,23 @@ const SETTINGS_TABS: SettingsTab[] = [
     value: 'keyboard',
     label: i18n.tabKeyboard,
     icon: Keyboard,
+    color: 'keyboard',
     testId: 'settings-keyboard-tab',
     group: 2,
   },
-  { value: 'auth', label: i18n.tabAuth, icon: KeyRound, testId: 'settings-auth-tab', group: 2 },
-  { value: 'mcp', label: i18n.tabMcp, icon: Plug, testId: 'settings-mcp-tab', group: 2 },
+  {
+    value: 'mcp',
+    label: i18n.tabMcp,
+    icon: Plug,
+    color: 'mcp',
+    testId: 'settings-mcp-tab',
+    group: 2,
+  },
   {
     value: 'plugins',
     label: i18n.tabPlugins,
     icon: Puzzle,
+    color: 'plugins',
     testId: 'settings-plugins-tab',
     group: 2,
   },
@@ -173,6 +173,7 @@ const SETTINGS_TABS: SettingsTab[] = [
     value: 'appearance',
     label: i18n.tabAppearance,
     icon: Palette,
+    color: 'appearance',
     testId: 'settings-appearance-tab',
     group: 2,
   },
@@ -180,13 +181,14 @@ const SETTINGS_TABS: SettingsTab[] = [
     value: 'app',
     label: i18n.tabApp,
     icon: Monitor,
+    color: 'app',
     testId: 'settings-app-tab',
     group: 2,
   },
 ];
 
 const settingsTabClass =
-  'group w-full gap-3 rounded-lg px-3 py-2 text-sm font-normal text-text-secondary hover:bg-background-tertiary/60 data-[state=active]:bg-background-tertiary data-[state=active]:text-text-primary data-[state=active]:shadow-none';
+  'w-full gap-3 rounded-lg px-3 py-2 text-sm font-normal text-text-secondary hover:bg-background-tertiary/60 data-[state=active]:bg-background-tertiary data-[state=active]:text-text-primary data-[state=active]:shadow-none';
 
 export type SettingsViewOptions = {
   deepLinkConfig?: ExtensionConfig;
@@ -206,19 +208,16 @@ export default function SettingsView({
   const [activeTab, setActiveTab] = useState('models');
   const [searchQuery, setSearchQuery] = useState('');
   const hasTrackedInitialTab = useRef(false);
-  const { localInference } = useFeatures();
   const { navWidth } = useNavigationContext();
   const intl = useIntl();
 
   const activeTabTitle = {
     models: intl.formatMessage(i18n.tabModels),
     providers: intl.formatMessage(i18n.tabProviders),
-    'local-inference': intl.formatMessage(i18n.tabLocalInference),
     chat: intl.formatMessage(i18n.tabChat),
     sharing: intl.formatMessage(i18n.tabAgent),
     prompts: intl.formatMessage(i18n.tabPrompts),
     keyboard: intl.formatMessage(i18n.tabKeyboard),
-    auth: intl.formatMessage(i18n.tabAuth),
     mcp: intl.formatMessage(i18n.tabMcp),
     plugins: intl.formatMessage(i18n.tabPlugins),
     appearance: intl.formatMessage(i18n.tabAppearance),
@@ -247,28 +246,21 @@ export default function SettingsView({
         chat: 'chat',
         prompts: 'prompts',
         keyboard: 'keyboard',
-        auth: 'auth',
+        auth: 'providers',
         mcp: 'mcp',
         plugins: 'plugins',
         appearance: 'appearance',
         theme: 'appearance',
         language: 'appearance',
-        'local-inference': 'local-inference',
+        'local-inference': 'providers',
       };
 
       const targetTab = sectionToTab[viewOptions.section];
-      if (targetTab && (targetTab !== 'local-inference' || localInference)) {
+      if (targetTab) {
         setActiveTab(targetTab);
       }
     }
-  }, [viewOptions.section, localInference]);
-
-  // Reset active tab if local-inference becomes unavailable
-  useEffect(() => {
-    if (!localInference && activeTab === 'local-inference') {
-      setActiveTab('models');
-    }
-  }, [localInference, activeTab]);
+  }, [viewOptions.section]);
 
   useEffect(() => {
     if (!hasTrackedInitialTab.current) {
@@ -333,7 +325,6 @@ export default function SettingsView({
             </div>
             <TabsList className="w-full min-h-0 flex-1 flex-col items-stretch gap-0.5 overflow-y-auto bg-transparent px-2 py-0">
               {SETTINGS_TABS.filter((tab) => {
-                if (tab.requires === 'localInference' && !localInference) return false;
                 if (!searchQuery.trim()) return true;
                 return intl
                   .formatMessage(tab.label)
@@ -349,19 +340,17 @@ export default function SettingsView({
                     className={cn(settingsTabClass, startsGroup && index > 0 && 'mt-4')}
                     data-testid={tab.testId}
                   >
-                    <Icon className="h-5 w-5 text-text-secondary group-data-[state=active]:text-text-primary" />
+                    <Icon className="h-5 w-5" style={{ color: iconColor(tab.color) }} />
                     {intl.formatMessage(tab.label)}
                   </TabsTrigger>
                 );
               })}
               {searchQuery.trim() &&
-                !SETTINGS_TABS.some(
-                  (tab) =>
-                    (tab.requires !== 'localInference' || localInference) &&
-                    intl
-                      .formatMessage(tab.label)
-                      .toLowerCase()
-                      .includes(searchQuery.trim().toLowerCase())
+                !SETTINGS_TABS.some((tab) =>
+                  intl
+                    .formatMessage(tab.label)
+                    .toLowerCase()
+                    .includes(searchQuery.trim().toLowerCase())
                 ) && (
                   <p className="px-3 py-2 text-sm text-text-secondary">
                     {intl.formatMessage(i18n.noResults)}
@@ -394,15 +383,6 @@ export default function SettingsView({
                 <ProvidersSection setView={setView} />
               </TabsContent>
 
-              {localInference && (
-                <TabsContent
-                  value="local-inference"
-                  className="mt-0 focus-visible:outline-none focus-visible:ring-0"
-                >
-                  <LocalInferenceSection />
-                </TabsContent>
-              )}
-
               <TabsContent
                 value="chat"
                 className="mt-0 focus-visible:outline-none focus-visible:ring-0"
@@ -432,13 +412,6 @@ export default function SettingsView({
                 className="mt-0 focus-visible:outline-none focus-visible:ring-0"
               >
                 <KeyboardShortcutsSection />
-              </TabsContent>
-
-              <TabsContent
-                value="auth"
-                className="mt-0 focus-visible:outline-none focus-visible:ring-0"
-              >
-                <AuthSettingsSection />
               </TabsContent>
 
               <TabsContent

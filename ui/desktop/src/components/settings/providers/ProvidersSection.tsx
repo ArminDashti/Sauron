@@ -13,6 +13,9 @@ import type { ProviderDetails } from '../../../types/providers';
 import type { View } from '../../../utils/navigationUtils';
 import { defineMessages, useIntl } from '../../../i18n';
 import { toastError, toastSuccess } from '../../../toasts';
+import { useFeatures } from '../../../contexts/FeaturesContext';
+import AuthSettingsSection from '../auth/AuthSettingsSection';
+import LocalInferenceSection from '../localInference/LocalInferenceSection';
 
 /** Providers surfaced in the Settings > Providers section. */
 const SUPPORTED_PROVIDER_IDS = [
@@ -114,6 +117,7 @@ interface ProvidersSectionProps {
 
 export default function ProvidersSection({ setView }: ProvidersSectionProps) {
   const intl = useIntl();
+  const { localInference } = useFeatures();
   const [providers, setProviders] = useState<ProviderDetails[]>([]);
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState<string | null>(null);
@@ -385,6 +389,10 @@ export default function ProvidersSection({ setView }: ProvidersSectionProps) {
       ) : (
         <div className="space-y-4">{cards}</div>
       )}
+
+      {localInference && <LocalInferenceSection />}
+
+      <AuthSettingsSection />
 
       <Card className="pb-2 rounded-lg">
         <CardHeader className="pb-0">
