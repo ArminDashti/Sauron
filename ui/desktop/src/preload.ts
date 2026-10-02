@@ -5,6 +5,7 @@ import type { Settings, SettingKey } from './utils/settings';
 import { defaultSettings } from './utils/settings';
 import type { OpenExternalUrlResult } from './utils/urlSecurity';
 import type { GitHubDeviceCode, GitHubTokenPollResult } from './utils/githubSignIn';
+import type { UserProfile } from './utils/userProfile';
 
 // Mapping from settings keys to their old localStorage keys for lazy migration
 const localStorageKeyMap: Partial<Record<SettingKey, string>> = {

@@ -11,6 +11,11 @@ import McpSettingsSection from './mcp/McpSettingsSection';
 import PluginsSettingsSection from './plugins/PluginsSettingsSection';
 import ConfigSettings from './config/ConfigSettings';
 import PromptsSettingsSection from './PromptsSettingsSection';
+import RecipesView from '../recipes/RecipesView';
+import SkillsView from '../skills/SkillsView';
+import AppsView from '../apps/AppsView';
+import ExtensionsView from '../extensions/ExtensionsView';
+import SessionsView from '../sessions/SessionsView';
 import type { ExtensionConfig } from '../../types/extensions';
 import {
   Bot,
@@ -33,6 +38,8 @@ import ChatSettingsSection from './chat/ChatSettingsSection';
 import KeyboardShortcutsSection from './keyboard/KeyboardShortcutsSection';
 import { CONFIGURATION_ENABLED } from '../../updates';
 import { trackSettingsTabViewed } from '../../utils/analytics';
+import { useConfig } from '../ConfigContext';
+import { getNavItemLabel, SETTINGS_NAV_ITEMS } from '../../hooks/useNavigationItems';
 import { defineMessages, useIntl } from '../../i18n';
 import BackButton from '../ui/BackButton';
 import { useNavigationContext } from '../Layout/NavigationContext';
@@ -190,6 +197,11 @@ const SETTINGS_TABS: SettingsTab[] = [
 const settingsTabClass =
   'w-full gap-3 rounded-lg px-3 py-2 text-sm font-normal text-text-secondary hover:bg-background-tertiary/60 data-[state=active]:bg-background-tertiary data-[state=active]:text-text-primary data-[state=active]:shadow-none';
 
+/** Tabs that render a full page view inside Settings instead of a settings section. */
+const EMBEDDED_TAB_IDS = new Set(['recipes', 'skills', 'apps', 'extensions', 'sessions']);
+
+const embeddedTabClass = 'mt-0 flex-1 min-h-0 focus-visible:outline-none focus-visible:ring-0';
+
 export type SettingsViewOptions = {
   deepLinkConfig?: ExtensionConfig;
   showEnvVars?: boolean;
@@ -208,8 +220,16 @@ export default function SettingsView({
   const [activeTab, setActiveTab] = useState('models');
   const [searchQuery, setSearchQuery] = useState('');
   const hasTrackedInitialTab = useRef(false);
+  const { extensionsList } = useConfig();
   const { navWidth } = useNavigationContext();
   const intl = useIntl();
+
+  const appsExtensionEnabled = !!extensionsList?.find((ext) => ext.name === 'apps')?.enabled;
+  const isEmbeddedTab = EMBEDDED_TAB_IDS.has(activeTab);
+
+  const movedNavItems = SETTINGS_NAV_ITEMS.filter((item) =>
+    item.id === 'apps' ? appsExtensionEnabled : true
+  );
 
   const activeTabTitle = {
     models: intl.formatMessage(i18n.tabModels),
@@ -261,6 +281,13 @@ export default function SettingsView({
       }
     }
   }, [viewOptions.section]);
+
+  // Reset active tab if the apps extension becomes unavailable
+  useEffect(() => {
+    if (!appsExtensionEnabled && activeTab === 'apps') {
+      setActiveTab('models');
+    }
+  }, [appsExtensionEnabled, activeTab]);
 
   useEffect(() => {
     if (!hasTrackedInitialTab.current) {
@@ -345,10 +372,36 @@ export default function SettingsView({
                   </TabsTrigger>
                 );
               })}
+              {movedNavItems
+                .filter((item) => {
+                  if (!searchQuery.trim()) return true;
+                  return getNavItemLabel(item, intl)
+                    .toLowerCase()
+                    .includes(searchQuery.trim().toLowerCase());
+                })
+                .map((item, index) => {
+                  const ItemIcon = item.icon;
+                  return (
+                    <TabsTrigger
+                      key={item.id}
+                      value={item.id}
+                      className={cn(settingsTabClass, index === 0 && 'mt-4')}
+                      data-testid={`settings-${item.id}-tab`}
+                    >
+                      <ItemIcon className="h-5 w-5" style={{ color: iconColor(item.color) }} />
+                      {getNavItemLabel(item, intl)}
+                    </TabsTrigger>
+                  );
+                })}
               {searchQuery.trim() &&
                 !SETTINGS_TABS.some((tab) =>
                   intl
                     .formatMessage(tab.label)
+                    .toLowerCase()
+                    .includes(searchQuery.trim().toLowerCase())
+                ) &&
+                !movedNavItems.some((item) =>
+                  getNavItemLabel(item, intl)
                     .toLowerCase()
                     .includes(searchQuery.trim().toLowerCase())
                 ) && (
@@ -361,91 +414,118 @@ export default function SettingsView({
         </div>
 
         <main className="flex min-w-0 flex-1 flex-col overflow-hidden bg-background-primary">
-          <div className="px-12 pb-8 pt-16">
-            <div className="mx-auto max-w-5xl">
-              <h1 className="text-4xl font-light">{activeTabTitle}</h1>
-            </div>
-          </div>
-
-          <ScrollArea className="min-h-0 flex-1 px-12">
-            <div className="mx-auto max-w-5xl pb-10">
-              <TabsContent
-                value="models"
-                className="mt-0 focus-visible:outline-none focus-visible:ring-0"
-              >
-                <ModelsSection setView={setView} />
+          {isEmbeddedTab ? (
+            <div className="flex-1 min-h-0 flex flex-col">
+              <TabsContent value="recipes" className={embeddedTabClass}>
+                <RecipesView embedded />
               </TabsContent>
-
-              <TabsContent
-                value="providers"
-                className="mt-0 focus-visible:outline-none focus-visible:ring-0"
-              >
-                <ProvidersSection setView={setView} />
+              <TabsContent value="skills" className={embeddedTabClass}>
+                <SkillsView embedded />
               </TabsContent>
-
-              <TabsContent
-                value="chat"
-                className="mt-0 focus-visible:outline-none focus-visible:ring-0"
-              >
-                <ChatSettingsSection />
+              <TabsContent value="apps" className={embeddedTabClass}>
+                <AppsView embedded />
               </TabsContent>
-
-              <TabsContent
-                value="sharing"
-                className="mt-0 focus-visible:outline-none focus-visible:ring-0"
-              >
-                <div className="space-y-4 pb-8">
-                  <AgentLoopSettings />
-                  <ExternalBackendSection />
-                </div>
+              <TabsContent value="extensions" className={embeddedTabClass}>
+                <ExtensionsView
+                  onClose={onClose}
+                  setView={setView}
+                  viewOptions={viewOptions}
+                  embedded
+                />
               </TabsContent>
-
-              <TabsContent
-                value="prompts"
-                className="mt-0 focus-visible:outline-none focus-visible:ring-0"
-              >
-                <PromptsSettingsSection />
-              </TabsContent>
-
-              <TabsContent
-                value="keyboard"
-                className="mt-0 focus-visible:outline-none focus-visible:ring-0"
-              >
-                <KeyboardShortcutsSection />
-              </TabsContent>
-
-              <TabsContent
-                value="mcp"
-                className="mt-0 focus-visible:outline-none focus-visible:ring-0"
-              >
-                <McpSettingsSection />
-              </TabsContent>
-
-              <TabsContent
-                value="plugins"
-                className="mt-0 focus-visible:outline-none focus-visible:ring-0"
-              >
-                <PluginsSettingsSection setView={setView} />
-              </TabsContent>
-
-              <TabsContent
-                value="appearance"
-                className="mt-0 focus-visible:outline-none focus-visible:ring-0"
-              >
-                <AppearanceSettingsSection />
-              </TabsContent>
-
-              <TabsContent
-                value="app"
-                className="mt-0 focus-visible:outline-none focus-visible:ring-0"
-              >
-                <div className="space-y-8">
-                  {CONFIGURATION_ENABLED && <ConfigSettings />}
-                  <AppSettingsSection scrollToSection={viewOptions.section} />
-                </div>
+              <TabsContent value="sessions" className={embeddedTabClass}>
+                <SessionsView embedded />
               </TabsContent>
             </div>
-          </ScrollArea>
+          ) : (
+            <>
+              <div className="px-12 pb-8 pt-16">
+                <div className="mx-auto max-w-5xl">
+                  <h1 className="text-4xl font-light">{activeTabTitle}</h1>
+                </div>
+              </div>
+
+              <ScrollArea className="min-h-0 flex-1 px-12">
+                <div className="mx-auto max-w-5xl pb-10">
+                  <TabsContent
+                    value="models"
+                    className="mt-0 focus-visible:outline-none focus-visible:ring-0"
+                  >
+                    <ModelsSection setView={setView} />
+                  </TabsContent>
+
+                  <TabsContent
+                    value="providers"
+                    className="mt-0 focus-visible:outline-none focus-visible:ring-0"
+                  >
+                    <ProvidersSection setView={setView} />
+                  </TabsContent>
+
+                  <TabsContent
+                    value="chat"
+                    className="mt-0 focus-visible:outline-none focus-visible:ring-0"
+                  >
+                    <ChatSettingsSection />
+                  </TabsContent>
+
+                  <TabsContent
+                    value="sharing"
+                    className="mt-0 focus-visible:outline-none focus-visible:ring-0"
+                  >
+                    <div className="space-y-4 pb-8">
+                      <AgentLoopSettings />
+                      <ExternalBackendSection />
+                    </div>
+                  </TabsContent>
+
+                  <TabsContent
+                    value="prompts"
+                    className="mt-0 focus-visible:outline-none focus-visible:ring-0"
+                  >
+                    <PromptsSettingsSection />
+                  </TabsContent>
+
+                  <TabsContent
+                    value="keyboard"
+                    className="mt-0 focus-visible:outline-none focus-visible:ring-0"
+                  >
+                    <KeyboardShortcutsSection />
+                  </TabsContent>
+
+                  <TabsContent
+                    value="mcp"
+                    className="mt-0 focus-visible:outline-none focus-visible:ring-0"
+                  >
+                    <McpSettingsSection />
+                  </TabsContent>
+
+                  <TabsContent
+                    value="plugins"
+                    className="mt-0 focus-visible:outline-none focus-visible:ring-0"
+                  >
+                    <PluginsSettingsSection setView={setView} />
+                  </TabsContent>
+
+                  <TabsContent
+                    value="appearance"
+                    className="mt-0 focus-visible:outline-none focus-visible:ring-0"
+                  >
+                    <AppearanceSettingsSection />
+                  </TabsContent>
+
+                  <TabsContent
+                    value="app"
+                    className="mt-0 focus-visible:outline-none focus-visible:ring-0"
+                  >
+                    <div className="space-y-8">
+                      {CONFIGURATION_ENABLED && <ConfigSettings />}
+                      <AppSettingsSection scrollToSection={viewOptions.section} />
+                    </div>
+                  </TabsContent>
+                </div>
+              </ScrollArea>
+            </>
+          )}
         </main>
       </Tabs>
     </div>

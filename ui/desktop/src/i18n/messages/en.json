@@ -32,6 +32,12 @@
   "allProviderModels.addPreferred": {
     "defaultMessage": "Add {model} to preferred models"
   },
+  "allProviderModels.clearSearch": {
+    "defaultMessage": "Clear search"
+  },
+  "allProviderModels.clearSearchInput": {
+    "defaultMessage": "Clear search input"
+  },
   "allProviderModels.configureProviders": {
     "defaultMessage": "Configure providers"
   },
@@ -62,6 +68,9 @@
   "allProviderModels.noModels": {
     "defaultMessage": "No models reported by this provider."
   },
+  "allProviderModels.noSearchResults": {
+    "defaultMessage": "No models match \"{query}\"."
+  },
   "allProviderModels.preferredUpdateFailed": {
     "defaultMessage": "Failed to update preferred models"
   },
@@ -76,6 +85,15 @@
   },
   "allProviderModels.removePreferred": {
     "defaultMessage": "Remove {model} from preferred models"
+  },
+  "allProviderModels.searchLabel": {
+    "defaultMessage": "Search models"
+  },
+  "allProviderModels.searchPlaceholder": {
+    "defaultMessage": "Search models..."
+  },
+  "allProviderModels.showingCount": {
+    "defaultMessage": "Showing {shown, number} of {total, number} models"
   },
   "allProviderModels.title": {
     "defaultMessage": "Models from your providers"

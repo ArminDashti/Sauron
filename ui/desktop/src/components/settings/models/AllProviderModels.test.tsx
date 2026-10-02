@@ -11,6 +11,12 @@ import { toastError, toastSuccess } from '../../../toasts';
 import { IntlTestWrapper } from '../../../i18n/test-utils';
 import type { ProviderDetails } from '../../../types/providers';
 
+
+const defaultProps = {
+  preferredModels: [],
+  onPreferredModelsChange: vi.fn(),
+};
+
 vi.mock('../../../acp/providers', () => ({
   acpListSettingsProviderDetails: vi.fn(),
   acpReadDefaults: vi.fn(),
@@ -69,7 +75,7 @@ describe('AllProviderModels', () => {
   });
 
   it('renders configured providers with their models and marks the default', async () => {
-    renderWithIntl(<AllProviderModels />);
+    renderWithIntl(<AllProviderModels {...defaultProps} />);
 
     expect(await screen.findByTestId('all-provider-models-openai')).toBeInTheDocument();
     expect(screen.getByText('OpenAI')).toBeInTheDocument();
@@ -82,7 +88,7 @@ describe('AllProviderModels', () => {
   });
 
   it('shows model metadata badges', async () => {
-    renderWithIntl(<AllProviderModels />);
+    renderWithIntl(<AllProviderModels {...defaultProps} />);
 
     await screen.findByTestId('all-provider-models-openai');
     expect(screen.getByText('125k')).toBeInTheDocument();
@@ -92,7 +98,7 @@ describe('AllProviderModels', () => {
 
   it('filters models by name and shows a filtered count', async () => {
     const user = userEvent.setup();
-    renderWithIntl(<AllProviderModels />);
+    renderWithIntl(<AllProviderModels {...defaultProps} />);
 
     await screen.findByTestId('all-provider-models-openai');
     await user.type(screen.getByTestId('all-provider-models-search'), 'o3');
@@ -108,7 +114,7 @@ describe('AllProviderModels', () => {
 
   it('filters by provider name to reveal all of its models', async () => {
     const user = userEvent.setup();
-    renderWithIntl(<AllProviderModels />);
+    renderWithIntl(<AllProviderModels {...defaultProps} />);
 
     await screen.findByTestId('all-provider-models-openai');
     await user.type(screen.getByTestId('all-provider-models-search'), 'openai');
@@ -119,7 +125,7 @@ describe('AllProviderModels', () => {
 
   it('shows an empty search state with a way to clear the query', async () => {
     const user = userEvent.setup();
-    renderWithIntl(<AllProviderModels />);
+    renderWithIntl(<AllProviderModels {...defaultProps} />);
 
     await screen.findByTestId('all-provider-models-openai');
     await user.type(screen.getByTestId('all-provider-models-search'), 'does-not-exist');
@@ -135,7 +141,7 @@ describe('AllProviderModels', () => {
   it('saves the selected model as default and notifies the parent', async () => {
     const user = userEvent.setup();
     const onModelSelected = vi.fn();
-    renderWithIntl(<AllProviderModels onModelSelected={onModelSelected} />);
+    renderWithIntl(<AllProviderModels {...defaultProps} onModelSelected={onModelSelected} />);
 
     await screen.findByTestId('all-provider-models-openai');
     await user.click(screen.getByTestId('all-provider-model-openai-o3-mini'));
@@ -157,7 +163,7 @@ describe('AllProviderModels', () => {
   it('shows a toast when saving the default model fails', async () => {
     const user = userEvent.setup();
     mockedSaveDefaults.mockRejectedValue(new Error('nope'));
-    renderWithIntl(<AllProviderModels />);
+    renderWithIntl(<AllProviderModels {...defaultProps} />);
 
     await screen.findByTestId('all-provider-models-openai');
     await user.click(screen.getByTestId('all-provider-model-openai-o3-mini'));
@@ -170,7 +176,7 @@ describe('AllProviderModels', () => {
 
   it('renders the empty state when no providers are configured', async () => {
     mockedListSettingsProviderDetails.mockResolvedValue([]);
-    renderWithIntl(<AllProviderModels />);
+    renderWithIntl(<AllProviderModels {...defaultProps} />);
 
     expect(await screen.findByText('No activated providers yet.')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Configure providers' })).toBeInTheDocument();
