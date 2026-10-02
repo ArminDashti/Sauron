@@ -884,6 +884,9 @@
   "customProviderForm.apiKey": {
     "defaultMessage": "API 密钥"
   },
+  "customProviderForm.apiKeyEnvHint": {
+    "defaultMessage": "输入 {example} 可从环境变量读取密钥，而不是存储它。"
+  },
   "customProviderForm.apiKeyPlaceholderExisting": {
     "defaultMessage": "留空将保留现有密钥"
   },
@@ -1039,6 +1042,9 @@
   },
   "defaultProviderSetupForm.apiHostPlaceholder": {
     "defaultMessage": "https://api.example.com"
+  },
+  "defaultProviderSetupForm.apiKeyEnvHint": {
+    "defaultMessage": "输入 {example} 可从环境变量读取密钥，而不是存储它。"
   },
   "defaultProviderSetupForm.apiKeyLabel": {
     "defaultMessage": "API 密钥"

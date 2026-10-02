@@ -884,6 +884,9 @@
   "customProviderForm.apiKey": {
     "defaultMessage": "API-ключ"
   },
+  "customProviderForm.apiKeyEnvHint": {
+    "defaultMessage": "Введите {example}, чтобы читать ключ из переменной окружения вместо его хранения."
+  },
   "customProviderForm.apiKeyPlaceholderExisting": {
     "defaultMessage": "Оставьте пустым, чтобы сохранить существующий ключ"
   },
@@ -1039,6 +1042,9 @@
   },
   "defaultProviderSetupForm.apiHostPlaceholder": {
     "defaultMessage": "https://api.example.com"
+  },
+  "defaultProviderSetupForm.apiKeyEnvHint": {
+    "defaultMessage": "Введите {example}, чтобы читать ключ из переменной окружения вместо его хранения."
   },
   "defaultProviderSetupForm.apiKeyLabel": {
     "defaultMessage": "API-ключ"

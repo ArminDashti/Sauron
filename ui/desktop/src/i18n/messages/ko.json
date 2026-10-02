@@ -884,6 +884,9 @@
   "customProviderForm.apiKey": {
     "defaultMessage": "API 키"
   },
+  "customProviderForm.apiKeyEnvHint": {
+    "defaultMessage": "{example}을(를) 입력하면 키를 저장하는 대신 환경 변수에서 읽을 수 있습니다."
+  },
   "customProviderForm.apiKeyPlaceholderExisting": {
     "defaultMessage": "기존 키를 유지하려면 비워 두세요."
   },
@@ -1039,6 +1042,9 @@
   },
   "defaultProviderSetupForm.apiHostPlaceholder": {
     "defaultMessage": "https://api.example.com"
+  },
+  "defaultProviderSetupForm.apiKeyEnvHint": {
+    "defaultMessage": "{example}을(를) 입력하면 키를 저장하는 대신 환경 변수에서 읽을 수 있습니다."
   },
   "defaultProviderSetupForm.apiKeyLabel": {
     "defaultMessage": "API 키"

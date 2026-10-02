@@ -90,6 +90,11 @@ describe('CustomProviderForm transitions', () => {
     await user.click(screen.getByRole('button', { name: 'Use Template A' }));
 
     await user.type(screen.getByLabelText(/API Key/), 'template-a-secret');
+    expect(
+      screen.getByText(
+        'Enter {MY_API_KEY} to read the key from an environment variable instead of storing it.'
+      )
+    ).toBeInTheDocument();
     await addHeader(user, 'Authorization', 'Bearer template-a');
 
     const pendingNames = screen.getAllByPlaceholderText('Header name');

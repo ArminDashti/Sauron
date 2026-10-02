@@ -120,6 +120,10 @@ const i18n = defineMessages({
     id: 'customProviderForm.apiKeyPlaceholderNew',
     defaultMessage: 'Your API key',
   },
+  apiKeyEnvHint: {
+    id: 'customProviderForm.apiKeyEnvHint',
+    defaultMessage: 'Enter {example} to read the key from an environment variable instead of storing it.',
+  },
   availableModels: {
     id: 'customProviderForm.availableModels',
     defaultMessage: 'Available Models (comma-separated)',
@@ -785,6 +789,9 @@ export default function CustomProviderForm({
               aria-describedby={validationErrors.apiKey ? 'api-key-error' : undefined}
               className={validationErrors.apiKey ? 'border-red-500' : ''}
             />
+            <p className="text-sm text-text-secondary mt-1">
+              {intl.formatMessage(i18n.apiKeyEnvHint, { example: '{MY_API_KEY}' })}
+            </p>
             {validationErrors.apiKey && (
               <p id="api-key-error" className="text-red-500 text-sm mt-1">
                 {validationErrors.apiKey}
