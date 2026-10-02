@@ -138,7 +138,9 @@ pub async fn run_session_name_update_notification<C: Connection>() {
     assert_eq!(output.text, "2");
 
     let mut notifications = session.notifications();
-    let deadline = tokio::time::Instant::now() + Duration::from_secs(1);
+    // Naming runs in a spawned task that calls the provider; give it generous
+    // headroom on loaded CI runners (the poll exits as soon as it lands).
+    let deadline = tokio::time::Instant::now() + Duration::from_secs(5);
     while !notifications
         .iter()
         .any(|n| matches!(n, Notification::SessionInfoUpdate { .. }))
