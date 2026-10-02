@@ -101,3 +101,8 @@ sauronselftest/
 /crates/sauron-sdk/examples/uniffi/kotlin/build/
 
 live-in-desktop-design
+
+# Vite web app
+dist
+dist-ssr
+*.local
