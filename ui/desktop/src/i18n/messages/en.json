@@ -56,6 +56,15 @@
   "allProviderModels.emptyHint": {
     "defaultMessage": "Configure a provider to see the models it offers."
   },
+  "allProviderModels.filterAll": {
+    "defaultMessage": "All"
+  },
+  "allProviderModels.filterFree": {
+    "defaultMessage": "Free"
+  },
+  "allProviderModels.freeCount": {
+    "defaultMessage": "{count} free"
+  },
   "allProviderModels.loadFailed": {
     "defaultMessage": "Could not load provider models"
   },
@@ -64,6 +73,12 @@
   },
   "allProviderModels.modelCount": {
     "defaultMessage": "{count,plural,one{# model} other{# models}}"
+  },
+  "allProviderModels.noFreeModels": {
+    "defaultMessage": "No free models from your providers."
+  },
+  "allProviderModels.noFreeModelsHint": {
+    "defaultMessage": "Models show as free when a provider runs them locally (Ollama, local models) or lists free variants, such as the :free models from OpenRouter."
   },
   "allProviderModels.noModels": {
     "defaultMessage": "No models reported by this provider."
@@ -91,6 +106,9 @@
   },
   "allProviderModels.searchPlaceholder": {
     "defaultMessage": "Search models..."
+  },
+  "allProviderModels.showAll": {
+    "defaultMessage": "Show all models"
   },
   "allProviderModels.showingCount": {
     "defaultMessage": "Showing {shown, number} of {total, number} models"
@@ -1397,6 +1415,9 @@
   "externalBackendSection.workingDirPlaceholder": {
     "defaultMessage": "/home/sauron/workspace"
   },
+  "freeModelBadge.label": {
+    "defaultMessage": "Free"
+  },
   "gitBranchIndicator.failedToSwitch": {
     "defaultMessage": "Failed to switch to {branch}"
   },
@@ -1444,6 +1465,36 @@
   },
   "groupedExtensionLoadingToast.successfullyLoaded": {
     "defaultMessage": "{count,plural,one{Successfully loaded # extension} other{Successfully loaded # extensions}}"
+  },
+  "harnessesSection.configure": {
+    "defaultMessage": "Configure"
+  },
+  "harnessesSection.configured": {
+    "defaultMessage": "Enabled"
+  },
+  "harnessesSection.description": {
+    "defaultMessage": "Use agents from another harness such as Cursor, Claude Code, Codex, or Copilot. Enable one here, then select it in Models to chat with it."
+  },
+  "harnessesSection.empty": {
+    "defaultMessage": "No external agent harnesses are available."
+  },
+  "harnessesSection.installed": {
+    "defaultMessage": "Installed"
+  },
+  "harnessesSection.loadFailed": {
+    "defaultMessage": "Failed to load harnesses"
+  },
+  "harnessesSection.loading": {
+    "defaultMessage": "Loading harnesses..."
+  },
+  "harnessesSection.notConfigured": {
+    "defaultMessage": "Not enabled"
+  },
+  "harnessesSection.notInstalled": {
+    "defaultMessage": "Not installed"
+  },
+  "harnessesSection.title": {
+    "defaultMessage": "Agent Harnesses"
   },
   "headersSection.add": {
     "defaultMessage": "Add"
@@ -2497,6 +2548,12 @@
   },
   "navigation.itemSkills": {
     "defaultMessage": "Skills"
+  },
+  "navigationFooter.cpuUsage": {
+    "defaultMessage": "CPU {percent}%"
+  },
+  "navigationFooter.memoryUsage": {
+    "defaultMessage": "Memory {percent}%"
   },
   "navigationFooter.sendFeedback": {
     "defaultMessage": "Send feedback"
@@ -4528,6 +4585,9 @@
   },
   "settingsView.tabExternalBackend": {
     "defaultMessage": "Agent"
+  },
+  "settingsView.tabHarnesses": {
+    "defaultMessage": "Harnesses"
   },
   "settingsView.tabKeyboard": {
     "defaultMessage": "Keyboard"

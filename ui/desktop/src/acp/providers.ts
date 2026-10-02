@@ -5,6 +5,7 @@ import type {
   ProviderSecretDto,
   ProviderInventoryEntryDto,
   RefreshProviderInventoryResponse_unstable,
+  ProviderSetupCatalogEntryDto,
   ProviderTemplateCatalogEntryDto,
   ProviderTemplateDto,
 } from '@aaif/sauron-acp-client';
@@ -202,6 +203,13 @@ export async function acpListProviderModels(providerId: string) {
   const client = await getAcpClient();
   const { entries } = await client.sauron.providersList_unstable({ providerIds: [providerId] });
   return entries.find((e) => e.providerId === providerId)?.models ?? [];
+}
+
+/** Full setup catalog: every provider the app can use, tagged `agent` or `model`. */
+export async function acpListSetupCatalog(): Promise<ProviderSetupCatalogEntryDto[]> {
+  const client = await getAcpClient();
+  const { providers } = await client.sauron.providersSetupCatalogList_unstable({});
+  return providers;
 }
 
 export async function acpListProviderCatalogEntries(

@@ -7,6 +7,7 @@ import type { OpenExternalUrlResult } from './utils/urlSecurity';
 import type { GitHubDeviceCode, GitHubTokenPollResult } from './utils/githubSignIn';
 import type { UserProfile } from './utils/userProfile';
 import type { UsageStatsRange, UsageStatsResult } from './types/usageStats';
+import type { SystemUsage } from './utils/systemUsage';
 
 // Mapping from settings keys to their old localStorage keys for lazy migration
 const localStorageKeyMap: Partial<Record<SettingKey, string>> = {
@@ -192,6 +193,7 @@ type ElectronAPI = {
   listGitBranches: (dir: string) => Promise<string[]>;
   switchGitBranch: (dir: string, branch: string) => Promise<{ success: boolean; error?: string }>;
   getUserProfile: () => Promise<UserProfile>;
+  getSystemUsage: () => Promise<SystemUsage>;
 };
 
 type AppConfigAPI = {
@@ -363,6 +365,7 @@ const electronAPI: ElectronAPI = {
   switchGitBranch: (dir: string, branch: string) =>
     ipcRenderer.invoke('switch-git-branch', dir, branch),
   getUserProfile: () => ipcRenderer.invoke('get-user-profile'),
+  getSystemUsage: () => ipcRenderer.invoke('get-system-usage'),
 };
 
 function getAppLocale(): unknown {
