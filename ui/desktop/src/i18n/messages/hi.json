@@ -1379,15 +1379,6 @@
   "headersSection.value": {
     "defaultMessage": "मूल्य"
   },
-  "hub.goodAfternoon": {
-    "defaultMessage": "शुभ दोपहर"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "शुभ संध्या"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "सुप्रभात"
-  },
   "hubView.description": {
     "defaultMessage": "विभिन्न स्रोतों से स्किल्स और MCP सर्वर खोजें।"
   },
@@ -3967,6 +3958,21 @@
   },
   "settings.dockIcon.title": {
     "defaultMessage": "डॉक आइकन"
+  },
+  "settings.fontSize.decrease": {
+    "defaultMessage": "फ़ॉन्ट आकार घटाएँ"
+  },
+  "settings.fontSize.description": {
+    "defaultMessage": "goose में टेक्स्ट का आकार बदलें"
+  },
+  "settings.fontSize.increase": {
+    "defaultMessage": "फ़ॉन्ट आकार बढ़ाएँ"
+  },
+  "settings.fontSize.reset": {
+    "defaultMessage": "रीसेट करें"
+  },
+  "settings.fontSize.title": {
+    "defaultMessage": "फ़ॉन्ट आकार"
   },
   "settings.help.description": {
     "defaultMessage": "समस्याओं की रिपोर्ट करके या नई सुविधाओं का अनुरोध करके goose को बेहतर बनाने में हमारी सहायता करें"

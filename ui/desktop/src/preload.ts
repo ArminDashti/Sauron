@@ -160,6 +160,7 @@ type ElectronAPI = {
     theme: string;
     tokensUpdated?: boolean;
   }) => void;
+  broadcastFontSizeChange: (fontSize: number) => void;
   openExternal: (url: string) => Promise<OpenExternalUrlResult>;
   // Update-related functions
   getVersion: () => string;
@@ -302,6 +303,9 @@ const electronAPI: ElectronAPI = {
     tokensUpdated?: boolean;
   }) => {
     ipcRenderer.send('broadcast-theme-change', themeData);
+  },
+  broadcastFontSizeChange: (fontSize: number): void => {
+    ipcRenderer.send('broadcast-font-size-change', fontSize);
   },
   openExternal: (url: string): Promise<OpenExternalUrlResult> => {
     return ipcRenderer.invoke('open-external', url);

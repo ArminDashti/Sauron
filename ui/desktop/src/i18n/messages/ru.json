@@ -1379,15 +1379,6 @@
   "headersSection.value": {
     "defaultMessage": "Значение"
   },
-  "hub.goodAfternoon": {
-    "defaultMessage": "Добрый день"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "Добрый вечер"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "Доброе утро"
-  },
   "hubView.description": {
     "defaultMessage": "Ищите навыки и MCP-серверы из различных источников."
   },
@@ -3967,6 +3958,21 @@
   },
   "settings.dockIcon.title": {
     "defaultMessage": "Значок Dock"
+  },
+  "settings.fontSize.decrease": {
+    "defaultMessage": "Уменьшить размер шрифта"
+  },
+  "settings.fontSize.description": {
+    "defaultMessage": "Изменить размер текста в goose"
+  },
+  "settings.fontSize.increase": {
+    "defaultMessage": "Увеличить размер шрифта"
+  },
+  "settings.fontSize.reset": {
+    "defaultMessage": "Сбросить"
+  },
+  "settings.fontSize.title": {
+    "defaultMessage": "Размер шрифта"
   },
   "settings.help.description": {
     "defaultMessage": "Помогите улучшить goose: сообщайте о проблемах или запрашивайте новые функции"

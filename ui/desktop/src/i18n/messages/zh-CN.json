@@ -1379,15 +1379,6 @@
   "headersSection.value": {
     "defaultMessage": "值"
   },
-  "hub.goodAfternoon": {
-    "defaultMessage": "下午好"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "晚上好"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "早上好"
-  },
   "hubView.description": {
     "defaultMessage": "从各种来源发现技能和 MCP 服务器。"
   },
@@ -3967,6 +3958,21 @@
   },
   "settings.dockIcon.title": {
     "defaultMessage": "Dock 图标"
+  },
+  "settings.fontSize.decrease": {
+    "defaultMessage": "减小字体大小"
+  },
+  "settings.fontSize.description": {
+    "defaultMessage": "更改 goose 中的文本大小"
+  },
+  "settings.fontSize.increase": {
+    "defaultMessage": "增大字体大小"
+  },
+  "settings.fontSize.reset": {
+    "defaultMessage": "重置"
+  },
+  "settings.fontSize.title": {
+    "defaultMessage": "字体大小"
   },
   "settings.help.description": {
     "defaultMessage": "通过报告问题或请求新功能帮助我们改进 goose"

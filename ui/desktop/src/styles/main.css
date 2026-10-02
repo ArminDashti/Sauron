@@ -558,7 +558,7 @@ body {
   color: var(--color-inline-code);
   background-color: var(--color-neutral-50);
   font-family: monospace;
-  font-size: 12px;
+  font-size: 0.75rem;
   font-style: normal;
   font-weight: 400;
   line-height: normal;

@@ -14,6 +14,13 @@ import {
 import { COST_TRACKING_ENABLED } from '../../../updates';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../ui/card';
 import ThemeSelector from '../../GooseSidebar/ThemeSelector';
+import { useFontSize } from '../../../contexts/FontSizeContext';
+import {
+  DEFAULT_FONT_SIZE,
+  FONT_SIZE_STEP,
+  MAX_FONT_SIZE,
+  MIN_FONT_SIZE,
+} from '../../../utils/fontSize';
 import { trackSettingToggled } from '../../../utils/analytics';
 import type { LanguageSetting } from '../../../utils/settings';
 
@@ -61,6 +68,20 @@ const i18n = defineMessages({
     id: 'settings.theme.description',
     defaultMessage: 'Customize the look and feel of goose',
   },
+  fontSizeTitle: { id: 'settings.fontSize.title', defaultMessage: 'Font size' },
+  fontSizeDesc: {
+    id: 'settings.fontSize.description',
+    defaultMessage: 'Change how large text appears in goose',
+  },
+  fontSizeDecrease: {
+    id: 'settings.fontSize.decrease',
+    defaultMessage: 'Decrease font size',
+  },
+  fontSizeIncrease: {
+    id: 'settings.fontSize.increase',
+    defaultMessage: 'Increase font size',
+  },
+  fontSizeReset: { id: 'settings.fontSize.reset', defaultMessage: 'Reset' },
   languageTitle: { id: 'settings.language.title', defaultMessage: 'Language' },
   languageDesc: {
     id: 'settings.language.description',
@@ -278,6 +299,7 @@ export default function AppearanceSettingsSection() {
   };
 
   const intl = useIntl();
+  const { fontSize, setFontSize } = useFontSize();
   const selectedLanguage =
     LANGUAGE_OPTIONS.find((option) => option.value === language) ?? LANGUAGE_OPTIONS[0];
 
@@ -424,6 +446,52 @@ export default function AppearanceSettingsSection() {
         </CardHeader>
         <CardContent className="pt-4 px-4">
           <ThemeSelector className="w-auto" hideTitle horizontal />
+        </CardContent>
+      </Card>
+
+      <Card className="rounded-lg">
+        <CardHeader className="pb-0">
+          <CardTitle className="mb-1">{intl.formatMessage(i18n.fontSizeTitle)}</CardTitle>
+          <CardDescription>{intl.formatMessage(i18n.fontSizeDesc)}</CardDescription>
+        </CardHeader>
+        <CardContent className="pt-4 px-4">
+          <div className="flex items-center justify-between max-w-[260px]">
+            <div className="flex items-center gap-2">
+              <Button
+                variant="outline"
+                size="sm"
+                aria-label={intl.formatMessage(i18n.fontSizeDecrease)}
+                disabled={fontSize <= MIN_FONT_SIZE}
+                onClick={() => setFontSize(fontSize - FONT_SIZE_STEP)}
+              >
+                A&minus;
+              </Button>
+              <span
+                className="w-14 text-center text-sm text-text-primary"
+                aria-live="polite"
+                data-testid="font-size-value"
+              >
+                {intl.formatNumber(fontSize / 100, { style: 'percent' })}
+              </span>
+              <Button
+                variant="outline"
+                size="sm"
+                aria-label={intl.formatMessage(i18n.fontSizeIncrease)}
+                disabled={fontSize >= MAX_FONT_SIZE}
+                onClick={() => setFontSize(fontSize + FONT_SIZE_STEP)}
+              >
+                A+
+              </Button>
+            </div>
+            <Button
+              variant="ghost"
+              size="sm"
+              disabled={fontSize === DEFAULT_FONT_SIZE}
+              onClick={() => setFontSize(DEFAULT_FONT_SIZE)}
+            >
+              {intl.formatMessage(i18n.fontSizeReset)}
+            </Button>
+          </div>
         </CardContent>
       </Card>
 
