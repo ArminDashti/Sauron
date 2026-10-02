@@ -19,6 +19,7 @@ import { acpRenameSession, type SessionListItem } from '../../acp/sessions';
 import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/Tooltip';
 import { formatMessageTimestamp } from '../../utils/timeUtils';
 import { cn } from '../../utils';
+import { iconColor } from '../../theme/iconColors';
 import type { ProjectGroup } from '../../utils/projectSessions';
 import { defineMessages, useIntl } from '../../i18n';
 
@@ -108,7 +109,7 @@ const NavRow: React.FC<NavRowProps> = ({ item, active, onClick }) => {
   const Icon = item.icon;
   return (
     <button onClick={onClick} className={navItemClass(active)}>
-      <Icon className="w-5 h-5 flex-shrink-0 text-text-secondary" />
+      <Icon className="w-5 h-5 flex-shrink-0" style={{ color: iconColor(item.color) }} />
       <span className="text-left flex-1 truncate">{getNavItemLabel(item, intl)}</span>
       {item.getTag && (
         <span className="text-xs font-mono text-text-secondary">{item.getTag()}</span>
