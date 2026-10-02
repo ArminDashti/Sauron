@@ -8,6 +8,9 @@
   "alertBox.failedToSaveThreshold": {
     "defaultMessage": "しきい値の保存に失敗しました: {error}"
   },
+  "allProviderModels.addPreferred": {
+    "defaultMessage": "{model} を優先モデルに追加"
+  },
   "announcementModal.gotIt": {
     "defaultMessage": "了解しました"
   },
@@ -2350,6 +2353,9 @@
   },
   "modelsBottomBar.localModelSettingsTitle": {
     "defaultMessage": "ローカルモデル設定 — {modelName}"
+  },
+  "modelsBottomBar.preferredModels": {
+    "defaultMessage": "優先"
   },
   "modelsBottomBar.resolvedModel": {
     "defaultMessage": "解決済みモデル"
@@ -4850,8 +4856,11 @@
   "authSettings.githubOpenDevicePage": {
     "defaultMessage": "GitHub デバイスページを開く"
   },
-  "authSettings.githubSignInFailed": {
-    "defaultMessage": "GitHub にサインインできませんでした: {error}"
+  "allProviderModels.preferredUpdateFailed": {
+    "defaultMessage": "優先モデルを更新できませんでした"
+  },
+  "allProviderModels.refreshAll": {
+    "defaultMessage": "Refresh models"
   },
   "authSettings.githubSignInUnavailable": {
     "defaultMessage": "GitHub サインインはデスクトップアプリでのみ利用できます。"
@@ -4859,8 +4868,11 @@
   "authSettings.githubSignOutMessage": {
     "defaultMessage": "再サインインするまで、Sauron は GitHub リポジトリを操作できません。"
   },
-  "authSettings.githubSignOutTitle": {
-    "defaultMessage": "GitHub からサインアウト"
+  "allProviderModels.removePreferred": {
+    "defaultMessage": "{model} を優先モデルから削除"
+  },
+  "allProviderModels.title": {
+    "defaultMessage": "Models from your providers"
   },
   "authSettings.githubSignedIn": {
     "defaultMessage": "GitHub にサインインしました。GitHub 拡張機能を使用準備ができました。"
@@ -4897,6 +4909,18 @@
   },
   "pluginsSettings.title": {
     "defaultMessage": "Plugins"
+  },
+  "preferredModels.empty": {
+    "defaultMessage": "下のモデルに星を付けると、ここやチャットでいつでも使いやすくなります。"
+  },
+  "preferredModels.remove": {
+    "defaultMessage": "{model} を優先モデルから削除"
+  },
+  "preferredModels.removeFailed": {
+    "defaultMessage": "優先モデルを更新できませんでした"
+  },
+  "preferredModels.title": {
+    "defaultMessage": "優先モデル"
   },
   "providersSection.resetDescription": {
     "defaultMessage": "Clear your selected model and provider settings to start fresh"

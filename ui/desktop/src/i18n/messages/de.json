@@ -8,6 +8,9 @@
   "alertBox.failedToSaveThreshold": {
     "defaultMessage": "Schwellenwert konnte nicht gespeichert werden: {error}"
   },
+  "allProviderModels.addPreferred": {
+    "defaultMessage": "{model} zu den bevorzugten Modellen hinzufügen"
+  },
   "announcementModal.gotIt": {
     "defaultMessage": "Verstanden!"
   },
@@ -2350,6 +2353,9 @@
   },
   "modelsBottomBar.localModelSettingsTitle": {
     "defaultMessage": "Lokale Modelleinstellungen — {modelName}"
+  },
+  "modelsBottomBar.preferredModels": {
+    "defaultMessage": "Bevorzugt"
   },
   "modelsBottomBar.resolvedModel": {
     "defaultMessage": "Aufgelöstes Modell"
@@ -4850,8 +4856,11 @@
   "authSettings.githubOpenDevicePage": {
     "defaultMessage": "GitHub-Geräteseite öffnen"
   },
-  "authSettings.githubSignInFailed": {
-    "defaultMessage": "GitHub-Anmeldung fehlgeschlagen: {error}"
+  "allProviderModels.preferredUpdateFailed": {
+    "defaultMessage": "Bevorzugte Modelle konnten nicht aktualisiert werden"
+  },
+  "allProviderModels.refreshAll": {
+    "defaultMessage": "Refresh models"
   },
   "authSettings.githubSignInUnavailable": {
     "defaultMessage": "Die GitHub-Anmeldung ist nur in der Desktop-App verfügbar."
@@ -4859,8 +4868,11 @@
   "authSettings.githubSignOutMessage": {
     "defaultMessage": "Sauron kann deine GitHub-Repositorys erst wieder bearbeiten, wenn du dich erneut anmeldest."
   },
-  "authSettings.githubSignOutTitle": {
-    "defaultMessage": "Bei GitHub abmelden"
+  "allProviderModels.removePreferred": {
+    "defaultMessage": "{model} aus den bevorzugten Modellen entfernen"
+  },
+  "allProviderModels.title": {
+    "defaultMessage": "Models from your providers"
   },
   "authSettings.githubSignedIn": {
     "defaultMessage": "Bei GitHub angemeldet. Die GitHub-Erweiterung ist einsatzbereit."
@@ -4897,6 +4909,18 @@
   },
   "pluginsSettings.title": {
     "defaultMessage": "Plugins"
+  },
+  "preferredModels.empty": {
+    "defaultMessage": "Markieren Sie unten Modelle mit einem Stern, um sie hier und in Chats griffbereit zu halten."
+  },
+  "preferredModels.remove": {
+    "defaultMessage": "{model} aus den bevorzugten Modellen entfernen"
+  },
+  "preferredModels.removeFailed": {
+    "defaultMessage": "Bevorzugte Modelle konnten nicht aktualisiert werden"
+  },
+  "preferredModels.title": {
+    "defaultMessage": "Bevorzugte Modelle"
   },
   "providersSection.resetDescription": {
     "defaultMessage": "Clear your selected model and provider settings to start fresh"

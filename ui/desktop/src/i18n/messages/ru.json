@@ -8,6 +8,9 @@
   "alertBox.failedToSaveThreshold": {
     "defaultMessage": "Не удалось сохранить пороговое значение: {error}"
   },
+  "allProviderModels.addPreferred": {
+    "defaultMessage": "Добавить {model} в предпочтительные модели"
+  },
   "announcementModal.gotIt": {
     "defaultMessage": "Понятно!"
   },
@@ -2350,6 +2353,9 @@
   },
   "modelsBottomBar.localModelSettingsTitle": {
     "defaultMessage": "Настройки локальной модели — {modelName}"
+  },
+  "modelsBottomBar.preferredModels": {
+    "defaultMessage": "Избранные"
   },
   "modelsBottomBar.resolvedModel": {
     "defaultMessage": "Разрешенная модель"
@@ -4850,8 +4856,11 @@
   "authSettings.githubOpenDevicePage": {
     "defaultMessage": "Открыть страницу устройства GitHub"
   },
-  "authSettings.githubSignInFailed": {
-    "defaultMessage": "Не удалось войти в GitHub: {error}"
+  "allProviderModels.preferredUpdateFailed": {
+    "defaultMessage": "Не удалось обновить предпочтительные модели"
+  },
+  "allProviderModels.refreshAll": {
+    "defaultMessage": "Refresh models"
   },
   "authSettings.githubSignInUnavailable": {
     "defaultMessage": "Вход через GitHub доступен только в настольном приложении."
@@ -4859,8 +4868,11 @@
   "authSettings.githubSignOutMessage": {
     "defaultMessage": "Sauron не сможет работать с вашими репозиториями GitHub, пока вы не войдёте снова."
   },
-  "authSettings.githubSignOutTitle": {
-    "defaultMessage": "Выйти из GitHub"
+  "allProviderModels.removePreferred": {
+    "defaultMessage": "Убрать {model} из предпочтительных моделей"
+  },
+  "allProviderModels.title": {
+    "defaultMessage": "Models from your providers"
   },
   "authSettings.githubSignedIn": {
     "defaultMessage": "Вы вошли в GitHub. Расширение GitHub готово к работе."
@@ -4897,6 +4909,18 @@
   },
   "pluginsSettings.title": {
     "defaultMessage": "Plugins"
+  },
+  "preferredModels.empty": {
+    "defaultMessage": "Отметьте модели звёздой ниже, чтобы они всегда были под рукой здесь и в чатах."
+  },
+  "preferredModels.remove": {
+    "defaultMessage": "Убрать {model} из предпочтительных моделей"
+  },
+  "preferredModels.removeFailed": {
+    "defaultMessage": "Не удалось обновить предпочтительные modelos"
+  },
+  "preferredModels.title": {
+    "defaultMessage": "Предпочтительные модели"
   },
   "providersSection.resetDescription": {
     "defaultMessage": "Clear your selected model and provider settings to start fresh"

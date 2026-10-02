@@ -8,6 +8,9 @@
   "alertBox.failedToSaveThreshold": {
     "defaultMessage": "Gagal menyimpan ambang: {error}"
   },
+  "allProviderModels.addPreferred": {
+    "defaultMessage": "Tambah {model} ke model kegemaran"
+  },
   "announcementModal.gotIt": {
     "defaultMessage": "Faham!"
   },
@@ -2350,6 +2353,9 @@
   },
   "modelsBottomBar.localModelSettingsTitle": {
     "defaultMessage": "Tetapan Model Tempatan — {modelName}"
+  },
+  "modelsBottomBar.preferredModels": {
+    "defaultMessage": "Kegemaran"
   },
   "modelsBottomBar.resolvedModel": {
     "defaultMessage": "Model diselesaikan"
@@ -4850,8 +4856,11 @@
   "authSettings.githubOpenDevicePage": {
     "defaultMessage": "Buka halaman peranti GitHub"
   },
-  "authSettings.githubSignInFailed": {
-    "defaultMessage": "Daftar masuk GitHub gagal: {error}"
+  "allProviderModels.preferredUpdateFailed": {
+    "defaultMessage": "Gagal mengemas kini model kegemaran"
+  },
+  "allProviderModels.refreshAll": {
+    "defaultMessage": "Refresh models"
   },
   "authSettings.githubSignInUnavailable": {
     "defaultMessage": "Daftar masuk GitHub hanya tersedia dalam aplikasi desktop."
@@ -4859,8 +4868,11 @@
   "authSettings.githubSignOutMessage": {
     "defaultMessage": "Sauron tidak akan dapat bekerja dengan repositori GitHub anda sehingga anda daftar masuk semula."
   },
-  "authSettings.githubSignOutTitle": {
-    "defaultMessage": "Daftar keluar daripada GitHub"
+  "allProviderModels.removePreferred": {
+    "defaultMessage": "Alih keluar {model} daripada model kegemaran"
+  },
+  "allProviderModels.title": {
+    "defaultMessage": "Models from your providers"
   },
   "authSettings.githubSignedIn": {
     "defaultMessage": "Berjaya daftar masuk ke GitHub. Sambungan GitHub sedia digunakan."
@@ -4897,6 +4909,18 @@
   },
   "pluginsSettings.title": {
     "defaultMessage": "Plugins"
+  },
+  "preferredModels.empty": {
+    "defaultMessage": "Bintangkan model di bawah untuk memudahkannya di sini dan dalam sembang."
+  },
+  "preferredModels.remove": {
+    "defaultMessage": "Alih keluar {model} daripada model kegemaran"
+  },
+  "preferredModels.removeFailed": {
+    "defaultMessage": "Gagal mengemas kini model kegemaran"
+  },
+  "preferredModels.title": {
+    "defaultMessage": "Model kegemaran"
   },
   "providersSection.resetDescription": {
     "defaultMessage": "Clear your selected model and provider settings to start fresh"

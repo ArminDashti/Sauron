@@ -1944,6 +1944,7 @@ const validSettingKeys: Set<string> = new Set([
   'seenAnnouncementIds',
   'disableAutoDownload',
   'recentModels',
+  'preferredModels',
   'useLegacyAgentLoop',
 ]);
 

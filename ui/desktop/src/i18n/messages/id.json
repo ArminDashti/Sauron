@@ -8,6 +8,9 @@
   "alertBox.failedToSaveThreshold": {
     "defaultMessage": "Gagal menyimpan ambang batas: {error}"
   },
+  "allProviderModels.addPreferred": {
+    "defaultMessage": "Tambahkan {model} ke model favorit"
+  },
   "announcementModal.gotIt": {
     "defaultMessage": "Mengerti!"
   },
@@ -2350,6 +2353,9 @@
   },
   "modelsBottomBar.localModelSettingsTitle": {
     "defaultMessage": "Pengaturan Model Lokal — {modelName}"
+  },
+  "modelsBottomBar.preferredModels": {
+    "defaultMessage": "Favorit"
   },
   "modelsBottomBar.resolvedModel": {
     "defaultMessage": "Model yang diselesaikan"
@@ -4850,8 +4856,11 @@
   "authSettings.githubOpenDevicePage": {
     "defaultMessage": "Buka halaman perangkat GitHub"
   },
-  "authSettings.githubSignInFailed": {
-    "defaultMessage": "Gagal masuk ke GitHub: {error}"
+  "allProviderModels.preferredUpdateFailed": {
+    "defaultMessage": "Gagal memperbarui model favorit"
+  },
+  "allProviderModels.refreshAll": {
+    "defaultMessage": "Refresh models"
   },
   "authSettings.githubSignInUnavailable": {
     "defaultMessage": "Masuk GitHub hanya tersedia di aplikasi desktop."
@@ -4859,8 +4868,11 @@
   "authSettings.githubSignOutMessage": {
     "defaultMessage": "Sauron tidak akan dapat bekerja dengan repositori GitHub Anda sampai Anda masuk kembali."
   },
-  "authSettings.githubSignOutTitle": {
-    "defaultMessage": "Keluar dari GitHub"
+  "allProviderModels.removePreferred": {
+    "defaultMessage": "Hapus {model} dari model favorit"
+  },
+  "allProviderModels.title": {
+    "defaultMessage": "Models from your providers"
   },
   "authSettings.githubSignedIn": {
     "defaultMessage": "Berhasil masuk ke GitHub. Ekstensi GitHub siap digunakan."
@@ -4897,6 +4909,18 @@
   },
   "pluginsSettings.title": {
     "defaultMessage": "Plugins"
+  },
+  "preferredModels.empty": {
+    "defaultMessage": "Beri tanda bintang pada model di bawah agar mudah diakses di sini dan di obrolan."
+  },
+  "preferredModels.remove": {
+    "defaultMessage": "Hapus {model} dari model favorit"
+  },
+  "preferredModels.removeFailed": {
+    "defaultMessage": "Gagal memperbarui model favorit"
+  },
+  "preferredModels.title": {
+    "defaultMessage": "Model favorit"
   },
   "providersSection.resetDescription": {
     "defaultMessage": "Clear your selected model and provider settings to start fresh"
