@@ -70,6 +70,42 @@ impl From<keyring::Error> for ConfigError {
     }
 }
 
+/// Parse an environment-variable reference of the form `{NAME}`.
+///
+/// Secrets such as provider API keys may be stored as a reference to an
+/// environment variable instead of the raw value, e.g. `{OPENAI_API_KEY}`.
+/// Anything that is not exactly a brace-wrapped variable name returns `None`
+/// and is treated as a literal value.
+pub fn env_var_reference(value: &str) -> Option<&str> {
+    let inner = value.trim().strip_prefix('{')?.strip_suffix('}')?;
+    let inner = inner.trim();
+    let mut chars = inner.chars();
+    let first = chars.next()?;
+    if !(first.is_ascii_alphabetic() || first == '_') {
+        return None;
+    }
+    if !chars.all(|c| c.is_ascii_alphanumeric() || c == '_') {
+        return None;
+    }
+    Some(inner)
+}
+
+/// Look up an environment variable referenced by a stored secret.
+fn env_var_value(name: &str, key: &str) -> Result<String, ConfigError> {
+    env::var(name).map_err(|_| {
+        ConfigError::NotFound(format!("{key} (environment variable {name} is not set)"))
+    })
+}
+
+/// If `value` is a `{NAME}` reference, look up `NAME` in the environment;
+/// otherwise return `value` unchanged.
+fn resolve_env_reference(value: &str, key: &str) -> Result<String, ConfigError> {
+    match env_var_reference(value) {
+        Some(name) => env_var_value(name, key),
+        None => Ok(value.to_string()),
+    }
+}
+
 /// Configuration management for goose.
 ///
 /// This module provides a flexible configuration system that supports:
@@ -913,16 +949,22 @@ impl Config {
         // First check environment variables (convert to uppercase)
         let env_key = key.to_uppercase();
         if let Ok(val) = env::var(&env_key) {
-            let value = Self::parse_env_value(&val)?;
+            let value = Self::parse_env_value(&resolve_env_reference(&val, key)?)?;
             return Ok(serde_json::from_value(value)?);
         }
 
         // Then check keyring
         let values = self.all_secrets()?;
-        values
+        let stored = values
             .get(key)
-            .ok_or_else(|| ConfigError::NotFound(key.to_string()))
-            .and_then(|v| Ok(serde_json::from_value(v.clone())?))
+            .ok_or_else(|| ConfigError::NotFound(key.to_string()))?;
+        // The stored secret may be a `{NAME}` reference to an environment
+        // variable rather than the raw value.
+        let value = match stored.as_str().and_then(env_var_reference) {
+            Some(name) => Self::parse_env_value(&env_var_value(name, key)?)?,
+            None => stored.clone(),
+        };
+        Ok(serde_json::from_value(value)?)
     }
 
     /// Get secrets. If primary is in env, use env for all keys. Otherwise, use secret storage.
@@ -934,7 +976,9 @@ impl Config {
         let use_env = env::var(primary.to_uppercase()).is_ok();
         let get_value = |key: &str| -> Result<String, ConfigError> {
             if use_env {
-                env::var(key.to_uppercase()).map_err(|_| ConfigError::NotFound(key.to_string()))
+                env::var(key.to_uppercase())
+                    .map_err(|_| ConfigError::NotFound(key.to_string()))
+                    .and_then(|value| resolve_env_reference(&value, key))
             } else {
                 self.get_secret(key)
             }
@@ -2226,6 +2270,47 @@ mod tests {
         let result = config.get_secrets("TEST_PRIMARY", &[]);
 
         assert!(matches!(result, Err(ConfigError::NotFound(_))));
+    }
+
+    #[test]
+    fn env_var_reference_parsing() {
+        assert_eq!(env_var_reference("{MY_API_KEY}"), Some("MY_API_KEY"));
+        assert_eq!(env_var_reference("  {MY_API_KEY}  "), Some("MY_API_KEY"));
+        assert_eq!(env_var_reference("{ MY_API_KEY }"), Some("MY_API_KEY"));
+        assert_eq!(env_var_reference("{_private1}"), Some("_private1"));
+        assert_eq!(env_var_reference("{}"), None);
+        assert_eq!(env_var_reference("{1BAD}"), None);
+        assert_eq!(env_var_reference("{BAD-NAME}"), None);
+        assert_eq!(env_var_reference("{TRAILING"), None);
+        assert_eq!(env_var_reference("prefix{VAR}"), None);
+        assert_eq!(env_var_reference("sk-123-abcdef"), None);
+        assert_eq!(env_var_reference(r#"{"key": 1}"#), None);
+    }
+
+    #[test]
+    #[serial]
+    fn test_secret_env_var_reference_resolves() -> Result<(), ConfigError> {
+        let _guard = env_lock::lock_env([("GOOSE_TEST_REF_TARGET", Some("resolved-secret"))]);
+        let config = new_test_config();
+
+        config.set_secret("zz_test_provider_key", &"{GOOSE_TEST_REF_TARGET}")?;
+        let value: String = config.get_secret("zz_test_provider_key")?;
+        assert_eq!(value, "resolved-secret");
+
+        Ok(())
+    }
+
+    #[test]
+    #[serial]
+    fn test_secret_env_var_reference_missing_env() -> Result<(), ConfigError> {
+        let _guard = env_lock::lock_env([("GOOSE_TEST_REF_MISSING", None::<&str>)]);
+        let config = new_test_config();
+
+        config.set_secret("zz_test_provider_key", &"{GOOSE_TEST_REF_MISSING}")?;
+        let result: Result<String, ConfigError> = config.get_secret("zz_test_provider_key");
+        assert!(matches!(result, Err(ConfigError::NotFound(_))));
+
+        Ok(())
     }
 
     fn new_test_config() -> Config {

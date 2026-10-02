@@ -698,6 +698,9 @@
   "customProviderForm.apiKey": {
     "defaultMessage": "API Key"
   },
+  "customProviderForm.apiKeyEnvHint": {
+    "defaultMessage": "Enter {example} to read the key from an environment variable instead of storing it."
+  },
   "customProviderForm.apiKeyPlaceholderExisting": {
     "defaultMessage": "Leave blank to keep existing key"
   },
@@ -853,6 +856,9 @@
   },
   "defaultProviderSetupForm.apiHostPlaceholder": {
     "defaultMessage": "https://api.example.com"
+  },
+  "defaultProviderSetupForm.apiKeyEnvHint": {
+    "defaultMessage": "Enter {example} to read the key from an environment variable instead of storing it."
   },
   "defaultProviderSetupForm.apiKeyLabel": {
     "defaultMessage": "API Key"

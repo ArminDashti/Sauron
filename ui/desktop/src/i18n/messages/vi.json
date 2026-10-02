@@ -635,6 +635,9 @@
   "customProviderForm.apiKey": {
     "defaultMessage": "Khóa API"
   },
+  "customProviderForm.apiKeyEnvHint": {
+    "defaultMessage": "Nhập {example} để đọc khóa từ biến môi trường thay vì lưu trữ nó."
+  },
   "customProviderForm.apiKeyPlaceholderExisting": {
     "defaultMessage": "Để trống để giữ khóa hiện tại"
   },
@@ -790,6 +793,9 @@
   },
   "defaultProviderSetupForm.apiHostPlaceholder": {
     "defaultMessage": "https://api.example.com"
+  },
+  "defaultProviderSetupForm.apiKeyEnvHint": {
+    "defaultMessage": "Nhập {example} để đọc khóa từ biến môi trường thay vì lưu trữ nó."
   },
   "defaultProviderSetupForm.apiKeyLabel": {
     "defaultMessage": "Khóa API"

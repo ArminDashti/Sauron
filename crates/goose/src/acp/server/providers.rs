@@ -117,11 +117,21 @@ fn provider_config_field_value(
     secrets: Option<&HashMap<String, serde_json::Value>>,
 ) -> ProviderConfigFieldValueDto {
     let value = if key.secret {
-        std::env::var(key.name.to_uppercase()).ok().or_else(|| {
-            secrets
-                .and_then(|values| values.get(&key.name))
-                .and_then(config_value_to_string)
-        })
+        std::env::var(key.name.to_uppercase())
+            .ok()
+            .or_else(|| {
+                secrets
+                    .and_then(|values| values.get(&key.name))
+                    .and_then(config_value_to_string)
+            })
+            .filter(|value| {
+                // A `{NAME}` reference only counts as configured when the
+                // referenced environment variable is available.
+                match crate::config::base::env_var_reference(value) {
+                    Some(name) => std::env::var(name).is_ok(),
+                    None => true,
+                }
+            })
     } else {
         config
             .get_param::<serde_json::Value>(&key.name)
@@ -133,7 +143,13 @@ fn provider_config_field_value(
         key: key.name.clone(),
         value: value.as_deref().map(|value| {
             if key.secret {
-                mask_secret_value(value)
+                // A `{NAME}` environment-variable reference is not itself
+                // secret, so show it in full instead of masking it.
+                if crate::config::base::env_var_reference(value).is_some() {
+                    value.to_string()
+                } else {
+                    mask_secret_value(value)
+                }
             } else {
                 value.to_string()
             }

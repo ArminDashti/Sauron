@@ -635,6 +635,9 @@
   "customProviderForm.apiKey": {
     "defaultMessage": "APIキー"
   },
+  "customProviderForm.apiKeyEnvHint": {
+    "defaultMessage": "{example} と入力すると、キーを保存せず環境変数から読み取れます。"
+  },
   "customProviderForm.apiKeyPlaceholderExisting": {
     "defaultMessage": "既存のキーを保持する場合は空欄"
   },
@@ -790,6 +793,9 @@
   },
   "defaultProviderSetupForm.apiHostPlaceholder": {
     "defaultMessage": "https://api.example.com"
+  },
+  "defaultProviderSetupForm.apiKeyEnvHint": {
+    "defaultMessage": "{example} と入力すると、キーを保存せず環境変数から読み取れます。"
   },
   "defaultProviderSetupForm.apiKeyLabel": {
     "defaultMessage": "APIキー"

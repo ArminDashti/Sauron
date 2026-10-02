@@ -635,6 +635,9 @@
   "customProviderForm.apiKey": {
     "defaultMessage": "Kunci API"
   },
+  "customProviderForm.apiKeyEnvHint": {
+    "defaultMessage": "Masukkan {example} untuk membaca kunci dari variabel lingkungan alih-alih menyimpannya."
+  },
   "customProviderForm.apiKeyPlaceholderExisting": {
     "defaultMessage": "Biarkan kosong untuk mempertahankan kunci yang ada"
   },
@@ -790,6 +793,9 @@
   },
   "defaultProviderSetupForm.apiHostPlaceholder": {
     "defaultMessage": "https://api.example.com"
+  },
+  "defaultProviderSetupForm.apiKeyEnvHint": {
+    "defaultMessage": "Masukkan {example} untuk membaca kunci dari variabel lingkungan alih-alih menyimpannya."
   },
   "defaultProviderSetupForm.apiKeyLabel": {
     "defaultMessage": "Kunci API"

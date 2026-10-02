@@ -635,6 +635,9 @@
   "customProviderForm.apiKey": {
     "defaultMessage": "Chiave API"
   },
+  "customProviderForm.apiKeyEnvHint": {
+    "defaultMessage": "Inserisci {example} per leggere la chiave da una variabile d'ambiente anziché memorizzarla."
+  },
   "customProviderForm.apiKeyPlaceholderExisting": {
     "defaultMessage": "Lascia vuoto per mantenere la chiave esistente"
   },
@@ -790,6 +793,9 @@
   },
   "defaultProviderSetupForm.apiHostPlaceholder": {
     "defaultMessage": "https://api.example.com"
+  },
+  "defaultProviderSetupForm.apiKeyEnvHint": {
+    "defaultMessage": "Inserisci {example} per leggere la chiave da una variabile d'ambiente anziché memorizzarla."
   },
   "defaultProviderSetupForm.apiKeyLabel": {
     "defaultMessage": "Chiave API"

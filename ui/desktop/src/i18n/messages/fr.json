@@ -635,6 +635,9 @@
   "customProviderForm.apiKey": {
     "defaultMessage": "Clé API"
   },
+  "customProviderForm.apiKeyEnvHint": {
+    "defaultMessage": "Saisissez {example} pour lire la clé depuis une variable d'environnement au lieu de la stocker."
+  },
   "customProviderForm.apiKeyPlaceholderExisting": {
     "defaultMessage": "Laissez vide pour conserver la clé existante"
   },
@@ -790,6 +793,9 @@
   },
   "defaultProviderSetupForm.apiHostPlaceholder": {
     "defaultMessage": "https://api.example.com"
+  },
+  "defaultProviderSetupForm.apiKeyEnvHint": {
+    "defaultMessage": "Saisissez {example} pour lire la clé depuis une variable d'environnement au lieu de la stocker."
   },
   "defaultProviderSetupForm.apiKeyLabel": {
     "defaultMessage": "Clé d'API"

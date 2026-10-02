@@ -635,6 +635,9 @@
   "customProviderForm.apiKey": {
     "defaultMessage": "API Anahtarı"
   },
+  "customProviderForm.apiKeyEnvHint": {
+    "defaultMessage": "Anahtarı depolamak yerine ortam değişkeninden okumak için {example} girin."
+  },
   "customProviderForm.apiKeyPlaceholderExisting": {
     "defaultMessage": "Mevcut anahtarı korumak için boş bırakın"
   },
@@ -790,6 +793,9 @@
   },
   "defaultProviderSetupForm.apiHostPlaceholder": {
     "defaultMessage": "https://api.example.com"
+  },
+  "defaultProviderSetupForm.apiKeyEnvHint": {
+    "defaultMessage": "Anahtarı depolamak yerine ortam değişkeninden okumak için {example} girin."
   },
   "defaultProviderSetupForm.apiKeyLabel": {
     "defaultMessage": "API Anahtarı"

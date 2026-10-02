@@ -635,6 +635,9 @@
   "customProviderForm.apiKey": {
     "defaultMessage": "API कुंजी"
   },
+  "customProviderForm.apiKeyEnvHint": {
+    "defaultMessage": "{example} दर्ज करें, ताकि कुंजी संग्रहीत करने के बजाय एनवायरनमेंट वेरिएबल से पढ़ी जा सके।"
+  },
   "customProviderForm.apiKeyPlaceholderExisting": {
     "defaultMessage": "मौजूदा कुंजी रखने के लिए खाली छोड़ दें"
   },
@@ -790,6 +793,9 @@
   },
   "defaultProviderSetupForm.apiHostPlaceholder": {
     "defaultMessage": "https://api.example.com"
+  },
+  "defaultProviderSetupForm.apiKeyEnvHint": {
+    "defaultMessage": "{example} दर्ज करें, ताकि कुंजी संग्रहीत करने के बजाय एनवायरनमेंट वेरिएबल से पढ़ी जा सके।"
   },
   "defaultProviderSetupForm.apiKeyLabel": {
     "defaultMessage": "API कुंजी"
