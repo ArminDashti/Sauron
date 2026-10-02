@@ -1,4 +1,25 @@
 {
+  "acpReadinessPanel.adapterFound": {
+    "defaultMessage": "Adaptador ACP encontrado"
+  },
+  "acpReadinessPanel.adapterNotFound": {
+    "defaultMessage": "Adaptador ACP não encontrado"
+  },
+  "acpReadinessPanel.authenticationHelp": {
+    "defaultMessage": "Inicie sessão através da CLI do fornecedor e verifique novamente."
+  },
+  "acpReadinessPanel.checkAgain": {
+    "defaultMessage": "Verificar novamente"
+  },
+  "acpReadinessPanel.checking": {
+    "defaultMessage": "A verificar..."
+  },
+  "acpReadinessPanel.connected": {
+    "defaultMessage": "Ligação efetuada com sucesso"
+  },
+  "acpReadinessPanel.connectionNotChecked": {
+    "defaultMessage": "Verifique a ligação da sua conta antes de continuar."
+  },
   "alertBox.autoCompactAt": {
     "defaultMessage": "Compactação automática em"
   },
@@ -11,14 +32,104 @@
   "allProviderModels.addPreferred": {
     "defaultMessage": "Adicionar {model} aos modelos favoritos"
   },
+  "allProviderModels.clearSearch": {
+    "defaultMessage": "Limpar pesquisa"
+  },
+  "allProviderModels.clearSearchInput": {
+    "defaultMessage": "Limpar campo de pesquisa"
+  },
+  "allProviderModels.configureProviders": {
+    "defaultMessage": "Configure providers"
+  },
+  "allProviderModels.defaultSet": {
+    "defaultMessage": "{model} is now your default model."
+  },
+  "allProviderModels.defaultSetFailed": {
+    "defaultMessage": "Failed to set default model"
+  },
+  "allProviderModels.description": {
+    "defaultMessage": "Every model exposed by your activated providers. Select one to make it the default model."
+  },
+  "allProviderModels.empty": {
+    "defaultMessage": "No activated providers yet."
+  },
+  "allProviderModels.emptyHint": {
+    "defaultMessage": "Configure a provider to see the models it offers."
+  },
+  "allProviderModels.filterAll": {
+    "defaultMessage": "Todos"
+  },
+  "allProviderModels.filterFree": {
+    "defaultMessage": "Grátis"
+  },
+  "allProviderModels.freeCount": {
+    "defaultMessage": "{count} grátis"
+  },
+  "allProviderModels.loadFailed": {
+    "defaultMessage": "Could not load provider models"
+  },
+  "allProviderModels.loading": {
+    "defaultMessage": "Loading models from your providers..."
+  },
+  "allProviderModels.modelCount": {
+    "defaultMessage": "{count,plural,one{# model} other{# models}}"
+  },
+  "allProviderModels.noFreeModels": {
+    "defaultMessage": "Nenhum modelo grátis dos seus provedores."
+  },
+  "allProviderModels.noFreeModelsHint": {
+    "defaultMessage": "Os modelos são considerados grátis quando um provedor os executa localmente (Ollama, modelos locais) ou lista variantes grátis, como os modelos :free da OpenRouter."
+  },
+  "allProviderModels.noModels": {
+    "defaultMessage": "No models reported by this provider."
+  },
+  "allProviderModels.noSearchResults": {
+    "defaultMessage": "Nenhum modelo corresponde a \"{query}\"."
+  },
+  "allProviderModels.preferredUpdateFailed": {
+    "defaultMessage": "Falha ao atualizar os modelos favoritos"
+  },
+  "allProviderModels.refreshAll": {
+    "defaultMessage": "Refresh models"
+  },
+  "allProviderModels.refreshFailed": {
+    "defaultMessage": "Could not refresh {provider}: {error}"
+  },
+  "allProviderModels.refreshing": {
+    "defaultMessage": "Refreshing..."
+  },
+  "allProviderModels.removePreferred": {
+    "defaultMessage": "Remover {model} dos modelos favoritos"
+  },
+  "allProviderModels.searchLabel": {
+    "defaultMessage": "Pesquisar modelos"
+  },
+  "allProviderModels.searchPlaceholder": {
+    "defaultMessage": "Pesquisar modelos..."
+  },
+  "allProviderModels.showAll": {
+    "defaultMessage": "Mostrar todos os modelos"
+  },
+  "allProviderModels.showingCount": {
+    "defaultMessage": "Mostrando {shown, number} de {total, number} modelos"
+  },
+  "allProviderModels.title": {
+    "defaultMessage": "Models from your providers"
+  },
   "announcementModal.gotIt": {
     "defaultMessage": "Entendido!"
   },
   "appLayout.collapseNavigation": {
     "defaultMessage": "Recolher navegação"
   },
+  "appLayout.hideChanges": {
+    "defaultMessage": "Ocultar painel de alterações"
+  },
   "appLayout.openNavigation": {
     "defaultMessage": "Abrir navegação"
+  },
+  "appLayout.showChanges": {
+    "defaultMessage": "Mostrar painel de alterações"
   },
   "appsView.customApp": {
     "defaultMessage": "Aplicação personalizada"
@@ -71,6 +182,18 @@
   "authSettings.cancel": {
     "defaultMessage": "Cancelar"
   },
+  "authSettings.cancelSignIn": {
+    "defaultMessage": "Cancelar"
+  },
+  "authSettings.checkingStatus": {
+    "defaultMessage": "Verificando..."
+  },
+  "authSettings.connectedAccounts": {
+    "defaultMessage": "Contas conectadas"
+  },
+  "authSettings.connectedAccountsDescription": {
+    "defaultMessage": "Entre para permitir que o Sauron trabalhe com suas contas externas."
+  },
   "authSettings.delete": {
     "defaultMessage": "Eliminar"
   },
@@ -104,6 +227,48 @@
   "authSettings.failedToLoad": {
     "defaultMessage": "Falha ao carregar as credenciais dos fornecedores"
   },
+  "authSettings.githubAccountDescription": {
+    "defaultMessage": "Pesquise repositórios, trabalhe com código, gerencie issues e abra pull requests."
+  },
+  "authSettings.githubAccountName": {
+    "defaultMessage": "GitHub"
+  },
+  "authSettings.githubConnected": {
+    "defaultMessage": "Conectado"
+  },
+  "authSettings.githubEnterCode": {
+    "defaultMessage": "Digite este código em {url} para autorizar o Sauron:"
+  },
+  "authSettings.githubNotConnected": {
+    "defaultMessage": "Não conectado"
+  },
+  "authSettings.githubOpenDevicePage": {
+    "defaultMessage": "Abrir a página de dispositivo do GitHub"
+  },
+  "authSettings.githubSignInFailed": {
+    "defaultMessage": "GitHub sign-in failed: {error}"
+  },
+  "authSettings.githubSignInUnavailable": {
+    "defaultMessage": "O login com GitHub está disponível apenas no aplicativo desktop."
+  },
+  "authSettings.githubSignOutMessage": {
+    "defaultMessage": "O Sauron não poderá trabalhar com seus repositórios do GitHub até você entrar novamente."
+  },
+  "authSettings.githubSignOutTitle": {
+    "defaultMessage": "Sign out of GitHub"
+  },
+  "authSettings.githubSignedIn": {
+    "defaultMessage": "Você entrou no GitHub. A extensão do GitHub está pronta para uso."
+  },
+  "authSettings.githubSignedOut": {
+    "defaultMessage": "Você saiu do GitHub"
+  },
+  "authSettings.githubStatusFailed": {
+    "defaultMessage": "Não foi possível verificar o status de login do GitHub"
+  },
+  "authSettings.githubWaitingForAuthorization": {
+    "defaultMessage": "Aguardando autorização do GitHub..."
+  },
   "authSettings.loading": {
     "defaultMessage": "A carregar credenciais..."
   },
@@ -112,6 +277,12 @@
   },
   "authSettings.signIn": {
     "defaultMessage": "Iniciar sessão"
+  },
+  "authSettings.signInWithGitHub": {
+    "defaultMessage": "Entrar com GitHub"
+  },
+  "authSettings.signOutFromGitHub": {
+    "defaultMessage": "Sign out"
   },
   "authSettings.signedIn": {
     "defaultMessage": "Credencial configurada"
@@ -172,6 +343,81 @@
   },
   "cardButtons.launch": {
     "defaultMessage": "Iniciar"
+  },
+  "changesPanel.cleanTree": {
+    "defaultMessage": "Árvore de trabalho limpa"
+  },
+  "changesPanel.close": {
+    "defaultMessage": "Fechar painel de alterações"
+  },
+  "changesPanel.commitAndPush": {
+    "defaultMessage": "Confirmar e enviar"
+  },
+  "changesPanel.commitFailed": {
+    "defaultMessage": "Falha na confirmação"
+  },
+  "changesPanel.commitPlaceholder": {
+    "defaultMessage": "Mensagem de commit"
+  },
+  "changesPanel.commitSuccess": {
+    "defaultMessage": "Confirmado e enviado"
+  },
+  "changesPanel.committing": {
+    "defaultMessage": "Confirmando…"
+  },
+  "changesPanel.loadFailed": {
+    "defaultMessage": "Não foi possível carregar as alterações do git"
+  },
+  "changesPanel.loading": {
+    "defaultMessage": "Carregando alterações…"
+  },
+  "changesPanel.loadingDiff": {
+    "defaultMessage": "Carregando diff…"
+  },
+  "changesPanel.noChanges": {
+    "defaultMessage": "Sem alterações"
+  },
+  "changesPanel.noDirectory": {
+    "defaultMessage": "Nenhum diretório de trabalho selecionado"
+  },
+  "changesPanel.notARepo": {
+    "defaultMessage": "Não é um repositório git"
+  },
+  "changesPanel.pushFailed": {
+    "defaultMessage": "Confirmado, mas o envio falhou"
+  },
+  "changesPanel.refresh": {
+    "defaultMessage": "Atualizar alterações"
+  },
+  "changesPanel.retry": {
+    "defaultMessage": "Tentar novamente"
+  },
+  "changesPanel.statusAdded": {
+    "defaultMessage": "Adicionado"
+  },
+  "changesPanel.statusConflicted": {
+    "defaultMessage": "Em conflito"
+  },
+  "changesPanel.statusCopied": {
+    "defaultMessage": "Copiado"
+  },
+  "changesPanel.statusDeleted": {
+    "defaultMessage": "Excluído"
+  },
+  "changesPanel.statusModified": {
+    "defaultMessage": "Modificado"
+  },
+  "changesPanel.statusRenamed": {
+    "defaultMessage": "Renomeado"
+  },
+  "changesPanel.statusUntracked": {
+    "defaultMessage": "Não rastreado"
+  },
+  "changesPanel.title": {
+    "defaultMessage": "Alterações"
+  },
+  "changesPanel.uncommitted": {
+    "defaultMessage": "Não confirmado"
   },
   "chat.notification.taskComplete.body": {
     "defaultMessage": "Clique aqui para colocar o Sauron novamente em foco."
@@ -638,6 +884,9 @@
   "customProviderForm.apiKey": {
     "defaultMessage": "Chave de API"
   },
+  "customProviderForm.apiKeyEnvHint": {
+    "defaultMessage": "Insira {example} para ler a chave de uma variável de ambiente em vez de armazená-la."
+  },
   "customProviderForm.apiKeyPlaceholderExisting": {
     "defaultMessage": "Deixe em branco para manter a chave existente"
   },
@@ -794,6 +1043,9 @@
   "defaultProviderSetupForm.apiHostPlaceholder": {
     "defaultMessage": "https://api.example.com"
   },
+  "defaultProviderSetupForm.apiKeyEnvHint": {
+    "defaultMessage": "Insira {example} para ler a chave de uma variável de ambiente em vez de armazená-la."
+  },
   "defaultProviderSetupForm.apiKeyLabel": {
     "defaultMessage": "Chave de API"
   },
@@ -917,6 +1169,12 @@
   "dictationSettings.voiceDictationProvider": {
     "defaultMessage": "Provedor de ditado por voz"
   },
+  "diffViewer.noDiff": {
+    "defaultMessage": "Nenhuma alteração de texto para exibir"
+  },
+  "diffViewer.unmodifiedLines": {
+    "defaultMessage": "{count} linhas inalteradas"
+  },
   "dirSwitcher.chooseDirectory": {
     "defaultMessage": "Escolher diretório…"
   },
@@ -926,11 +1184,11 @@
   "dirSwitcher.enterPath": {
     "defaultMessage": "Enter path"
   },
-  "dirSwitcher.enterPathPlaceholder": {
-    "defaultMessage": "Enter an absolute path (e.g. /home/sauron/workspace)"
-  },
   "dirSwitcher.enterPathInvalid": {
     "defaultMessage": "Working directory must be an absolute path"
+  },
+  "dirSwitcher.enterPathPlaceholder": {
+    "defaultMessage": "Enter an absolute path (e.g. /home/sauron/workspace)"
   },
   "dirSwitcher.failedToUpdateWorkingDir": {
     "defaultMessage": "Falha ao atualizar o diretório de trabalho"
@@ -946,18 +1204,6 @@
   },
   "dirSwitcher.recentDirectories": {
     "defaultMessage": "Diretórios recentes"
-  },
-  "gitBranchIndicator.failedToSwitch": {
-    "defaultMessage": "Falha ao mudar para {branch}"
-  },
-  "gitBranchIndicator.noBranchesFound": {
-    "defaultMessage": "Nenhum ramo encontrado"
-  },
-  "gitBranchIndicator.searchBranches": {
-    "defaultMessage": "Pesquisar ramos…"
-  },
-  "gitBranchIndicator.uncommittedChanges": {
-    "defaultMessage": "Pode haver alterações sem commit."
   },
   "elicitationRequest.accept": {
     "defaultMessage": "Aceitar"
@@ -1262,65 +1508,20 @@
   "externalBackendSection.workingDirPlaceholder": {
     "defaultMessage": "/home/sauron/workspace"
   },
-  "sauronhintsModal.close": {
-    "defaultMessage": "Fechar"
+  "freeModelBadge.label": {
+    "defaultMessage": "Grátis"
   },
-  "sauronhintsModal.developer": {
-    "defaultMessage": "Desenvolvedor"
+  "gitBranchIndicator.failedToSwitch": {
+    "defaultMessage": "Falha ao mudar para {branch}"
   },
-  "sauronhintsModal.dialogDescription": {
-    "defaultMessage": "Forneça contexto adicional sobre seu projeto para melhorar a comunicação com o Sauron"
+  "gitBranchIndicator.noBranchesFound": {
+    "defaultMessage": "Nenhum ramo encontrado"
   },
-  "sauronhintsModal.dialogTitle": {
-    "defaultMessage": "Configurar dicas do projeto (.sauronhints)"
+  "gitBranchIndicator.searchBranches": {
+    "defaultMessage": "Pesquisar ramos…"
   },
-  "sauronhintsModal.errorReading": {
-    "defaultMessage": "Erro ao ler o arquivo .sauronhints: {error}"
-  },
-  "sauronhintsModal.failedToAccess": {
-    "defaultMessage": "Falha ao acessar o arquivo .sauronhints"
-  },
-  "sauronhintsModal.failedToSave": {
-    "defaultMessage": "Falha ao salvar o arquivo .sauronhints"
-  },
-  "sauronhintsModal.fileCreating": {
-    "defaultMessage": "Criando novo arquivo .sauronhints em: {filePath}"
-  },
-  "sauronhintsModal.fileFound": {
-    "defaultMessage": "Arquivo .sauronhints encontrado em: {filePath}"
-  },
-  "sauronhintsModal.helpText1": {
-    "defaultMessage": ".sauronhints é um arquivo de texto usado para fornecer contexto adicional sobre seu projeto e melhorar a comunicação com o Sauron."
-  },
-  "sauronhintsModal.helpText2": {
-    "defaultMessage": "Verifique se a extensão {bold} está ativada na página de extensões. Esta extensão é necessária para usar o .sauronhints. Você precisará reiniciar sua sessão para que as atualizações do .sauronhints entrem em vigor."
-  },
-  "sauronhintsModal.helpText3": {
-    "defaultMessage": "Consulte {link} para mais informações."
-  },
-  "sauronhintsModal.helpTextLink": {
-    "defaultMessage": "usando .sauronhints"
-  },
-  "sauronhintsModal.placeholder": {
-    "defaultMessage": "Insira as dicas do projeto aqui..."
-  },
-  "sauronhintsModal.save": {
-    "defaultMessage": "Salvar"
-  },
-  "sauronhintsModal.savedSuccessfully": {
-    "defaultMessage": "Salvo com sucesso"
-  },
-  "sauronhintsModal.saving": {
-    "defaultMessage": "Salvando..."
-  },
-  "sauronhintsSection.configure": {
-    "defaultMessage": "Configurar"
-  },
-  "sauronhintsSection.description": {
-    "defaultMessage": "Configure o arquivo .sauronhints do seu projeto para fornecer contexto adicional ao Sauron"
-  },
-  "sauronhintsSection.title": {
-    "defaultMessage": "Dicas do projeto (.sauronhints)"
+  "gitBranchIndicator.uncommittedChanges": {
+    "defaultMessage": "Pode haver alterações sem commit."
   },
   "groupedExtensionLoadingToast.askSauron": {
     "defaultMessage": "Pergunte ao sauron"
@@ -1357,6 +1558,36 @@
   },
   "groupedExtensionLoadingToast.successfullyLoaded": {
     "defaultMessage": "{count,plural,one{# extensão carregada com sucesso} other{# extensões carregadas com sucesso}}"
+  },
+  "harnessesSection.title": {
+    "defaultMessage": "Harnesses de agentes"
+  },
+  "harnessesSection.description": {
+    "defaultMessage": "Use agentes de outro harness como Cursor, Claude Code, Codex ou Copilot. Ative um aqui e depois selecione-o em Models para conversar com ele."
+  },
+  "harnessesSection.loading": {
+    "defaultMessage": "Carregando harnesses..."
+  },
+  "harnessesSection.loadFailed": {
+    "defaultMessage": "Falha ao carregar harnesses"
+  },
+  "harnessesSection.empty": {
+    "defaultMessage": "Nenhum harness de agentes externo disponível."
+  },
+  "harnessesSection.installed": {
+    "defaultMessage": "Instalado"
+  },
+  "harnessesSection.notInstalled": {
+    "defaultMessage": "Não instalado"
+  },
+  "harnessesSection.configure": {
+    "defaultMessage": "Configurar"
+  },
+  "harnessesSection.configured": {
+    "defaultMessage": "Ativado"
+  },
+  "harnessesSection.notConfigured": {
+    "defaultMessage": "Não ativado"
   },
   "headersSection.add": {
     "defaultMessage": "Adicionar"
@@ -1985,6 +2216,12 @@
   "mcpAppRenderer.resizePipWindow": {
     "defaultMessage": "Redimensionar a janela Picture-in-Picture"
   },
+  "mcpSettings.description": {
+    "defaultMessage": "Connect Model Context Protocol servers to give goose new tools, resources, and data sources. Extensions added here are available to every chat."
+  },
+  "mcpSettings.title": {
+    "defaultMessage": "MCP Servers"
+  },
   "mentionPopover.itemsFound": {
     "defaultMessage": "{count,plural,one{# item encontrado} other{# itens encontrados}}"
   },
@@ -2183,6 +2420,18 @@
   "modelAndProviderContext.unknownProviderTitle": {
     "defaultMessage": "Busca de nome de provedor"
   },
+  "modelBadges.contextShort": {
+    "defaultMessage": "{amount, number}k"
+  },
+  "modelBadges.contextWindow": {
+    "defaultMessage": "Contexto de {amount, number}k"
+  },
+  "modelBadges.default": {
+    "defaultMessage": "Padrão"
+  },
+  "modelBadges.reasoning": {
+    "defaultMessage": "Raciocínio"
+  },
   "modelSettingsButtons.switchModels": {
     "defaultMessage": "Trocar modelos"
   },
@@ -2357,6 +2606,9 @@
   "modelsBottomBar.preferredModels": {
     "defaultMessage": "Favoritos"
   },
+  "modelsBottomBar.recentModels": {
+    "defaultMessage": "Recentes"
+  },
   "modelsBottomBar.resolvedModel": {
     "defaultMessage": "Modelo resolvido"
   },
@@ -2389,6 +2641,12 @@
   },
   "navigation.itemSkills": {
     "defaultMessage": "Competências"
+  },
+  "navigationFooter.cpuUsage": {
+    "defaultMessage": "CPU {percent}%"
+  },
+  "navigationFooter.memoryUsage": {
+    "defaultMessage": "Memória {percent}%"
   },
   "navigationFooter.sendFeedback": {
     "defaultMessage": "Enviar comentários"
@@ -2633,6 +2891,48 @@
   "permissionSetting.permissionRulesDescription": {
     "defaultMessage": "Instruções ocultas que serão passadas ao fornecedor para ajudar a orientar e adicionar contexto às suas respostas."
   },
+  "pluginsSettings.description": {
+    "defaultMessage": "Plugins installed under .agents/plugins contribute skills and MCP servers to goose. Manage the skills they provide from the Skills view."
+  },
+  "pluginsSettings.empty": {
+    "defaultMessage": "No plugins installed."
+  },
+  "pluginsSettings.emptyHint": {
+    "defaultMessage": "Install a plugin with `goose plugin install` and it will show up here."
+  },
+  "pluginsSettings.loadFailed": {
+    "defaultMessage": "Could not load plugins"
+  },
+  "pluginsSettings.loading": {
+    "defaultMessage": "Loading plugins..."
+  },
+  "pluginsSettings.manageSkills": {
+    "defaultMessage": "Manage skills"
+  },
+  "pluginsSettings.pluginCount": {
+    "defaultMessage": "{count,plural,=0{No plugins} one{# plugin} other{# plugins}}"
+  },
+  "pluginsSettings.refresh": {
+    "defaultMessage": "Refresh"
+  },
+  "pluginsSettings.skillCount": {
+    "defaultMessage": "{count,plural,one{# skill} other{# skills}}"
+  },
+  "pluginsSettings.title": {
+    "defaultMessage": "Plugins"
+  },
+  "preferredModels.empty": {
+    "defaultMessage": "Marque modelos abaixo com uma estrela para os ter sempre à mão aqui e nos chats."
+  },
+  "preferredModels.remove": {
+    "defaultMessage": "Remover {model} dos modelos favoritos"
+  },
+  "preferredModels.removeFailed": {
+    "defaultMessage": "Falha ao atualizar os modelos favoritos"
+  },
+  "preferredModels.title": {
+    "defaultMessage": "Modelos favoritos"
+  },
   "privacyInfoModal.collectErrors": {
     "defaultMessage": "Tipos de erro (ex.: \"rate_limit\", \"auth\" - sem detalhes)"
   },
@@ -2750,6 +3050,9 @@
   "promptsSettings.unsavedChanges": {
     "defaultMessage": "Tem alterações por guardar"
   },
+  "providerCard.deprecatedReplacement": {
+    "defaultMessage": "Obsoleto — use {replacement} em vez disso."
+  },
   "providerCard.noMetadata": {
     "defaultMessage": "Erro de ProviderCard: nenhum metadado fornecido"
   },
@@ -2804,8 +3107,17 @@
   "providerConfigForm.continue": {
     "defaultMessage": "Continuar"
   },
+  "providerConfigForm.deviceCodeAndEnter": {
+    "defaultMessage": "e insira:"
+  },
+  "providerConfigForm.deviceCodeCopy": {
+    "defaultMessage": "Copiar"
+  },
   "providerConfigForm.deviceCodeFlowHint": {
     "defaultMessage": "Será aberta uma janela do navegador. O código de verificação aparecerá aqui para que possa introduzi-lo e concluir o início de sessão."
+  },
+  "providerConfigForm.deviceCodeVisit": {
+    "defaultMessage": "Acesse"
   },
   "providerConfigForm.noApiKey": {
     "defaultMessage": "Não tem uma chave de API?"
@@ -2831,6 +3143,9 @@
   "providerConfigurationModal.checkConfigAgain": {
     "defaultMessage": "Verifique novamente a sua configuração para utilizar este fornecedor."
   },
+  "providerConfigurationModal.chooseModel": {
+    "defaultMessage": "Escolher modelo"
+  },
   "providerConfigurationModal.close": {
     "defaultMessage": "Fechar"
   },
@@ -2843,8 +3158,17 @@
   "providerConfigurationModal.deleteConfirmation": {
     "defaultMessage": "Isto irá eliminar permanentemente a configuração atual do fornecedor."
   },
+  "providerConfigurationModal.deviceCodeAndEnter": {
+    "defaultMessage": "e insira:"
+  },
+  "providerConfigurationModal.deviceCodeCopy": {
+    "defaultMessage": "Copiar"
+  },
   "providerConfigurationModal.deviceCodeFlowHint": {
     "defaultMessage": "Será aberta uma janela do navegador. O código de verificação aparecerá aqui para que possa introduzi-lo e concluir o início de sessão."
+  },
+  "providerConfigurationModal.deviceCodeVisit": {
+    "defaultMessage": "Acesse"
   },
   "providerConfigurationModal.errorCheckingConfig": {
     "defaultMessage": "Ocorreu um erro ao verificar a configuração deste fornecedor."
@@ -2965,6 +3289,66 @@
   },
   "providerSetupActions.submit": {
     "defaultMessage": "Submeter"
+  },
+  "providersSection.configure": {
+    "defaultMessage": "Configure"
+  },
+  "providersSection.configured": {
+    "defaultMessage": "Configured"
+  },
+  "providersSection.defaultSet": {
+    "defaultMessage": "{model} is now your default model."
+  },
+  "providersSection.defaultSetFailed": {
+    "defaultMessage": "Failed to set default model"
+  },
+  "providersSection.description": {
+    "defaultMessage": "Configure your AI model providers and load their available models directly from each provider API."
+  },
+  "providersSection.hideModels": {
+    "defaultMessage": "Hide models"
+  },
+  "providersSection.loadFailed": {
+    "defaultMessage": "Failed to load providers"
+  },
+  "providersSection.loadModels": {
+    "defaultMessage": "Load Models"
+  },
+  "providersSection.loading": {
+    "defaultMessage": "Loading providers..."
+  },
+  "providersSection.manageAll": {
+    "defaultMessage": "Manage all providers"
+  },
+  "providersSection.modelsError": {
+    "defaultMessage": "Could not load models from {provider}: {error}"
+  },
+  "providersSection.modelsLoaded": {
+    "defaultMessage": "{count} models loaded from {provider}"
+  },
+  "providersSection.needsConfig": {
+    "defaultMessage": "Configure this provider first to load its models."
+  },
+  "providersSection.notConfigured": {
+    "defaultMessage": "Not configured"
+  },
+  "providersSection.reloadingModels": {
+    "defaultMessage": "Reloading models..."
+  },
+  "providersSection.resetDescription": {
+    "defaultMessage": "Clear your selected model and provider settings to start fresh"
+  },
+  "providersSection.resetTitle": {
+    "defaultMessage": "Reset Provider and Model"
+  },
+  "providersSection.setDefault": {
+    "defaultMessage": "Click a model to use it as your default."
+  },
+  "providersSection.showModels": {
+    "defaultMessage": "Show models"
+  },
+  "providersSection.title": {
+    "defaultMessage": "Model Providers"
   },
   "recipeActivityEditor.activitiesDescription": {
     "defaultMessage": "Os prompts principais e os botões de atividade que serão apresentados na janela de conversa da receita."
@@ -3334,6 +3718,66 @@
   },
   "responseStyle.detailedLabel": {
     "defaultMessage": "Detalhado"
+  },
+  "sauronhintsModal.close": {
+    "defaultMessage": "Fechar"
+  },
+  "sauronhintsModal.developer": {
+    "defaultMessage": "Desenvolvedor"
+  },
+  "sauronhintsModal.dialogDescription": {
+    "defaultMessage": "Forneça contexto adicional sobre seu projeto para melhorar a comunicação com o Sauron"
+  },
+  "sauronhintsModal.dialogTitle": {
+    "defaultMessage": "Configurar dicas do projeto (.sauronhints)"
+  },
+  "sauronhintsModal.errorReading": {
+    "defaultMessage": "Erro ao ler o arquivo .sauronhints: {error}"
+  },
+  "sauronhintsModal.failedToAccess": {
+    "defaultMessage": "Falha ao acessar o arquivo .sauronhints"
+  },
+  "sauronhintsModal.failedToSave": {
+    "defaultMessage": "Falha ao salvar o arquivo .sauronhints"
+  },
+  "sauronhintsModal.fileCreating": {
+    "defaultMessage": "Criando novo arquivo .sauronhints em: {filePath}"
+  },
+  "sauronhintsModal.fileFound": {
+    "defaultMessage": "Arquivo .sauronhints encontrado em: {filePath}"
+  },
+  "sauronhintsModal.helpText1": {
+    "defaultMessage": ".sauronhints é um arquivo de texto usado para fornecer contexto adicional sobre seu projeto e melhorar a comunicação com o Sauron."
+  },
+  "sauronhintsModal.helpText2": {
+    "defaultMessage": "Verifique se a extensão {bold} está ativada na página de extensões. Esta extensão é necessária para usar o .sauronhints. Você precisará reiniciar sua sessão para que as atualizações do .sauronhints entrem em vigor."
+  },
+  "sauronhintsModal.helpText3": {
+    "defaultMessage": "Consulte {link} para mais informações."
+  },
+  "sauronhintsModal.helpTextLink": {
+    "defaultMessage": "usando .sauronhints"
+  },
+  "sauronhintsModal.placeholder": {
+    "defaultMessage": "Insira as dicas do projeto aqui..."
+  },
+  "sauronhintsModal.save": {
+    "defaultMessage": "Salvar"
+  },
+  "sauronhintsModal.savedSuccessfully": {
+    "defaultMessage": "Salvo com sucesso"
+  },
+  "sauronhintsModal.saving": {
+    "defaultMessage": "Salvando..."
+  },
+  "sauronhintsSection.configure": {
+    "defaultMessage": "Configurar"
+  },
+  "sauronhintsSection.description": {
+    "defaultMessage": "Configure o arquivo .sauronhints do seu projeto para fornecer contexto adicional ao Sauron"
+  },
+  "sauronhintsSection.title": {
+    "defaultMessage": "Dicas do projeto (.sauronhints)"
   },
   "scheduleDetailView.actions": {
     "defaultMessage": "Ações"
@@ -3959,6 +4403,75 @@
   "sessions.toast.updated": {
     "defaultMessage": "Descrição da sessão atualizada com êxito"
   },
+  "settings.agentLoop.description": {
+    "defaultMessage": "Use o loop do agente baseado em operações. Desative-o para usar o loop legado."
+  },
+  "settings.agentLoop.operations.auto.placeholder": {
+    "defaultMessage": "Automático"
+  },
+  "settings.agentLoop.operations.blockLimit.label": {
+    "defaultMessage": "Limite de bloqueios"
+  },
+  "settings.agentLoop.operations.contextCompaction.description": {
+    "defaultMessage": "Resume o histórico da conversa antes que a janela de contexto fique cheia."
+  },
+  "settings.agentLoop.operations.contextCompaction.title": {
+    "defaultMessage": "Compactação de contexto"
+  },
+  "settings.agentLoop.operations.cutoff.label": {
+    "defaultMessage": "Limite"
+  },
+  "settings.agentLoop.operations.enable": {
+    "defaultMessage": "Ativar {operation}"
+  },
+  "settings.agentLoop.operations.failureTimeout.label": {
+    "defaultMessage": "Tempo limite de falha"
+  },
+  "settings.agentLoop.operations.heading": {
+    "defaultMessage": "Operações configuráveis"
+  },
+  "settings.agentLoop.operations.maxTurns.description": {
+    "defaultMessage": "Interrompe o trabalho autônomo e pergunta ao usuário antes de continuar."
+  },
+  "settings.agentLoop.operations.maxTurns.title": {
+    "defaultMessage": "Máximo de turnos"
+  },
+  "settings.agentLoop.operations.recipeRetry.description": {
+    "defaultMessage": "Executa novamente as verificações da receita quando uma verificação de sucesso configurada falha."
+  },
+  "settings.agentLoop.operations.recipeRetry.title": {
+    "defaultMessage": "Repetir receita"
+  },
+  "settings.agentLoop.operations.retryTimeout.label": {
+    "defaultMessage": "Tempo limite de nova tentativa"
+  },
+  "settings.agentLoop.operations.slashCommands.description": {
+    "defaultMessage": "Reconhece comandos como /compact, /skills e atalhos de receitas."
+  },
+  "settings.agentLoop.operations.slashCommands.title": {
+    "defaultMessage": "Comandos de barra"
+  },
+  "settings.agentLoop.operations.stopHooks.description": {
+    "defaultMessage": "Permite que hooks bloqueiem a conclusão, evitando ciclos de parada infinitos."
+  },
+  "settings.agentLoop.operations.stopHooks.title": {
+    "defaultMessage": "Hooks de parada"
+  },
+  "settings.agentLoop.operations.threshold.label": {
+    "defaultMessage": "Limite %"
+  },
+  "settings.agentLoop.operations.toolPairCompaction.description": {
+    "defaultMessage": "Resume solicitações e respostas antigas de ferramentas para economizar contexto. O limite é automático quando deixado em branco."
+  },
+  "settings.agentLoop.operations.toolPairCompaction.title": {
+    "defaultMessage": "Compactação de pares de ferramentas"
+  },
+  "settings.agentLoop.operations.turns.label": {
+    "defaultMessage": "Turnos"
+  },
+  "settings.agentLoop.title": {
+    "defaultMessage": "Loop do agente"
+  },
   "settings.appearance.description": {
     "defaultMessage": "Configure como o sauron aparece no seu sistema"
   },
@@ -4112,6 +4625,12 @@
   "settings.notifications.openSettings": {
     "defaultMessage": "Abrir Definições"
   },
+  "settings.notifications.sound.description": {
+    "defaultMessage": "Reproduzir um som com as notificações de conclusão de tarefas"
+  },
+  "settings.notifications.sound.title": {
+    "defaultMessage": "Som de notificação"
+  },
   "settings.notifications.task.description": {
     "defaultMessage": "Notificar quando o Sauron concluir uma tarefa enquanto a janela está em segundo plano"
   },
@@ -4142,8 +4661,17 @@
   "settings.version.title": {
     "defaultMessage": "Versão"
   },
+  "settingsView.noResults": {
+    "defaultMessage": "Nenhum resultado"
+  },
+  "settingsView.searchPlaceholder": {
+    "defaultMessage": "Pesquisar nas configurações"
+  },
   "settingsView.tabApp": {
     "defaultMessage": "Aplicação"
+  },
+  "settingsView.tabAppearance": {
+    "defaultMessage": "Appearance"
   },
   "settingsView.tabChat": {
     "defaultMessage": "Conversa"
@@ -4151,14 +4679,26 @@
   "settingsView.tabExternalBackend": {
     "defaultMessage": "Backend externo"
   },
+  "settingsView.tabHarnesses": {
+    "defaultMessage": "Harnesses"
+  },
   "settingsView.tabKeyboard": {
     "defaultMessage": "Teclado"
+  },
+  "settingsView.tabMcp": {
+    "defaultMessage": "MCP"
   },
   "settingsView.tabModels": {
     "defaultMessage": "Modelos"
   },
+  "settingsView.tabPlugins": {
+    "defaultMessage": "Plugins"
+  },
   "settingsView.tabPrompts": {
     "defaultMessage": "Prompts"
+  },
+  "settingsView.tabProviders": {
+    "defaultMessage": "Providers"
   },
   "settingsView.title": {
     "defaultMessage": "Definições"
@@ -4493,6 +5033,9 @@
   "themeSelector.light": {
     "defaultMessage": "Claro"
   },
+  "themeSelector.popular": {
+    "defaultMessage": "Popular themes"
+  },
   "themeSelector.system": {
     "defaultMessage": "Sistema"
   },
@@ -4667,322 +5210,79 @@
   "userMessage.removeImageFromEdit": {
     "defaultMessage": "Remover imagem da mensagem"
   },
-  "modelsBottomBar.recentModels": {
-    "defaultMessage": "Recentes"
+  "settingsView.tabStats": {
+    "defaultMessage": "Stats"
   },
-  "providerConfigurationModal.chooseModel": {
-    "defaultMessage": "Escolher modelo"
+  "usageStats.byModel": {
+    "defaultMessage": "Per model"
   },
-  "providerCard.deprecatedReplacement": {
-    "defaultMessage": "Obsoleto — use {replacement} em vez disso."
+  "usageStats.byProvider": {
+    "defaultMessage": "Per provider"
   },
-  "acpReadinessPanel.adapterFound": {
-    "defaultMessage": "Adaptador ACP encontrado"
+  "usageStats.cost": {
+    "defaultMessage": "Cost"
   },
-  "acpReadinessPanel.adapterNotFound": {
-    "defaultMessage": "Adaptador ACP não encontrado"
+  "usageStats.empty": {
+    "defaultMessage": "No usage was recorded in this date range."
   },
-  "acpReadinessPanel.authenticationHelp": {
-    "defaultMessage": "Inicie sessão através da CLI do fornecedor e verifique novamente."
+  "usageStats.inputCacheTokens": {
+    "defaultMessage": "Input cache tokens"
   },
-  "acpReadinessPanel.checkAgain": {
-    "defaultMessage": "Verificar novamente"
+  "usageStats.inputTokens": {
+    "defaultMessage": "Input tokens"
   },
-  "acpReadinessPanel.checking": {
-    "defaultMessage": "A verificar..."
+  "usageStats.loading": {
+    "defaultMessage": "Loading usage stats…"
   },
-  "acpReadinessPanel.connected": {
-    "defaultMessage": "Ligação efetuada com sucesso"
+  "usageStats.modelColumn": {
+    "defaultMessage": "Model"
   },
-  "acpReadinessPanel.connectionNotChecked": {
-    "defaultMessage": "Verifique a ligação da sua conta antes de continuar."
+  "usageStats.preset30": {
+    "defaultMessage": "Last 30 days"
   },
-  "providerConfigForm.deviceCodeAndEnter": {
-    "defaultMessage": "e insira:"
+  "usageStats.preset7": {
+    "defaultMessage": "Last 7 days"
   },
-  "providerConfigForm.deviceCodeCopy": {
-    "defaultMessage": "Copiar"
+  "usageStats.presetAll": {
+    "defaultMessage": "All time"
   },
-  "providerConfigForm.deviceCodeVisit": {
-    "defaultMessage": "Acesse"
+  "usageStats.presetYear": {
+    "defaultMessage": "This year"
   },
-  "providerConfigurationModal.deviceCodeAndEnter": {
-    "defaultMessage": "e insira:"
+  "usageStats.providerColumn": {
+    "defaultMessage": "Provider"
   },
-  "providerConfigurationModal.deviceCodeCopy": {
-    "defaultMessage": "Copiar"
+  "usageStats.rangeDescription": {
+    "defaultMessage": "Usage is grouped by model and by provider for the selected dates."
   },
-  "providerConfigurationModal.deviceCodeVisit": {
-    "defaultMessage": "Acesse"
+  "usageStats.rangeFrom": {
+    "defaultMessage": "From"
   },
-  "settings.agentLoop.description": {
-    "defaultMessage": "Use o loop do agente baseado em operações. Desative-o para usar o loop legado."
+  "usageStats.rangeLabel": {
+    "defaultMessage": "Date range"
   },
-  "settings.agentLoop.operations.auto.placeholder": {
-    "defaultMessage": "Automático"
+  "usageStats.rangeTo": {
+    "defaultMessage": "To"
   },
-  "settings.agentLoop.operations.blockLimit.label": {
-    "defaultMessage": "Limite de bloqueios"
+  "usageStats.sessions": {
+    "defaultMessage": "{count,plural,one{# session} other{# sessions}}"
   },
-  "settings.agentLoop.operations.contextCompaction.description": {
-    "defaultMessage": "Resume o histórico da conversa antes que a janela de contexto fique cheia."
+  "usageStats.sourceLedger": {
+    "defaultMessage": "Recorded usage"
   },
-  "settings.agentLoop.operations.contextCompaction.title": {
-    "defaultMessage": "Compactação de contexto"
+  "usageStats.sourceMessages": {
+    "defaultMessage": "Estimated from stored messages"
   },
-  "settings.agentLoop.operations.cutoff.label": {
-    "defaultMessage": "Limite"
+  "usageStats.total": {
+    "defaultMessage": "Total"
   },
-  "settings.agentLoop.operations.enable": {
-    "defaultMessage": "Ativar {operation}"
+  "usageStats.unknown": {
+    "defaultMessage": "Unknown"
   },
-  "settings.agentLoop.operations.failureTimeout.label": {
-    "defaultMessage": "Tempo limite de falha"
+  "usageStats.writeCacheTokens": {
+    "defaultMessage": "Write cache tokens"
   },
-  "settings.agentLoop.operations.heading": {
-    "defaultMessage": "Operações configuráveis"
-  },
-  "settings.agentLoop.operations.maxTurns.description": {
-    "defaultMessage": "Interrompe o trabalho autônomo e pergunta ao usuário antes de continuar."
-  },
-  "settings.agentLoop.operations.maxTurns.title": {
-    "defaultMessage": "Máximo de turnos"
-  },
-  "settings.agentLoop.operations.recipeRetry.description": {
-    "defaultMessage": "Executa novamente as verificações da receita quando uma verificação de sucesso configurada falha."
-  },
-  "settings.agentLoop.operations.recipeRetry.title": {
-    "defaultMessage": "Repetir receita"
-  },
-  "settings.agentLoop.operations.retryTimeout.label": {
-    "defaultMessage": "Tempo limite de nova tentativa"
-  },
-  "settings.agentLoop.operations.slashCommands.description": {
-    "defaultMessage": "Reconhece comandos como /compact, /skills e atalhos de receitas."
-  },
-  "settings.agentLoop.operations.slashCommands.title": {
-    "defaultMessage": "Comandos de barra"
-  },
-  "settings.agentLoop.operations.stopHooks.description": {
-    "defaultMessage": "Permite que hooks bloqueiem a conclusão, evitando ciclos de parada infinitos."
-  },
-  "settings.agentLoop.operations.stopHooks.title": {
-    "defaultMessage": "Hooks de parada"
-  },
-  "settings.agentLoop.operations.threshold.label": {
-    "defaultMessage": "Limite %"
-  },
-  "settings.agentLoop.operations.toolPairCompaction.description": {
-    "defaultMessage": "Resume solicitações e respostas antigas de ferramentas para economizar contexto. O limite é automático quando deixado em branco."
-  },
-  "settings.agentLoop.operations.toolPairCompaction.title": {
-    "defaultMessage": "Compactação de pares de ferramentas"
-  },
-  "settings.agentLoop.operations.turns.label": {
-    "defaultMessage": "Turnos"
-  },
-  "settings.agentLoop.title": {
-    "defaultMessage": "Loop do agente"
-  },
-  "providersSection.configure": {
-    "defaultMessage": "Configure"
-  },
-  "providersSection.configured": {
-    "defaultMessage": "Configured"
-  },
-  "providersSection.defaultSet": {
-    "defaultMessage": "{model} is now your default model."
-  },
-  "providersSection.defaultSetFailed": {
-    "defaultMessage": "Failed to set default model"
-  },
-  "providersSection.description": {
-    "defaultMessage": "Configure your AI model providers and load their available models directly from each provider API."
-  },
-  "providersSection.hideModels": {
-    "defaultMessage": "Hide models"
-  },
-  "providersSection.loadFailed": {
-    "defaultMessage": "Failed to load providers"
-  },
-  "providersSection.loadModels": {
-    "defaultMessage": "Load Models"
-  },
-  "providersSection.loading": {
-    "defaultMessage": "Loading providers..."
-  },
-  "providersSection.manageAll": {
-    "defaultMessage": "Manage all providers"
-  },
-  "providersSection.modelsError": {
-    "defaultMessage": "Could not load models from {provider}: {error}"
-  },
-  "providersSection.modelsLoaded": {
-    "defaultMessage": "{count} models loaded from {provider}"
-  },
-  "providersSection.needsConfig": {
-    "defaultMessage": "Configure this provider first to load its models."
-  },
-  "providersSection.notConfigured": {
-    "defaultMessage": "Not configured"
-  },
-  "providersSection.reloadingModels": {
-    "defaultMessage": "Reloading models..."
-  },
-  "providersSection.setDefault": {
-    "defaultMessage": "Click a model to use it as your default."
-  },
-  "providersSection.showModels": {
-    "defaultMessage": "Show models"
-  },
-  "providersSection.title": {
-    "defaultMessage": "Model Providers"
-  },
-  "settingsView.tabProviders": {
-    "defaultMessage": "Providers"
-  },
-  "authSettings.cancelSignIn": {
-    "defaultMessage": "Cancelar"
-  },
-  "authSettings.checkingStatus": {
-    "defaultMessage": "Verificando..."
-  },
-  "authSettings.connectedAccounts": {
-    "defaultMessage": "Contas conectadas"
-  },
-  "authSettings.connectedAccountsDescription": {
-    "defaultMessage": "Entre para permitir que o Sauron trabalhe com suas contas externas."
-  },
-  "authSettings.githubAccountDescription": {
-    "defaultMessage": "Pesquise repositórios, trabalhe com código, gerencie issues e abra pull requests."
-  },
-  "authSettings.githubAccountName": {
-    "defaultMessage": "GitHub"
-  },
-  "authSettings.githubConnected": {
-    "defaultMessage": "Conectado"
-  },
-  "authSettings.githubEnterCode": {
-    "defaultMessage": "Digite este código em {url} para autorizar o Sauron:"
-  },
-  "authSettings.githubNotConnected": {
-    "defaultMessage": "Não conectado"
-  },
-  "authSettings.githubOpenDevicePage": {
-    "defaultMessage": "Abrir a página de dispositivo do GitHub"
-  },
-  "allProviderModels.preferredUpdateFailed": {
-    "defaultMessage": "Falha ao atualizar os modelos favoritos"
-  },
-  "allProviderModels.refreshAll": {
-    "defaultMessage": "Refresh models"
-  },
-  "authSettings.githubSignInUnavailable": {
-    "defaultMessage": "O login com GitHub está disponível apenas no aplicativo desktop."
-  },
-  "authSettings.githubSignOutMessage": {
-    "defaultMessage": "O Sauron não poderá trabalhar com seus repositórios do GitHub até você entrar novamente."
-  },
-  "allProviderModels.removePreferred": {
-    "defaultMessage": "Remover {model} dos modelos favoritos"
-  },
-  "allProviderModels.title": {
-    "defaultMessage": "Models from your providers"
-  },
-  "authSettings.githubSignedIn": {
-    "defaultMessage": "Você entrou no GitHub. A extensão do GitHub está pronta para uso."
-  },
-  "authSettings.githubSignedOut": {
-    "defaultMessage": "Você saiu do GitHub"
-  },
-  "authSettings.githubStatusFailed": {
-    "defaultMessage": "Não foi possível verificar o status de login do GitHub"
-  },
-  "authSettings.githubWaitingForAuthorization": {
-    "defaultMessage": "Aguardando autorização do GitHub..."
-  },
-  "authSettings.signInWithGitHub": {
-    "defaultMessage": "Entrar com GitHub"
-  },
-  "pluginsSettings.loadFailed": {
-    "defaultMessage": "Could not load plugins"
-  },
-  "pluginsSettings.loading": {
-    "defaultMessage": "Loading plugins..."
-  },
-  "pluginsSettings.manageSkills": {
-    "defaultMessage": "Manage skills"
-  },
-  "pluginsSettings.pluginCount": {
-    "defaultMessage": "{count,plural,=0{No plugins} one{# plugin} other{# plugins}}"
-  },
-  "pluginsSettings.refresh": {
-    "defaultMessage": "Refresh"
-  },
-  "pluginsSettings.skillCount": {
-    "defaultMessage": "{count,plural,one{# skill} other{# skills}}"
-  },
-  "pluginsSettings.title": {
-    "defaultMessage": "Plugins"
-  },
-  "preferredModels.empty": {
-    "defaultMessage": "Marque modelos abaixo com uma estrela para os ter sempre à mão aqui e nos chats."
-  },
-  "preferredModels.remove": {
-    "defaultMessage": "Remover {model} dos modelos favoritos"
-  },
-  "preferredModels.removeFailed": {
-    "defaultMessage": "Falha ao atualizar os modelos favoritos"
-  },
-  "preferredModels.title": {
-    "defaultMessage": "Modelos favoritos"
-  },
-  "providersSection.resetDescription": {
-    "defaultMessage": "Clear your selected model and provider settings to start fresh"
-  },
-  "providersSection.resetTitle": {
-    "defaultMessage": "Reset Provider and Model"
-  },
-  "settingsView.tabAppearance": {
-    "defaultMessage": "Appearance"
-  },
-  "settingsView.tabMcp": {
-    "defaultMessage": "MCP"
-  },
-  "settingsView.tabPlugins": {
-    "defaultMessage": "Plugins"
-  },
-  "themeSelector.popular": {
-    "defaultMessage": "Popular themes"
-  },
-  "allProviderModels.clearSearch": {
-    "defaultMessage": "Limpar pesquisa"
-  },
-  "allProviderModels.clearSearchInput": {
-    "defaultMessage": "Limpar campo de pesquisa"
-  },
-  "allProviderModels.noSearchResults": {
-    "defaultMessage": "Nenhum modelo corresponde a \"{query}\"."
-  },
-  "allProviderModels.searchLabel": {
-    "defaultMessage": "Pesquisar modelos"
-  },
-  "allProviderModels.searchPlaceholder": {
-    "defaultMessage": "Pesquisar modelos..."
-  },
-  "allProviderModels.showingCount": {
-    "defaultMessage": "Mostrando {shown, number} de {total, number} modelos"
-  },
-  "modelBadges.contextShort": {
-    "defaultMessage": "{amount, number}k"
-  },
-  "modelBadges.contextWindow": {
-    "defaultMessage": "Contexto de {amount, number}k"
-  },
-  "modelBadges.default": {
-    "defaultMessage": "Padrão"
-  },
-  "modelBadges.reasoning": {
-    "defaultMessage": "Raciocínio"
+  "usageStats.writeTokens": {
+    "defaultMessage": "Write tokens"
   }
 }

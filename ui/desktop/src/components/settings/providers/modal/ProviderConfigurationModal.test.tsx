@@ -88,7 +88,13 @@ describe('ProviderConfigurationModal', () => {
     );
 
     expect(screen.getByRole('heading', { name: /Configure Z.AI Coding Plan/ })).toBeInTheDocument();
-    await user.type(await screen.findByPlaceholderText('Your API key'), 'test-coding-plan-key');
+    // API key fields document the {ENV_VAR} environment-variable reference syntax.
+    expect(
+      await screen.findByText(
+        'Enter {MY_API_KEY} to read the key from an environment variable instead of storing it.'
+      )
+    ).toBeInTheDocument();
+    await user.type(await screen.findByPlaceholderText(/Your API key/), 'test-coding-plan-key');
     await user.click(screen.getByRole('button', { name: 'Submit' }));
 
     await waitFor(() =>

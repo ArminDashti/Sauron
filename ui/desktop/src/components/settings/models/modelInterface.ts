@@ -2,6 +2,7 @@ import { listLocalModels } from '../../../acp/local-inference';
 import { acpGetProviderDetails, acpListProviderModels } from '../../../acp/providers';
 import type { ProviderDetails, ThinkingEffort } from '../../../types/providers';
 import { errorMessage as getErrorMessage } from '../../../utils/conversionUtils';
+import { markFreeModels } from './freeModels';
 
 export default interface Model {
   id?: number; // Make `id` optional to allow user-defined models
@@ -12,6 +13,7 @@ export default interface Model {
   subtext?: string; // goes below model name if not the provider
   context_limit?: number; // optional context limit override
   reasoning?: boolean; // optional reasoning/thinking support metadata
+  free?: boolean; // whether the model costs nothing to run (local runtime or free variant)
   request_params?: Record<string, unknown> & { thinking_effort?: ThinkingEffort }; // provider-specific request parameters
 }
 
@@ -37,7 +39,12 @@ export async function fetchModelsForProviders(
         const downloadedModels = allModels
           .filter((m) => m.status.state === 'Downloaded')
           .map((m) => ({ name: m.id, provider: p.name }) as Model);
-        return { provider: p, models: downloadedModels, error: null, warning: null };
+        return {
+          provider: p,
+          models: markFreeModels(p.name, downloadedModels),
+          error: null,
+          warning: null,
+        };
       }
 
       const providerModels = await acpListProviderModels(p.name);
@@ -50,7 +57,7 @@ export async function fetchModelsForProviders(
             reasoning: m.reasoning ?? undefined,
           }) as Model
       );
-      return { provider: p, models, error: null, warning: null };
+      return { provider: p, models: markFreeModels(p.name, models), error: null, warning: null };
     } catch (e: unknown) {
       // For custom providers, fall back to the configured model list
       if (p.provider_type === 'Custom') {
@@ -67,7 +74,7 @@ export async function fetchModelsForProviders(
           console.warn(`Failed to fetch models for ${p.name}:`, getErrorMessage(e));
           return {
             provider: p,
-            models: fallbackModels,
+            models: markFreeModels(p.name, fallbackModels),
             error: null,
             warning: `Could not fetch models from provider — showing configured models instead.`,
           };
