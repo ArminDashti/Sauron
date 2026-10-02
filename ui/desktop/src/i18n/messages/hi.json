@@ -2396,8 +2396,14 @@
   "navigationFooter.you": {
     "defaultMessage": "आप"
   },
-  "navigationPanel.chats": {
-    "defaultMessage": "चैट"
+  "navigationPanel.goBack": {
+    "defaultMessage": "वापस"
+  },
+  "navigationPanel.goForward": {
+    "defaultMessage": "आगे"
+  },
+  "navigationPanel.groupChats": {
+    "defaultMessage": "चैट को वर्कस्पेस के अनुसार समूहित करें"
   },
   "navigationPanel.loadingChats": {
     "defaultMessage": "चैट लोड हो रही हैं…"
@@ -2417,8 +2423,14 @@
   "navigationPanel.metaUpdated": {
     "defaultMessage": "अपडेट किया गया"
   },
+  "navigationPanel.newProject": {
+    "defaultMessage": "नया प्रोजेक्ट"
+  },
   "navigationPanel.noChats": {
     "defaultMessage": "कोई हालिया चैट नहीं"
+  },
+  "navigationPanel.projects": {
+    "defaultMessage": "प्रोजेक्ट"
   },
   "navigationPanel.statusError": {
     "defaultMessage": "त्रुटि"
@@ -2434,6 +2446,9 @@
   },
   "navigationPanel.untitledSession": {
     "defaultMessage": "शीर्षकहीन सत्र"
+  },
+  "navigationPanel.workspaces": {
+    "defaultMessage": "वर्कस्पेस"
   },
   "onboardingGuard.checkProviderErrorDescription": {
     "defaultMessage": "सर्वर चालू हो सकता है या अस्थायी रूप से अनुपलब्ध हो सकता है।"

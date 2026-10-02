@@ -2396,8 +2396,14 @@
   "navigationFooter.you": {
     "defaultMessage": "Du"
   },
-  "navigationPanel.chats": {
-    "defaultMessage": "Chats"
+  "navigationPanel.goBack": {
+    "defaultMessage": "Zurück"
+  },
+  "navigationPanel.goForward": {
+    "defaultMessage": "Weiter"
+  },
+  "navigationPanel.groupChats": {
+    "defaultMessage": "Chats nach Arbeitsbereich gruppieren"
   },
   "navigationPanel.loadingChats": {
     "defaultMessage": "Chats werden geladen…"
@@ -2417,8 +2423,14 @@
   "navigationPanel.metaUpdated": {
     "defaultMessage": "Aktualisiert"
   },
+  "navigationPanel.newProject": {
+    "defaultMessage": "Neues Projekt"
+  },
   "navigationPanel.noChats": {
     "defaultMessage": "Keine aktuellen Chats"
+  },
+  "navigationPanel.projects": {
+    "defaultMessage": "Projekte"
   },
   "navigationPanel.statusError": {
     "defaultMessage": "Fehler"
@@ -2434,6 +2446,9 @@
   },
   "navigationPanel.untitledSession": {
     "defaultMessage": "Unbenannte Sitzung"
+  },
+  "navigationPanel.workspaces": {
+    "defaultMessage": "Arbeitsbereiche"
   },
   "onboardingGuard.checkProviderErrorDescription": {
     "defaultMessage": "Der Server startet möglicherweise gerade oder ist vorübergehend nicht verfügbar."

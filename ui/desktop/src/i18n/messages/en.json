@@ -2486,8 +2486,14 @@
   "navigationFooter.you": {
     "defaultMessage": "You"
   },
-  "navigationPanel.chats": {
-    "defaultMessage": "Chats"
+  "navigationPanel.goBack": {
+    "defaultMessage": "Back"
+  },
+  "navigationPanel.goForward": {
+    "defaultMessage": "Forward"
+  },
+  "navigationPanel.groupChats": {
+    "defaultMessage": "Group chats by workspace"
   },
   "navigationPanel.loadingChats": {
     "defaultMessage": "Loading chats…"
@@ -2507,8 +2513,14 @@
   "navigationPanel.metaUpdated": {
     "defaultMessage": "Updated"
   },
+  "navigationPanel.newProject": {
+    "defaultMessage": "New Project"
+  },
   "navigationPanel.noChats": {
     "defaultMessage": "No recent chats"
+  },
+  "navigationPanel.projects": {
+    "defaultMessage": "Projects"
   },
   "navigationPanel.statusError": {
     "defaultMessage": "Error"
@@ -2524,6 +2536,9 @@
   },
   "navigationPanel.untitledSession": {
     "defaultMessage": "Untitled session"
+  },
+  "navigationPanel.workspaces": {
+    "defaultMessage": "Workspaces"
   },
   "onboardingGuard.checkProviderErrorDescription": {
     "defaultMessage": "The server may be starting up or temporarily unavailable."

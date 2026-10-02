@@ -2396,8 +2396,14 @@
   "navigationFooter.you": {
     "defaultMessage": "Вы"
   },
-  "navigationPanel.chats": {
-    "defaultMessage": "Чаты"
+  "navigationPanel.goBack": {
+    "defaultMessage": "Назад"
+  },
+  "navigationPanel.goForward": {
+    "defaultMessage": "Вперёд"
+  },
+  "navigationPanel.groupChats": {
+    "defaultMessage": "Группировать чаты по рабочим областям"
   },
   "navigationPanel.loadingChats": {
     "defaultMessage": "Загрузка чатов…"
@@ -2417,8 +2423,14 @@
   "navigationPanel.metaUpdated": {
     "defaultMessage": "Обновлено"
   },
+  "navigationPanel.newProject": {
+    "defaultMessage": "Новый проект"
+  },
   "navigationPanel.noChats": {
     "defaultMessage": "Нет недавних чатов"
+  },
+  "navigationPanel.projects": {
+    "defaultMessage": "Проекты"
   },
   "navigationPanel.statusError": {
     "defaultMessage": "Ошибка"
@@ -2434,6 +2446,9 @@
   },
   "navigationPanel.untitledSession": {
     "defaultMessage": "Безымянный сеанс"
+  },
+  "navigationPanel.workspaces": {
+    "defaultMessage": "Рабочие области"
   },
   "onboardingGuard.checkProviderErrorDescription": {
     "defaultMessage": "Сервер может запускаться или быть временно недоступен."

@@ -2396,8 +2396,14 @@
   "navigationFooter.you": {
     "defaultMessage": "Vous"
   },
-  "navigationPanel.chats": {
-    "defaultMessage": "Discussions"
+  "navigationPanel.goBack": {
+    "defaultMessage": "Retour"
+  },
+  "navigationPanel.goForward": {
+    "defaultMessage": "Avant"
+  },
+  "navigationPanel.groupChats": {
+    "defaultMessage": "Regrouper les discussions par espace de travail"
   },
   "navigationPanel.loadingChats": {
     "defaultMessage": "Chargement des discussions…"
@@ -2417,8 +2423,14 @@
   "navigationPanel.metaUpdated": {
     "defaultMessage": "Mis à jour"
   },
+  "navigationPanel.newProject": {
+    "defaultMessage": "Nouveau projet"
+  },
   "navigationPanel.noChats": {
     "defaultMessage": "Aucune discussion récente"
+  },
+  "navigationPanel.projects": {
+    "defaultMessage": "Projets"
   },
   "navigationPanel.statusError": {
     "defaultMessage": "Erreur"
@@ -2434,6 +2446,9 @@
   },
   "navigationPanel.untitledSession": {
     "defaultMessage": "Session sans titre"
+  },
+  "navigationPanel.workspaces": {
+    "defaultMessage": "Espaces de travail"
   },
   "onboardingGuard.checkProviderErrorDescription": {
     "defaultMessage": "Le serveur est peut-être en cours de démarrage ou temporairement indisponible."

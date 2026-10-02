@@ -2396,8 +2396,14 @@
   "navigationFooter.you": {
     "defaultMessage": "Tu"
   },
-  "navigationPanel.chats": {
-    "defaultMessage": "Chat"
+  "navigationPanel.goBack": {
+    "defaultMessage": "Indietro"
+  },
+  "navigationPanel.goForward": {
+    "defaultMessage": "Avanti"
+  },
+  "navigationPanel.groupChats": {
+    "defaultMessage": "Raggruppa le chat per area di lavoro"
   },
   "navigationPanel.loadingChats": {
     "defaultMessage": "Caricamento chat…"
@@ -2417,8 +2423,14 @@
   "navigationPanel.metaUpdated": {
     "defaultMessage": "Aggiornato"
   },
+  "navigationPanel.newProject": {
+    "defaultMessage": "Nuovo progetto"
+  },
   "navigationPanel.noChats": {
     "defaultMessage": "Nessuna chat recente"
+  },
+  "navigationPanel.projects": {
+    "defaultMessage": "Progetti"
   },
   "navigationPanel.statusError": {
     "defaultMessage": "Errore"
@@ -2434,6 +2446,9 @@
   },
   "navigationPanel.untitledSession": {
     "defaultMessage": "Sessione senza titolo"
+  },
+  "navigationPanel.workspaces": {
+    "defaultMessage": "Aree di lavoro"
   },
   "onboardingGuard.checkProviderErrorDescription": {
     "defaultMessage": "Il server potrebbe essere in fase di avvio o temporaneamente non disponibile."

@@ -2396,8 +2396,14 @@
   "navigationFooter.you": {
     "defaultMessage": "Anda"
   },
-  "navigationPanel.chats": {
-    "defaultMessage": "Sembang"
+  "navigationPanel.goBack": {
+    "defaultMessage": "Kembali"
+  },
+  "navigationPanel.goForward": {
+    "defaultMessage": "Maju"
+  },
+  "navigationPanel.groupChats": {
+    "defaultMessage": "Kelompokkan sembang mengikut ruang kerja"
   },
   "navigationPanel.loadingChats": {
     "defaultMessage": "Memuatkan sembang…"
@@ -2417,8 +2423,14 @@
   "navigationPanel.metaUpdated": {
     "defaultMessage": "Dikemas kini"
   },
+  "navigationPanel.newProject": {
+    "defaultMessage": "Projek baharu"
+  },
   "navigationPanel.noChats": {
     "defaultMessage": "Tiada sembang terkini"
+  },
+  "navigationPanel.projects": {
+    "defaultMessage": "Projek"
   },
   "navigationPanel.statusError": {
     "defaultMessage": "Ralat"
@@ -2434,6 +2446,9 @@
   },
   "navigationPanel.untitledSession": {
     "defaultMessage": "Sesi tanpa tajuk"
+  },
+  "navigationPanel.workspaces": {
+    "defaultMessage": "Ruang kerja"
   },
   "onboardingGuard.checkProviderErrorDescription": {
     "defaultMessage": "Pelayan mungkin sedang dimulakan atau tidak tersedia buat sementara waktu."

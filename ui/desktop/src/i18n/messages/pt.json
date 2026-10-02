@@ -2396,8 +2396,14 @@
   "navigationFooter.you": {
     "defaultMessage": "Você"
   },
-  "navigationPanel.chats": {
-    "defaultMessage": "Conversas"
+  "navigationPanel.goBack": {
+    "defaultMessage": "Voltar"
+  },
+  "navigationPanel.goForward": {
+    "defaultMessage": "Avançar"
+  },
+  "navigationPanel.groupChats": {
+    "defaultMessage": "Agrupar conversas por área de trabalho"
   },
   "navigationPanel.loadingChats": {
     "defaultMessage": "Carregando chats…"
@@ -2417,8 +2423,14 @@
   "navigationPanel.metaUpdated": {
     "defaultMessage": "Atualizado"
   },
+  "navigationPanel.newProject": {
+    "defaultMessage": "Novo projeto"
+  },
   "navigationPanel.noChats": {
     "defaultMessage": "Sem conversas recentes"
+  },
+  "navigationPanel.projects": {
+    "defaultMessage": "Projetos"
   },
   "navigationPanel.statusError": {
     "defaultMessage": "Erro"
@@ -2434,6 +2446,9 @@
   },
   "navigationPanel.untitledSession": {
     "defaultMessage": "Sessão sem título"
+  },
+  "navigationPanel.workspaces": {
+    "defaultMessage": "Áreas de trabalho"
   },
   "onboardingGuard.checkProviderErrorDescription": {
     "defaultMessage": "O servidor pode estar a iniciar ou temporariamente indisponível."

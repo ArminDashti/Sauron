@@ -2396,8 +2396,14 @@
   "navigationFooter.you": {
     "defaultMessage": "你"
   },
-  "navigationPanel.chats": {
-    "defaultMessage": "聊天"
+  "navigationPanel.goBack": {
+    "defaultMessage": "后退"
+  },
+  "navigationPanel.goForward": {
+    "defaultMessage": "前进"
+  },
+  "navigationPanel.groupChats": {
+    "defaultMessage": "按工作区分组聊天"
   },
   "navigationPanel.loadingChats": {
     "defaultMessage": "正在加载聊天…"
@@ -2417,8 +2423,14 @@
   "navigationPanel.metaUpdated": {
     "defaultMessage": "更新时间"
   },
+  "navigationPanel.newProject": {
+    "defaultMessage": "新建项目"
+  },
   "navigationPanel.noChats": {
     "defaultMessage": "没有最近的聊天"
+  },
+  "navigationPanel.projects": {
+    "defaultMessage": "项目"
   },
   "navigationPanel.statusError": {
     "defaultMessage": "错误"
@@ -2434,6 +2446,9 @@
   },
   "navigationPanel.untitledSession": {
     "defaultMessage": "未命名会话"
+  },
+  "navigationPanel.workspaces": {
+    "defaultMessage": "工作区"
   },
   "onboardingGuard.checkProviderErrorDescription": {
     "defaultMessage": "服务器可能正在启动或暂时不可用。"
