@@ -4820,100 +4820,64 @@
   "settingsView.tabProviders": {
     "defaultMessage": "Providers"
   },
-  "allProviderModels.configureProviders": {
-    "defaultMessage": "Configure providers"
+  "authSettings.cancelSignIn": {
+    "defaultMessage": "취소"
   },
-  "allProviderModels.defaultSet": {
-    "defaultMessage": "{model} is now your default model."
+  "authSettings.checkingStatus": {
+    "defaultMessage": "확인 중..."
   },
-  "allProviderModels.defaultSetFailed": {
-    "defaultMessage": "Failed to set default model"
+  "authSettings.connectedAccounts": {
+    "defaultMessage": "연결된 계정"
   },
-  "allProviderModels.description": {
-    "defaultMessage": "Every model exposed by your activated providers. Select one to make it the default model."
+  "authSettings.connectedAccountsDescription": {
+    "defaultMessage": "Sauron이 외부 계정으로 작업할 수 있도록 로그인하세요."
   },
-  "allProviderModels.empty": {
-    "defaultMessage": "No activated providers yet."
+  "authSettings.githubAccountDescription": {
+    "defaultMessage": "리포지토리를 검색하고, 코드로 작업하고, 이슈를 관리하고, 풀 리퀘스트를 엽니다."
   },
-  "allProviderModels.emptyHint": {
-    "defaultMessage": "Configure a provider to see the models it offers."
+  "authSettings.githubAccountName": {
+    "defaultMessage": "GitHub"
   },
-  "allProviderModels.loadFailed": {
-    "defaultMessage": "Could not load provider models"
+  "authSettings.githubConnected": {
+    "defaultMessage": "연결됨"
   },
-  "allProviderModels.loading": {
-    "defaultMessage": "Loading models from your providers..."
+  "authSettings.githubEnterCode": {
+    "defaultMessage": "Sauron을 승인하려면 {url}에서 이 코드를 입력하세요:"
   },
-  "allProviderModels.modelCount": {
-    "defaultMessage": "{count,plural,one{# model} other{# models}}"
+  "authSettings.githubNotConnected": {
+    "defaultMessage": "연결되지 않음"
   },
-  "allProviderModels.noModels": {
-    "defaultMessage": "No models reported by this provider."
+  "authSettings.githubOpenDevicePage": {
+    "defaultMessage": "GitHub 기기 페이지 열기"
   },
-  "allProviderModels.refreshAll": {
-    "defaultMessage": "Refresh models"
+  "authSettings.githubSignInFailed": {
+    "defaultMessage": "GitHub 로그인 실패: {error}"
   },
-  "allProviderModels.refreshFailed": {
-    "defaultMessage": "Could not refresh {provider}: {error}"
+  "authSettings.githubSignInUnavailable": {
+    "defaultMessage": "GitHub 로그인은 데스크톱 앱에서만 사용할 수 있습니다."
   },
-  "allProviderModels.refreshing": {
-    "defaultMessage": "Refreshing..."
+  "authSettings.githubSignOutMessage": {
+    "defaultMessage": "다시 로그인할 때까지 Sauron은 GitHub 리포지토리로 작업할 수 없습니다."
   },
-  "allProviderModels.title": {
-    "defaultMessage": "Models from your providers"
+  "authSettings.githubSignOutTitle": {
+    "defaultMessage": "GitHub 로그아웃"
   },
-  "mcpSettings.description": {
-    "defaultMessage": "Connect Model Context Protocol servers to give goose new tools, resources, and data sources. Extensions added here are available to every chat."
+  "authSettings.githubSignedIn": {
+    "defaultMessage": "GitHub에 로그인했습니다. GitHub 확장을 사용할 준비가 되었습니다."
   },
-  "mcpSettings.title": {
-    "defaultMessage": "MCP Servers"
+  "authSettings.githubSignedOut": {
+    "defaultMessage": "GitHub에서 로그아웃했습니다"
   },
-  "pluginsSettings.description": {
-    "defaultMessage": "Plugins installed under .agents/plugins contribute skills and MCP servers to goose. Manage the skills they provide from the Skills view."
+  "authSettings.githubStatusFailed": {
+    "defaultMessage": "GitHub 로그인 상태를 확인할 수 없습니다"
   },
-  "pluginsSettings.empty": {
-    "defaultMessage": "No plugins installed."
+  "authSettings.githubWaitingForAuthorization": {
+    "defaultMessage": "GitHub 승인을 기다리는 중..."
   },
-  "pluginsSettings.emptyHint": {
-    "defaultMessage": "Install a plugin with `goose plugin install` and it will show up here."
+  "authSettings.signInWithGitHub": {
+    "defaultMessage": "GitHub로 로그인"
   },
-  "pluginsSettings.loadFailed": {
-    "defaultMessage": "Could not load plugins"
-  },
-  "pluginsSettings.loading": {
-    "defaultMessage": "Loading plugins..."
-  },
-  "pluginsSettings.manageSkills": {
-    "defaultMessage": "Manage skills"
-  },
-  "pluginsSettings.pluginCount": {
-    "defaultMessage": "{count,plural,=0{No plugins} one{# plugin} other{# plugins}}"
-  },
-  "pluginsSettings.refresh": {
-    "defaultMessage": "Refresh"
-  },
-  "pluginsSettings.skillCount": {
-    "defaultMessage": "{count,plural,one{# skill} other{# skills}}"
-  },
-  "pluginsSettings.title": {
-    "defaultMessage": "Plugins"
-  },
-  "providersSection.resetDescription": {
-    "defaultMessage": "Clear your selected model and provider settings to start fresh"
-  },
-  "providersSection.resetTitle": {
-    "defaultMessage": "Reset Provider and Model"
-  },
-  "settingsView.tabAppearance": {
-    "defaultMessage": "Appearance"
-  },
-  "settingsView.tabMcp": {
-    "defaultMessage": "MCP"
-  },
-  "settingsView.tabPlugins": {
-    "defaultMessage": "Plugins"
-  },
-  "themeSelector.popular": {
-    "defaultMessage": "Popular themes"
+  "authSettings.signOutFromGitHub": {
+    "defaultMessage": "로그아웃"
   }
 }

@@ -4820,100 +4820,64 @@
   "settingsView.tabProviders": {
     "defaultMessage": "Providers"
   },
-  "allProviderModels.configureProviders": {
-    "defaultMessage": "Configure providers"
+  "authSettings.cancelSignIn": {
+    "defaultMessage": "Hủy"
   },
-  "allProviderModels.defaultSet": {
-    "defaultMessage": "{model} is now your default model."
+  "authSettings.checkingStatus": {
+    "defaultMessage": "Đang kiểm tra..."
   },
-  "allProviderModels.defaultSetFailed": {
-    "defaultMessage": "Failed to set default model"
+  "authSettings.connectedAccounts": {
+    "defaultMessage": "Tài khoản đã kết nối"
   },
-  "allProviderModels.description": {
-    "defaultMessage": "Every model exposed by your activated providers. Select one to make it the default model."
+  "authSettings.connectedAccountsDescription": {
+    "defaultMessage": "Đăng nhập để cho phép Sauron làm việc với các tài khoản bên ngoài của bạn."
   },
-  "allProviderModels.empty": {
-    "defaultMessage": "No activated providers yet."
+  "authSettings.githubAccountDescription": {
+    "defaultMessage": "Tìm kiếm kho mã, làm việc với mã, quản lý issues và mở pull request."
   },
-  "allProviderModels.emptyHint": {
-    "defaultMessage": "Configure a provider to see the models it offers."
+  "authSettings.githubAccountName": {
+    "defaultMessage": "GitHub"
   },
-  "allProviderModels.loadFailed": {
-    "defaultMessage": "Could not load provider models"
+  "authSettings.githubConnected": {
+    "defaultMessage": "Đã kết nối"
   },
-  "allProviderModels.loading": {
-    "defaultMessage": "Loading models from your providers..."
+  "authSettings.githubEnterCode": {
+    "defaultMessage": "Nhập mã này tại {url} để ủy quyền cho Sauron:"
   },
-  "allProviderModels.modelCount": {
-    "defaultMessage": "{count,plural,one{# model} other{# models}}"
+  "authSettings.githubNotConnected": {
+    "defaultMessage": "Chưa kết nối"
   },
-  "allProviderModels.noModels": {
-    "defaultMessage": "No models reported by this provider."
+  "authSettings.githubOpenDevicePage": {
+    "defaultMessage": "Mở trang thiết bị GitHub"
   },
-  "allProviderModels.refreshAll": {
-    "defaultMessage": "Refresh models"
+  "authSettings.githubSignInFailed": {
+    "defaultMessage": "Đăng nhập GitHub thất bại: {error}"
   },
-  "allProviderModels.refreshFailed": {
-    "defaultMessage": "Could not refresh {provider}: {error}"
+  "authSettings.githubSignInUnavailable": {
+    "defaultMessage": "Đăng nhập GitHub chỉ có sẵn trong ứng dụng máy tính để bàn."
   },
-  "allProviderModels.refreshing": {
-    "defaultMessage": "Refreshing..."
+  "authSettings.githubSignOutMessage": {
+    "defaultMessage": "Sauron sẽ không thể làm việc với các kho GitHub của bạn cho đến khi bạn đăng nhập lại."
   },
-  "allProviderModels.title": {
-    "defaultMessage": "Models from your providers"
+  "authSettings.githubSignOutTitle": {
+    "defaultMessage": "Đăng xuất khỏi GitHub"
   },
-  "mcpSettings.description": {
-    "defaultMessage": "Connect Model Context Protocol servers to give goose new tools, resources, and data sources. Extensions added here are available to every chat."
+  "authSettings.githubSignedIn": {
+    "defaultMessage": "Đã đăng nhập GitHub. Tiện ích mở rộng GitHub đã sẵn sàng sử dụng."
   },
-  "mcpSettings.title": {
-    "defaultMessage": "MCP Servers"
+  "authSettings.githubSignedOut": {
+    "defaultMessage": "Đã đăng xuất khỏi GitHub"
   },
-  "pluginsSettings.description": {
-    "defaultMessage": "Plugins installed under .agents/plugins contribute skills and MCP servers to goose. Manage the skills they provide from the Skills view."
+  "authSettings.githubStatusFailed": {
+    "defaultMessage": "Không thể kiểm tra trạng thái đăng nhập GitHub"
   },
-  "pluginsSettings.empty": {
-    "defaultMessage": "No plugins installed."
+  "authSettings.githubWaitingForAuthorization": {
+    "defaultMessage": "Đang chờ ủy quyền GitHub..."
   },
-  "pluginsSettings.emptyHint": {
-    "defaultMessage": "Install a plugin with `goose plugin install` and it will show up here."
+  "authSettings.signInWithGitHub": {
+    "defaultMessage": "Đăng nhập bằng GitHub"
   },
-  "pluginsSettings.loadFailed": {
-    "defaultMessage": "Could not load plugins"
-  },
-  "pluginsSettings.loading": {
-    "defaultMessage": "Loading plugins..."
-  },
-  "pluginsSettings.manageSkills": {
-    "defaultMessage": "Manage skills"
-  },
-  "pluginsSettings.pluginCount": {
-    "defaultMessage": "{count,plural,=0{No plugins} one{# plugin} other{# plugins}}"
-  },
-  "pluginsSettings.refresh": {
-    "defaultMessage": "Refresh"
-  },
-  "pluginsSettings.skillCount": {
-    "defaultMessage": "{count,plural,one{# skill} other{# skills}}"
-  },
-  "pluginsSettings.title": {
-    "defaultMessage": "Plugins"
-  },
-  "providersSection.resetDescription": {
-    "defaultMessage": "Clear your selected model and provider settings to start fresh"
-  },
-  "providersSection.resetTitle": {
-    "defaultMessage": "Reset Provider and Model"
-  },
-  "settingsView.tabAppearance": {
-    "defaultMessage": "Appearance"
-  },
-  "settingsView.tabMcp": {
-    "defaultMessage": "MCP"
-  },
-  "settingsView.tabPlugins": {
-    "defaultMessage": "Plugins"
-  },
-  "themeSelector.popular": {
-    "defaultMessage": "Popular themes"
+  "authSettings.signOutFromGitHub": {
+    "defaultMessage": "Đăng xuất"
   }
 }

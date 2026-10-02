@@ -131,6 +131,18 @@
   "authSettings.cancel": {
     "defaultMessage": "Cancel"
   },
+  "authSettings.cancelSignIn": {
+    "defaultMessage": "Cancel"
+  },
+  "authSettings.checkingStatus": {
+    "defaultMessage": "Checking..."
+  },
+  "authSettings.connectedAccounts": {
+    "defaultMessage": "Connected accounts"
+  },
+  "authSettings.connectedAccountsDescription": {
+    "defaultMessage": "Sign in to let Sauron work with your external accounts."
+  },
   "authSettings.delete": {
     "defaultMessage": "Delete"
   },
@@ -164,6 +176,48 @@
   "authSettings.failedToLoad": {
     "defaultMessage": "Failed to load provider credentials"
   },
+  "authSettings.githubAccountDescription": {
+    "defaultMessage": "Search repositories, work with code, manage issues, and open pull requests."
+  },
+  "authSettings.githubAccountName": {
+    "defaultMessage": "GitHub"
+  },
+  "authSettings.githubConnected": {
+    "defaultMessage": "Connected"
+  },
+  "authSettings.githubEnterCode": {
+    "defaultMessage": "Enter this code at {url} to authorize Sauron:"
+  },
+  "authSettings.githubNotConnected": {
+    "defaultMessage": "Not connected"
+  },
+  "authSettings.githubOpenDevicePage": {
+    "defaultMessage": "Open the GitHub device page"
+  },
+  "authSettings.githubSignInFailed": {
+    "defaultMessage": "GitHub sign-in failed: {error}"
+  },
+  "authSettings.githubSignInUnavailable": {
+    "defaultMessage": "GitHub sign-in is only available in the desktop app."
+  },
+  "authSettings.githubSignOutMessage": {
+    "defaultMessage": "Sauron will no longer be able to work with your GitHub repositories until you sign in again."
+  },
+  "authSettings.githubSignOutTitle": {
+    "defaultMessage": "Sign out of GitHub"
+  },
+  "authSettings.githubSignedIn": {
+    "defaultMessage": "Signed in to GitHub. The GitHub extension is ready to use."
+  },
+  "authSettings.githubSignedOut": {
+    "defaultMessage": "Signed out of GitHub"
+  },
+  "authSettings.githubStatusFailed": {
+    "defaultMessage": "Could not check GitHub sign-in status"
+  },
+  "authSettings.githubWaitingForAuthorization": {
+    "defaultMessage": "Waiting for GitHub authorization..."
+  },
   "authSettings.loading": {
     "defaultMessage": "Loading credentials..."
   },
@@ -172,6 +226,12 @@
   },
   "authSettings.signIn": {
     "defaultMessage": "Sign in"
+  },
+  "authSettings.signInWithGitHub": {
+    "defaultMessage": "Sign in with GitHub"
+  },
+  "authSettings.signOutFromGitHub": {
+    "defaultMessage": "Sign out"
   },
   "authSettings.signedIn": {
     "defaultMessage": "Credential configured"

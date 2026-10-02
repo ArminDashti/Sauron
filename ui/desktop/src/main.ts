@@ -60,6 +60,17 @@ import type { GooseApp } from './types/apps';
 import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer';
 import { WEB_PROTOCOLS } from './utils/urlSecurity';
 import { openExternalUrl } from './utils/openExternalUrl';
+import {
+  classifyGitHubTokenResponse,
+  parseGitHubDeviceCode,
+  GITHUB_ACCESS_TOKEN_URL,
+  GITHUB_CLIENT_ID,
+  GITHUB_DEVICE_CODE_URL,
+  GITHUB_DEVICE_GRANT_TYPE,
+  GITHUB_SIGN_IN_SCOPES,
+  type GitHubDeviceCode,
+  type GitHubTokenPollResult,
+} from './utils/githubSignIn';
 import { buildCSP, leaseBackendOrigin, shouldApplyRendererCsp } from './utils/csp';
 import { resolveWorkingDir } from './utils/workingDir';
 import {
@@ -2308,6 +2319,48 @@ ipcMain.handle('check-ollama', async () => {
     return false;
   }
 });
+
+async function postGitHubDeviceFlow(
+  url: string,
+  params: Record<string, string>
+): Promise<Response> {
+  return fetch(url, {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'User-Agent': 'Sauron',
+    },
+    body: new URLSearchParams(params).toString(),
+  });
+}
+
+// GitHub device flow runs here (main process) because github.com does not send
+// CORS headers, so the renderer cannot call these endpoints directly.
+ipcMain.handle('github-device-start', async (): Promise<GitHubDeviceCode> => {
+  const response = await postGitHubDeviceFlow(GITHUB_DEVICE_CODE_URL, {
+    client_id: GITHUB_CLIENT_ID,
+    scope: GITHUB_SIGN_IN_SCOPES,
+  });
+  const body: unknown = await response.json().catch(() => null);
+  return parseGitHubDeviceCode(response.status, body);
+});
+
+ipcMain.handle(
+  'github-device-poll',
+  async (_event, deviceCode: string): Promise<GitHubTokenPollResult> => {
+    if (typeof deviceCode !== 'string' || deviceCode.length === 0) {
+      return { status: 'error', error: 'incorrect_device_code' };
+    }
+    const response = await postGitHubDeviceFlow(GITHUB_ACCESS_TOKEN_URL, {
+      client_id: GITHUB_CLIENT_ID,
+      device_code: deviceCode,
+      grant_type: GITHUB_DEVICE_GRANT_TYPE,
+    });
+    const body: unknown = await response.json().catch(() => null);
+    return classifyGitHubTokenResponse(response.status, body);
+  }
+);
 
 ipcMain.handle('write-file', async (_event, filePath, content) => {
   try {
