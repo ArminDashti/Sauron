@@ -1,4 +1,25 @@
 {
+  "acpReadinessPanel.adapterFound": {
+    "defaultMessage": "ACP bağdaştırıcısı bulundu"
+  },
+  "acpReadinessPanel.adapterNotFound": {
+    "defaultMessage": "ACP bağdaştırıcısı bulunamadı"
+  },
+  "acpReadinessPanel.authenticationHelp": {
+    "defaultMessage": "Sağlayıcı CLI üzerinden oturum açın, ardından tekrar kontrol edin."
+  },
+  "acpReadinessPanel.checkAgain": {
+    "defaultMessage": "Tekrar kontrol et"
+  },
+  "acpReadinessPanel.checking": {
+    "defaultMessage": "Kontrol ediliyor..."
+  },
+  "acpReadinessPanel.connected": {
+    "defaultMessage": "Başarıyla bağlanıldı"
+  },
+  "acpReadinessPanel.connectionNotChecked": {
+    "defaultMessage": "Devam etmeden önce hesap bağlantınızı kontrol edin."
+  },
   "alertBox.autoCompactAt": {
     "defaultMessage": "Otomatik sıkıştırma eşiği"
   },
@@ -10,6 +31,90 @@
   },
   "allProviderModels.addPreferred": {
     "defaultMessage": "{model} modelini tercih edilenlere ekle"
+  },
+  "allProviderModels.clearSearch": {
+    "defaultMessage": "Aramayı temizle"
+  },
+  "allProviderModels.clearSearchInput": {
+    "defaultMessage": "Arama alanını temizle"
+  },
+  "allProviderModels.configureProviders": {
+    "defaultMessage": "Configure providers"
+  },
+  "allProviderModels.defaultSet": {
+    "defaultMessage": "{model} is now your default model."
+  },
+  "allProviderModels.defaultSetFailed": {
+    "defaultMessage": "Failed to set default model"
+  },
+  "allProviderModels.description": {
+    "defaultMessage": "Every model exposed by your activated providers. Select one to make it the default model."
+  },
+  "allProviderModels.empty": {
+    "defaultMessage": "No activated providers yet."
+  },
+  "allProviderModels.emptyHint": {
+    "defaultMessage": "Configure a provider to see the models it offers."
+  },
+  "allProviderModels.filterAll": {
+    "defaultMessage": "Tümü"
+  },
+  "allProviderModels.filterFree": {
+    "defaultMessage": "Ücretsiz"
+  },
+  "allProviderModels.freeCount": {
+    "defaultMessage": "{count} ücretsiz"
+  },
+  "allProviderModels.loadFailed": {
+    "defaultMessage": "Could not load provider models"
+  },
+  "allProviderModels.loading": {
+    "defaultMessage": "Loading models from your providers..."
+  },
+  "allProviderModels.modelCount": {
+    "defaultMessage": "{count,plural,one{# model} other{# models}}"
+  },
+  "allProviderModels.noFreeModels": {
+    "defaultMessage": "Sağlayıcılarınızda ücretsiz model yok."
+  },
+  "allProviderModels.noFreeModelsHint": {
+    "defaultMessage": "Modeller, bir sağlayıcı bunları yerel çalıştırdığında (Ollama, yerel modeller) veya OpenRouter'in :free modelleri gibi ücretsiz varyantlar sunduğunda ücretsiz olarak gösterilir."
+  },
+  "allProviderModels.noModels": {
+    "defaultMessage": "No models reported by this provider."
+  },
+  "allProviderModels.noSearchResults": {
+    "defaultMessage": "\"{query}\" eşleşen model yok."
+  },
+  "allProviderModels.preferredUpdateFailed": {
+    "defaultMessage": "Tercih edilen modeller güncellenemedi"
+  },
+  "allProviderModels.refreshAll": {
+    "defaultMessage": "Refresh models"
+  },
+  "allProviderModels.refreshFailed": {
+    "defaultMessage": "Could not refresh {provider}: {error}"
+  },
+  "allProviderModels.refreshing": {
+    "defaultMessage": "Refreshing..."
+  },
+  "allProviderModels.removePreferred": {
+    "defaultMessage": "{model} modelini tercih edilenlerden kaldır"
+  },
+  "allProviderModels.searchLabel": {
+    "defaultMessage": "Modelleri ara"
+  },
+  "allProviderModels.searchPlaceholder": {
+    "defaultMessage": "Modelleri ara..."
+  },
+  "allProviderModels.showAll": {
+    "defaultMessage": "Tüm modelleri göster"
+  },
+  "allProviderModels.showingCount": {
+    "defaultMessage": "{total, number} modelden {shown, number} tanesi gösteriliyor"
+  },
+  "allProviderModels.title": {
+    "defaultMessage": "Models from your providers"
   },
   "announcementModal.gotIt": {
     "defaultMessage": "Anladım!"
@@ -71,6 +176,18 @@
   "authSettings.cancel": {
     "defaultMessage": "İptal"
   },
+  "authSettings.cancelSignIn": {
+    "defaultMessage": "İptal"
+  },
+  "authSettings.checkingStatus": {
+    "defaultMessage": "Kontrol ediliyor..."
+  },
+  "authSettings.connectedAccounts": {
+    "defaultMessage": "Bağlı hesaplar"
+  },
+  "authSettings.connectedAccountsDescription": {
+    "defaultMessage": "Sauron'un harici hesaplarınızla çalışmasına izin vermek için oturum açın."
+  },
   "authSettings.delete": {
     "defaultMessage": "Sil"
   },
@@ -104,6 +221,48 @@
   "authSettings.failedToLoad": {
     "defaultMessage": "Sağlayıcı kimlik bilgileri yüklenemedi"
   },
+  "authSettings.githubAccountDescription": {
+    "defaultMessage": "Depoları arayın, kodla çalışın, sorunları yönetin ve pull request açın."
+  },
+  "authSettings.githubAccountName": {
+    "defaultMessage": "GitHub"
+  },
+  "authSettings.githubConnected": {
+    "defaultMessage": "Bağlı"
+  },
+  "authSettings.githubEnterCode": {
+    "defaultMessage": "Sauron'u yetkilendirmek için {url} adresine bu kodu girin:"
+  },
+  "authSettings.githubNotConnected": {
+    "defaultMessage": "Bağlı değil"
+  },
+  "authSettings.githubOpenDevicePage": {
+    "defaultMessage": "GitHub cihaz sayfasını aç"
+  },
+  "authSettings.githubSignInFailed": {
+    "defaultMessage": "GitHub sign-in failed: {error}"
+  },
+  "authSettings.githubSignInUnavailable": {
+    "defaultMessage": "GitHub oturum açma yalnızca masaüstü uygulamasında kullanılabilir."
+  },
+  "authSettings.githubSignOutMessage": {
+    "defaultMessage": "Yeniden oturum açana kadar Sauron GitHub depolarınızla çalışamaz."
+  },
+  "authSettings.githubSignOutTitle": {
+    "defaultMessage": "Sign out of GitHub"
+  },
+  "authSettings.githubSignedIn": {
+    "defaultMessage": "GitHub'a giriş yapıldı. GitHub eklentisi kullanıma hazır."
+  },
+  "authSettings.githubSignedOut": {
+    "defaultMessage": "GitHub'dan çıkıldı"
+  },
+  "authSettings.githubStatusFailed": {
+    "defaultMessage": "GitHub oturum açma durumu kontrol edilemedi"
+  },
+  "authSettings.githubWaitingForAuthorization": {
+    "defaultMessage": "GitHub yetkisi bekleniyor..."
+  },
   "authSettings.loading": {
     "defaultMessage": "Kimlik bilgileri yükleniyor..."
   },
@@ -112,6 +271,12 @@
   },
   "authSettings.signIn": {
     "defaultMessage": "Oturum aç"
+  },
+  "authSettings.signInWithGitHub": {
+    "defaultMessage": "GitHub ile giriş yap"
+  },
+  "authSettings.signOutFromGitHub": {
+    "defaultMessage": "Sign out"
   },
   "authSettings.signedIn": {
     "defaultMessage": "Kimlik bilgisi yapılandırıldı"
@@ -926,11 +1091,11 @@
   "dirSwitcher.enterPath": {
     "defaultMessage": "Enter path"
   },
-  "dirSwitcher.enterPathPlaceholder": {
-    "defaultMessage": "Enter an absolute path (e.g. /home/sauron/workspace)"
-  },
   "dirSwitcher.enterPathInvalid": {
     "defaultMessage": "Working directory must be an absolute path"
+  },
+  "dirSwitcher.enterPathPlaceholder": {
+    "defaultMessage": "Enter an absolute path (e.g. /home/sauron/workspace)"
   },
   "dirSwitcher.failedToUpdateWorkingDir": {
     "defaultMessage": "Çalışma dizini güncellenemedi"
@@ -946,18 +1111,6 @@
   },
   "dirSwitcher.recentDirectories": {
     "defaultMessage": "Son dizinler"
-  },
-  "gitBranchIndicator.failedToSwitch": {
-    "defaultMessage": "{branch} dalına geçilemedi"
-  },
-  "gitBranchIndicator.noBranchesFound": {
-    "defaultMessage": "Dal bulunamadı"
-  },
-  "gitBranchIndicator.searchBranches": {
-    "defaultMessage": "Dal ara…"
-  },
-  "gitBranchIndicator.uncommittedChanges": {
-    "defaultMessage": "Commit edilmemiş değişiklikleriniz olabilir."
   },
   "elicitationRequest.accept": {
     "defaultMessage": "Kabul et"
@@ -1262,65 +1415,20 @@
   "externalBackendSection.workingDirPlaceholder": {
     "defaultMessage": "/home/sauron/workspace"
   },
-  "sauronhintsModal.close": {
-    "defaultMessage": "Kapat"
+  "freeModelBadge.label": {
+    "defaultMessage": "Ücretsiz"
   },
-  "sauronhintsModal.developer": {
-    "defaultMessage": "Geliştirici"
+  "gitBranchIndicator.failedToSwitch": {
+    "defaultMessage": "{branch} dalına geçilemedi"
   },
-  "sauronhintsModal.dialogDescription": {
-    "defaultMessage": "Sauron ile iletişimi geliştirmek için projeniz hakkında ek bağlam sağlayın"
+  "gitBranchIndicator.noBranchesFound": {
+    "defaultMessage": "Dal bulunamadı"
   },
-  "sauronhintsModal.dialogTitle": {
-    "defaultMessage": "Proje İpuçlarını Yapılandırma (.sauronhints)"
+  "gitBranchIndicator.searchBranches": {
+    "defaultMessage": "Dal ara…"
   },
-  "sauronhintsModal.errorReading": {
-    "defaultMessage": ".sauronhints dosyası okunurken hata oluştu: {error}"
-  },
-  "sauronhintsModal.failedToAccess": {
-    "defaultMessage": ".sauronhints dosyasına erişilemedi"
-  },
-  "sauronhintsModal.failedToSave": {
-    "defaultMessage": ".sauronhints dosyası kaydedilemedi"
-  },
-  "sauronhintsModal.fileCreating": {
-    "defaultMessage": "Şu konumda yeni.sauronhints dosyası oluşturuluyor: {filePath}"
-  },
-  "sauronhintsModal.fileFound": {
-    "defaultMessage": ".sauronhints dosyası şu konumda bulundu: {filePath}"
-  },
-  "sauronhintsModal.helpText1": {
-    "defaultMessage": ".sauronhints, projeniz hakkında ek bağlam sağlamak ve Sauron ile iletişimi geliştirmek için kullanılan bir metin dosyasıdır."
-  },
-  "sauronhintsModal.helpText2": {
-    "defaultMessage": "Lütfen uzantılar sayfasında {bold} uzantısının etkinleştirildiğinden emin olun. Bu uzantı.sauronhints'i kullanmak için gereklidir..sauronhints güncellemelerinin etkili olması için oturumunuzu yeniden başlatmanız gerekir."
-  },
-  "sauronhintsModal.helpText3": {
-    "defaultMessage": "Daha fazla bilgi için {link}'ye bakın."
-  },
-  "sauronhintsModal.helpTextLink": {
-    "defaultMessage": ".sauronhints'i kullanma"
-  },
-  "sauronhintsModal.placeholder": {
-    "defaultMessage": "Proje ipuçlarını buraya girin..."
-  },
-  "sauronhintsModal.save": {
-    "defaultMessage": "Kaydet"
-  },
-  "sauronhintsModal.savedSuccessfully": {
-    "defaultMessage": "Başarıyla kaydedildi"
-  },
-  "sauronhintsModal.saving": {
-    "defaultMessage": "Kaydediliyor..."
-  },
-  "sauronhintsSection.configure": {
-    "defaultMessage": "Yapılandır"
-  },
-  "sauronhintsSection.description": {
-    "defaultMessage": "Sauron'a ek bağlam sağlamak için projenizin.sauronhints dosyasını yapılandırın"
-  },
-  "sauronhintsSection.title": {
-    "defaultMessage": "Proje İpuçları (.sauronhints)"
+  "gitBranchIndicator.uncommittedChanges": {
+    "defaultMessage": "Commit edilmemiş değişiklikleriniz olabilir."
   },
   "groupedExtensionLoadingToast.askSauron": {
     "defaultMessage": "sauron'a sorun"
@@ -1985,6 +2093,12 @@
   "mcpAppRenderer.resizePipWindow": {
     "defaultMessage": "Resim İçinde Resim penceresini yeniden boyutlandırın"
   },
+  "mcpSettings.description": {
+    "defaultMessage": "Connect Model Context Protocol servers to give goose new tools, resources, and data sources. Extensions added here are available to every chat."
+  },
+  "mcpSettings.title": {
+    "defaultMessage": "MCP Servers"
+  },
   "mentionPopover.itemsFound": {
     "defaultMessage": "{count,plural,one{# öğe bulundu} other{# öğe bulundu}}"
   },
@@ -2183,6 +2297,18 @@
   "modelAndProviderContext.unknownProviderTitle": {
     "defaultMessage": "Sağlayıcı adı araması"
   },
+  "modelBadges.contextShort": {
+    "defaultMessage": "{amount, number}k"
+  },
+  "modelBadges.contextWindow": {
+    "defaultMessage": "{amount, number}k bağlam"
+  },
+  "modelBadges.default": {
+    "defaultMessage": "Varsayılan"
+  },
+  "modelBadges.reasoning": {
+    "defaultMessage": "Akıl yürütme"
+  },
   "modelSettingsButtons.switchModels": {
     "defaultMessage": "Modelleri değiştir"
   },
@@ -2356,6 +2482,9 @@
   },
   "modelsBottomBar.preferredModels": {
     "defaultMessage": "Tercih edilen"
+  },
+  "modelsBottomBar.recentModels": {
+    "defaultMessage": "Son kullanılan"
   },
   "modelsBottomBar.resolvedModel": {
     "defaultMessage": "Çözümlenen model"
@@ -2639,6 +2768,48 @@
   "permissionSetting.permissionRulesDescription": {
     "defaultMessage": "Yanıtlarınızı yönlendirmeye ve bağlam eklemeye yardımcı olmak için sağlayıcıya iletilecek gizli talimatlar."
   },
+  "pluginsSettings.description": {
+    "defaultMessage": "Plugins installed under .agents/plugins contribute skills and MCP servers to goose. Manage the skills they provide from the Skills view."
+  },
+  "pluginsSettings.empty": {
+    "defaultMessage": "No plugins installed."
+  },
+  "pluginsSettings.emptyHint": {
+    "defaultMessage": "Install a plugin with `goose plugin install` and it will show up here."
+  },
+  "pluginsSettings.loadFailed": {
+    "defaultMessage": "Could not load plugins"
+  },
+  "pluginsSettings.loading": {
+    "defaultMessage": "Loading plugins..."
+  },
+  "pluginsSettings.manageSkills": {
+    "defaultMessage": "Manage skills"
+  },
+  "pluginsSettings.pluginCount": {
+    "defaultMessage": "{count,plural,=0{No plugins} one{# plugin} other{# plugins}}"
+  },
+  "pluginsSettings.refresh": {
+    "defaultMessage": "Refresh"
+  },
+  "pluginsSettings.skillCount": {
+    "defaultMessage": "{count,plural,one{# skill} other{# skills}}"
+  },
+  "pluginsSettings.title": {
+    "defaultMessage": "Plugins"
+  },
+  "preferredModels.empty": {
+    "defaultMessage": "Burada ve sohbetlerde kullanmak için aşağıdaki modellere yıldız ekleyin."
+  },
+  "preferredModels.remove": {
+    "defaultMessage": "{model} modelini tercih edilenlerden kaldır"
+  },
+  "preferredModels.removeFailed": {
+    "defaultMessage": "Tercih edilen modeller güncellenemedi"
+  },
+  "preferredModels.title": {
+    "defaultMessage": "Tercih edilen modeller"
+  },
   "privacyInfoModal.collectErrors": {
     "defaultMessage": "Hata türleri (ör. \"rate_limit\", \"auth\" - ayrıntı yok)"
   },
@@ -2756,6 +2927,9 @@
   "promptsSettings.unsavedChanges": {
     "defaultMessage": "Kaydedilmemiş değişiklikleriniz var"
   },
+  "providerCard.deprecatedReplacement": {
+    "defaultMessage": "Kullanımdan kaldırıldı — bunun yerine {replacement} kullanın."
+  },
   "providerCard.noMetadata": {
     "defaultMessage": "ProviderCard hatası: Meta veri sağlanmadı"
   },
@@ -2810,8 +2984,17 @@
   "providerConfigForm.continue": {
     "defaultMessage": "Devam et"
   },
+  "providerConfigForm.deviceCodeAndEnter": {
+    "defaultMessage": "ve girin:"
+  },
+  "providerConfigForm.deviceCodeCopy": {
+    "defaultMessage": "Kopyala"
+  },
   "providerConfigForm.deviceCodeFlowHint": {
     "defaultMessage": "Bir tarayıcı penceresi açılacak. Doğrulama kodu burada görünecek; oturum açmayı tamamlamak için kodu girin."
+  },
+  "providerConfigForm.deviceCodeVisit": {
+    "defaultMessage": "Ziyaret edin"
   },
   "providerConfigForm.noApiKey": {
     "defaultMessage": "API anahtarınız yok mu?"
@@ -2837,6 +3020,9 @@
   "providerConfigurationModal.checkConfigAgain": {
     "defaultMessage": "Bu sağlayıcıyı kullanmak için yapılandırmanızı tekrar kontrol edin."
   },
+  "providerConfigurationModal.chooseModel": {
+    "defaultMessage": "Modeli seçin"
+  },
   "providerConfigurationModal.close": {
     "defaultMessage": "Kapat"
   },
@@ -2849,8 +3035,17 @@
   "providerConfigurationModal.deleteConfirmation": {
     "defaultMessage": "Bu, mevcut sağlayıcı yapılandırmasını kalıcı olarak silecektir."
   },
+  "providerConfigurationModal.deviceCodeAndEnter": {
+    "defaultMessage": "ve girin:"
+  },
+  "providerConfigurationModal.deviceCodeCopy": {
+    "defaultMessage": "Kopyala"
+  },
   "providerConfigurationModal.deviceCodeFlowHint": {
     "defaultMessage": "Bir tarayıcı penceresi açılacak. Doğrulama kodu burada görünecek; oturum açmayı tamamlamak için kodu girin."
+  },
+  "providerConfigurationModal.deviceCodeVisit": {
+    "defaultMessage": "Ziyaret edin"
   },
   "providerConfigurationModal.errorCheckingConfig": {
     "defaultMessage": "Bu sağlayıcı yapılandırması kontrol edilirken bir hata oluştu."
@@ -2971,6 +3166,66 @@
   },
   "providerSetupActions.submit": {
     "defaultMessage": "Gönder"
+  },
+  "providersSection.configure": {
+    "defaultMessage": "Configure"
+  },
+  "providersSection.configured": {
+    "defaultMessage": "Configured"
+  },
+  "providersSection.defaultSet": {
+    "defaultMessage": "{model} is now your default model."
+  },
+  "providersSection.defaultSetFailed": {
+    "defaultMessage": "Failed to set default model"
+  },
+  "providersSection.description": {
+    "defaultMessage": "Configure your AI model providers and load their available models directly from each provider API."
+  },
+  "providersSection.hideModels": {
+    "defaultMessage": "Hide models"
+  },
+  "providersSection.loadFailed": {
+    "defaultMessage": "Failed to load providers"
+  },
+  "providersSection.loadModels": {
+    "defaultMessage": "Load Models"
+  },
+  "providersSection.loading": {
+    "defaultMessage": "Loading providers..."
+  },
+  "providersSection.manageAll": {
+    "defaultMessage": "Manage all providers"
+  },
+  "providersSection.modelsError": {
+    "defaultMessage": "Could not load models from {provider}: {error}"
+  },
+  "providersSection.modelsLoaded": {
+    "defaultMessage": "{count} models loaded from {provider}"
+  },
+  "providersSection.needsConfig": {
+    "defaultMessage": "Configure this provider first to load its models."
+  },
+  "providersSection.notConfigured": {
+    "defaultMessage": "Not configured"
+  },
+  "providersSection.reloadingModels": {
+    "defaultMessage": "Reloading models..."
+  },
+  "providersSection.resetDescription": {
+    "defaultMessage": "Clear your selected model and provider settings to start fresh"
+  },
+  "providersSection.resetTitle": {
+    "defaultMessage": "Reset Provider and Model"
+  },
+  "providersSection.setDefault": {
+    "defaultMessage": "Click a model to use it as your default."
+  },
+  "providersSection.showModels": {
+    "defaultMessage": "Show models"
+  },
+  "providersSection.title": {
+    "defaultMessage": "Model Providers"
   },
   "recipeActivityEditor.activitiesDescription": {
     "defaultMessage": "Tarif sohbeti penceresinde görüntülenecek üst satırdaki istemler ve etkinlik düğmeleri."
@@ -3340,6 +3595,66 @@
   },
   "responseStyle.detailedLabel": {
     "defaultMessage": "Detaylı"
+  },
+  "sauronhintsModal.close": {
+    "defaultMessage": "Kapat"
+  },
+  "sauronhintsModal.developer": {
+    "defaultMessage": "Geliştirici"
+  },
+  "sauronhintsModal.dialogDescription": {
+    "defaultMessage": "Sauron ile iletişimi geliştirmek için projeniz hakkında ek bağlam sağlayın"
+  },
+  "sauronhintsModal.dialogTitle": {
+    "defaultMessage": "Proje İpuçlarını Yapılandırma (.sauronhints)"
+  },
+  "sauronhintsModal.errorReading": {
+    "defaultMessage": ".sauronhints dosyası okunurken hata oluştu: {error}"
+  },
+  "sauronhintsModal.failedToAccess": {
+    "defaultMessage": ".sauronhints dosyasına erişilemedi"
+  },
+  "sauronhintsModal.failedToSave": {
+    "defaultMessage": ".sauronhints dosyası kaydedilemedi"
+  },
+  "sauronhintsModal.fileCreating": {
+    "defaultMessage": "Şu konumda yeni.sauronhints dosyası oluşturuluyor: {filePath}"
+  },
+  "sauronhintsModal.fileFound": {
+    "defaultMessage": ".sauronhints dosyası şu konumda bulundu: {filePath}"
+  },
+  "sauronhintsModal.helpText1": {
+    "defaultMessage": ".sauronhints, projeniz hakkında ek bağlam sağlamak ve Sauron ile iletişimi geliştirmek için kullanılan bir metin dosyasıdır."
+  },
+  "sauronhintsModal.helpText2": {
+    "defaultMessage": "Lütfen uzantılar sayfasında {bold} uzantısının etkinleştirildiğinden emin olun. Bu uzantı.sauronhints'i kullanmak için gereklidir..sauronhints güncellemelerinin etkili olması için oturumunuzu yeniden başlatmanız gerekir."
+  },
+  "sauronhintsModal.helpText3": {
+    "defaultMessage": "Daha fazla bilgi için {link}'ye bakın."
+  },
+  "sauronhintsModal.helpTextLink": {
+    "defaultMessage": ".sauronhints'i kullanma"
+  },
+  "sauronhintsModal.placeholder": {
+    "defaultMessage": "Proje ipuçlarını buraya girin..."
+  },
+  "sauronhintsModal.save": {
+    "defaultMessage": "Kaydet"
+  },
+  "sauronhintsModal.savedSuccessfully": {
+    "defaultMessage": "Başarıyla kaydedildi"
+  },
+  "sauronhintsModal.saving": {
+    "defaultMessage": "Kaydediliyor..."
+  },
+  "sauronhintsSection.configure": {
+    "defaultMessage": "Yapılandır"
+  },
+  "sauronhintsSection.description": {
+    "defaultMessage": "Sauron'a ek bağlam sağlamak için projenizin.sauronhints dosyasını yapılandırın"
+  },
+  "sauronhintsSection.title": {
+    "defaultMessage": "Proje İpuçları (.sauronhints)"
   },
   "scheduleDetailView.actions": {
     "defaultMessage": "Eylemler"
@@ -3965,6 +4280,75 @@
   "sessions.toast.updated": {
     "defaultMessage": "Oturum açıklaması başarıyla güncellendi"
   },
+  "settings.agentLoop.description": {
+    "defaultMessage": "İşlem tabanlı ajan döngüsünü kullanır. Eski döngüyü kullanmak için kapatın."
+  },
+  "settings.agentLoop.operations.auto.placeholder": {
+    "defaultMessage": "Otomatik"
+  },
+  "settings.agentLoop.operations.blockLimit.label": {
+    "defaultMessage": "Engelleme sınırı"
+  },
+  "settings.agentLoop.operations.contextCompaction.description": {
+    "defaultMessage": "Bağlam penceresi dolmadan önce konuşma geçmişini özetler."
+  },
+  "settings.agentLoop.operations.contextCompaction.title": {
+    "defaultMessage": "Bağlam sıkıştırma"
+  },
+  "settings.agentLoop.operations.cutoff.label": {
+    "defaultMessage": "Kesme noktası"
+  },
+  "settings.agentLoop.operations.enable": {
+    "defaultMessage": "{operation} etkinleştir"
+  },
+  "settings.agentLoop.operations.failureTimeout.label": {
+    "defaultMessage": "Başarısızlık zaman aşımı"
+  },
+  "settings.agentLoop.operations.heading": {
+    "defaultMessage": "Yapılandırılabilir işlemler"
+  },
+  "settings.agentLoop.operations.maxTurns.description": {
+    "defaultMessage": "Otonom çalışmayı durdurur ve devam etmeden önce kullanıcıya sorar."
+  },
+  "settings.agentLoop.operations.maxTurns.title": {
+    "defaultMessage": "Maksimum tur"
+  },
+  "settings.agentLoop.operations.recipeRetry.description": {
+    "defaultMessage": "Yapılandırılmış bir başarı denetimi başarısız olduğunda tarif denetimlerini yeniden çalıştırır."
+  },
+  "settings.agentLoop.operations.recipeRetry.title": {
+    "defaultMessage": "Tarifi yeniden dene"
+  },
+  "settings.agentLoop.operations.retryTimeout.label": {
+    "defaultMessage": "Yeniden deneme zaman aşımı"
+  },
+  "settings.agentLoop.operations.slashCommands.description": {
+    "defaultMessage": "/compact, /skills ve tarif kısayolları gibi komutları tanır."
+  },
+  "settings.agentLoop.operations.slashCommands.title": {
+    "defaultMessage": "Eğik çizgi komutları"
+  },
+  "settings.agentLoop.operations.stopHooks.description": {
+    "defaultMessage": "Kancaların tamamlanmayı engellemesine izin verirken sonsuz durdurma döngülerini önler."
+  },
+  "settings.agentLoop.operations.stopHooks.title": {
+    "defaultMessage": "Durdurma kancaları"
+  },
+  "settings.agentLoop.operations.threshold.label": {
+    "defaultMessage": "Eşik %"
+  },
+  "settings.agentLoop.operations.toolPairCompaction.description": {
+    "defaultMessage": "Bağlamdan tasarruf etmek için eski araç isteklerini ve yanıtlarını özetler. Boş bırakıldığında kesme noktası otomatik belirlenir."
+  },
+  "settings.agentLoop.operations.toolPairCompaction.title": {
+    "defaultMessage": "Araç çifti sıkıştırma"
+  },
+  "settings.agentLoop.operations.turns.label": {
+    "defaultMessage": "Turlar"
+  },
+  "settings.agentLoop.title": {
+    "defaultMessage": "Ajan döngüsü"
+  },
   "settings.appearance.description": {
     "defaultMessage": "sauron'nin sisteminizde nasıl görüneceğini yapılandırın"
   },
@@ -4163,6 +4547,9 @@
   "settingsView.tabApp": {
     "defaultMessage": "Uygulama"
   },
+  "settingsView.tabAppearance": {
+    "defaultMessage": "Appearance"
+  },
   "settingsView.tabChat": {
     "defaultMessage": "Sohbet"
   },
@@ -4172,11 +4559,20 @@
   "settingsView.tabKeyboard": {
     "defaultMessage": "Klavye"
   },
+  "settingsView.tabMcp": {
+    "defaultMessage": "MCP"
+  },
   "settingsView.tabModels": {
     "defaultMessage": "Modeller"
   },
+  "settingsView.tabPlugins": {
+    "defaultMessage": "Plugins"
+  },
   "settingsView.tabPrompts": {
     "defaultMessage": "İstemler"
+  },
+  "settingsView.tabProviders": {
+    "defaultMessage": "Providers"
   },
   "settingsView.title": {
     "defaultMessage": "Ayarlar"
@@ -4511,6 +4907,9 @@
   "themeSelector.light": {
     "defaultMessage": "Işık"
   },
+  "themeSelector.popular": {
+    "defaultMessage": "Popular themes"
+  },
   "themeSelector.system": {
     "defaultMessage": "Sistem"
   },
@@ -4684,383 +5083,5 @@
   },
   "userMessage.removeImageFromEdit": {
     "defaultMessage": "Görseli mesajdan kaldır"
-  },
-  "modelsBottomBar.recentModels": {
-    "defaultMessage": "Son kullanılan"
-  },
-  "providerConfigurationModal.chooseModel": {
-    "defaultMessage": "Modeli seçin"
-  },
-  "providerCard.deprecatedReplacement": {
-    "defaultMessage": "Kullanımdan kaldırıldı — bunun yerine {replacement} kullanın."
-  },
-  "acpReadinessPanel.adapterFound": {
-    "defaultMessage": "ACP bağdaştırıcısı bulundu"
-  },
-  "acpReadinessPanel.adapterNotFound": {
-    "defaultMessage": "ACP bağdaştırıcısı bulunamadı"
-  },
-  "acpReadinessPanel.authenticationHelp": {
-    "defaultMessage": "Sağlayıcı CLI üzerinden oturum açın, ardından tekrar kontrol edin."
-  },
-  "acpReadinessPanel.checkAgain": {
-    "defaultMessage": "Tekrar kontrol et"
-  },
-  "acpReadinessPanel.checking": {
-    "defaultMessage": "Kontrol ediliyor..."
-  },
-  "acpReadinessPanel.connected": {
-    "defaultMessage": "Başarıyla bağlanıldı"
-  },
-  "acpReadinessPanel.connectionNotChecked": {
-    "defaultMessage": "Devam etmeden önce hesap bağlantınızı kontrol edin."
-  },
-  "providerConfigForm.deviceCodeAndEnter": {
-    "defaultMessage": "ve girin:"
-  },
-  "providerConfigForm.deviceCodeCopy": {
-    "defaultMessage": "Kopyala"
-  },
-  "providerConfigForm.deviceCodeVisit": {
-    "defaultMessage": "Ziyaret edin"
-  },
-  "providerConfigurationModal.deviceCodeAndEnter": {
-    "defaultMessage": "ve girin:"
-  },
-  "providerConfigurationModal.deviceCodeCopy": {
-    "defaultMessage": "Kopyala"
-  },
-  "providerConfigurationModal.deviceCodeVisit": {
-    "defaultMessage": "Ziyaret edin"
-  },
-  "settings.agentLoop.description": {
-    "defaultMessage": "İşlem tabanlı ajan döngüsünü kullanır. Eski döngüyü kullanmak için kapatın."
-  },
-  "settings.agentLoop.operations.auto.placeholder": {
-    "defaultMessage": "Otomatik"
-  },
-  "settings.agentLoop.operations.blockLimit.label": {
-    "defaultMessage": "Engelleme sınırı"
-  },
-  "settings.agentLoop.operations.contextCompaction.description": {
-    "defaultMessage": "Bağlam penceresi dolmadan önce konuşma geçmişini özetler."
-  },
-  "settings.agentLoop.operations.contextCompaction.title": {
-    "defaultMessage": "Bağlam sıkıştırma"
-  },
-  "settings.agentLoop.operations.cutoff.label": {
-    "defaultMessage": "Kesme noktası"
-  },
-  "settings.agentLoop.operations.enable": {
-    "defaultMessage": "{operation} etkinleştir"
-  },
-  "settings.agentLoop.operations.failureTimeout.label": {
-    "defaultMessage": "Başarısızlık zaman aşımı"
-  },
-  "settings.agentLoop.operations.heading": {
-    "defaultMessage": "Yapılandırılabilir işlemler"
-  },
-  "settings.agentLoop.operations.maxTurns.description": {
-    "defaultMessage": "Otonom çalışmayı durdurur ve devam etmeden önce kullanıcıya sorar."
-  },
-  "settings.agentLoop.operations.maxTurns.title": {
-    "defaultMessage": "Maksimum tur"
-  },
-  "settings.agentLoop.operations.recipeRetry.description": {
-    "defaultMessage": "Yapılandırılmış bir başarı denetimi başarısız olduğunda tarif denetimlerini yeniden çalıştırır."
-  },
-  "settings.agentLoop.operations.recipeRetry.title": {
-    "defaultMessage": "Tarifi yeniden dene"
-  },
-  "settings.agentLoop.operations.retryTimeout.label": {
-    "defaultMessage": "Yeniden deneme zaman aşımı"
-  },
-  "settings.agentLoop.operations.slashCommands.description": {
-    "defaultMessage": "/compact, /skills ve tarif kısayolları gibi komutları tanır."
-  },
-  "settings.agentLoop.operations.slashCommands.title": {
-    "defaultMessage": "Eğik çizgi komutları"
-  },
-  "settings.agentLoop.operations.stopHooks.description": {
-    "defaultMessage": "Kancaların tamamlanmayı engellemesine izin verirken sonsuz durdurma döngülerini önler."
-  },
-  "settings.agentLoop.operations.stopHooks.title": {
-    "defaultMessage": "Durdurma kancaları"
-  },
-  "settings.agentLoop.operations.threshold.label": {
-    "defaultMessage": "Eşik %"
-  },
-  "settings.agentLoop.operations.toolPairCompaction.description": {
-    "defaultMessage": "Bağlamdan tasarruf etmek için eski araç isteklerini ve yanıtlarını özetler. Boş bırakıldığında kesme noktası otomatik belirlenir."
-  },
-  "settings.agentLoop.operations.toolPairCompaction.title": {
-    "defaultMessage": "Araç çifti sıkıştırma"
-  },
-  "settings.agentLoop.operations.turns.label": {
-    "defaultMessage": "Turlar"
-  },
-  "settings.agentLoop.title": {
-    "defaultMessage": "Ajan döngüsü"
-  },
-  "providersSection.configure": {
-    "defaultMessage": "Configure"
-  },
-  "providersSection.configured": {
-    "defaultMessage": "Configured"
-  },
-  "providersSection.defaultSet": {
-    "defaultMessage": "{model} is now your default model."
-  },
-  "providersSection.defaultSetFailed": {
-    "defaultMessage": "Failed to set default model"
-  },
-  "providersSection.description": {
-    "defaultMessage": "Configure your AI model providers and load their available models directly from each provider API."
-  },
-  "providersSection.hideModels": {
-    "defaultMessage": "Hide models"
-  },
-  "providersSection.loadFailed": {
-    "defaultMessage": "Failed to load providers"
-  },
-  "providersSection.loadModels": {
-    "defaultMessage": "Load Models"
-  },
-  "providersSection.loading": {
-    "defaultMessage": "Loading providers..."
-  },
-  "providersSection.manageAll": {
-    "defaultMessage": "Manage all providers"
-  },
-  "providersSection.modelsError": {
-    "defaultMessage": "Could not load models from {provider}: {error}"
-  },
-  "providersSection.modelsLoaded": {
-    "defaultMessage": "{count} models loaded from {provider}"
-  },
-  "providersSection.needsConfig": {
-    "defaultMessage": "Configure this provider first to load its models."
-  },
-  "providersSection.notConfigured": {
-    "defaultMessage": "Not configured"
-  },
-  "providersSection.reloadingModels": {
-    "defaultMessage": "Reloading models..."
-  },
-  "providersSection.setDefault": {
-    "defaultMessage": "Click a model to use it as your default."
-  },
-  "providersSection.showModels": {
-    "defaultMessage": "Show models"
-  },
-  "providersSection.title": {
-    "defaultMessage": "Model Providers"
-  },
-  "settingsView.tabProviders": {
-    "defaultMessage": "Providers"
-  },
-  "authSettings.cancelSignIn": {
-    "defaultMessage": "İptal"
-  },
-  "authSettings.checkingStatus": {
-    "defaultMessage": "Kontrol ediliyor..."
-  },
-  "authSettings.connectedAccounts": {
-    "defaultMessage": "Bağlı hesaplar"
-  },
-  "authSettings.connectedAccountsDescription": {
-    "defaultMessage": "Sauron'un harici hesaplarınızla çalışmasına izin vermek için oturum açın."
-  },
-  "authSettings.githubAccountDescription": {
-    "defaultMessage": "Depoları arayın, kodla çalışın, sorunları yönetin ve pull request açın."
-  },
-  "authSettings.githubAccountName": {
-    "defaultMessage": "GitHub"
-  },
-  "authSettings.githubConnected": {
-    "defaultMessage": "Bağlı"
-  },
-  "authSettings.githubEnterCode": {
-    "defaultMessage": "Sauron'u yetkilendirmek için {url} adresine bu kodu girin:"
-  },
-  "authSettings.githubNotConnected": {
-    "defaultMessage": "Bağlı değil"
-  },
-  "authSettings.githubOpenDevicePage": {
-    "defaultMessage": "GitHub cihaz sayfasını aç"
-  },
-  "allProviderModels.preferredUpdateFailed": {
-    "defaultMessage": "Tercih edilen modeller güncellenemedi"
-  },
-  "allProviderModels.refreshAll": {
-    "defaultMessage": "Refresh models"
-  },
-  "authSettings.githubSignInUnavailable": {
-    "defaultMessage": "GitHub oturum açma yalnızca masaüstü uygulamasında kullanılabilir."
-  },
-  "authSettings.githubSignOutMessage": {
-    "defaultMessage": "Yeniden oturum açana kadar Sauron GitHub depolarınızla çalışamaz."
-  },
-  "allProviderModels.removePreferred": {
-    "defaultMessage": "{model} modelini tercih edilenlerden kaldır"
-  },
-  "allProviderModels.title": {
-    "defaultMessage": "Models from your providers"
-  },
-  "authSettings.githubSignedIn": {
-    "defaultMessage": "GitHub'a giriş yapıldı. GitHub eklentisi kullanıma hazır."
-  },
-  "authSettings.githubSignedOut": {
-    "defaultMessage": "GitHub'dan çıkıldı"
-  },
-  "authSettings.githubStatusFailed": {
-    "defaultMessage": "GitHub oturum açma durumu kontrol edilemedi"
-  },
-  "authSettings.githubWaitingForAuthorization": {
-    "defaultMessage": "GitHub yetkisi bekleniyor..."
-  },
-  "authSettings.signInWithGitHub": {
-    "defaultMessage": "GitHub ile giriş yap"
-  },
-  "pluginsSettings.loadFailed": {
-    "defaultMessage": "Could not load plugins"
-  },
-  "pluginsSettings.loading": {
-    "defaultMessage": "Loading plugins..."
-  },
-  "pluginsSettings.manageSkills": {
-    "defaultMessage": "Manage skills"
-  },
-  "pluginsSettings.pluginCount": {
-    "defaultMessage": "{count,plural,=0{No plugins} one{# plugin} other{# plugins}}"
-  },
-  "pluginsSettings.refresh": {
-    "defaultMessage": "Refresh"
-  },
-  "pluginsSettings.skillCount": {
-    "defaultMessage": "{count,plural,one{# skill} other{# skills}}"
-  },
-  "pluginsSettings.title": {
-    "defaultMessage": "Plugins"
-  },
-  "preferredModels.empty": {
-    "defaultMessage": "Burada ve sohbetlerde kullanmak için aşağıdaki modellere yıldız ekleyin."
-  },
-  "preferredModels.remove": {
-    "defaultMessage": "{model} modelini tercih edilenlerden kaldır"
-  },
-  "preferredModels.removeFailed": {
-    "defaultMessage": "Tercih edilen modeller güncellenemedi"
-  },
-  "preferredModels.title": {
-    "defaultMessage": "Tercih edilen modeller"
-  },
-  "providersSection.resetDescription": {
-    "defaultMessage": "Clear your selected model and provider settings to start fresh"
-  },
-  "providersSection.resetTitle": {
-    "defaultMessage": "Reset Provider and Model"
-  },
-  "settingsView.tabAppearance": {
-    "defaultMessage": "Appearance"
-  },
-  "settingsView.tabMcp": {
-    "defaultMessage": "MCP"
-  },
-  "settingsView.tabPlugins": {
-    "defaultMessage": "Plugins"
-  },
-  "themeSelector.popular": {
-    "defaultMessage": "Popular themes"
-  },
-  "allProviderModels.clearSearch": {
-    "defaultMessage": "Aramayı temizle"
-  },
-  "allProviderModels.clearSearchInput": {
-    "defaultMessage": "Arama alanını temizle"
-  },
-  "allProviderModels.noSearchResults": {
-    "defaultMessage": "\"{query}\" eşleşen model yok."
-  },
-  "allProviderModels.searchLabel": {
-    "defaultMessage": "Modelleri ara"
-  },
-  "allProviderModels.searchPlaceholder": {
-    "defaultMessage": "Modelleri ara..."
-  },
-  "allProviderModels.showingCount": {
-    "defaultMessage": "{total, number} modelden {shown, number} tanesi gösteriliyor"
-  },
-  "modelBadges.contextShort": {
-    "defaultMessage": "{amount, number}k"
-  },
-  "modelBadges.contextWindow": {
-    "defaultMessage": "{amount, number}k bağlam"
-  },
-  "modelBadges.default": {
-    "defaultMessage": "Varsayılan"
-  },
-  "modelBadges.reasoning": {
-    "defaultMessage": "Akıl yürütme"
-  },
-  "allProviderModels.configureProviders": {
-    "defaultMessage": "Configure providers"
-  },
-  "allProviderModels.defaultSet": {
-    "defaultMessage": "{model} is now your default model."
-  },
-  "allProviderModels.defaultSetFailed": {
-    "defaultMessage": "Failed to set default model"
-  },
-  "allProviderModels.description": {
-    "defaultMessage": "Every model exposed by your activated providers. Select one to make it the default model."
-  },
-  "allProviderModels.empty": {
-    "defaultMessage": "No activated providers yet."
-  },
-  "allProviderModels.emptyHint": {
-    "defaultMessage": "Configure a provider to see the models it offers."
-  },
-  "allProviderModels.loadFailed": {
-    "defaultMessage": "Could not load provider models"
-  },
-  "allProviderModels.loading": {
-    "defaultMessage": "Loading models from your providers..."
-  },
-  "allProviderModels.modelCount": {
-    "defaultMessage": "{count,plural,one{# model} other{# models}}"
-  },
-  "allProviderModels.noModels": {
-    "defaultMessage": "No models reported by this provider."
-  },
-  "allProviderModels.refreshFailed": {
-    "defaultMessage": "Could not refresh {provider}: {error}"
-  },
-  "allProviderModels.refreshing": {
-    "defaultMessage": "Refreshing..."
-  },
-  "authSettings.githubSignInFailed": {
-    "defaultMessage": "GitHub sign-in failed: {error}"
-  },
-  "authSettings.githubSignOutTitle": {
-    "defaultMessage": "Sign out of GitHub"
-  },
-  "authSettings.signOutFromGitHub": {
-    "defaultMessage": "Sign out"
-  },
-  "mcpSettings.description": {
-    "defaultMessage": "Connect Model Context Protocol servers to give goose new tools, resources, and data sources. Extensions added here are available to every chat."
-  },
-  "mcpSettings.title": {
-    "defaultMessage": "MCP Servers"
-  },
-  "pluginsSettings.description": {
-    "defaultMessage": "Plugins installed under .agents/plugins contribute skills and MCP servers to goose. Manage the skills they provide from the Skills view."
-  },
-  "pluginsSettings.empty": {
-    "defaultMessage": "No plugins installed."
-  },
-  "pluginsSettings.emptyHint": {
-    "defaultMessage": "Install a plugin with `goose plugin install` and it will show up here."
   }
 }

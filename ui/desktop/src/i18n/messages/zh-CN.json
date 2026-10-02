@@ -1,4 +1,25 @@
 {
+  "acpReadinessPanel.adapterFound": {
+    "defaultMessage": "已找到 ACP 适配器"
+  },
+  "acpReadinessPanel.adapterNotFound": {
+    "defaultMessage": "未找到 ACP 适配器"
+  },
+  "acpReadinessPanel.authenticationHelp": {
+    "defaultMessage": "请通过提供商 CLI 登录，然后再次检查。"
+  },
+  "acpReadinessPanel.checkAgain": {
+    "defaultMessage": "再次检查"
+  },
+  "acpReadinessPanel.checking": {
+    "defaultMessage": "正在检查…"
+  },
+  "acpReadinessPanel.connected": {
+    "defaultMessage": "连接成功"
+  },
+  "acpReadinessPanel.connectionNotChecked": {
+    "defaultMessage": "请先检查账户连接，然后再继续。"
+  },
   "alertBox.autoCompactAt": {
     "defaultMessage": "自动压缩阈值"
   },
@@ -10,6 +31,90 @@
   },
   "allProviderModels.addPreferred": {
     "defaultMessage": "将 {model} 添加到首选模型"
+  },
+  "allProviderModels.clearSearch": {
+    "defaultMessage": "清除搜索"
+  },
+  "allProviderModels.clearSearchInput": {
+    "defaultMessage": "清除搜索输入"
+  },
+  "allProviderModels.configureProviders": {
+    "defaultMessage": "Configure providers"
+  },
+  "allProviderModels.defaultSet": {
+    "defaultMessage": "{model} is now your default model."
+  },
+  "allProviderModels.defaultSetFailed": {
+    "defaultMessage": "Failed to set default model"
+  },
+  "allProviderModels.description": {
+    "defaultMessage": "Every model exposed by your activated providers. Select one to make it the default model."
+  },
+  "allProviderModels.empty": {
+    "defaultMessage": "No activated providers yet."
+  },
+  "allProviderModels.emptyHint": {
+    "defaultMessage": "Configure a provider to see the models it offers."
+  },
+  "allProviderModels.filterAll": {
+    "defaultMessage": "全部"
+  },
+  "allProviderModels.filterFree": {
+    "defaultMessage": "免费"
+  },
+  "allProviderModels.freeCount": {
+    "defaultMessage": "{count} 个免费"
+  },
+  "allProviderModels.loadFailed": {
+    "defaultMessage": "Could not load provider models"
+  },
+  "allProviderModels.loading": {
+    "defaultMessage": "Loading models from your providers..."
+  },
+  "allProviderModels.modelCount": {
+    "defaultMessage": "{count,plural,one{# model} other{# models}}"
+  },
+  "allProviderModels.noFreeModels": {
+    "defaultMessage": "您的提供商没有免费模型。"
+  },
+  "allProviderModels.noFreeModelsHint": {
+    "defaultMessage": "当提供商在本地运行模型（Ollama、本地模型）或列出免费变体（例如 OpenRouter 的 :free 模型）时，模型会显示为免费。"
+  },
+  "allProviderModels.noModels": {
+    "defaultMessage": "No models reported by this provider."
+  },
+  "allProviderModels.noSearchResults": {
+    "defaultMessage": "没有与 \"{query}\" 匹配的模型。"
+  },
+  "allProviderModels.preferredUpdateFailed": {
+    "defaultMessage": "更新首选模型失败"
+  },
+  "allProviderModels.refreshAll": {
+    "defaultMessage": "Refresh models"
+  },
+  "allProviderModels.refreshFailed": {
+    "defaultMessage": "Could not refresh {provider}: {error}"
+  },
+  "allProviderModels.refreshing": {
+    "defaultMessage": "Refreshing..."
+  },
+  "allProviderModels.removePreferred": {
+    "defaultMessage": "将 {model} 从首选模型中移除"
+  },
+  "allProviderModels.searchLabel": {
+    "defaultMessage": "搜索模型"
+  },
+  "allProviderModels.searchPlaceholder": {
+    "defaultMessage": "搜索模型..."
+  },
+  "allProviderModels.showAll": {
+    "defaultMessage": "显示所有模型"
+  },
+  "allProviderModels.showingCount": {
+    "defaultMessage": "正在显示 {total, number} 个模型中的 {shown, number} 个"
+  },
+  "allProviderModels.title": {
+    "defaultMessage": "Models from your providers"
   },
   "announcementModal.gotIt": {
     "defaultMessage": "知道了！"
@@ -71,6 +176,18 @@
   "authSettings.cancel": {
     "defaultMessage": "取消"
   },
+  "authSettings.cancelSignIn": {
+    "defaultMessage": "取消"
+  },
+  "authSettings.checkingStatus": {
+    "defaultMessage": "检查中..."
+  },
+  "authSettings.connectedAccounts": {
+    "defaultMessage": "已连接的账户"
+  },
+  "authSettings.connectedAccountsDescription": {
+    "defaultMessage": "登录后 Sauron 即可使用你的外部账户。"
+  },
   "authSettings.delete": {
     "defaultMessage": "删除"
   },
@@ -104,6 +221,48 @@
   "authSettings.failedToLoad": {
     "defaultMessage": "加载提供商凭据失败"
   },
+  "authSettings.githubAccountDescription": {
+    "defaultMessage": "搜索仓库、处理代码、管理议题并创建拉取请求。"
+  },
+  "authSettings.githubAccountName": {
+    "defaultMessage": "GitHub"
+  },
+  "authSettings.githubConnected": {
+    "defaultMessage": "已连接"
+  },
+  "authSettings.githubEnterCode": {
+    "defaultMessage": "在 {url} 输入此代码以授权 Sauron："
+  },
+  "authSettings.githubNotConnected": {
+    "defaultMessage": "未连接"
+  },
+  "authSettings.githubOpenDevicePage": {
+    "defaultMessage": "打开 GitHub 设备页面"
+  },
+  "authSettings.githubSignInFailed": {
+    "defaultMessage": "GitHub sign-in failed: {error}"
+  },
+  "authSettings.githubSignInUnavailable": {
+    "defaultMessage": "GitHub 登录仅在桌面应用中可用。"
+  },
+  "authSettings.githubSignOutMessage": {
+    "defaultMessage": "在你重新登录之前，Sauron 将无法操作你的 GitHub 仓库。"
+  },
+  "authSettings.githubSignOutTitle": {
+    "defaultMessage": "Sign out of GitHub"
+  },
+  "authSettings.githubSignedIn": {
+    "defaultMessage": "已登录 GitHub。GitHub 扩展已可使用。"
+  },
+  "authSettings.githubSignedOut": {
+    "defaultMessage": "已退出 GitHub 登录"
+  },
+  "authSettings.githubStatusFailed": {
+    "defaultMessage": "无法检查 GitHub 登录状态"
+  },
+  "authSettings.githubWaitingForAuthorization": {
+    "defaultMessage": "正在等待 GitHub 授权..."
+  },
   "authSettings.loading": {
     "defaultMessage": "正在加载凭据..."
   },
@@ -112,6 +271,12 @@
   },
   "authSettings.signIn": {
     "defaultMessage": "登录"
+  },
+  "authSettings.signInWithGitHub": {
+    "defaultMessage": "使用 GitHub 登录"
+  },
+  "authSettings.signOutFromGitHub": {
+    "defaultMessage": "Sign out"
   },
   "authSettings.signedIn": {
     "defaultMessage": "凭据已配置"
@@ -926,11 +1091,11 @@
   "dirSwitcher.enterPath": {
     "defaultMessage": "Enter path"
   },
-  "dirSwitcher.enterPathPlaceholder": {
-    "defaultMessage": "Enter an absolute path (e.g. /home/sauron/workspace)"
-  },
   "dirSwitcher.enterPathInvalid": {
     "defaultMessage": "Working directory must be an absolute path"
+  },
+  "dirSwitcher.enterPathPlaceholder": {
+    "defaultMessage": "Enter an absolute path (e.g. /home/sauron/workspace)"
   },
   "dirSwitcher.failedToUpdateWorkingDir": {
     "defaultMessage": "更新工作目录失败"
@@ -946,18 +1111,6 @@
   },
   "dirSwitcher.recentDirectories": {
     "defaultMessage": "最近的目录"
-  },
-  "gitBranchIndicator.failedToSwitch": {
-    "defaultMessage": "无法切换到 {branch}"
-  },
-  "gitBranchIndicator.noBranchesFound": {
-    "defaultMessage": "未找到分支"
-  },
-  "gitBranchIndicator.searchBranches": {
-    "defaultMessage": "搜索分支…"
-  },
-  "gitBranchIndicator.uncommittedChanges": {
-    "defaultMessage": "你可能有尚未提交的更改。"
   },
   "elicitationRequest.accept": {
     "defaultMessage": "接受"
@@ -1262,65 +1415,20 @@
   "externalBackendSection.workingDirPlaceholder": {
     "defaultMessage": "/home/sauron/workspace"
   },
-  "sauronhintsModal.close": {
-    "defaultMessage": "关闭"
+  "freeModelBadge.label": {
+    "defaultMessage": "免费"
   },
-  "sauronhintsModal.developer": {
-    "defaultMessage": "Developer"
+  "gitBranchIndicator.failedToSwitch": {
+    "defaultMessage": "无法切换到 {branch}"
   },
-  "sauronhintsModal.dialogDescription": {
-    "defaultMessage": "为你的项目提供额外上下文，改善与 Sauron 的沟通"
+  "gitBranchIndicator.noBranchesFound": {
+    "defaultMessage": "未找到分支"
   },
-  "sauronhintsModal.dialogTitle": {
-    "defaultMessage": "配置项目提示（.sauronhints）"
+  "gitBranchIndicator.searchBranches": {
+    "defaultMessage": "搜索分支…"
   },
-  "sauronhintsModal.errorReading": {
-    "defaultMessage": "读取 .sauronhints 文件出错：{error}"
-  },
-  "sauronhintsModal.failedToAccess": {
-    "defaultMessage": "访问 .sauronhints 文件失败"
-  },
-  "sauronhintsModal.failedToSave": {
-    "defaultMessage": "保存 .sauronhints 文件失败"
-  },
-  "sauronhintsModal.fileCreating": {
-    "defaultMessage": "正在创建新的 .sauronhints 文件：{filePath}"
-  },
-  "sauronhintsModal.fileFound": {
-    "defaultMessage": "已找到 .sauronhints 文件：{filePath}"
-  },
-  "sauronhintsModal.helpText1": {
-    "defaultMessage": ".sauronhints 是一个文本文件，用于为你的项目提供额外上下文，改善与 Sauron 的沟通。"
-  },
-  "sauronhintsModal.helpText2": {
-    "defaultMessage": "请确认已在扩展页面启用 {bold} 扩展。此扩展是使用 .sauronhints 所必需的。你需要重启会话，.sauronhints 的更新才会生效。"
-  },
-  "sauronhintsModal.helpText3": {
-    "defaultMessage": "更多信息请参见 {link}。"
-  },
-  "sauronhintsModal.helpTextLink": {
-    "defaultMessage": "使用 .sauronhints"
-  },
-  "sauronhintsModal.placeholder": {
-    "defaultMessage": "在此输入项目提示…"
-  },
-  "sauronhintsModal.save": {
-    "defaultMessage": "保存"
-  },
-  "sauronhintsModal.savedSuccessfully": {
-    "defaultMessage": "保存成功"
-  },
-  "sauronhintsModal.saving": {
-    "defaultMessage": "保存中…"
-  },
-  "sauronhintsSection.configure": {
-    "defaultMessage": "配置"
-  },
-  "sauronhintsSection.description": {
-    "defaultMessage": "配置项目的 .sauronhints 文件，为 Sauron 提供额外上下文"
-  },
-  "sauronhintsSection.title": {
-    "defaultMessage": "项目提示（.sauronhints）"
+  "gitBranchIndicator.uncommittedChanges": {
+    "defaultMessage": "你可能有尚未提交的更改。"
   },
   "groupedExtensionLoadingToast.askSauron": {
     "defaultMessage": "问问 sauron"
@@ -1985,6 +2093,12 @@
   "mcpAppRenderer.resizePipWindow": {
     "defaultMessage": "调整画中画窗口大小"
   },
+  "mcpSettings.description": {
+    "defaultMessage": "Connect Model Context Protocol servers to give goose new tools, resources, and data sources. Extensions added here are available to every chat."
+  },
+  "mcpSettings.title": {
+    "defaultMessage": "MCP Servers"
+  },
   "mentionPopover.itemsFound": {
     "defaultMessage": "{count,plural,one{找到 # 项} other{找到 # 项}}"
   },
@@ -2183,6 +2297,18 @@
   "modelAndProviderContext.unknownProviderTitle": {
     "defaultMessage": "提供商名称查找"
   },
+  "modelBadges.contextShort": {
+    "defaultMessage": "{amount, number}k"
+  },
+  "modelBadges.contextWindow": {
+    "defaultMessage": "{amount, number}k 上下文"
+  },
+  "modelBadges.default": {
+    "defaultMessage": "默认"
+  },
+  "modelBadges.reasoning": {
+    "defaultMessage": "推理"
+  },
   "modelSettingsButtons.switchModels": {
     "defaultMessage": "切换模型"
   },
@@ -2356,6 +2482,9 @@
   },
   "modelsBottomBar.preferredModels": {
     "defaultMessage": "首选"
+  },
+  "modelsBottomBar.recentModels": {
+    "defaultMessage": "最近"
   },
   "modelsBottomBar.resolvedModel": {
     "defaultMessage": "解析后的模型"
@@ -2639,6 +2768,48 @@
   "permissionSetting.permissionRulesDescription": {
     "defaultMessage": "传给提供商的隐藏指令，用于引导并为回复补充上下文。"
   },
+  "pluginsSettings.description": {
+    "defaultMessage": "Plugins installed under .agents/plugins contribute skills and MCP servers to goose. Manage the skills they provide from the Skills view."
+  },
+  "pluginsSettings.empty": {
+    "defaultMessage": "No plugins installed."
+  },
+  "pluginsSettings.emptyHint": {
+    "defaultMessage": "Install a plugin with `goose plugin install` and it will show up here."
+  },
+  "pluginsSettings.loadFailed": {
+    "defaultMessage": "Could not load plugins"
+  },
+  "pluginsSettings.loading": {
+    "defaultMessage": "Loading plugins..."
+  },
+  "pluginsSettings.manageSkills": {
+    "defaultMessage": "Manage skills"
+  },
+  "pluginsSettings.pluginCount": {
+    "defaultMessage": "{count,plural,=0{No plugins} one{# plugin} other{# plugins}}"
+  },
+  "pluginsSettings.refresh": {
+    "defaultMessage": "Refresh"
+  },
+  "pluginsSettings.skillCount": {
+    "defaultMessage": "{count,plural,one{# skill} other{# skills}}"
+  },
+  "pluginsSettings.title": {
+    "defaultMessage": "Plugins"
+  },
+  "preferredModels.empty": {
+    "defaultMessage": "为下方模型加星标，即可在此处和聊天中随时使用。"
+  },
+  "preferredModels.remove": {
+    "defaultMessage": "将 {model} 从首选模型中移除"
+  },
+  "preferredModels.removeFailed": {
+    "defaultMessage": "更新首选模型失败"
+  },
+  "preferredModels.title": {
+    "defaultMessage": "首选模型"
+  },
   "privacyInfoModal.collectErrors": {
     "defaultMessage": "错误类型（例如“rate_limit”“auth”——不含详情）"
   },
@@ -2756,6 +2927,9 @@
   "promptsSettings.unsavedChanges": {
     "defaultMessage": "你有未保存的更改"
   },
+  "providerCard.deprecatedReplacement": {
+    "defaultMessage": "已弃用 — 请改用 {replacement}。"
+  },
   "providerCard.noMetadata": {
     "defaultMessage": "ProviderCard 错误：未提供元数据"
   },
@@ -2810,8 +2984,17 @@
   "providerConfigForm.continue": {
     "defaultMessage": "继续"
   },
+  "providerConfigForm.deviceCodeAndEnter": {
+    "defaultMessage": "并输入："
+  },
+  "providerConfigForm.deviceCodeCopy": {
+    "defaultMessage": "复制"
+  },
   "providerConfigForm.deviceCodeFlowHint": {
     "defaultMessage": "将打开浏览器窗口。验证码会显示在此处，输入验证码即可完成登录。"
+  },
+  "providerConfigForm.deviceCodeVisit": {
+    "defaultMessage": "访问"
   },
   "providerConfigForm.noApiKey": {
     "defaultMessage": "没有 API 密钥？"
@@ -2837,6 +3020,9 @@
   "providerConfigurationModal.checkConfigAgain": {
     "defaultMessage": "再次检查你的配置以使用此提供商。"
   },
+  "providerConfigurationModal.chooseModel": {
+    "defaultMessage": "选择模型"
+  },
   "providerConfigurationModal.close": {
     "defaultMessage": "关闭"
   },
@@ -2849,8 +3035,17 @@
   "providerConfigurationModal.deleteConfirmation": {
     "defaultMessage": "这将永久删除当前的提供商配置。"
   },
+  "providerConfigurationModal.deviceCodeAndEnter": {
+    "defaultMessage": "并输入："
+  },
+  "providerConfigurationModal.deviceCodeCopy": {
+    "defaultMessage": "复制"
+  },
   "providerConfigurationModal.deviceCodeFlowHint": {
     "defaultMessage": "将打开浏览器窗口。验证码会显示在此处，输入验证码即可完成登录。"
+  },
+  "providerConfigurationModal.deviceCodeVisit": {
+    "defaultMessage": "访问"
   },
   "providerConfigurationModal.errorCheckingConfig": {
     "defaultMessage": "检查此提供商配置时出错。"
@@ -2971,6 +3166,66 @@
   },
   "providerSetupActions.submit": {
     "defaultMessage": "提交"
+  },
+  "providersSection.configure": {
+    "defaultMessage": "Configure"
+  },
+  "providersSection.configured": {
+    "defaultMessage": "Configured"
+  },
+  "providersSection.defaultSet": {
+    "defaultMessage": "{model} is now your default model."
+  },
+  "providersSection.defaultSetFailed": {
+    "defaultMessage": "Failed to set default model"
+  },
+  "providersSection.description": {
+    "defaultMessage": "Configure your AI model providers and load their available models directly from each provider API."
+  },
+  "providersSection.hideModels": {
+    "defaultMessage": "Hide models"
+  },
+  "providersSection.loadFailed": {
+    "defaultMessage": "Failed to load providers"
+  },
+  "providersSection.loadModels": {
+    "defaultMessage": "Load Models"
+  },
+  "providersSection.loading": {
+    "defaultMessage": "Loading providers..."
+  },
+  "providersSection.manageAll": {
+    "defaultMessage": "Manage all providers"
+  },
+  "providersSection.modelsError": {
+    "defaultMessage": "Could not load models from {provider}: {error}"
+  },
+  "providersSection.modelsLoaded": {
+    "defaultMessage": "{count} models loaded from {provider}"
+  },
+  "providersSection.needsConfig": {
+    "defaultMessage": "Configure this provider first to load its models."
+  },
+  "providersSection.notConfigured": {
+    "defaultMessage": "Not configured"
+  },
+  "providersSection.reloadingModels": {
+    "defaultMessage": "Reloading models..."
+  },
+  "providersSection.resetDescription": {
+    "defaultMessage": "Clear your selected model and provider settings to start fresh"
+  },
+  "providersSection.resetTitle": {
+    "defaultMessage": "Reset Provider and Model"
+  },
+  "providersSection.setDefault": {
+    "defaultMessage": "Click a model to use it as your default."
+  },
+  "providersSection.showModels": {
+    "defaultMessage": "Show models"
+  },
+  "providersSection.title": {
+    "defaultMessage": "Model Providers"
   },
   "recipeActivityEditor.activitiesDescription": {
     "defaultMessage": "将在配方聊天窗口中显示的顶部提示和活动按钮。"
@@ -3340,6 +3595,66 @@
   },
   "responseStyle.detailedLabel": {
     "defaultMessage": "详细"
+  },
+  "sauronhintsModal.close": {
+    "defaultMessage": "关闭"
+  },
+  "sauronhintsModal.developer": {
+    "defaultMessage": "Developer"
+  },
+  "sauronhintsModal.dialogDescription": {
+    "defaultMessage": "为你的项目提供额外上下文，改善与 Sauron 的沟通"
+  },
+  "sauronhintsModal.dialogTitle": {
+    "defaultMessage": "配置项目提示（.sauronhints）"
+  },
+  "sauronhintsModal.errorReading": {
+    "defaultMessage": "读取 .sauronhints 文件出错：{error}"
+  },
+  "sauronhintsModal.failedToAccess": {
+    "defaultMessage": "访问 .sauronhints 文件失败"
+  },
+  "sauronhintsModal.failedToSave": {
+    "defaultMessage": "保存 .sauronhints 文件失败"
+  },
+  "sauronhintsModal.fileCreating": {
+    "defaultMessage": "正在创建新的 .sauronhints 文件：{filePath}"
+  },
+  "sauronhintsModal.fileFound": {
+    "defaultMessage": "已找到 .sauronhints 文件：{filePath}"
+  },
+  "sauronhintsModal.helpText1": {
+    "defaultMessage": ".sauronhints 是一个文本文件，用于为你的项目提供额外上下文，改善与 Sauron 的沟通。"
+  },
+  "sauronhintsModal.helpText2": {
+    "defaultMessage": "请确认已在扩展页面启用 {bold} 扩展。此扩展是使用 .sauronhints 所必需的。你需要重启会话，.sauronhints 的更新才会生效。"
+  },
+  "sauronhintsModal.helpText3": {
+    "defaultMessage": "更多信息请参见 {link}。"
+  },
+  "sauronhintsModal.helpTextLink": {
+    "defaultMessage": "使用 .sauronhints"
+  },
+  "sauronhintsModal.placeholder": {
+    "defaultMessage": "在此输入项目提示…"
+  },
+  "sauronhintsModal.save": {
+    "defaultMessage": "保存"
+  },
+  "sauronhintsModal.savedSuccessfully": {
+    "defaultMessage": "保存成功"
+  },
+  "sauronhintsModal.saving": {
+    "defaultMessage": "保存中…"
+  },
+  "sauronhintsSection.configure": {
+    "defaultMessage": "配置"
+  },
+  "sauronhintsSection.description": {
+    "defaultMessage": "配置项目的 .sauronhints 文件，为 Sauron 提供额外上下文"
+  },
+  "sauronhintsSection.title": {
+    "defaultMessage": "项目提示（.sauronhints）"
   },
   "scheduleDetailView.actions": {
     "defaultMessage": "操作"
@@ -3965,6 +4280,75 @@
   "sessions.toast.updated": {
     "defaultMessage": "会话描述更新成功"
   },
+  "settings.agentLoop.description": {
+    "defaultMessage": "使用基于操作的代理循环。关闭后将使用旧版循环。"
+  },
+  "settings.agentLoop.operations.auto.placeholder": {
+    "defaultMessage": "自动"
+  },
+  "settings.agentLoop.operations.blockLimit.label": {
+    "defaultMessage": "阻止上限"
+  },
+  "settings.agentLoop.operations.contextCompaction.description": {
+    "defaultMessage": "在上下文窗口填满前汇总对话历史。"
+  },
+  "settings.agentLoop.operations.contextCompaction.title": {
+    "defaultMessage": "上下文压缩"
+  },
+  "settings.agentLoop.operations.cutoff.label": {
+    "defaultMessage": "截断值"
+  },
+  "settings.agentLoop.operations.enable": {
+    "defaultMessage": "启用{operation}"
+  },
+  "settings.agentLoop.operations.failureTimeout.label": {
+    "defaultMessage": "失败超时"
+  },
+  "settings.agentLoop.operations.heading": {
+    "defaultMessage": "可配置操作"
+  },
+  "settings.agentLoop.operations.maxTurns.description": {
+    "defaultMessage": "停止自主工作，并在继续前询问用户。"
+  },
+  "settings.agentLoop.operations.maxTurns.title": {
+    "defaultMessage": "最大轮次"
+  },
+  "settings.agentLoop.operations.recipeRetry.description": {
+    "defaultMessage": "当配置的成功检查失败时，重新运行配方检查。"
+  },
+  "settings.agentLoop.operations.recipeRetry.title": {
+    "defaultMessage": "重试配方"
+  },
+  "settings.agentLoop.operations.retryTimeout.label": {
+    "defaultMessage": "重试超时"
+  },
+  "settings.agentLoop.operations.slashCommands.description": {
+    "defaultMessage": "识别 /compact、/skills 和配方快捷方式等命令。"
+  },
+  "settings.agentLoop.operations.slashCommands.title": {
+    "defaultMessage": "斜杠命令"
+  },
+  "settings.agentLoop.operations.stopHooks.description": {
+    "defaultMessage": "允许钩子阻止完成，同时防止无限停止循环。"
+  },
+  "settings.agentLoop.operations.stopHooks.title": {
+    "defaultMessage": "停止钩子"
+  },
+  "settings.agentLoop.operations.threshold.label": {
+    "defaultMessage": "阈值 %"
+  },
+  "settings.agentLoop.operations.toolPairCompaction.description": {
+    "defaultMessage": "汇总较早的工具请求和响应以节省上下文。留空时自动设置截断值。"
+  },
+  "settings.agentLoop.operations.toolPairCompaction.title": {
+    "defaultMessage": "工具对压缩"
+  },
+  "settings.agentLoop.operations.turns.label": {
+    "defaultMessage": "轮次"
+  },
+  "settings.agentLoop.title": {
+    "defaultMessage": "代理循环"
+  },
   "settings.appearance.description": {
     "defaultMessage": "配置 sauron 在你系统中的外观"
   },
@@ -4163,6 +4547,9 @@
   "settingsView.tabApp": {
     "defaultMessage": "应用"
   },
+  "settingsView.tabAppearance": {
+    "defaultMessage": "Appearance"
+  },
   "settingsView.tabChat": {
     "defaultMessage": "聊天"
   },
@@ -4172,11 +4559,20 @@
   "settingsView.tabKeyboard": {
     "defaultMessage": "键盘"
   },
+  "settingsView.tabMcp": {
+    "defaultMessage": "MCP"
+  },
   "settingsView.tabModels": {
     "defaultMessage": "模型"
   },
+  "settingsView.tabPlugins": {
+    "defaultMessage": "Plugins"
+  },
   "settingsView.tabPrompts": {
     "defaultMessage": "提示词"
+  },
+  "settingsView.tabProviders": {
+    "defaultMessage": "Providers"
   },
   "settingsView.title": {
     "defaultMessage": "设置"
@@ -4511,6 +4907,9 @@
   "themeSelector.light": {
     "defaultMessage": "浅色"
   },
+  "themeSelector.popular": {
+    "defaultMessage": "Popular themes"
+  },
   "themeSelector.system": {
     "defaultMessage": "跟随系统"
   },
@@ -4684,383 +5083,5 @@
   },
   "userMessage.removeImageFromEdit": {
     "defaultMessage": "从消息中移除图片"
-  },
-  "modelsBottomBar.recentModels": {
-    "defaultMessage": "最近"
-  },
-  "providerConfigurationModal.chooseModel": {
-    "defaultMessage": "选择模型"
-  },
-  "providerCard.deprecatedReplacement": {
-    "defaultMessage": "已弃用 — 请改用 {replacement}。"
-  },
-  "acpReadinessPanel.adapterFound": {
-    "defaultMessage": "已找到 ACP 适配器"
-  },
-  "acpReadinessPanel.adapterNotFound": {
-    "defaultMessage": "未找到 ACP 适配器"
-  },
-  "acpReadinessPanel.authenticationHelp": {
-    "defaultMessage": "请通过提供商 CLI 登录，然后再次检查。"
-  },
-  "acpReadinessPanel.checkAgain": {
-    "defaultMessage": "再次检查"
-  },
-  "acpReadinessPanel.checking": {
-    "defaultMessage": "正在检查…"
-  },
-  "acpReadinessPanel.connected": {
-    "defaultMessage": "连接成功"
-  },
-  "acpReadinessPanel.connectionNotChecked": {
-    "defaultMessage": "请先检查账户连接，然后再继续。"
-  },
-  "providerConfigForm.deviceCodeAndEnter": {
-    "defaultMessage": "并输入："
-  },
-  "providerConfigForm.deviceCodeCopy": {
-    "defaultMessage": "复制"
-  },
-  "providerConfigForm.deviceCodeVisit": {
-    "defaultMessage": "访问"
-  },
-  "providerConfigurationModal.deviceCodeAndEnter": {
-    "defaultMessage": "并输入："
-  },
-  "providerConfigurationModal.deviceCodeCopy": {
-    "defaultMessage": "复制"
-  },
-  "providerConfigurationModal.deviceCodeVisit": {
-    "defaultMessage": "访问"
-  },
-  "settings.agentLoop.description": {
-    "defaultMessage": "使用基于操作的代理循环。关闭后将使用旧版循环。"
-  },
-  "settings.agentLoop.operations.auto.placeholder": {
-    "defaultMessage": "自动"
-  },
-  "settings.agentLoop.operations.blockLimit.label": {
-    "defaultMessage": "阻止上限"
-  },
-  "settings.agentLoop.operations.contextCompaction.description": {
-    "defaultMessage": "在上下文窗口填满前汇总对话历史。"
-  },
-  "settings.agentLoop.operations.contextCompaction.title": {
-    "defaultMessage": "上下文压缩"
-  },
-  "settings.agentLoop.operations.cutoff.label": {
-    "defaultMessage": "截断值"
-  },
-  "settings.agentLoop.operations.enable": {
-    "defaultMessage": "启用{operation}"
-  },
-  "settings.agentLoop.operations.failureTimeout.label": {
-    "defaultMessage": "失败超时"
-  },
-  "settings.agentLoop.operations.heading": {
-    "defaultMessage": "可配置操作"
-  },
-  "settings.agentLoop.operations.maxTurns.description": {
-    "defaultMessage": "停止自主工作，并在继续前询问用户。"
-  },
-  "settings.agentLoop.operations.maxTurns.title": {
-    "defaultMessage": "最大轮次"
-  },
-  "settings.agentLoop.operations.recipeRetry.description": {
-    "defaultMessage": "当配置的成功检查失败时，重新运行配方检查。"
-  },
-  "settings.agentLoop.operations.recipeRetry.title": {
-    "defaultMessage": "重试配方"
-  },
-  "settings.agentLoop.operations.retryTimeout.label": {
-    "defaultMessage": "重试超时"
-  },
-  "settings.agentLoop.operations.slashCommands.description": {
-    "defaultMessage": "识别 /compact、/skills 和配方快捷方式等命令。"
-  },
-  "settings.agentLoop.operations.slashCommands.title": {
-    "defaultMessage": "斜杠命令"
-  },
-  "settings.agentLoop.operations.stopHooks.description": {
-    "defaultMessage": "允许钩子阻止完成，同时防止无限停止循环。"
-  },
-  "settings.agentLoop.operations.stopHooks.title": {
-    "defaultMessage": "停止钩子"
-  },
-  "settings.agentLoop.operations.threshold.label": {
-    "defaultMessage": "阈值 %"
-  },
-  "settings.agentLoop.operations.toolPairCompaction.description": {
-    "defaultMessage": "汇总较早的工具请求和响应以节省上下文。留空时自动设置截断值。"
-  },
-  "settings.agentLoop.operations.toolPairCompaction.title": {
-    "defaultMessage": "工具对压缩"
-  },
-  "settings.agentLoop.operations.turns.label": {
-    "defaultMessage": "轮次"
-  },
-  "settings.agentLoop.title": {
-    "defaultMessage": "代理循环"
-  },
-  "providersSection.configure": {
-    "defaultMessage": "Configure"
-  },
-  "providersSection.configured": {
-    "defaultMessage": "Configured"
-  },
-  "providersSection.defaultSet": {
-    "defaultMessage": "{model} is now your default model."
-  },
-  "providersSection.defaultSetFailed": {
-    "defaultMessage": "Failed to set default model"
-  },
-  "providersSection.description": {
-    "defaultMessage": "Configure your AI model providers and load their available models directly from each provider API."
-  },
-  "providersSection.hideModels": {
-    "defaultMessage": "Hide models"
-  },
-  "providersSection.loadFailed": {
-    "defaultMessage": "Failed to load providers"
-  },
-  "providersSection.loadModels": {
-    "defaultMessage": "Load Models"
-  },
-  "providersSection.loading": {
-    "defaultMessage": "Loading providers..."
-  },
-  "providersSection.manageAll": {
-    "defaultMessage": "Manage all providers"
-  },
-  "providersSection.modelsError": {
-    "defaultMessage": "Could not load models from {provider}: {error}"
-  },
-  "providersSection.modelsLoaded": {
-    "defaultMessage": "{count} models loaded from {provider}"
-  },
-  "providersSection.needsConfig": {
-    "defaultMessage": "Configure this provider first to load its models."
-  },
-  "providersSection.notConfigured": {
-    "defaultMessage": "Not configured"
-  },
-  "providersSection.reloadingModels": {
-    "defaultMessage": "Reloading models..."
-  },
-  "providersSection.setDefault": {
-    "defaultMessage": "Click a model to use it as your default."
-  },
-  "providersSection.showModels": {
-    "defaultMessage": "Show models"
-  },
-  "providersSection.title": {
-    "defaultMessage": "Model Providers"
-  },
-  "settingsView.tabProviders": {
-    "defaultMessage": "Providers"
-  },
-  "authSettings.cancelSignIn": {
-    "defaultMessage": "取消"
-  },
-  "authSettings.checkingStatus": {
-    "defaultMessage": "检查中..."
-  },
-  "authSettings.connectedAccounts": {
-    "defaultMessage": "已连接的账户"
-  },
-  "authSettings.connectedAccountsDescription": {
-    "defaultMessage": "登录后 Sauron 即可使用你的外部账户。"
-  },
-  "authSettings.githubAccountDescription": {
-    "defaultMessage": "搜索仓库、处理代码、管理议题并创建拉取请求。"
-  },
-  "authSettings.githubAccountName": {
-    "defaultMessage": "GitHub"
-  },
-  "authSettings.githubConnected": {
-    "defaultMessage": "已连接"
-  },
-  "authSettings.githubEnterCode": {
-    "defaultMessage": "在 {url} 输入此代码以授权 Sauron："
-  },
-  "authSettings.githubNotConnected": {
-    "defaultMessage": "未连接"
-  },
-  "authSettings.githubOpenDevicePage": {
-    "defaultMessage": "打开 GitHub 设备页面"
-  },
-  "allProviderModels.preferredUpdateFailed": {
-    "defaultMessage": "更新首选模型失败"
-  },
-  "allProviderModels.refreshAll": {
-    "defaultMessage": "Refresh models"
-  },
-  "authSettings.githubSignInUnavailable": {
-    "defaultMessage": "GitHub 登录仅在桌面应用中可用。"
-  },
-  "authSettings.githubSignOutMessage": {
-    "defaultMessage": "在你重新登录之前，Sauron 将无法操作你的 GitHub 仓库。"
-  },
-  "allProviderModels.removePreferred": {
-    "defaultMessage": "将 {model} 从首选模型中移除"
-  },
-  "allProviderModels.title": {
-    "defaultMessage": "Models from your providers"
-  },
-  "authSettings.githubSignedIn": {
-    "defaultMessage": "已登录 GitHub。GitHub 扩展已可使用。"
-  },
-  "authSettings.githubSignedOut": {
-    "defaultMessage": "已退出 GitHub 登录"
-  },
-  "authSettings.githubStatusFailed": {
-    "defaultMessage": "无法检查 GitHub 登录状态"
-  },
-  "authSettings.githubWaitingForAuthorization": {
-    "defaultMessage": "正在等待 GitHub 授权..."
-  },
-  "authSettings.signInWithGitHub": {
-    "defaultMessage": "使用 GitHub 登录"
-  },
-  "pluginsSettings.loadFailed": {
-    "defaultMessage": "Could not load plugins"
-  },
-  "pluginsSettings.loading": {
-    "defaultMessage": "Loading plugins..."
-  },
-  "pluginsSettings.manageSkills": {
-    "defaultMessage": "Manage skills"
-  },
-  "pluginsSettings.pluginCount": {
-    "defaultMessage": "{count,plural,=0{No plugins} one{# plugin} other{# plugins}}"
-  },
-  "pluginsSettings.refresh": {
-    "defaultMessage": "Refresh"
-  },
-  "pluginsSettings.skillCount": {
-    "defaultMessage": "{count,plural,one{# skill} other{# skills}}"
-  },
-  "pluginsSettings.title": {
-    "defaultMessage": "Plugins"
-  },
-  "preferredModels.empty": {
-    "defaultMessage": "为下方模型加星标，即可在此处和聊天中随时使用。"
-  },
-  "preferredModels.remove": {
-    "defaultMessage": "将 {model} 从首选模型中移除"
-  },
-  "preferredModels.removeFailed": {
-    "defaultMessage": "更新首选模型失败"
-  },
-  "preferredModels.title": {
-    "defaultMessage": "首选模型"
-  },
-  "providersSection.resetDescription": {
-    "defaultMessage": "Clear your selected model and provider settings to start fresh"
-  },
-  "providersSection.resetTitle": {
-    "defaultMessage": "Reset Provider and Model"
-  },
-  "settingsView.tabAppearance": {
-    "defaultMessage": "Appearance"
-  },
-  "settingsView.tabMcp": {
-    "defaultMessage": "MCP"
-  },
-  "settingsView.tabPlugins": {
-    "defaultMessage": "Plugins"
-  },
-  "themeSelector.popular": {
-    "defaultMessage": "Popular themes"
-  },
-  "allProviderModels.clearSearch": {
-    "defaultMessage": "清除搜索"
-  },
-  "allProviderModels.clearSearchInput": {
-    "defaultMessage": "清除搜索输入"
-  },
-  "allProviderModels.noSearchResults": {
-    "defaultMessage": "没有与 \"{query}\" 匹配的模型。"
-  },
-  "allProviderModels.searchLabel": {
-    "defaultMessage": "搜索模型"
-  },
-  "allProviderModels.searchPlaceholder": {
-    "defaultMessage": "搜索模型..."
-  },
-  "allProviderModels.showingCount": {
-    "defaultMessage": "正在显示 {total, number} 个模型中的 {shown, number} 个"
-  },
-  "modelBadges.contextShort": {
-    "defaultMessage": "{amount, number}k"
-  },
-  "modelBadges.contextWindow": {
-    "defaultMessage": "{amount, number}k 上下文"
-  },
-  "modelBadges.default": {
-    "defaultMessage": "默认"
-  },
-  "modelBadges.reasoning": {
-    "defaultMessage": "推理"
-  },
-  "allProviderModels.configureProviders": {
-    "defaultMessage": "Configure providers"
-  },
-  "allProviderModels.defaultSet": {
-    "defaultMessage": "{model} is now your default model."
-  },
-  "allProviderModels.defaultSetFailed": {
-    "defaultMessage": "Failed to set default model"
-  },
-  "allProviderModels.description": {
-    "defaultMessage": "Every model exposed by your activated providers. Select one to make it the default model."
-  },
-  "allProviderModels.empty": {
-    "defaultMessage": "No activated providers yet."
-  },
-  "allProviderModels.emptyHint": {
-    "defaultMessage": "Configure a provider to see the models it offers."
-  },
-  "allProviderModels.loadFailed": {
-    "defaultMessage": "Could not load provider models"
-  },
-  "allProviderModels.loading": {
-    "defaultMessage": "Loading models from your providers..."
-  },
-  "allProviderModels.modelCount": {
-    "defaultMessage": "{count,plural,one{# model} other{# models}}"
-  },
-  "allProviderModels.noModels": {
-    "defaultMessage": "No models reported by this provider."
-  },
-  "allProviderModels.refreshFailed": {
-    "defaultMessage": "Could not refresh {provider}: {error}"
-  },
-  "allProviderModels.refreshing": {
-    "defaultMessage": "Refreshing..."
-  },
-  "authSettings.githubSignInFailed": {
-    "defaultMessage": "GitHub sign-in failed: {error}"
-  },
-  "authSettings.githubSignOutTitle": {
-    "defaultMessage": "Sign out of GitHub"
-  },
-  "authSettings.signOutFromGitHub": {
-    "defaultMessage": "Sign out"
-  },
-  "mcpSettings.description": {
-    "defaultMessage": "Connect Model Context Protocol servers to give goose new tools, resources, and data sources. Extensions added here are available to every chat."
-  },
-  "mcpSettings.title": {
-    "defaultMessage": "MCP Servers"
-  },
-  "pluginsSettings.description": {
-    "defaultMessage": "Plugins installed under .agents/plugins contribute skills and MCP servers to goose. Manage the skills they provide from the Skills view."
-  },
-  "pluginsSettings.empty": {
-    "defaultMessage": "No plugins installed."
-  },
-  "pluginsSettings.emptyHint": {
-    "defaultMessage": "Install a plugin with `goose plugin install` and it will show up here."
   }
 }

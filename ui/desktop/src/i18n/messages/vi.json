@@ -1,4 +1,25 @@
 {
+  "acpReadinessPanel.adapterFound": {
+    "defaultMessage": "Đã tìm thấy bộ điều hợp ACP"
+  },
+  "acpReadinessPanel.adapterNotFound": {
+    "defaultMessage": "Không tìm thấy bộ điều hợp ACP"
+  },
+  "acpReadinessPanel.authenticationHelp": {
+    "defaultMessage": "Đăng nhập qua CLI của nhà cung cấp, sau đó kiểm tra lại."
+  },
+  "acpReadinessPanel.checkAgain": {
+    "defaultMessage": "Kiểm tra lại"
+  },
+  "acpReadinessPanel.checking": {
+    "defaultMessage": "Đang kiểm tra..."
+  },
+  "acpReadinessPanel.connected": {
+    "defaultMessage": "Kết nối thành công"
+  },
+  "acpReadinessPanel.connectionNotChecked": {
+    "defaultMessage": "Hãy kiểm tra kết nối tài khoản trước khi tiếp tục."
+  },
   "alertBox.autoCompactAt": {
     "defaultMessage": "Tự động nén tại"
   },
@@ -10,6 +31,90 @@
   },
   "allProviderModels.addPreferred": {
     "defaultMessage": "Thêm {model} vào mô hình yêu thích"
+  },
+  "allProviderModels.clearSearch": {
+    "defaultMessage": "Xóa tìm kiếm"
+  },
+  "allProviderModels.clearSearchInput": {
+    "defaultMessage": "Xóa ô tìm kiếm"
+  },
+  "allProviderModels.configureProviders": {
+    "defaultMessage": "Configure providers"
+  },
+  "allProviderModels.defaultSet": {
+    "defaultMessage": "{model} is now your default model."
+  },
+  "allProviderModels.defaultSetFailed": {
+    "defaultMessage": "Failed to set default model"
+  },
+  "allProviderModels.description": {
+    "defaultMessage": "Every model exposed by your activated providers. Select one to make it the default model."
+  },
+  "allProviderModels.empty": {
+    "defaultMessage": "No activated providers yet."
+  },
+  "allProviderModels.emptyHint": {
+    "defaultMessage": "Configure a provider to see the models it offers."
+  },
+  "allProviderModels.filterAll": {
+    "defaultMessage": "Tất cả"
+  },
+  "allProviderModels.filterFree": {
+    "defaultMessage": "Miễn phí"
+  },
+  "allProviderModels.freeCount": {
+    "defaultMessage": "{count} miễn phí"
+  },
+  "allProviderModels.loadFailed": {
+    "defaultMessage": "Could not load provider models"
+  },
+  "allProviderModels.loading": {
+    "defaultMessage": "Loading models from your providers..."
+  },
+  "allProviderModels.modelCount": {
+    "defaultMessage": "{count,plural,one{# model} other{# models}}"
+  },
+  "allProviderModels.noFreeModels": {
+    "defaultMessage": "Không có model miễn phí từ các nhà cung cấp của bạn."
+  },
+  "allProviderModels.noFreeModelsHint": {
+    "defaultMessage": "Các model được coi là miễn phí khi nhà cung cấp chạy chúng trên máy (Ollama, model cục bộ) hoặc liệt kê các biến thể miễn phí, chẳng hạn như các :free model của OpenRouter."
+  },
+  "allProviderModels.noModels": {
+    "defaultMessage": "No models reported by this provider."
+  },
+  "allProviderModels.noSearchResults": {
+    "defaultMessage": "Không có mô hình nào khớp với \"{query}\"."
+  },
+  "allProviderModels.preferredUpdateFailed": {
+    "defaultMessage": "Không thể cập nhật mô hình yêu thích"
+  },
+  "allProviderModels.refreshAll": {
+    "defaultMessage": "Refresh models"
+  },
+  "allProviderModels.refreshFailed": {
+    "defaultMessage": "Could not refresh {provider}: {error}"
+  },
+  "allProviderModels.refreshing": {
+    "defaultMessage": "Refreshing..."
+  },
+  "allProviderModels.removePreferred": {
+    "defaultMessage": "Bỏ {model} khỏi mô hình yêu thích"
+  },
+  "allProviderModels.searchLabel": {
+    "defaultMessage": "Tìm kiếm mô hình"
+  },
+  "allProviderModels.searchPlaceholder": {
+    "defaultMessage": "Tìm kiếm mô hình..."
+  },
+  "allProviderModels.showAll": {
+    "defaultMessage": "Hiện tất cả model"
+  },
+  "allProviderModels.showingCount": {
+    "defaultMessage": "Đang hiển thị {shown, number} trong {total, number} mô hình"
+  },
+  "allProviderModels.title": {
+    "defaultMessage": "Models from your providers"
   },
   "announcementModal.gotIt": {
     "defaultMessage": "Đã hiểu!"
@@ -71,6 +176,18 @@
   "authSettings.cancel": {
     "defaultMessage": "Hủy"
   },
+  "authSettings.cancelSignIn": {
+    "defaultMessage": "Hủy"
+  },
+  "authSettings.checkingStatus": {
+    "defaultMessage": "Đang kiểm tra..."
+  },
+  "authSettings.connectedAccounts": {
+    "defaultMessage": "Tài khoản đã kết nối"
+  },
+  "authSettings.connectedAccountsDescription": {
+    "defaultMessage": "Đăng nhập để cho phép Sauron làm việc với các tài khoản bên ngoài của bạn."
+  },
   "authSettings.delete": {
     "defaultMessage": "Xóa"
   },
@@ -104,6 +221,48 @@
   "authSettings.failedToLoad": {
     "defaultMessage": "Không thể tải thông tin xác thực nhà cung cấp"
   },
+  "authSettings.githubAccountDescription": {
+    "defaultMessage": "Tìm kiếm kho mã, làm việc với mã, quản lý issues và mở pull request."
+  },
+  "authSettings.githubAccountName": {
+    "defaultMessage": "GitHub"
+  },
+  "authSettings.githubConnected": {
+    "defaultMessage": "Đã kết nối"
+  },
+  "authSettings.githubEnterCode": {
+    "defaultMessage": "Nhập mã này tại {url} để ủy quyền cho Sauron:"
+  },
+  "authSettings.githubNotConnected": {
+    "defaultMessage": "Chưa kết nối"
+  },
+  "authSettings.githubOpenDevicePage": {
+    "defaultMessage": "Mở trang thiết bị GitHub"
+  },
+  "authSettings.githubSignInFailed": {
+    "defaultMessage": "GitHub sign-in failed: {error}"
+  },
+  "authSettings.githubSignInUnavailable": {
+    "defaultMessage": "Đăng nhập GitHub chỉ có sẵn trong ứng dụng máy tính để bàn."
+  },
+  "authSettings.githubSignOutMessage": {
+    "defaultMessage": "Sauron sẽ không thể làm việc với các kho GitHub của bạn cho đến khi bạn đăng nhập lại."
+  },
+  "authSettings.githubSignOutTitle": {
+    "defaultMessage": "Sign out of GitHub"
+  },
+  "authSettings.githubSignedIn": {
+    "defaultMessage": "Đã đăng nhập GitHub. Tiện ích mở rộng GitHub đã sẵn sàng sử dụng."
+  },
+  "authSettings.githubSignedOut": {
+    "defaultMessage": "Đã đăng xuất khỏi GitHub"
+  },
+  "authSettings.githubStatusFailed": {
+    "defaultMessage": "Không thể kiểm tra trạng thái đăng nhập GitHub"
+  },
+  "authSettings.githubWaitingForAuthorization": {
+    "defaultMessage": "Đang chờ ủy quyền GitHub..."
+  },
   "authSettings.loading": {
     "defaultMessage": "Đang tải thông tin xác thực..."
   },
@@ -112,6 +271,12 @@
   },
   "authSettings.signIn": {
     "defaultMessage": "Đăng nhập"
+  },
+  "authSettings.signInWithGitHub": {
+    "defaultMessage": "Đăng nhập bằng GitHub"
+  },
+  "authSettings.signOutFromGitHub": {
+    "defaultMessage": "Sign out"
   },
   "authSettings.signedIn": {
     "defaultMessage": "Đã cấu hình thông tin xác thực"
@@ -926,11 +1091,11 @@
   "dirSwitcher.enterPath": {
     "defaultMessage": "Enter path"
   },
-  "dirSwitcher.enterPathPlaceholder": {
-    "defaultMessage": "Enter an absolute path (e.g. /home/sauron/workspace)"
-  },
   "dirSwitcher.enterPathInvalid": {
     "defaultMessage": "Working directory must be an absolute path"
+  },
+  "dirSwitcher.enterPathPlaceholder": {
+    "defaultMessage": "Enter an absolute path (e.g. /home/sauron/workspace)"
   },
   "dirSwitcher.failedToUpdateWorkingDir": {
     "defaultMessage": "Không thể cập nhật thư mục làm việc"
@@ -946,18 +1111,6 @@
   },
   "dirSwitcher.recentDirectories": {
     "defaultMessage": "Thư mục gần đây"
-  },
-  "gitBranchIndicator.failedToSwitch": {
-    "defaultMessage": "Không thể chuyển sang {branch}"
-  },
-  "gitBranchIndicator.noBranchesFound": {
-    "defaultMessage": "Không tìm thấy nhánh"
-  },
-  "gitBranchIndicator.searchBranches": {
-    "defaultMessage": "Tìm kiếm nhánh…"
-  },
-  "gitBranchIndicator.uncommittedChanges": {
-    "defaultMessage": "Bạn có thể có các thay đổi chưa commit."
   },
   "elicitationRequest.accept": {
     "defaultMessage": "Chấp nhận"
@@ -1262,65 +1415,20 @@
   "externalBackendSection.workingDirPlaceholder": {
     "defaultMessage": "/home/sauron/workspace"
   },
-  "sauronhintsModal.close": {
-    "defaultMessage": "Đóng"
+  "freeModelBadge.label": {
+    "defaultMessage": "Miễn phí"
   },
-  "sauronhintsModal.developer": {
-    "defaultMessage": "Nhà phát triển"
+  "gitBranchIndicator.failedToSwitch": {
+    "defaultMessage": "Không thể chuyển sang {branch}"
   },
-  "sauronhintsModal.dialogDescription": {
-    "defaultMessage": "Cung cấp thêm ngữ cảnh về dự án của bạn để cải thiện giao tiếp với Sauron"
+  "gitBranchIndicator.noBranchesFound": {
+    "defaultMessage": "Không tìm thấy nhánh"
   },
-  "sauronhintsModal.dialogTitle": {
-    "defaultMessage": "Cấu hình gợi ý dự án (.sauronhints)"
+  "gitBranchIndicator.searchBranches": {
+    "defaultMessage": "Tìm kiếm nhánh…"
   },
-  "sauronhintsModal.errorReading": {
-    "defaultMessage": "Lỗi khi đọc tệp .sauronhints: {error}"
-  },
-  "sauronhintsModal.failedToAccess": {
-    "defaultMessage": "Không thể truy cập tệp .sauronhints"
-  },
-  "sauronhintsModal.failedToSave": {
-    "defaultMessage": "Không thể lưu tệp .sauronhints"
-  },
-  "sauronhintsModal.fileCreating": {
-    "defaultMessage": "Đang tạo tệp .sauronhints mới tại: {filePath}"
-  },
-  "sauronhintsModal.fileFound": {
-    "defaultMessage": "Đã tìm thấy tệp .sauronhints tại: {filePath}"
-  },
-  "sauronhintsModal.helpText1": {
-    "defaultMessage": ".sauronhints là một tệp văn bản dùng để cung cấp thêm ngữ cảnh về dự án của bạn và cải thiện giao tiếp với Sauron."
-  },
-  "sauronhintsModal.helpText2": {
-    "defaultMessage": "Hãy đảm bảo tiện ích mở rộng {bold} được bật trong trang tiện ích mở rộng. Tiện ích mở rộng này là bắt buộc để sử dụng .sauronhints. Bạn cần khởi động lại phiên để các cập nhật .sauronhints có hiệu lực."
-  },
-  "sauronhintsModal.helpText3": {
-    "defaultMessage": "Xem {link} để biết thêm thông tin."
-  },
-  "sauronhintsModal.helpTextLink": {
-    "defaultMessage": "cách sử dụng .sauronhints"
-  },
-  "sauronhintsModal.placeholder": {
-    "defaultMessage": "Nhập gợi ý dự án ở đây..."
-  },
-  "sauronhintsModal.save": {
-    "defaultMessage": "Lưu"
-  },
-  "sauronhintsModal.savedSuccessfully": {
-    "defaultMessage": "Đã lưu thành công"
-  },
-  "sauronhintsModal.saving": {
-    "defaultMessage": "Đang lưu..."
-  },
-  "sauronhintsSection.configure": {
-    "defaultMessage": "Cấu hình"
-  },
-  "sauronhintsSection.description": {
-    "defaultMessage": "Cấu hình tệp .sauronhints của dự án để cung cấp thêm ngữ cảnh cho Sauron"
-  },
-  "sauronhintsSection.title": {
-    "defaultMessage": "Gợi ý dự án (.sauronhints)"
+  "gitBranchIndicator.uncommittedChanges": {
+    "defaultMessage": "Bạn có thể có các thay đổi chưa commit."
   },
   "groupedExtensionLoadingToast.askSauron": {
     "defaultMessage": "Hỏi sauron"
@@ -1985,6 +2093,12 @@
   "mcpAppRenderer.resizePipWindow": {
     "defaultMessage": "Thay đổi kích cỡ cửa sổ Hình-trong-hình"
   },
+  "mcpSettings.description": {
+    "defaultMessage": "Connect Model Context Protocol servers to give goose new tools, resources, and data sources. Extensions added here are available to every chat."
+  },
+  "mcpSettings.title": {
+    "defaultMessage": "MCP Servers"
+  },
   "mentionPopover.itemsFound": {
     "defaultMessage": "{count,plural,one{# mục được tìm thấy} other{# mục được tìm thấy}}"
   },
@@ -2183,6 +2297,18 @@
   "modelAndProviderContext.unknownProviderTitle": {
     "defaultMessage": "Tra cứu tên nhà cung cấp"
   },
+  "modelBadges.contextShort": {
+    "defaultMessage": "{amount, number}k"
+  },
+  "modelBadges.contextWindow": {
+    "defaultMessage": "Ngữ cảnh {amount, number}k"
+  },
+  "modelBadges.default": {
+    "defaultMessage": "Mặc định"
+  },
+  "modelBadges.reasoning": {
+    "defaultMessage": "Suy luận"
+  },
   "modelSettingsButtons.switchModels": {
     "defaultMessage": "Chuyển đổi mô hình"
   },
@@ -2356,6 +2482,9 @@
   },
   "modelsBottomBar.preferredModels": {
     "defaultMessage": "Yêu thích"
+  },
+  "modelsBottomBar.recentModels": {
+    "defaultMessage": "Gần đây"
   },
   "modelsBottomBar.resolvedModel": {
     "defaultMessage": "Mô hình đã phân giải"
@@ -2639,6 +2768,48 @@
   "permissionSetting.permissionRulesDescription": {
     "defaultMessage": "Các hướng dẫn ẩn sẽ được chuyển đến nhà cung cấp để giúp định hướng và bổ sung ngữ cảnh cho các phản hồi của bạn."
   },
+  "pluginsSettings.description": {
+    "defaultMessage": "Plugins installed under .agents/plugins contribute skills and MCP servers to goose. Manage the skills they provide from the Skills view."
+  },
+  "pluginsSettings.empty": {
+    "defaultMessage": "No plugins installed."
+  },
+  "pluginsSettings.emptyHint": {
+    "defaultMessage": "Install a plugin with `goose plugin install` and it will show up here."
+  },
+  "pluginsSettings.loadFailed": {
+    "defaultMessage": "Could not load plugins"
+  },
+  "pluginsSettings.loading": {
+    "defaultMessage": "Loading plugins..."
+  },
+  "pluginsSettings.manageSkills": {
+    "defaultMessage": "Manage skills"
+  },
+  "pluginsSettings.pluginCount": {
+    "defaultMessage": "{count,plural,=0{No plugins} one{# plugin} other{# plugins}}"
+  },
+  "pluginsSettings.refresh": {
+    "defaultMessage": "Refresh"
+  },
+  "pluginsSettings.skillCount": {
+    "defaultMessage": "{count,plural,one{# skill} other{# skills}}"
+  },
+  "pluginsSettings.title": {
+    "defaultMessage": "Plugins"
+  },
+  "preferredModels.empty": {
+    "defaultMessage": "Đánh dấu sao cho các mô hình bên dưới để dùng nhanh ở đây và trong chat."
+  },
+  "preferredModels.remove": {
+    "defaultMessage": "Bỏ {model} khỏi mô hình yêu thích"
+  },
+  "preferredModels.removeFailed": {
+    "defaultMessage": "Không thể cập nhật mô hình yêu thích"
+  },
+  "preferredModels.title": {
+    "defaultMessage": "Mô hình yêu thích"
+  },
   "privacyInfoModal.collectErrors": {
     "defaultMessage": "Loại lỗi (ví dụ: \"rate_limit\", \"auth\" - không có chi tiết)"
   },
@@ -2756,6 +2927,9 @@
   "promptsSettings.unsavedChanges": {
     "defaultMessage": "Bạn có các thay đổi chưa lưu"
   },
+  "providerCard.deprecatedReplacement": {
+    "defaultMessage": "Không còn được dùng — hãy sử dụng {replacement}."
+  },
   "providerCard.noMetadata": {
     "defaultMessage": "Lỗi ProviderCard: Không có metadata được cung cấp"
   },
@@ -2810,8 +2984,17 @@
   "providerConfigForm.continue": {
     "defaultMessage": "Tiếp tục"
   },
+  "providerConfigForm.deviceCodeAndEnter": {
+    "defaultMessage": "và nhập:"
+  },
+  "providerConfigForm.deviceCodeCopy": {
+    "defaultMessage": "Sao chép"
+  },
   "providerConfigForm.deviceCodeFlowHint": {
     "defaultMessage": "Một cửa sổ trình duyệt sẽ mở ra. Mã xác minh sẽ xuất hiện tại đây để bạn nhập và hoàn tất đăng nhập."
+  },
+  "providerConfigForm.deviceCodeVisit": {
+    "defaultMessage": "Truy cập"
   },
   "providerConfigForm.noApiKey": {
     "defaultMessage": "Bạn chưa có khóa API?"
@@ -2837,6 +3020,9 @@
   "providerConfigurationModal.checkConfigAgain": {
     "defaultMessage": "Kiểm tra lại cấu hình của bạn để sử dụng nhà cung cấp này."
   },
+  "providerConfigurationModal.chooseModel": {
+    "defaultMessage": "Chọn mô hình"
+  },
   "providerConfigurationModal.close": {
     "defaultMessage": "Đóng"
   },
@@ -2849,8 +3035,17 @@
   "providerConfigurationModal.deleteConfirmation": {
     "defaultMessage": "Thao tác này sẽ xóa vĩnh viễn cấu hình nhà cung cấp hiện tại."
   },
+  "providerConfigurationModal.deviceCodeAndEnter": {
+    "defaultMessage": "và nhập:"
+  },
+  "providerConfigurationModal.deviceCodeCopy": {
+    "defaultMessage": "Sao chép"
+  },
   "providerConfigurationModal.deviceCodeFlowHint": {
     "defaultMessage": "Một cửa sổ trình duyệt sẽ mở ra. Mã xác minh sẽ xuất hiện tại đây để bạn nhập và hoàn tất đăng nhập."
+  },
+  "providerConfigurationModal.deviceCodeVisit": {
+    "defaultMessage": "Truy cập"
   },
   "providerConfigurationModal.errorCheckingConfig": {
     "defaultMessage": "Đã xảy ra lỗi khi kiểm tra cấu hình nhà cung cấp này."
@@ -2971,6 +3166,66 @@
   },
   "providerSetupActions.submit": {
     "defaultMessage": "Gửi"
+  },
+  "providersSection.configure": {
+    "defaultMessage": "Configure"
+  },
+  "providersSection.configured": {
+    "defaultMessage": "Configured"
+  },
+  "providersSection.defaultSet": {
+    "defaultMessage": "{model} is now your default model."
+  },
+  "providersSection.defaultSetFailed": {
+    "defaultMessage": "Failed to set default model"
+  },
+  "providersSection.description": {
+    "defaultMessage": "Configure your AI model providers and load their available models directly from each provider API."
+  },
+  "providersSection.hideModels": {
+    "defaultMessage": "Hide models"
+  },
+  "providersSection.loadFailed": {
+    "defaultMessage": "Failed to load providers"
+  },
+  "providersSection.loadModels": {
+    "defaultMessage": "Load Models"
+  },
+  "providersSection.loading": {
+    "defaultMessage": "Loading providers..."
+  },
+  "providersSection.manageAll": {
+    "defaultMessage": "Manage all providers"
+  },
+  "providersSection.modelsError": {
+    "defaultMessage": "Could not load models from {provider}: {error}"
+  },
+  "providersSection.modelsLoaded": {
+    "defaultMessage": "{count} models loaded from {provider}"
+  },
+  "providersSection.needsConfig": {
+    "defaultMessage": "Configure this provider first to load its models."
+  },
+  "providersSection.notConfigured": {
+    "defaultMessage": "Not configured"
+  },
+  "providersSection.reloadingModels": {
+    "defaultMessage": "Reloading models..."
+  },
+  "providersSection.resetDescription": {
+    "defaultMessage": "Clear your selected model and provider settings to start fresh"
+  },
+  "providersSection.resetTitle": {
+    "defaultMessage": "Reset Provider and Model"
+  },
+  "providersSection.setDefault": {
+    "defaultMessage": "Click a model to use it as your default."
+  },
+  "providersSection.showModels": {
+    "defaultMessage": "Show models"
+  },
+  "providersSection.title": {
+    "defaultMessage": "Model Providers"
   },
   "recipeActivityEditor.activitiesDescription": {
     "defaultMessage": "Các lời nhắc nổi bật và nút hoạt động sẽ hiển thị trong cửa sổ trò chuyện công thức."
@@ -3340,6 +3595,66 @@
   },
   "responseStyle.detailedLabel": {
     "defaultMessage": "Chi tiết"
+  },
+  "sauronhintsModal.close": {
+    "defaultMessage": "Đóng"
+  },
+  "sauronhintsModal.developer": {
+    "defaultMessage": "Nhà phát triển"
+  },
+  "sauronhintsModal.dialogDescription": {
+    "defaultMessage": "Cung cấp thêm ngữ cảnh về dự án của bạn để cải thiện giao tiếp với Sauron"
+  },
+  "sauronhintsModal.dialogTitle": {
+    "defaultMessage": "Cấu hình gợi ý dự án (.sauronhints)"
+  },
+  "sauronhintsModal.errorReading": {
+    "defaultMessage": "Lỗi khi đọc tệp .sauronhints: {error}"
+  },
+  "sauronhintsModal.failedToAccess": {
+    "defaultMessage": "Không thể truy cập tệp .sauronhints"
+  },
+  "sauronhintsModal.failedToSave": {
+    "defaultMessage": "Không thể lưu tệp .sauronhints"
+  },
+  "sauronhintsModal.fileCreating": {
+    "defaultMessage": "Đang tạo tệp .sauronhints mới tại: {filePath}"
+  },
+  "sauronhintsModal.fileFound": {
+    "defaultMessage": "Đã tìm thấy tệp .sauronhints tại: {filePath}"
+  },
+  "sauronhintsModal.helpText1": {
+    "defaultMessage": ".sauronhints là một tệp văn bản dùng để cung cấp thêm ngữ cảnh về dự án của bạn và cải thiện giao tiếp với Sauron."
+  },
+  "sauronhintsModal.helpText2": {
+    "defaultMessage": "Hãy đảm bảo tiện ích mở rộng {bold} được bật trong trang tiện ích mở rộng. Tiện ích mở rộng này là bắt buộc để sử dụng .sauronhints. Bạn cần khởi động lại phiên để các cập nhật .sauronhints có hiệu lực."
+  },
+  "sauronhintsModal.helpText3": {
+    "defaultMessage": "Xem {link} để biết thêm thông tin."
+  },
+  "sauronhintsModal.helpTextLink": {
+    "defaultMessage": "cách sử dụng .sauronhints"
+  },
+  "sauronhintsModal.placeholder": {
+    "defaultMessage": "Nhập gợi ý dự án ở đây..."
+  },
+  "sauronhintsModal.save": {
+    "defaultMessage": "Lưu"
+  },
+  "sauronhintsModal.savedSuccessfully": {
+    "defaultMessage": "Đã lưu thành công"
+  },
+  "sauronhintsModal.saving": {
+    "defaultMessage": "Đang lưu..."
+  },
+  "sauronhintsSection.configure": {
+    "defaultMessage": "Cấu hình"
+  },
+  "sauronhintsSection.description": {
+    "defaultMessage": "Cấu hình tệp .sauronhints của dự án để cung cấp thêm ngữ cảnh cho Sauron"
+  },
+  "sauronhintsSection.title": {
+    "defaultMessage": "Gợi ý dự án (.sauronhints)"
   },
   "scheduleDetailView.actions": {
     "defaultMessage": "Hành động"
@@ -3965,6 +4280,75 @@
   "sessions.toast.updated": {
     "defaultMessage": "Đã cập nhật mô tả phiên làm việc thành công"
   },
+  "settings.agentLoop.description": {
+    "defaultMessage": "Sử dụng vòng lặp tác nhân dựa trên thao tác. Tắt tùy chọn này để dùng vòng lặp cũ."
+  },
+  "settings.agentLoop.operations.auto.placeholder": {
+    "defaultMessage": "Tự động"
+  },
+  "settings.agentLoop.operations.blockLimit.label": {
+    "defaultMessage": "Giới hạn chặn"
+  },
+  "settings.agentLoop.operations.contextCompaction.description": {
+    "defaultMessage": "Tóm tắt lịch sử cuộc trò chuyện trước khi cửa sổ ngữ cảnh đầy."
+  },
+  "settings.agentLoop.operations.contextCompaction.title": {
+    "defaultMessage": "Nén ngữ cảnh"
+  },
+  "settings.agentLoop.operations.cutoff.label": {
+    "defaultMessage": "Ngưỡng cắt"
+  },
+  "settings.agentLoop.operations.enable": {
+    "defaultMessage": "Bật {operation}"
+  },
+  "settings.agentLoop.operations.failureTimeout.label": {
+    "defaultMessage": "Thời gian chờ khi lỗi"
+  },
+  "settings.agentLoop.operations.heading": {
+    "defaultMessage": "Thao tác có thể cấu hình"
+  },
+  "settings.agentLoop.operations.maxTurns.description": {
+    "defaultMessage": "Dừng công việc tự động và hỏi người dùng trước khi tiếp tục."
+  },
+  "settings.agentLoop.operations.maxTurns.title": {
+    "defaultMessage": "Số lượt tối đa"
+  },
+  "settings.agentLoop.operations.recipeRetry.description": {
+    "defaultMessage": "Chạy lại kiểm tra công thức khi kiểm tra thành công đã cấu hình thất bại."
+  },
+  "settings.agentLoop.operations.recipeRetry.title": {
+    "defaultMessage": "Thử lại công thức"
+  },
+  "settings.agentLoop.operations.retryTimeout.label": {
+    "defaultMessage": "Thời gian chờ thử lại"
+  },
+  "settings.agentLoop.operations.slashCommands.description": {
+    "defaultMessage": "Nhận diện các lệnh như /compact, /skills và phím tắt công thức."
+  },
+  "settings.agentLoop.operations.slashCommands.title": {
+    "defaultMessage": "Lệnh gạch chéo"
+  },
+  "settings.agentLoop.operations.stopHooks.description": {
+    "defaultMessage": "Cho phép hook chặn hoàn tất đồng thời ngăn chu kỳ dừng vô hạn."
+  },
+  "settings.agentLoop.operations.stopHooks.title": {
+    "defaultMessage": "Hook dừng"
+  },
+  "settings.agentLoop.operations.threshold.label": {
+    "defaultMessage": "Ngưỡng %"
+  },
+  "settings.agentLoop.operations.toolPairCompaction.description": {
+    "defaultMessage": "Tóm tắt các yêu cầu và phản hồi công cụ cũ để tiết kiệm ngữ cảnh. Ngưỡng cắt được đặt tự động khi để trống."
+  },
+  "settings.agentLoop.operations.toolPairCompaction.title": {
+    "defaultMessage": "Nén cặp công cụ"
+  },
+  "settings.agentLoop.operations.turns.label": {
+    "defaultMessage": "Lượt"
+  },
+  "settings.agentLoop.title": {
+    "defaultMessage": "Vòng lặp tác nhân"
+  },
   "settings.appearance.description": {
     "defaultMessage": "Định cấu hình cách sauron hiển thị trên hệ thống của bạn"
   },
@@ -4163,6 +4547,9 @@
   "settingsView.tabApp": {
     "defaultMessage": "Ứng dụng"
   },
+  "settingsView.tabAppearance": {
+    "defaultMessage": "Appearance"
+  },
   "settingsView.tabChat": {
     "defaultMessage": "Trò chuyện"
   },
@@ -4172,11 +4559,20 @@
   "settingsView.tabKeyboard": {
     "defaultMessage": "Bàn phím"
   },
+  "settingsView.tabMcp": {
+    "defaultMessage": "MCP"
+  },
   "settingsView.tabModels": {
     "defaultMessage": "Mô hình"
   },
+  "settingsView.tabPlugins": {
+    "defaultMessage": "Plugins"
+  },
   "settingsView.tabPrompts": {
     "defaultMessage": "Lời nhắc"
+  },
+  "settingsView.tabProviders": {
+    "defaultMessage": "Providers"
   },
   "settingsView.title": {
     "defaultMessage": "Cài đặt"
@@ -4511,6 +4907,9 @@
   "themeSelector.light": {
     "defaultMessage": "Sáng"
   },
+  "themeSelector.popular": {
+    "defaultMessage": "Popular themes"
+  },
   "themeSelector.system": {
     "defaultMessage": "Hệ thống"
   },
@@ -4684,383 +5083,5 @@
   },
   "userMessage.removeImageFromEdit": {
     "defaultMessage": "Xóa hình ảnh khỏi tin nhắn"
-  },
-  "modelsBottomBar.recentModels": {
-    "defaultMessage": "Gần đây"
-  },
-  "providerConfigurationModal.chooseModel": {
-    "defaultMessage": "Chọn mô hình"
-  },
-  "providerCard.deprecatedReplacement": {
-    "defaultMessage": "Không còn được dùng — hãy sử dụng {replacement}."
-  },
-  "acpReadinessPanel.adapterFound": {
-    "defaultMessage": "Đã tìm thấy bộ điều hợp ACP"
-  },
-  "acpReadinessPanel.adapterNotFound": {
-    "defaultMessage": "Không tìm thấy bộ điều hợp ACP"
-  },
-  "acpReadinessPanel.authenticationHelp": {
-    "defaultMessage": "Đăng nhập qua CLI của nhà cung cấp, sau đó kiểm tra lại."
-  },
-  "acpReadinessPanel.checkAgain": {
-    "defaultMessage": "Kiểm tra lại"
-  },
-  "acpReadinessPanel.checking": {
-    "defaultMessage": "Đang kiểm tra..."
-  },
-  "acpReadinessPanel.connected": {
-    "defaultMessage": "Kết nối thành công"
-  },
-  "acpReadinessPanel.connectionNotChecked": {
-    "defaultMessage": "Hãy kiểm tra kết nối tài khoản trước khi tiếp tục."
-  },
-  "providerConfigForm.deviceCodeAndEnter": {
-    "defaultMessage": "và nhập:"
-  },
-  "providerConfigForm.deviceCodeCopy": {
-    "defaultMessage": "Sao chép"
-  },
-  "providerConfigForm.deviceCodeVisit": {
-    "defaultMessage": "Truy cập"
-  },
-  "providerConfigurationModal.deviceCodeAndEnter": {
-    "defaultMessage": "và nhập:"
-  },
-  "providerConfigurationModal.deviceCodeCopy": {
-    "defaultMessage": "Sao chép"
-  },
-  "providerConfigurationModal.deviceCodeVisit": {
-    "defaultMessage": "Truy cập"
-  },
-  "settings.agentLoop.description": {
-    "defaultMessage": "Sử dụng vòng lặp tác nhân dựa trên thao tác. Tắt tùy chọn này để dùng vòng lặp cũ."
-  },
-  "settings.agentLoop.operations.auto.placeholder": {
-    "defaultMessage": "Tự động"
-  },
-  "settings.agentLoop.operations.blockLimit.label": {
-    "defaultMessage": "Giới hạn chặn"
-  },
-  "settings.agentLoop.operations.contextCompaction.description": {
-    "defaultMessage": "Tóm tắt lịch sử cuộc trò chuyện trước khi cửa sổ ngữ cảnh đầy."
-  },
-  "settings.agentLoop.operations.contextCompaction.title": {
-    "defaultMessage": "Nén ngữ cảnh"
-  },
-  "settings.agentLoop.operations.cutoff.label": {
-    "defaultMessage": "Ngưỡng cắt"
-  },
-  "settings.agentLoop.operations.enable": {
-    "defaultMessage": "Bật {operation}"
-  },
-  "settings.agentLoop.operations.failureTimeout.label": {
-    "defaultMessage": "Thời gian chờ khi lỗi"
-  },
-  "settings.agentLoop.operations.heading": {
-    "defaultMessage": "Thao tác có thể cấu hình"
-  },
-  "settings.agentLoop.operations.maxTurns.description": {
-    "defaultMessage": "Dừng công việc tự động và hỏi người dùng trước khi tiếp tục."
-  },
-  "settings.agentLoop.operations.maxTurns.title": {
-    "defaultMessage": "Số lượt tối đa"
-  },
-  "settings.agentLoop.operations.recipeRetry.description": {
-    "defaultMessage": "Chạy lại kiểm tra công thức khi kiểm tra thành công đã cấu hình thất bại."
-  },
-  "settings.agentLoop.operations.recipeRetry.title": {
-    "defaultMessage": "Thử lại công thức"
-  },
-  "settings.agentLoop.operations.retryTimeout.label": {
-    "defaultMessage": "Thời gian chờ thử lại"
-  },
-  "settings.agentLoop.operations.slashCommands.description": {
-    "defaultMessage": "Nhận diện các lệnh như /compact, /skills và phím tắt công thức."
-  },
-  "settings.agentLoop.operations.slashCommands.title": {
-    "defaultMessage": "Lệnh gạch chéo"
-  },
-  "settings.agentLoop.operations.stopHooks.description": {
-    "defaultMessage": "Cho phép hook chặn hoàn tất đồng thời ngăn chu kỳ dừng vô hạn."
-  },
-  "settings.agentLoop.operations.stopHooks.title": {
-    "defaultMessage": "Hook dừng"
-  },
-  "settings.agentLoop.operations.threshold.label": {
-    "defaultMessage": "Ngưỡng %"
-  },
-  "settings.agentLoop.operations.toolPairCompaction.description": {
-    "defaultMessage": "Tóm tắt các yêu cầu và phản hồi công cụ cũ để tiết kiệm ngữ cảnh. Ngưỡng cắt được đặt tự động khi để trống."
-  },
-  "settings.agentLoop.operations.toolPairCompaction.title": {
-    "defaultMessage": "Nén cặp công cụ"
-  },
-  "settings.agentLoop.operations.turns.label": {
-    "defaultMessage": "Lượt"
-  },
-  "settings.agentLoop.title": {
-    "defaultMessage": "Vòng lặp tác nhân"
-  },
-  "providersSection.configure": {
-    "defaultMessage": "Configure"
-  },
-  "providersSection.configured": {
-    "defaultMessage": "Configured"
-  },
-  "providersSection.defaultSet": {
-    "defaultMessage": "{model} is now your default model."
-  },
-  "providersSection.defaultSetFailed": {
-    "defaultMessage": "Failed to set default model"
-  },
-  "providersSection.description": {
-    "defaultMessage": "Configure your AI model providers and load their available models directly from each provider API."
-  },
-  "providersSection.hideModels": {
-    "defaultMessage": "Hide models"
-  },
-  "providersSection.loadFailed": {
-    "defaultMessage": "Failed to load providers"
-  },
-  "providersSection.loadModels": {
-    "defaultMessage": "Load Models"
-  },
-  "providersSection.loading": {
-    "defaultMessage": "Loading providers..."
-  },
-  "providersSection.manageAll": {
-    "defaultMessage": "Manage all providers"
-  },
-  "providersSection.modelsError": {
-    "defaultMessage": "Could not load models from {provider}: {error}"
-  },
-  "providersSection.modelsLoaded": {
-    "defaultMessage": "{count} models loaded from {provider}"
-  },
-  "providersSection.needsConfig": {
-    "defaultMessage": "Configure this provider first to load its models."
-  },
-  "providersSection.notConfigured": {
-    "defaultMessage": "Not configured"
-  },
-  "providersSection.reloadingModels": {
-    "defaultMessage": "Reloading models..."
-  },
-  "providersSection.setDefault": {
-    "defaultMessage": "Click a model to use it as your default."
-  },
-  "providersSection.showModels": {
-    "defaultMessage": "Show models"
-  },
-  "providersSection.title": {
-    "defaultMessage": "Model Providers"
-  },
-  "settingsView.tabProviders": {
-    "defaultMessage": "Providers"
-  },
-  "authSettings.cancelSignIn": {
-    "defaultMessage": "Hủy"
-  },
-  "authSettings.checkingStatus": {
-    "defaultMessage": "Đang kiểm tra..."
-  },
-  "authSettings.connectedAccounts": {
-    "defaultMessage": "Tài khoản đã kết nối"
-  },
-  "authSettings.connectedAccountsDescription": {
-    "defaultMessage": "Đăng nhập để cho phép Sauron làm việc với các tài khoản bên ngoài của bạn."
-  },
-  "authSettings.githubAccountDescription": {
-    "defaultMessage": "Tìm kiếm kho mã, làm việc với mã, quản lý issues và mở pull request."
-  },
-  "authSettings.githubAccountName": {
-    "defaultMessage": "GitHub"
-  },
-  "authSettings.githubConnected": {
-    "defaultMessage": "Đã kết nối"
-  },
-  "authSettings.githubEnterCode": {
-    "defaultMessage": "Nhập mã này tại {url} để ủy quyền cho Sauron:"
-  },
-  "authSettings.githubNotConnected": {
-    "defaultMessage": "Chưa kết nối"
-  },
-  "authSettings.githubOpenDevicePage": {
-    "defaultMessage": "Mở trang thiết bị GitHub"
-  },
-  "allProviderModels.preferredUpdateFailed": {
-    "defaultMessage": "Không thể cập nhật mô hình yêu thích"
-  },
-  "allProviderModels.refreshAll": {
-    "defaultMessage": "Refresh models"
-  },
-  "authSettings.githubSignInUnavailable": {
-    "defaultMessage": "Đăng nhập GitHub chỉ có sẵn trong ứng dụng máy tính để bàn."
-  },
-  "authSettings.githubSignOutMessage": {
-    "defaultMessage": "Sauron sẽ không thể làm việc với các kho GitHub của bạn cho đến khi bạn đăng nhập lại."
-  },
-  "allProviderModels.removePreferred": {
-    "defaultMessage": "Bỏ {model} khỏi mô hình yêu thích"
-  },
-  "allProviderModels.title": {
-    "defaultMessage": "Models from your providers"
-  },
-  "authSettings.githubSignedIn": {
-    "defaultMessage": "Đã đăng nhập GitHub. Tiện ích mở rộng GitHub đã sẵn sàng sử dụng."
-  },
-  "authSettings.githubSignedOut": {
-    "defaultMessage": "Đã đăng xuất khỏi GitHub"
-  },
-  "authSettings.githubStatusFailed": {
-    "defaultMessage": "Không thể kiểm tra trạng thái đăng nhập GitHub"
-  },
-  "authSettings.githubWaitingForAuthorization": {
-    "defaultMessage": "Đang chờ ủy quyền GitHub..."
-  },
-  "authSettings.signInWithGitHub": {
-    "defaultMessage": "Đăng nhập bằng GitHub"
-  },
-  "pluginsSettings.loadFailed": {
-    "defaultMessage": "Could not load plugins"
-  },
-  "pluginsSettings.loading": {
-    "defaultMessage": "Loading plugins..."
-  },
-  "pluginsSettings.manageSkills": {
-    "defaultMessage": "Manage skills"
-  },
-  "pluginsSettings.pluginCount": {
-    "defaultMessage": "{count,plural,=0{No plugins} one{# plugin} other{# plugins}}"
-  },
-  "pluginsSettings.refresh": {
-    "defaultMessage": "Refresh"
-  },
-  "pluginsSettings.skillCount": {
-    "defaultMessage": "{count,plural,one{# skill} other{# skills}}"
-  },
-  "pluginsSettings.title": {
-    "defaultMessage": "Plugins"
-  },
-  "preferredModels.empty": {
-    "defaultMessage": "Đánh dấu sao cho các mô hình bên dưới để dùng nhanh ở đây và trong chat."
-  },
-  "preferredModels.remove": {
-    "defaultMessage": "Bỏ {model} khỏi mô hình yêu thích"
-  },
-  "preferredModels.removeFailed": {
-    "defaultMessage": "Không thể cập nhật mô hình yêu thích"
-  },
-  "preferredModels.title": {
-    "defaultMessage": "Mô hình yêu thích"
-  },
-  "providersSection.resetDescription": {
-    "defaultMessage": "Clear your selected model and provider settings to start fresh"
-  },
-  "providersSection.resetTitle": {
-    "defaultMessage": "Reset Provider and Model"
-  },
-  "settingsView.tabAppearance": {
-    "defaultMessage": "Appearance"
-  },
-  "settingsView.tabMcp": {
-    "defaultMessage": "MCP"
-  },
-  "settingsView.tabPlugins": {
-    "defaultMessage": "Plugins"
-  },
-  "themeSelector.popular": {
-    "defaultMessage": "Popular themes"
-  },
-  "allProviderModels.clearSearch": {
-    "defaultMessage": "Xóa tìm kiếm"
-  },
-  "allProviderModels.clearSearchInput": {
-    "defaultMessage": "Xóa ô tìm kiếm"
-  },
-  "allProviderModels.noSearchResults": {
-    "defaultMessage": "Không có mô hình nào khớp với \"{query}\"."
-  },
-  "allProviderModels.searchLabel": {
-    "defaultMessage": "Tìm kiếm mô hình"
-  },
-  "allProviderModels.searchPlaceholder": {
-    "defaultMessage": "Tìm kiếm mô hình..."
-  },
-  "allProviderModels.showingCount": {
-    "defaultMessage": "Đang hiển thị {shown, number} trong {total, number} mô hình"
-  },
-  "modelBadges.contextShort": {
-    "defaultMessage": "{amount, number}k"
-  },
-  "modelBadges.contextWindow": {
-    "defaultMessage": "Ngữ cảnh {amount, number}k"
-  },
-  "modelBadges.default": {
-    "defaultMessage": "Mặc định"
-  },
-  "modelBadges.reasoning": {
-    "defaultMessage": "Suy luận"
-  },
-  "allProviderModels.configureProviders": {
-    "defaultMessage": "Configure providers"
-  },
-  "allProviderModels.defaultSet": {
-    "defaultMessage": "{model} is now your default model."
-  },
-  "allProviderModels.defaultSetFailed": {
-    "defaultMessage": "Failed to set default model"
-  },
-  "allProviderModels.description": {
-    "defaultMessage": "Every model exposed by your activated providers. Select one to make it the default model."
-  },
-  "allProviderModels.empty": {
-    "defaultMessage": "No activated providers yet."
-  },
-  "allProviderModels.emptyHint": {
-    "defaultMessage": "Configure a provider to see the models it offers."
-  },
-  "allProviderModels.loadFailed": {
-    "defaultMessage": "Could not load provider models"
-  },
-  "allProviderModels.loading": {
-    "defaultMessage": "Loading models from your providers..."
-  },
-  "allProviderModels.modelCount": {
-    "defaultMessage": "{count,plural,one{# model} other{# models}}"
-  },
-  "allProviderModels.noModels": {
-    "defaultMessage": "No models reported by this provider."
-  },
-  "allProviderModels.refreshFailed": {
-    "defaultMessage": "Could not refresh {provider}: {error}"
-  },
-  "allProviderModels.refreshing": {
-    "defaultMessage": "Refreshing..."
-  },
-  "authSettings.githubSignInFailed": {
-    "defaultMessage": "GitHub sign-in failed: {error}"
-  },
-  "authSettings.githubSignOutTitle": {
-    "defaultMessage": "Sign out of GitHub"
-  },
-  "authSettings.signOutFromGitHub": {
-    "defaultMessage": "Sign out"
-  },
-  "mcpSettings.description": {
-    "defaultMessage": "Connect Model Context Protocol servers to give goose new tools, resources, and data sources. Extensions added here are available to every chat."
-  },
-  "mcpSettings.title": {
-    "defaultMessage": "MCP Servers"
-  },
-  "pluginsSettings.description": {
-    "defaultMessage": "Plugins installed under .agents/plugins contribute skills and MCP servers to goose. Manage the skills they provide from the Skills view."
-  },
-  "pluginsSettings.empty": {
-    "defaultMessage": "No plugins installed."
-  },
-  "pluginsSettings.emptyHint": {
-    "defaultMessage": "Install a plugin with `goose plugin install` and it will show up here."
   }
 }

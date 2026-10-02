@@ -1,4 +1,25 @@
 {
+  "acpReadinessPanel.adapterFound": {
+    "defaultMessage": "ACPアダプターが見つかりました"
+  },
+  "acpReadinessPanel.adapterNotFound": {
+    "defaultMessage": "ACPアダプターが見つかりません"
+  },
+  "acpReadinessPanel.authenticationHelp": {
+    "defaultMessage": "プロバイダーのCLIからサインインし、もう一度確認してください。"
+  },
+  "acpReadinessPanel.checkAgain": {
+    "defaultMessage": "もう一度確認"
+  },
+  "acpReadinessPanel.checking": {
+    "defaultMessage": "確認中..."
+  },
+  "acpReadinessPanel.connected": {
+    "defaultMessage": "接続しました"
+  },
+  "acpReadinessPanel.connectionNotChecked": {
+    "defaultMessage": "続行する前にアカウントの接続を確認してください。"
+  },
   "alertBox.autoCompactAt": {
     "defaultMessage": "自動圧縮の実行タイミング"
   },
@@ -10,6 +31,90 @@
   },
   "allProviderModels.addPreferred": {
     "defaultMessage": "{model} を優先モデルに追加"
+  },
+  "allProviderModels.clearSearch": {
+    "defaultMessage": "検索をクリア"
+  },
+  "allProviderModels.clearSearchInput": {
+    "defaultMessage": "検索入力をクリア"
+  },
+  "allProviderModels.configureProviders": {
+    "defaultMessage": "Configure providers"
+  },
+  "allProviderModels.defaultSet": {
+    "defaultMessage": "{model} is now your default model."
+  },
+  "allProviderModels.defaultSetFailed": {
+    "defaultMessage": "Failed to set default model"
+  },
+  "allProviderModels.description": {
+    "defaultMessage": "Every model exposed by your activated providers. Select one to make it the default model."
+  },
+  "allProviderModels.empty": {
+    "defaultMessage": "No activated providers yet."
+  },
+  "allProviderModels.emptyHint": {
+    "defaultMessage": "Configure a provider to see the models it offers."
+  },
+  "allProviderModels.filterAll": {
+    "defaultMessage": "すべて"
+  },
+  "allProviderModels.filterFree": {
+    "defaultMessage": "無料"
+  },
+  "allProviderModels.freeCount": {
+    "defaultMessage": "{count} 件無料"
+  },
+  "allProviderModels.loadFailed": {
+    "defaultMessage": "Could not load provider models"
+  },
+  "allProviderModels.loading": {
+    "defaultMessage": "Loading models from your providers..."
+  },
+  "allProviderModels.modelCount": {
+    "defaultMessage": "{count,plural,one{# model} other{# models}}"
+  },
+  "allProviderModels.noFreeModels": {
+    "defaultMessage": "プロバイダーに無料モデルがありません。"
+  },
+  "allProviderModels.noFreeModelsHint": {
+    "defaultMessage": "モデルは、プロバイダーがローカルで実行する場合（Ollama、ローカルモデル）や、OpenRouter の :free のような無料バリアントを提供する場合に無料として表示されます。"
+  },
+  "allProviderModels.noModels": {
+    "defaultMessage": "No models reported by this provider."
+  },
+  "allProviderModels.noSearchResults": {
+    "defaultMessage": "\"{query}\" に一致するモデルはありません。"
+  },
+  "allProviderModels.preferredUpdateFailed": {
+    "defaultMessage": "優先モデルを更新できませんでした"
+  },
+  "allProviderModels.refreshAll": {
+    "defaultMessage": "Refresh models"
+  },
+  "allProviderModels.refreshFailed": {
+    "defaultMessage": "Could not refresh {provider}: {error}"
+  },
+  "allProviderModels.refreshing": {
+    "defaultMessage": "Refreshing..."
+  },
+  "allProviderModels.removePreferred": {
+    "defaultMessage": "{model} を優先モデルから削除"
+  },
+  "allProviderModels.searchLabel": {
+    "defaultMessage": "モデルを検索"
+  },
+  "allProviderModels.searchPlaceholder": {
+    "defaultMessage": "モデルを検索..."
+  },
+  "allProviderModels.showAll": {
+    "defaultMessage": "すべてのモデルを表示"
+  },
+  "allProviderModels.showingCount": {
+    "defaultMessage": "{total, number} 件中 {shown, number} 件のモデルを表示"
+  },
+  "allProviderModels.title": {
+    "defaultMessage": "Models from your providers"
   },
   "announcementModal.gotIt": {
     "defaultMessage": "了解しました"
@@ -71,6 +176,18 @@
   "authSettings.cancel": {
     "defaultMessage": "キャンセル"
   },
+  "authSettings.cancelSignIn": {
+    "defaultMessage": "キャンセル"
+  },
+  "authSettings.checkingStatus": {
+    "defaultMessage": "確認中..."
+  },
+  "authSettings.connectedAccounts": {
+    "defaultMessage": "接続済みアカウント"
+  },
+  "authSettings.connectedAccountsDescription": {
+    "defaultMessage": "サインインして、Sauron が外部アカウントで作業できるようにします。"
+  },
   "authSettings.delete": {
     "defaultMessage": "削除"
   },
@@ -104,6 +221,48 @@
   "authSettings.failedToLoad": {
     "defaultMessage": "プロバイダー認証情報の読み込みに失敗しました"
   },
+  "authSettings.githubAccountDescription": {
+    "defaultMessage": "リポジトリを検索し、コードを操作し、Issue を管理し、Pull Request を開きます。"
+  },
+  "authSettings.githubAccountName": {
+    "defaultMessage": "GitHub"
+  },
+  "authSettings.githubConnected": {
+    "defaultMessage": "接続済み"
+  },
+  "authSettings.githubEnterCode": {
+    "defaultMessage": "Sauron を承認するには {url} でこのコードを入力してください:"
+  },
+  "authSettings.githubNotConnected": {
+    "defaultMessage": "未接続"
+  },
+  "authSettings.githubOpenDevicePage": {
+    "defaultMessage": "GitHub デバイスページを開く"
+  },
+  "authSettings.githubSignInFailed": {
+    "defaultMessage": "GitHub sign-in failed: {error}"
+  },
+  "authSettings.githubSignInUnavailable": {
+    "defaultMessage": "GitHub サインインはデスクトップアプリでのみ利用できます。"
+  },
+  "authSettings.githubSignOutMessage": {
+    "defaultMessage": "再サインインするまで、Sauron は GitHub リポジトリを操作できません。"
+  },
+  "authSettings.githubSignOutTitle": {
+    "defaultMessage": "Sign out of GitHub"
+  },
+  "authSettings.githubSignedIn": {
+    "defaultMessage": "GitHub にサインインしました。GitHub 拡張機能を使用準備ができました。"
+  },
+  "authSettings.githubSignedOut": {
+    "defaultMessage": "GitHub からサインアウトしました"
+  },
+  "authSettings.githubStatusFailed": {
+    "defaultMessage": "GitHub のサインイン状態を確認できませんでした"
+  },
+  "authSettings.githubWaitingForAuthorization": {
+    "defaultMessage": "GitHub の承認を待っています..."
+  },
   "authSettings.loading": {
     "defaultMessage": "認証情報を読み込み中..."
   },
@@ -112,6 +271,12 @@
   },
   "authSettings.signIn": {
     "defaultMessage": "サインイン"
+  },
+  "authSettings.signInWithGitHub": {
+    "defaultMessage": "GitHub でサインイン"
+  },
+  "authSettings.signOutFromGitHub": {
+    "defaultMessage": "Sign out"
   },
   "authSettings.signedIn": {
     "defaultMessage": "認証情報を設定しました"
@@ -926,11 +1091,11 @@
   "dirSwitcher.enterPath": {
     "defaultMessage": "Enter path"
   },
-  "dirSwitcher.enterPathPlaceholder": {
-    "defaultMessage": "Enter an absolute path (e.g. /home/sauron/workspace)"
-  },
   "dirSwitcher.enterPathInvalid": {
     "defaultMessage": "Working directory must be an absolute path"
+  },
+  "dirSwitcher.enterPathPlaceholder": {
+    "defaultMessage": "Enter an absolute path (e.g. /home/sauron/workspace)"
   },
   "dirSwitcher.failedToUpdateWorkingDir": {
     "defaultMessage": "作業ディレクトリの更新に失敗しました"
@@ -946,18 +1111,6 @@
   },
   "dirSwitcher.recentDirectories": {
     "defaultMessage": "最近のディレクトリ"
-  },
-  "gitBranchIndicator.failedToSwitch": {
-    "defaultMessage": "{branch} への切り替えに失敗しました"
-  },
-  "gitBranchIndicator.noBranchesFound": {
-    "defaultMessage": "ブランチが見つかりません"
-  },
-  "gitBranchIndicator.searchBranches": {
-    "defaultMessage": "ブランチを検索…"
-  },
-  "gitBranchIndicator.uncommittedChanges": {
-    "defaultMessage": "コミットされていない変更がある可能性があります。"
   },
   "elicitationRequest.accept": {
     "defaultMessage": "承諾"
@@ -1262,65 +1415,20 @@
   "externalBackendSection.workingDirPlaceholder": {
     "defaultMessage": "/home/sauron/workspace"
   },
-  "sauronhintsModal.close": {
-    "defaultMessage": "閉じる"
+  "freeModelBadge.label": {
+    "defaultMessage": "無料"
   },
-  "sauronhintsModal.developer": {
-    "defaultMessage": "開発者"
+  "gitBranchIndicator.failedToSwitch": {
+    "defaultMessage": "{branch} への切り替えに失敗しました"
   },
-  "sauronhintsModal.dialogDescription": {
-    "defaultMessage": "Sauron とのコミュニケーションを改善するために、プロジェクトに関する追加コンテキストを提供します"
+  "gitBranchIndicator.noBranchesFound": {
+    "defaultMessage": "ブランチが見つかりません"
   },
-  "sauronhintsModal.dialogTitle": {
-    "defaultMessage": "プロジェクトヒントを設定（.sauronhints）"
+  "gitBranchIndicator.searchBranches": {
+    "defaultMessage": "ブランチを検索…"
   },
-  "sauronhintsModal.errorReading": {
-    "defaultMessage": ".sauronhints ファイルの読み取りエラー: {error}"
-  },
-  "sauronhintsModal.failedToAccess": {
-    "defaultMessage": ".sauronhints ファイルにアクセスできませんでした"
-  },
-  "sauronhintsModal.failedToSave": {
-    "defaultMessage": ".sauronhints ファイルの保存に失敗しました"
-  },
-  "sauronhintsModal.fileCreating": {
-    "defaultMessage": "新しい .sauronhints ファイルを作成しています: {filePath}"
-  },
-  "sauronhintsModal.fileFound": {
-    "defaultMessage": ".sauronhints ファイルが見つかりました: {filePath}"
-  },
-  "sauronhintsModal.helpText1": {
-    "defaultMessage": ".sauronhints は、プロジェクトに関する追加コンテキストを提供し、Sauron とのコミュニケーションを改善するためのテキストファイルです。"
-  },
-  "sauronhintsModal.helpText2": {
-    "defaultMessage": "拡張機能ページで {bold} 拡張機能が有効になっていることを確認してください。この拡張機能は .sauronhints を使用するために必要です。.sauronhints の更新を反映するにはセッションの再起動が必要です。"
-  },
-  "sauronhintsModal.helpText3": {
-    "defaultMessage": "詳しくは {link} をご覧ください。"
-  },
-  "sauronhintsModal.helpTextLink": {
-    "defaultMessage": ".sauronhints の使い方"
-  },
-  "sauronhintsModal.placeholder": {
-    "defaultMessage": "プロジェクトヒントをここに入力..."
-  },
-  "sauronhintsModal.save": {
-    "defaultMessage": "保存"
-  },
-  "sauronhintsModal.savedSuccessfully": {
-    "defaultMessage": "保存しました"
-  },
-  "sauronhintsModal.saving": {
-    "defaultMessage": "保存中..."
-  },
-  "sauronhintsSection.configure": {
-    "defaultMessage": "設定"
-  },
-  "sauronhintsSection.description": {
-    "defaultMessage": "Sauron に追加コンテキストを提供するために、プロジェクトの .sauronhints ファイルを設定します"
-  },
-  "sauronhintsSection.title": {
-    "defaultMessage": "プロジェクトヒント（.sauronhints）"
+  "gitBranchIndicator.uncommittedChanges": {
+    "defaultMessage": "コミットされていない変更がある可能性があります。"
   },
   "groupedExtensionLoadingToast.askSauron": {
     "defaultMessage": "Sauronに聞く"
@@ -1985,6 +2093,12 @@
   "mcpAppRenderer.resizePipWindow": {
     "defaultMessage": "ピクチャ・イン・ピクチャウィンドウのサイズを変更"
   },
+  "mcpSettings.description": {
+    "defaultMessage": "Connect Model Context Protocol servers to give goose new tools, resources, and data sources. Extensions added here are available to every chat."
+  },
+  "mcpSettings.title": {
+    "defaultMessage": "MCP Servers"
+  },
   "mentionPopover.itemsFound": {
     "defaultMessage": "{count,plural,one{# 件見つかりました} other{# 件見つかりました}}"
   },
@@ -2183,6 +2297,18 @@
   "modelAndProviderContext.unknownProviderTitle": {
     "defaultMessage": "プロバイダー名の確認"
   },
+  "modelBadges.contextShort": {
+    "defaultMessage": "{amount, number}k"
+  },
+  "modelBadges.contextWindow": {
+    "defaultMessage": "コンテキスト {amount, number}k"
+  },
+  "modelBadges.default": {
+    "defaultMessage": "デフォルト"
+  },
+  "modelBadges.reasoning": {
+    "defaultMessage": "思考"
+  },
   "modelSettingsButtons.switchModels": {
     "defaultMessage": "モデルを切り替え"
   },
@@ -2356,6 +2482,9 @@
   },
   "modelsBottomBar.preferredModels": {
     "defaultMessage": "優先"
+  },
+  "modelsBottomBar.recentModels": {
+    "defaultMessage": "最近"
   },
   "modelsBottomBar.resolvedModel": {
     "defaultMessage": "解決済みモデル"
@@ -2639,6 +2768,48 @@
   "permissionSetting.permissionRulesDescription": {
     "defaultMessage": "レスポンスの方向づけやコンテキスト追加のためにプロバイダーへ渡される非表示の指示です。"
   },
+  "pluginsSettings.description": {
+    "defaultMessage": "Plugins installed under .agents/plugins contribute skills and MCP servers to goose. Manage the skills they provide from the Skills view."
+  },
+  "pluginsSettings.empty": {
+    "defaultMessage": "No plugins installed."
+  },
+  "pluginsSettings.emptyHint": {
+    "defaultMessage": "Install a plugin with `goose plugin install` and it will show up here."
+  },
+  "pluginsSettings.loadFailed": {
+    "defaultMessage": "Could not load plugins"
+  },
+  "pluginsSettings.loading": {
+    "defaultMessage": "Loading plugins..."
+  },
+  "pluginsSettings.manageSkills": {
+    "defaultMessage": "Manage skills"
+  },
+  "pluginsSettings.pluginCount": {
+    "defaultMessage": "{count,plural,=0{No plugins} one{# plugin} other{# plugins}}"
+  },
+  "pluginsSettings.refresh": {
+    "defaultMessage": "Refresh"
+  },
+  "pluginsSettings.skillCount": {
+    "defaultMessage": "{count,plural,one{# skill} other{# skills}}"
+  },
+  "pluginsSettings.title": {
+    "defaultMessage": "Plugins"
+  },
+  "preferredModels.empty": {
+    "defaultMessage": "下のモデルに星を付けると、ここやチャットでいつでも使いやすくなります。"
+  },
+  "preferredModels.remove": {
+    "defaultMessage": "{model} を優先モデルから削除"
+  },
+  "preferredModels.removeFailed": {
+    "defaultMessage": "優先モデルを更新できませんでした"
+  },
+  "preferredModels.title": {
+    "defaultMessage": "優先モデル"
+  },
   "privacyInfoModal.collectErrors": {
     "defaultMessage": "エラーの種類（例: 「rate_limit」「auth」— 詳細なし）"
   },
@@ -2756,6 +2927,9 @@
   "promptsSettings.unsavedChanges": {
     "defaultMessage": "未保存の変更があります"
   },
+  "providerCard.deprecatedReplacement": {
+    "defaultMessage": "非推奨です。代わりに {replacement} を使用してください。"
+  },
   "providerCard.noMetadata": {
     "defaultMessage": "ProviderCardエラー: メタデータが提供されていません"
   },
@@ -2810,8 +2984,17 @@
   "providerConfigForm.continue": {
     "defaultMessage": "続行"
   },
+  "providerConfigForm.deviceCodeAndEnter": {
+    "defaultMessage": "コードを入力してください："
+  },
+  "providerConfigForm.deviceCodeCopy": {
+    "defaultMessage": "コピー"
+  },
   "providerConfigForm.deviceCodeFlowHint": {
     "defaultMessage": "ブラウザーウィンドウが開きます。確認コードがここに表示されるので、入力してサインインを完了してください。"
+  },
+  "providerConfigForm.deviceCodeVisit": {
+    "defaultMessage": "次のURLにアクセスし、"
   },
   "providerConfigForm.noApiKey": {
     "defaultMessage": "APIキーをお持ちでないですか？"
@@ -2837,6 +3020,9 @@
   "providerConfigurationModal.checkConfigAgain": {
     "defaultMessage": "このプロバイダーを使用するには、設定をもう一度確認してください。"
   },
+  "providerConfigurationModal.chooseModel": {
+    "defaultMessage": "モデルを選択"
+  },
   "providerConfigurationModal.close": {
     "defaultMessage": "閉じる"
   },
@@ -2849,8 +3035,17 @@
   "providerConfigurationModal.deleteConfirmation": {
     "defaultMessage": "現在のプロバイダー設定は完全に削除されます。"
   },
+  "providerConfigurationModal.deviceCodeAndEnter": {
+    "defaultMessage": "コードを入力してください："
+  },
+  "providerConfigurationModal.deviceCodeCopy": {
+    "defaultMessage": "コピー"
+  },
   "providerConfigurationModal.deviceCodeFlowHint": {
     "defaultMessage": "ブラウザーウィンドウが開きます。確認コードがここに表示されるので、入力してサインインを完了してください。"
+  },
+  "providerConfigurationModal.deviceCodeVisit": {
+    "defaultMessage": "次のURLにアクセスし、"
   },
   "providerConfigurationModal.errorCheckingConfig": {
     "defaultMessage": "このプロバイダー設定の確認中にエラーが発生しました。"
@@ -2971,6 +3166,66 @@
   },
   "providerSetupActions.submit": {
     "defaultMessage": "送信"
+  },
+  "providersSection.configure": {
+    "defaultMessage": "Configure"
+  },
+  "providersSection.configured": {
+    "defaultMessage": "Configured"
+  },
+  "providersSection.defaultSet": {
+    "defaultMessage": "{model} is now your default model."
+  },
+  "providersSection.defaultSetFailed": {
+    "defaultMessage": "Failed to set default model"
+  },
+  "providersSection.description": {
+    "defaultMessage": "Configure your AI model providers and load their available models directly from each provider API."
+  },
+  "providersSection.hideModels": {
+    "defaultMessage": "Hide models"
+  },
+  "providersSection.loadFailed": {
+    "defaultMessage": "Failed to load providers"
+  },
+  "providersSection.loadModels": {
+    "defaultMessage": "Load Models"
+  },
+  "providersSection.loading": {
+    "defaultMessage": "Loading providers..."
+  },
+  "providersSection.manageAll": {
+    "defaultMessage": "Manage all providers"
+  },
+  "providersSection.modelsError": {
+    "defaultMessage": "Could not load models from {provider}: {error}"
+  },
+  "providersSection.modelsLoaded": {
+    "defaultMessage": "{count} models loaded from {provider}"
+  },
+  "providersSection.needsConfig": {
+    "defaultMessage": "Configure this provider first to load its models."
+  },
+  "providersSection.notConfigured": {
+    "defaultMessage": "Not configured"
+  },
+  "providersSection.reloadingModels": {
+    "defaultMessage": "Reloading models..."
+  },
+  "providersSection.resetDescription": {
+    "defaultMessage": "Clear your selected model and provider settings to start fresh"
+  },
+  "providersSection.resetTitle": {
+    "defaultMessage": "Reset Provider and Model"
+  },
+  "providersSection.setDefault": {
+    "defaultMessage": "Click a model to use it as your default."
+  },
+  "providersSection.showModels": {
+    "defaultMessage": "Show models"
+  },
+  "providersSection.title": {
+    "defaultMessage": "Model Providers"
   },
   "recipeActivityEditor.activitiesDescription": {
     "defaultMessage": "レシピチャットウィンドウに表示される冒頭プロンプトとアクティビティボタンです。"
@@ -3340,6 +3595,66 @@
   },
   "responseStyle.detailedLabel": {
     "defaultMessage": "詳細"
+  },
+  "sauronhintsModal.close": {
+    "defaultMessage": "閉じる"
+  },
+  "sauronhintsModal.developer": {
+    "defaultMessage": "開発者"
+  },
+  "sauronhintsModal.dialogDescription": {
+    "defaultMessage": "Sauron とのコミュニケーションを改善するために、プロジェクトに関する追加コンテキストを提供します"
+  },
+  "sauronhintsModal.dialogTitle": {
+    "defaultMessage": "プロジェクトヒントを設定（.sauronhints）"
+  },
+  "sauronhintsModal.errorReading": {
+    "defaultMessage": ".sauronhints ファイルの読み取りエラー: {error}"
+  },
+  "sauronhintsModal.failedToAccess": {
+    "defaultMessage": ".sauronhints ファイルにアクセスできませんでした"
+  },
+  "sauronhintsModal.failedToSave": {
+    "defaultMessage": ".sauronhints ファイルの保存に失敗しました"
+  },
+  "sauronhintsModal.fileCreating": {
+    "defaultMessage": "新しい .sauronhints ファイルを作成しています: {filePath}"
+  },
+  "sauronhintsModal.fileFound": {
+    "defaultMessage": ".sauronhints ファイルが見つかりました: {filePath}"
+  },
+  "sauronhintsModal.helpText1": {
+    "defaultMessage": ".sauronhints は、プロジェクトに関する追加コンテキストを提供し、Sauron とのコミュニケーションを改善するためのテキストファイルです。"
+  },
+  "sauronhintsModal.helpText2": {
+    "defaultMessage": "拡張機能ページで {bold} 拡張機能が有効になっていることを確認してください。この拡張機能は .sauronhints を使用するために必要です。.sauronhints の更新を反映するにはセッションの再起動が必要です。"
+  },
+  "sauronhintsModal.helpText3": {
+    "defaultMessage": "詳しくは {link} をご覧ください。"
+  },
+  "sauronhintsModal.helpTextLink": {
+    "defaultMessage": ".sauronhints の使い方"
+  },
+  "sauronhintsModal.placeholder": {
+    "defaultMessage": "プロジェクトヒントをここに入力..."
+  },
+  "sauronhintsModal.save": {
+    "defaultMessage": "保存"
+  },
+  "sauronhintsModal.savedSuccessfully": {
+    "defaultMessage": "保存しました"
+  },
+  "sauronhintsModal.saving": {
+    "defaultMessage": "保存中..."
+  },
+  "sauronhintsSection.configure": {
+    "defaultMessage": "設定"
+  },
+  "sauronhintsSection.description": {
+    "defaultMessage": "Sauron に追加コンテキストを提供するために、プロジェクトの .sauronhints ファイルを設定します"
+  },
+  "sauronhintsSection.title": {
+    "defaultMessage": "プロジェクトヒント（.sauronhints）"
   },
   "scheduleDetailView.actions": {
     "defaultMessage": "操作"
@@ -3965,6 +4280,75 @@
   "sessions.toast.updated": {
     "defaultMessage": "セッションの説明を更新しました"
   },
+  "settings.agentLoop.description": {
+    "defaultMessage": "オペレーションベースのエージェントループを使用します。オフにすると従来のループを使用します。"
+  },
+  "settings.agentLoop.operations.auto.placeholder": {
+    "defaultMessage": "自動"
+  },
+  "settings.agentLoop.operations.blockLimit.label": {
+    "defaultMessage": "ブロック上限"
+  },
+  "settings.agentLoop.operations.contextCompaction.description": {
+    "defaultMessage": "コンテキストウィンドウがいっぱいになる前に会話履歴を要約します。"
+  },
+  "settings.agentLoop.operations.contextCompaction.title": {
+    "defaultMessage": "コンテキスト圧縮"
+  },
+  "settings.agentLoop.operations.cutoff.label": {
+    "defaultMessage": "カットオフ"
+  },
+  "settings.agentLoop.operations.enable": {
+    "defaultMessage": "{operation}を有効にする"
+  },
+  "settings.agentLoop.operations.failureTimeout.label": {
+    "defaultMessage": "失敗タイムアウト"
+  },
+  "settings.agentLoop.operations.heading": {
+    "defaultMessage": "設定可能なオペレーション"
+  },
+  "settings.agentLoop.operations.maxTurns.description": {
+    "defaultMessage": "自律作業を停止し、続行する前にユーザーへ確認します。"
+  },
+  "settings.agentLoop.operations.maxTurns.title": {
+    "defaultMessage": "最大ターン数"
+  },
+  "settings.agentLoop.operations.recipeRetry.description": {
+    "defaultMessage": "設定された成功チェックが失敗した場合にレシピのチェックを再実行します。"
+  },
+  "settings.agentLoop.operations.recipeRetry.title": {
+    "defaultMessage": "レシピの再試行"
+  },
+  "settings.agentLoop.operations.retryTimeout.label": {
+    "defaultMessage": "再試行タイムアウト"
+  },
+  "settings.agentLoop.operations.slashCommands.description": {
+    "defaultMessage": "/compact、/skills、レシピのショートカットなどのコマンドを認識します。"
+  },
+  "settings.agentLoop.operations.slashCommands.title": {
+    "defaultMessage": "スラッシュコマンド"
+  },
+  "settings.agentLoop.operations.stopHooks.description": {
+    "defaultMessage": "無限の停止サイクルを防ぎながら、フックによる完了のブロックを許可します。"
+  },
+  "settings.agentLoop.operations.stopHooks.title": {
+    "defaultMessage": "停止フック"
+  },
+  "settings.agentLoop.operations.threshold.label": {
+    "defaultMessage": "しきい値 %"
+  },
+  "settings.agentLoop.operations.toolPairCompaction.description": {
+    "defaultMessage": "古いツールのリクエストとレスポンスを要約してコンテキストを節約します。空欄の場合、カットオフは自動です。"
+  },
+  "settings.agentLoop.operations.toolPairCompaction.title": {
+    "defaultMessage": "ツールペア圧縮"
+  },
+  "settings.agentLoop.operations.turns.label": {
+    "defaultMessage": "ターン"
+  },
+  "settings.agentLoop.title": {
+    "defaultMessage": "エージェントループ"
+  },
   "settings.appearance.description": {
     "defaultMessage": "システム上でのsauronの表示を設定します"
   },
@@ -4163,6 +4547,9 @@
   "settingsView.tabApp": {
     "defaultMessage": "アプリ"
   },
+  "settingsView.tabAppearance": {
+    "defaultMessage": "Appearance"
+  },
   "settingsView.tabChat": {
     "defaultMessage": "チャット"
   },
@@ -4172,11 +4559,20 @@
   "settingsView.tabKeyboard": {
     "defaultMessage": "キーボード"
   },
+  "settingsView.tabMcp": {
+    "defaultMessage": "MCP"
+  },
   "settingsView.tabModels": {
     "defaultMessage": "モデル"
   },
+  "settingsView.tabPlugins": {
+    "defaultMessage": "Plugins"
+  },
   "settingsView.tabPrompts": {
     "defaultMessage": "プロンプト"
+  },
+  "settingsView.tabProviders": {
+    "defaultMessage": "Providers"
   },
   "settingsView.title": {
     "defaultMessage": "設定"
@@ -4511,6 +4907,9 @@
   "themeSelector.light": {
     "defaultMessage": "ライト"
   },
+  "themeSelector.popular": {
+    "defaultMessage": "Popular themes"
+  },
   "themeSelector.system": {
     "defaultMessage": "システム"
   },
@@ -4684,383 +5083,5 @@
   },
   "userMessage.removeImageFromEdit": {
     "defaultMessage": "メッセージから画像を削除"
-  },
-  "modelsBottomBar.recentModels": {
-    "defaultMessage": "最近"
-  },
-  "providerConfigurationModal.chooseModel": {
-    "defaultMessage": "モデルを選択"
-  },
-  "providerCard.deprecatedReplacement": {
-    "defaultMessage": "非推奨です。代わりに {replacement} を使用してください。"
-  },
-  "acpReadinessPanel.adapterFound": {
-    "defaultMessage": "ACPアダプターが見つかりました"
-  },
-  "acpReadinessPanel.adapterNotFound": {
-    "defaultMessage": "ACPアダプターが見つかりません"
-  },
-  "acpReadinessPanel.authenticationHelp": {
-    "defaultMessage": "プロバイダーのCLIからサインインし、もう一度確認してください。"
-  },
-  "acpReadinessPanel.checkAgain": {
-    "defaultMessage": "もう一度確認"
-  },
-  "acpReadinessPanel.checking": {
-    "defaultMessage": "確認中..."
-  },
-  "acpReadinessPanel.connected": {
-    "defaultMessage": "接続しました"
-  },
-  "acpReadinessPanel.connectionNotChecked": {
-    "defaultMessage": "続行する前にアカウントの接続を確認してください。"
-  },
-  "providerConfigForm.deviceCodeAndEnter": {
-    "defaultMessage": "コードを入力してください："
-  },
-  "providerConfigForm.deviceCodeCopy": {
-    "defaultMessage": "コピー"
-  },
-  "providerConfigForm.deviceCodeVisit": {
-    "defaultMessage": "次のURLにアクセスし、"
-  },
-  "providerConfigurationModal.deviceCodeAndEnter": {
-    "defaultMessage": "コードを入力してください："
-  },
-  "providerConfigurationModal.deviceCodeCopy": {
-    "defaultMessage": "コピー"
-  },
-  "providerConfigurationModal.deviceCodeVisit": {
-    "defaultMessage": "次のURLにアクセスし、"
-  },
-  "settings.agentLoop.description": {
-    "defaultMessage": "オペレーションベースのエージェントループを使用します。オフにすると従来のループを使用します。"
-  },
-  "settings.agentLoop.operations.auto.placeholder": {
-    "defaultMessage": "自動"
-  },
-  "settings.agentLoop.operations.blockLimit.label": {
-    "defaultMessage": "ブロック上限"
-  },
-  "settings.agentLoop.operations.contextCompaction.description": {
-    "defaultMessage": "コンテキストウィンドウがいっぱいになる前に会話履歴を要約します。"
-  },
-  "settings.agentLoop.operations.contextCompaction.title": {
-    "defaultMessage": "コンテキスト圧縮"
-  },
-  "settings.agentLoop.operations.cutoff.label": {
-    "defaultMessage": "カットオフ"
-  },
-  "settings.agentLoop.operations.enable": {
-    "defaultMessage": "{operation}を有効にする"
-  },
-  "settings.agentLoop.operations.failureTimeout.label": {
-    "defaultMessage": "失敗タイムアウト"
-  },
-  "settings.agentLoop.operations.heading": {
-    "defaultMessage": "設定可能なオペレーション"
-  },
-  "settings.agentLoop.operations.maxTurns.description": {
-    "defaultMessage": "自律作業を停止し、続行する前にユーザーへ確認します。"
-  },
-  "settings.agentLoop.operations.maxTurns.title": {
-    "defaultMessage": "最大ターン数"
-  },
-  "settings.agentLoop.operations.recipeRetry.description": {
-    "defaultMessage": "設定された成功チェックが失敗した場合にレシピのチェックを再実行します。"
-  },
-  "settings.agentLoop.operations.recipeRetry.title": {
-    "defaultMessage": "レシピの再試行"
-  },
-  "settings.agentLoop.operations.retryTimeout.label": {
-    "defaultMessage": "再試行タイムアウト"
-  },
-  "settings.agentLoop.operations.slashCommands.description": {
-    "defaultMessage": "/compact、/skills、レシピのショートカットなどのコマンドを認識します。"
-  },
-  "settings.agentLoop.operations.slashCommands.title": {
-    "defaultMessage": "スラッシュコマンド"
-  },
-  "settings.agentLoop.operations.stopHooks.description": {
-    "defaultMessage": "無限の停止サイクルを防ぎながら、フックによる完了のブロックを許可します。"
-  },
-  "settings.agentLoop.operations.stopHooks.title": {
-    "defaultMessage": "停止フック"
-  },
-  "settings.agentLoop.operations.threshold.label": {
-    "defaultMessage": "しきい値 %"
-  },
-  "settings.agentLoop.operations.toolPairCompaction.description": {
-    "defaultMessage": "古いツールのリクエストとレスポンスを要約してコンテキストを節約します。空欄の場合、カットオフは自動です。"
-  },
-  "settings.agentLoop.operations.toolPairCompaction.title": {
-    "defaultMessage": "ツールペア圧縮"
-  },
-  "settings.agentLoop.operations.turns.label": {
-    "defaultMessage": "ターン"
-  },
-  "settings.agentLoop.title": {
-    "defaultMessage": "エージェントループ"
-  },
-  "providersSection.configure": {
-    "defaultMessage": "Configure"
-  },
-  "providersSection.configured": {
-    "defaultMessage": "Configured"
-  },
-  "providersSection.defaultSet": {
-    "defaultMessage": "{model} is now your default model."
-  },
-  "providersSection.defaultSetFailed": {
-    "defaultMessage": "Failed to set default model"
-  },
-  "providersSection.description": {
-    "defaultMessage": "Configure your AI model providers and load their available models directly from each provider API."
-  },
-  "providersSection.hideModels": {
-    "defaultMessage": "Hide models"
-  },
-  "providersSection.loadFailed": {
-    "defaultMessage": "Failed to load providers"
-  },
-  "providersSection.loadModels": {
-    "defaultMessage": "Load Models"
-  },
-  "providersSection.loading": {
-    "defaultMessage": "Loading providers..."
-  },
-  "providersSection.manageAll": {
-    "defaultMessage": "Manage all providers"
-  },
-  "providersSection.modelsError": {
-    "defaultMessage": "Could not load models from {provider}: {error}"
-  },
-  "providersSection.modelsLoaded": {
-    "defaultMessage": "{count} models loaded from {provider}"
-  },
-  "providersSection.needsConfig": {
-    "defaultMessage": "Configure this provider first to load its models."
-  },
-  "providersSection.notConfigured": {
-    "defaultMessage": "Not configured"
-  },
-  "providersSection.reloadingModels": {
-    "defaultMessage": "Reloading models..."
-  },
-  "providersSection.setDefault": {
-    "defaultMessage": "Click a model to use it as your default."
-  },
-  "providersSection.showModels": {
-    "defaultMessage": "Show models"
-  },
-  "providersSection.title": {
-    "defaultMessage": "Model Providers"
-  },
-  "settingsView.tabProviders": {
-    "defaultMessage": "Providers"
-  },
-  "authSettings.cancelSignIn": {
-    "defaultMessage": "キャンセル"
-  },
-  "authSettings.checkingStatus": {
-    "defaultMessage": "確認中..."
-  },
-  "authSettings.connectedAccounts": {
-    "defaultMessage": "接続済みアカウント"
-  },
-  "authSettings.connectedAccountsDescription": {
-    "defaultMessage": "サインインして、Sauron が外部アカウントで作業できるようにします。"
-  },
-  "authSettings.githubAccountDescription": {
-    "defaultMessage": "リポジトリを検索し、コードを操作し、Issue を管理し、Pull Request を開きます。"
-  },
-  "authSettings.githubAccountName": {
-    "defaultMessage": "GitHub"
-  },
-  "authSettings.githubConnected": {
-    "defaultMessage": "接続済み"
-  },
-  "authSettings.githubEnterCode": {
-    "defaultMessage": "Sauron を承認するには {url} でこのコードを入力してください:"
-  },
-  "authSettings.githubNotConnected": {
-    "defaultMessage": "未接続"
-  },
-  "authSettings.githubOpenDevicePage": {
-    "defaultMessage": "GitHub デバイスページを開く"
-  },
-  "allProviderModels.preferredUpdateFailed": {
-    "defaultMessage": "優先モデルを更新できませんでした"
-  },
-  "allProviderModels.refreshAll": {
-    "defaultMessage": "Refresh models"
-  },
-  "authSettings.githubSignInUnavailable": {
-    "defaultMessage": "GitHub サインインはデスクトップアプリでのみ利用できます。"
-  },
-  "authSettings.githubSignOutMessage": {
-    "defaultMessage": "再サインインするまで、Sauron は GitHub リポジトリを操作できません。"
-  },
-  "allProviderModels.removePreferred": {
-    "defaultMessage": "{model} を優先モデルから削除"
-  },
-  "allProviderModels.title": {
-    "defaultMessage": "Models from your providers"
-  },
-  "authSettings.githubSignedIn": {
-    "defaultMessage": "GitHub にサインインしました。GitHub 拡張機能を使用準備ができました。"
-  },
-  "authSettings.githubSignedOut": {
-    "defaultMessage": "GitHub からサインアウトしました"
-  },
-  "authSettings.githubStatusFailed": {
-    "defaultMessage": "GitHub のサインイン状態を確認できませんでした"
-  },
-  "authSettings.githubWaitingForAuthorization": {
-    "defaultMessage": "GitHub の承認を待っています..."
-  },
-  "authSettings.signInWithGitHub": {
-    "defaultMessage": "GitHub でサインイン"
-  },
-  "pluginsSettings.loadFailed": {
-    "defaultMessage": "Could not load plugins"
-  },
-  "pluginsSettings.loading": {
-    "defaultMessage": "Loading plugins..."
-  },
-  "pluginsSettings.manageSkills": {
-    "defaultMessage": "Manage skills"
-  },
-  "pluginsSettings.pluginCount": {
-    "defaultMessage": "{count,plural,=0{No plugins} one{# plugin} other{# plugins}}"
-  },
-  "pluginsSettings.refresh": {
-    "defaultMessage": "Refresh"
-  },
-  "pluginsSettings.skillCount": {
-    "defaultMessage": "{count,plural,one{# skill} other{# skills}}"
-  },
-  "pluginsSettings.title": {
-    "defaultMessage": "Plugins"
-  },
-  "preferredModels.empty": {
-    "defaultMessage": "下のモデルに星を付けると、ここやチャットでいつでも使いやすくなります。"
-  },
-  "preferredModels.remove": {
-    "defaultMessage": "{model} を優先モデルから削除"
-  },
-  "preferredModels.removeFailed": {
-    "defaultMessage": "優先モデルを更新できませんでした"
-  },
-  "preferredModels.title": {
-    "defaultMessage": "優先モデル"
-  },
-  "providersSection.resetDescription": {
-    "defaultMessage": "Clear your selected model and provider settings to start fresh"
-  },
-  "providersSection.resetTitle": {
-    "defaultMessage": "Reset Provider and Model"
-  },
-  "settingsView.tabAppearance": {
-    "defaultMessage": "Appearance"
-  },
-  "settingsView.tabMcp": {
-    "defaultMessage": "MCP"
-  },
-  "settingsView.tabPlugins": {
-    "defaultMessage": "Plugins"
-  },
-  "themeSelector.popular": {
-    "defaultMessage": "Popular themes"
-  },
-  "allProviderModels.clearSearch": {
-    "defaultMessage": "検索をクリア"
-  },
-  "allProviderModels.clearSearchInput": {
-    "defaultMessage": "検索入力をクリア"
-  },
-  "allProviderModels.noSearchResults": {
-    "defaultMessage": "\"{query}\" に一致するモデルはありません。"
-  },
-  "allProviderModels.searchLabel": {
-    "defaultMessage": "モデルを検索"
-  },
-  "allProviderModels.searchPlaceholder": {
-    "defaultMessage": "モデルを検索..."
-  },
-  "allProviderModels.showingCount": {
-    "defaultMessage": "{total, number} 件中 {shown, number} 件のモデルを表示"
-  },
-  "modelBadges.contextShort": {
-    "defaultMessage": "{amount, number}k"
-  },
-  "modelBadges.contextWindow": {
-    "defaultMessage": "コンテキスト {amount, number}k"
-  },
-  "modelBadges.default": {
-    "defaultMessage": "デフォルト"
-  },
-  "modelBadges.reasoning": {
-    "defaultMessage": "思考"
-  },
-  "allProviderModels.configureProviders": {
-    "defaultMessage": "Configure providers"
-  },
-  "allProviderModels.defaultSet": {
-    "defaultMessage": "{model} is now your default model."
-  },
-  "allProviderModels.defaultSetFailed": {
-    "defaultMessage": "Failed to set default model"
-  },
-  "allProviderModels.description": {
-    "defaultMessage": "Every model exposed by your activated providers. Select one to make it the default model."
-  },
-  "allProviderModels.empty": {
-    "defaultMessage": "No activated providers yet."
-  },
-  "allProviderModels.emptyHint": {
-    "defaultMessage": "Configure a provider to see the models it offers."
-  },
-  "allProviderModels.loadFailed": {
-    "defaultMessage": "Could not load provider models"
-  },
-  "allProviderModels.loading": {
-    "defaultMessage": "Loading models from your providers..."
-  },
-  "allProviderModels.modelCount": {
-    "defaultMessage": "{count,plural,one{# model} other{# models}}"
-  },
-  "allProviderModels.noModels": {
-    "defaultMessage": "No models reported by this provider."
-  },
-  "allProviderModels.refreshFailed": {
-    "defaultMessage": "Could not refresh {provider}: {error}"
-  },
-  "allProviderModels.refreshing": {
-    "defaultMessage": "Refreshing..."
-  },
-  "authSettings.githubSignInFailed": {
-    "defaultMessage": "GitHub sign-in failed: {error}"
-  },
-  "authSettings.githubSignOutTitle": {
-    "defaultMessage": "Sign out of GitHub"
-  },
-  "authSettings.signOutFromGitHub": {
-    "defaultMessage": "Sign out"
-  },
-  "mcpSettings.description": {
-    "defaultMessage": "Connect Model Context Protocol servers to give goose new tools, resources, and data sources. Extensions added here are available to every chat."
-  },
-  "mcpSettings.title": {
-    "defaultMessage": "MCP Servers"
-  },
-  "pluginsSettings.description": {
-    "defaultMessage": "Plugins installed under .agents/plugins contribute skills and MCP servers to goose. Manage the skills they provide from the Skills view."
-  },
-  "pluginsSettings.empty": {
-    "defaultMessage": "No plugins installed."
-  },
-  "pluginsSettings.emptyHint": {
-    "defaultMessage": "Install a plugin with `goose plugin install` and it will show up here."
   }
 }

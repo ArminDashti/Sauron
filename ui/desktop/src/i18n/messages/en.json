@@ -56,6 +56,15 @@
   "allProviderModels.emptyHint": {
     "defaultMessage": "Configure a provider to see the models it offers."
   },
+  "allProviderModels.filterAll": {
+    "defaultMessage": "All"
+  },
+  "allProviderModels.filterFree": {
+    "defaultMessage": "Free"
+  },
+  "allProviderModels.freeCount": {
+    "defaultMessage": "{count} free"
+  },
   "allProviderModels.loadFailed": {
     "defaultMessage": "Could not load provider models"
   },
@@ -64,6 +73,12 @@
   },
   "allProviderModels.modelCount": {
     "defaultMessage": "{count,plural,one{# model} other{# models}}"
+  },
+  "allProviderModels.noFreeModels": {
+    "defaultMessage": "No free models from your providers."
+  },
+  "allProviderModels.noFreeModelsHint": {
+    "defaultMessage": "Models show as free when a provider runs them locally (Ollama, local models) or lists free variants, such as the :free models from OpenRouter."
   },
   "allProviderModels.noModels": {
     "defaultMessage": "No models reported by this provider."
@@ -91,6 +106,9 @@
   },
   "allProviderModels.searchPlaceholder": {
     "defaultMessage": "Search models..."
+  },
+  "allProviderModels.showAll": {
+    "defaultMessage": "Show all models"
   },
   "allProviderModels.showingCount": {
     "defaultMessage": "Showing {shown, number} of {total, number} models"
@@ -1396,6 +1414,9 @@
   },
   "externalBackendSection.workingDirPlaceholder": {
     "defaultMessage": "/home/sauron/workspace"
+  },
+  "freeModelBadge.label": {
+    "defaultMessage": "Free"
   },
   "gitBranchIndicator.failedToSwitch": {
     "defaultMessage": "Failed to switch to {branch}"
