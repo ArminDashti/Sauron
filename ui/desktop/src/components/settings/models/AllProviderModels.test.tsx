@@ -1,37 +1,49 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { fireEvent, render, screen } from '@testing-library/react';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import AllProviderModels from './AllProviderModels';
+import {
+  acpListSettingsProviderDetails,
+  acpReadDefaults,
+  acpSaveDefaults,
+} from '../../../acp/providers';
+import { toastError, toastSuccess } from '../../../toasts';
 import { IntlTestWrapper } from '../../../i18n/test-utils';
 import type { ProviderDetails } from '../../../types/providers';
 
-const mockListSettingsProviderDetails = vi.fn();
-const mockReadDefaults = vi.fn();
 
-vi.mock('react-router', () => ({
-  useNavigate: () => vi.fn(),
-}));
+const defaultProps = {
+  preferredModels: [],
+  onPreferredModelsChange: vi.fn(),
+};
 
 vi.mock('../../../acp/providers', () => ({
-  acpListSettingsProviderDetails: (...args: unknown[]) => mockListSettingsProviderDetails(...args),
-  acpReadDefaults: (...args: unknown[]) => mockReadDefaults(...args),
+  acpListSettingsProviderDetails: vi.fn(),
+  acpReadDefaults: vi.fn(),
   acpRefreshProviderDetails: vi.fn(),
   acpSaveDefaults: vi.fn(),
 }));
 
 vi.mock('../../../toasts', () => ({
-  toastError: vi.fn(),
   toastSuccess: vi.fn(),
+  toastError: vi.fn(),
 }));
 
-const renderSection = () => render(<AllProviderModels />, { wrapper: IntlTestWrapper });
+vi.mock('react-router', () => ({
+  useNavigate: () => vi.fn(),
+}));
 
-function createProvider(
-  name: string,
-  displayName: string,
-  models: { context_limit?: number; name: string }[]
-): ProviderDetails {
+const mockedListSettingsProviderDetails = vi.mocked(acpListSettingsProviderDetails);
+const mockedListReadDefaults = vi.mocked(acpReadDefaults);
+const mockedSaveDefaults = vi.mocked(acpSaveDefaults);
+const mockedToastSuccess = vi.mocked(toastSuccess);
+const mockedToastError = vi.mocked(toastError);
+
+const renderWithIntl = (ui: React.ReactElement) => render(ui, { wrapper: IntlTestWrapper });
+
+function makeProvider(overrides: Partial<ProviderDetails> = {}): ProviderDetails {
   return {
-    name,
+    name: 'openai',
     is_configured: true,
     is_available: true,
     visible_in_setup: true,
@@ -39,87 +51,134 @@ function createProvider(
     provider_type: 'Builtin',
     uses_acp: false,
     metadata: {
-      name,
-      display_name: displayName,
-      description: '',
-      default_model: '',
-      model_doc_link: '',
       config_keys: [],
-      known_models: models,
+      default_model: 'gpt-4o',
+      description: 'OpenAI models',
+      display_name: 'OpenAI',
+      known_models: [
+        { name: 'gpt-4o', context_limit: 128000 },
+        { name: 'o3-mini', context_limit: 204800, reasoning: true },
+      ],
+      model_doc_link: '',
+      name: 'openai',
     },
+    ...overrides,
   };
 }
 
-const openrouter = createProvider('openrouter', 'OpenRouter', [
-  { name: 'openai/gpt-5', context_limit: 400_000 },
-  { name: 'meta/llama-3.3-70b-instruct:free', context_limit: 131_072 },
-]);
-const anthropic = createProvider('anthropic', 'Anthropic', [
-  { name: 'claude-sonnet-4-5', context_limit: 200_000 },
-]);
-const local = createProvider('local', 'Local models', [{ name: 'Qwen/Qwen3-8B' }]);
-
-describe('AllProviderModels free filter', () => {
+describe('AllProviderModels', () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    localStorage.clear();
-    mockListSettingsProviderDetails.mockResolvedValue([openrouter, anthropic, local]);
-    mockReadDefaults.mockResolvedValue({ providerId: 'openrouter', modelId: 'openai/gpt-5' });
+    mockedListSettingsProviderDetails.mockResolvedValue([makeProvider()]);
+    mockedListReadDefaults.mockResolvedValue({ providerId: 'openai', modelId: 'gpt-4o' });
+    mockedSaveDefaults.mockResolvedValue(undefined);
   });
 
-  it('shows free badges and per-provider free counts alongside all models', async () => {
-    renderSection();
+  it('renders configured providers with their models and marks the default', async () => {
+    renderWithIntl(<AllProviderModels {...defaultProps} />);
 
-    expect(await screen.findByTestId('models-filter-all')).toHaveTextContent('4');
-    expect(screen.getByTestId('models-filter-free')).toHaveTextContent('2');
-    expect(screen.getAllByTestId('model-free-badge')).toHaveLength(2);
-    expect(screen.getByTestId('provider-free-count-openrouter')).toHaveTextContent('1 free');
-    expect(screen.getByTestId('provider-free-count-local')).toHaveTextContent('1 free');
-    expect(screen.queryByTestId('provider-free-count-anthropic')).toBeNull();
-    expect(screen.getByText('claude-sonnet-4-5')).toBeInTheDocument();
+    expect(await screen.findByTestId('all-provider-models-openai')).toBeInTheDocument();
+    expect(screen.getByText('OpenAI')).toBeInTheDocument();
+    expect(screen.getByTestId('all-provider-model-openai-gpt-4o')).toBeInTheDocument();
+    expect(screen.getByTestId('all-provider-model-openai-o3-mini')).toBeInTheDocument();
+
+    const current = screen.getByTestId('all-provider-model-openai-gpt-4o');
+    expect(current).toHaveAttribute('aria-pressed', 'true');
+    expect(screen.getByText('Default')).toBeInTheDocument();
   });
 
-  it('filters down to free models per provider when Free is selected', async () => {
-    renderSection();
-    fireEvent.click(await screen.findByTestId('models-filter-free'));
+  it('shows model metadata badges', async () => {
+    renderWithIntl(<AllProviderModels {...defaultProps} />);
 
-    expect(screen.getByTestId('models-filter-free')).toHaveAttribute('aria-pressed', 'true');
-    expect(screen.getByText('meta/llama-3.3-70b-instruct:free')).toBeInTheDocument();
-    expect(screen.getByText('Qwen/Qwen3-8B')).toBeInTheDocument();
-    expect(screen.queryByTestId('all-provider-models-anthropic')).toBeNull();
-    expect(screen.queryByText('openai/gpt-5')).toBeNull();
-    expect(screen.queryByText('claude-sonnet-4-5')).toBeNull();
-    expect(localStorage.getItem('modelsFreeOnly')).toBe('true');
+    await screen.findByTestId('all-provider-models-openai');
+    expect(screen.getByText('125k')).toBeInTheDocument();
+    expect(screen.getByText('200k')).toBeInTheDocument();
+    expect(screen.getByText('Reasoning')).toBeInTheDocument();
   });
 
-  it('restores all models when All is selected again', async () => {
-    renderSection();
-    fireEvent.click(await screen.findByTestId('models-filter-free'));
-    fireEvent.click(screen.getByTestId('models-filter-all'));
+  it('filters models by name and shows a filtered count', async () => {
+    const user = userEvent.setup();
+    renderWithIntl(<AllProviderModels {...defaultProps} />);
 
-    expect(screen.getByTestId('models-filter-all')).toHaveAttribute('aria-pressed', 'true');
-    expect(screen.getByTestId('all-provider-models-anthropic')).toBeInTheDocument();
-    expect(screen.getByText('claude-sonnet-4-5')).toBeInTheDocument();
-    expect(localStorage.getItem('modelsFreeOnly')).toBe('false');
+    await screen.findByTestId('all-provider-models-openai');
+    await user.type(screen.getByTestId('all-provider-models-search'), 'o3');
+
+    await waitFor(() => {
+      expect(screen.queryByTestId('all-provider-model-openai-gpt-4o')).not.toBeInTheDocument();
+    });
+    expect(screen.getByTestId('all-provider-model-openai-o3-mini')).toBeInTheDocument();
+    expect(screen.getByTestId('all-provider-models-count')).toHaveTextContent(
+      'Showing 1 of 2 models'
+    );
   });
 
-  it('offers a way back when no provider reports free models', async () => {
-    mockListSettingsProviderDetails.mockResolvedValue([anthropic]);
-    renderSection();
-    fireEvent.click(await screen.findByTestId('models-filter-free'));
+  it('filters by provider name to reveal all of its models', async () => {
+    const user = userEvent.setup();
+    renderWithIntl(<AllProviderModels {...defaultProps} />);
 
-    expect(screen.getByText('No free models from your providers.')).toBeInTheDocument();
-    fireEvent.click(screen.getByRole('button', { name: 'Show all models' }));
+    await screen.findByTestId('all-provider-models-openai');
+    await user.type(screen.getByTestId('all-provider-models-search'), 'openai');
 
-    expect(screen.getByText('claude-sonnet-4-5')).toBeInTheDocument();
-    expect(screen.getByTestId('models-filter-all')).toHaveAttribute('aria-pressed', 'true');
+    expect(await screen.findByTestId('all-provider-model-openai-gpt-4o')).toBeInTheDocument();
+    expect(screen.getByTestId('all-provider-model-openai-o3-mini')).toBeInTheDocument();
   });
 
-  it('remembers the Free filter across remounts', async () => {
-    localStorage.setItem('modelsFreeOnly', 'true');
-    renderSection();
+  it('shows an empty search state with a way to clear the query', async () => {
+    const user = userEvent.setup();
+    renderWithIntl(<AllProviderModels {...defaultProps} />);
 
-    expect(await screen.findByTestId('models-filter-free')).toHaveAttribute('aria-pressed', 'true');
-    expect(screen.queryByText('openai/gpt-5')).toBeNull();
+    await screen.findByTestId('all-provider-models-openai');
+    await user.type(screen.getByTestId('all-provider-models-search'), 'does-not-exist');
+
+    expect(await screen.findByText('No models match "does-not-exist".')).toBeInTheDocument();
+
+    await user.click(screen.getByRole('button', { name: 'Clear search' }));
+
+    expect(await screen.findByTestId('all-provider-model-openai-gpt-4o')).toBeInTheDocument();
+    expect(screen.queryByText(/No models match/)).not.toBeInTheDocument();
+  });
+
+  it('saves the selected model as default and notifies the parent', async () => {
+    const user = userEvent.setup();
+    const onModelSelected = vi.fn();
+    renderWithIntl(<AllProviderModels {...defaultProps} onModelSelected={onModelSelected} />);
+
+    await screen.findByTestId('all-provider-models-openai');
+    await user.click(screen.getByTestId('all-provider-model-openai-o3-mini'));
+
+    await waitFor(() => {
+      expect(mockedSaveDefaults).toHaveBeenCalledWith('openai', 'o3-mini');
+    });
+    expect(mockedToastSuccess).toHaveBeenCalled();
+    expect(onModelSelected).toHaveBeenCalledTimes(1);
+
+    const selected = screen.getByTestId('all-provider-model-openai-o3-mini');
+    expect(selected).toHaveAttribute('aria-pressed', 'true');
+    expect(screen.getByTestId('all-provider-model-openai-gpt-4o')).toHaveAttribute(
+      'aria-pressed',
+      'false'
+    );
+  });
+
+  it('shows a toast when saving the default model fails', async () => {
+    const user = userEvent.setup();
+    mockedSaveDefaults.mockRejectedValue(new Error('nope'));
+    renderWithIntl(<AllProviderModels {...defaultProps} />);
+
+    await screen.findByTestId('all-provider-models-openai');
+    await user.click(screen.getByTestId('all-provider-model-openai-o3-mini'));
+
+    await waitFor(() => {
+      expect(mockedToastError).toHaveBeenCalled();
+    });
+    expect(mockedToastSuccess).not.toHaveBeenCalled();
+  });
+
+  it('renders the empty state when no providers are configured', async () => {
+    mockedListSettingsProviderDetails.mockResolvedValue([]);
+    renderWithIntl(<AllProviderModels {...defaultProps} />);
+
+    expect(await screen.findByText('No activated providers yet.')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Configure providers' })).toBeInTheDocument();
   });
 });

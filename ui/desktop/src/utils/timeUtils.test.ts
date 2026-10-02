@@ -1,5 +1,5 @@
-import { describe, it, expect } from 'vitest';
-import { formatClockDisplay, formatMessageTimestamp } from './timeUtils';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { formatClockDisplay, formatMessageTimestamp, formatRelativeTimestamp } from './timeUtils';
 
 describe('timeUtils', () => {
   describe('formatClockDisplay', () => {
@@ -95,6 +95,49 @@ describe('timeUtils', () => {
       const timestamp = Math.floor(pastDate.getTime() / 1000);
       const result = formatMessageTimestamp(timestamp);
       expect(result).toContain('2025');
+    });
+  });
+
+  describe('formatRelativeTimestamp', () => {
+    const NOW = new Date('2026-01-10T12:00:00Z');
+    const secondsAgo = (seconds: number) => Math.floor(NOW.getTime() / 1000) - seconds;
+
+    beforeEach(() => {
+      vi.useFakeTimers();
+      vi.setSystemTime(NOW);
+    });
+
+    afterEach(() => {
+      vi.useRealTimers();
+    });
+
+    it('returns an empty string when the timestamp is missing or invalid', () => {
+      expect(formatRelativeTimestamp(undefined)).toBe('');
+      expect(formatRelativeTimestamp(0)).toBe('');
+      expect(formatRelativeTimestamp(Number.NaN)).toBe('');
+    });
+
+    it('returns "now" for timestamps under a minute (and clamps future ones)', () => {
+      expect(formatRelativeTimestamp(secondsAgo(5))).toBe('now');
+      expect(formatRelativeTimestamp(secondsAgo(-60))).toBe('now');
+    });
+
+    it('returns minutes for the first hour', () => {
+      expect(formatRelativeTimestamp(secondsAgo(60))).toBe('1m');
+      expect(formatRelativeTimestamp(secondsAgo(7 * 60))).toBe('7m');
+      expect(formatRelativeTimestamp(secondsAgo(59 * 60 + 59))).toBe('59m');
+    });
+
+    it('returns hours for the first day', () => {
+      expect(formatRelativeTimestamp(secondsAgo(60 * 60))).toBe('1h');
+      expect(formatRelativeTimestamp(secondsAgo(10 * 60 * 60))).toBe('10h');
+      expect(formatRelativeTimestamp(secondsAgo(23 * 60 * 60))).toBe('23h');
+    });
+
+    it('returns days up to a year, then years', () => {
+      expect(formatRelativeTimestamp(secondsAgo(24 * 60 * 60))).toBe('1d');
+      expect(formatRelativeTimestamp(secondsAgo(23 * 24 * 60 * 60))).toBe('23d');
+      expect(formatRelativeTimestamp(secondsAgo(400 * 24 * 60 * 60))).toBe('1y');
     });
   });
 });

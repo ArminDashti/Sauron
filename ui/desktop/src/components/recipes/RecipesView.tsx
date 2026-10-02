@@ -62,6 +62,7 @@ import { getSearchShortcutText } from '../../utils/keyboardShortcuts';
 import { errorMessage } from '../../utils/conversionUtils';
 import { AppEvents } from '../../constants/events';
 import { defineMessages, useIntl } from '../../i18n';
+import { iconColor } from '../../theme/iconColors';
 
 const i18n = defineMessages({
   deleteRecipeTitle: {
@@ -299,7 +300,7 @@ const i18n = defineMessages({
   },
 });
 
-export default function RecipesView() {
+export default function RecipesView({ embedded = false }: { embedded?: boolean }) {
   const intl = useIntl();
   const setView = useNavigation();
   const [savedRecipes, setSavedRecipes] = useState<RecipeManifest[]>([]);
@@ -882,7 +883,7 @@ export default function RecipesView() {
     if (filteredRecipes.length === 0 && searchTerm) {
       return (
         <div className="flex flex-col items-center justify-center h-full text-text-secondary mt-4">
-          <FileText className="h-12 w-12 mb-4" />
+          <FileText className="h-12 w-12 mb-4" style={{ color: iconColor('recipes') }} />
           <p className="text-lg mb-2">{intl.formatMessage(i18n.noMatchingRecipes)}</p>
           <p className="text-sm">{intl.formatMessage(i18n.adjustSearchTerms)}</p>
         </div>
@@ -903,7 +904,7 @@ export default function RecipesView() {
 
   return (
     <>
-      <MainPanelLayout>
+      <MainPanelLayout embedded={embedded}>
         <div className="flex-1 flex flex-col min-h-0">
           <div className="bg-background-primary px-8 pb-8 pt-16">
             <div className="flex flex-col page-transition">

@@ -2,6 +2,7 @@ import { useCallback } from 'react';
 import { ExternalLink, LayoutGrid, Puzzle, Zap } from 'lucide-react';
 import { MainPanelLayout } from '../Layout/MainPanelLayout';
 import { cn } from '../../utils';
+import { iconColor } from '../../theme/iconColors';
 import { defineMessages, useIntl } from '../../i18n';
 
 const i18n = defineMessages({
@@ -153,7 +154,7 @@ export default function HubView() {
         <div className="bg-background-primary px-8 pb-8 pt-16">
           <div className="flex flex-col page-transition">
             <div className="flex items-center gap-3 mb-1">
-              <LayoutGrid className="w-8 h-8 text-text-secondary" />
+              <LayoutGrid className="w-8 h-8" style={{ color: iconColor('hub') }} />
               <h1 className="text-4xl font-light">{intl.formatMessage(i18n.title)}</h1>
             </div>
             <p className="text-sm text-text-secondary">{intl.formatMessage(i18n.description)}</p>
@@ -163,13 +164,13 @@ export default function HubView() {
         <div className="flex-1 overflow-y-auto px-8 pb-8">
           <div className="flex flex-col gap-10 pt-2">
             <SourceSection
-              icon={<Zap className="w-5 h-5 text-text-secondary" />}
+              icon={<Zap className="w-5 h-5" style={{ color: iconColor('skills') }} />}
               heading={intl.formatMessage(i18n.skillsHeading)}
               description={intl.formatMessage(i18n.skillsDescription)}
               sources={SKILL_SOURCES}
             />
             <SourceSection
-              icon={<Puzzle className="w-5 h-5 text-text-secondary" />}
+              icon={<Puzzle className="w-5 h-5" style={{ color: iconColor('mcp') }} />}
               heading={intl.formatMessage(i18n.mcpsHeading)}
               description={intl.formatMessage(i18n.mcpsDescription)}
               sources={MCP_SOURCES}
