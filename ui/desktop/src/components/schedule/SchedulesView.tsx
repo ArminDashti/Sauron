@@ -27,6 +27,7 @@ import { MainPanelLayout } from '../Layout/MainPanelLayout';
 import { ViewOptions } from '../../utils/navigationUtils';
 import { trackScheduleCreated, trackScheduleDeleted, getErrorType } from '../../utils/analytics';
 import { defineMessages, useIntl } from '../../i18n';
+import { iconColor } from '../../theme/iconColors';
 
 const i18n = defineMessages({
   running: { id: 'schedulesView.running', defaultMessage: 'Running' },
@@ -564,7 +565,10 @@ const SchedulesView: React.FC<SchedulesViewProps> = ({ onClose: _onClose }) => {
 
                 {!isLoading && !apiError && schedules.length === 0 && (
                   <div className="flex flex-col pt-4 pb-12">
-                    <CircleDotDashed className="h-5 w-5 text-text-secondary mb-3.5" />
+                    <CircleDotDashed
+                      className="h-5 w-5 mb-3.5"
+                      style={{ color: iconColor('scheduler') }}
+                    />
                     <p className="text-base text-text-secondary font-light mb-2">
                       {intl.formatMessage(i18n.noSchedules)}
                     </p>

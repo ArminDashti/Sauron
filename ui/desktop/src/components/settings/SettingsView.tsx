@@ -37,6 +37,7 @@ import { useFeatures } from '../../contexts/FeaturesContext';
 import { defineMessages, useIntl } from '../../i18n';
 import BackButton from '../ui/BackButton';
 import { useNavigationContext } from '../Layout/NavigationContext';
+import { iconColor } from '../../theme/iconColors';
 
 const i18n = defineMessages({
   title: {
@@ -225,7 +226,7 @@ export default function SettingsView({
                 className={settingsTabClass}
                 data-testid="settings-models-tab"
               >
-                <Bot className="h-5 w-5 text-text-secondary" />
+                <Bot className="h-5 w-5" style={{ color: iconColor('models') }} />
                 {intl.formatMessage(i18n.tabModels)}
               </TabsTrigger>
               <TabsTrigger
@@ -233,7 +234,7 @@ export default function SettingsView({
                 className={settingsTabClass}
                 data-testid="settings-providers-tab"
               >
-                <Server className="h-5 w-5 text-text-secondary" />
+                <Server className="h-5 w-5" style={{ color: iconColor('providers') }} />
                 {intl.formatMessage(i18n.tabProviders)}
               </TabsTrigger>
               {localInference && (
@@ -242,7 +243,7 @@ export default function SettingsView({
                   className={settingsTabClass}
                   data-testid="settings-local-inference-tab"
                 >
-                  <HardDrive className="h-5 w-5 text-text-secondary" />
+                  <HardDrive className="h-5 w-5" style={{ color: iconColor('localInference') }} />
                   {intl.formatMessage(i18n.tabLocalInference)}
                 </TabsTrigger>
               )}
@@ -251,7 +252,7 @@ export default function SettingsView({
                 className={settingsTabClass}
                 data-testid="settings-chat-tab"
               >
-                <MessageSquare className="h-5 w-5 text-text-secondary" />
+                <MessageSquare className="h-5 w-5" style={{ color: iconColor('chat') }} />
                 {intl.formatMessage(i18n.tabChat)}
               </TabsTrigger>
               <TabsTrigger
@@ -259,7 +260,7 @@ export default function SettingsView({
                 className={settingsTabClass}
                 data-testid="settings-sharing-tab"
               >
-                <Share2 className="h-5 w-5 text-text-secondary" />
+                <Share2 className="h-5 w-5" style={{ color: iconColor('sharing') }} />
                 {intl.formatMessage(i18n.tabAgent)}
               </TabsTrigger>
               <TabsTrigger
@@ -267,7 +268,7 @@ export default function SettingsView({
                 className={settingsTabClass}
                 data-testid="settings-prompts-tab"
               >
-                <FileText className="h-5 w-5 text-text-secondary" />
+                <FileText className="h-5 w-5" style={{ color: iconColor('prompts') }} />
                 {intl.formatMessage(i18n.tabPrompts)}
               </TabsTrigger>
               <TabsTrigger
@@ -275,7 +276,7 @@ export default function SettingsView({
                 className={settingsTabClass}
                 data-testid="settings-keyboard-tab"
               >
-                <Keyboard className="h-5 w-5 text-text-secondary" />
+                <Keyboard className="h-5 w-5" style={{ color: iconColor('keyboard') }} />
                 {intl.formatMessage(i18n.tabKeyboard)}
               </TabsTrigger>
               <TabsTrigger
@@ -283,11 +284,11 @@ export default function SettingsView({
                 className={settingsTabClass}
                 data-testid="settings-auth-tab"
               >
-                <KeyRound className="h-5 w-5 text-text-secondary" />
+                <KeyRound className="h-5 w-5" style={{ color: iconColor('auth') }} />
                 {intl.formatMessage(i18n.tabAuth)}
               </TabsTrigger>
               <TabsTrigger value="mcp" className={settingsTabClass} data-testid="settings-mcp-tab">
-                <Plug className="h-5 w-5 text-text-secondary" />
+                <Plug className="h-5 w-5" style={{ color: iconColor('mcp') }} />
                 {intl.formatMessage(i18n.tabMcp)}
               </TabsTrigger>
               <TabsTrigger
@@ -295,7 +296,7 @@ export default function SettingsView({
                 className={settingsTabClass}
                 data-testid="settings-plugins-tab"
               >
-                <Puzzle className="h-5 w-5 text-text-secondary" />
+                <Puzzle className="h-5 w-5" style={{ color: iconColor('plugins') }} />
                 {intl.formatMessage(i18n.tabPlugins)}
               </TabsTrigger>
               <TabsTrigger
@@ -303,11 +304,11 @@ export default function SettingsView({
                 className={settingsTabClass}
                 data-testid="settings-appearance-tab"
               >
-                <Palette className="h-5 w-5 text-text-secondary" />
+                <Palette className="h-5 w-5" style={{ color: iconColor('appearance') }} />
                 {intl.formatMessage(i18n.tabAppearance)}
               </TabsTrigger>
               <TabsTrigger value="app" className={settingsTabClass} data-testid="settings-app-tab">
-                <Monitor className="h-5 w-5 text-text-secondary" />
+                <Monitor className="h-5 w-5" style={{ color: iconColor('app') }} />
                 {intl.formatMessage(i18n.tabApp)}
               </TabsTrigger>
             </TabsList>
