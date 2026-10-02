@@ -27,7 +27,7 @@ const i18n = defineMessages({
   description: {
     id: 'extensionsView.description',
     defaultMessage:
-      "These extensions use the Model Context Protocol (MCP). They can expand Goose's capabilities using three main components: Prompts, Resources, and Tools. {searchShortcut} to search.",
+      "These extensions use the Model Context Protocol (MCP). They can expand Sauron's capabilities using three main components: Prompts, Resources, and Tools. {searchShortcut} to search.",
   },
   defaultNote: {
     id: 'extensionsView.defaultNote',
@@ -59,10 +59,12 @@ export type ExtensionsViewOptions = {
 
 export default function ExtensionsView({
   viewOptions,
+  embedded = false,
 }: {
   onClose: () => void;
   setView: (view: View, viewOptions?: ViewOptions) => void;
   viewOptions: ExtensionsViewOptions;
+  embedded?: boolean;
 }) {
   const intl = useIntl();
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
@@ -125,7 +127,7 @@ export default function ExtensionsView({
   };
 
   return (
-    <MainPanelLayout>
+    <MainPanelLayout embedded={embedded}>
       <div
         className="flex flex-col min-w-0 flex-1 overflow-y-auto relative"
         data-search-scroll-area

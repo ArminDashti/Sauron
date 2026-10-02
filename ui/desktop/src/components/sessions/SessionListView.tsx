@@ -43,7 +43,7 @@ import {
   acpRenameSession,
   type SessionListItem,
 } from '../../acp/sessions';
-import type { SessionExportFormat } from '@aaif/goose-acp-client';
+import type { SessionExportFormat } from '@aaif/sauron-acp-client';
 import { acpChatSessionActions } from '../../acp/chatSessionStore';
 import { cancelAcpPermissionRequestsForSession } from '../../acp/permissionRequests';
 import { cancelAcpElicitationRequestsForSession } from '../../acp/elicitationRequests';
@@ -70,7 +70,7 @@ const i18n = defineMessages({
   importSession: { id: 'sessions.import', defaultMessage: 'Import Session' },
   chatHistoryDesc: {
     id: 'sessions.chatHistoryDesc',
-    defaultMessage: 'View and search your past conversations with Goose. {shortcut} to search.',
+    defaultMessage: 'View and search your past conversations with Sauron. {shortcut} to search.',
   },
   searchPlaceholder: { id: 'sessions.searchPlaceholder', defaultMessage: 'Search history...' },
   errorLoading: { id: 'sessions.error.loading', defaultMessage: 'Error Loading Sessions' },
@@ -277,9 +277,10 @@ function useDebounce<T>(value: T, delay: number): T {
 
 interface SessionListViewProps {
   onSelectSession: (sessionId: string) => void;
+  embedded?: boolean;
 }
 
-const SessionListView: React.FC<SessionListViewProps> = React.memo(({ onSelectSession }) => {
+const SessionListView: React.FC<SessionListViewProps> = React.memo(({ onSelectSession, embedded = false }) => {
   const intl = useIntl();
   const [sessions, setSessions] = useState<SessionListItem[]>([]);
   const [isPrefetchingSessions, setIsPrefetchingSessions] = useState(false);
@@ -972,7 +973,7 @@ const SessionListView: React.FC<SessionListViewProps> = React.memo(({ onSelectSe
 
   return (
     <>
-      <MainPanelLayout>
+      <MainPanelLayout embedded={embedded}>
         <div className="flex-1 flex flex-col min-h-0">
           <div className="bg-background-primary px-8 pb-8 pt-16">
             <div className="flex flex-col page-transition">
