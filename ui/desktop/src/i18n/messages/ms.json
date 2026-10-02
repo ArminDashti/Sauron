@@ -1,4 +1,25 @@
 {
+  "acpReadinessPanel.adapterFound": {
+    "defaultMessage": "Penyesuai ACP ditemui"
+  },
+  "acpReadinessPanel.adapterNotFound": {
+    "defaultMessage": "Penyesuai ACP tidak ditemui"
+  },
+  "acpReadinessPanel.authenticationHelp": {
+    "defaultMessage": "Log masuk melalui CLI penyedia, kemudian semak semula."
+  },
+  "acpReadinessPanel.checkAgain": {
+    "defaultMessage": "Semak semula"
+  },
+  "acpReadinessPanel.checking": {
+    "defaultMessage": "Menyemak..."
+  },
+  "acpReadinessPanel.connected": {
+    "defaultMessage": "Berjaya disambungkan"
+  },
+  "acpReadinessPanel.connectionNotChecked": {
+    "defaultMessage": "Semak sambungan akaun anda sebelum meneruskan."
+  },
   "alertBox.autoCompactAt": {
     "defaultMessage": "Padatkan automatik pada"
   },
@@ -11,14 +32,104 @@
   "allProviderModels.addPreferred": {
     "defaultMessage": "Tambah {model} ke model kegemaran"
   },
+  "allProviderModels.clearSearch": {
+    "defaultMessage": "Kosongkan carian"
+  },
+  "allProviderModels.clearSearchInput": {
+    "defaultMessage": "Kosongkan medan carian"
+  },
+  "allProviderModels.configureProviders": {
+    "defaultMessage": "Configure providers"
+  },
+  "allProviderModels.defaultSet": {
+    "defaultMessage": "{model} is now your default model."
+  },
+  "allProviderModels.defaultSetFailed": {
+    "defaultMessage": "Failed to set default model"
+  },
+  "allProviderModels.description": {
+    "defaultMessage": "Every model exposed by your activated providers. Select one to make it the default model."
+  },
+  "allProviderModels.empty": {
+    "defaultMessage": "No activated providers yet."
+  },
+  "allProviderModels.emptyHint": {
+    "defaultMessage": "Configure a provider to see the models it offers."
+  },
+  "allProviderModels.filterAll": {
+    "defaultMessage": "Semua"
+  },
+  "allProviderModels.filterFree": {
+    "defaultMessage": "Percuma"
+  },
+  "allProviderModels.freeCount": {
+    "defaultMessage": "{count} percuma"
+  },
+  "allProviderModels.loadFailed": {
+    "defaultMessage": "Could not load provider models"
+  },
+  "allProviderModels.loading": {
+    "defaultMessage": "Loading models from your providers..."
+  },
+  "allProviderModels.modelCount": {
+    "defaultMessage": "{count,plural,one{# model} other{# models}}"
+  },
+  "allProviderModels.noFreeModels": {
+    "defaultMessage": "Tiada model percuma daripada pembekal anda."
+  },
+  "allProviderModels.noFreeModelsHint": {
+    "defaultMessage": "Model dianggap percuma apabila pembekal menjalankannya secara tempatan (Ollama, model tempatan) atau menyenaraikan varian percuma, seperti model :free daripada OpenRouter."
+  },
+  "allProviderModels.noModels": {
+    "defaultMessage": "No models reported by this provider."
+  },
+  "allProviderModels.noSearchResults": {
+    "defaultMessage": "Tiada model sepadan dengan \"{query}\"."
+  },
+  "allProviderModels.preferredUpdateFailed": {
+    "defaultMessage": "Gagal mengemas kini model kegemaran"
+  },
+  "allProviderModels.refreshAll": {
+    "defaultMessage": "Refresh models"
+  },
+  "allProviderModels.refreshFailed": {
+    "defaultMessage": "Could not refresh {provider}: {error}"
+  },
+  "allProviderModels.refreshing": {
+    "defaultMessage": "Refreshing..."
+  },
+  "allProviderModels.removePreferred": {
+    "defaultMessage": "Alih keluar {model} daripada model kegemaran"
+  },
+  "allProviderModels.searchLabel": {
+    "defaultMessage": "Cari model"
+  },
+  "allProviderModels.searchPlaceholder": {
+    "defaultMessage": "Cari model..."
+  },
+  "allProviderModels.showAll": {
+    "defaultMessage": "Tunjukkan semua model"
+  },
+  "allProviderModels.showingCount": {
+    "defaultMessage": "Menunjukkan {shown, number} daripada {total, number} model"
+  },
+  "allProviderModels.title": {
+    "defaultMessage": "Models from your providers"
+  },
   "announcementModal.gotIt": {
     "defaultMessage": "Faham!"
   },
   "appLayout.collapseNavigation": {
     "defaultMessage": "Runtuhkan navigasi"
   },
+  "appLayout.hideChanges": {
+    "defaultMessage": "Sembunyikan panel perubahan"
+  },
   "appLayout.openNavigation": {
     "defaultMessage": "Buka navigasi"
+  },
+  "appLayout.showChanges": {
+    "defaultMessage": "Tunjukkan panel perubahan"
   },
   "appsView.customApp": {
     "defaultMessage": "Apl tersuai"
@@ -71,6 +182,18 @@
   "authSettings.cancel": {
     "defaultMessage": "Batal"
   },
+  "authSettings.cancelSignIn": {
+    "defaultMessage": "Batal"
+  },
+  "authSettings.checkingStatus": {
+    "defaultMessage": "Memeriksa..."
+  },
+  "authSettings.connectedAccounts": {
+    "defaultMessage": "Akaun dipautkan"
+  },
+  "authSettings.connectedAccountsDescription": {
+    "defaultMessage": "Daftar masuk untuk membolehkan Sauron bekerja dengan akaun luaran anda."
+  },
   "authSettings.delete": {
     "defaultMessage": "Padam"
   },
@@ -104,6 +227,48 @@
   "authSettings.failedToLoad": {
     "defaultMessage": "Gagal memuatkan kelayakan pembekal"
   },
+  "authSettings.githubAccountDescription": {
+    "defaultMessage": "Cari repositori, bekerja dengan kod, urus isu, dan buka pull request."
+  },
+  "authSettings.githubAccountName": {
+    "defaultMessage": "GitHub"
+  },
+  "authSettings.githubConnected": {
+    "defaultMessage": "Dipautkan"
+  },
+  "authSettings.githubEnterCode": {
+    "defaultMessage": "Masukkan kod ini di {url} untuk memberi kuasa kepada Sauron:"
+  },
+  "authSettings.githubNotConnected": {
+    "defaultMessage": "Tidak dipautkan"
+  },
+  "authSettings.githubOpenDevicePage": {
+    "defaultMessage": "Buka halaman peranti GitHub"
+  },
+  "authSettings.githubSignInFailed": {
+    "defaultMessage": "GitHub sign-in failed: {error}"
+  },
+  "authSettings.githubSignInUnavailable": {
+    "defaultMessage": "Daftar masuk GitHub hanya tersedia dalam aplikasi desktop."
+  },
+  "authSettings.githubSignOutMessage": {
+    "defaultMessage": "Sauron tidak akan dapat bekerja dengan repositori GitHub anda sehingga anda daftar masuk semula."
+  },
+  "authSettings.githubSignOutTitle": {
+    "defaultMessage": "Sign out of GitHub"
+  },
+  "authSettings.githubSignedIn": {
+    "defaultMessage": "Berjaya daftar masuk ke GitHub. Sambungan GitHub sedia digunakan."
+  },
+  "authSettings.githubSignedOut": {
+    "defaultMessage": "Berjaya daftar keluar daripada GitHub"
+  },
+  "authSettings.githubStatusFailed": {
+    "defaultMessage": "Tidak dapat menyemak status daftar masuk GitHub"
+  },
+  "authSettings.githubWaitingForAuthorization": {
+    "defaultMessage": "Menunggu kebenaran GitHub..."
+  },
   "authSettings.loading": {
     "defaultMessage": "Memuatkan kelayakan..."
   },
@@ -112,6 +277,12 @@
   },
   "authSettings.signIn": {
     "defaultMessage": "Log masuk"
+  },
+  "authSettings.signInWithGitHub": {
+    "defaultMessage": "Daftar masuk dengan GitHub"
+  },
+  "authSettings.signOutFromGitHub": {
+    "defaultMessage": "Sign out"
   },
   "authSettings.signedIn": {
     "defaultMessage": "Kelayakan dikonfigurasi"
@@ -172,6 +343,81 @@
   },
   "cardButtons.launch": {
     "defaultMessage": "Lancarkan"
+  },
+  "changesPanel.cleanTree": {
+    "defaultMessage": "Pokok kerja bersih"
+  },
+  "changesPanel.close": {
+    "defaultMessage": "Tutup panel perubahan"
+  },
+  "changesPanel.commitAndPush": {
+    "defaultMessage": "Commit & Push"
+  },
+  "changesPanel.commitFailed": {
+    "defaultMessage": "Commit gagal"
+  },
+  "changesPanel.commitPlaceholder": {
+    "defaultMessage": "Mesej commit"
+  },
+  "changesPanel.commitSuccess": {
+    "defaultMessage": "Berjaya commit dan push"
+  },
+  "changesPanel.committing": {
+    "defaultMessage": "Sedang commit…"
+  },
+  "changesPanel.loadFailed": {
+    "defaultMessage": "Gagal memuat perubahan git"
+  },
+  "changesPanel.loading": {
+    "defaultMessage": "Memuat perubahan…"
+  },
+  "changesPanel.loadingDiff": {
+    "defaultMessage": "Memuat diff…"
+  },
+  "changesPanel.noChanges": {
+    "defaultMessage": "Tiada perubahan"
+  },
+  "changesPanel.noDirectory": {
+    "defaultMessage": "Tiada direktori kerja dipilih"
+  },
+  "changesPanel.notARepo": {
+    "defaultMessage": "Bukan repositori git"
+  },
+  "changesPanel.pushFailed": {
+    "defaultMessage": "Berjaya commit tetapi push gagal"
+  },
+  "changesPanel.refresh": {
+    "defaultMessage": "Segar semula perubahan"
+  },
+  "changesPanel.retry": {
+    "defaultMessage": "Cuba lagi"
+  },
+  "changesPanel.statusAdded": {
+    "defaultMessage": "Ditambah"
+  },
+  "changesPanel.statusConflicted": {
+    "defaultMessage": "Bertentangan"
+  },
+  "changesPanel.statusCopied": {
+    "defaultMessage": "Disalin"
+  },
+  "changesPanel.statusDeleted": {
+    "defaultMessage": "Dipadam"
+  },
+  "changesPanel.statusModified": {
+    "defaultMessage": "Diubah"
+  },
+  "changesPanel.statusRenamed": {
+    "defaultMessage": "Dinamakan semula"
+  },
+  "changesPanel.statusUntracked": {
+    "defaultMessage": "Tidak dijejaki"
+  },
+  "changesPanel.title": {
+    "defaultMessage": "Perubahan"
+  },
+  "changesPanel.uncommitted": {
+    "defaultMessage": "Belum di-commit"
   },
   "chat.notification.taskComplete.body": {
     "defaultMessage": "Klik di sini untuk membawa Sauron kembali ke fokus."
@@ -638,6 +884,9 @@
   "customProviderForm.apiKey": {
     "defaultMessage": "Kunci API"
   },
+  "customProviderForm.apiKeyEnvHint": {
+    "defaultMessage": "Masukkan {example} untuk membaca kunci daripada pembolehubah persekitaran dan bukannya menyimpannya."
+  },
   "customProviderForm.apiKeyPlaceholderExisting": {
     "defaultMessage": "Biarkan kosong untuk mengekalkan kunci sedia ada"
   },
@@ -794,6 +1043,9 @@
   "defaultProviderSetupForm.apiHostPlaceholder": {
     "defaultMessage": "https://api.example.com"
   },
+  "defaultProviderSetupForm.apiKeyEnvHint": {
+    "defaultMessage": "Masukkan {example} untuk membaca kunci daripada pembolehubah persekitaran dan bukannya menyimpannya."
+  },
   "defaultProviderSetupForm.apiKeyLabel": {
     "defaultMessage": "Kunci API"
   },
@@ -917,6 +1169,12 @@
   "dictationSettings.voiceDictationProvider": {
     "defaultMessage": "Pembekal Imlak Suara"
   },
+  "diffViewer.noDiff": {
+    "defaultMessage": "Tiada perubahan teks untuk dipaparkan"
+  },
+  "diffViewer.unmodifiedLines": {
+    "defaultMessage": "{count} baris tidak berubah"
+  },
   "dirSwitcher.chooseDirectory": {
     "defaultMessage": "Pilih direktori…"
   },
@@ -926,11 +1184,11 @@
   "dirSwitcher.enterPath": {
     "defaultMessage": "Enter path"
   },
-  "dirSwitcher.enterPathPlaceholder": {
-    "defaultMessage": "Enter an absolute path (e.g. /home/sauron/workspace)"
-  },
   "dirSwitcher.enterPathInvalid": {
     "defaultMessage": "Working directory must be an absolute path"
+  },
+  "dirSwitcher.enterPathPlaceholder": {
+    "defaultMessage": "Enter an absolute path (e.g. /home/sauron/workspace)"
   },
   "dirSwitcher.failedToUpdateWorkingDir": {
     "defaultMessage": "Gagal mengemas kini direktori kerja"
@@ -946,18 +1204,6 @@
   },
   "dirSwitcher.recentDirectories": {
     "defaultMessage": "Direktori terkini"
-  },
-  "gitBranchIndicator.failedToSwitch": {
-    "defaultMessage": "Gagal beralih ke {branch}"
-  },
-  "gitBranchIndicator.noBranchesFound": {
-    "defaultMessage": "Tiada cabang ditemui"
-  },
-  "gitBranchIndicator.searchBranches": {
-    "defaultMessage": "Cari cabang…"
-  },
-  "gitBranchIndicator.uncommittedChanges": {
-    "defaultMessage": "Anda mungkin mempunyai perubahan yang belum dikomit."
   },
   "elicitationRequest.accept": {
     "defaultMessage": "Terima"
@@ -1262,65 +1508,20 @@
   "externalBackendSection.workingDirPlaceholder": {
     "defaultMessage": "/home/sauron/workspace"
   },
-  "sauronhintsModal.close": {
-    "defaultMessage": "Tutup"
+  "freeModelBadge.label": {
+    "defaultMessage": "Percuma"
   },
-  "sauronhintsModal.developer": {
-    "defaultMessage": "Pembangun"
+  "gitBranchIndicator.failedToSwitch": {
+    "defaultMessage": "Gagal beralih ke {branch}"
   },
-  "sauronhintsModal.dialogDescription": {
-    "defaultMessage": "Berikan konteks tambahan tentang projek anda untuk meningkatkan komunikasi dengan Sauron"
+  "gitBranchIndicator.noBranchesFound": {
+    "defaultMessage": "Tiada cabang ditemui"
   },
-  "sauronhintsModal.dialogTitle": {
-    "defaultMessage": "Konfigurasikan Petunjuk Projek (.sauronhints)"
+  "gitBranchIndicator.searchBranches": {
+    "defaultMessage": "Cari cabang…"
   },
-  "sauronhintsModal.errorReading": {
-    "defaultMessage": "Ralat membaca fail .sauronhints: {error}"
-  },
-  "sauronhintsModal.failedToAccess": {
-    "defaultMessage": "Gagal mengakses fail .sauronhints"
-  },
-  "sauronhintsModal.failedToSave": {
-    "defaultMessage": "Gagal menyimpan fail .sauronhints"
-  },
-  "sauronhintsModal.fileCreating": {
-    "defaultMessage": "Mencipta fail .sauronhints baharu di: {filePath}"
-  },
-  "sauronhintsModal.fileFound": {
-    "defaultMessage": "Fail .sauronhints dijumpai di: {filePath}"
-  },
-  "sauronhintsModal.helpText1": {
-    "defaultMessage": ".sauronhints ialah fail teks yang digunakan untuk memberikan konteks tambahan tentang projek anda dan meningkatkan komunikasi dengan Sauron."
-  },
-  "sauronhintsModal.helpText2": {
-    "defaultMessage": "Sila pastikan sambungan {bold} didayakan dalam halaman sambungan. Sambungan ini diperlukan untuk menggunakan .sauronhints. Anda perlu memulakan semula sesi anda untuk kemas kini .sauronhints berkuat kuasa."
-  },
-  "sauronhintsModal.helpText3": {
-    "defaultMessage": "Lihat {link} untuk maklumat lanjut."
-  },
-  "sauronhintsModal.helpTextLink": {
-    "defaultMessage": "menggunakan .sauronhints"
-  },
-  "sauronhintsModal.placeholder": {
-    "defaultMessage": "Masukkan petunjuk projek di sini..."
-  },
-  "sauronhintsModal.save": {
-    "defaultMessage": "Simpan"
-  },
-  "sauronhintsModal.savedSuccessfully": {
-    "defaultMessage": "Berjaya disimpan"
-  },
-  "sauronhintsModal.saving": {
-    "defaultMessage": "Menyimpan..."
-  },
-  "sauronhintsSection.configure": {
-    "defaultMessage": "Konfigurasikan"
-  },
-  "sauronhintsSection.description": {
-    "defaultMessage": "Konfigurasikan fail .sauronhints projek anda untuk memberikan konteks tambahan kepada Sauron"
-  },
-  "sauronhintsSection.title": {
-    "defaultMessage": "Petunjuk Projek (.sauronhints)"
+  "gitBranchIndicator.uncommittedChanges": {
+    "defaultMessage": "Anda mungkin mempunyai perubahan yang belum dikomit."
   },
   "groupedExtensionLoadingToast.askSauron": {
     "defaultMessage": "Tanya sauron"
@@ -1357,6 +1558,36 @@
   },
   "groupedExtensionLoadingToast.successfullyLoaded": {
     "defaultMessage": "{count,plural,one{Berjaya memuatkan # sambungan} other{Berjaya memuatkan # sambungan}}"
+  },
+  "harnessesSection.title": {
+    "defaultMessage": "Harness ejen"
+  },
+  "harnessesSection.description": {
+    "defaultMessage": "Gunakan ejen dari harness lain seperti Cursor, Claude Code, Codex atau Copilot. Dayakan salah satu di sini, kemudian pilih dalam Models untuk berbual dengannya."
+  },
+  "harnessesSection.loading": {
+    "defaultMessage": "Memuat harness..."
+  },
+  "harnessesSection.loadFailed": {
+    "defaultMessage": "Gagal memuat harness"
+  },
+  "harnessesSection.empty": {
+    "defaultMessage": "Tiada harness ejen luaran tersedia."
+  },
+  "harnessesSection.installed": {
+    "defaultMessage": "Dipasang"
+  },
+  "harnessesSection.notInstalled": {
+    "defaultMessage": "Tidak dipasang"
+  },
+  "harnessesSection.configure": {
+    "defaultMessage": "Konfigurasikan"
+  },
+  "harnessesSection.configured": {
+    "defaultMessage": "Didayakan"
+  },
+  "harnessesSection.notConfigured": {
+    "defaultMessage": "Tidak didayakan"
   },
   "headersSection.add": {
     "defaultMessage": "Tambah"
@@ -1985,6 +2216,12 @@
   "mcpAppRenderer.resizePipWindow": {
     "defaultMessage": "Ubah saiz tetingkap Gambar-dalam-Gambar"
   },
+  "mcpSettings.description": {
+    "defaultMessage": "Connect Model Context Protocol servers to give goose new tools, resources, and data sources. Extensions added here are available to every chat."
+  },
+  "mcpSettings.title": {
+    "defaultMessage": "MCP Servers"
+  },
   "mentionPopover.itemsFound": {
     "defaultMessage": "{count,plural,one{# item dijumpai} other{# item dijumpai}}"
   },
@@ -2183,6 +2420,18 @@
   "modelAndProviderContext.unknownProviderTitle": {
     "defaultMessage": "Carian nama penyedia"
   },
+  "modelBadges.contextShort": {
+    "defaultMessage": "{amount, number}k"
+  },
+  "modelBadges.contextWindow": {
+    "defaultMessage": "Konteks {amount, number}k"
+  },
+  "modelBadges.default": {
+    "defaultMessage": "Lalai"
+  },
+  "modelBadges.reasoning": {
+    "defaultMessage": "Reasoning"
+  },
   "modelSettingsButtons.switchModels": {
     "defaultMessage": "Tukar model"
   },
@@ -2357,6 +2606,9 @@
   "modelsBottomBar.preferredModels": {
     "defaultMessage": "Kegemaran"
   },
+  "modelsBottomBar.recentModels": {
+    "defaultMessage": "Terkini"
+  },
   "modelsBottomBar.resolvedModel": {
     "defaultMessage": "Model diselesaikan"
   },
@@ -2389,6 +2641,12 @@
   },
   "navigation.itemSkills": {
     "defaultMessage": "Kemahiran"
+  },
+  "navigationFooter.cpuUsage": {
+    "defaultMessage": "CPU {percent}%"
+  },
+  "navigationFooter.memoryUsage": {
+    "defaultMessage": "Memori {percent}%"
   },
   "navigationFooter.sendFeedback": {
     "defaultMessage": "Hantar maklum balas"
@@ -2633,6 +2891,48 @@
   "permissionSetting.permissionRulesDescription": {
     "defaultMessage": "Arahan tersembunyi yang akan dihantar kepada penyedia untuk membantu mengarah dan menambah konteks pada respons anda."
   },
+  "pluginsSettings.description": {
+    "defaultMessage": "Plugins installed under .agents/plugins contribute skills and MCP servers to goose. Manage the skills they provide from the Skills view."
+  },
+  "pluginsSettings.empty": {
+    "defaultMessage": "No plugins installed."
+  },
+  "pluginsSettings.emptyHint": {
+    "defaultMessage": "Install a plugin with `goose plugin install` and it will show up here."
+  },
+  "pluginsSettings.loadFailed": {
+    "defaultMessage": "Could not load plugins"
+  },
+  "pluginsSettings.loading": {
+    "defaultMessage": "Loading plugins..."
+  },
+  "pluginsSettings.manageSkills": {
+    "defaultMessage": "Manage skills"
+  },
+  "pluginsSettings.pluginCount": {
+    "defaultMessage": "{count,plural,=0{No plugins} one{# plugin} other{# plugins}}"
+  },
+  "pluginsSettings.refresh": {
+    "defaultMessage": "Refresh"
+  },
+  "pluginsSettings.skillCount": {
+    "defaultMessage": "{count,plural,one{# skill} other{# skills}}"
+  },
+  "pluginsSettings.title": {
+    "defaultMessage": "Plugins"
+  },
+  "preferredModels.empty": {
+    "defaultMessage": "Bintangkan model di bawah untuk memudahkannya di sini dan dalam sembang."
+  },
+  "preferredModels.remove": {
+    "defaultMessage": "Alih keluar {model} daripada model kegemaran"
+  },
+  "preferredModels.removeFailed": {
+    "defaultMessage": "Gagal mengemas kini model kegemaran"
+  },
+  "preferredModels.title": {
+    "defaultMessage": "Model kegemaran"
+  },
   "privacyInfoModal.collectErrors": {
     "defaultMessage": "Jenis ralat (cth., \"rate_limit\", \"auth\" - tanpa butiran)"
   },
@@ -2750,6 +3050,9 @@
   "promptsSettings.unsavedChanges": {
     "defaultMessage": "Anda mempunyai perubahan yang belum disimpan"
   },
+  "providerCard.deprecatedReplacement": {
+    "defaultMessage": "Tidak digunakan lagi — gunakan {replacement} sebagai gantinya."
+  },
   "providerCard.noMetadata": {
     "defaultMessage": "Ralat ProviderCard: Tiada metadata disediakan"
   },
@@ -2804,8 +3107,17 @@
   "providerConfigForm.continue": {
     "defaultMessage": "Teruskan"
   },
+  "providerConfigForm.deviceCodeAndEnter": {
+    "defaultMessage": "dan masukkan:"
+  },
+  "providerConfigForm.deviceCodeCopy": {
+    "defaultMessage": "Salin"
+  },
   "providerConfigForm.deviceCodeFlowHint": {
     "defaultMessage": "Tetingkap pelayar akan dibuka. Kod pengesahan akan dipaparkan di sini supaya anda boleh memasukkannya untuk melengkapkan log masuk."
+  },
+  "providerConfigForm.deviceCodeVisit": {
+    "defaultMessage": "Lawati"
   },
   "providerConfigForm.noApiKey": {
     "defaultMessage": "Tidak mempunyai kunci API?"
@@ -2831,6 +3143,9 @@
   "providerConfigurationModal.checkConfigAgain": {
     "defaultMessage": "Semak semula konfigurasi anda untuk menggunakan penyedia ini."
   },
+  "providerConfigurationModal.chooseModel": {
+    "defaultMessage": "Pilih Model"
+  },
   "providerConfigurationModal.close": {
     "defaultMessage": "Tutup"
   },
@@ -2843,8 +3158,17 @@
   "providerConfigurationModal.deleteConfirmation": {
     "defaultMessage": "Ini akan memadamkan konfigurasi penyedia semasa secara kekal."
   },
+  "providerConfigurationModal.deviceCodeAndEnter": {
+    "defaultMessage": "dan masukkan:"
+  },
+  "providerConfigurationModal.deviceCodeCopy": {
+    "defaultMessage": "Salin"
+  },
   "providerConfigurationModal.deviceCodeFlowHint": {
     "defaultMessage": "Tetingkap pelayar akan dibuka. Kod pengesahan akan dipaparkan di sini supaya anda boleh memasukkannya untuk melengkapkan log masuk."
+  },
+  "providerConfigurationModal.deviceCodeVisit": {
+    "defaultMessage": "Lawati"
   },
   "providerConfigurationModal.errorCheckingConfig": {
     "defaultMessage": "Terdapat ralat semasa menyemak konfigurasi penyedia ini."
@@ -2965,6 +3289,66 @@
   },
   "providerSetupActions.submit": {
     "defaultMessage": "Hantar"
+  },
+  "providersSection.configure": {
+    "defaultMessage": "Configure"
+  },
+  "providersSection.configured": {
+    "defaultMessage": "Configured"
+  },
+  "providersSection.defaultSet": {
+    "defaultMessage": "{model} is now your default model."
+  },
+  "providersSection.defaultSetFailed": {
+    "defaultMessage": "Failed to set default model"
+  },
+  "providersSection.description": {
+    "defaultMessage": "Configure your AI model providers and load their available models directly from each provider API."
+  },
+  "providersSection.hideModels": {
+    "defaultMessage": "Hide models"
+  },
+  "providersSection.loadFailed": {
+    "defaultMessage": "Failed to load providers"
+  },
+  "providersSection.loadModels": {
+    "defaultMessage": "Load Models"
+  },
+  "providersSection.loading": {
+    "defaultMessage": "Loading providers..."
+  },
+  "providersSection.manageAll": {
+    "defaultMessage": "Manage all providers"
+  },
+  "providersSection.modelsError": {
+    "defaultMessage": "Could not load models from {provider}: {error}"
+  },
+  "providersSection.modelsLoaded": {
+    "defaultMessage": "{count} models loaded from {provider}"
+  },
+  "providersSection.needsConfig": {
+    "defaultMessage": "Configure this provider first to load its models."
+  },
+  "providersSection.notConfigured": {
+    "defaultMessage": "Not configured"
+  },
+  "providersSection.reloadingModels": {
+    "defaultMessage": "Reloading models..."
+  },
+  "providersSection.resetDescription": {
+    "defaultMessage": "Clear your selected model and provider settings to start fresh"
+  },
+  "providersSection.resetTitle": {
+    "defaultMessage": "Reset Provider and Model"
+  },
+  "providersSection.setDefault": {
+    "defaultMessage": "Click a model to use it as your default."
+  },
+  "providersSection.showModels": {
+    "defaultMessage": "Show models"
+  },
+  "providersSection.title": {
+    "defaultMessage": "Model Providers"
   },
   "recipeActivityEditor.activitiesDescription": {
     "defaultMessage": "Gesaan utama dan butang aktiviti yang akan dipaparkan dalam tetingkap sembang resipi."
@@ -3334,6 +3718,66 @@
   },
   "responseStyle.detailedLabel": {
     "defaultMessage": "Terperinci"
+  },
+  "sauronhintsModal.close": {
+    "defaultMessage": "Tutup"
+  },
+  "sauronhintsModal.developer": {
+    "defaultMessage": "Pembangun"
+  },
+  "sauronhintsModal.dialogDescription": {
+    "defaultMessage": "Berikan konteks tambahan tentang projek anda untuk meningkatkan komunikasi dengan Sauron"
+  },
+  "sauronhintsModal.dialogTitle": {
+    "defaultMessage": "Konfigurasikan Petunjuk Projek (.sauronhints)"
+  },
+  "sauronhintsModal.errorReading": {
+    "defaultMessage": "Ralat membaca fail .sauronhints: {error}"
+  },
+  "sauronhintsModal.failedToAccess": {
+    "defaultMessage": "Gagal mengakses fail .sauronhints"
+  },
+  "sauronhintsModal.failedToSave": {
+    "defaultMessage": "Gagal menyimpan fail .sauronhints"
+  },
+  "sauronhintsModal.fileCreating": {
+    "defaultMessage": "Mencipta fail .sauronhints baharu di: {filePath}"
+  },
+  "sauronhintsModal.fileFound": {
+    "defaultMessage": "Fail .sauronhints dijumpai di: {filePath}"
+  },
+  "sauronhintsModal.helpText1": {
+    "defaultMessage": ".sauronhints ialah fail teks yang digunakan untuk memberikan konteks tambahan tentang projek anda dan meningkatkan komunikasi dengan Sauron."
+  },
+  "sauronhintsModal.helpText2": {
+    "defaultMessage": "Sila pastikan sambungan {bold} didayakan dalam halaman sambungan. Sambungan ini diperlukan untuk menggunakan .sauronhints. Anda perlu memulakan semula sesi anda untuk kemas kini .sauronhints berkuat kuasa."
+  },
+  "sauronhintsModal.helpText3": {
+    "defaultMessage": "Lihat {link} untuk maklumat lanjut."
+  },
+  "sauronhintsModal.helpTextLink": {
+    "defaultMessage": "menggunakan .sauronhints"
+  },
+  "sauronhintsModal.placeholder": {
+    "defaultMessage": "Masukkan petunjuk projek di sini..."
+  },
+  "sauronhintsModal.save": {
+    "defaultMessage": "Simpan"
+  },
+  "sauronhintsModal.savedSuccessfully": {
+    "defaultMessage": "Berjaya disimpan"
+  },
+  "sauronhintsModal.saving": {
+    "defaultMessage": "Menyimpan..."
+  },
+  "sauronhintsSection.configure": {
+    "defaultMessage": "Konfigurasikan"
+  },
+  "sauronhintsSection.description": {
+    "defaultMessage": "Konfigurasikan fail .sauronhints projek anda untuk memberikan konteks tambahan kepada Sauron"
+  },
+  "sauronhintsSection.title": {
+    "defaultMessage": "Petunjuk Projek (.sauronhints)"
   },
   "scheduleDetailView.actions": {
     "defaultMessage": "Tindakan"
@@ -3959,6 +4403,75 @@
   "sessions.toast.updated": {
     "defaultMessage": "Penerangan sesi berjaya dikemas kini"
   },
+  "settings.agentLoop.description": {
+    "defaultMessage": "Gunakan gelung ejen berasaskan operasi. Matikan untuk menggunakan gelung legasi."
+  },
+  "settings.agentLoop.operations.auto.placeholder": {
+    "defaultMessage": "Automatik"
+  },
+  "settings.agentLoop.operations.blockLimit.label": {
+    "defaultMessage": "Had sekatan"
+  },
+  "settings.agentLoop.operations.contextCompaction.description": {
+    "defaultMessage": "Merumuskan sejarah perbualan sebelum tetingkap konteks penuh."
+  },
+  "settings.agentLoop.operations.contextCompaction.title": {
+    "defaultMessage": "Pemadatan konteks"
+  },
+  "settings.agentLoop.operations.cutoff.label": {
+    "defaultMessage": "Had"
+  },
+  "settings.agentLoop.operations.enable": {
+    "defaultMessage": "Dayakan {operation}"
+  },
+  "settings.agentLoop.operations.failureTimeout.label": {
+    "defaultMessage": "Tamat masa kegagalan"
+  },
+  "settings.agentLoop.operations.heading": {
+    "defaultMessage": "Operasi boleh dikonfigurasi"
+  },
+  "settings.agentLoop.operations.maxTurns.description": {
+    "defaultMessage": "Menghentikan kerja autonomi dan bertanya kepada pengguna sebelum meneruskan."
+  },
+  "settings.agentLoop.operations.maxTurns.title": {
+    "defaultMessage": "Giliran maksimum"
+  },
+  "settings.agentLoop.operations.recipeRetry.description": {
+    "defaultMessage": "Menjalankan semula semakan resipi apabila semakan kejayaan yang dikonfigurasi gagal."
+  },
+  "settings.agentLoop.operations.recipeRetry.title": {
+    "defaultMessage": "Cuba semula resipi"
+  },
+  "settings.agentLoop.operations.retryTimeout.label": {
+    "defaultMessage": "Tamat masa cuba semula"
+  },
+  "settings.agentLoop.operations.slashCommands.description": {
+    "defaultMessage": "Mengenali perintah seperti /compact, /skills dan pintasan resipi."
+  },
+  "settings.agentLoop.operations.slashCommands.title": {
+    "defaultMessage": "Perintah garis miring"
+  },
+  "settings.agentLoop.operations.stopHooks.description": {
+    "defaultMessage": "Membolehkan hook menyekat penyiapan sambil menghalang kitaran berhenti tanpa henti."
+  },
+  "settings.agentLoop.operations.stopHooks.title": {
+    "defaultMessage": "Hook berhenti"
+  },
+  "settings.agentLoop.operations.threshold.label": {
+    "defaultMessage": "Ambang %"
+  },
+  "settings.agentLoop.operations.toolPairCompaction.description": {
+    "defaultMessage": "Merumuskan permintaan dan respons alat lama untuk menjimatkan konteks. Had ditetapkan secara automatik jika dibiarkan kosong."
+  },
+  "settings.agentLoop.operations.toolPairCompaction.title": {
+    "defaultMessage": "Pemadatan pasangan alat"
+  },
+  "settings.agentLoop.operations.turns.label": {
+    "defaultMessage": "Giliran"
+  },
+  "settings.agentLoop.title": {
+    "defaultMessage": "Gelung ejen"
+  },
   "settings.appearance.description": {
     "defaultMessage": "Konfigurasikan cara sauron muncul pada sistem anda"
   },
@@ -4112,6 +4625,12 @@
   "settings.notifications.openSettings": {
     "defaultMessage": "Buka Tetapan"
   },
+  "settings.notifications.sound.description": {
+    "defaultMessage": "Mainkan bunyi bersama notifikasi tugas selesai"
+  },
+  "settings.notifications.sound.title": {
+    "defaultMessage": "Bunyi notifikasi"
+  },
   "settings.notifications.task.description": {
     "defaultMessage": "Beritahu apabila Sauron menyelesaikan tugasan semasa tetingkap berada di latar belakang"
   },
@@ -4142,8 +4661,17 @@
   "settings.version.title": {
     "defaultMessage": "Versi"
   },
+  "settingsView.noResults": {
+    "defaultMessage": "Tiada hasil"
+  },
+  "settingsView.searchPlaceholder": {
+    "defaultMessage": "Cari Tetapan"
+  },
   "settingsView.tabApp": {
     "defaultMessage": "Aplikasi"
+  },
+  "settingsView.tabAppearance": {
+    "defaultMessage": "Appearance"
   },
   "settingsView.tabChat": {
     "defaultMessage": "Sembang"
@@ -4151,14 +4679,26 @@
   "settingsView.tabExternalBackend": {
     "defaultMessage": "Backend Luaran"
   },
+  "settingsView.tabHarnesses": {
+    "defaultMessage": "Harness"
+  },
   "settingsView.tabKeyboard": {
     "defaultMessage": "Papan Kekunci"
+  },
+  "settingsView.tabMcp": {
+    "defaultMessage": "MCP"
   },
   "settingsView.tabModels": {
     "defaultMessage": "Model"
   },
+  "settingsView.tabPlugins": {
+    "defaultMessage": "Plugins"
+  },
   "settingsView.tabPrompts": {
     "defaultMessage": "Gesaan"
+  },
+  "settingsView.tabProviders": {
+    "defaultMessage": "Providers"
   },
   "settingsView.title": {
     "defaultMessage": "Tetapan"
@@ -4493,6 +5033,9 @@
   "themeSelector.light": {
     "defaultMessage": "Cerah"
   },
+  "themeSelector.popular": {
+    "defaultMessage": "Popular themes"
+  },
   "themeSelector.system": {
     "defaultMessage": "Sistem"
   },
@@ -4667,322 +5210,79 @@
   "userMessage.removeImageFromEdit": {
     "defaultMessage": "Alih keluar imej daripada mesej"
   },
-  "modelsBottomBar.recentModels": {
-    "defaultMessage": "Terkini"
+  "settingsView.tabStats": {
+    "defaultMessage": "Stats"
   },
-  "providerConfigurationModal.chooseModel": {
-    "defaultMessage": "Pilih Model"
+  "usageStats.byModel": {
+    "defaultMessage": "Per model"
   },
-  "providerCard.deprecatedReplacement": {
-    "defaultMessage": "Tidak digunakan lagi — gunakan {replacement} sebagai gantinya."
+  "usageStats.byProvider": {
+    "defaultMessage": "Per provider"
   },
-  "acpReadinessPanel.adapterFound": {
-    "defaultMessage": "Penyesuai ACP ditemui"
+  "usageStats.cost": {
+    "defaultMessage": "Cost"
   },
-  "acpReadinessPanel.adapterNotFound": {
-    "defaultMessage": "Penyesuai ACP tidak ditemui"
+  "usageStats.empty": {
+    "defaultMessage": "No usage was recorded in this date range."
   },
-  "acpReadinessPanel.authenticationHelp": {
-    "defaultMessage": "Log masuk melalui CLI penyedia, kemudian semak semula."
+  "usageStats.inputCacheTokens": {
+    "defaultMessage": "Input cache tokens"
   },
-  "acpReadinessPanel.checkAgain": {
-    "defaultMessage": "Semak semula"
+  "usageStats.inputTokens": {
+    "defaultMessage": "Input tokens"
   },
-  "acpReadinessPanel.checking": {
-    "defaultMessage": "Menyemak..."
+  "usageStats.loading": {
+    "defaultMessage": "Loading usage stats…"
   },
-  "acpReadinessPanel.connected": {
-    "defaultMessage": "Berjaya disambungkan"
+  "usageStats.modelColumn": {
+    "defaultMessage": "Model"
   },
-  "acpReadinessPanel.connectionNotChecked": {
-    "defaultMessage": "Semak sambungan akaun anda sebelum meneruskan."
+  "usageStats.preset30": {
+    "defaultMessage": "Last 30 days"
   },
-  "providerConfigForm.deviceCodeAndEnter": {
-    "defaultMessage": "dan masukkan:"
+  "usageStats.preset7": {
+    "defaultMessage": "Last 7 days"
   },
-  "providerConfigForm.deviceCodeCopy": {
-    "defaultMessage": "Salin"
+  "usageStats.presetAll": {
+    "defaultMessage": "All time"
   },
-  "providerConfigForm.deviceCodeVisit": {
-    "defaultMessage": "Lawati"
+  "usageStats.presetYear": {
+    "defaultMessage": "This year"
   },
-  "providerConfigurationModal.deviceCodeAndEnter": {
-    "defaultMessage": "dan masukkan:"
+  "usageStats.providerColumn": {
+    "defaultMessage": "Provider"
   },
-  "providerConfigurationModal.deviceCodeCopy": {
-    "defaultMessage": "Salin"
+  "usageStats.rangeDescription": {
+    "defaultMessage": "Usage is grouped by model and by provider for the selected dates."
   },
-  "providerConfigurationModal.deviceCodeVisit": {
-    "defaultMessage": "Lawati"
+  "usageStats.rangeFrom": {
+    "defaultMessage": "From"
   },
-  "settings.agentLoop.description": {
-    "defaultMessage": "Gunakan gelung ejen berasaskan operasi. Matikan untuk menggunakan gelung legasi."
+  "usageStats.rangeLabel": {
+    "defaultMessage": "Date range"
   },
-  "settings.agentLoop.operations.auto.placeholder": {
-    "defaultMessage": "Automatik"
+  "usageStats.rangeTo": {
+    "defaultMessage": "To"
   },
-  "settings.agentLoop.operations.blockLimit.label": {
-    "defaultMessage": "Had sekatan"
+  "usageStats.sessions": {
+    "defaultMessage": "{count,plural,one{# session} other{# sessions}}"
   },
-  "settings.agentLoop.operations.contextCompaction.description": {
-    "defaultMessage": "Merumuskan sejarah perbualan sebelum tetingkap konteks penuh."
+  "usageStats.sourceLedger": {
+    "defaultMessage": "Recorded usage"
   },
-  "settings.agentLoop.operations.contextCompaction.title": {
-    "defaultMessage": "Pemadatan konteks"
+  "usageStats.sourceMessages": {
+    "defaultMessage": "Estimated from stored messages"
   },
-  "settings.agentLoop.operations.cutoff.label": {
-    "defaultMessage": "Had"
+  "usageStats.total": {
+    "defaultMessage": "Total"
   },
-  "settings.agentLoop.operations.enable": {
-    "defaultMessage": "Dayakan {operation}"
+  "usageStats.unknown": {
+    "defaultMessage": "Unknown"
   },
-  "settings.agentLoop.operations.failureTimeout.label": {
-    "defaultMessage": "Tamat masa kegagalan"
+  "usageStats.writeCacheTokens": {
+    "defaultMessage": "Write cache tokens"
   },
-  "settings.agentLoop.operations.heading": {
-    "defaultMessage": "Operasi boleh dikonfigurasi"
-  },
-  "settings.agentLoop.operations.maxTurns.description": {
-    "defaultMessage": "Menghentikan kerja autonomi dan bertanya kepada pengguna sebelum meneruskan."
-  },
-  "settings.agentLoop.operations.maxTurns.title": {
-    "defaultMessage": "Giliran maksimum"
-  },
-  "settings.agentLoop.operations.recipeRetry.description": {
-    "defaultMessage": "Menjalankan semula semakan resipi apabila semakan kejayaan yang dikonfigurasi gagal."
-  },
-  "settings.agentLoop.operations.recipeRetry.title": {
-    "defaultMessage": "Cuba semula resipi"
-  },
-  "settings.agentLoop.operations.retryTimeout.label": {
-    "defaultMessage": "Tamat masa cuba semula"
-  },
-  "settings.agentLoop.operations.slashCommands.description": {
-    "defaultMessage": "Mengenali perintah seperti /compact, /skills dan pintasan resipi."
-  },
-  "settings.agentLoop.operations.slashCommands.title": {
-    "defaultMessage": "Perintah garis miring"
-  },
-  "settings.agentLoop.operations.stopHooks.description": {
-    "defaultMessage": "Membolehkan hook menyekat penyiapan sambil menghalang kitaran berhenti tanpa henti."
-  },
-  "settings.agentLoop.operations.stopHooks.title": {
-    "defaultMessage": "Hook berhenti"
-  },
-  "settings.agentLoop.operations.threshold.label": {
-    "defaultMessage": "Ambang %"
-  },
-  "settings.agentLoop.operations.toolPairCompaction.description": {
-    "defaultMessage": "Merumuskan permintaan dan respons alat lama untuk menjimatkan konteks. Had ditetapkan secara automatik jika dibiarkan kosong."
-  },
-  "settings.agentLoop.operations.toolPairCompaction.title": {
-    "defaultMessage": "Pemadatan pasangan alat"
-  },
-  "settings.agentLoop.operations.turns.label": {
-    "defaultMessage": "Giliran"
-  },
-  "settings.agentLoop.title": {
-    "defaultMessage": "Gelung ejen"
-  },
-  "providersSection.configure": {
-    "defaultMessage": "Configure"
-  },
-  "providersSection.configured": {
-    "defaultMessage": "Configured"
-  },
-  "providersSection.defaultSet": {
-    "defaultMessage": "{model} is now your default model."
-  },
-  "providersSection.defaultSetFailed": {
-    "defaultMessage": "Failed to set default model"
-  },
-  "providersSection.description": {
-    "defaultMessage": "Configure your AI model providers and load their available models directly from each provider API."
-  },
-  "providersSection.hideModels": {
-    "defaultMessage": "Hide models"
-  },
-  "providersSection.loadFailed": {
-    "defaultMessage": "Failed to load providers"
-  },
-  "providersSection.loadModels": {
-    "defaultMessage": "Load Models"
-  },
-  "providersSection.loading": {
-    "defaultMessage": "Loading providers..."
-  },
-  "providersSection.manageAll": {
-    "defaultMessage": "Manage all providers"
-  },
-  "providersSection.modelsError": {
-    "defaultMessage": "Could not load models from {provider}: {error}"
-  },
-  "providersSection.modelsLoaded": {
-    "defaultMessage": "{count} models loaded from {provider}"
-  },
-  "providersSection.needsConfig": {
-    "defaultMessage": "Configure this provider first to load its models."
-  },
-  "providersSection.notConfigured": {
-    "defaultMessage": "Not configured"
-  },
-  "providersSection.reloadingModels": {
-    "defaultMessage": "Reloading models..."
-  },
-  "providersSection.setDefault": {
-    "defaultMessage": "Click a model to use it as your default."
-  },
-  "providersSection.showModels": {
-    "defaultMessage": "Show models"
-  },
-  "providersSection.title": {
-    "defaultMessage": "Model Providers"
-  },
-  "settingsView.tabProviders": {
-    "defaultMessage": "Providers"
-  },
-  "authSettings.cancelSignIn": {
-    "defaultMessage": "Batal"
-  },
-  "authSettings.checkingStatus": {
-    "defaultMessage": "Memeriksa..."
-  },
-  "authSettings.connectedAccounts": {
-    "defaultMessage": "Akaun dipautkan"
-  },
-  "authSettings.connectedAccountsDescription": {
-    "defaultMessage": "Daftar masuk untuk membolehkan Sauron bekerja dengan akaun luaran anda."
-  },
-  "authSettings.githubAccountDescription": {
-    "defaultMessage": "Cari repositori, bekerja dengan kod, urus isu, dan buka pull request."
-  },
-  "authSettings.githubAccountName": {
-    "defaultMessage": "GitHub"
-  },
-  "authSettings.githubConnected": {
-    "defaultMessage": "Dipautkan"
-  },
-  "authSettings.githubEnterCode": {
-    "defaultMessage": "Masukkan kod ini di {url} untuk memberi kuasa kepada Sauron:"
-  },
-  "authSettings.githubNotConnected": {
-    "defaultMessage": "Tidak dipautkan"
-  },
-  "authSettings.githubOpenDevicePage": {
-    "defaultMessage": "Buka halaman peranti GitHub"
-  },
-  "allProviderModels.preferredUpdateFailed": {
-    "defaultMessage": "Gagal mengemas kini model kegemaran"
-  },
-  "allProviderModels.refreshAll": {
-    "defaultMessage": "Refresh models"
-  },
-  "authSettings.githubSignInUnavailable": {
-    "defaultMessage": "Daftar masuk GitHub hanya tersedia dalam aplikasi desktop."
-  },
-  "authSettings.githubSignOutMessage": {
-    "defaultMessage": "Sauron tidak akan dapat bekerja dengan repositori GitHub anda sehingga anda daftar masuk semula."
-  },
-  "allProviderModels.removePreferred": {
-    "defaultMessage": "Alih keluar {model} daripada model kegemaran"
-  },
-  "allProviderModels.title": {
-    "defaultMessage": "Models from your providers"
-  },
-  "authSettings.githubSignedIn": {
-    "defaultMessage": "Berjaya daftar masuk ke GitHub. Sambungan GitHub sedia digunakan."
-  },
-  "authSettings.githubSignedOut": {
-    "defaultMessage": "Berjaya daftar keluar daripada GitHub"
-  },
-  "authSettings.githubStatusFailed": {
-    "defaultMessage": "Tidak dapat menyemak status daftar masuk GitHub"
-  },
-  "authSettings.githubWaitingForAuthorization": {
-    "defaultMessage": "Menunggu kebenaran GitHub..."
-  },
-  "authSettings.signInWithGitHub": {
-    "defaultMessage": "Daftar masuk dengan GitHub"
-  },
-  "pluginsSettings.loadFailed": {
-    "defaultMessage": "Could not load plugins"
-  },
-  "pluginsSettings.loading": {
-    "defaultMessage": "Loading plugins..."
-  },
-  "pluginsSettings.manageSkills": {
-    "defaultMessage": "Manage skills"
-  },
-  "pluginsSettings.pluginCount": {
-    "defaultMessage": "{count,plural,=0{No plugins} one{# plugin} other{# plugins}}"
-  },
-  "pluginsSettings.refresh": {
-    "defaultMessage": "Refresh"
-  },
-  "pluginsSettings.skillCount": {
-    "defaultMessage": "{count,plural,one{# skill} other{# skills}}"
-  },
-  "pluginsSettings.title": {
-    "defaultMessage": "Plugins"
-  },
-  "preferredModels.empty": {
-    "defaultMessage": "Bintangkan model di bawah untuk memudahkannya di sini dan dalam sembang."
-  },
-  "preferredModels.remove": {
-    "defaultMessage": "Alih keluar {model} daripada model kegemaran"
-  },
-  "preferredModels.removeFailed": {
-    "defaultMessage": "Gagal mengemas kini model kegemaran"
-  },
-  "preferredModels.title": {
-    "defaultMessage": "Model kegemaran"
-  },
-  "providersSection.resetDescription": {
-    "defaultMessage": "Clear your selected model and provider settings to start fresh"
-  },
-  "providersSection.resetTitle": {
-    "defaultMessage": "Reset Provider and Model"
-  },
-  "settingsView.tabAppearance": {
-    "defaultMessage": "Appearance"
-  },
-  "settingsView.tabMcp": {
-    "defaultMessage": "MCP"
-  },
-  "settingsView.tabPlugins": {
-    "defaultMessage": "Plugins"
-  },
-  "themeSelector.popular": {
-    "defaultMessage": "Popular themes"
-  },
-  "allProviderModels.clearSearch": {
-    "defaultMessage": "Kosongkan carian"
-  },
-  "allProviderModels.clearSearchInput": {
-    "defaultMessage": "Kosongkan medan carian"
-  },
-  "allProviderModels.noSearchResults": {
-    "defaultMessage": "Tiada model sepadan dengan \"{query}\"."
-  },
-  "allProviderModels.searchLabel": {
-    "defaultMessage": "Cari model"
-  },
-  "allProviderModels.searchPlaceholder": {
-    "defaultMessage": "Cari model..."
-  },
-  "allProviderModels.showingCount": {
-    "defaultMessage": "Menunjukkan {shown, number} daripada {total, number} model"
-  },
-  "modelBadges.contextShort": {
-    "defaultMessage": "{amount, number}k"
-  },
-  "modelBadges.contextWindow": {
-    "defaultMessage": "Konteks {amount, number}k"
-  },
-  "modelBadges.default": {
-    "defaultMessage": "Lalai"
-  },
-  "modelBadges.reasoning": {
-    "defaultMessage": "Reasoning"
+  "usageStats.writeTokens": {
+    "defaultMessage": "Write tokens"
   }
 }
