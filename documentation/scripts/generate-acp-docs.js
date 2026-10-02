@@ -2,8 +2,8 @@ const fs = require('fs');
 const path = require('path');
 
 const ROOT = path.join(__dirname, '..', '..');
-const SCHEMA_FILE = path.join(ROOT, 'crates', 'goose', 'acp-schema.json');
-const META_FILE = path.join(ROOT, 'crates', 'goose', 'acp-meta.json');
+const SCHEMA_FILE = path.join(ROOT, 'crates', 'sauron', 'acp-schema.json');
+const META_FILE = path.join(ROOT, 'crates', 'sauron', 'acp-meta.json');
 const OUTPUT_FILE = path.join(
   ROOT,
   'documentation',
@@ -250,7 +250,7 @@ function renderDocumentation(schemas, meta, gooseVersion = 'Preview') {
     '',
     `**goose version:** ${code(gooseVersion)}`,
     '',
-    '> This file is generated from `crates/goose/acp-schema.json` and `crates/goose/acp-meta.json`. Do not edit it manually.',
+    '> This file is generated from `crates/sauron/acp-schema.json` and `crates/sauron/acp-meta.json`. Do not edit it manually.',
     '',
     '## Client-to-agent requests',
     '',
