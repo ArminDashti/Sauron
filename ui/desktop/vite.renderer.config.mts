@@ -1,4 +1,5 @@
 import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
 
 // https://vitejs.dev/config
@@ -7,7 +8,8 @@ export default defineConfig({
     'process.env.GOOSE_TUNNEL': JSON.stringify(process.env.GOOSE_TUNNEL !== 'no' && process.env.GOOSE_TUNNEL !== 'none'),
   },
 
-  plugins: [tailwindcss()],
+  // react() provides Fast Refresh so renderer edits apply without a full reload.
+  plugins: [react(), tailwindcss()],
 
   // Vite caches a copy of @aaif/goose-acp-client and doesn't notice when we rebuild it
   // locally, so it serves stale code until you clear node_modules/.vite by hand.
@@ -15,6 +17,12 @@ export default defineConfig({
   // Dev-server only — release builds ignore optimizeDeps.
   optimizeDeps: {
     exclude: ['@aaif/goose-acp-client'],
+  },
+
+  server: {
+    watch: {
+      ignored: ['!**/node_modules/@aaif/goose-acp-client/**'],
+    },
   },
 
   build: {

@@ -84,10 +84,17 @@ copy-binary-windows:
     }'
 
 # Run UI with latest
+[unix]
 run-ui:
     @just release-binary
     @echo "Running UI..."
     cd ui/desktop && pnpm install && pnpm run start-gui
+
+[windows]
+run-ui:
+    @just release-windows
+    @just copy-binary-windows
+    @powershell.exe -Command "Write-Host 'Running UI...'; Set-Location ui/desktop; pnpm install; pnpm run start-gui"
 
 run-ui-playwright:
     #!/usr/bin/env sh
@@ -98,9 +105,14 @@ run-ui-playwright:
     echo "Using isolated directory: $RUN_DIR"
     cd ui/desktop && ENABLE_PLAYWRIGHT=true GOOSE_PATH_ROOT="$RUN_DIR" pnpm run start-gui
 
+[unix]
 run-ui-only:
     @echo "Running UI..."
     cd ui/desktop && pnpm install && pnpm run start-gui
+
+[windows]
+run-ui-only:
+    @powershell.exe -Command "Write-Host 'Running UI...'; Set-Location ui/desktop; pnpm install; pnpm run start-gui"
 
 debug-ui:
     @echo "🚀 Starting goose frontend in external ACP backend mode"
