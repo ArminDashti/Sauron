@@ -4178,6 +4178,12 @@
   "settings.version.title": {
     "defaultMessage": "Sürüm"
   },
+  "settingsView.noResults": {
+    "defaultMessage": "Sonuç yok"
+  },
+  "settingsView.searchPlaceholder": {
+    "defaultMessage": "Ayarlarında Ara"
+  },
   "settingsView.tabApp": {
     "defaultMessage": "Uygulama"
   },

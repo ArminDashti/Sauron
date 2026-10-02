@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../..
 import ProviderConfigurationModal from '../providers/modal/ProviderConfigurationModal';
 import { acpListProviderDetails, acpListSetupCatalog } from '../../../acp/providers';
 import type { ProviderDetails } from '../../../types/providers';
-import type { ProviderSetupCatalogEntryDto } from '@aaif/goose-acp-client';
+import type { ProviderSetupCatalogEntryDto } from '@aaif/sauron-acp-client';
 import { defineMessages, useIntl } from '../../../i18n';
 
 const i18n = defineMessages({

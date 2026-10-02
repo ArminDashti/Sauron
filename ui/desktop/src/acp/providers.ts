@@ -205,10 +205,10 @@ export async function acpListProviderModels(providerId: string) {
   return entries.find((e) => e.providerId === providerId)?.models ?? [];
 }
 
-/** Full setup catalog: every provider goose can use, tagged `agent` or `model`. */
+/** Full setup catalog: every provider the app can use, tagged `agent` or `model`. */
 export async function acpListSetupCatalog(): Promise<ProviderSetupCatalogEntryDto[]> {
   const client = await getAcpClient();
-  const { providers } = await client.goose.providersSetupCatalogList_unstable({});
+  const { providers } = await client.sauron.providersSetupCatalogList_unstable({});
   return providers;
 }
 
@@ -306,6 +306,38 @@ export async function acpListProviderSecrets(): Promise<ProviderSecretDto[]> {
 export async function acpDeleteProviderSecret(id: string): Promise<void> {
   const client = await getAcpClient();
   await client.sauron.providersSecretsDelete_unstable({ id });
+}
+
+/**
+ * Whether a provider's token key has a value set (env var, stored secret, or
+ * cached OAuth credential).
+ *
+ * Providers that declare no secret config key are treated as not requiring a
+ * token. When the token status cannot be determined the check fails closed so
+ * models are only loaded for providers known to have their token set.
+ */
+export async function acpIsProviderTokenSet(
+  provider: ProviderDetails,
+  secrets?: ProviderSecretDto[]
+): Promise<boolean> {
+  const tokenKey =
+    provider.metadata.config_keys.find((key) => key.secret && key.primary) ??
+    provider.metadata.config_keys.find((key) => key.secret);
+  if (!tokenKey) {
+    return true;
+  }
+
+  try {
+    const storedSecrets = secrets ?? (await acpListProviderSecrets());
+    if (storedSecrets.some((secret) => secret.provider === provider.name && secret.hasSecret)) {
+      return true;
+    }
+    const fields = await acpReadProviderConfig(provider.name);
+    return fields.find((field) => field.key === tokenKey.name)?.isSet ?? false;
+  } catch (error) {
+    console.warn(`Could not read token status for provider ${provider.name}:`, error);
+    return false;
+  }
 }
 
 export async function acpGetCanonicalModelInfo(

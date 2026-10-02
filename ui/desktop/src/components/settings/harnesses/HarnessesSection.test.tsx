@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event';
 import HarnessesSection from './HarnessesSection';
 import { acpListProviderDetails, acpListSetupCatalog } from '../../../acp/providers';
 import type { ProviderDetails } from '../../../types/providers';
-import type { ProviderSetupCatalogEntryDto } from '@aaif/goose-acp-client';
+import type { ProviderSetupCatalogEntryDto } from '@aaif/sauron-acp-client';
 import { IntlTestWrapper } from '../../../i18n/test-utils';
 
 vi.mock('../../../acp/providers', () => ({
