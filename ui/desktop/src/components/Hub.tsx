@@ -197,6 +197,7 @@ export default function Hub({
           <ChatInput
             sessionId={null}
             draftRef={draftRef}
+            bottomBarClassName="pb-3"
             handleSubmit={handleSubmit}
             chatState={isCreatingSession ? ChatState.LoadingConversation : ChatState.Idle}
             hasActiveRun={false}

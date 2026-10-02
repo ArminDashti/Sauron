@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { Check, FolderDot, FolderOpen, GitBranch, Plus } from 'lucide-react';
+import { Check, ChevronDown, FolderDot, FolderOpen, GitBranch, Plus } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../ui/Tooltip';
 import { Input } from '../ui/input';
 import {
@@ -225,6 +225,7 @@ export const DirSwitcher: React.FC<DirSwitcherProps> = ({
                 <div className="max-w-[200px] truncate">
                   {splitDirPath(workingDir).name || workingDir}
                 </div>
+                <ChevronDown className="ml-0.5 flex-shrink-0 opacity-70" size={12} />
               </button>
             </DropdownMenuTrigger>
           </TooltipTrigger>

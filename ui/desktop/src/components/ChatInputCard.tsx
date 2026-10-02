@@ -2,23 +2,14 @@ import React from 'react';
 import { cn } from '../utils';
 
 /**
- * Shared visual wrapper for the ChatInput.
+ * Layout wrapper for the ChatInput.
  *
- * Both the Hub (empty-chat landing) and the BaseChat (active session)
- * present ChatInput as a floating rounded outlined card on the canvas.
- * Centralizing it here keeps the look in sync and gives a single place
- * to tweak the recipe.
+ * The composer draws its own rounded, bordered surface around the input row, so
+ * the bottom action bar can sit on the canvas below it instead of inside a
+ * card. This wrapper only owns positioning - z-index, margins, entry animation -
+ * and keeps the Hub (empty-chat landing) and BaseChat (active session) in sync.
  */
 export const ChatInputCard: React.FC<{
   className?: string;
   children: React.ReactNode;
-}> = ({ className, children }) => (
-  <div
-    className={cn(
-      'rounded-2xl border border-border-primary shadow-sm overflow-hidden bg-background-primary',
-      className
-    )}
-  >
-    {children}
-  </div>
-);
+}> = ({ className, children }) => <div className={cn('relative', className)}>{children}</div>;

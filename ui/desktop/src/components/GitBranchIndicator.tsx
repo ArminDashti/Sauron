@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { GitBranch, Check, Search } from 'lucide-react';
+import { GitBranch, Check, Search, ChevronDown } from 'lucide-react';
 import { toastError } from '../toasts';
 import { cn } from '../utils';
 import { defineMessages, useIntl } from '../i18n';
@@ -115,6 +115,7 @@ export const GitBranchIndicator: React.FC<{ dir: string; className?: string }> =
         >
           <GitBranch className="mr-1" size={14} />
           <span className="max-w-[100px] truncate whitespace-nowrap">{branch}</span>
+          <ChevronDown className="ml-0.5 flex-shrink-0 opacity-70" size={12} />
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent side="top" align="start" className="w-64 p-0 overflow-hidden">

@@ -1,4 +1,4 @@
-import { Sliders, LoaderCircle, Settings, History, Star } from 'lucide-react';
+import { Sliders, LoaderCircle, Settings, History, Star, ChevronDown } from 'lucide-react';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useModelAndProvider } from '../../../ModelAndProviderContext';
 import { SwitchModelModal } from '../subcomponents/SwitchModelModal';
@@ -247,7 +247,7 @@ export default function ModelsBottomBar({
   return (
     <div className="relative flex items-center" ref={dropdownRef}>
       <DropdownMenu open={isModelMenuOpen} onOpenChange={handleMenuOpenChange}>
-        <DropdownMenuTrigger className="flex items-center hover:cursor-pointer max-w-[180px] md:max-w-[200px] lg:max-w-[380px] min-w-0 text-text-primary/70 hover:text-text-primary transition-colors">
+        <DropdownMenuTrigger className="flex items-center gap-1 rounded-full px-2 py-1 hover:bg-background-secondary hover:cursor-pointer max-w-[180px] md:max-w-[200px] lg:max-w-[380px] min-w-0 text-sm text-text-primary/70 hover:text-text-primary transition-colors">
           <div className="flex items-center truncate max-w-[130px] md:max-w-[200px] lg:max-w-[360px] min-w-0">
             <BrandIcon
               model={currentModel}
@@ -257,15 +257,16 @@ export default function ModelsBottomBar({
             {isModelLoading ? (
               <span
                 data-testid="model-loading-state"
-                className="inline-flex items-center gap-1 truncate text-xs"
+                className="inline-flex items-center gap-1 truncate"
               >
                 <LoaderCircle className="h-3 w-3 animate-spin flex-shrink-0" />
                 <span className="truncate">{triggerLabel}</span>
               </span>
             ) : (
-              <span className="truncate text-xs">{triggerLabel}</span>
+              <span className="truncate">{triggerLabel}</span>
             )}
           </div>
+          <ChevronDown className="h-3.5 w-3.5 flex-shrink-0 opacity-70" />
         </DropdownMenuTrigger>
         <DropdownMenuContent
           side="top"

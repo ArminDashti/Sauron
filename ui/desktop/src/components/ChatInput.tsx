@@ -1550,7 +1550,7 @@ export default function ChatInput({
   const bottomBar = (
     <div
       ref={bottomBarRef}
-      className={cn('flex flex-row items-center gap-2 px-3 py-2 relative', bottomBarClassName)}
+      className={cn('flex flex-row items-center gap-3 px-3 pt-2 pb-1 relative', bottomBarClassName)}
       data-drop-zone="true"
     >
       {/* Left: git branch, then working directory (leaf folder name only) */}
@@ -1664,12 +1664,8 @@ export default function ChatInput({
   return (
     <div
       ref={rootRef}
-      className={`flex flex-col relative h-auto p-4 transition-colors ${
+      className={`flex flex-col relative h-auto transition-colors ${
         disableAnimation ? '' : 'page-transition'
-      } ${
-        isFocused
-          ? 'border-border-secondary hover:border-border-secondary'
-          : 'border-border-primary hover:border-border-primary'
       } bg-background-primary z-10`}
       data-drop-zone="true"
       onDrop={handleLocalDrop}
@@ -1699,187 +1695,194 @@ export default function ChatInput({
         />
       )}
       {/* Input row: attach (+) on the left; model, mic, and send inline on the right */}
-      <form onSubmit={onFormSubmit} className="relative">
-        <div className="relative flex items-end gap-1">
-          {/* Left: attach as + */}
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button
-                type="button"
-                onClick={handleFileSelect}
-                disabled={isFilePickerOpen}
-                variant="ghost"
-                size="sm"
-                shape="round"
-                className={cn(
-                  'mb-1 shrink-0 text-text-primary/70 hover:text-text-primary transition-colors',
-                  isFilePickerOpen ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'
-                )}
-              >
-                <Plus className="w-4 h-4" />
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent>Attach file</TooltipContent>
-          </Tooltip>
-
-          <div className="relative min-w-0 flex-1">
-            <textarea
-              data-testid="chat-input"
-              autoFocus
-              id="dynamic-textarea"
-              dir={composerDir}
-              placeholder={isRecording ? '' : getNavigationShortcutText(intl)}
-              value={displayValue}
-              onChange={handleChange}
-              onCompositionStart={handleCompositionStart}
-              onCompositionEnd={handleCompositionEnd}
-              onKeyDown={handleKeyDown}
-              onPaste={handlePaste}
-              onFocus={() => setIsFocused(true)}
-              onBlur={() => setIsFocused(false)}
-              ref={textAreaRef}
-              rows={1}
-              readOnly={isRecording || liveVoiceBlocksSubmission}
-              style={{
-                minHeight: `${minTextareaHeight}px`,
-                maxHeight: `${maxHeight}px`,
-                overflowY: 'auto',
-              }}
-              className="w-full outline-none border-none focus:ring-0 bg-transparent px-3 pt-3 pb-1.5 text-sm resize-none text-text-primary placeholder:text-text-secondary"
-            />
-
-            {/* Recording/transcribing status indicator (floats above the bottom bar) */}
-            {(isRecording || isTranscribing) && (
-              <div className="absolute right-2 -bottom-2 bg-background-primary px-2 py-1 rounded text-xs whitespace-nowrap shadow-md border border-border-primary">
-                <span className="flex items-center gap-2">
-                  {isRecording && (
-                    <span className="flex items-center gap-1 text-text-secondary">
-                      <span className="inline-block w-2 h-2 bg-red-500 rounded-full animate-pulse" />
-                      Listening
-                    </span>
-                  )}
-                  {isRecording && isTranscribing && <span className="text-text-secondary">•</span>}
-                  {isTranscribing && (
-                    <span className="flex items-center gap-1 text-blue-500">
-                      <span className="inline-block w-2 h-2 bg-blue-500 rounded-full animate-pulse" />
-                      Transcribing
-                    </span>
-                  )}
-                </span>
-              </div>
-            )}
-          </div>
-
-          {/* Right: model selector, mic, send/stop */}
-          <div className="mb-1 flex shrink-0 items-center gap-1">
+      <form onSubmit={onFormSubmit} className="relative px-3 pt-3">
+        <div
+          className={cn(
+            'flex flex-col rounded-[26px] border bg-background-secondary/40 transition-colors',
+            isFocused
+              ? 'border-border-secondary'
+              : 'border-border-primary hover:border-border-secondary'
+          )}
+        >
+          <div className="relative flex items-end gap-1 px-2 py-1.5">
+            {/* Left: attach as + */}
             <Tooltip>
-              <div>
-                <ModelsBottomBar
-                  sessionId={sessionId}
-                  dropdownRef={dropdownRef}
-                  setView={setView}
-                  sessionModel={effectiveModel}
-                  sessionProvider={effectiveProvider}
-                  latestInference={latestInference}
-                  onModelChanged={setModelOverride}
-                  sessionLoaded={sessionLoaded}
-                />
-              </div>
-            </Tooltip>
-
-            {dictationProvider && (
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="sm"
-                    shape="round"
-                    onClick={() => {
-                      if (!isEnabled) return;
-                      if (isRecording) {
-                        trackVoiceDictation('stop');
-                        stopRecording();
-                      } else {
-                        trackVoiceDictation('start');
-                        startRecording();
-                      }
-                    }}
-                    // Keep the button hoverable when only !isEnabled so the
-                    // "Dictation not configured" tooltip stays reachable.
-                    // We still natively disable while transcribing.
-                    disabled={isTranscribing}
-                    aria-disabled={!isEnabled}
-                    className={cn(
-                      'transition-colors',
-                      isRecording
-                        ? 'text-red-500 hover:text-red-600'
-                        : 'text-text-primary/70 hover:text-text-primary',
-                      isTranscribing && 'animate-pulse',
-                      !isEnabled && 'opacity-50 cursor-not-allowed'
-                    )}
-                  >
-                    <Microphone size={16} />
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent>
-                  {!isEnabled ? (
-                    <p>Dictation not configured (Settings)</p>
-                  ) : (
-                    <p>Voice dictation{isRecording ? '' : ' • Say "submit" to send'}</p>
-                  )}
-                </TooltipContent>
-              </Tooltip>
-            )}
-
-            {(isLoading || hasSubmittableContent) &&
-              (isLoading && !hasSubmittableContent ? (
+              <TooltipTrigger asChild>
                 <Button
                   type="button"
-                  onClick={handleStop}
+                  onClick={handleFileSelect}
+                  disabled={isFilePickerOpen}
+                  variant="ghost"
                   size="sm"
                   shape="round"
-                  variant="ghost"
-                  aria-label="Stop"
-                  className="bg-background-tertiary text-text-primary hover:bg-background-tertiary/70"
+                  className={cn(
+                    'mb-1 shrink-0 bg-background-secondary/70 text-text-primary/70 hover:bg-background-tertiary hover:text-text-primary transition-colors',
+                    isFilePickerOpen ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'
+                  )}
                 >
-                  <Stop />
+                  <Plus className="w-4 h-4" />
                 </Button>
-              ) : (
+              </TooltipTrigger>
+              <TooltipContent>Attach file</TooltipContent>
+            </Tooltip>
+
+            <div className="relative min-w-0 flex-1">
+              <textarea
+                data-testid="chat-input"
+                autoFocus
+                id="dynamic-textarea"
+                dir={composerDir}
+                placeholder={isRecording ? '' : getNavigationShortcutText(intl)}
+                value={displayValue}
+                onChange={handleChange}
+                onCompositionStart={handleCompositionStart}
+                onCompositionEnd={handleCompositionEnd}
+                onKeyDown={handleKeyDown}
+                onPaste={handlePaste}
+                onFocus={() => setIsFocused(true)}
+                onBlur={() => setIsFocused(false)}
+                ref={textAreaRef}
+                rows={1}
+                readOnly={isRecording || liveVoiceBlocksSubmission}
+                style={{
+                  minHeight: `${minTextareaHeight}px`,
+                  maxHeight: `${maxHeight}px`,
+                  overflowY: 'auto',
+                }}
+                className="w-full outline-none border-none focus:ring-0 bg-transparent px-2 py-1 text-sm resize-none text-text-primary placeholder:text-text-secondary"
+              />
+            </div>
+
+            {/* Right: model selector, mic, send/stop */}
+            <div className="mb-1 flex shrink-0 items-center gap-1">
+              <Tooltip>
+                <div>
+                  <ModelsBottomBar
+                    sessionId={sessionId}
+                    dropdownRef={dropdownRef}
+                    setView={setView}
+                    sessionModel={effectiveModel}
+                    sessionProvider={effectiveProvider}
+                    latestInference={latestInference}
+                    onModelChanged={setModelOverride}
+                    sessionLoaded={sessionLoaded}
+                  />
+                </div>
+              </Tooltip>
+
+              {dictationProvider && (
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <span>
-                      <Button
-                        type="button"
-                        size="sm"
-                        shape="round"
-                        variant="ghost"
-                        disabled={isSubmitButtonDisabled}
-                        aria-label={intl.formatMessage(i18n.send)}
-                        onClick={onFormSubmit}
-                        className={cn(
-                          'bg-background-tertiary',
-                          isSubmitButtonDisabled
-                            ? 'text-text-secondary cursor-not-allowed opacity-60'
-                            : 'text-text-primary hover:bg-background-tertiary/70 hover:cursor-pointer'
-                        )}
-                      >
-                        <ArrowUp className="w-4 h-4" strokeWidth={2.25} />
-                      </Button>
-                    </span>
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="sm"
+                      shape="round"
+                      onClick={() => {
+                        if (!isEnabled) return;
+                        if (isRecording) {
+                          trackVoiceDictation('stop');
+                          stopRecording();
+                        } else {
+                          trackVoiceDictation('start');
+                          startRecording();
+                        }
+                      }}
+                      // Keep the button hoverable when only !isEnabled so the
+                      // "Dictation not configured" tooltip stays reachable.
+                      // We still natively disable while transcribing.
+                      disabled={isTranscribing}
+                      aria-disabled={!isEnabled}
+                      className={cn(
+                        'transition-colors',
+                        isRecording
+                          ? 'text-red-500 hover:text-red-600'
+                          : 'text-text-primary/70 hover:text-text-primary',
+                        isTranscribing && 'animate-pulse',
+                        !isEnabled && 'opacity-50 cursor-not-allowed'
+                      )}
+                    >
+                      <Microphone size={16} />
+                    </Button>
                   </TooltipTrigger>
                   <TooltipContent>
-                    <p>{getSubmitButtonTooltip()}</p>
+                    {!isEnabled ? (
+                      <p>Dictation not configured (Settings)</p>
+                    ) : (
+                      <p>Voice dictation{isRecording ? '' : ' • Say "submit" to send'}</p>
+                    )}
                   </TooltipContent>
                 </Tooltip>
-              ))}
+              )}
+
+              {(isLoading || hasSubmittableContent) &&
+                (isLoading && !hasSubmittableContent ? (
+                  <Button
+                    type="button"
+                    onClick={handleStop}
+                    size="sm"
+                    shape="round"
+                    variant="ghost"
+                    aria-label="Stop"
+                    className="bg-background-inverse text-text-inverse hover:bg-background-inverse/80 cursor-pointer transition-colors"
+                  >
+                    <Stop size={14} />
+                  </Button>
+                ) : (
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <span>
+                        <Button
+                          type="button"
+                          size="sm"
+                          shape="round"
+                          variant="ghost"
+                          disabled={isSubmitButtonDisabled}
+                          aria-label={intl.formatMessage(i18n.send)}
+                          onClick={onFormSubmit}
+                          className={cn(
+                            'transition-colors',
+                            isSubmitButtonDisabled
+                              ? 'bg-background-secondary text-text-secondary cursor-not-allowed opacity-60'
+                              : 'bg-background-inverse text-text-inverse hover:bg-background-inverse/80 hover:cursor-pointer'
+                          )}
+                        >
+                          <ArrowUp className="w-4 h-4" strokeWidth={2.25} />
+                        </Button>
+                      </span>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>{getSubmitButtonTooltip()}</p>
+                    </TooltipContent>
+                  </Tooltip>
+                ))}
+            </div>
           </div>
+
+          {/* Recording/transcribing status indicator */}
+          {(isRecording || isTranscribing) && (
+            <div className="flex items-center gap-2 px-3 pb-2 text-xs text-text-secondary">
+              {isRecording && (
+                <span className="flex items-center gap-1">
+                  <span className="inline-block w-2 h-2 bg-red-500 rounded-full animate-pulse" />
+                  Listening
+                </span>
+              )}
+              {isRecording && isTranscribing && <span>•</span>}
+              {isTranscribing && (
+                <span className="flex items-center gap-1 text-blue-500">
+                  <span className="inline-block w-2 h-2 bg-blue-500 rounded-full animate-pulse" />
+                  Transcribing
+                </span>
+              )}
+            </div>
+          )}
         </div>
       </form>
 
       {/* Combined files and images preview */}
       {(pastedImages.length > 0 || allDroppedFiles.length > 0) && (
-        <div className="flex flex-wrap gap-2 p-4 mt-2 border-t border-border-primary">
+        <div className="flex flex-wrap gap-2 px-3 pt-3">
           {/* Render pasted images first */}
           {pastedImages.map((img) => (
             <div key={img.id} className="relative group w-20 h-20">
