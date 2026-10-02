@@ -12,81 +12,27 @@
  * These tokens serve two purposes:
  *  1. Goose desktop — applied to :root per resolved theme.
  *  2. MCP apps — encoded as light-dark() in hostContext.styles.variables.
+ *
+ * Shared plumbing (base tokens, token types) lives in `theme-base.ts`; the
+ * popular community presets live in `popular-themes.ts`.
  */
 import type {
   McpUiHostStyles,
   McpUiStyleVariableKey,
   McpUiStyles,
 } from '@modelcontextprotocol/ext-apps/app-bridge';
+import {
+  baseTokens,
+  MONO_FONT_STACK,
+  type ColorTokens,
+  type ThemeDefinition,
+  type ThemeTokens,
+} from './theme-base';
+import { popularThemes, type PopularThemeId } from './popular-themes';
 
-type ThemeTokens = Record<McpUiStyleVariableKey, string>;
+export type { ColorTokens, ThemeDefinition, ThemeTokens, ThemeVariant } from './theme-base';
 
-// Subset of keys that are the same across both themes.
-type BaseTokenKey = Extract<
-  McpUiStyleVariableKey,
-  `--font-${string}` | `--border-radius-${string}` | `--border-width-${string}`
->;
-
-type ColorTokenKey = Exclude<McpUiStyleVariableKey, BaseTokenKey>;
-
-// ---------------------------------------------------------------------------
-// Base tokens — shared across light and dark themes
-// ---------------------------------------------------------------------------
-const baseTokens: Pick<ThemeTokens, BaseTokenKey> = {
-  // Typography — families
-  '--font-sans': "'Cash Sans', sans-serif",
-  '--font-mono': 'monospace',
-
-  // Typography — weights
-  '--font-weight-normal': '400',
-  '--font-weight-medium': '500',
-  '--font-weight-semibold': '600',
-  '--font-weight-bold': '700',
-
-  // Typography — text sizes
-  '--font-text-xs-size': '0.75rem',
-  '--font-text-sm-size': '0.875rem',
-  '--font-text-md-size': '1rem',
-  '--font-text-lg-size': '1.125rem',
-
-  // Typography — heading sizes
-  '--font-heading-xs-size': '1rem',
-  '--font-heading-sm-size': '1.125rem',
-  '--font-heading-md-size': '1.25rem',
-  '--font-heading-lg-size': '1.5rem',
-  '--font-heading-xl-size': '1.875rem',
-  '--font-heading-2xl-size': '2.25rem',
-  '--font-heading-3xl-size': '3rem',
-
-  // Typography — text line heights
-  '--font-text-xs-line-height': '1rem',
-  '--font-text-sm-line-height': '1.25rem',
-  '--font-text-md-line-height': '1.5rem',
-  '--font-text-lg-line-height': '1.75rem',
-
-  // Typography — heading line heights
-  '--font-heading-xs-line-height': '1.5rem',
-  '--font-heading-sm-line-height': '1.75rem',
-  '--font-heading-md-line-height': '1.75rem',
-  '--font-heading-lg-line-height': '2rem',
-  '--font-heading-xl-line-height': '2.25rem',
-  '--font-heading-2xl-line-height': '2.5rem',
-  '--font-heading-3xl-line-height': '3.5rem',
-
-  // Border radius
-  '--border-radius-xs': '2px',
-  '--border-radius-sm': '4px',
-  '--border-radius-md': '8px',
-  '--border-radius-lg': '12px',
-  '--border-radius-xl': '16px',
-  '--border-radius-full': '9999px',
-
-  // Border width
-  '--border-width-regular': '1px',
-};
-
-// Theme-specific color/shadow tokens only.
-type ColorTokens = Pick<ThemeTokens, ColorTokenKey>;
+export { baseTokens };
 
 // ---------------------------------------------------------------------------
 // Light theme — colors & shadows
@@ -259,9 +205,9 @@ const auraColorTokens: ColorTokens = {
 };
 
 // Aura is monospace-first — override the shared sans family.
-const auraFontTokens: Partial<Pick<ThemeTokens, BaseTokenKey>> = {
-  '--font-sans': 'ui-monospace, "SFMono-Regular", "Menlo", "Cascadia Mono", "Segoe UI Mono", monospace',
-  '--font-mono': 'ui-monospace, "SFMono-Regular", "Menlo", "Cascadia Mono", "Segoe UI Mono", monospace',
+const auraFontTokens: Partial<ThemeTokens> = {
+  '--font-sans': MONO_FONT_STACK,
+  '--font-mono': MONO_FONT_STACK,
 };
 
 // ---------------------------------------------------------------------------
@@ -275,21 +221,19 @@ export const auraTokens: ThemeTokens = { ...baseTokens, ...auraFontTokens, ...au
 // Theme registry — the set of selectable named themes.
 // `variant` drives the .dark/.light class and colorScheme for anything outside
 // the token system; `tokens` is the map applied to :root. Adding a future theme
-// is a single entry here plus its token map above.
+// is a single entry here (plus its token map in `popular-themes.ts`).
 // ---------------------------------------------------------------------------
-export type ThemeId = 'light' | 'dark' | 'aura';
-export type ThemeVariant = 'light' | 'dark';
-
-interface ThemeDefinition {
-  variant: ThemeVariant;
-  tokens: ThemeTokens;
-}
+export type ThemeId = 'light' | 'dark' | 'aura' | PopularThemeId;
 
 export const themes: Record<ThemeId, ThemeDefinition> = {
   light: { variant: 'light', tokens: lightTokens },
   dark: { variant: 'dark', tokens: darkTokens },
   aura: { variant: 'dark', tokens: auraTokens },
+  ...popularThemes,
 };
+
+export const isThemeId = (value: unknown): value is ThemeId =>
+  typeof value === 'string' && Object.prototype.hasOwnProperty.call(themes, value);
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -363,8 +307,7 @@ export function getResolvedTheme(): ThemeId {
     return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   }
   const stored = localStorage.getItem('theme');
-  if (stored === 'aura') return 'aura';
-  return stored === 'dark' ? 'dark' : 'light';
+  return isThemeId(stored) ? stored : 'light';
 }
 
 /**

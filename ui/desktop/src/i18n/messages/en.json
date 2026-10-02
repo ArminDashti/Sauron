@@ -29,6 +29,48 @@
   "alertBox.failedToSaveThreshold": {
     "defaultMessage": "Failed to save threshold: {error}"
   },
+  "allProviderModels.configureProviders": {
+    "defaultMessage": "Configure providers"
+  },
+  "allProviderModels.defaultSet": {
+    "defaultMessage": "{model} is now your default model."
+  },
+  "allProviderModels.defaultSetFailed": {
+    "defaultMessage": "Failed to set default model"
+  },
+  "allProviderModels.description": {
+    "defaultMessage": "Every model exposed by your activated providers. Select one to make it the default model."
+  },
+  "allProviderModels.empty": {
+    "defaultMessage": "No activated providers yet."
+  },
+  "allProviderModels.emptyHint": {
+    "defaultMessage": "Configure a provider to see the models it offers."
+  },
+  "allProviderModels.loadFailed": {
+    "defaultMessage": "Could not load provider models"
+  },
+  "allProviderModels.loading": {
+    "defaultMessage": "Loading models from your providers..."
+  },
+  "allProviderModels.modelCount": {
+    "defaultMessage": "{count,plural,one{# model} other{# models}}"
+  },
+  "allProviderModels.noModels": {
+    "defaultMessage": "No models reported by this provider."
+  },
+  "allProviderModels.refreshAll": {
+    "defaultMessage": "Refresh models"
+  },
+  "allProviderModels.refreshFailed": {
+    "defaultMessage": "Could not refresh {provider}: {error}"
+  },
+  "allProviderModels.refreshing": {
+    "defaultMessage": "Refreshing..."
+  },
+  "allProviderModels.title": {
+    "defaultMessage": "Models from your providers"
+  },
   "announcementModal.gotIt": {
     "defaultMessage": "Got it!"
   },
@@ -1400,15 +1442,6 @@
   "headersSection.value": {
     "defaultMessage": "Value"
   },
-  "hub.goodAfternoon": {
-    "defaultMessage": "Good afternoon"
-  },
-  "hub.goodEvening": {
-    "defaultMessage": "Good evening"
-  },
-  "hub.goodMorning": {
-    "defaultMessage": "Good morning"
-  },
   "huggingFaceModelSearch.download": {
     "defaultMessage": "Download"
   },
@@ -1994,6 +2027,12 @@
   "mcpAppRenderer.resizePipWindow": {
     "defaultMessage": "Resize Picture-in-Picture window"
   },
+  "mcpSettings.description": {
+    "defaultMessage": "Connect Model Context Protocol servers to give goose new tools, resources, and data sources. Extensions added here are available to every chat."
+  },
+  "mcpSettings.title": {
+    "defaultMessage": "MCP Servers"
+  },
   "mentionPopover.itemsFound": {
     "defaultMessage": "{count,plural,one{# item found} other{# items found}}"
   },
@@ -2192,9 +2231,6 @@
   "modelAndProviderContext.unknownProviderTitle": {
     "defaultMessage": "Provider name lookup"
   },
-  "modelSettingsButtons.configureProviders": {
-    "defaultMessage": "Configure providers"
-  },
   "modelSettingsButtons.switchModels": {
     "defaultMessage": "Switch models"
   },
@@ -2374,12 +2410,6 @@
   },
   "modelsBottomBar.selectModel": {
     "defaultMessage": "Select Model"
-  },
-  "modelsSection.resetDescription": {
-    "defaultMessage": "Clear your selected model and provider settings to start fresh"
-  },
-  "modelsSection.resetTitle": {
-    "defaultMessage": "Reset Provider and Model"
   },
   "navigation.itemApps": {
     "defaultMessage": "Apps"
@@ -2626,6 +2656,36 @@
   },
   "permissionSetting.permissionRulesDescription": {
     "defaultMessage": "Hidden instructions that will be passed to the provider to help direct and add context to your responses."
+  },
+  "pluginsSettings.description": {
+    "defaultMessage": "Plugins installed under .agents/plugins contribute skills and MCP servers to goose. Manage the skills they provide from the Skills view."
+  },
+  "pluginsSettings.empty": {
+    "defaultMessage": "No plugins installed."
+  },
+  "pluginsSettings.emptyHint": {
+    "defaultMessage": "Install a plugin with `goose plugin install` and it will show up here."
+  },
+  "pluginsSettings.loadFailed": {
+    "defaultMessage": "Could not load plugins"
+  },
+  "pluginsSettings.loading": {
+    "defaultMessage": "Loading plugins..."
+  },
+  "pluginsSettings.manageSkills": {
+    "defaultMessage": "Manage skills"
+  },
+  "pluginsSettings.pluginCount": {
+    "defaultMessage": "{count,plural,=0{No plugins} one{# plugin} other{# plugins}}"
+  },
+  "pluginsSettings.refresh": {
+    "defaultMessage": "Refresh"
+  },
+  "pluginsSettings.skillCount": {
+    "defaultMessage": "{count,plural,one{# skill} other{# skills}}"
+  },
+  "pluginsSettings.title": {
+    "defaultMessage": "Plugins"
   },
   "privacyInfoModal.collectErrors": {
     "defaultMessage": "Error types (e.g., \"rate_limit\", \"auth\" - no details)"
@@ -3028,6 +3088,12 @@
   },
   "providersSection.reloadingModels": {
     "defaultMessage": "Reloading models..."
+  },
+  "providersSection.resetDescription": {
+    "defaultMessage": "Clear your selected model and provider settings to start fresh"
+  },
+  "providersSection.resetTitle": {
+    "defaultMessage": "Reset Provider and Model"
   },
   "providersSection.setDefault": {
     "defaultMessage": "Click a model to use it as your default."
@@ -4271,6 +4337,9 @@
   "settingsView.tabApp": {
     "defaultMessage": "App"
   },
+  "settingsView.tabAppearance": {
+    "defaultMessage": "Appearance"
+  },
   "settingsView.tabAuth": {
     "defaultMessage": "Auth"
   },
@@ -4286,8 +4355,14 @@
   "settingsView.tabLocalInference": {
     "defaultMessage": "Local Inference"
   },
+  "settingsView.tabMcp": {
+    "defaultMessage": "MCP"
+  },
   "settingsView.tabModels": {
     "defaultMessage": "Models"
+  },
+  "settingsView.tabPlugins": {
+    "defaultMessage": "Plugins"
   },
   "settingsView.tabPrompts": {
     "defaultMessage": "Prompts"
@@ -4627,6 +4702,9 @@
   },
   "themeSelector.light": {
     "defaultMessage": "Light"
+  },
+  "themeSelector.popular": {
+    "defaultMessage": "Popular themes"
   },
   "themeSelector.system": {
     "defaultMessage": "System"

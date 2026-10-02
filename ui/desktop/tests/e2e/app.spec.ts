@@ -63,16 +63,16 @@ async function selectProvider(mainWindow: any, provider: Provider) {
     });
     await settingsButton.click();
 
-    // Wait for settings page to load and navigate to Models tab
-    await mainWindow.waitForSelector('[data-testid="settings-models-tab"]', {
+    // Wait for settings page to load and navigate to Providers tab
+    await mainWindow.waitForSelector('[data-testid="settings-providers-tab"]', {
       timeout: 5000,
       state: 'visible'
     });
 
-    const modelsTab = await mainWindow.waitForSelector('[data-testid="settings-models-tab"]');
-    await modelsTab.click();
+    const providersTab = await mainWindow.waitForSelector('[data-testid="settings-providers-tab"]');
+    await providersTab.click();
 
-    // Wait for models section to load
+    // Wait for providers section to load
     await mainWindow.waitForTimeout(1000);
 
     // Click Reset Provider and Model button
@@ -215,14 +215,14 @@ test.describe('Goose App', () => {
       });
       await settingsButton.click();
 
-      // Wait for settings page to load and navigate to App tab
-      await mainWindow.waitForSelector('[data-testid="settings-app-tab"]', {
+      // Wait for settings page to load and navigate to Appearance tab
+      await mainWindow.waitForSelector('[data-testid="settings-appearance-tab"]', {
         timeout: 5000,
         state: 'visible'
       });
 
-      const appTab = await mainWindow.waitForSelector('[data-testid="settings-app-tab"]');
-      await appTab.click();
+      const appearanceTab = await mainWindow.waitForSelector('[data-testid="settings-appearance-tab"]');
+      await appearanceTab.click();
 
       // Wait for the theme selector to be visible
       await mainWindow.waitForTimeout(1000);

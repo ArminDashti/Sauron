@@ -3,6 +3,7 @@ import { CheckCircle2, ChevronDown, ChevronUp, Loader2, RefreshCw, Settings2 } f
 import { Button } from '../../ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../ui/card';
 import ProviderConfigurationModal from './modal/ProviderConfigurationModal';
+import ResetProviderSection from '../reset_provider/ResetProviderSection';
 import {
   acpListSettingsProviderDetails,
   acpRefreshProviderDetails,
@@ -96,6 +97,14 @@ const i18n = defineMessages({
   manageAll: {
     id: 'providersSection.manageAll',
     defaultMessage: 'Manage all providers',
+  },
+  resetTitle: {
+    id: 'providersSection.resetTitle',
+    defaultMessage: 'Reset Provider and Model',
+  },
+  resetDescription: {
+    id: 'providersSection.resetDescription',
+    defaultMessage: 'Clear your selected model and provider settings to start fresh',
   },
 });
 
@@ -376,6 +385,16 @@ export default function ProvidersSection({ setView }: ProvidersSectionProps) {
       ) : (
         <div className="space-y-4">{cards}</div>
       )}
+
+      <Card className="pb-2 rounded-lg">
+        <CardHeader className="pb-0">
+          <CardTitle>{intl.formatMessage(i18n.resetTitle)}</CardTitle>
+          <CardDescription>{intl.formatMessage(i18n.resetDescription)}</CardDescription>
+        </CardHeader>
+        <CardContent className="px-2">
+          <ResetProviderSection setView={setView} />
+        </CardContent>
+      </Card>
 
       {configuring && (
         <ProviderConfigurationModal
