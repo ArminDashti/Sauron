@@ -4,12 +4,14 @@ import { getAcpClient } from '../acpConnection';
 import {
   acpEnableProvider,
   acpGetProviderDetails,
+  acpIsProviderTokenSet,
   acpListProviderDetails,
   acpListSettingsProviderDetails,
   acpListSetupProviderDetails,
   acpRefreshProviderDetails,
   acpSetSessionProviderModel,
 } from '../providers';
+import type { ProviderDetails } from '../../types/providers';
 
 vi.mock('../acpConnection', () => ({
   getAcpClient: vi.fn(),
@@ -403,6 +405,111 @@ describe('ACP providers', () => {
 
     await expect(refresh).rejects.toMatchObject({ name: 'AbortError' });
     expect(client.goose.providersList_unstable).toHaveBeenCalledTimes(2);
+  });
+
+  describe('acpIsProviderTokenSet', () => {
+    const tokenProvider = (overrides: Partial<ProviderDetails> = {}): ProviderDetails => ({
+      name: 'openai',
+      is_configured: true,
+      is_available: true,
+      visible_in_setup: true,
+      deprecated: false,
+      provider_type: 'Preferred',
+      uses_acp: false,
+      metadata: {
+        name: 'openai',
+        display_name: 'OpenAI',
+        description: '',
+        default_model: 'gpt-5',
+        model_doc_link: '',
+        config_keys: [
+          {
+            name: 'OPENAI_API_KEY',
+            required: true,
+            secret: true,
+            oauth_flow: false,
+            primary: true,
+          },
+        ],
+        known_models: [],
+      },
+      ...overrides,
+    });
+
+    const mockClient = (configRead: unknown, secrets: unknown[] = []) => {
+      const client = {
+        goose: {
+          providersConfigRead_unstable: vi.fn().mockResolvedValue(configRead),
+          providersSecretsList_unstable: vi.fn().mockResolvedValue({ secrets }),
+        },
+      };
+      vi.mocked(getAcpClient).mockResolvedValue(
+        client as unknown as Awaited<ReturnType<typeof getAcpClient>>
+      );
+      return client;
+    };
+
+    it('treats providers without a secret config key as not requiring a token', async () => {
+      const provider = tokenProvider({
+        metadata: {
+          name: 'local',
+          display_name: 'Local',
+          description: '',
+          default_model: '',
+          model_doc_link: '',
+          config_keys: [],
+          known_models: [],
+        },
+      });
+      const client = mockClient({ fields: [] });
+
+      await expect(acpIsProviderTokenSet(provider)).resolves.toBe(true);
+      expect(client.goose.providersConfigRead_unstable).not.toHaveBeenCalled();
+    });
+
+    it('accepts a provider with a stored secret without reading config', async () => {
+      const provider = tokenProvider();
+      const client = mockClient(
+        { fields: [{ key: 'OPENAI_API_KEY', isSet: false, isSecret: true, required: true }] },
+        [{ provider: 'openai', hasSecret: true }]
+      );
+
+      await expect(acpIsProviderTokenSet(provider)).resolves.toBe(true);
+      expect(client.goose.providersConfigRead_unstable).not.toHaveBeenCalled();
+    });
+
+    it('uses the token key config field when no secret is stored', async () => {
+      const provider = tokenProvider();
+      mockClient({
+        fields: [{ key: 'OPENAI_API_KEY', isSet: true, isSecret: true, required: true }],
+      });
+
+      await expect(acpIsProviderTokenSet(provider)).resolves.toBe(true);
+    });
+
+    it('fails closed when the token key is unset', async () => {
+      const provider = tokenProvider();
+      mockClient({
+        fields: [{ key: 'OPENAI_API_KEY', isSet: false, isSecret: true, required: true }],
+      });
+
+      await expect(acpIsProviderTokenSet(provider)).resolves.toBe(false);
+    });
+
+    it('fails closed when the token status cannot be read', async () => {
+      const provider = tokenProvider();
+      const client = {
+        goose: {
+          providersConfigRead_unstable: vi.fn().mockRejectedValue(new Error('Unknown provider')),
+          providersSecretsList_unstable: vi.fn().mockResolvedValue({ secrets: [] }),
+        },
+      };
+      vi.mocked(getAcpClient).mockResolvedValue(
+        client as unknown as Awaited<ReturnType<typeof getAcpClient>>
+      );
+
+      await expect(acpIsProviderTokenSet(provider)).resolves.toBe(false);
+    });
   });
 });
 

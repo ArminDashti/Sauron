@@ -4,6 +4,8 @@ import { AlertCircle, Check, Loader2, RefreshCw } from 'lucide-react';
 import { Button } from '../../ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../ui/card';
 import {
+  acpIsProviderTokenSet,
+  acpListProviderSecrets,
   acpListSettingsProviderDetails,
   acpReadDefaults,
   acpRefreshProviderDetails,
@@ -99,7 +101,17 @@ export default function AllProviderModels() {
         acpListSettingsProviderDetails(),
         acpReadDefaults(),
       ]);
-      setProviders(all.filter((provider) => provider.is_configured));
+      const configured = all.filter((provider) => provider.is_configured);
+      // Only load models for providers whose token key is set; the secrets
+      // list is shared across checks so each provider needs at most one
+      // extra config read.
+      const storedSecrets = await acpListProviderSecrets().catch(() => []);
+      const withToken = await Promise.all(
+        configured.map(async (provider) =>
+          (await acpIsProviderTokenSet(provider, storedSecrets)) ? provider : null
+        )
+      );
+      setProviders(withToken.filter((provider): provider is ProviderDetails => provider !== null));
       setDefaults(currentDefaults);
     } catch (error) {
       setLoadError(errorMessage(error));
@@ -230,9 +242,7 @@ export default function AllProviderModels() {
               return (
                 <div key={provider.name} data-testid={`all-provider-models-${provider.name}`}>
                   <div className="flex flex-wrap items-center gap-2">
-                    <h3 className="text-sm text-text-primary">
-                      {provider.metadata.display_name}
-                    </h3>
+                    <h3 className="text-sm text-text-primary">{provider.metadata.display_name}</h3>
                     <span className="text-xs text-text-secondary">
                       {intl.formatMessage(i18n.modelCount, { count: models.length })}
                     </span>
