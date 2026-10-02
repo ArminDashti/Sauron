@@ -1,0 +1,77 @@
+import { describe, it, expect, vi } from 'vitest';
+import { render, type RenderOptions, screen, fireEvent, waitFor } from '@testing-library/react';
+import ExtensionItem from './ExtensionItem';
+import { IntlTestWrapper } from '../../../../i18n/test-utils';
+import type { FixedExtensionEntry } from '../../../ConfigContext';
+
+vi.mock('./ExtensionList', () => ({
+  getSubtitle: () => ({ description: '', command: '' }),
+  getFriendlyTitle: (ext: { name: string }) => ext.name,
+}));
+
+const renderWithIntl = (ui: React.ReactElement, options?: RenderOptions) =>
+  render(ui, { wrapper: IntlTestWrapper, ...options });
+
+const makeExtension = (enabled: boolean): FixedExtensionEntry =>
+  ({ name: 'developer', type: 'builtin', enabled }) as unknown as FixedExtensionEntry;
+
+describe('ExtensionItem', () => {
+  it('reflects the toggle as OFF immediately when disabling, before the async toggle resolves', async () => {
+    // onToggle stays pending so we observe the in-flight (optimistic) state
+    const onToggle = vi.fn(() => new Promise<void>(() => {}));
+    renderWithIntl(<ExtensionItem extension={makeExtension(true)} onToggle={onToggle} />);
+
+    const toggle = screen.getByRole('switch');
+    expect(toggle).toHaveAttribute('aria-checked', 'true');
+
+    fireEvent.click(toggle);
+
+    await waitFor(() => {
+      expect(screen.getByRole('switch')).toHaveAttribute('aria-checked', 'false');
+    });
+  });
+
+  it('reflects the toggle as ON immediately when enabling, before the async toggle resolves', async () => {
+    const onToggle = vi.fn(() => new Promise<void>(() => {}));
+    renderWithIntl(<ExtensionItem extension={makeExtension(false)} onToggle={onToggle} />);
+
+    const toggle = screen.getByRole('switch');
+    expect(toggle).toHaveAttribute('aria-checked', 'false');
+
+    fireEvent.click(toggle);
+
+    await waitFor(() => {
+      expect(screen.getByRole('switch')).toHaveAttribute('aria-checked', 'true');
+    });
+  });
+
+  it('shows the configure button for a bundled HTTP extension so secrets can be entered', () => {
+    const onConfigure = vi.fn();
+    const bundled = {
+      name: 'GitHub',
+      type: 'streamable_http',
+      uri: 'https://api.githubcopilot.com/mcp/',
+      enabled: false,
+      bundled: true,
+    } as unknown as FixedExtensionEntry;
+
+    renderWithIntl(
+      <ExtensionItem extension={bundled} onToggle={vi.fn()} onConfigure={onConfigure} />
+    );
+
+    const configure = screen.getByRole('button', { name: /Configure GitHub Extension/ });
+    fireEvent.click(configure);
+    expect(onConfigure).toHaveBeenCalledWith(bundled);
+  });
+
+  it('hides the configure button for builtin extensions', () => {
+    const onConfigure = vi.fn();
+
+    renderWithIntl(
+      <ExtensionItem extension={makeExtension(true)} onToggle={vi.fn()} onConfigure={onConfigure} />
+    );
+
+    expect(screen.queryByRole('button', { name: /Configure/ })).toBeNull();
+    expect(onConfigure).not.toHaveBeenCalled();
+  });
+});

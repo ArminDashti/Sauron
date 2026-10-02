@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Sauron
+Exec=/usr/lib/Sauron/Sauron %U
+Icon=/usr/share/pixmaps/Sauron.png
+Terminal=false
+Type=Application
+Categories=Development;
+MimeType=x-scheme-handler/sauron;
