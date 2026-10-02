@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 import {
   ArrowLeft,
@@ -12,7 +12,6 @@ import {
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useNavigationContext } from './NavigationContext';
-import { useConfig } from '../ConfigContext';
 import { useNavigationSessions } from '../../hooks/useNavigationSessions';
 import {
   NAV_ITEMS,
@@ -29,7 +28,6 @@ import { acpRenameSession, type SessionListItem } from '../../acp/sessions';
 import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/Tooltip';
 import { formatMessageTimestamp, formatRelativeTimestamp } from '../../utils/timeUtils';
 import { cn } from '../../utils';
-import { iconColor } from '../../theme/iconColors';
 import type { ProjectGroup } from '../../utils/projectSessions';
 import { defineMessages, useIntl } from '../../i18n';
 
@@ -321,16 +319,6 @@ export const Navigation: React.FC<{
   const { isNavExpanded } = useNavigationContext();
   const location = useLocation();
   const navigate = useNavigate();
-  const { extensionsList } = useConfig();
-
-  const appsExtensionEnabled = !!extensionsList?.find((ext) => ext.name === 'apps')?.enabled;
-
-  const visibleItems = useMemo<NavItem[]>(() => {
-    return NAV_ITEMS.filter((item) => {
-      if (item.path === '/apps') return appsExtensionEnabled;
-      return true;
-    });
-  }, [appsExtensionEnabled]);
 
   const isActive = useCallback((path: string) => location.pathname === path, [location.pathname]);
 
@@ -453,7 +441,7 @@ export const Navigation: React.FC<{
       </div>
 
       <div className="mt-1.5 flex flex-col gap-[1.5px] px-[3px]">
-        {visibleItems.map((item) => (
+        {NAV_ITEMS.map((item) => (
           <NavRow
             key={item.id}
             item={item}

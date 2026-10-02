@@ -1,4 +1,25 @@
 {
+  "acpReadinessPanel.adapterFound": {
+    "defaultMessage": "已找到 ACP 轉接器"
+  },
+  "acpReadinessPanel.adapterNotFound": {
+    "defaultMessage": "找不到 ACP 轉接器"
+  },
+  "acpReadinessPanel.authenticationHelp": {
+    "defaultMessage": "請透過提供者 CLI 登入，然後再次檢查。"
+  },
+  "acpReadinessPanel.checkAgain": {
+    "defaultMessage": "再次檢查"
+  },
+  "acpReadinessPanel.checking": {
+    "defaultMessage": "正在檢查…"
+  },
+  "acpReadinessPanel.connected": {
+    "defaultMessage": "連線成功"
+  },
+  "acpReadinessPanel.connectionNotChecked": {
+    "defaultMessage": "請先檢查帳戶連線，然後再繼續。"
+  },
   "alertBox.autoCompactAt": {
     "defaultMessage": "自動壓縮於"
   },
@@ -11,14 +32,104 @@
   "allProviderModels.addPreferred": {
     "defaultMessage": "將 {model} 加入偏好模型"
   },
+  "allProviderModels.clearSearch": {
+    "defaultMessage": "清除搜尋"
+  },
+  "allProviderModels.clearSearchInput": {
+    "defaultMessage": "清除搜尋輸入"
+  },
+  "allProviderModels.configureProviders": {
+    "defaultMessage": "Configure providers"
+  },
+  "allProviderModels.defaultSet": {
+    "defaultMessage": "{model} is now your default model."
+  },
+  "allProviderModels.defaultSetFailed": {
+    "defaultMessage": "Failed to set default model"
+  },
+  "allProviderModels.description": {
+    "defaultMessage": "Every model exposed by your activated providers. Select one to make it the default model."
+  },
+  "allProviderModels.empty": {
+    "defaultMessage": "No activated providers yet."
+  },
+  "allProviderModels.emptyHint": {
+    "defaultMessage": "Configure a provider to see the models it offers."
+  },
+  "allProviderModels.filterAll": {
+    "defaultMessage": "全部"
+  },
+  "allProviderModels.filterFree": {
+    "defaultMessage": "免費"
+  },
+  "allProviderModels.freeCount": {
+    "defaultMessage": "{count} 個免費"
+  },
+  "allProviderModels.loadFailed": {
+    "defaultMessage": "Could not load provider models"
+  },
+  "allProviderModels.loading": {
+    "defaultMessage": "Loading models from your providers..."
+  },
+  "allProviderModels.modelCount": {
+    "defaultMessage": "{count,plural,one{# model} other{# models}}"
+  },
+  "allProviderModels.noFreeModels": {
+    "defaultMessage": "您的提供者沒有免費模型。"
+  },
+  "allProviderModels.noFreeModelsHint": {
+    "defaultMessage": "當提供者在本機執行模型（Ollama、本機模型）或列出免費變體（例如 OpenRouter 的 :free 模型）時，模型會顯示為免費。"
+  },
+  "allProviderModels.noModels": {
+    "defaultMessage": "No models reported by this provider."
+  },
+  "allProviderModels.noSearchResults": {
+    "defaultMessage": "沒有符合 \"{query}\" 的模型。"
+  },
+  "allProviderModels.preferredUpdateFailed": {
+    "defaultMessage": "無法更新偏好模型"
+  },
+  "allProviderModels.refreshAll": {
+    "defaultMessage": "Refresh models"
+  },
+  "allProviderModels.refreshFailed": {
+    "defaultMessage": "Could not refresh {provider}: {error}"
+  },
+  "allProviderModels.refreshing": {
+    "defaultMessage": "Refreshing..."
+  },
+  "allProviderModels.removePreferred": {
+    "defaultMessage": "將 {model} 從偏好模型移除"
+  },
+  "allProviderModels.searchLabel": {
+    "defaultMessage": "搜尋模型"
+  },
+  "allProviderModels.searchPlaceholder": {
+    "defaultMessage": "搜尋模型..."
+  },
+  "allProviderModels.showAll": {
+    "defaultMessage": "顯示所有模型"
+  },
+  "allProviderModels.showingCount": {
+    "defaultMessage": "正在顯示 {total, number} 個模型中的 {shown, number} 個"
+  },
+  "allProviderModels.title": {
+    "defaultMessage": "Models from your providers"
+  },
   "announcementModal.gotIt": {
     "defaultMessage": "知道了！"
   },
   "appLayout.collapseNavigation": {
     "defaultMessage": "收合導覽列"
   },
+  "appLayout.hideChanges": {
+    "defaultMessage": "隱藏變更面板"
+  },
   "appLayout.openNavigation": {
     "defaultMessage": "開啟導覽列"
+  },
+  "appLayout.showChanges": {
+    "defaultMessage": "顯示變更面板"
   },
   "appsView.customApp": {
     "defaultMessage": "自訂應用程式"
@@ -71,6 +182,18 @@
   "authSettings.cancel": {
     "defaultMessage": "取消"
   },
+  "authSettings.cancelSignIn": {
+    "defaultMessage": "取消"
+  },
+  "authSettings.checkingStatus": {
+    "defaultMessage": "檢查中..."
+  },
+  "authSettings.connectedAccounts": {
+    "defaultMessage": "已連接的帳戶"
+  },
+  "authSettings.connectedAccountsDescription": {
+    "defaultMessage": "登入後 Sauron 即可使用你的外部帳戶。"
+  },
   "authSettings.delete": {
     "defaultMessage": "刪除"
   },
@@ -104,6 +227,48 @@
   "authSettings.failedToLoad": {
     "defaultMessage": "無法載入供應商憑證"
   },
+  "authSettings.githubAccountDescription": {
+    "defaultMessage": "搜尋儲存庫、處理程式碼、管理議題並建立拉取請求。"
+  },
+  "authSettings.githubAccountName": {
+    "defaultMessage": "GitHub"
+  },
+  "authSettings.githubConnected": {
+    "defaultMessage": "已連接"
+  },
+  "authSettings.githubEnterCode": {
+    "defaultMessage": "在 {url} 輸入此代碼以授權 Sauron："
+  },
+  "authSettings.githubNotConnected": {
+    "defaultMessage": "未連接"
+  },
+  "authSettings.githubOpenDevicePage": {
+    "defaultMessage": "開啟 GitHub 裝置頁面"
+  },
+  "authSettings.githubSignInFailed": {
+    "defaultMessage": "GitHub sign-in failed: {error}"
+  },
+  "authSettings.githubSignInUnavailable": {
+    "defaultMessage": "GitHub 登入僅在桌面應用程式中可用。"
+  },
+  "authSettings.githubSignOutMessage": {
+    "defaultMessage": "在你重新登入之前，Sauron 將無法操作 GitHub 儲存庫。"
+  },
+  "authSettings.githubSignOutTitle": {
+    "defaultMessage": "Sign out of GitHub"
+  },
+  "authSettings.githubSignedIn": {
+    "defaultMessage": "已登入 GitHub。GitHub 擴充功能已可使用。"
+  },
+  "authSettings.githubSignedOut": {
+    "defaultMessage": "已登出 GitHub"
+  },
+  "authSettings.githubStatusFailed": {
+    "defaultMessage": "無法檢查 GitHub 登入狀態"
+  },
+  "authSettings.githubWaitingForAuthorization": {
+    "defaultMessage": "正在等待 GitHub 授權..."
+  },
   "authSettings.loading": {
     "defaultMessage": "正在載入憑證…"
   },
@@ -112,6 +277,12 @@
   },
   "authSettings.signIn": {
     "defaultMessage": "登入"
+  },
+  "authSettings.signInWithGitHub": {
+    "defaultMessage": "使用 GitHub 登入"
+  },
+  "authSettings.signOutFromGitHub": {
+    "defaultMessage": "Sign out"
   },
   "authSettings.signedIn": {
     "defaultMessage": "憑證已設定"
@@ -172,6 +343,81 @@
   },
   "cardButtons.launch": {
     "defaultMessage": "啟動"
+  },
+  "changesPanel.cleanTree": {
+    "defaultMessage": "工作樹乾淨"
+  },
+  "changesPanel.close": {
+    "defaultMessage": "關閉變更面板"
+  },
+  "changesPanel.commitAndPush": {
+    "defaultMessage": "提交並推送"
+  },
+  "changesPanel.commitFailed": {
+    "defaultMessage": "提交失敗"
+  },
+  "changesPanel.commitPlaceholder": {
+    "defaultMessage": "提交訊息"
+  },
+  "changesPanel.commitSuccess": {
+    "defaultMessage": "已提交並推送"
+  },
+  "changesPanel.committing": {
+    "defaultMessage": "正在提交…"
+  },
+  "changesPanel.loadFailed": {
+    "defaultMessage": "無法載入 git 變更"
+  },
+  "changesPanel.loading": {
+    "defaultMessage": "正在載入變更…"
+  },
+  "changesPanel.loadingDiff": {
+    "defaultMessage": "正在載入差異…"
+  },
+  "changesPanel.noChanges": {
+    "defaultMessage": "沒有變更"
+  },
+  "changesPanel.noDirectory": {
+    "defaultMessage": "未選擇工作目錄"
+  },
+  "changesPanel.notARepo": {
+    "defaultMessage": "不是 git 儲存庫"
+  },
+  "changesPanel.pushFailed": {
+    "defaultMessage": "已提交，但推送失敗"
+  },
+  "changesPanel.refresh": {
+    "defaultMessage": "重新整理變更"
+  },
+  "changesPanel.retry": {
+    "defaultMessage": "重試"
+  },
+  "changesPanel.statusAdded": {
+    "defaultMessage": "新增"
+  },
+  "changesPanel.statusConflicted": {
+    "defaultMessage": "衝突"
+  },
+  "changesPanel.statusCopied": {
+    "defaultMessage": "複製"
+  },
+  "changesPanel.statusDeleted": {
+    "defaultMessage": "刪除"
+  },
+  "changesPanel.statusModified": {
+    "defaultMessage": "修改"
+  },
+  "changesPanel.statusRenamed": {
+    "defaultMessage": "重新命名"
+  },
+  "changesPanel.statusUntracked": {
+    "defaultMessage": "未追蹤"
+  },
+  "changesPanel.title": {
+    "defaultMessage": "變更"
+  },
+  "changesPanel.uncommitted": {
+    "defaultMessage": "未提交"
   },
   "chat.notification.taskComplete.body": {
     "defaultMessage": "按一下這裡讓 Sauron 重新回到焦點。"
@@ -638,6 +884,9 @@
   "customProviderForm.apiKey": {
     "defaultMessage": "API 金鑰"
   },
+  "customProviderForm.apiKeyEnvHint": {
+    "defaultMessage": "輸入 {example} 可從環境變數讀取金鑰，而不是儲存它。"
+  },
   "customProviderForm.apiKeyPlaceholderExisting": {
     "defaultMessage": "留空以保留現有金鑰"
   },
@@ -794,6 +1043,9 @@
   "defaultProviderSetupForm.apiHostPlaceholder": {
     "defaultMessage": "https://api.example.com"
   },
+  "defaultProviderSetupForm.apiKeyEnvHint": {
+    "defaultMessage": "輸入 {example} 可從環境變數讀取金鑰，而不是儲存它。"
+  },
   "defaultProviderSetupForm.apiKeyLabel": {
     "defaultMessage": "API 金鑰"
   },
@@ -917,6 +1169,12 @@
   "dictationSettings.voiceDictationProvider": {
     "defaultMessage": "語音聽寫供應商"
   },
+  "diffViewer.noDiff": {
+    "defaultMessage": "沒有可顯示的文字變更"
+  },
+  "diffViewer.unmodifiedLines": {
+    "defaultMessage": "{count} 行未變更"
+  },
   "dirSwitcher.chooseDirectory": {
     "defaultMessage": "選擇目錄…"
   },
@@ -926,11 +1184,11 @@
   "dirSwitcher.enterPath": {
     "defaultMessage": "Enter path"
   },
-  "dirSwitcher.enterPathPlaceholder": {
-    "defaultMessage": "Enter an absolute path (e.g. /home/sauron/workspace)"
-  },
   "dirSwitcher.enterPathInvalid": {
     "defaultMessage": "Working directory must be an absolute path"
+  },
+  "dirSwitcher.enterPathPlaceholder": {
+    "defaultMessage": "Enter an absolute path (e.g. /home/sauron/workspace)"
   },
   "dirSwitcher.failedToUpdateWorkingDir": {
     "defaultMessage": "無法更新工作目錄"
@@ -946,18 +1204,6 @@
   },
   "dirSwitcher.recentDirectories": {
     "defaultMessage": "最近的目錄"
-  },
-  "gitBranchIndicator.failedToSwitch": {
-    "defaultMessage": "無法切換至 {branch}"
-  },
-  "gitBranchIndicator.noBranchesFound": {
-    "defaultMessage": "找不到分支"
-  },
-  "gitBranchIndicator.searchBranches": {
-    "defaultMessage": "搜尋分支…"
-  },
-  "gitBranchIndicator.uncommittedChanges": {
-    "defaultMessage": "你可能有尚未提交的變更。"
   },
   "elicitationRequest.accept": {
     "defaultMessage": "接受"
@@ -1262,65 +1508,20 @@
   "externalBackendSection.workingDirPlaceholder": {
     "defaultMessage": "/home/sauron/workspace"
   },
-  "sauronhintsModal.close": {
-    "defaultMessage": "關閉"
+  "freeModelBadge.label": {
+    "defaultMessage": "免費"
   },
-  "sauronhintsModal.developer": {
-    "defaultMessage": "開發者"
+  "gitBranchIndicator.failedToSwitch": {
+    "defaultMessage": "無法切換至 {branch}"
   },
-  "sauronhintsModal.dialogDescription": {
-    "defaultMessage": "提供有關您專案的額外內容，以改善與 Sauron 的溝通"
+  "gitBranchIndicator.noBranchesFound": {
+    "defaultMessage": "找不到分支"
   },
-  "sauronhintsModal.dialogTitle": {
-    "defaultMessage": "設定專案提示 (.sauronhints)"
+  "gitBranchIndicator.searchBranches": {
+    "defaultMessage": "搜尋分支…"
   },
-  "sauronhintsModal.errorReading": {
-    "defaultMessage": "讀取 .sauronhints 檔案時發生錯誤：{error}"
-  },
-  "sauronhintsModal.failedToAccess": {
-    "defaultMessage": "無法存取 .sauronhints 檔案"
-  },
-  "sauronhintsModal.failedToSave": {
-    "defaultMessage": "無法儲存 .sauronhints 檔案"
-  },
-  "sauronhintsModal.fileCreating": {
-    "defaultMessage": "正在於此處建立新的 .sauronhints 檔案：{filePath}"
-  },
-  "sauronhintsModal.fileFound": {
-    "defaultMessage": "在此處找到 .sauronhints 檔案：{filePath}"
-  },
-  "sauronhintsModal.helpText1": {
-    "defaultMessage": ".sauronhints 是一個文字檔，用於提供有關您專案的額外內容，並改善與 Sauron 的溝通。"
-  },
-  "sauronhintsModal.helpText2": {
-    "defaultMessage": "請確認擴充功能頁面中已啟用 {bold} 擴充功能。使用 .sauronhints 需要此擴充功能。您需要重新啟動工作階段，.sauronhints 的更新才會生效。"
-  },
-  "sauronhintsModal.helpText3": {
-    "defaultMessage": "如需更多資訊，請參閱 {link}。"
-  },
-  "sauronhintsModal.helpTextLink": {
-    "defaultMessage": "使用 .sauronhints"
-  },
-  "sauronhintsModal.placeholder": {
-    "defaultMessage": "在此輸入專案提示…"
-  },
-  "sauronhintsModal.save": {
-    "defaultMessage": "儲存"
-  },
-  "sauronhintsModal.savedSuccessfully": {
-    "defaultMessage": "已成功儲存"
-  },
-  "sauronhintsModal.saving": {
-    "defaultMessage": "正在儲存…"
-  },
-  "sauronhintsSection.configure": {
-    "defaultMessage": "設定"
-  },
-  "sauronhintsSection.description": {
-    "defaultMessage": "設定您專案的 .sauronhints 檔案，為 Sauron 提供額外內容"
-  },
-  "sauronhintsSection.title": {
-    "defaultMessage": "專案提示 (.sauronhints)"
+  "gitBranchIndicator.uncommittedChanges": {
+    "defaultMessage": "你可能有尚未提交的變更。"
   },
   "groupedExtensionLoadingToast.askSauron": {
     "defaultMessage": "詢問 sauron"
@@ -1357,6 +1558,36 @@
   },
   "groupedExtensionLoadingToast.successfullyLoaded": {
     "defaultMessage": "{count,plural,one{已成功載入 # 個擴充功能} other{已成功載入 # 個擴充功能}}"
+  },
+  "harnessesSection.title": {
+    "defaultMessage": "智慧代理 Harness"
+  },
+  "harnessesSection.description": {
+    "defaultMessage": "使用來自其他 Harness（如 Cursor、Claude Code、Codex 或 Copilot）的智慧代理。在此啟用一個，然後在 Models 中選擇它進行對話。"
+  },
+  "harnessesSection.loading": {
+    "defaultMessage": "正在載入 Harness..."
+  },
+  "harnessesSection.loadFailed": {
+    "defaultMessage": "載入 Harness 失敗"
+  },
+  "harnessesSection.empty": {
+    "defaultMessage": "沒有可用的外部智慧代理 Harness。"
+  },
+  "harnessesSection.installed": {
+    "defaultMessage": "已安裝"
+  },
+  "harnessesSection.notInstalled": {
+    "defaultMessage": "未安裝"
+  },
+  "harnessesSection.configure": {
+    "defaultMessage": "設定"
+  },
+  "harnessesSection.configured": {
+    "defaultMessage": "已啟用"
+  },
+  "harnessesSection.notConfigured": {
+    "defaultMessage": "未啟用"
   },
   "headersSection.add": {
     "defaultMessage": "新增"
@@ -1985,6 +2216,12 @@
   "mcpAppRenderer.resizePipWindow": {
     "defaultMessage": "調整子母畫面視窗大小"
   },
+  "mcpSettings.description": {
+    "defaultMessage": "Connect Model Context Protocol servers to give goose new tools, resources, and data sources. Extensions added here are available to every chat."
+  },
+  "mcpSettings.title": {
+    "defaultMessage": "MCP Servers"
+  },
   "mentionPopover.itemsFound": {
     "defaultMessage": "{count,plural,one{找到 # 個項目} other{找到 # 個項目}}"
   },
@@ -2183,6 +2420,18 @@
   "modelAndProviderContext.unknownProviderTitle": {
     "defaultMessage": "供應商名稱查詢"
   },
+  "modelBadges.contextShort": {
+    "defaultMessage": "{amount, number}k"
+  },
+  "modelBadges.contextWindow": {
+    "defaultMessage": "{amount, number}k 上下文"
+  },
+  "modelBadges.default": {
+    "defaultMessage": "預設"
+  },
+  "modelBadges.reasoning": {
+    "defaultMessage": "推理"
+  },
   "modelSettingsButtons.switchModels": {
     "defaultMessage": "切換模型"
   },
@@ -2357,6 +2606,9 @@
   "modelsBottomBar.preferredModels": {
     "defaultMessage": "偏好"
   },
+  "modelsBottomBar.recentModels": {
+    "defaultMessage": "最近"
+  },
   "modelsBottomBar.resolvedModel": {
     "defaultMessage": "已解析的模型"
   },
@@ -2389,6 +2641,12 @@
   },
   "navigation.itemSkills": {
     "defaultMessage": "技能"
+  },
+  "navigationFooter.cpuUsage": {
+    "defaultMessage": "CPU {percent}%"
+  },
+  "navigationFooter.memoryUsage": {
+    "defaultMessage": "記憶體 {percent}%"
   },
   "navigationFooter.sendFeedback": {
     "defaultMessage": "傳送意見回饋"
@@ -2633,6 +2891,48 @@
   "permissionSetting.permissionRulesDescription": {
     "defaultMessage": "將傳遞給提供者的隱藏指示，用於引導並為您的回應補充背景資訊。"
   },
+  "pluginsSettings.description": {
+    "defaultMessage": "Plugins installed under .agents/plugins contribute skills and MCP servers to goose. Manage the skills they provide from the Skills view."
+  },
+  "pluginsSettings.empty": {
+    "defaultMessage": "No plugins installed."
+  },
+  "pluginsSettings.emptyHint": {
+    "defaultMessage": "Install a plugin with `goose plugin install` and it will show up here."
+  },
+  "pluginsSettings.loadFailed": {
+    "defaultMessage": "Could not load plugins"
+  },
+  "pluginsSettings.loading": {
+    "defaultMessage": "Loading plugins..."
+  },
+  "pluginsSettings.manageSkills": {
+    "defaultMessage": "Manage skills"
+  },
+  "pluginsSettings.pluginCount": {
+    "defaultMessage": "{count,plural,=0{No plugins} one{# plugin} other{# plugins}}"
+  },
+  "pluginsSettings.refresh": {
+    "defaultMessage": "Refresh"
+  },
+  "pluginsSettings.skillCount": {
+    "defaultMessage": "{count,plural,one{# skill} other{# skills}}"
+  },
+  "pluginsSettings.title": {
+    "defaultMessage": "Plugins"
+  },
+  "preferredModels.empty": {
+    "defaultMessage": "為下方模型加上星號，即可在此及聊天中隨時使用。"
+  },
+  "preferredModels.remove": {
+    "defaultMessage": "將 {model} 從偏好模型移除"
+  },
+  "preferredModels.removeFailed": {
+    "defaultMessage": "無法更新偏好模型"
+  },
+  "preferredModels.title": {
+    "defaultMessage": "偏好模型"
+  },
   "privacyInfoModal.collectErrors": {
     "defaultMessage": "錯誤類型（例如「rate_limit」、「auth」－不含詳細資料）"
   },
@@ -2750,6 +3050,9 @@
   "promptsSettings.unsavedChanges": {
     "defaultMessage": "您有未儲存的變更"
   },
+  "providerCard.deprecatedReplacement": {
+    "defaultMessage": "已棄用 — 請改用 {replacement}。"
+  },
   "providerCard.noMetadata": {
     "defaultMessage": "ProviderCard 錯誤：未提供中繼資料"
   },
@@ -2804,8 +3107,17 @@
   "providerConfigForm.continue": {
     "defaultMessage": "繼續"
   },
+  "providerConfigForm.deviceCodeAndEnter": {
+    "defaultMessage": "並輸入："
+  },
+  "providerConfigForm.deviceCodeCopy": {
+    "defaultMessage": "複製"
+  },
   "providerConfigForm.deviceCodeFlowHint": {
     "defaultMessage": "將開啟瀏覽器視窗。驗證碼會顯示在此處，輸入驗證碼即可完成登入。"
+  },
+  "providerConfigForm.deviceCodeVisit": {
+    "defaultMessage": "前往"
   },
   "providerConfigForm.noApiKey": {
     "defaultMessage": "沒有 API 金鑰嗎？"
@@ -2831,6 +3143,9 @@
   "providerConfigurationModal.checkConfigAgain": {
     "defaultMessage": "再次檢查您的組態以使用此提供者。"
   },
+  "providerConfigurationModal.chooseModel": {
+    "defaultMessage": "選擇模型"
+  },
   "providerConfigurationModal.close": {
     "defaultMessage": "關閉"
   },
@@ -2843,8 +3158,17 @@
   "providerConfigurationModal.deleteConfirmation": {
     "defaultMessage": "這將永久刪除目前的提供者組態。"
   },
+  "providerConfigurationModal.deviceCodeAndEnter": {
+    "defaultMessage": "並輸入："
+  },
+  "providerConfigurationModal.deviceCodeCopy": {
+    "defaultMessage": "複製"
+  },
   "providerConfigurationModal.deviceCodeFlowHint": {
     "defaultMessage": "將開啟瀏覽器視窗。驗證碼會顯示在此處，輸入驗證碼即可完成登入。"
+  },
+  "providerConfigurationModal.deviceCodeVisit": {
+    "defaultMessage": "前往"
   },
   "providerConfigurationModal.errorCheckingConfig": {
     "defaultMessage": "檢查此提供者組態時發生錯誤。"
@@ -2965,6 +3289,66 @@
   },
   "providerSetupActions.submit": {
     "defaultMessage": "提交"
+  },
+  "providersSection.configure": {
+    "defaultMessage": "Configure"
+  },
+  "providersSection.configured": {
+    "defaultMessage": "Configured"
+  },
+  "providersSection.defaultSet": {
+    "defaultMessage": "{model} is now your default model."
+  },
+  "providersSection.defaultSetFailed": {
+    "defaultMessage": "Failed to set default model"
+  },
+  "providersSection.description": {
+    "defaultMessage": "Configure your AI model providers and load their available models directly from each provider API."
+  },
+  "providersSection.hideModels": {
+    "defaultMessage": "Hide models"
+  },
+  "providersSection.loadFailed": {
+    "defaultMessage": "Failed to load providers"
+  },
+  "providersSection.loadModels": {
+    "defaultMessage": "Load Models"
+  },
+  "providersSection.loading": {
+    "defaultMessage": "Loading providers..."
+  },
+  "providersSection.manageAll": {
+    "defaultMessage": "Manage all providers"
+  },
+  "providersSection.modelsError": {
+    "defaultMessage": "Could not load models from {provider}: {error}"
+  },
+  "providersSection.modelsLoaded": {
+    "defaultMessage": "{count} models loaded from {provider}"
+  },
+  "providersSection.needsConfig": {
+    "defaultMessage": "Configure this provider first to load its models."
+  },
+  "providersSection.notConfigured": {
+    "defaultMessage": "Not configured"
+  },
+  "providersSection.reloadingModels": {
+    "defaultMessage": "Reloading models..."
+  },
+  "providersSection.resetDescription": {
+    "defaultMessage": "Clear your selected model and provider settings to start fresh"
+  },
+  "providersSection.resetTitle": {
+    "defaultMessage": "Reset Provider and Model"
+  },
+  "providersSection.setDefault": {
+    "defaultMessage": "Click a model to use it as your default."
+  },
+  "providersSection.showModels": {
+    "defaultMessage": "Show models"
+  },
+  "providersSection.title": {
+    "defaultMessage": "Model Providers"
   },
   "recipeActivityEditor.activitiesDescription": {
     "defaultMessage": "將顯示在配方交談視窗中的頂端提示與活動按鈕。"
@@ -3334,6 +3718,66 @@
   },
   "responseStyle.detailedLabel": {
     "defaultMessage": "詳細"
+  },
+  "sauronhintsModal.close": {
+    "defaultMessage": "關閉"
+  },
+  "sauronhintsModal.developer": {
+    "defaultMessage": "開發者"
+  },
+  "sauronhintsModal.dialogDescription": {
+    "defaultMessage": "提供有關您專案的額外內容，以改善與 Sauron 的溝通"
+  },
+  "sauronhintsModal.dialogTitle": {
+    "defaultMessage": "設定專案提示 (.sauronhints)"
+  },
+  "sauronhintsModal.errorReading": {
+    "defaultMessage": "讀取 .sauronhints 檔案時發生錯誤：{error}"
+  },
+  "sauronhintsModal.failedToAccess": {
+    "defaultMessage": "無法存取 .sauronhints 檔案"
+  },
+  "sauronhintsModal.failedToSave": {
+    "defaultMessage": "無法儲存 .sauronhints 檔案"
+  },
+  "sauronhintsModal.fileCreating": {
+    "defaultMessage": "正在於此處建立新的 .sauronhints 檔案：{filePath}"
+  },
+  "sauronhintsModal.fileFound": {
+    "defaultMessage": "在此處找到 .sauronhints 檔案：{filePath}"
+  },
+  "sauronhintsModal.helpText1": {
+    "defaultMessage": ".sauronhints 是一個文字檔，用於提供有關您專案的額外內容，並改善與 Sauron 的溝通。"
+  },
+  "sauronhintsModal.helpText2": {
+    "defaultMessage": "請確認擴充功能頁面中已啟用 {bold} 擴充功能。使用 .sauronhints 需要此擴充功能。您需要重新啟動工作階段，.sauronhints 的更新才會生效。"
+  },
+  "sauronhintsModal.helpText3": {
+    "defaultMessage": "如需更多資訊，請參閱 {link}。"
+  },
+  "sauronhintsModal.helpTextLink": {
+    "defaultMessage": "使用 .sauronhints"
+  },
+  "sauronhintsModal.placeholder": {
+    "defaultMessage": "在此輸入專案提示…"
+  },
+  "sauronhintsModal.save": {
+    "defaultMessage": "儲存"
+  },
+  "sauronhintsModal.savedSuccessfully": {
+    "defaultMessage": "已成功儲存"
+  },
+  "sauronhintsModal.saving": {
+    "defaultMessage": "正在儲存…"
+  },
+  "sauronhintsSection.configure": {
+    "defaultMessage": "設定"
+  },
+  "sauronhintsSection.description": {
+    "defaultMessage": "設定您專案的 .sauronhints 檔案，為 Sauron 提供額外內容"
+  },
+  "sauronhintsSection.title": {
+    "defaultMessage": "專案提示 (.sauronhints)"
   },
   "scheduleDetailView.actions": {
     "defaultMessage": "動作"
@@ -3959,6 +4403,75 @@
   "sessions.toast.updated": {
     "defaultMessage": "已成功更新工作階段描述"
   },
+  "settings.agentLoop.description": {
+    "defaultMessage": "使用以操作為基礎的代理程式迴圈。關閉後將使用舊版迴圈。"
+  },
+  "settings.agentLoop.operations.auto.placeholder": {
+    "defaultMessage": "自動"
+  },
+  "settings.agentLoop.operations.blockLimit.label": {
+    "defaultMessage": "封鎖上限"
+  },
+  "settings.agentLoop.operations.contextCompaction.description": {
+    "defaultMessage": "在內容視窗填滿前摘要對話記錄。"
+  },
+  "settings.agentLoop.operations.contextCompaction.title": {
+    "defaultMessage": "內容壓縮"
+  },
+  "settings.agentLoop.operations.cutoff.label": {
+    "defaultMessage": "截斷值"
+  },
+  "settings.agentLoop.operations.enable": {
+    "defaultMessage": "啟用{operation}"
+  },
+  "settings.agentLoop.operations.failureTimeout.label": {
+    "defaultMessage": "失敗逾時"
+  },
+  "settings.agentLoop.operations.heading": {
+    "defaultMessage": "可設定的操作"
+  },
+  "settings.agentLoop.operations.maxTurns.description": {
+    "defaultMessage": "停止自主工作，並在繼續前詢問使用者。"
+  },
+  "settings.agentLoop.operations.maxTurns.title": {
+    "defaultMessage": "最大回合數"
+  },
+  "settings.agentLoop.operations.recipeRetry.description": {
+    "defaultMessage": "當設定的成功檢查失敗時，重新執行配方檢查。"
+  },
+  "settings.agentLoop.operations.recipeRetry.title": {
+    "defaultMessage": "重試配方"
+  },
+  "settings.agentLoop.operations.retryTimeout.label": {
+    "defaultMessage": "重試逾時"
+  },
+  "settings.agentLoop.operations.slashCommands.description": {
+    "defaultMessage": "辨識 /compact、/skills 和配方捷徑等命令。"
+  },
+  "settings.agentLoop.operations.slashCommands.title": {
+    "defaultMessage": "斜線命令"
+  },
+  "settings.agentLoop.operations.stopHooks.description": {
+    "defaultMessage": "允許掛鉤阻止完成，同時避免無限停止循環。"
+  },
+  "settings.agentLoop.operations.stopHooks.title": {
+    "defaultMessage": "停止掛鉤"
+  },
+  "settings.agentLoop.operations.threshold.label": {
+    "defaultMessage": "閾值 %"
+  },
+  "settings.agentLoop.operations.toolPairCompaction.description": {
+    "defaultMessage": "摘要較早的工具請求和回應以節省內容。留空時自動設定截斷值。"
+  },
+  "settings.agentLoop.operations.toolPairCompaction.title": {
+    "defaultMessage": "工具配對壓縮"
+  },
+  "settings.agentLoop.operations.turns.label": {
+    "defaultMessage": "回合"
+  },
+  "settings.agentLoop.title": {
+    "defaultMessage": "代理程式迴圈"
+  },
   "settings.appearance.description": {
     "defaultMessage": "設定 sauron 在您系統上的顯示方式"
   },
@@ -4112,6 +4625,12 @@
   "settings.notifications.openSettings": {
     "defaultMessage": "開啟設定"
   },
+  "settings.notifications.sound.description": {
+    "defaultMessage": "任務完成通知時播放聲音"
+  },
+  "settings.notifications.sound.title": {
+    "defaultMessage": "通知聲音"
+  },
   "settings.notifications.task.description": {
     "defaultMessage": "當視窗在背景執行時，Sauron 完成工作後發出通知"
   },
@@ -4142,8 +4661,17 @@
   "settings.version.title": {
     "defaultMessage": "版本"
   },
+  "settingsView.noResults": {
+    "defaultMessage": "無結果"
+  },
+  "settingsView.searchPlaceholder": {
+    "defaultMessage": "搜尋設定"
+  },
   "settingsView.tabApp": {
     "defaultMessage": "應用程式"
+  },
+  "settingsView.tabAppearance": {
+    "defaultMessage": "Appearance"
   },
   "settingsView.tabChat": {
     "defaultMessage": "聊天"
@@ -4151,14 +4679,26 @@
   "settingsView.tabExternalBackend": {
     "defaultMessage": "外部後端"
   },
+  "settingsView.tabHarnesses": {
+    "defaultMessage": "Harness"
+  },
   "settingsView.tabKeyboard": {
     "defaultMessage": "鍵盤"
+  },
+  "settingsView.tabMcp": {
+    "defaultMessage": "MCP"
   },
   "settingsView.tabModels": {
     "defaultMessage": "模型"
   },
+  "settingsView.tabPlugins": {
+    "defaultMessage": "Plugins"
+  },
   "settingsView.tabPrompts": {
     "defaultMessage": "提示"
+  },
+  "settingsView.tabProviders": {
+    "defaultMessage": "Providers"
   },
   "settingsView.title": {
     "defaultMessage": "設定"
@@ -4493,6 +5033,9 @@
   "themeSelector.light": {
     "defaultMessage": "淺色"
   },
+  "themeSelector.popular": {
+    "defaultMessage": "Popular themes"
+  },
   "themeSelector.system": {
     "defaultMessage": "系統"
   },
@@ -4667,322 +5210,79 @@
   "userMessage.removeImageFromEdit": {
     "defaultMessage": "從訊息中移除圖片"
   },
-  "modelsBottomBar.recentModels": {
-    "defaultMessage": "最近"
+  "settingsView.tabStats": {
+    "defaultMessage": "Stats"
   },
-  "providerConfigurationModal.chooseModel": {
-    "defaultMessage": "選擇模型"
+  "usageStats.byModel": {
+    "defaultMessage": "Per model"
   },
-  "providerCard.deprecatedReplacement": {
-    "defaultMessage": "已棄用 — 請改用 {replacement}。"
+  "usageStats.byProvider": {
+    "defaultMessage": "Per provider"
   },
-  "acpReadinessPanel.adapterFound": {
-    "defaultMessage": "已找到 ACP 轉接器"
+  "usageStats.cost": {
+    "defaultMessage": "Cost"
   },
-  "acpReadinessPanel.adapterNotFound": {
-    "defaultMessage": "找不到 ACP 轉接器"
+  "usageStats.empty": {
+    "defaultMessage": "No usage was recorded in this date range."
   },
-  "acpReadinessPanel.authenticationHelp": {
-    "defaultMessage": "請透過提供者 CLI 登入，然後再次檢查。"
+  "usageStats.inputCacheTokens": {
+    "defaultMessage": "Input cache tokens"
   },
-  "acpReadinessPanel.checkAgain": {
-    "defaultMessage": "再次檢查"
+  "usageStats.inputTokens": {
+    "defaultMessage": "Input tokens"
   },
-  "acpReadinessPanel.checking": {
-    "defaultMessage": "正在檢查…"
+  "usageStats.loading": {
+    "defaultMessage": "Loading usage stats…"
   },
-  "acpReadinessPanel.connected": {
-    "defaultMessage": "連線成功"
+  "usageStats.modelColumn": {
+    "defaultMessage": "Model"
   },
-  "acpReadinessPanel.connectionNotChecked": {
-    "defaultMessage": "請先檢查帳戶連線，然後再繼續。"
+  "usageStats.preset30": {
+    "defaultMessage": "Last 30 days"
   },
-  "providerConfigForm.deviceCodeAndEnter": {
-    "defaultMessage": "並輸入："
+  "usageStats.preset7": {
+    "defaultMessage": "Last 7 days"
   },
-  "providerConfigForm.deviceCodeCopy": {
-    "defaultMessage": "複製"
+  "usageStats.presetAll": {
+    "defaultMessage": "All time"
   },
-  "providerConfigForm.deviceCodeVisit": {
-    "defaultMessage": "前往"
+  "usageStats.presetYear": {
+    "defaultMessage": "This year"
   },
-  "providerConfigurationModal.deviceCodeAndEnter": {
-    "defaultMessage": "並輸入："
+  "usageStats.providerColumn": {
+    "defaultMessage": "Provider"
   },
-  "providerConfigurationModal.deviceCodeCopy": {
-    "defaultMessage": "複製"
+  "usageStats.rangeDescription": {
+    "defaultMessage": "Usage is grouped by model and by provider for the selected dates."
   },
-  "providerConfigurationModal.deviceCodeVisit": {
-    "defaultMessage": "前往"
+  "usageStats.rangeFrom": {
+    "defaultMessage": "From"
   },
-  "settings.agentLoop.description": {
-    "defaultMessage": "使用以操作為基礎的代理程式迴圈。關閉後將使用舊版迴圈。"
+  "usageStats.rangeLabel": {
+    "defaultMessage": "Date range"
   },
-  "settings.agentLoop.operations.auto.placeholder": {
-    "defaultMessage": "自動"
+  "usageStats.rangeTo": {
+    "defaultMessage": "To"
   },
-  "settings.agentLoop.operations.blockLimit.label": {
-    "defaultMessage": "封鎖上限"
+  "usageStats.sessions": {
+    "defaultMessage": "{count,plural,one{# session} other{# sessions}}"
   },
-  "settings.agentLoop.operations.contextCompaction.description": {
-    "defaultMessage": "在內容視窗填滿前摘要對話記錄。"
+  "usageStats.sourceLedger": {
+    "defaultMessage": "Recorded usage"
   },
-  "settings.agentLoop.operations.contextCompaction.title": {
-    "defaultMessage": "內容壓縮"
+  "usageStats.sourceMessages": {
+    "defaultMessage": "Estimated from stored messages"
   },
-  "settings.agentLoop.operations.cutoff.label": {
-    "defaultMessage": "截斷值"
+  "usageStats.total": {
+    "defaultMessage": "Total"
   },
-  "settings.agentLoop.operations.enable": {
-    "defaultMessage": "啟用{operation}"
+  "usageStats.unknown": {
+    "defaultMessage": "Unknown"
   },
-  "settings.agentLoop.operations.failureTimeout.label": {
-    "defaultMessage": "失敗逾時"
+  "usageStats.writeCacheTokens": {
+    "defaultMessage": "Write cache tokens"
   },
-  "settings.agentLoop.operations.heading": {
-    "defaultMessage": "可設定的操作"
-  },
-  "settings.agentLoop.operations.maxTurns.description": {
-    "defaultMessage": "停止自主工作，並在繼續前詢問使用者。"
-  },
-  "settings.agentLoop.operations.maxTurns.title": {
-    "defaultMessage": "最大回合數"
-  },
-  "settings.agentLoop.operations.recipeRetry.description": {
-    "defaultMessage": "當設定的成功檢查失敗時，重新執行配方檢查。"
-  },
-  "settings.agentLoop.operations.recipeRetry.title": {
-    "defaultMessage": "重試配方"
-  },
-  "settings.agentLoop.operations.retryTimeout.label": {
-    "defaultMessage": "重試逾時"
-  },
-  "settings.agentLoop.operations.slashCommands.description": {
-    "defaultMessage": "辨識 /compact、/skills 和配方捷徑等命令。"
-  },
-  "settings.agentLoop.operations.slashCommands.title": {
-    "defaultMessage": "斜線命令"
-  },
-  "settings.agentLoop.operations.stopHooks.description": {
-    "defaultMessage": "允許掛鉤阻止完成，同時避免無限停止循環。"
-  },
-  "settings.agentLoop.operations.stopHooks.title": {
-    "defaultMessage": "停止掛鉤"
-  },
-  "settings.agentLoop.operations.threshold.label": {
-    "defaultMessage": "閾值 %"
-  },
-  "settings.agentLoop.operations.toolPairCompaction.description": {
-    "defaultMessage": "摘要較早的工具請求和回應以節省內容。留空時自動設定截斷值。"
-  },
-  "settings.agentLoop.operations.toolPairCompaction.title": {
-    "defaultMessage": "工具配對壓縮"
-  },
-  "settings.agentLoop.operations.turns.label": {
-    "defaultMessage": "回合"
-  },
-  "settings.agentLoop.title": {
-    "defaultMessage": "代理程式迴圈"
-  },
-  "providersSection.configure": {
-    "defaultMessage": "Configure"
-  },
-  "providersSection.configured": {
-    "defaultMessage": "Configured"
-  },
-  "providersSection.defaultSet": {
-    "defaultMessage": "{model} is now your default model."
-  },
-  "providersSection.defaultSetFailed": {
-    "defaultMessage": "Failed to set default model"
-  },
-  "providersSection.description": {
-    "defaultMessage": "Configure your AI model providers and load their available models directly from each provider API."
-  },
-  "providersSection.hideModels": {
-    "defaultMessage": "Hide models"
-  },
-  "providersSection.loadFailed": {
-    "defaultMessage": "Failed to load providers"
-  },
-  "providersSection.loadModels": {
-    "defaultMessage": "Load Models"
-  },
-  "providersSection.loading": {
-    "defaultMessage": "Loading providers..."
-  },
-  "providersSection.manageAll": {
-    "defaultMessage": "Manage all providers"
-  },
-  "providersSection.modelsError": {
-    "defaultMessage": "Could not load models from {provider}: {error}"
-  },
-  "providersSection.modelsLoaded": {
-    "defaultMessage": "{count} models loaded from {provider}"
-  },
-  "providersSection.needsConfig": {
-    "defaultMessage": "Configure this provider first to load its models."
-  },
-  "providersSection.notConfigured": {
-    "defaultMessage": "Not configured"
-  },
-  "providersSection.reloadingModels": {
-    "defaultMessage": "Reloading models..."
-  },
-  "providersSection.setDefault": {
-    "defaultMessage": "Click a model to use it as your default."
-  },
-  "providersSection.showModels": {
-    "defaultMessage": "Show models"
-  },
-  "providersSection.title": {
-    "defaultMessage": "Model Providers"
-  },
-  "settingsView.tabProviders": {
-    "defaultMessage": "Providers"
-  },
-  "authSettings.cancelSignIn": {
-    "defaultMessage": "取消"
-  },
-  "authSettings.checkingStatus": {
-    "defaultMessage": "檢查中..."
-  },
-  "authSettings.connectedAccounts": {
-    "defaultMessage": "已連接的帳戶"
-  },
-  "authSettings.connectedAccountsDescription": {
-    "defaultMessage": "登入後 Sauron 即可使用你的外部帳戶。"
-  },
-  "authSettings.githubAccountDescription": {
-    "defaultMessage": "搜尋儲存庫、處理程式碼、管理議題並建立拉取請求。"
-  },
-  "authSettings.githubAccountName": {
-    "defaultMessage": "GitHub"
-  },
-  "authSettings.githubConnected": {
-    "defaultMessage": "已連接"
-  },
-  "authSettings.githubEnterCode": {
-    "defaultMessage": "在 {url} 輸入此代碼以授權 Sauron："
-  },
-  "authSettings.githubNotConnected": {
-    "defaultMessage": "未連接"
-  },
-  "authSettings.githubOpenDevicePage": {
-    "defaultMessage": "開啟 GitHub 裝置頁面"
-  },
-  "allProviderModels.preferredUpdateFailed": {
-    "defaultMessage": "無法更新偏好模型"
-  },
-  "allProviderModels.refreshAll": {
-    "defaultMessage": "Refresh models"
-  },
-  "authSettings.githubSignInUnavailable": {
-    "defaultMessage": "GitHub 登入僅在桌面應用程式中可用。"
-  },
-  "authSettings.githubSignOutMessage": {
-    "defaultMessage": "在你重新登入之前，Sauron 將無法操作 GitHub 儲存庫。"
-  },
-  "allProviderModels.removePreferred": {
-    "defaultMessage": "將 {model} 從偏好模型移除"
-  },
-  "allProviderModels.title": {
-    "defaultMessage": "Models from your providers"
-  },
-  "authSettings.githubSignedIn": {
-    "defaultMessage": "已登入 GitHub。GitHub 擴充功能已可使用。"
-  },
-  "authSettings.githubSignedOut": {
-    "defaultMessage": "已登出 GitHub"
-  },
-  "authSettings.githubStatusFailed": {
-    "defaultMessage": "無法檢查 GitHub 登入狀態"
-  },
-  "authSettings.githubWaitingForAuthorization": {
-    "defaultMessage": "正在等待 GitHub 授權..."
-  },
-  "authSettings.signInWithGitHub": {
-    "defaultMessage": "使用 GitHub 登入"
-  },
-  "pluginsSettings.loadFailed": {
-    "defaultMessage": "Could not load plugins"
-  },
-  "pluginsSettings.loading": {
-    "defaultMessage": "Loading plugins..."
-  },
-  "pluginsSettings.manageSkills": {
-    "defaultMessage": "Manage skills"
-  },
-  "pluginsSettings.pluginCount": {
-    "defaultMessage": "{count,plural,=0{No plugins} one{# plugin} other{# plugins}}"
-  },
-  "pluginsSettings.refresh": {
-    "defaultMessage": "Refresh"
-  },
-  "pluginsSettings.skillCount": {
-    "defaultMessage": "{count,plural,one{# skill} other{# skills}}"
-  },
-  "pluginsSettings.title": {
-    "defaultMessage": "Plugins"
-  },
-  "preferredModels.empty": {
-    "defaultMessage": "為下方模型加上星號，即可在此及聊天中隨時使用。"
-  },
-  "preferredModels.remove": {
-    "defaultMessage": "將 {model} 從偏好模型移除"
-  },
-  "preferredModels.removeFailed": {
-    "defaultMessage": "無法更新偏好模型"
-  },
-  "preferredModels.title": {
-    "defaultMessage": "偏好模型"
-  },
-  "providersSection.resetDescription": {
-    "defaultMessage": "Clear your selected model and provider settings to start fresh"
-  },
-  "providersSection.resetTitle": {
-    "defaultMessage": "Reset Provider and Model"
-  },
-  "settingsView.tabAppearance": {
-    "defaultMessage": "Appearance"
-  },
-  "settingsView.tabMcp": {
-    "defaultMessage": "MCP"
-  },
-  "settingsView.tabPlugins": {
-    "defaultMessage": "Plugins"
-  },
-  "themeSelector.popular": {
-    "defaultMessage": "Popular themes"
-  },
-  "allProviderModels.clearSearch": {
-    "defaultMessage": "清除搜尋"
-  },
-  "allProviderModels.clearSearchInput": {
-    "defaultMessage": "清除搜尋輸入"
-  },
-  "allProviderModels.noSearchResults": {
-    "defaultMessage": "沒有符合 \"{query}\" 的模型。"
-  },
-  "allProviderModels.searchLabel": {
-    "defaultMessage": "搜尋模型"
-  },
-  "allProviderModels.searchPlaceholder": {
-    "defaultMessage": "搜尋模型..."
-  },
-  "allProviderModels.showingCount": {
-    "defaultMessage": "正在顯示 {total, number} 個模型中的 {shown, number} 個"
-  },
-  "modelBadges.contextShort": {
-    "defaultMessage": "{amount, number}k"
-  },
-  "modelBadges.contextWindow": {
-    "defaultMessage": "{amount, number}k 上下文"
-  },
-  "modelBadges.default": {
-    "defaultMessage": "預設"
-  },
-  "modelBadges.reasoning": {
-    "defaultMessage": "推理"
+  "usageStats.writeTokens": {
+    "defaultMessage": "Write tokens"
   }
 }

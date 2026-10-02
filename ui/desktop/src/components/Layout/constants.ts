@@ -3,6 +3,15 @@ export const NAV_DIMENSIONS = {
   NAV_WIDTH: 240,
 } as const;
 
+export const CHANGES_DIMENSIONS = {
+  /** Default width of the right-hand changes panel */
+  CHANGES_WIDTH: 400,
+  /** Minimum width of the changes panel */
+  MIN_WIDTH: 280,
+  /** Maximum width of the changes panel */
+  MAX_WIDTH: 600,
+} as const;
+
 export const Z_INDEX = {
   /** Header controls (menu button, etc.) */
   HEADER: 100,

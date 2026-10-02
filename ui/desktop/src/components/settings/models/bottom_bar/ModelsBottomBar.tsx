@@ -1,4 +1,4 @@
-import { Sliders, Bot, LoaderCircle, Settings, History, Star } from 'lucide-react';
+import { Sliders, LoaderCircle, Settings, History, Star } from 'lucide-react';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useModelAndProvider } from '../../../ModelAndProviderContext';
 import { SwitchModelModal } from '../subcomponents/SwitchModelModal';
