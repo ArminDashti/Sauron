@@ -44,7 +44,7 @@ jobs:
         with:
           name: mcp-conformance-binaries
           path: |
-            target/debug/goose
+            target/debug/sauron
             target/debug/mcp_conformance_driver
           retention-days: 1
           if-no-files-found: warn
@@ -59,13 +59,13 @@ jobs:
         include:
           - spec-version: "2025-11-25"
             conformance-version: "0.1.16"
-            baseline: "crates/goose-cli/tests/mcp-conformance/expected-failures-2025-11-25-0.1.16.yaml"
+            baseline: "crates/sauron-cli/tests/mcp-conformance/expected-failures-2025-11-25-0.1.16.yaml"
           - spec-version: "2025-11-25"
             conformance-version: "0.2.0-alpha.10"
-            baseline: "crates/goose-cli/tests/mcp-conformance/expected-failures-2025-11-25-0.2.0-alpha.10.yaml"
+            baseline: "crates/sauron-cli/tests/mcp-conformance/expected-failures-2025-11-25-0.2.0-alpha.10.yaml"
           - spec-version: "2026-07-28"
             conformance-version: "0.2.0-alpha.10"
-            baseline: "crates/goose-cli/tests/mcp-conformance/expected-failures-2026-07-28-0.2.0-alpha.10.yaml"
+            baseline: "crates/sauron-cli/tests/mcp-conformance/expected-failures-2026-07-28-0.2.0-alpha.10.yaml"
     steps:
       - name: Checkout Code
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
@@ -82,11 +82,11 @@ jobs:
           path: target/debug
 
       - name: Restore Executable Permissions
-        run: chmod +x target/debug/goose target/debug/mcp_conformance_driver
+        run: chmod +x target/debug/sauron target/debug/mcp_conformance_driver
 
       - name: Run Conformance Suite
         env:
-          GOOSE_DISABLE_KEYRING: "1"
+          SAURON_DISABLE_KEYRING: "1"
         run: |
           source ./bin/activate-hermit
           just mcp-conformance "${{ matrix.spec-version }}" all "${{ matrix.conformance-version }}" false "${{ matrix.baseline }}"

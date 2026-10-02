@@ -10,7 +10,7 @@ export type AcpChatStateChange =
       type: 'sessionInfo';
       name?: string;
       activeRunId?: string | null;
-      gooseMode?: string;
+      sauronMode?: string;
     }
   | { type: 'localSteerConfirmed'; messageId: string }
   | { type: 'notification'; notification: NotificationEvent };
@@ -23,7 +23,7 @@ export interface AdapterState {
 
 export type ToolCallState = Omit<ToolCallUpdate, '_meta'>;
 
-export interface GooseMessageMeta {
+export interface SauronMessageMeta {
   messageId?: string;
   created?: number;
   outputTokenLimitReached?: boolean;
@@ -57,47 +57,47 @@ export function cloneMessage(message: Message): Message {
   };
 }
 
-export function getGooseMessageMeta(update: { _meta?: unknown }): GooseMessageMeta {
+export function getSauronMessageMeta(update: { _meta?: unknown }): SauronMessageMeta {
   if (!isRecord(update._meta)) {
     return {};
   }
 
-  const goose = update._meta.goose;
-  if (!isRecord(goose)) {
+  const sauron = update._meta.sauron;
+  if (!isRecord(sauron)) {
     return {};
   }
 
-  const outputTokenLimitReached = goose.outputTokenLimitReached === true;
+  const outputTokenLimitReached = sauron.outputTokenLimitReached === true;
 
   return {
-    created: typeof goose.created === 'number' ? goose.created : undefined,
-    messageId: typeof goose.messageId === 'string' ? goose.messageId : undefined,
+    created: typeof sauron.created === 'number' ? sauron.created : undefined,
+    messageId: typeof sauron.messageId === 'string' ? sauron.messageId : undefined,
     outputTokenLimitReached: outputTokenLimitReached ? true : undefined,
-    fallbackContent: goose.fallbackContent === true ? true : undefined,
-    steer: goose.steer === true ? true : undefined,
+    fallbackContent: sauron.fallbackContent === true ? true : undefined,
+    steer: sauron.steer === true ? true : undefined,
   };
 }
 
-export function getGooseActiveRunId(update: { _meta?: unknown }): string | null | undefined {
+export function getSauronActiveRunId(update: { _meta?: unknown }): string | null | undefined {
   if (!isRecord(update._meta)) {
     return undefined;
   }
 
-  const goose = update._meta.goose;
-  if (!isRecord(goose) || !('activeRunId' in goose)) {
+  const sauron = update._meta.sauron;
+  if (!isRecord(sauron) || !('activeRunId' in sauron)) {
     return undefined;
   }
 
-  return typeof goose.activeRunId === 'string' || goose.activeRunId === null
-    ? goose.activeRunId
+  return typeof sauron.activeRunId === 'string' || sauron.activeRunId === null
+    ? sauron.activeRunId
     : undefined;
 }
 
-export function getGooseQueuedSteer(update: { _meta?: unknown }): string | undefined {
+export function getSauronQueuedSteer(update: { _meta?: unknown }): string | undefined {
   if (!isRecord(update._meta)) return undefined;
-  const goose = update._meta.goose;
-  if (!isRecord(goose) || !isRecord(goose.queuedSteer)) return undefined;
-  return typeof goose.queuedSteer.messageId === 'string' ? goose.queuedSteer.messageId : undefined;
+  const sauron = update._meta.sauron;
+  if (!isRecord(sauron) || !isRecord(sauron.queuedSteer)) return undefined;
+  return typeof sauron.queuedSteer.messageId === 'string' ? sauron.queuedSteer.messageId : undefined;
 }
 
 export function rawInputToArguments(rawInput: unknown): Record<string, unknown> {
@@ -109,15 +109,15 @@ export function toolIdentity(update: ToolCall | ToolCallUpdate): ToolIdentity {
     return {};
   }
 
-  const goose = update._meta.goose;
-  if (!isRecord(goose) || !isRecord(goose.toolCall)) {
+  const sauron = update._meta.sauron;
+  if (!isRecord(sauron) || !isRecord(sauron.toolCall)) {
     return {};
   }
 
   return {
-    toolName: typeof goose.toolCall.toolName === 'string' ? goose.toolCall.toolName : undefined,
+    toolName: typeof sauron.toolCall.toolName === 'string' ? sauron.toolCall.toolName : undefined,
     extensionName:
-      typeof goose.toolCall.extensionName === 'string' ? goose.toolCall.extensionName : undefined,
+      typeof sauron.toolCall.extensionName === 'string' ? sauron.toolCall.extensionName : undefined,
   };
 }
 

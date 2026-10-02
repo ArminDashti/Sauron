@@ -1,4 +1,25 @@
 {
+  "acpReadinessPanel.adapterFound": {
+    "defaultMessage": "Адаптер ACP найден"
+  },
+  "acpReadinessPanel.adapterNotFound": {
+    "defaultMessage": "Адаптер ACP не найден"
+  },
+  "acpReadinessPanel.authenticationHelp": {
+    "defaultMessage": "Войдите через CLI провайдера, затем повторите проверку."
+  },
+  "acpReadinessPanel.checkAgain": {
+    "defaultMessage": "Проверить снова"
+  },
+  "acpReadinessPanel.checking": {
+    "defaultMessage": "Проверка..."
+  },
+  "acpReadinessPanel.connected": {
+    "defaultMessage": "Подключение выполнено"
+  },
+  "acpReadinessPanel.connectionNotChecked": {
+    "defaultMessage": "Проверьте подключение учетной записи, прежде чем продолжить."
+  },
   "alertBox.autoCompactAt": {
     "defaultMessage": "Автосжимать при"
   },
@@ -7,6 +28,93 @@
   },
   "alertBox.failedToSaveThreshold": {
     "defaultMessage": "Не удалось сохранить пороговое значение: {error}"
+  },
+  "allProviderModels.addPreferred": {
+    "defaultMessage": "Добавить {model} в предпочтительные модели"
+  },
+  "allProviderModels.clearSearch": {
+    "defaultMessage": "Очистить поиск"
+  },
+  "allProviderModels.clearSearchInput": {
+    "defaultMessage": "Очистить поле поиска"
+  },
+  "allProviderModels.configureProviders": {
+    "defaultMessage": "Configure providers"
+  },
+  "allProviderModels.defaultSet": {
+    "defaultMessage": "{model} is now your default model."
+  },
+  "allProviderModels.defaultSetFailed": {
+    "defaultMessage": "Failed to set default model"
+  },
+  "allProviderModels.description": {
+    "defaultMessage": "Every model exposed by your activated providers. Select one to make it the default model."
+  },
+  "allProviderModels.empty": {
+    "defaultMessage": "No activated providers yet."
+  },
+  "allProviderModels.emptyHint": {
+    "defaultMessage": "Configure a provider to see the models it offers."
+  },
+  "allProviderModels.filterAll": {
+    "defaultMessage": "Все"
+  },
+  "allProviderModels.filterFree": {
+    "defaultMessage": "Бесплатные"
+  },
+  "allProviderModels.freeCount": {
+    "defaultMessage": "{count} бесплатных"
+  },
+  "allProviderModels.loadFailed": {
+    "defaultMessage": "Could not load provider models"
+  },
+  "allProviderModels.loading": {
+    "defaultMessage": "Loading models from your providers..."
+  },
+  "allProviderModels.modelCount": {
+    "defaultMessage": "{count,plural,one{# model} other{# models}}"
+  },
+  "allProviderModels.noFreeModels": {
+    "defaultMessage": "Бесплатных моделей от ваших провайдеров нет."
+  },
+  "allProviderModels.noFreeModelsHint": {
+    "defaultMessage": "Модель считается бесплатной, если провайдер запускает её локально (Ollama, локальные модели) или предлагает бесплатные варианты, например :free модели OpenRouter."
+  },
+  "allProviderModels.noModels": {
+    "defaultMessage": "No models reported by this provider."
+  },
+  "allProviderModels.noSearchResults": {
+    "defaultMessage": "Нет моделей по запросу \"{query}\"."
+  },
+  "allProviderModels.preferredUpdateFailed": {
+    "defaultMessage": "Не удалось обновить предпочтительные модели"
+  },
+  "allProviderModels.refreshAll": {
+    "defaultMessage": "Refresh models"
+  },
+  "allProviderModels.refreshFailed": {
+    "defaultMessage": "Could not refresh {provider}: {error}"
+  },
+  "allProviderModels.refreshing": {
+    "defaultMessage": "Refreshing..."
+  },
+  "allProviderModels.removePreferred": {
+    "defaultMessage": "Убрать {model} из предпочтительных моделей"
+  },
+  "allProviderModels.searchLabel": {
+    "defaultMessage": "Поиск моделей"
+  },
+  "allProviderModels.searchPlaceholder": {
+    "defaultMessage": "Поиск моделей..."
+  },
+  "allProviderModels.showAll": {
+    "defaultMessage": "Показать все модели"
+  },
+  "allProviderModels.showingCount": {
+    "defaultMessage": "Показано {shown, number} из {total, number} моделей"
+  },
+  "allProviderModels.title": {
+    "defaultMessage": "Models from your providers"
   },
   "announcementModal.gotIt": {
     "defaultMessage": "Понятно!"
@@ -33,7 +141,7 @@
     "defaultMessage": "Delete \"{name}\"? This cannot be undone."
   },
   "appsView.description": {
-    "defaultMessage": "Приложения с ваших MCP-серверов и приложения, созданные самим goose. Вы можете попросить его создать новые приложения через чат, и они появятся здесь."
+    "defaultMessage": "Приложения с ваших MCP-серверов и приложения, созданные самим sauron. Вы можете попросить его создать новые приложения через чат, и они появятся здесь."
   },
   "appsView.errorLoading": {
     "defaultMessage": "Ошибка загрузки приложений: {error}"
@@ -51,7 +159,7 @@
     "defaultMessage": "Загрузка приложений..."
   },
   "appsView.noAppsDescription": {
-    "defaultMessage": "Откройте чат и попросите goose создать нужное приложение. Он может собрать его для вас, после чего оно появится здесь. Если кто-то поделился приложением, импортируйте его кнопкой выше."
+    "defaultMessage": "Откройте чат и попросите sauron создать нужное приложение. Он может собрать его для вас, после чего оно появится здесь. Если кто-то поделился приложением, импортируйте его кнопкой выше."
   },
   "appsView.noAppsTitle": {
     "defaultMessage": "Нет доступных приложений"
@@ -74,6 +182,18 @@
   "authSettings.cancel": {
     "defaultMessage": "Отмена"
   },
+  "authSettings.cancelSignIn": {
+    "defaultMessage": "Отмена"
+  },
+  "authSettings.checkingStatus": {
+    "defaultMessage": "Проверка..."
+  },
+  "authSettings.connectedAccounts": {
+    "defaultMessage": "Подключённые аккаунты"
+  },
+  "authSettings.connectedAccountsDescription": {
+    "defaultMessage": "Войдите, чтобы Sauron мог работать с вашими внешними аккаунтами."
+  },
   "authSettings.delete": {
     "defaultMessage": "Удалить"
   },
@@ -90,7 +210,7 @@
     "defaultMessage": "Учетные данные удалены"
   },
   "authSettings.description": {
-    "defaultMessage": "Управляйте учетными данными провайдеров, сохраненными локально в goose."
+    "defaultMessage": "Управляйте учетными данными провайдеров, сохраненными локально в sauron."
   },
   "authSettings.empty": {
     "defaultMessage": "Локально сохраненные учетные данные провайдеров не найдены."
@@ -107,6 +227,48 @@
   "authSettings.failedToLoad": {
     "defaultMessage": "Не удалось загрузить учетные данные провайдера"
   },
+  "authSettings.githubAccountDescription": {
+    "defaultMessage": "Поиск репозиториев, работа с кодом, управление issues и создание pull request-ов."
+  },
+  "authSettings.githubAccountName": {
+    "defaultMessage": "GitHub"
+  },
+  "authSettings.githubConnected": {
+    "defaultMessage": "Подключено"
+  },
+  "authSettings.githubEnterCode": {
+    "defaultMessage": "Введите этот код на {url}, чтобы авторизовать Sauron:"
+  },
+  "authSettings.githubNotConnected": {
+    "defaultMessage": "Не подключено"
+  },
+  "authSettings.githubOpenDevicePage": {
+    "defaultMessage": "Открыть страницу устройства GitHub"
+  },
+  "authSettings.githubSignInFailed": {
+    "defaultMessage": "GitHub sign-in failed: {error}"
+  },
+  "authSettings.githubSignInUnavailable": {
+    "defaultMessage": "Вход через GitHub доступен только в настольном приложении."
+  },
+  "authSettings.githubSignOutMessage": {
+    "defaultMessage": "Sauron не сможет работать с вашими репозиториями GitHub, пока вы не войдёте снова."
+  },
+  "authSettings.githubSignOutTitle": {
+    "defaultMessage": "Sign out of GitHub"
+  },
+  "authSettings.githubSignedIn": {
+    "defaultMessage": "Вы вошли в GitHub. Расширение GitHub готово к работе."
+  },
+  "authSettings.githubSignedOut": {
+    "defaultMessage": "Вы вышли из GitHub"
+  },
+  "authSettings.githubStatusFailed": {
+    "defaultMessage": "Не удалось проверить статус входа в GitHub"
+  },
+  "authSettings.githubWaitingForAuthorization": {
+    "defaultMessage": "Ожидание авторизации GitHub..."
+  },
   "authSettings.loading": {
     "defaultMessage": "Загрузка учетных данных..."
   },
@@ -115,6 +277,12 @@
   },
   "authSettings.signIn": {
     "defaultMessage": "Войти"
+  },
+  "authSettings.signInWithGitHub": {
+    "defaultMessage": "Войти через GitHub"
+  },
+  "authSettings.signOutFromGitHub": {
+    "defaultMessage": "Sign out"
   },
   "authSettings.signedIn": {
     "defaultMessage": "Учетные данные настроены"
@@ -252,10 +420,10 @@
     "defaultMessage": "Незакоммичено"
   },
   "chat.notification.taskComplete.body": {
-    "defaultMessage": "Нажмите здесь, чтобы сфокусироваться на Goose."
+    "defaultMessage": "Нажмите здесь, чтобы сфокусироваться на Sauron."
   },
   "chat.notification.taskComplete.title": {
-    "defaultMessage": "Goose завершил задачу."
+    "defaultMessage": "Sauron завершил задачу."
   },
   "chatInput.contextWindow": {
     "defaultMessage": "Контекстное окно"
@@ -306,13 +474,13 @@
     "defaultMessage": "Ожидание сохранения изображений..."
   },
   "chatSettings.modeDescription": {
-    "defaultMessage": "Настройте как Goose взаимодействует с инструментами и расширениями"
+    "defaultMessage": "Настройте как Sauron взаимодействует с инструментами и расширениями"
   },
   "chatSettings.modeTitle": {
     "defaultMessage": "Режим"
   },
   "chatSettings.responseStylesDescription": {
-    "defaultMessage": "Выберите как Goose должен форматировать и оформлять ответы"
+    "defaultMessage": "Выберите как Sauron должен форматировать и оформлять ответы"
   },
   "chatSettings.responseStylesTitle": {
     "defaultMessage": "Стили ответов"
@@ -333,10 +501,10 @@
     "defaultMessage": "Редактор конфигурации"
   },
   "configSettings.description": {
-    "defaultMessage": "Измените настройки конфигурации goose"
+    "defaultMessage": "Измените настройки конфигурации sauron"
   },
   "configSettings.descriptionWithProvider": {
-    "defaultMessage": "Измените настройки конфигурации goose (текущие настройки для {provider})"
+    "defaultMessage": "Измените настройки конфигурации sauron (текущие настройки для {provider})"
   },
   "configSettings.done": {
     "defaultMessage": "Готово"
@@ -864,7 +1032,7 @@
     "defaultMessage": "Изменить параметры {name}"
   },
   "defaultCardButtons.getStarted": {
-    "defaultMessage": "Начните работу с goose!"
+    "defaultMessage": "Начните работу с sauron!"
   },
   "defaultProviderSetupForm.apiHostLabel": {
     "defaultMessage": "Хост API"
@@ -1010,11 +1178,11 @@
   "dirSwitcher.enterPath": {
     "defaultMessage": "Enter path"
   },
-  "dirSwitcher.enterPathPlaceholder": {
-    "defaultMessage": "Enter an absolute path (e.g. /home/goose/workspace)"
-  },
   "dirSwitcher.enterPathInvalid": {
     "defaultMessage": "Working directory must be an absolute path"
+  },
+  "dirSwitcher.enterPathPlaceholder": {
+    "defaultMessage": "Enter an absolute path (e.g. /home/sauron/workspace)"
   },
   "dirSwitcher.failedToUpdateWorkingDir": {
     "defaultMessage": "Не удалось обновить рабочий каталог"
@@ -1031,18 +1199,6 @@
   "dirSwitcher.recentDirectories": {
     "defaultMessage": "Недавние каталоги"
   },
-  "gitBranchIndicator.failedToSwitch": {
-    "defaultMessage": "Не удалось переключиться на {branch}"
-  },
-  "gitBranchIndicator.noBranchesFound": {
-    "defaultMessage": "Ветки не найдены"
-  },
-  "gitBranchIndicator.searchBranches": {
-    "defaultMessage": "Поиск веток…"
-  },
-  "gitBranchIndicator.uncommittedChanges": {
-    "defaultMessage": "Возможно, у вас есть незакоммиченные изменения."
-  },
   "elicitationRequest.accept": {
     "defaultMessage": "Принять"
   },
@@ -1050,7 +1206,7 @@
     "defaultMessage": "Запрос на информацию был отменен."
   },
   "elicitationRequest.defaultMessage": {
-    "defaultMessage": "Goose нужна от вас дополнительная информация."
+    "defaultMessage": "Sauron нужна от вас дополнительная информация."
   },
   "elicitationRequest.expired": {
     "defaultMessage": "Срок действия запроса истек. Расширению нужно будет запросить его снова."
@@ -1095,7 +1251,7 @@
     "defaultMessage": "Произошла ошибка."
   },
   "errorBoundary.errorWithVersion": {
-    "defaultMessage": "Произошла ошибка в Goose v{version}."
+    "defaultMessage": "Произошла ошибка в Sauron v{version}."
   },
   "errorBoundary.heading": {
     "defaultMessage": "Га-га!"
@@ -1278,7 +1434,7 @@
     "defaultMessage": "Расширения, включенные здесь, используются по умолчанию для новых чатов. Активные расширения также можно переключать во время чата."
   },
   "extensionsView.description": {
-    "defaultMessage": "Эти расширения используют Model Context Protocol (MCP). Они расширяют возможности Goose с помощью трех основных компонентов: промптов, ресурсов и инструментов. {searchShortcut} для поиска."
+    "defaultMessage": "Эти расширения используют Model Context Protocol (MCP). Они расширяют возможности Sauron с помощью трех основных компонентов: промптов, ресурсов и инструментов. {searchShortcut} для поиска."
   },
   "extensionsView.heading": {
     "defaultMessage": "Расширения"
@@ -1296,19 +1452,19 @@
     "defaultMessage": "AA:BB:CC:... or sha256/base64"
   },
   "externalBackendSection.description": {
-    "defaultMessage": "По умолчанию goose запускает сервер за вас; используйте это для подключения к внешнему серверу goose"
+    "defaultMessage": "По умолчанию sauron запускает сервер за вас; используйте это для подключения к внешнему серверу sauron"
   },
   "externalBackendSection.fingerprintRequiresHttps": {
     "defaultMessage": "Certificate fingerprint requires an https URL"
   },
   "externalBackendSection.restartNote": {
-    "defaultMessage": "Чтобы изменения вступили в силу, требуется перезапуск Goose. Новые окна чата будут подключаться к внешнему серверу."
+    "defaultMessage": "Чтобы изменения вступили в силу, требуется перезапуск Sauron. Новые окна чата будут подключаться к внешнему серверу."
   },
   "externalBackendSection.secretKey": {
     "defaultMessage": "Секретный ключ"
   },
   "externalBackendSection.secretKeyHelp": {
-    "defaultMessage": "Секретный ключ, настроенный на сервере Goose (GOOSE_SERVER__SECRET_KEY)"
+    "defaultMessage": "Секретный ключ, настроенный на сервере Sauron (SAURON_SERVER__SECRET_KEY)"
   },
   "externalBackendSection.secretKeyPlaceholder": {
     "defaultMessage": "Введите секретный ключ сервера"
@@ -1317,10 +1473,10 @@
     "defaultMessage": "URL сервера"
   },
   "externalBackendSection.serverUrlHelp": {
-    "defaultMessage": "Enter the HTTP(S) base URL. Goose checks /status and connects to /acp under this base."
+    "defaultMessage": "Enter the HTTP(S) base URL. Sauron checks /status and connects to /acp under this base."
   },
   "externalBackendSection.title": {
-    "defaultMessage": "Сервер Goose"
+    "defaultMessage": "Сервер Sauron"
   },
   "externalBackendSection.urlBaseError": {
     "defaultMessage": "URL must be the backend base URL before /acp, without query parameters or fragments"
@@ -1335,7 +1491,7 @@
     "defaultMessage": "Использовать внешний сервер"
   },
   "externalBackendSection.useExternalServerDescription": {
-    "defaultMessage": "Подключиться к серверу goose, запущенному в другом месте (требуется перезапуск приложения)"
+    "defaultMessage": "Подключиться к серверу sauron, запущенному в другом месте (требуется перезапуск приложения)"
   },
   "externalBackendSection.workingDir": {
     "defaultMessage": "Удалённый рабочий каталог (необязательно)"
@@ -1344,70 +1500,25 @@
     "defaultMessage": "Абсолютный путь на внешнем бэкенде. Оставьте пустым, чтобы передать локальный рабочий каталог."
   },
   "externalBackendSection.workingDirPlaceholder": {
-    "defaultMessage": "/home/goose/workspace"
+    "defaultMessage": "/home/sauron/workspace"
   },
-  "goosehintsModal.close": {
-    "defaultMessage": "Закрыть"
+  "freeModelBadge.label": {
+    "defaultMessage": "Бесплатно"
   },
-  "goosehintsModal.developer": {
-    "defaultMessage": "Разработчик"
+  "gitBranchIndicator.failedToSwitch": {
+    "defaultMessage": "Не удалось переключиться на {branch}"
   },
-  "goosehintsModal.dialogDescription": {
-    "defaultMessage": "Предоставьте дополнительный контекст о проекте, чтобы улучшить взаимодействие с Goose"
+  "gitBranchIndicator.noBranchesFound": {
+    "defaultMessage": "Ветки не найдены"
   },
-  "goosehintsModal.dialogTitle": {
-    "defaultMessage": "Настроить подсказки проекта (.goosehints)"
+  "gitBranchIndicator.searchBranches": {
+    "defaultMessage": "Поиск веток…"
   },
-  "goosehintsModal.errorReading": {
-    "defaultMessage": "Ошибка чтения файла .goosehints: {error}"
+  "gitBranchIndicator.uncommittedChanges": {
+    "defaultMessage": "Возможно, у вас есть незакоммиченные изменения."
   },
-  "goosehintsModal.failedToAccess": {
-    "defaultMessage": "Не удалось получить доступ к файлу .goosehints"
-  },
-  "goosehintsModal.failedToSave": {
-    "defaultMessage": "Не удалось сохранить файл .goosehints"
-  },
-  "goosehintsModal.fileCreating": {
-    "defaultMessage": "Создание нового файла .goosehints по пути: {filePath}"
-  },
-  "goosehintsModal.fileFound": {
-    "defaultMessage": "Файл .goosehints найден по пути: {filePath}"
-  },
-  "goosehintsModal.helpText1": {
-    "defaultMessage": ".goosehints — это текстовый файл для дополнительного контекста о проекте и улучшения взаимодействия с Goose."
-  },
-  "goosehintsModal.helpText2": {
-    "defaultMessage": "Убедитесь, что расширение {bold} включено на странице расширений. Оно необходимо для использования .goosehints. Чтобы обновления .goosehints вступили в силу, перезапустите сеанс."
-  },
-  "goosehintsModal.helpText3": {
-    "defaultMessage": "Подробнее см. {link}."
-  },
-  "goosehintsModal.helpTextLink": {
-    "defaultMessage": "использование .goosehints"
-  },
-  "goosehintsModal.placeholder": {
-    "defaultMessage": "Введите подсказки проекта здесь..."
-  },
-  "goosehintsModal.save": {
-    "defaultMessage": "Сохранить"
-  },
-  "goosehintsModal.savedSuccessfully": {
-    "defaultMessage": "Успешно сохранено"
-  },
-  "goosehintsModal.saving": {
-    "defaultMessage": "Сохранение..."
-  },
-  "goosehintsSection.configure": {
-    "defaultMessage": "Настроить"
-  },
-  "goosehintsSection.description": {
-    "defaultMessage": "Настройте файл .goosehints вашего проекта, чтобы предоставить Goose дополнительный контекст"
-  },
-  "goosehintsSection.title": {
-    "defaultMessage": "Подсказки проекта (.goosehints)"
-  },
-  "groupedExtensionLoadingToast.askGoose": {
-    "defaultMessage": "Спросить goose"
+  "groupedExtensionLoadingToast.askSauron": {
+    "defaultMessage": "Спросить sauron"
   },
   "groupedExtensionLoadingToast.collapseDetails": {
     "defaultMessage": "Свернуть детали"
@@ -1441,6 +1552,36 @@
   },
   "groupedExtensionLoadingToast.successfullyLoaded": {
     "defaultMessage": "{count, plural, one {Успешно загружено # расширение} few {Успешно загружено # расширения} many {Успешно загружено # расширений} other {Успешно загружено # расширения}}"
+  },
+  "harnessesSection.title": {
+    "defaultMessage": "Harness'ы агентов"
+  },
+  "harnessesSection.description": {
+    "defaultMessage": "Используйте агентов из другой harness, такой как Cursor, Claude Code, Codex или Copilot. Включите здесь, затем выберите их в Models для общения."
+  },
+  "harnessesSection.loading": {
+    "defaultMessage": "Загрузка harness'ов..."
+  },
+  "harnessesSection.loadFailed": {
+    "defaultMessage": "Не удалось загрузить harness'ы"
+  },
+  "harnessesSection.empty": {
+    "defaultMessage": "Внешние harness'ы агентов недоступны."
+  },
+  "harnessesSection.installed": {
+    "defaultMessage": "Установлено"
+  },
+  "harnessesSection.notInstalled": {
+    "defaultMessage": "Не установлено"
+  },
+  "harnessesSection.configure": {
+    "defaultMessage": "Настроить"
+  },
+  "harnessesSection.configured": {
+    "defaultMessage": "Включено"
+  },
+  "harnessesSection.notConfigured": {
+    "defaultMessage": "Не включено"
   },
   "headersSection.add": {
     "defaultMessage": "Добавить"
@@ -1536,7 +1677,7 @@
     "defaultMessage": "Hugging Face"
   },
   "imagePreview.altText": {
-    "defaultMessage": "изображение goose"
+    "defaultMessage": "изображение sauron"
   },
   "imagePreview.clickToCollapse": {
     "defaultMessage": "Нажмите, чтобы свернуть"
@@ -1551,10 +1692,10 @@
     "defaultMessage": "Отмена"
   },
   "importRecipeForm.deeplinkHint": {
-    "defaultMessage": "Вставьте диплинк рецепта, начинающийся с «goose://recipe?config=»"
+    "defaultMessage": "Вставьте диплинк рецепта, начинающийся с «sauron://recipe?config=»"
   },
   "importRecipeForm.deeplinkPlaceholder": {
-    "defaultMessage": "Вставьте сюда ваш диплинк goose://recipe?config=..."
+    "defaultMessage": "Вставьте сюда ваш диплинк sauron://recipe?config=..."
   },
   "importRecipeForm.example": {
     "defaultMessage": "пример"
@@ -1584,7 +1725,7 @@
     "defaultMessage": "Файл рецепта"
   },
   "importRecipeForm.reviewWarning": {
-    "defaultMessage": "Проверяйте содержимое файлов рецептов перед добавлением в интерфейс goose."
+    "defaultMessage": "Проверяйте содержимое файлов рецептов перед добавлением в интерфейс sauron."
   },
   "importRecipeForm.schemaDescription": {
     "defaultMessage": "Ваш YAML- или JSON-файл должен соответствовать этой структуре. Обязательные поля: title, description и instructions или prompt."
@@ -1695,13 +1836,13 @@
     "defaultMessage": "Горячие клавиши приложения"
   },
   "keyboardShortcuts.categoryApplicationDescription": {
-    "defaultMessage": "Эти сочетания работают, когда Goose является активным приложением"
+    "defaultMessage": "Эти сочетания работают, когда Sauron является активным приложением"
   },
   "keyboardShortcuts.categoryGlobal": {
     "defaultMessage": "Глобальные горячие клавиши"
   },
   "keyboardShortcuts.categoryGlobalDescription": {
-    "defaultMessage": "Эти сочетания работают во всей системе, даже когда Goose не в фокусе"
+    "defaultMessage": "Эти сочетания работают во всей системе, даже когда Sauron не в фокусе"
   },
   "keyboardShortcuts.categorySearch": {
     "defaultMessage": "Горячие клавиши поиска"
@@ -1743,10 +1884,10 @@
     "defaultMessage": "Найти предыдущее"
   },
   "keyboardShortcuts.focusWindowDescription": {
-    "defaultMessage": "Вывести окно Goose на передний план из любого места"
+    "defaultMessage": "Вывести окно Sauron на передний план из любого места"
   },
   "keyboardShortcuts.focusWindowLabel": {
-    "defaultMessage": "Сфокусировать окно Goose"
+    "defaultMessage": "Сфокусировать окно Sauron"
   },
   "keyboardShortcuts.loading": {
     "defaultMessage": "Загрузка..."
@@ -1758,7 +1899,7 @@
     "defaultMessage": "Новый чат"
   },
   "keyboardShortcuts.newChatWindowDescription": {
-    "defaultMessage": "Открыть новое окно Goose"
+    "defaultMessage": "Открыть новое окно Sauron"
   },
   "keyboardShortcuts.newChatWindowLabel": {
     "defaultMessage": "Новое окно чата"
@@ -1797,7 +1938,7 @@
     "defaultMessage": "Сбросить к значениям по умолчанию"
   },
   "keyboardShortcuts.restartDescription": {
-    "defaultMessage": "Чтобы изменения сочетаний приложения (например, Новый чат, Настройки и т. д.) вступили в силу, требуется перезапуск Goose. Глобальные сочетания (Фокус окна, Быстрый запуск) работают сразу."
+    "defaultMessage": "Чтобы изменения сочетаний приложения (например, Новый чат, Настройки и т. д.) вступили в силу, требуется перезапуск Sauron. Глобальные сочетания (Фокус окна, Быстрый запуск) работают сразу."
   },
   "keyboardShortcuts.restartRequired": {
     "defaultMessage": "Требуется перезапуск"
@@ -1827,7 +1968,7 @@
     "defaultMessage": "Переключить навигацию"
   },
   "launcher.placeholder": {
-    "defaultMessage": "Спросите goose о чем угодно..."
+    "defaultMessage": "Спросите sauron о чем угодно..."
   },
   "liveVoice.connecting": {
     "defaultMessage": "Connecting Live voice"
@@ -1854,31 +1995,31 @@
     "defaultMessage": "Unmute microphone"
   },
   "liveVoiceSettings.description": {
-    "defaultMessage": "Общайтесь с Goose голосом в реальном времени"
+    "defaultMessage": "Общайтесь с Sauron голосом в реальном времени"
   },
   "liveVoiceSettings.title": {
     "defaultMessage": "Голосовой режим"
   },
-  "loadingGoose.compacting": {
-    "defaultMessage": "goose сжимает разговор..."
+  "loadingSauron.compacting": {
+    "defaultMessage": "sauron сжимает разговор..."
   },
-  "loadingGoose.idle": {
-    "defaultMessage": "goose работает над этим…"
+  "loadingSauron.idle": {
+    "defaultMessage": "sauron работает над этим…"
   },
-  "loadingGoose.loadingConversation": {
+  "loadingSauron.loadingConversation": {
     "defaultMessage": "загрузка разговора..."
   },
-  "loadingGoose.restartingAgent": {
+  "loadingSauron.restartingAgent": {
     "defaultMessage": "перезапуск сеанса..."
   },
-  "loadingGoose.streaming": {
-    "defaultMessage": "goose работает над этим…"
+  "loadingSauron.streaming": {
+    "defaultMessage": "sauron работает над этим…"
   },
-  "loadingGoose.thinking": {
-    "defaultMessage": "goose думает…"
+  "loadingSauron.thinking": {
+    "defaultMessage": "sauron думает…"
   },
-  "loadingGoose.waiting": {
-    "defaultMessage": "goose ждет…"
+  "loadingSauron.waiting": {
+    "defaultMessage": "sauron ждет…"
   },
   "localInferenceSettings.deleteConfirm": {
     "defaultMessage": "Удалить эту модель? Позже ее можно скачать снова."
@@ -2068,6 +2209,12 @@
   },
   "mcpAppRenderer.resizePipWindow": {
     "defaultMessage": "Изменить размер окна «картинка в картинке»"
+  },
+  "mcpSettings.description": {
+    "defaultMessage": "Connect Model Context Protocol servers to give goose new tools, resources, and data sources. Extensions added here are available to every chat."
+  },
+  "mcpSettings.title": {
+    "defaultMessage": "MCP Servers"
   },
   "mentionPopover.itemsFound": {
     "defaultMessage": "{count, plural, one {Найден # элемент} few {Найдено # элемента} many {Найдено # элементов} other {Найдено # элемента}}"
@@ -2267,6 +2414,18 @@
   "modelAndProviderContext.unknownProviderTitle": {
     "defaultMessage": "Поиск имени провайдера"
   },
+  "modelBadges.contextShort": {
+    "defaultMessage": "{amount, number}k"
+  },
+  "modelBadges.contextWindow": {
+    "defaultMessage": "Контекст {amount, number}k"
+  },
+  "modelBadges.default": {
+    "defaultMessage": "По умолчанию"
+  },
+  "modelBadges.reasoning": {
+    "defaultMessage": "Рассуждение"
+  },
   "modelSettingsButtons.switchModels": {
     "defaultMessage": "Переключить модели"
   },
@@ -2438,6 +2597,12 @@
   "modelsBottomBar.localModelSettingsTitle": {
     "defaultMessage": "Настройки локальной модели — {modelName}"
   },
+  "modelsBottomBar.preferredModels": {
+    "defaultMessage": "Избранные"
+  },
+  "modelsBottomBar.recentModels": {
+    "defaultMessage": "Недавние"
+  },
   "modelsBottomBar.resolvedModel": {
     "defaultMessage": "Разрешенная модель"
   },
@@ -2471,14 +2636,26 @@
   "navigation.itemSkills": {
     "defaultMessage": "Навыки"
   },
+  "navigationFooter.cpuUsage": {
+    "defaultMessage": "CPU {percent}%"
+  },
+  "navigationFooter.memoryUsage": {
+    "defaultMessage": "Память {percent}%"
+  },
   "navigationFooter.sendFeedback": {
     "defaultMessage": "Отправить отзыв"
   },
   "navigationFooter.you": {
     "defaultMessage": "Вы"
   },
-  "navigationPanel.chats": {
-    "defaultMessage": "Чаты"
+  "navigationPanel.goBack": {
+    "defaultMessage": "Назад"
+  },
+  "navigationPanel.goForward": {
+    "defaultMessage": "Вперёд"
+  },
+  "navigationPanel.groupChats": {
+    "defaultMessage": "Группировать чаты по рабочим областям"
   },
   "navigationPanel.loadingChats": {
     "defaultMessage": "Загрузка чатов…"
@@ -2498,8 +2675,14 @@
   "navigationPanel.metaUpdated": {
     "defaultMessage": "Обновлено"
   },
+  "navigationPanel.newProject": {
+    "defaultMessage": "Новый проект"
+  },
   "navigationPanel.noChats": {
     "defaultMessage": "Нет недавних чатов"
+  },
+  "navigationPanel.projects": {
+    "defaultMessage": "Проекты"
   },
   "navigationPanel.statusError": {
     "defaultMessage": "Ошибка"
@@ -2516,11 +2699,14 @@
   "navigationPanel.untitledSession": {
     "defaultMessage": "Безымянный сеанс"
   },
+  "navigationPanel.workspaces": {
+    "defaultMessage": "Рабочие области"
+  },
   "onboardingGuard.checkProviderErrorDescription": {
     "defaultMessage": "Сервер может запускаться или быть временно недоступен."
   },
   "onboardingGuard.checkProviderErrorTitle": {
-    "defaultMessage": "Не удалось подключиться к серверу Goose"
+    "defaultMessage": "Не удалось подключиться к серверу Sauron"
   },
   "onboardingGuard.retry": {
     "defaultMessage": "Повторить"
@@ -2529,10 +2715,10 @@
     "defaultMessage": "Ваш локальный ИИ-агент. Подключите провайдера ИИ-модели, чтобы начать."
   },
   "onboardingGuard.welcomeTitle": {
-    "defaultMessage": "Добро пожаловать в goose"
+    "defaultMessage": "Добро пожаловать в sauron"
   },
   "onboardingSuccess.allSet": {
-    "defaultMessage": "Все готово для начала работы с goose."
+    "defaultMessage": "Все готово для начала работы с sauron."
   },
   "onboardingSuccess.connectedTo": {
     "defaultMessage": "Подключено к {providerName}"
@@ -2547,7 +2733,7 @@
     "defaultMessage": "Локальная модель готова"
   },
   "onboardingSuccess.privacyDescription": {
-    "defaultMessage": "Анонимные данные об использовании помогают улучшать goose. Мы никогда не собираем ваши разговоры, код или персональные данные."
+    "defaultMessage": "Анонимные данные об использовании помогают улучшать sauron. Мы никогда не собираем ваши разговоры, код или персональные данные."
   },
   "onboardingSuccess.privacyTitle": {
     "defaultMessage": "Конфиденциальность"
@@ -2699,6 +2885,48 @@
   "permissionSetting.permissionRulesDescription": {
     "defaultMessage": "Скрытые инструкции, которые будут переданы провайдеру, чтобы направлять ответы и добавлять к ним контекст."
   },
+  "pluginsSettings.description": {
+    "defaultMessage": "Plugins installed under .agents/plugins contribute skills and MCP servers to goose. Manage the skills they provide from the Skills view."
+  },
+  "pluginsSettings.empty": {
+    "defaultMessage": "No plugins installed."
+  },
+  "pluginsSettings.emptyHint": {
+    "defaultMessage": "Install a plugin with `goose plugin install` and it will show up here."
+  },
+  "pluginsSettings.loadFailed": {
+    "defaultMessage": "Could not load plugins"
+  },
+  "pluginsSettings.loading": {
+    "defaultMessage": "Loading plugins..."
+  },
+  "pluginsSettings.manageSkills": {
+    "defaultMessage": "Manage skills"
+  },
+  "pluginsSettings.pluginCount": {
+    "defaultMessage": "{count,plural,=0{No plugins} one{# plugin} other{# plugins}}"
+  },
+  "pluginsSettings.refresh": {
+    "defaultMessage": "Refresh"
+  },
+  "pluginsSettings.skillCount": {
+    "defaultMessage": "{count,plural,one{# skill} other{# skills}}"
+  },
+  "pluginsSettings.title": {
+    "defaultMessage": "Plugins"
+  },
+  "preferredModels.empty": {
+    "defaultMessage": "Отметьте модели звёздой ниже, чтобы они всегда были под рукой здесь и в чатах."
+  },
+  "preferredModels.remove": {
+    "defaultMessage": "Убрать {model} из предпочтительных моделей"
+  },
+  "preferredModels.removeFailed": {
+    "defaultMessage": "Не удалось обновить предпочтительные modelos"
+  },
+  "preferredModels.title": {
+    "defaultMessage": "Предпочтительные модели"
+  },
   "privacyInfoModal.collectErrors": {
     "defaultMessage": "Типы ошибок (например, «rate_limit», «auth» - без подробностей)"
   },
@@ -2715,10 +2943,10 @@
     "defaultMessage": "Метрики сеанса (длительность, число взаимодействий, использование токенов)"
   },
   "privacyInfoModal.collectVersion": {
-    "defaultMessage": "Версия goose и способ установки"
+    "defaultMessage": "Версия sauron и способ установки"
   },
   "privacyInfoModal.description": {
-    "defaultMessage": "Анонимные данные об использовании помогают понять как используется goose и найти области для улучшения."
+    "defaultMessage": "Анонимные данные об использовании помогают понять как используется sauron и найти области для улучшения."
   },
   "privacyInfoModal.neverCollect": {
     "defaultMessage": "Мы никогда не собираем ваши разговоры, код, аргументы инструментов, сообщения об ошибках или персональные данные. Эту настройку можно изменить в любое время в настройках."
@@ -2787,7 +3015,7 @@
     "defaultMessage": "Не удалось сохранить промпт"
   },
   "promptsSettings.promptEditingDescription": {
-    "defaultMessage": "Настраивайте промпты, определяющие поведение goose в разных контекстах. Эти промпты используют синтаксис шаблонов Jinja2. Будьте осторожны при изменении переменных шаблона: неверные изменения могут нарушить работу. Делитесь улучшениями с сообществом."
+    "defaultMessage": "Настраивайте промпты, определяющие поведение sauron в разных контекстах. Эти промпты используют синтаксис шаблонов Jinja2. Будьте осторожны при изменении переменных шаблона: неверные изменения могут нарушить работу. Делитесь улучшениями с сообществом."
   },
   "promptsSettings.promptEditingTitle": {
     "defaultMessage": "Редактирование промптов"
@@ -2815,6 +3043,9 @@
   },
   "promptsSettings.unsavedChanges": {
     "defaultMessage": "У вас есть несохраненные изменения"
+  },
+  "providerCard.deprecatedReplacement": {
+    "defaultMessage": "Устарел — используйте вместо него {replacement}."
   },
   "providerCard.noMetadata": {
     "defaultMessage": "Ошибка ProviderCard: метаданные не предоставлены"
@@ -2870,8 +3101,17 @@
   "providerConfigForm.continue": {
     "defaultMessage": "Продолжить"
   },
+  "providerConfigForm.deviceCodeAndEnter": {
+    "defaultMessage": "и введите:"
+  },
+  "providerConfigForm.deviceCodeCopy": {
+    "defaultMessage": "Копировать"
+  },
   "providerConfigForm.deviceCodeFlowHint": {
     "defaultMessage": "Откроется окно браузера. Код подтверждения появится здесь — введите его, чтобы завершить вход."
+  },
+  "providerConfigForm.deviceCodeVisit": {
+    "defaultMessage": "Перейдите на"
   },
   "providerConfigForm.noApiKey": {
     "defaultMessage": "Нет API-ключа?"
@@ -2883,7 +3123,7 @@
     "defaultMessage": "Вход..."
   },
   "providerConfigurationModal.addApiKeyDescription": {
-    "defaultMessage": "Добавьте API-ключи для этого провайдера, чтобы интегрировать его в goose"
+    "defaultMessage": "Добавьте API-ключи для этого провайдера, чтобы интегрировать его в sauron"
   },
   "providerConfigurationModal.browserWindowHint": {
     "defaultMessage": "Откроется окно браузера для завершения входа."
@@ -2897,6 +3137,9 @@
   "providerConfigurationModal.checkConfigAgain": {
     "defaultMessage": "Проверьте конфигурацию еще раз, чтобы использовать этого провайдера."
   },
+  "providerConfigurationModal.chooseModel": {
+    "defaultMessage": "Выбрать модель"
+  },
   "providerConfigurationModal.close": {
     "defaultMessage": "Закрыть"
   },
@@ -2909,8 +3152,17 @@
   "providerConfigurationModal.deleteConfirmation": {
     "defaultMessage": "Это навсегда удалит текущую конфигурацию провайдера."
   },
+  "providerConfigurationModal.deviceCodeAndEnter": {
+    "defaultMessage": "и введите:"
+  },
+  "providerConfigurationModal.deviceCodeCopy": {
+    "defaultMessage": "Копировать"
+  },
   "providerConfigurationModal.deviceCodeFlowHint": {
     "defaultMessage": "Откроется окно браузера. Код подтверждения появится здесь — введите его, чтобы завершить вход."
+  },
+  "providerConfigurationModal.deviceCodeVisit": {
+    "defaultMessage": "Перейдите на"
   },
   "providerConfigurationModal.errorCheckingConfig": {
     "defaultMessage": "При проверке конфигурации этого провайдера произошла ошибка."
@@ -2919,7 +3171,7 @@
     "defaultMessage": "Ошибка"
   },
   "providerConfigurationModal.externalSetupIntro": {
-    "defaultMessage": "Этот провайдер настраивается вне goose. Выполните следующие шаги:"
+    "defaultMessage": "Этот провайдер настраивается вне sauron. Выполните следующие шаги:"
   },
   "providerConfigurationModal.goBack": {
     "defaultMessage": "Назад"
@@ -3003,7 +3255,7 @@
     "defaultMessage": "Загрузка провайдеров..."
   },
   "providerSettings.onboardingDescription": {
-    "defaultMessage": "Выберите провайдера ИИ-модели, чтобы начать работу с goose. Понадобятся API-ключи, созданные каждым провайдером; они будут зашифрованы и сохранены локально. Провайдера можно изменить в настройках в любое время."
+    "defaultMessage": "Выберите провайдера ИИ-модели, чтобы начать работу с sauron. Понадобятся API-ключи, созданные каждым провайдером; они будут зашифрованы и сохранены локально. Провайдера можно изменить в настройках в любое время."
   },
   "providerSettings.otherProviders": {
     "defaultMessage": "Другие провайдеры"
@@ -3031,6 +3283,66 @@
   },
   "providerSetupActions.submit": {
     "defaultMessage": "Отправить"
+  },
+  "providersSection.configure": {
+    "defaultMessage": "Configure"
+  },
+  "providersSection.configured": {
+    "defaultMessage": "Configured"
+  },
+  "providersSection.defaultSet": {
+    "defaultMessage": "{model} is now your default model."
+  },
+  "providersSection.defaultSetFailed": {
+    "defaultMessage": "Failed to set default model"
+  },
+  "providersSection.description": {
+    "defaultMessage": "Configure your AI model providers and load their available models directly from each provider API."
+  },
+  "providersSection.hideModels": {
+    "defaultMessage": "Hide models"
+  },
+  "providersSection.loadFailed": {
+    "defaultMessage": "Failed to load providers"
+  },
+  "providersSection.loadModels": {
+    "defaultMessage": "Load Models"
+  },
+  "providersSection.loading": {
+    "defaultMessage": "Loading providers..."
+  },
+  "providersSection.manageAll": {
+    "defaultMessage": "Manage all providers"
+  },
+  "providersSection.modelsError": {
+    "defaultMessage": "Could not load models from {provider}: {error}"
+  },
+  "providersSection.modelsLoaded": {
+    "defaultMessage": "{count} models loaded from {provider}"
+  },
+  "providersSection.needsConfig": {
+    "defaultMessage": "Configure this provider first to load its models."
+  },
+  "providersSection.notConfigured": {
+    "defaultMessage": "Not configured"
+  },
+  "providersSection.reloadingModels": {
+    "defaultMessage": "Reloading models..."
+  },
+  "providersSection.resetDescription": {
+    "defaultMessage": "Clear your selected model and provider settings to start fresh"
+  },
+  "providersSection.resetTitle": {
+    "defaultMessage": "Reset Provider and Model"
+  },
+  "providersSection.setDefault": {
+    "defaultMessage": "Click a model to use it as your default."
+  },
+  "providersSection.showModels": {
+    "defaultMessage": "Show models"
+  },
+  "providersSection.title": {
+    "defaultMessage": "Model Providers"
   },
   "recipeActivityEditor.activitiesDescription": {
     "defaultMessage": "Верхнеуровневые промпты и кнопки активностей, которые будут отображаться в окне чата рецепта."
@@ -3401,6 +3713,66 @@
   "responseStyle.detailedLabel": {
     "defaultMessage": "Подробный"
   },
+  "sauronhintsModal.close": {
+    "defaultMessage": "Закрыть"
+  },
+  "sauronhintsModal.developer": {
+    "defaultMessage": "Разработчик"
+  },
+  "sauronhintsModal.dialogDescription": {
+    "defaultMessage": "Предоставьте дополнительный контекст о проекте, чтобы улучшить взаимодействие с Sauron"
+  },
+  "sauronhintsModal.dialogTitle": {
+    "defaultMessage": "Настроить подсказки проекта (.sauronhints)"
+  },
+  "sauronhintsModal.errorReading": {
+    "defaultMessage": "Ошибка чтения файла .sauronhints: {error}"
+  },
+  "sauronhintsModal.failedToAccess": {
+    "defaultMessage": "Не удалось получить доступ к файлу .sauronhints"
+  },
+  "sauronhintsModal.failedToSave": {
+    "defaultMessage": "Не удалось сохранить файл .sauronhints"
+  },
+  "sauronhintsModal.fileCreating": {
+    "defaultMessage": "Создание нового файла .sauronhints по пути: {filePath}"
+  },
+  "sauronhintsModal.fileFound": {
+    "defaultMessage": "Файл .sauronhints найден по пути: {filePath}"
+  },
+  "sauronhintsModal.helpText1": {
+    "defaultMessage": ".sauronhints — это текстовый файл для дополнительного контекста о проекте и улучшения взаимодействия с Sauron."
+  },
+  "sauronhintsModal.helpText2": {
+    "defaultMessage": "Убедитесь, что расширение {bold} включено на странице расширений. Оно необходимо для использования .sauronhints. Чтобы обновления .sauronhints вступили в силу, перезапустите сеанс."
+  },
+  "sauronhintsModal.helpText3": {
+    "defaultMessage": "Подробнее см. {link}."
+  },
+  "sauronhintsModal.helpTextLink": {
+    "defaultMessage": "использование .sauronhints"
+  },
+  "sauronhintsModal.placeholder": {
+    "defaultMessage": "Введите подсказки проекта здесь..."
+  },
+  "sauronhintsModal.save": {
+    "defaultMessage": "Сохранить"
+  },
+  "sauronhintsModal.savedSuccessfully": {
+    "defaultMessage": "Успешно сохранено"
+  },
+  "sauronhintsModal.saving": {
+    "defaultMessage": "Сохранение..."
+  },
+  "sauronhintsSection.configure": {
+    "defaultMessage": "Настроить"
+  },
+  "sauronhintsSection.description": {
+    "defaultMessage": "Настройте файл .sauronhints вашего проекта, чтобы предоставить Sauron дополнительный контекст"
+  },
+  "sauronhintsSection.title": {
+    "defaultMessage": "Подсказки проекта (.sauronhints)"
+  },
   "scheduleDetailView.actions": {
     "defaultMessage": "Действия"
   },
@@ -3576,7 +3948,7 @@
     "defaultMessage": "Диплинк"
   },
   "scheduleModal.deepLinkPlaceholder": {
-    "defaultMessage": "Вставьте ссылку goose://recipe сюда..."
+    "defaultMessage": "Вставьте ссылку sauron://recipe сюда..."
   },
   "scheduleModal.editSchedule": {
     "defaultMessage": "Изменить расписание"
@@ -3591,7 +3963,7 @@
     "defaultMessage": "Не удалось прочитать выбранный файл."
   },
   "scheduleModal.invalidDeepLink": {
-    "defaultMessage": "Неверный диплинк. Используйте ссылку goose://recipe."
+    "defaultMessage": "Неверный диплинк. Используйте ссылку sauron://recipe."
   },
   "scheduleModal.invalidFileType": {
     "defaultMessage": "Неверный тип файла: выберите YAML-файл (.yaml или .yml)"
@@ -3933,7 +4305,7 @@
     "defaultMessage": "История чатов"
   },
   "sessions.chatHistoryDesc": {
-    "defaultMessage": "Просматривайте и ищите прошлые разговоры с Goose. {shortcut} для поиска."
+    "defaultMessage": "Просматривайте и ищите прошлые разговоры с Sauron. {shortcut} для поиска."
   },
   "sessions.close": {
     "defaultMessage": "Закрыть"
@@ -4025,8 +4397,77 @@
   "sessions.toast.updated": {
     "defaultMessage": "Описание сеанса успешно обновлено"
   },
+  "settings.agentLoop.description": {
+    "defaultMessage": "Использовать цикл агента на основе операций. Отключите, чтобы использовать прежний цикл."
+  },
+  "settings.agentLoop.operations.auto.placeholder": {
+    "defaultMessage": "Автоматически"
+  },
+  "settings.agentLoop.operations.blockLimit.label": {
+    "defaultMessage": "Лимит блокировок"
+  },
+  "settings.agentLoop.operations.contextCompaction.description": {
+    "defaultMessage": "Сводит историю диалога до заполнения контекстного окна."
+  },
+  "settings.agentLoop.operations.contextCompaction.title": {
+    "defaultMessage": "Сжатие контекста"
+  },
+  "settings.agentLoop.operations.cutoff.label": {
+    "defaultMessage": "Порог отсечения"
+  },
+  "settings.agentLoop.operations.enable": {
+    "defaultMessage": "Включить {operation}"
+  },
+  "settings.agentLoop.operations.failureTimeout.label": {
+    "defaultMessage": "Тайм-аут ошибки"
+  },
+  "settings.agentLoop.operations.heading": {
+    "defaultMessage": "Настраиваемые операции"
+  },
+  "settings.agentLoop.operations.maxTurns.description": {
+    "defaultMessage": "Останавливает автономную работу и запрашивает подтверждение пользователя перед продолжением."
+  },
+  "settings.agentLoop.operations.maxTurns.title": {
+    "defaultMessage": "Максимум ходов"
+  },
+  "settings.agentLoop.operations.recipeRetry.description": {
+    "defaultMessage": "Повторно запускает проверки рецепта, если настроенная проверка успеха завершается неудачно."
+  },
+  "settings.agentLoop.operations.recipeRetry.title": {
+    "defaultMessage": "Повтор рецепта"
+  },
+  "settings.agentLoop.operations.retryTimeout.label": {
+    "defaultMessage": "Тайм-аут повтора"
+  },
+  "settings.agentLoop.operations.slashCommands.description": {
+    "defaultMessage": "Распознаёт команды, такие как /compact, /skills и ярлыки рецептов."
+  },
+  "settings.agentLoop.operations.slashCommands.title": {
+    "defaultMessage": "Слэш-команды"
+  },
+  "settings.agentLoop.operations.stopHooks.description": {
+    "defaultMessage": "Позволяет хукам блокировать завершение, предотвращая бесконечные циклы остановки."
+  },
+  "settings.agentLoop.operations.stopHooks.title": {
+    "defaultMessage": "Хуки остановки"
+  },
+  "settings.agentLoop.operations.threshold.label": {
+    "defaultMessage": "Порог %"
+  },
+  "settings.agentLoop.operations.toolPairCompaction.description": {
+    "defaultMessage": "Сводит старые запросы и ответы инструментов для экономии контекста. Если поле пусто, порог выбирается автоматически."
+  },
+  "settings.agentLoop.operations.toolPairCompaction.title": {
+    "defaultMessage": "Сжатие пар инструментов"
+  },
+  "settings.agentLoop.operations.turns.label": {
+    "defaultMessage": "Ходы"
+  },
+  "settings.agentLoop.title": {
+    "defaultMessage": "Цикл агента"
+  },
   "settings.appearance.description": {
-    "defaultMessage": "Настройте, как goose отображается в вашей системе"
+    "defaultMessage": "Настройте, как sauron отображается в вашей системе"
   },
   "settings.appearance.title": {
     "defaultMessage": "Внешний вид"
@@ -4041,13 +4482,28 @@
     "defaultMessage": "Отслеживание стоимости"
   },
   "settings.dockIcon.description": {
-    "defaultMessage": "Показывать goose в Dock"
+    "defaultMessage": "Показывать sauron в Dock"
   },
   "settings.dockIcon.title": {
     "defaultMessage": "Значок Dock"
   },
+  "settings.fontSize.decrease": {
+    "defaultMessage": "Уменьшить размер шрифта"
+  },
+  "settings.fontSize.description": {
+    "defaultMessage": "Изменить размер текста в goose"
+  },
+  "settings.fontSize.increase": {
+    "defaultMessage": "Увеличить размер шрифта"
+  },
+  "settings.fontSize.reset": {
+    "defaultMessage": "Сбросить"
+  },
+  "settings.fontSize.title": {
+    "defaultMessage": "Размер шрифта"
+  },
   "settings.help.description": {
-    "defaultMessage": "Помогите улучшить goose: сообщайте о проблемах или запрашивайте новые функции"
+    "defaultMessage": "Помогите улучшить sauron: сообщайте о проблемах или запрашивайте новые функции"
   },
   "settings.help.reportBug": {
     "defaultMessage": "Сообщить об ошибке"
@@ -4059,7 +4515,7 @@
     "defaultMessage": "Помощь и отзывы"
   },
   "settings.language.description": {
-    "defaultMessage": "Выберите язык интерфейса goose"
+    "defaultMessage": "Выберите язык интерфейса sauron"
   },
   "settings.language.english": {
     "defaultMessage": "Английский"
@@ -4116,7 +4572,7 @@
     "defaultMessage": "Китайский (традиционный)"
   },
   "settings.menuBarIcon.description": {
-    "defaultMessage": "Показывать goose в строке меню"
+    "defaultMessage": "Показывать sauron в строке меню"
   },
   "settings.menuBarIcon.title": {
     "defaultMessage": "Значок строки меню"
@@ -4137,7 +4593,7 @@
     "defaultMessage": "Нажмите «Уведомления»"
   },
   "settings.notifications.modal.macStep3": {
-    "defaultMessage": "Найдите и выберите goose в списке приложений"
+    "defaultMessage": "Найдите и выберите sauron в списке приложений"
   },
   "settings.notifications.modal.macStep4": {
     "defaultMessage": "Включите уведомления и настройте параметры по желанию"
@@ -4155,7 +4611,7 @@
     "defaultMessage": "Перейдите в Система > Уведомления"
   },
   "settings.notifications.modal.winStep3": {
-    "defaultMessage": "Найдите и выберите goose в списке приложений"
+    "defaultMessage": "Найдите и выберите sauron в списке приложений"
   },
   "settings.notifications.modal.winStep4": {
     "defaultMessage": "Включите уведомления и настройте параметры по желанию"
@@ -4163,8 +4619,14 @@
   "settings.notifications.openSettings": {
     "defaultMessage": "Откройте «Параметры»"
   },
+  "settings.notifications.sound.description": {
+    "defaultMessage": "Воспроизводить звук при уведомлении о завершении задачи"
+  },
+  "settings.notifications.sound.title": {
+    "defaultMessage": "Звук уведомлений"
+  },
   "settings.notifications.task.description": {
-    "defaultMessage": "Уведомлять, когда Goose завершает задачу, пока окно в фоне"
+    "defaultMessage": "Уведомлять, когда Sauron завершает задачу, пока окно в фоне"
   },
   "settings.notifications.task.title": {
     "defaultMessage": "Уведомления о завершении задач"
@@ -4173,19 +4635,19 @@
     "defaultMessage": "Уведомления"
   },
   "settings.preventSleep.description": {
-    "defaultMessage": "Не давать компьютеру засыпать, пока goose выполняет задачу (экран все равно может блокироваться)"
+    "defaultMessage": "Не давать компьютеру засыпать, пока sauron выполняет задачу (экран все равно может блокироваться)"
   },
   "settings.preventSleep.title": {
     "defaultMessage": "Запретить сон"
   },
   "settings.theme.description": {
-    "defaultMessage": "Настройте внешний вид и ощущения goose"
+    "defaultMessage": "Настройте внешний вид и ощущения sauron"
   },
   "settings.theme.title": {
     "defaultMessage": "Тема"
   },
   "settings.updates.description": {
-    "defaultMessage": "Проверяйте и устанавливайте обновления, чтобы goose работал оптимально"
+    "defaultMessage": "Проверяйте и устанавливайте обновления, чтобы sauron работал оптимально"
   },
   "settings.updates.title": {
     "defaultMessage": "Обновления"
@@ -4193,11 +4655,17 @@
   "settings.version.title": {
     "defaultMessage": "Версия"
   },
+  "settingsView.noResults": {
+    "defaultMessage": "Нет результатов"
+  },
+  "settingsView.searchPlaceholder": {
+    "defaultMessage": "Поиск в настройках"
+  },
   "settingsView.tabApp": {
     "defaultMessage": "Приложение"
   },
-  "settingsView.tabAuth": {
-    "defaultMessage": "Авторизация"
+  "settingsView.tabAppearance": {
+    "defaultMessage": "Appearance"
   },
   "settingsView.tabChat": {
     "defaultMessage": "Чат"
@@ -4205,17 +4673,26 @@
   "settingsView.tabExternalBackend": {
     "defaultMessage": "Внешний бэкенд"
   },
+  "settingsView.tabHarnesses": {
+    "defaultMessage": "Harness'ы"
+  },
   "settingsView.tabKeyboard": {
     "defaultMessage": "Клавиатура"
   },
-  "settingsView.tabLocalInference": {
-    "defaultMessage": "Локальный инференс"
+  "settingsView.tabMcp": {
+    "defaultMessage": "MCP"
   },
   "settingsView.tabModels": {
     "defaultMessage": "Модели"
   },
+  "settingsView.tabPlugins": {
+    "defaultMessage": "Plugins"
+  },
   "settingsView.tabPrompts": {
     "defaultMessage": "Промпты"
+  },
+  "settingsView.tabProviders": {
+    "defaultMessage": "Providers"
   },
   "settingsView.title": {
     "defaultMessage": "Настройки"
@@ -4251,7 +4728,7 @@
     "defaultMessage": "Подходящие навыки не найдены"
   },
   "skillsView.noSkillsDescription": {
-    "defaultMessage": "Навыки загружаются из файлов SKILL.md в ~/.config/agents/skills/, .goose/skills/ или других поддерживаемых каталогах."
+    "defaultMessage": "Навыки загружаются из файлов SKILL.md в ~/.config/agents/skills/, .sauron/skills/ или других поддерживаемых каталогах."
   },
   "skillsView.noSkillsInstalled": {
     "defaultMessage": "Навыки не установлены"
@@ -4260,7 +4737,7 @@
     "defaultMessage": "Поиск навыков..."
   },
   "skillsView.skillsDescription": {
-    "defaultMessage": "Просматривайте установленные навыки, расширяющие возможности Goose. {shortcut} для поиска."
+    "defaultMessage": "Просматривайте установленные навыки, расширяющие возможности Sauron. {shortcut} для поиска."
   },
   "skillsView.skillsTitle": {
     "defaultMessage": "Навыки"
@@ -4503,10 +4980,10 @@
     "defaultMessage": "Использовать другого провайдера"
   },
   "telemetryConsentPrompt.description": {
-    "defaultMessage": "Хотите поделиться анонимными данными об использовании, чтобы помочь улучшить goose? Мы никогда не собираем ваши разговоры, код или персональные данные."
+    "defaultMessage": "Хотите поделиться анонимными данными об использовании, чтобы помочь улучшить sauron? Мы никогда не собираем ваши разговоры, код или персональные данные."
   },
   "telemetryConsentPrompt.heading": {
-    "defaultMessage": "Помогите улучшить goose"
+    "defaultMessage": "Помогите улучшить sauron"
   },
   "telemetryConsentPrompt.learnMore": {
     "defaultMessage": "Подробнее"
@@ -4533,7 +5010,7 @@
     "defaultMessage": "Конфиденциальность"
   },
   "telemetrySettings.toggleDescription": {
-    "defaultMessage": "Помогите улучшить goose, делясь анонимной статистикой использования."
+    "defaultMessage": "Помогите улучшить sauron, делясь анонимной статистикой использования."
   },
   "telemetrySettings.toggleLabel": {
     "defaultMessage": "Анонимные данные об использовании"
@@ -4549,6 +5026,9 @@
   },
   "themeSelector.light": {
     "defaultMessage": "Светлая"
+  },
+  "themeSelector.popular": {
+    "defaultMessage": "Popular themes"
   },
   "themeSelector.system": {
     "defaultMessage": "Системная"
@@ -4613,14 +5093,14 @@
   "toolConfirmation.allowToolCallWithName": {
     "defaultMessage": "Разрешить {toolName}?"
   },
-  "toolConfirmation.gooseWouldLikeToCallWithName": {
-    "defaultMessage": "Goose хочет вызвать {toolName}. Разрешить?"
+  "toolConfirmation.sauronWouldLikeToCallWithName": {
+    "defaultMessage": "Sauron хочет вызвать {toolName}. Разрешить?"
   },
   "updateSection.autoDownload": {
     "defaultMessage": "Обновление будет автоматически скачано в фоновом режиме."
   },
   "updateSection.autoDownloadDisabledByEnv": {
-    "defaultMessage": "Автоматическая загрузка отключена через переменную окружения GOOSE_DISABLE_AUTO_DOWNLOAD."
+    "defaultMessage": "Автоматическая загрузка отключена через переменную окружения SAURON_DISABLE_AUTO_DOWNLOAD."
   },
   "updateSection.autoDownloadDisabledNote": {
     "defaultMessage": "Автоматическая загрузка отключена. Нажмите «Скачать сейчас», чтобы загрузить вручную."
@@ -4638,7 +5118,7 @@
     "defaultMessage": "Отключить автоматическую загрузку обновлений"
   },
   "updateSection.disableAutoDownloadDesc": {
-    "defaultMessage": "Когда включено, Goose будет уведомлять о новых версиях, но не будет загружать их автоматически."
+    "defaultMessage": "Когда включено, Sauron будет уведомлять о новых версиях, но не будет загружать их автоматически."
   },
   "updateSection.downloadNow": {
     "defaultMessage": "Скачать сейчас"
@@ -4723,275 +5203,5 @@
   },
   "userMessage.removeImageFromEdit": {
     "defaultMessage": "Удалить изображение из сообщения"
-  },
-  "modelsBottomBar.recentModels": {
-    "defaultMessage": "Недавние"
-  },
-  "providerConfigurationModal.chooseModel": {
-    "defaultMessage": "Выбрать модель"
-  },
-  "providerCard.deprecatedReplacement": {
-    "defaultMessage": "Устарел — используйте вместо него {replacement}."
-  },
-  "acpReadinessPanel.adapterFound": {
-    "defaultMessage": "Адаптер ACP найден"
-  },
-  "acpReadinessPanel.adapterNotFound": {
-    "defaultMessage": "Адаптер ACP не найден"
-  },
-  "acpReadinessPanel.authenticationHelp": {
-    "defaultMessage": "Войдите через CLI провайдера, затем повторите проверку."
-  },
-  "acpReadinessPanel.checkAgain": {
-    "defaultMessage": "Проверить снова"
-  },
-  "acpReadinessPanel.checking": {
-    "defaultMessage": "Проверка..."
-  },
-  "acpReadinessPanel.connected": {
-    "defaultMessage": "Подключение выполнено"
-  },
-  "acpReadinessPanel.connectionNotChecked": {
-    "defaultMessage": "Проверьте подключение учетной записи, прежде чем продолжить."
-  },
-  "providerConfigForm.deviceCodeAndEnter": {
-    "defaultMessage": "и введите:"
-  },
-  "providerConfigForm.deviceCodeCopy": {
-    "defaultMessage": "Копировать"
-  },
-  "providerConfigForm.deviceCodeVisit": {
-    "defaultMessage": "Перейдите на"
-  },
-  "providerConfigurationModal.deviceCodeAndEnter": {
-    "defaultMessage": "и введите:"
-  },
-  "providerConfigurationModal.deviceCodeCopy": {
-    "defaultMessage": "Копировать"
-  },
-  "providerConfigurationModal.deviceCodeVisit": {
-    "defaultMessage": "Перейдите на"
-  },
-  "settings.agentLoop.description": {
-    "defaultMessage": "Использовать цикл агента на основе операций. Отключите, чтобы использовать прежний цикл."
-  },
-  "settings.agentLoop.operations.auto.placeholder": {
-    "defaultMessage": "Автоматически"
-  },
-  "settings.agentLoop.operations.blockLimit.label": {
-    "defaultMessage": "Лимит блокировок"
-  },
-  "settings.agentLoop.operations.contextCompaction.description": {
-    "defaultMessage": "Сводит историю диалога до заполнения контекстного окна."
-  },
-  "settings.agentLoop.operations.contextCompaction.title": {
-    "defaultMessage": "Сжатие контекста"
-  },
-  "settings.agentLoop.operations.cutoff.label": {
-    "defaultMessage": "Порог отсечения"
-  },
-  "settings.agentLoop.operations.enable": {
-    "defaultMessage": "Включить {operation}"
-  },
-  "settings.agentLoop.operations.failureTimeout.label": {
-    "defaultMessage": "Тайм-аут ошибки"
-  },
-  "settings.agentLoop.operations.heading": {
-    "defaultMessage": "Настраиваемые операции"
-  },
-  "settings.agentLoop.operations.maxTurns.description": {
-    "defaultMessage": "Останавливает автономную работу и запрашивает подтверждение пользователя перед продолжением."
-  },
-  "settings.agentLoop.operations.maxTurns.title": {
-    "defaultMessage": "Максимум ходов"
-  },
-  "settings.agentLoop.operations.recipeRetry.description": {
-    "defaultMessage": "Повторно запускает проверки рецепта, если настроенная проверка успеха завершается неудачно."
-  },
-  "settings.agentLoop.operations.recipeRetry.title": {
-    "defaultMessage": "Повтор рецепта"
-  },
-  "settings.agentLoop.operations.retryTimeout.label": {
-    "defaultMessage": "Тайм-аут повтора"
-  },
-  "settings.agentLoop.operations.slashCommands.description": {
-    "defaultMessage": "Распознаёт команды, такие как /compact, /skills и ярлыки рецептов."
-  },
-  "settings.agentLoop.operations.slashCommands.title": {
-    "defaultMessage": "Слэш-команды"
-  },
-  "settings.agentLoop.operations.stopHooks.description": {
-    "defaultMessage": "Позволяет хукам блокировать завершение, предотвращая бесконечные циклы остановки."
-  },
-  "settings.agentLoop.operations.stopHooks.title": {
-    "defaultMessage": "Хуки остановки"
-  },
-  "settings.agentLoop.operations.threshold.label": {
-    "defaultMessage": "Порог %"
-  },
-  "settings.agentLoop.operations.toolPairCompaction.description": {
-    "defaultMessage": "Сводит старые запросы и ответы инструментов для экономии контекста. Если поле пусто, порог выбирается автоматически."
-  },
-  "settings.agentLoop.operations.toolPairCompaction.title": {
-    "defaultMessage": "Сжатие пар инструментов"
-  },
-  "settings.agentLoop.operations.turns.label": {
-    "defaultMessage": "Ходы"
-  },
-  "settings.agentLoop.title": {
-    "defaultMessage": "Цикл агента"
-  },
-  "providersSection.configure": {
-    "defaultMessage": "Configure"
-  },
-  "providersSection.configured": {
-    "defaultMessage": "Configured"
-  },
-  "providersSection.defaultSet": {
-    "defaultMessage": "{model} is now your default model."
-  },
-  "providersSection.defaultSetFailed": {
-    "defaultMessage": "Failed to set default model"
-  },
-  "providersSection.description": {
-    "defaultMessage": "Configure your AI model providers and load their available models directly from each provider API."
-  },
-  "providersSection.hideModels": {
-    "defaultMessage": "Hide models"
-  },
-  "providersSection.loadFailed": {
-    "defaultMessage": "Failed to load providers"
-  },
-  "providersSection.loadModels": {
-    "defaultMessage": "Load Models"
-  },
-  "providersSection.loading": {
-    "defaultMessage": "Loading providers..."
-  },
-  "providersSection.manageAll": {
-    "defaultMessage": "Manage all providers"
-  },
-  "providersSection.modelsError": {
-    "defaultMessage": "Could not load models from {provider}: {error}"
-  },
-  "providersSection.modelsLoaded": {
-    "defaultMessage": "{count} models loaded from {provider}"
-  },
-  "providersSection.needsConfig": {
-    "defaultMessage": "Configure this provider first to load its models."
-  },
-  "providersSection.notConfigured": {
-    "defaultMessage": "Not configured"
-  },
-  "providersSection.reloadingModels": {
-    "defaultMessage": "Reloading models..."
-  },
-  "providersSection.setDefault": {
-    "defaultMessage": "Click a model to use it as your default."
-  },
-  "providersSection.showModels": {
-    "defaultMessage": "Show models"
-  },
-  "providersSection.title": {
-    "defaultMessage": "Model Providers"
-  },
-  "settingsView.tabProviders": {
-    "defaultMessage": "Providers"
-  },
-  "allProviderModels.configureProviders": {
-    "defaultMessage": "Configure providers"
-  },
-  "allProviderModels.defaultSet": {
-    "defaultMessage": "{model} is now your default model."
-  },
-  "allProviderModels.defaultSetFailed": {
-    "defaultMessage": "Failed to set default model"
-  },
-  "allProviderModels.description": {
-    "defaultMessage": "Every model exposed by your activated providers. Select one to make it the default model."
-  },
-  "allProviderModels.empty": {
-    "defaultMessage": "No activated providers yet."
-  },
-  "allProviderModels.emptyHint": {
-    "defaultMessage": "Configure a provider to see the models it offers."
-  },
-  "allProviderModels.loadFailed": {
-    "defaultMessage": "Could not load provider models"
-  },
-  "allProviderModels.loading": {
-    "defaultMessage": "Loading models from your providers..."
-  },
-  "allProviderModels.modelCount": {
-    "defaultMessage": "{count,plural,one{# model} other{# models}}"
-  },
-  "allProviderModels.noModels": {
-    "defaultMessage": "No models reported by this provider."
-  },
-  "allProviderModels.refreshAll": {
-    "defaultMessage": "Refresh models"
-  },
-  "allProviderModels.refreshFailed": {
-    "defaultMessage": "Could not refresh {provider}: {error}"
-  },
-  "allProviderModels.refreshing": {
-    "defaultMessage": "Refreshing..."
-  },
-  "allProviderModels.title": {
-    "defaultMessage": "Models from your providers"
-  },
-  "mcpSettings.description": {
-    "defaultMessage": "Connect Model Context Protocol servers to give goose new tools, resources, and data sources. Extensions added here are available to every chat."
-  },
-  "mcpSettings.title": {
-    "defaultMessage": "MCP Servers"
-  },
-  "pluginsSettings.description": {
-    "defaultMessage": "Plugins installed under .agents/plugins contribute skills and MCP servers to goose. Manage the skills they provide from the Skills view."
-  },
-  "pluginsSettings.empty": {
-    "defaultMessage": "No plugins installed."
-  },
-  "pluginsSettings.emptyHint": {
-    "defaultMessage": "Install a plugin with `goose plugin install` and it will show up here."
-  },
-  "pluginsSettings.loadFailed": {
-    "defaultMessage": "Could not load plugins"
-  },
-  "pluginsSettings.loading": {
-    "defaultMessage": "Loading plugins..."
-  },
-  "pluginsSettings.manageSkills": {
-    "defaultMessage": "Manage skills"
-  },
-  "pluginsSettings.pluginCount": {
-    "defaultMessage": "{count,plural,=0{No plugins} one{# plugin} other{# plugins}}"
-  },
-  "pluginsSettings.refresh": {
-    "defaultMessage": "Refresh"
-  },
-  "pluginsSettings.skillCount": {
-    "defaultMessage": "{count,plural,one{# skill} other{# skills}}"
-  },
-  "pluginsSettings.title": {
-    "defaultMessage": "Plugins"
-  },
-  "providersSection.resetDescription": {
-    "defaultMessage": "Clear your selected model and provider settings to start fresh"
-  },
-  "providersSection.resetTitle": {
-    "defaultMessage": "Reset Provider and Model"
-  },
-  "settingsView.tabAppearance": {
-    "defaultMessage": "Appearance"
-  },
-  "settingsView.tabMcp": {
-    "defaultMessage": "MCP"
-  },
-  "settingsView.tabPlugins": {
-    "defaultMessage": "Plugins"
-  },
-  "themeSelector.popular": {
-    "defaultMessage": "Popular themes"
   }
 }
