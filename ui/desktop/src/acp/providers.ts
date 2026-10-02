@@ -173,14 +173,18 @@ export async function acpRefreshProviderDetails(
     };
   }
 
-  const readiness = await client.sauron.providersReadinessCheck_unstable({ providerId });
-  throwIfAborted(signal);
-  if (!readiness.ready) {
-    return {
-      provider: providerEntryToDetails(entry),
-      connectionChecked: true,
-      readinessError: readiness.error ?? 'Provider is not ready',
-    };
+  // The readiness probe is only implemented for ACP providers; the server
+  // rejects it with invalid-params for everything else.
+  if (entry.acp) {
+    const readiness = await client.sauron.providersReadinessCheck_unstable({ providerId });
+    throwIfAborted(signal);
+    if (!readiness.ready) {
+      return {
+        provider: providerEntryToDetails(entry),
+        connectionChecked: true,
+        readinessError: readiness.error ?? 'Provider is not ready',
+      };
+    }
   }
 
   if (entry.supportsRefresh) {
