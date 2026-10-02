@@ -122,8 +122,14 @@
   "appLayout.collapseNavigation": {
     "defaultMessage": "Collapse navigation"
   },
+  "appLayout.hideChanges": {
+    "defaultMessage": "Hide changes panel"
+  },
   "appLayout.openNavigation": {
     "defaultMessage": "Open navigation"
+  },
+  "appLayout.showChanges": {
+    "defaultMessage": "Show changes panel"
   },
   "appsView.customApp": {
     "defaultMessage": "Custom app"
@@ -337,6 +343,81 @@
   },
   "cardButtons.launch": {
     "defaultMessage": "Launch"
+  },
+  "changesPanel.cleanTree": {
+    "defaultMessage": "Working tree clean"
+  },
+  "changesPanel.close": {
+    "defaultMessage": "Close changes panel"
+  },
+  "changesPanel.commitAndPush": {
+    "defaultMessage": "Commit & Push"
+  },
+  "changesPanel.commitFailed": {
+    "defaultMessage": "Commit failed"
+  },
+  "changesPanel.commitPlaceholder": {
+    "defaultMessage": "Commit message"
+  },
+  "changesPanel.commitSuccess": {
+    "defaultMessage": "Committed and pushed"
+  },
+  "changesPanel.committing": {
+    "defaultMessage": "Committing…"
+  },
+  "changesPanel.loadFailed": {
+    "defaultMessage": "Could not load git changes"
+  },
+  "changesPanel.loading": {
+    "defaultMessage": "Loading changes…"
+  },
+  "changesPanel.loadingDiff": {
+    "defaultMessage": "Loading diff…"
+  },
+  "changesPanel.noChanges": {
+    "defaultMessage": "No changes"
+  },
+  "changesPanel.noDirectory": {
+    "defaultMessage": "No working directory selected"
+  },
+  "changesPanel.notARepo": {
+    "defaultMessage": "Not a git repository"
+  },
+  "changesPanel.pushFailed": {
+    "defaultMessage": "Committed, but push failed"
+  },
+  "changesPanel.refresh": {
+    "defaultMessage": "Refresh changes"
+  },
+  "changesPanel.retry": {
+    "defaultMessage": "Retry"
+  },
+  "changesPanel.statusAdded": {
+    "defaultMessage": "Added"
+  },
+  "changesPanel.statusConflicted": {
+    "defaultMessage": "Conflicted"
+  },
+  "changesPanel.statusCopied": {
+    "defaultMessage": "Copied"
+  },
+  "changesPanel.statusDeleted": {
+    "defaultMessage": "Deleted"
+  },
+  "changesPanel.statusModified": {
+    "defaultMessage": "Modified"
+  },
+  "changesPanel.statusRenamed": {
+    "defaultMessage": "Renamed"
+  },
+  "changesPanel.statusUntracked": {
+    "defaultMessage": "Untracked"
+  },
+  "changesPanel.title": {
+    "defaultMessage": "Changes"
+  },
+  "changesPanel.uncommitted": {
+    "defaultMessage": "Uncommitted"
   },
   "chat.notification.taskComplete.body": {
     "defaultMessage": "Click here to bring Sauron back into focus."
@@ -1081,6 +1162,12 @@
   },
   "dictationSettings.voiceDictationProvider": {
     "defaultMessage": "Voice Dictation Provider"
+  },
+  "diffViewer.noDiff": {
+    "defaultMessage": "No textual changes to display"
+  },
+  "diffViewer.unmodifiedLines": {
+    "defaultMessage": "{count} unmodified lines"
   },
   "dirSwitcher.chooseDirectory": {
     "defaultMessage": "Choose directory…"

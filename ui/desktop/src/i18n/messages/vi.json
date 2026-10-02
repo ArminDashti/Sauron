@@ -122,8 +122,14 @@
   "appLayout.collapseNavigation": {
     "defaultMessage": "Thu gọn điều hướng"
   },
+  "appLayout.hideChanges": {
+    "defaultMessage": "Ẩn bảng thay đổi"
+  },
   "appLayout.openNavigation": {
     "defaultMessage": "Mở điều hướng"
+  },
+  "appLayout.showChanges": {
+    "defaultMessage": "Hiện bảng thay đổi"
   },
   "appsView.customApp": {
     "defaultMessage": "Ứng dụng tùy chỉnh"
@@ -337,6 +343,81 @@
   },
   "cardButtons.launch": {
     "defaultMessage": "Khởi chạy"
+  },
+  "changesPanel.cleanTree": {
+    "defaultMessage": "Cây làm việc sạch"
+  },
+  "changesPanel.close": {
+    "defaultMessage": "Đóng bảng thay đổi"
+  },
+  "changesPanel.commitAndPush": {
+    "defaultMessage": "Commit & Push"
+  },
+  "changesPanel.commitFailed": {
+    "defaultMessage": "Commit thất bại"
+  },
+  "changesPanel.commitPlaceholder": {
+    "defaultMessage": "Thông điệp commit"
+  },
+  "changesPanel.commitSuccess": {
+    "defaultMessage": "Đã commit và push"
+  },
+  "changesPanel.committing": {
+    "defaultMessage": "Đang commit…"
+  },
+  "changesPanel.loadFailed": {
+    "defaultMessage": "Không thể tải thay đổi git"
+  },
+  "changesPanel.loading": {
+    "defaultMessage": "Đang tải thay đổi…"
+  },
+  "changesPanel.loadingDiff": {
+    "defaultMessage": "Đang tải diff…"
+  },
+  "changesPanel.noChanges": {
+    "defaultMessage": "Không có thay đổi"
+  },
+  "changesPanel.noDirectory": {
+    "defaultMessage": "Chưa chọn thư mục làm việc"
+  },
+  "changesPanel.notARepo": {
+    "defaultMessage": "Không phải kho lưu git"
+  },
+  "changesPanel.pushFailed": {
+    "defaultMessage": "Đã commit nhưng push thất bại"
+  },
+  "changesPanel.refresh": {
+    "defaultMessage": "Tải lại thay đổi"
+  },
+  "changesPanel.retry": {
+    "defaultMessage": "Thử lại"
+  },
+  "changesPanel.statusAdded": {
+    "defaultMessage": "Đã thêm"
+  },
+  "changesPanel.statusConflicted": {
+    "defaultMessage": "Xung đột"
+  },
+  "changesPanel.statusCopied": {
+    "defaultMessage": "Đã sao chép"
+  },
+  "changesPanel.statusDeleted": {
+    "defaultMessage": "Đã xóa"
+  },
+  "changesPanel.statusModified": {
+    "defaultMessage": "Đã sửa"
+  },
+  "changesPanel.statusRenamed": {
+    "defaultMessage": "Đã đổi tên"
+  },
+  "changesPanel.statusUntracked": {
+    "defaultMessage": "Chưa theo dõi"
+  },
+  "changesPanel.title": {
+    "defaultMessage": "Thay đổi"
+  },
+  "changesPanel.uncommitted": {
+    "defaultMessage": "Chưa commit"
   },
   "chat.notification.taskComplete.body": {
     "defaultMessage": "Nhấp vào đây để đưa Sauron trở lại tiêu điểm."
@@ -1081,6 +1162,12 @@
   },
   "dictationSettings.voiceDictationProvider": {
     "defaultMessage": "Nhà cung cấp đọc chính tả bằng giọng nói"
+  },
+  "diffViewer.noDiff": {
+    "defaultMessage": "Không có thay đổi văn bản nào để hiển thị"
+  },
+  "diffViewer.unmodifiedLines": {
+    "defaultMessage": "{count} dòng không thay đổi"
   },
   "dirSwitcher.chooseDirectory": {
     "defaultMessage": "Chọn thư mục…"
