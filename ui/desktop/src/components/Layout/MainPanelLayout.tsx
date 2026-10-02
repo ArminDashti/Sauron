@@ -4,7 +4,15 @@ export const MainPanelLayout: React.FC<{
   children: React.ReactNode;
   removeTopPadding?: boolean;
   backgroundColor?: string;
-}> = ({ children, removeTopPadding = false, backgroundColor = 'bg-background-primary' }) => {
+  embedded?: boolean;
+}> = ({ children, removeTopPadding = false, backgroundColor = 'bg-background-primary', embedded = false }) => {
+  if (embedded) {
+    return (
+      <div className={`flex flex-col ${backgroundColor} flex-1 min-w-0 min-h-0 h-full`}>
+        {children}
+      </div>
+    );
+  }
   return (
     <div className={`h-dvh`}>
       {/* Padding top matches the app toolbar drag area height - can be removed for full bleed */}
