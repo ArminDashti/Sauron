@@ -1,4 +1,5 @@
 import type { ThemeId } from '../theme/theme-tokens';
+import { DEFAULT_FONT_SIZE } from './fontSize';
 
 export type RecentModel = {
   provider: string;
@@ -43,19 +44,22 @@ export interface Settings {
   enableWakelock: boolean;
   enableNotifications: boolean;
   spellcheckEnabled: boolean;
-  // Key is kept as `externalGoosed` for backward compat with persisted user settings.
-  externalGoosed: ExternalBackendConfig;
+  // Key is kept as `externalSaurond` for backward compat with persisted user settings.
+  externalSaurond: ExternalBackendConfig;
   globalShortcut?: string | null;
   keyboardShortcuts: KeyboardShortcuts;
 
   // UI preferences (migrated from localStorage)
   theme: ThemeId;
   useSystemTheme: boolean;
+  /** Root font size as a percentage of the default (see utils/fontSize.ts). */
+  fontSize: number;
   language: LanguageSetting;
   responseStyle: string;
   showPricing: boolean;
   seenAnnouncementIds: string[];
   recentModels: RecentModel[];
+  preferredModels: RecentModel[];
   useLegacyAgentLoop: boolean;
 }
 
@@ -84,7 +88,7 @@ export const defaultSettings: Settings = {
   enableNotifications: true,
   spellcheckEnabled: true,
   keyboardShortcuts: defaultKeyboardShortcuts,
-  externalGoosed: {
+  externalSaurond: {
     enabled: false,
     url: '',
     secret: '',
@@ -93,11 +97,13 @@ export const defaultSettings: Settings = {
   // UI preferences
   theme: 'light',
   useSystemTheme: true,
+  fontSize: DEFAULT_FONT_SIZE,
   language: 'system',
   responseStyle: 'concise',
   showPricing: true,
   seenAnnouncementIds: [],
   recentModels: [],
+  preferredModels: [],
   useLegacyAgentLoop: false,
 };
 

@@ -1,9 +1,9 @@
-import type { GooseSessionNotification_unstable } from '@aaif/goose-acp-client';
+import type { SauronSessionNotification_unstable } from '@aaif/sauron-acp-client';
 
 export type LiveVoiceInteractionEndedNotification = {
   sessionId: string;
   update: Extract<
-    GooseSessionNotification_unstable['update'],
+    SauronSessionNotification_unstable['update'],
     { sessionUpdate: 'live_voice_interaction_ended' }
   >;
 };

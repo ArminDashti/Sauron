@@ -12,6 +12,11 @@ import PluginsSettingsSection from './plugins/PluginsSettingsSection';
 import ConfigSettings from './config/ConfigSettings';
 import PromptsSettingsSection from './PromptsSettingsSection';
 import UsageStatsSection from './stats/UsageStatsSection';
+import RecipesView from '../recipes/RecipesView';
+import SkillsView from '../skills/SkillsView';
+import AppsView from '../apps/AppsView';
+import ExtensionsView from '../extensions/ExtensionsView';
+import SessionsView from '../sessions/SessionsView';
 import type { ExtensionConfig } from '../../types/extensions';
 import {
   Bot,
@@ -20,8 +25,6 @@ import {
   MessageSquare,
   FileText,
   Keyboard,
-  HardDrive,
-  KeyRound,
   Palette,
   Plug,
   Puzzle,
@@ -31,14 +34,14 @@ import {
 import { useState, useEffect, useRef } from 'react';
 import ChatSettingsSection from './chat/ChatSettingsSection';
 import KeyboardShortcutsSection from './keyboard/KeyboardShortcutsSection';
-import AuthSettingsSection from './auth/AuthSettingsSection';
-import LocalInferenceSection from './localInference/LocalInferenceSection';
 import { CONFIGURATION_ENABLED } from '../../updates';
 import { trackSettingsTabViewed } from '../../utils/analytics';
-import { useFeatures } from '../../contexts/FeaturesContext';
+import { useConfig } from '../ConfigContext';
+import { getNavItemLabel, SETTINGS_NAV_ITEMS } from '../../hooks/useNavigationItems';
 import { defineMessages, useIntl } from '../../i18n';
 import BackButton from '../ui/BackButton';
 import { useNavigationContext } from '../Layout/NavigationContext';
+import { iconColor } from '../../theme/iconColors';
 
 const i18n = defineMessages({
   title: {
@@ -52,10 +55,6 @@ const i18n = defineMessages({
   tabProviders: {
     id: 'settingsView.tabProviders',
     defaultMessage: 'Providers',
-  },
-  tabLocalInference: {
-    id: 'settingsView.tabLocalInference',
-    defaultMessage: 'Local Inference',
   },
   tabChat: {
     id: 'settingsView.tabChat',
@@ -72,10 +71,6 @@ const i18n = defineMessages({
   tabKeyboard: {
     id: 'settingsView.tabKeyboard',
     defaultMessage: 'Keyboard',
-  },
-  tabAuth: {
-    id: 'settingsView.tabAuth',
-    defaultMessage: 'Auth',
   },
   tabMcp: {
     id: 'settingsView.tabMcp',
@@ -102,6 +97,11 @@ const i18n = defineMessages({
 const settingsTabClass =
   'w-full gap-3 rounded-full px-3 py-2 text-sm font-medium hover:bg-background-tertiary/60 data-[state=active]:bg-background-tertiary data-[state=active]:shadow-none';
 
+/** Tabs that render a full page view inside Settings instead of a settings section. */
+const EMBEDDED_TAB_IDS = new Set(['recipes', 'skills', 'apps', 'extensions', 'sessions']);
+
+const embeddedTabClass = 'mt-0 flex-1 min-h-0 focus-visible:outline-none focus-visible:ring-0';
+
 export type SettingsViewOptions = {
   deepLinkConfig?: ExtensionConfig;
   showEnvVars?: boolean;
@@ -119,19 +119,24 @@ export default function SettingsView({
 }) {
   const [activeTab, setActiveTab] = useState('models');
   const hasTrackedInitialTab = useRef(false);
-  const { localInference } = useFeatures();
+  const { extensionsList } = useConfig();
   const { navWidth } = useNavigationContext();
   const intl = useIntl();
+
+  const appsExtensionEnabled = !!extensionsList?.find((ext) => ext.name === 'apps')?.enabled;
+  const isEmbeddedTab = EMBEDDED_TAB_IDS.has(activeTab);
+
+  const movedNavItems = SETTINGS_NAV_ITEMS.filter((item) =>
+    item.id === 'apps' ? appsExtensionEnabled : true
+  );
 
   const activeTabTitle = {
     models: intl.formatMessage(i18n.tabModels),
     providers: intl.formatMessage(i18n.tabProviders),
-    'local-inference': intl.formatMessage(i18n.tabLocalInference),
     chat: intl.formatMessage(i18n.tabChat),
     sharing: intl.formatMessage(i18n.tabAgent),
     prompts: intl.formatMessage(i18n.tabPrompts),
     keyboard: intl.formatMessage(i18n.tabKeyboard),
-    auth: intl.formatMessage(i18n.tabAuth),
     mcp: intl.formatMessage(i18n.tabMcp),
     plugins: intl.formatMessage(i18n.tabPlugins),
     appearance: intl.formatMessage(i18n.tabAppearance),
@@ -161,29 +166,29 @@ export default function SettingsView({
         chat: 'chat',
         prompts: 'prompts',
         keyboard: 'keyboard',
-        auth: 'auth',
+        auth: 'providers',
         mcp: 'mcp',
         plugins: 'plugins',
         appearance: 'appearance',
         theme: 'appearance',
         language: 'appearance',
-        'local-inference': 'local-inference',
+        'local-inference': 'providers',
         stats: 'stats',
       };
 
       const targetTab = sectionToTab[viewOptions.section];
-      if (targetTab && (targetTab !== 'local-inference' || localInference)) {
+      if (targetTab) {
         setActiveTab(targetTab);
       }
     }
-  }, [viewOptions.section, localInference]);
+  }, [viewOptions.section]);
 
-  // Reset active tab if local-inference becomes unavailable
+  // Reset active tab if the apps extension becomes unavailable
   useEffect(() => {
-    if (!localInference && activeTab === 'local-inference') {
+    if (!appsExtensionEnabled && activeTab === 'apps') {
       setActiveTab('models');
     }
-  }, [localInference, activeTab]);
+  }, [appsExtensionEnabled, activeTab]);
 
   useEffect(() => {
     if (!hasTrackedInitialTab.current) {
@@ -233,7 +238,7 @@ export default function SettingsView({
                 className={settingsTabClass}
                 data-testid="settings-models-tab"
               >
-                <Bot className="h-5 w-5 text-text-secondary" />
+                <Bot className="h-5 w-5" style={{ color: iconColor('models') }} />
                 {intl.formatMessage(i18n.tabModels)}
               </TabsTrigger>
               <TabsTrigger
@@ -241,25 +246,15 @@ export default function SettingsView({
                 className={settingsTabClass}
                 data-testid="settings-providers-tab"
               >
-                <Server className="h-5 w-5 text-text-secondary" />
+                <Server className="h-5 w-5" style={{ color: iconColor('providers') }} />
                 {intl.formatMessage(i18n.tabProviders)}
               </TabsTrigger>
-              {localInference && (
-                <TabsTrigger
-                  value="local-inference"
-                  className={settingsTabClass}
-                  data-testid="settings-local-inference-tab"
-                >
-                  <HardDrive className="h-5 w-5 text-text-secondary" />
-                  {intl.formatMessage(i18n.tabLocalInference)}
-                </TabsTrigger>
-              )}
               <TabsTrigger
                 value="chat"
                 className={settingsTabClass}
                 data-testid="settings-chat-tab"
               >
-                <MessageSquare className="h-5 w-5 text-text-secondary" />
+                <MessageSquare className="h-5 w-5" style={{ color: iconColor('chat') }} />
                 {intl.formatMessage(i18n.tabChat)}
               </TabsTrigger>
               <TabsTrigger
@@ -267,7 +262,7 @@ export default function SettingsView({
                 className={settingsTabClass}
                 data-testid="settings-sharing-tab"
               >
-                <Share2 className="h-5 w-5 text-text-secondary" />
+                <Share2 className="h-5 w-5" style={{ color: iconColor('sharing') }} />
                 {intl.formatMessage(i18n.tabAgent)}
               </TabsTrigger>
               <TabsTrigger
@@ -275,7 +270,7 @@ export default function SettingsView({
                 className={settingsTabClass}
                 data-testid="settings-prompts-tab"
               >
-                <FileText className="h-5 w-5 text-text-secondary" />
+                <FileText className="h-5 w-5" style={{ color: iconColor('prompts') }} />
                 {intl.formatMessage(i18n.tabPrompts)}
               </TabsTrigger>
               <TabsTrigger
@@ -283,19 +278,11 @@ export default function SettingsView({
                 className={settingsTabClass}
                 data-testid="settings-keyboard-tab"
               >
-                <Keyboard className="h-5 w-5 text-text-secondary" />
+                <Keyboard className="h-5 w-5" style={{ color: iconColor('keyboard') }} />
                 {intl.formatMessage(i18n.tabKeyboard)}
               </TabsTrigger>
-              <TabsTrigger
-                value="auth"
-                className={settingsTabClass}
-                data-testid="settings-auth-tab"
-              >
-                <KeyRound className="h-5 w-5 text-text-secondary" />
-                {intl.formatMessage(i18n.tabAuth)}
-              </TabsTrigger>
               <TabsTrigger value="mcp" className={settingsTabClass} data-testid="settings-mcp-tab">
-                <Plug className="h-5 w-5 text-text-secondary" />
+                <Plug className="h-5 w-5" style={{ color: iconColor('mcp') }} />
                 {intl.formatMessage(i18n.tabMcp)}
               </TabsTrigger>
               <TabsTrigger
@@ -303,7 +290,7 @@ export default function SettingsView({
                 className={settingsTabClass}
                 data-testid="settings-plugins-tab"
               >
-                <Puzzle className="h-5 w-5 text-text-secondary" />
+                <Puzzle className="h-5 w-5" style={{ color: iconColor('plugins') }} />
                 {intl.formatMessage(i18n.tabPlugins)}
               </TabsTrigger>
               <TabsTrigger
@@ -311,11 +298,11 @@ export default function SettingsView({
                 className={settingsTabClass}
                 data-testid="settings-appearance-tab"
               >
-                <Palette className="h-5 w-5 text-text-secondary" />
+                <Palette className="h-5 w-5" style={{ color: iconColor('appearance') }} />
                 {intl.formatMessage(i18n.tabAppearance)}
               </TabsTrigger>
               <TabsTrigger value="app" className={settingsTabClass} data-testid="settings-app-tab">
-                <Monitor className="h-5 w-5 text-text-secondary" />
+                <Monitor className="h-5 w-5" style={{ color: iconColor('app') }} />
                 {intl.formatMessage(i18n.tabApp)}
               </TabsTrigger>
               <TabsTrigger
@@ -323,22 +310,61 @@ export default function SettingsView({
                 className={settingsTabClass}
                 data-testid="settings-stats-tab"
               >
-                <BarChart3 className="h-5 w-5 text-text-secondary" />
+                <BarChart3 className="h-5 w-5" style={{ color: iconColor('stats') }} />
                 {intl.formatMessage(i18n.tabStats)}
               </TabsTrigger>
+              {movedNavItems.map((item) => {
+                const ItemIcon = item.icon;
+                return (
+                  <TabsTrigger
+                    key={item.id}
+                    value={item.id}
+                    className={settingsTabClass}
+                    data-testid={`settings-${item.id}-tab`}
+                  >
+                    <ItemIcon className="h-5 w-5" style={{ color: iconColor(item.color) }} />
+                    {getNavItemLabel(item, intl)}
+                  </TabsTrigger>
+                );
+              })}
             </TabsList>
           </aside>
         </div>
 
         <main className="flex min-w-0 flex-1 flex-col overflow-hidden bg-background-primary">
-          <div className="px-12 pb-8 pt-16">
-            <div className="mx-auto max-w-5xl">
-              <h1 className="text-4xl font-light">{activeTabTitle}</h1>
+          {isEmbeddedTab ? (
+            <div className="flex-1 min-h-0 flex flex-col">
+              <TabsContent value="recipes" className={embeddedTabClass}>
+                <RecipesView embedded />
+              </TabsContent>
+              <TabsContent value="skills" className={embeddedTabClass}>
+                <SkillsView embedded />
+              </TabsContent>
+              <TabsContent value="apps" className={embeddedTabClass}>
+                <AppsView embedded />
+              </TabsContent>
+              <TabsContent value="extensions" className={embeddedTabClass}>
+                <ExtensionsView
+                  onClose={onClose}
+                  setView={setView}
+                  viewOptions={viewOptions}
+                  embedded
+                />
+              </TabsContent>
+              <TabsContent value="sessions" className={embeddedTabClass}>
+                <SessionsView embedded />
+              </TabsContent>
             </div>
-          </div>
+          ) : (
+            <>
+              <div className="px-12 pb-8 pt-16">
+                <div className="mx-auto max-w-5xl">
+                  <h1 className="text-4xl font-light">{activeTabTitle}</h1>
+                </div>
+              </div>
 
-          <ScrollArea className="min-h-0 flex-1 px-12">
-            <div className="mx-auto max-w-5xl pb-10">
+              <ScrollArea className="min-h-0 flex-1 px-12">
+                <div className="mx-auto max-w-5xl pb-10">
               <TabsContent
                 value="models"
                 className="mt-0 focus-visible:outline-none focus-visible:ring-0"
@@ -352,15 +378,6 @@ export default function SettingsView({
               >
                 <ProvidersSection setView={setView} />
               </TabsContent>
-
-              {localInference && (
-                <TabsContent
-                  value="local-inference"
-                  className="mt-0 focus-visible:outline-none focus-visible:ring-0"
-                >
-                  <LocalInferenceSection />
-                </TabsContent>
-              )}
 
               <TabsContent
                 value="chat"
@@ -391,13 +408,6 @@ export default function SettingsView({
                 className="mt-0 focus-visible:outline-none focus-visible:ring-0"
               >
                 <KeyboardShortcutsSection />
-              </TabsContent>
-
-              <TabsContent
-                value="auth"
-                className="mt-0 focus-visible:outline-none focus-visible:ring-0"
-              >
-                <AuthSettingsSection />
               </TabsContent>
 
               <TabsContent
@@ -437,8 +447,10 @@ export default function SettingsView({
               >
                 <UsageStatsSection />
               </TabsContent>
-            </div>
-          </ScrollArea>
+                </div>
+              </ScrollArea>
+            </>
+          )}
         </main>
       </Tabs>
     </div>

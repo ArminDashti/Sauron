@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { ICON_COLOR_CYCLE } from '../theme/iconColors';
 import {
   CodeXml,
   Cog,
@@ -42,9 +43,13 @@ export default function AnimatedIcons({
   }, [cycleInterval, icons]);
 
   const CurrentIcon = icons[currentIconIndex];
+  const color = ICON_COLOR_CYCLE[currentIconIndex % ICON_COLOR_CYCLE.length];
 
   return (
-    <div className={`transition-opacity duration-200 w-4 h-4 ${className}`}>
+    <div
+      className={`transition-opacity duration-200 w-4 h-4 ${className}`}
+      style={{ color }}
+    >
       <CurrentIcon className="w-full h-full" />
     </div>
   );
