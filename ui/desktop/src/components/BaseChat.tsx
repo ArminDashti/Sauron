@@ -608,6 +608,7 @@ export default function BaseChat({
         >
           <ChatInput
             inputRef={chatInputRef}
+            bottomBarClassName="mx-4 mb-4"
             sessionId={sessionId}
             handleSubmit={chatInputSubmit}
             chatState={chatState}
