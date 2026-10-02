@@ -214,16 +214,6 @@ export default function SettingsView({
                 <Server className="h-5 w-5" style={{ color: iconColor('providers') }} />
                 {intl.formatMessage(i18n.tabProviders)}
               </TabsTrigger>
-              {localInference && (
-                <TabsTrigger
-                  value="local-inference"
-                  className={settingsTabClass}
-                  data-testid="settings-local-inference-tab"
-                >
-                  <HardDrive className="h-5 w-5" style={{ color: iconColor('localInference') }} />
-                  {intl.formatMessage(i18n.tabLocalInference)}
-                </TabsTrigger>
-              )}
               <TabsTrigger
                 value="chat"
                 className={settingsTabClass}
@@ -255,14 +245,6 @@ export default function SettingsView({
               >
                 <Keyboard className="h-5 w-5" style={{ color: iconColor('keyboard') }} />
                 {intl.formatMessage(i18n.tabKeyboard)}
-              </TabsTrigger>
-              <TabsTrigger
-                value="auth"
-                className={settingsTabClass}
-                data-testid="settings-auth-tab"
-              >
-                <KeyRound className="h-5 w-5" style={{ color: iconColor('auth') }} />
-                {intl.formatMessage(i18n.tabAuth)}
               </TabsTrigger>
               <TabsTrigger value="mcp" className={settingsTabClass} data-testid="settings-mcp-tab">
                 <Plug className="h-5 w-5" style={{ color: iconColor('mcp') }} />

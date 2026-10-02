@@ -29,7 +29,6 @@ import { acpRenameSession, type SessionListItem } from '../../acp/sessions';
 import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/Tooltip';
 import { formatMessageTimestamp, formatRelativeTimestamp } from '../../utils/timeUtils';
 import { cn } from '../../utils';
-import { iconColor } from '../../theme/iconColors';
 import type { ProjectGroup } from '../../utils/projectSessions';
 import { defineMessages, useIntl } from '../../i18n';
 

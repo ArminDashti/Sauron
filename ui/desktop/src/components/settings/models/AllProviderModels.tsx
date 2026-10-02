@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router';
-import { AlertCircle, Check, Loader2, RefreshCw, Star } from 'lucide-react';
+import { AlertCircle, Check, Loader2, RefreshCw, Search, Star, X } from 'lucide-react';
 import { Button } from '../../ui/button';
 import { Input } from '../../ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../ui/card';
@@ -127,19 +127,19 @@ const i18n = defineMessages({
 interface AllProviderModelsProps {
   /** Called after a model has been made the default so the parent can refresh. */
   onModelSelected?: () => void;
+  /** Models the user has starred as preferred. */
+  preferredModels?: RecentModel[];
+  /** Called after the preferred-model list changes so the parent can refresh. */
+  onPreferredModelsChange?: (next: RecentModel[]) => void;
 }
 
 /**
  * Aggregates the model inventory of every activated provider so the Models
  * section shows all selectable models in one place.
  */
-interface AllProviderModelsProps {
-  preferredModels: RecentModel[];
-  onPreferredModelsChange: (next: RecentModel[]) => void;
-}
-
 export default function AllProviderModels({
-  preferredModels,
+  onModelSelected,
+  preferredModels = [],
   onPreferredModelsChange,
 }: AllProviderModelsProps) {
   const intl = useIntl();
@@ -234,7 +234,7 @@ export default function AllProviderModels({
         : addPreferredModel(preferredModels, provider.name, model);
       try {
         await window.electron.setSetting('preferredModels', next);
-        onPreferredModelsChange(next);
+        onPreferredModelsChange?.(next);
       } catch (error) {
         toastError({
           title: intl.formatMessage(i18n.preferredUpdateFailed),
@@ -321,107 +321,29 @@ export default function AllProviderModels({
               <span className="text-xs text-text-secondary" data-testid="all-provider-models-count">
                 {countText}
               </span>
-              <Button
-                size="sm"
-                variant="ghost"
-                onClick={handleRefresh}
-                disabled={isRefreshing}
-                data-testid="all-provider-models-refresh"
-              >
-                {isRefreshing ? (
-                  <Loader2 className="mr-1 h-4 w-4 animate-spin" aria-hidden="true" />
-                ) : (
-                  <RefreshCw className="mr-1 h-4 w-4" aria-hidden="true" />
-                )}
-                {isRefreshing
-                  ? intl.formatMessage(i18n.refreshing)
-                  : intl.formatMessage(i18n.refreshAll)}
-              </Button>
-            </div>
-
-            {providers.map((provider) => {
-              const models = provider.metadata.known_models;
-              const error = refreshErrors[provider.name];
-              const isCurrentProvider = defaults.providerId === provider.name;
-              return (
-                <div key={provider.name} data-testid={`all-provider-models-${provider.name}`}>
-                  <div className="flex flex-wrap items-center gap-2">
-                    <h3 className="text-sm text-text-primary">
-                      {provider.metadata.display_name}
-                    </h3>
-                    <span className="text-xs text-text-secondary">
-                      {intl.formatMessage(i18n.modelCount, { count: models.length })}
-                    </span>
-                  </div>
-
-                  {error && (
-                    <p className="mt-1 text-xs text-red-500">
-                      {intl.formatMessage(i18n.refreshFailed, {
-                        provider: provider.metadata.display_name,
-                        error,
-                      })}
-                    </p>
-                  )}
-
-                  {models.length === 0 ? (
-                    <p className="mt-1 text-xs text-text-secondary">
-                      {intl.formatMessage(i18n.noModels)}
-                    </p>
-                  ) : (
-                    <div className="mt-2 flex flex-wrap gap-1.5">
-                      {models.map((model) => {
-                        const isCurrent = isCurrentProvider && defaults.modelId === model.name;
-                        const isPreferred = isPreferredModel(
-                          preferredModels,
-                          provider.name,
-                          model.name
-                        );
-                        return (
-                          <div
-                            key={model.name}
-                            className={`inline-flex items-center rounded-full border transition-colors ${
-                              isCurrent
-                                ? 'border-text-inverse bg-background-inverse text-text-inverse'
-                                : 'border-border-primary bg-background-secondary text-text-primary hover:border-border-secondary hover:bg-background-tertiary'
-                            }`}
-                          >
-                            <button
-                              type="button"
-                              onClick={() => handleSelectModel(provider, model.name)}
-                              title={
-                                model.context_limit
-                                  ? `${model.name} (${Math.round(model.context_limit / 1024)}k context)`
-                                  : model.name
-                              }
-                              aria-pressed={isCurrent}
-                              className="inline-flex items-center gap-1 px-2.5 py-1 text-xs"
-                            >
-                              {isCurrent && <Check className="h-3 w-3" aria-hidden="true" />}
-                              {model.name}
-                            </button>
-                            <button
-                              type="button"
-                              onClick={() => void handleTogglePreferred(provider, model.name)}
-                              aria-label={intl.formatMessage(
-                                isPreferred ? i18n.removePreferred : i18n.addPreferred,
-                                { model: model.name }
-                              )}
-                              aria-pressed={isPreferred}
-                              className={`px-1.5 py-1 transition-colors ${
-                                isPreferred
-                                  ? 'text-amber-500 hover:text-amber-600'
-                                  : 'text-text-secondary opacity-60 hover:opacity-100'
-                              }`}
-                            >
-                              <Star
-                                className={`h-3 w-3 ${isPreferred ? 'fill-current' : ''}`}
-                                aria-hidden="true"
-                              />
-                            </button>
-                          </div>
-                        );
-                      })}
-                    </div>
+              <div className="flex items-center gap-2">
+                <div className="relative">
+                  <Search
+                    className="pointer-events-none absolute left-2.5 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-text-secondary"
+                    aria-hidden="true"
+                  />
+                  <Input
+                    value={query}
+                    onChange={(event) => setQuery(event.target.value)}
+                    placeholder={intl.formatMessage(i18n.searchPlaceholder)}
+                    aria-label={intl.formatMessage(i18n.searchLabel)}
+                    className="h-8 w-44 pl-8 pr-7 text-sm"
+                    data-testid="all-provider-models-search"
+                  />
+                  {query !== '' && (
+                    <button
+                      type="button"
+                      onClick={() => setQuery('')}
+                      aria-label={intl.formatMessage(i18n.clearSearchInput)}
+                      className="absolute right-2 top-1/2 -translate-y-1/2 text-text-secondary hover:text-text-primary"
+                    >
+                      <X className="h-3.5 w-3.5" aria-hidden="true" />
+                    </button>
                   )}
                 </div>
                 <Button
@@ -493,9 +415,13 @@ export default function AllProviderModels({
                         {models.map((model) => {
                           const isCurrent = isCurrentProvider && defaults.modelId === model.name;
                           const contextText = formatContextLimit(model.context_limit);
+                        const isPreferred = isPreferredModel(preferredModels, provider.name, model.name);
                           return (
-                            <button
+                            <div
                               key={model.name}
+                              className="flex min-w-0 w-full items-center gap-1"
+                            >
+                              <button
                               type="button"
                               onClick={() => handleSelectModel(provider, model.name)}
                               title={
@@ -503,7 +429,7 @@ export default function AllProviderModels({
                               }
                               aria-pressed={isCurrent}
                               data-testid={`all-provider-model-${provider.name}-${model.name}`}
-                              className={`flex min-w-0 items-center gap-2.5 rounded-lg border px-3 py-2 text-left transition-colors ${
+                              className={`flex min-w-0 flex-1 items-center gap-2.5 rounded-lg border px-3 py-2 text-left transition-colors ${
                                 isCurrent
                                   ? 'border-border-secondary bg-background-tertiary'
                                   : 'border-border-primary bg-background-secondary hover:border-border-secondary hover:bg-background-tertiary'
@@ -526,6 +452,26 @@ export default function AllProviderModels({
                               {model.reasoning && <ReasoningBadge />}
                               {isCurrent && <DefaultBadge />}
                             </button>
+                              <button
+                                type="button"
+                                onClick={() => void handleTogglePreferred(provider, model.name)}
+                                aria-label={intl.formatMessage(
+                                  isPreferred ? i18n.removePreferred : i18n.addPreferred,
+                                  { model: model.name }
+                                )}
+                                aria-pressed={isPreferred}
+                                className={`px-1.5 py-1 shrink-0 transition-colors ${
+                                  isPreferred
+                                    ? 'text-amber-500 hover:text-amber-600'
+                                    : 'text-text-secondary opacity-60 hover:opacity-100'
+                                }`}
+                              >
+                                <Star
+                                  className={`h-3 w-3 ${isPreferred ? 'fill-current' : ''}`}
+                                  aria-hidden="true"
+                                />
+                              </button>
+                            </div>
                           );
                         })}
                       </div>
