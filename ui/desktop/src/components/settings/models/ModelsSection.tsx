@@ -12,8 +12,19 @@ import { toastError } from '../../../toasts';
 import type { RecentModel } from '../../../utils/settings';
 
 import { Card, CardContent } from '../../ui/card';
-import { useIntl } from '../../../i18n';
+import { defineMessages, useIntl } from '../../../i18n';
 import type { View } from '../../../utils/navigationUtils';
+
+const sectionMessages = defineMessages({
+  defaultModelHeading: {
+    id: 'modelsSection.defaultModelHeading',
+    defaultMessage: 'Default model',
+  },
+  modelsHeading: {
+    id: 'modelsSection.modelsHeading',
+    defaultMessage: 'Models',
+  },
+});
 
 interface ModelsSectionProps {
   setView: (view: View) => void;
@@ -124,9 +135,13 @@ export default function ModelsSection({ setView }: ModelsSectionProps) {
   const hasModel = !isLoading && Boolean(defaults.modelId);
 
   return (
-    <section id="models" className="space-y-4 pr-4">
-      <Card className="rounded-lg">
-        <CardContent className="px-4" data-testid="models-section-current">
+    <section id="models" className="space-y-6 pr-4">
+      <div className="space-y-3">
+        <h2 className="text-base font-semibold text-text-primary">
+          {intl.formatMessage(sectionMessages.defaultModelHeading)}
+        </h2>
+        <Card className="rounded-lg">
+          <CardContent className="px-4" data-testid="models-section-current">
           {isLoading ? (
             <div className="flex items-center gap-4">
               <Skeleton className="h-8 w-8 rounded-full" />
@@ -160,19 +175,27 @@ export default function ModelsSection({ setView }: ModelsSectionProps) {
               <ModelSettingsButtons setView={setView} />
             </div>
           )}
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
+      </div>
 
-      <PreferredModels
-        preferredModels={preferredModels}
-        onPreferredModelsChange={setPreferredModels}
-      />
+      <div className="space-y-3">
+        <h2 className="text-base font-semibold text-text-primary">
+          {intl.formatMessage(sectionMessages.modelsHeading)}
+        </h2>
+        <div className="space-y-4">
+          <PreferredModels
+            preferredModels={preferredModels}
+            onPreferredModelsChange={setPreferredModels}
+          />
 
-      <AllProviderModels
-        preferredModels={preferredModels}
-        onPreferredModelsChange={setPreferredModels}
-        onModelSelected={loadModelData}
-      />
+          <AllProviderModels
+            preferredModels={preferredModels}
+            onPreferredModelsChange={setPreferredModels}
+            onModelSelected={loadModelData}
+          />
+        </div>
+      </div>
     </section>
   );
 }

@@ -1,3 +1,5 @@
+use std::path::Path;
+
 use crate::agents::mcp_client::{Error, McpClientTrait};
 use crate::agents::mcp_server::InProcessContext;
 use crate::agents::tool_execution::ToolCallContext;
@@ -157,7 +159,11 @@ impl ChatRecallClient {
                         "Session: {} (ID: {})\nWorking Dir: {}\nTotal Messages: {}\n\n",
                         loaded_session.name,
                         sid,
-                        loaded_session.working_dir.display(),
+                        loaded_session
+                            .working_dir
+                            .as_deref()
+                            .unwrap_or(Path::new(""))
+                            .display(),
                         total
                     );
 

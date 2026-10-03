@@ -100,7 +100,14 @@ async fn emit_pre_tool_use_result(
     let context = HookContext::new(HookEvent::PreToolUseResult, &session.id)
         .with_tool(tool_name.to_string(), tool_input.cloned())
         .with_tool_call_id(tool_call_id)
-        .with_working_dir(session.working_dir.to_string_lossy().to_string())
+        .with_working_dir(
+            session
+                .working_dir
+                .as_deref()
+                .unwrap_or(Path::new("."))
+                .to_string_lossy()
+                .to_string(),
+        )
         .with_pre_tool_use_outcome(outcome);
     hook_manager.emit_pre_tool_use_result(context).await;
 }
@@ -124,7 +131,14 @@ pub(super) async fn run_pre_tool_hooks(
         let context = HookContext::new(HookEvent::PreToolUse, &session.id)
             .with_tool(tool_name.to_string(), tool_input.cloned())
             .with_tool_call_id(tool_call_id)
-            .with_working_dir(session.working_dir.to_string_lossy().to_string());
+            .with_working_dir(
+                session
+                    .working_dir
+                    .as_deref()
+                    .unwrap_or(Path::new("."))
+                    .to_string_lossy()
+                    .to_string(),
+            );
         hook_manager
             .emit_blocking_with_outcome(HookEvent::PreToolUse, context)
             .await
@@ -169,7 +183,14 @@ async fn emit_with_matcher(
     }
     let mut context = HookContext::new(event, &session.id)
         .with_tool(tool_name.to_string(), tool_input)
-        .with_working_dir(session.working_dir.to_string_lossy().to_string());
+        .with_working_dir(
+            session
+                .working_dir
+                .as_deref()
+                .unwrap_or(Path::new("."))
+                .to_string_lossy()
+                .to_string(),
+        );
     context.matcher_context = Some(matcher);
     hook_manager.emit(event, context).await;
 }
@@ -245,7 +266,12 @@ pub(super) fn with_post_tool_hooks(
 ) -> ToolCallResult {
     let hook_manager = hook_manager.clone();
     let session_id = session.id.clone();
-    let working_dir = session.working_dir.as_deref().unwrap_or(Path::new(".")).to_string_lossy().to_string();
+    let working_dir = session
+        .working_dir
+        .as_deref()
+        .unwrap_or(Path::new("."))
+        .to_string_lossy()
+        .to_string();
     let tool_name = tool_call.name.to_string();
     let tool_call_id = tool_call_id.to_string();
     let tool_input = tool_call
@@ -367,7 +393,7 @@ impl<'a> ToolExecutionOperation<'a> {
 
             let context = crate::agents::tool_execution::ToolCallContext::new(
                 session.id.clone(),
-                Some(session.working_dir.clone()),
+                session.working_dir.clone(),
                 Some(request_id.clone()),
             );
             let result = self

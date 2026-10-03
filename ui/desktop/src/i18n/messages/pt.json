@@ -1563,7 +1563,7 @@
     "defaultMessage": "Harnesses de agentes"
   },
   "harnessesSection.description": {
-    "defaultMessage": "Use agentes de outro harness como Cursor, Claude Code, Codex ou Copilot. Ative um aqui e depois selecione-o em Models para conversar com ele."
+    "defaultMessage": "Use agentes de outro harness como Cursor, Claude Code, Codex ou OpenCode ou Copilot. Ative um aqui e depois selecione-o em Models para conversar com ele."
   },
   "harnessesSection.loading": {
     "defaultMessage": "Carregando harnesses..."

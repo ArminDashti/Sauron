@@ -449,7 +449,7 @@ async fn get_or_create_session_id(
         let Some(id) = identifier else {
             let session = session_manager
                 .create_session(
-                    std::env::current_dir()?,
+                    Some(std::env::current_dir()?),
                     "CLI Session".to_string(),
                     SessionType::User,
                     sauron_mode,
@@ -466,7 +466,7 @@ async fn get_or_create_session_id(
         let name = id.name.unwrap_or_else(|| "CLI Session".to_string());
         let session = session_manager
             .create_session(
-                std::env::current_dir()?,
+                Some(std::env::current_dir()?),
                 name.clone(),
                 SessionType::User,
                 sauron_mode,
@@ -1555,7 +1555,7 @@ async fn handle_mcp_probe(extension_command: String, script_path: Option<String>
         .config
         .session_manager
         .create_session(
-            std::env::current_dir()?,
+            Some(std::env::current_dir()?),
             "MCP Probe".to_string(),
             sauron::session::session_manager::SessionType::Hidden,
             agent.config.sauron_mode,

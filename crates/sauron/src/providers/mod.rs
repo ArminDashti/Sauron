@@ -68,6 +68,7 @@ pub mod ollama_def;
 pub mod openai {
     pub use sauron_providers::openai::*;
 }
+pub mod opencode_acp;
 pub mod openai_compatible {
     pub use sauron_providers::openai_compatible::*;
 }

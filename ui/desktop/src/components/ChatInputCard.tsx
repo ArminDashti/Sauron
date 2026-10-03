@@ -4,10 +4,11 @@ import { cn } from '../utils';
 /**
  * Layout wrapper for the ChatInput.
  *
- * The composer draws its own rounded, bordered surface around the input row, so
- * the bottom action bar can sit on the canvas below it instead of inside a
- * card. This wrapper only owns positioning - z-index, margins, entry animation -
- * and keeps the Hub (empty-chat landing) and BaseChat (active session) in sync.
+ * The composer owns its own surfaces: the top selector row and the rounded,
+ * bordered message box sit inside this wrapper, while the bottom action bar is
+ * portaled out so it lands on the canvas below the box. This wrapper therefore
+ * only owns positioning - z-index, margins, entry animation - and keeps the Hub
+ * (empty-chat landing) and BaseChat (active session) in sync.
  */
 export const ChatInputCard: React.FC<{
   className?: string;

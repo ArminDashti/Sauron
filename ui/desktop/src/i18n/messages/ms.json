@@ -1563,7 +1563,7 @@
     "defaultMessage": "Harness ejen"
   },
   "harnessesSection.description": {
-    "defaultMessage": "Gunakan ejen dari harness lain seperti Cursor, Claude Code, Codex atau Copilot. Dayakan salah satu di sini, kemudian pilih dalam Models untuk berbual dengannya."
+    "defaultMessage": "Gunakan ejen dari harness lain seperti Cursor, Claude Code, Codex atau OpenCode atau Copilot. Dayakan salah satu di sini, kemudian pilih dalam Models untuk berbual dengannya."
   },
   "harnessesSection.loading": {
     "defaultMessage": "Memuat harness..."

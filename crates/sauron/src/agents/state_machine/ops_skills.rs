@@ -243,9 +243,9 @@ impl Operation<Session, SauronEffect> for SkillOperation {
         if command.command == "skills" {
             return Self::command_response(
                 conversation,
-                crate::slash_commands::skill_slash_command::format_installed_skills(Some(
-                    &session.working_dir,
-                )),
+                crate::slash_commands::skill_slash_command::format_installed_skills(
+                    session.working_dir.as_deref(),
+                ),
                 emit,
             )
             .await;
@@ -290,7 +290,9 @@ impl Operation<Session, SauronEffect> for SkillOperation {
         session: &Session,
         _conversation: &Conversation,
     ) -> Result<Vec<(String, String)>> {
-        Ok(session.working_dir.as_deref()
+        Ok(session
+            .working_dir
+            .as_deref()
             .and_then(skill_instructions)
             .map(|instructions| ("skills".to_string(), instructions))
             .into_iter()

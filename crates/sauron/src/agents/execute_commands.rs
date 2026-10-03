@@ -253,7 +253,7 @@ impl Agent {
             .get_session(session_id, false)
             .await
             .ok()
-            .map(|s| s.working_dir);
+            .and_then(|s| s.working_dir);
         let output = skill_slash_command::format_installed_skills(working_dir.as_deref());
         Ok(Some(Message::assistant().with_text(output)))
     }
@@ -515,7 +515,7 @@ impl Agent {
             .get_session(session_id, false)
             .await
             .ok()
-            .map(|session| session.working_dir);
+            .and_then(|session| session.working_dir);
 
         match skill_slash_command::resolve_command(command, params_str, working_dir.as_deref()) {
             Ok(None) => Ok(None),

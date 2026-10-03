@@ -197,7 +197,7 @@ pub async fn handle_term_init(
         None => {
             let session = session_manager
                 .create_session(
-                    working_dir,
+                    Some(working_dir),
                     "Sauron Term Session".to_string(),
                     SessionType::Terminal,
                     Config::global().get_sauron_mode().unwrap_or_default(),

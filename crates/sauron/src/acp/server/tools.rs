@@ -109,11 +109,8 @@ impl SauronAcpAgent {
                     .data(format!("Session not found: {}", session_id))
             })?;
 
-        let ctx = crate::agents::ToolCallContext::new(
-            session_id.clone(),
-            Some(session.working_dir),
-            None,
-        );
+        let ctx =
+            crate::agents::ToolCallContext::new(session_id.clone(), session.working_dir, None);
         let tool_result = agent
             .mcp_manager
             .dispatch_app_tool_call(

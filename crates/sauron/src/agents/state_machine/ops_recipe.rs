@@ -1,6 +1,7 @@
 //! Applies recipe commands and enforces their structured final output.
 
 use std::collections::HashSet;
+use std::path::Path;
 use std::sync::Arc;
 
 use anyhow::{anyhow, Result};
@@ -374,7 +375,11 @@ impl Operation<Session, SauronEffect> for RecipeOperation {
                     emit_post_tool_use(
                         &self.hook_manager,
                         &session.id,
-                        &session.working_dir.to_string_lossy(),
+                        &session
+                            .working_dir
+                            .as_deref()
+                            .unwrap_or(Path::new("."))
+                            .to_string_lossy(),
                         &tool_call.name,
                         &request.id,
                         tool_input.as_ref(),

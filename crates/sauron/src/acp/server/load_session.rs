@@ -428,7 +428,7 @@ impl SauronAcpAgent {
 
         agent
             .mcp_manager
-            .update_working_dir(&session.working_dir)
+            .update_working_dir(session.working_dir.as_deref().unwrap_or(Path::new(".")))
             .await;
 
         let (mode_state, config_options) = build_session_setup_config(

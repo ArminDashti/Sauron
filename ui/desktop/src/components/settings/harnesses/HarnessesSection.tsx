@@ -2,11 +2,25 @@ import { useCallback, useEffect, useState } from 'react';
 import { CheckCircle2, CircleAlert, Loader2, Settings2 } from 'lucide-react';
 import { Button } from '../../ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../ui/card';
+import ModelIcon from '../../logos/ModelIcon';
 import ProviderConfigurationModal from '../providers/modal/ProviderConfigurationModal';
 import { acpListProviderDetails, acpListSetupCatalog } from '../../../acp/providers';
 import type { ProviderDetails } from '../../../types/providers';
 import type { ProviderSetupCatalogEntryDto } from '@aaif/sauron-acp-client';
 import { defineMessages, useIntl } from '../../../i18n';
+
+/**
+ * The external agent harnesses sauron supports, in presentation order. Other
+ * harnesses the setup catalog advertises (goose, amp, pi, …) are not offered
+ * here, so this list — not the backend catalog — decides what is shown.
+ */
+const SUPPORTED_HARNESS_IDS = [
+  'claude-acp',
+  'codex-acp',
+  'cursor-agent',
+  'opencode-acp',
+  'copilot-acp',
+];
 
 const i18n = defineMessages({
   title: {
@@ -16,7 +30,7 @@ const i18n = defineMessages({
   description: {
     id: 'harnessesSection.description',
     defaultMessage:
-      'Use agents from another harness such as Cursor, Claude Code, Codex, or Copilot. Enable one here, then select it in Models to chat with it.',
+      'Use agents from another harness such as Claude Code, Codex, Cursor, OpenCode, or Copilot. Enable one here, then select it in Models to chat with it.',
   },
   loading: {
     id: 'harnessesSection.loading',
@@ -76,22 +90,14 @@ export default function HarnessesSection({ onConfigured }: HarnessesSectionProps
         acpListSetupCatalog(),
         acpListProviderDetails(),
       ]);
+      const catalogById = new Map(catalog.map((entry) => [entry.providerId, entry]));
       const detailsById = new Map(details.map((provider) => [provider.name, provider]));
       setHarnesses(
-        catalog
-          // The built-in goose harness is always available; this section is for
-          // harnesses that come from other tools such as Cursor or Claude Code.
-          .filter(
-            (entry) =>
-              entry.category === 'agent' &&
-              entry.providerId !== 'goose' &&
-              // Optional harnesses only appear once their CLI is installed.
-              (!entry.showOnlyWhenInstalled || detailsById.get(entry.providerId)?.is_available)
-          )
-          .map((entry) => ({
-            catalog: entry,
-            details: detailsById.get(entry.providerId) ?? null,
-          }))
+        SUPPORTED_HARNESS_IDS.flatMap((providerId) => {
+          const entry = catalogById.get(providerId);
+          if (!entry) return [];
+          return [{ catalog: entry, details: detailsById.get(providerId) ?? null }];
+        })
       );
     } catch (error) {
       console.error('Failed to load agent harnesses:', error);
@@ -149,6 +155,7 @@ export default function HarnessesSection({ onConfigured }: HarnessesSectionProps
               <Card key={catalog.providerId} data-testid={`harness-${catalog.providerId}`}>
                 <CardContent className="px-2 pt-2">
                   <div className="flex flex-wrap items-center gap-2">
+                    <ModelIcon provider={catalog.providerId} className="h-5 w-5" />
                     <h3 className="text-text-primary">{catalog.name}</h3>
                     {isConfigured ? (
                       <span className="inline-flex items-center gap-1 rounded-full bg-green-500/15 px-2 py-0.5 text-xs text-green-600 dark:text-green-400">

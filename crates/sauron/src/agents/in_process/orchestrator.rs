@@ -20,7 +20,7 @@ use rmcp::model::{
 };
 use schemars::{schema_for, JsonSchema};
 use serde::{Deserialize, Serialize};
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
 use std::sync::Arc;
 use tokio_util::sync::CancellationToken;
 
@@ -275,7 +275,11 @@ impl OrchestratorClient {
             session.id,
             session.session_type,
             if is_busy { "🔄 busy" } else { "idle" },
-            session.working_dir.display(),
+            session
+                .working_dir
+                .as_deref()
+                .unwrap_or(Path::new("."))
+                .display(),
             session.message_count,
             session.updated_at.format("%Y-%m-%d %H:%M"),
         )];
@@ -403,7 +407,7 @@ impl OrchestratorClient {
                 .context
                 .session
                 .as_ref()
-                .map(|s| s.working_dir.clone())
+                .and_then(|s| s.working_dir.clone())
                 .unwrap_or_else(|| PathBuf::from("."));
             base.join(&raw_path)
         };
@@ -421,7 +425,7 @@ impl OrchestratorClient {
         let session = self
             .context
             .session_manager
-            .create_session(path, name.clone(), SessionType::User, mode)
+            .create_session(Some(path), name.clone(), SessionType::User, mode)
             .await
             .map_err(|e| format!("Failed to create session: {}", e))?;
 

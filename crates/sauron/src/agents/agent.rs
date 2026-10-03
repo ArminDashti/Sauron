@@ -1,5 +1,6 @@
 use std::collections::HashMap;
 use std::fmt;
+use std::path::Path;
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::Arc;
 
@@ -22,13 +23,13 @@ use super::tool_execution::{
     DECLINED_RESPONSE,
 };
 use crate::action_required_manager::ElicitationOutcome;
-use crate::agents::extension::{ExtensionConfig, ExtensionResult};
-use crate::agents::extension_manager::{ExtensionManager, ExtensionManagerCapabilities};
 use crate::agents::final_output_tool::{
     structured_output_unsupported_message, FINAL_OUTPUT_CONTINUATION_MESSAGE,
     FINAL_OUTPUT_TOOL_NAME,
 };
-use crate::agents::platform_extensions::MANAGE_EXTENSIONS_TOOL_NAME_COMPLETE;
+use crate::agents::in_process::MANAGE_EXTENSIONS_TOOL_NAME_COMPLETE;
+use crate::agents::mcp_manager::{McpManager, McpManagerCapabilities};
+use crate::agents::mcp_server::{McpServerConfig, McpServerResult};
 use crate::agents::prompt_manager::PromptManager;
 use crate::agents::retry::{RetryManager, RetryResult};
 use crate::agents::state_machine::{
@@ -46,7 +47,7 @@ use crate::agents::types::{
     DEFAULT_RETRY_TIMEOUT_SECONDS,
 };
 use crate::agents::AgentEvent;
-use crate::config::extensions::name_to_key;
+use crate::config::mcp_servers::name_to_key;
 use crate::config::permission::PermissionManager;
 use crate::config::{Config, SauronMode};
 use crate::context_mgmt::{
@@ -66,8 +67,9 @@ use crate::scheduler_trait::SchedulerTrait;
 use crate::security::adversary_inspector::AdversaryInspector;
 use crate::security::egress_inspector::EgressInspector;
 use crate::security::security_inspector::SecurityInspector;
-use crate::session::extension_data::{EnabledExtensionsState, ExtensionState};
-use crate::session::{Session, SessionManager, SessionNameUpdate};
+use crate::session::{
+    EnabledExtensionsState, McpServerState, Session, SessionManager, SessionNameUpdate,
+};
 use crate::tool_inspection::ToolInspectionManager;
 use crate::tool_monitor::RepetitionInspector;
 use crate::utils::is_token_cancelled;
@@ -187,7 +189,7 @@ pub struct ReplyContext {
 }
 
 #[derive(Debug, Clone, serde::Serialize)]
-pub struct ExtensionLoadResult {
+pub struct McpServerLoadResult {
     pub name: String,
     pub success: bool,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -283,7 +285,7 @@ pub struct Agent {
     pub config: AgentConfig,
     pub(super) current_sauron_mode: Mutex<SauronMode>,
 
-    pub extension_manager: Arc<ExtensionManager>,
+    pub mcp_manager: Arc<McpManager>,
     pub(super) final_output_tool: Arc<Mutex<Option<FinalOutputTool>>>,
     pub(super) prompt_manager: Mutex<PromptManager>,
     pub(super) tool_confirmation_router: ToolConfirmationRouter,
@@ -374,7 +376,7 @@ impl Default for Agent {
     }
 }
 
-fn has_unique_persisted_extension(configs: &[ExtensionConfig], key: &str) -> Result<bool> {
+fn has_unique_persisted_extension(configs: &[McpServerConfig], key: &str) -> Result<bool> {
     match configs
         .iter()
         .filter(|config| config.key() == key)
@@ -414,7 +416,7 @@ impl Agent {
                 SauronPlatform::SauronDesktop => true,
                 SauronPlatform::SauronCli => false,
             });
-        let capabilities = ExtensionManagerCapabilities {
+        let capabilities = McpManagerCapabilities {
             mcpui,
             host_info: explicit_mcp_host_info.clone(),
             elicitation_handler: config.elicitation_handler.clone(),
@@ -434,7 +436,7 @@ impl Agent {
             provider: provider.clone(),
             config,
             current_sauron_mode: Mutex::new(initial_mode),
-            extension_manager: Arc::new(ExtensionManager::new(
+            mcp_manager: Arc::new(McpManager::new(
                 provider.clone(),
                 session_manager,
                 scheduler,
@@ -607,7 +609,12 @@ impl Agent {
         tool_input: Option<&Value>,
         session: &Session,
     ) {
-        let working_dir = session.working_dir.as_deref().unwrap_or(Path::new(".")).to_string_lossy().to_string();
+        let working_dir = session
+            .working_dir
+            .as_deref()
+            .unwrap_or(Path::new("."))
+            .to_string_lossy()
+            .to_string();
         match categorize_tool(tool_name) {
             ToolCategory::Shell => {
                 if let Some(cmd) = tool_input.and_then(|v| extract_string_arg(v, &["command"])) {
@@ -680,7 +687,14 @@ impl Agent {
             crate::hooks::HookContext::new(crate::hooks::HookEvent::PreToolUseResult, &session.id)
                 .with_tool(tool_name.to_string(), tool_input.cloned())
                 .with_tool_call_id(tool_call_id)
-                .with_working_dir(session.working_dir.as_deref().unwrap_or(Path::new(".")).to_string_lossy().to_string())
+                .with_working_dir(
+                    session
+                        .working_dir
+                        .as_deref()
+                        .unwrap_or(Path::new("."))
+                        .to_string_lossy()
+                        .to_string(),
+                )
                 .with_pre_tool_use_outcome(outcome);
         self.hook_manager.emit_pre_tool_use_result(ctx).await;
     }
@@ -694,7 +708,12 @@ impl Agent {
     ) -> ToolCallResult {
         let hook_manager = self.hook_manager.clone();
         let session_id = session.id.clone();
-        let working_dir = session.working_dir.to_string_lossy().to_string();
+        let working_dir = session
+            .working_dir
+            .as_deref()
+            .unwrap_or(Path::new("."))
+            .to_string_lossy()
+            .to_string();
         let tool_name = tool_call.name.to_string();
         let tool_call_id = tool_call_id.to_string();
         let tool_input = tool_call
@@ -1080,10 +1099,10 @@ impl Agent {
         }
         gen_ai_telemetry::record_tool_arguments(&tracing::Span::current(), &tool_call);
 
-        self.prompt_manager
-            .lock()
-            .await
-            .record_tool_arguments(&tool_call.arguments, &session.working_dir);
+        self.prompt_manager.lock().await.record_tool_arguments(
+            &tool_call.arguments,
+            session.working_dir.as_deref().unwrap_or(Path::new(".")),
+        );
 
         let tool_input_for_hooks = tool_call
             .arguments
@@ -1098,7 +1117,14 @@ impl Agent {
                 crate::hooks::HookContext::new(crate::hooks::HookEvent::PreToolUse, &session.id)
                     .with_tool(tool_call.name.to_string(), tool_input_for_hooks.clone())
                     .with_tool_call_id(request_id.as_str())
-                    .with_working_dir(session.working_dir.to_string_lossy().to_string());
+                    .with_working_dir(
+                        session
+                            .working_dir
+                            .as_deref()
+                            .unwrap_or(Path::new("."))
+                            .to_string_lossy()
+                            .to_string(),
+                    );
             self.hook_manager
                 .emit_blocking_with_outcome(crate::hooks::HookEvent::PreToolUse, ctx)
                 .await
@@ -1152,7 +1178,14 @@ impl Agent {
                     let ctx = crate::hooks::HookContext::new(failure, &session.id)
                         .with_tool(tool_call.name.to_string(), tool_input_for_hooks.clone())
                         .with_tool_call_id(request_id.as_str())
-                        .with_working_dir(session.working_dir.to_string_lossy().to_string());
+                        .with_working_dir(
+                            session
+                                .working_dir
+                                .as_deref()
+                                .unwrap_or(Path::new("."))
+                                .to_string_lossy()
+                                .to_string(),
+                        );
                     self.hook_manager.emit(failure, ctx).await;
                 }
                 (request_id, Err(error))
@@ -1161,13 +1194,13 @@ impl Agent {
 
         let ctx = super::tool_execution::ToolCallContext::new(
             session.id.clone(),
-            Some(session.working_dir.clone()),
+            session.working_dir.clone(),
             Some(request_id.clone()),
         );
 
         debug!("WAITING_TOOL_START: {}", tool_call.name);
         let result = self
-            .extension_manager
+            .mcp_manager
             .dispatch_tool_call(
                 &ctx,
                 tool_call.clone(),
@@ -1193,12 +1226,12 @@ impl Agent {
     /// Should be called after any extension add/remove operation
     pub async fn save_extension_state(&self, session: &SessionConfig) -> Result<()> {
         let extensions_state =
-            EnabledExtensionsState::new(self.extension_manager.get_extension_configs().await);
+            EnabledExtensionsState::new(self.mcp_manager.get_extension_configs().await);
 
         let session_manager = self.config.session_manager.clone();
         let mut session_data = session_manager.get_session(&session.id, false).await?;
 
-        if let Err(e) = extensions_state.to_extension_data(&mut session_data.extension_data) {
+        if let Err(e) = extensions_state.to_mcp_server_data(&mut session_data.extension_data) {
             warn!("Failed to serialize extension state: {}", e);
             return Err(anyhow!("Extension state serialization failed: {}", e));
         }
@@ -1214,18 +1247,15 @@ impl Agent {
 
     /// Save current extension state to session by session_id
     pub async fn persist_extension_state(&self, session_id: &str) -> Result<()> {
-        self.persist_extension_configs(
-            session_id,
-            self.extension_manager.get_extension_configs().await,
-        )
-        .await
+        self.persist_extension_configs(session_id, self.mcp_manager.get_extension_configs().await)
+            .await
     }
 
     /// Save the provided extension configuration to session metadata.
     pub async fn persist_extension_configs(
         &self,
         session_id: &str,
-        extensions: Vec<ExtensionConfig>,
+        extensions: Vec<McpServerConfig>,
     ) -> Result<()> {
         let extensions_state = EnabledExtensionsState::new(extensions);
 
@@ -1234,7 +1264,7 @@ impl Agent {
         let mut extension_data = session.extension_data.clone();
 
         extensions_state
-            .to_extension_data(&mut extension_data)
+            .to_mcp_server_data(&mut extension_data)
             .map_err(|e| anyhow!("Failed to serialize extension state: {}", e))?;
 
         session_manager
@@ -1249,12 +1279,12 @@ impl Agent {
     /// Load extensions from session into the agent
     /// Skips extensions that are already loaded
     /// Uses the session's working_dir for extension initialization
-    pub async fn load_extensions_from_session(
+    pub async fn load_mcp_servers_from_session(
         self: &Arc<Self>,
         session: &Session,
-    ) -> Vec<ExtensionLoadResult> {
+    ) -> Vec<McpServerLoadResult> {
         let session_extensions =
-            EnabledExtensionsState::from_extension_data(&session.extension_data);
+            EnabledExtensionsState::from_mcp_server_data(&session.extension_data);
         let enabled_configs = match session_extensions {
             Some(state) => state.extensions,
             None => {
@@ -1276,7 +1306,7 @@ impl Agent {
                 manages_own_context
                     && matches!(
                         config,
-                        ExtensionConfig::Stdio { .. } | ExtensionConfig::StreamableHttp { .. }
+                        McpServerConfig::Stdio { .. } | McpServerConfig::StreamableHttp { .. }
                     )
             });
 
@@ -1292,13 +1322,9 @@ impl Agent {
                 async move {
                     let name = config_clone.name().to_string();
 
-                    if agent_ref
-                        .extension_manager
-                        .is_extension_enabled(&name)
-                        .await
-                    {
+                    if agent_ref.mcp_manager.is_mcp_server_enabled(&name).await {
                         tracing::debug!("Extension {} already loaded, skipping", name);
-                        return ExtensionLoadResult {
+                        return McpServerLoadResult {
                             name,
                             success: true,
                             error: None,
@@ -1306,10 +1332,10 @@ impl Agent {
                     }
 
                     match agent_ref
-                        .add_extension_inner(config_clone, &session_id_clone)
+                        .add_mcp_server_inner(config_clone, &session_id_clone)
                         .await
                     {
-                        Ok(_) => ExtensionLoadResult {
+                        Ok(_) => McpServerLoadResult {
                             name,
                             success: true,
                             error: None,
@@ -1317,7 +1343,7 @@ impl Agent {
                         Err(e) => {
                             let error_msg = e.to_string();
                             warn!("Failed to load extension {}: {}", name, error_msg);
-                            ExtensionLoadResult {
+                            McpServerLoadResult {
                                 name,
                                 success: false,
                                 error: Some(error_msg),
@@ -1339,19 +1365,19 @@ impl Agent {
         results
     }
 
-    pub async fn add_extension(
+    pub async fn add_mcp_server(
         &self,
-        extension: ExtensionConfig,
+        extension: McpServerConfig,
         session_id: &str,
-    ) -> ExtensionResult<()> {
-        self.add_extension_inner(extension, session_id).await?;
+    ) -> McpServerResult<()> {
+        self.add_mcp_server_inner(extension, session_id).await?;
 
         // Persist extension state after successful add
         self.persist_extension_state(session_id)
             .await
             .map_err(|e| {
                 error!("Failed to persist extension state: {}", e);
-                crate::agents::extension::ExtensionError::SetupError(format!(
+                crate::agents::mcp_server::McpServerError::SetupError(format!(
                     "Failed to persist extension state: {}",
                     e
                 ))
@@ -1369,18 +1395,18 @@ impl Agent {
     /// fail: the session's enabled list records what actually loaded, so failed
     /// extensions are dropped instead of staying marked as enabled and being
     /// retried on every subsequent resume.
-    pub async fn add_extensions_bulk(
+    pub async fn add_mcp_servers_bulk(
         self: &Arc<Self>,
-        extensions: Vec<ExtensionConfig>,
+        extensions: Vec<McpServerConfig>,
         session_id: &str,
-    ) -> anyhow::Result<Vec<ExtensionLoadResult>> {
+    ) -> anyhow::Result<Vec<McpServerLoadResult>> {
         let working_dir = match self
             .config
             .session_manager
             .get_session(session_id, false)
             .await
         {
-            Ok(session) => Some(session.working_dir),
+            Ok(session) => session.working_dir,
             Err(e) => {
                 warn!("Failed to get session for bulk load: {}", e);
                 None
@@ -1391,7 +1417,7 @@ impl Agent {
         let extension_futures = extensions
             .into_iter()
             .map(|config| {
-                let ext_manager = Arc::clone(&self.extension_manager);
+                let ext_manager = Arc::clone(&self.mcp_manager);
                 let working_dir = working_dir.clone();
                 let container = container.clone();
                 let sid = session_id.to_string();
@@ -1399,10 +1425,10 @@ impl Agent {
                 async move {
                     let name = config.name().to_string();
                     match ext_manager
-                        .add_extension(config, working_dir, container.as_ref(), Some(&sid))
+                        .add_mcp_server(config, working_dir, container.as_ref(), Some(&sid))
                         .await
                     {
-                        Ok(_) => ExtensionLoadResult {
+                        Ok(_) => McpServerLoadResult {
                             name,
                             success: true,
                             error: None,
@@ -1410,7 +1436,7 @@ impl Agent {
                         Err(e) => {
                             let error = e.to_string();
                             warn!("Failed to load extension {}: {}", name, error);
-                            ExtensionLoadResult {
+                            McpServerLoadResult {
                                 name,
                                 success: false,
                                 error: Some(error),
@@ -1428,27 +1454,27 @@ impl Agent {
         Ok(results)
     }
 
-    async fn add_extension_inner(
+    async fn add_mcp_server_inner(
         &self,
-        extension: ExtensionConfig,
+        extension: McpServerConfig,
         session_id: &str,
-    ) -> ExtensionResult<()> {
+    ) -> McpServerResult<()> {
         let session = self
             .config
             .session_manager
             .get_session(session_id, false)
             .await
             .map_err(|e| {
-                crate::agents::extension::ExtensionError::SetupError(format!(
+                crate::agents::mcp_server::McpServerError::SetupError(format!(
                     "Failed to get session '{}': {}",
                     session_id, e
                 ))
             })?;
-        let working_dir = Some(session.working_dir);
+        let working_dir = session.working_dir;
 
         let container = self.container.lock().await;
-        self.extension_manager
-            .add_extension(extension, working_dir, container.as_ref(), Some(session_id))
+        self.mcp_manager
+            .add_mcp_server(extension, working_dir, container.as_ref(), Some(session_id))
             .await?;
 
         Ok(())
@@ -1457,7 +1483,7 @@ impl Agent {
     pub async fn list_tools(&self, session_id: &str, extension_name: Option<String>) -> Vec<Tool> {
         let include_final_output = extension_name.is_none();
         let mut prefixed_tools = self
-            .extension_manager
+            .mcp_manager
             .get_prefixed_tools(session_id, extension_name)
             .await
             .unwrap_or_default();
@@ -1472,12 +1498,12 @@ impl Agent {
     }
 
     pub async fn remove_extension(&self, name: &str, session_id: &str) -> Result<()> {
-        self.remove_extension_by_key(&name_to_key(name), session_id)
+        self.remove_mcp_server_by_key(&name_to_key(name), session_id)
             .await?;
         Ok(())
     }
 
-    pub async fn remove_extension_by_key(&self, key: &str, session_id: &str) -> Result<bool> {
+    pub async fn remove_mcp_server_by_key(&self, key: &str, session_id: &str) -> Result<bool> {
         let session = self
             .config
             .session_manager
@@ -1491,7 +1517,7 @@ impl Agent {
             return Ok(false);
         }
 
-        self.extension_manager.remove_extension_by_key(key).await?;
+        self.mcp_manager.remove_mcp_server_by_key(key).await?;
 
         // Persist extension state after successful removal
         self.persist_extension_state(session_id)
@@ -1504,15 +1530,15 @@ impl Agent {
         Ok(true)
     }
 
-    pub async fn list_extensions(&self) -> Vec<String> {
-        self.extension_manager
-            .list_extensions()
+    pub async fn list_mcp_servers(&self) -> Vec<String> {
+        self.mcp_manager
+            .list_mcp_servers()
             .await
             .expect("Failed to list extensions")
     }
 
-    pub async fn get_extension_configs(&self) -> Vec<ExtensionConfig> {
-        self.extension_manager.get_extension_configs().await
+    pub async fn get_extension_configs(&self) -> Vec<McpServerConfig> {
+        self.mcp_manager.get_extension_configs().await
     }
 
     pub async fn submit_tool_confirmation(
@@ -1716,7 +1742,7 @@ impl Agent {
             )),
             Arc::new(ToolExecutionOperation::new(
                 &self.current_sauron_mode,
-                self.extension_manager.clone(),
+                self.mcp_manager.clone(),
                 self.hook_manager.clone(),
             )),
             Arc::new(UnknownToolOperation::new(self.hook_manager.clone())),
@@ -1735,7 +1761,7 @@ impl Agent {
         operations.extend(remaining_operations);
         let request_preparer = SauronInferenceRequestPreparer {
             #[cfg(feature = "code-mode")]
-            extension_manager: self.extension_manager.clone(),
+            mcp_manager: self.mcp_manager.clone(),
             sauron_mode: &self.current_sauron_mode,
             prompt_manager: &self.prompt_manager,
             tool_inspection_manager: &self.tool_inspection_manager,
@@ -2461,7 +2487,11 @@ impl Agent {
         reply_span: tracing::Span,
     ) -> Result<BoxStream<'_, Result<AgentEvent>>> {
         let context = self
-            .prepare_reply_context(&session.id, conversation, session.working_dir.as_path())
+            .prepare_reply_context(
+                &session.id,
+                conversation,
+                session.working_dir.as_deref().unwrap_or(Path::new(".")),
+            )
             .await?;
         let ReplyContext {
             mut conversation,
@@ -2598,12 +2628,12 @@ impl Agent {
             let mut can_drain_pending_steers = false;
             let turn_start = chrono::Local::now();
             let turn_start_compaction_info =
-                super::moim::compute_compaction_info(&session_config.id, &self.extension_manager)
+                super::moim::compute_compaction_info(&session_config.id, &self.mcp_manager)
                     .await;
 
             if let Some(turn_context) = super::moim::turn_context_message(
                 &session_config.id,
-                &self.extension_manager,
+                &self.mcp_manager,
                 turns_taken,
                 max_turns,
                 turn_start,
@@ -2668,7 +2698,7 @@ impl Agent {
                     conversation.push(message);
 
                     match self
-                        .emit_stop_hook_blocking(&session_config.id, &last_assistant_text, &session.working_dir.to_string_lossy())
+                        .emit_stop_hook_blocking(&session_config.id, &last_assistant_text, &session.working_dir.as_deref().unwrap_or(Path::new(".")).to_string_lossy())
                         .await
                     {
                         crate::hooks::HookDecision::Allow => {
@@ -3306,7 +3336,7 @@ impl Agent {
 
                 if tools_updated {
                     (tools, toolshim_tools, system_prompt, _) =
-                        self.prepare_tools_and_prompt(&session_config.id, &session.working_dir).await?;
+                        self.prepare_tools_and_prompt(&session_config.id, session.working_dir.as_deref().unwrap_or(Path::new("."))).await?;
                 }
 
                 {
@@ -3314,10 +3344,10 @@ impl Agent {
                         .prompt_manager
                         .lock()
                         .await
-                        .load_subdirectory_hints(&working_dir);
+                        .load_subdirectory_hints(working_dir.as_deref().unwrap_or(Path::new(".")));
                     if has_new_hints && !tools_updated {
                         (tools, toolshim_tools, system_prompt, _) =
-                            self.prepare_tools_and_prompt(&session_config.id, &session.working_dir).await?;
+                            self.prepare_tools_and_prompt(&session_config.id, session.working_dir.as_deref().unwrap_or(Path::new("."))).await?;
                     }
                 }
 
@@ -3548,7 +3578,7 @@ impl Agent {
 
                 if exit_chat {
                     match self
-                        .emit_stop_hook_blocking(&session_config.id, &last_assistant_text, &session.working_dir.to_string_lossy())
+                        .emit_stop_hook_blocking(&session_config.id, &last_assistant_text, &session.working_dir.as_deref().unwrap_or(Path::new(".")).to_string_lossy())
                         .await
                     {
                         crate::hooks::HookDecision::Allow => {
@@ -3596,7 +3626,7 @@ impl Agent {
             gen_ai_telemetry::record_usage(&reply_span, &turn_total_usage);
 
             if !stop_hook_handled_for_exit {
-                self.emit_stop_hook(&session_config.id, &last_assistant_text, &session.working_dir.to_string_lossy()).await;
+                self.emit_stop_hook(&session_config.id, &last_assistant_text, &session.working_dir.as_deref().unwrap_or(Path::new(".")).to_string_lossy()).await;
             }
         }.instrument(reply_stream_span));
         Ok(inner)
@@ -3724,7 +3754,10 @@ impl Agent {
         let provider = crate::providers::create_with_working_dir(
             provider_name,
             extensions,
-            session.working_dir.clone(),
+            session
+                .working_dir
+                .clone()
+                .unwrap_or_else(|| Path::new(".").to_path_buf()),
         )
         .await
         .map_err(|error| provider_creation_error(error, "Could not create provider"))?;
@@ -3833,7 +3866,10 @@ impl Agent {
                 let p = crate::providers::create_with_working_dir(
                     &provider_name,
                     extensions,
-                    session.working_dir.clone(),
+                    session
+                        .working_dir
+                        .clone()
+                        .unwrap_or_else(|| Path::new(".").to_path_buf()),
                 )
                 .await
                 .map_err(|error| provider_creation_error(error, "Could not create provider"))?;
@@ -3870,7 +3906,7 @@ impl Agent {
                 let fallback_provider = crate::providers::create_with_working_dir(
                     &fallback_provider_name,
                     extensions,
-                    session.working_dir.clone(),
+                    session.working_dir.clone().unwrap_or_else(|| Path::new(".").to_path_buf()),
                 )
                 .await
                 .map_err(|error| {
@@ -3922,7 +3958,7 @@ impl Agent {
     }
 
     pub async fn list_extension_prompts(&self, session_id: &str) -> HashMap<String, Vec<Prompt>> {
-        self.extension_manager
+        self.mcp_manager
             .list_prompts(session_id, CancellationToken::default())
             .await
             .expect("Failed to list prompts")
@@ -3936,7 +3972,7 @@ impl Agent {
     ) -> Result<GetPromptResult> {
         // First find which extension has this prompt
         let prompts = self
-            .extension_manager
+            .mcp_manager
             .list_prompts(session_id, CancellationToken::default())
             .await
             .map_err(|e| anyhow!("Failed to list prompts: {}", e))?;
@@ -3947,7 +3983,7 @@ impl Agent {
             .map(|(extension, _)| extension)
         {
             return self
-                .extension_manager
+                .mcp_manager
                 .get_prompt(
                     session_id,
                     extension,
@@ -3979,8 +4015,8 @@ mod tests {
     use std::sync::atomic::{AtomicUsize, Ordering};
     use tempfile::TempDir;
 
-    fn persisted_builtin(name: &str) -> ExtensionConfig {
-        ExtensionConfig::Builtin {
+    fn persisted_builtin(name: &str) -> McpServerConfig {
+        McpServerConfig::Builtin {
             name: name.to_string(),
             description: String::new(),
             display_name: None,
@@ -4271,7 +4307,7 @@ mod tests {
         let _subscriber = capture.clone().set_default();
         let (agent, session, _data_dir) = tracing_test_agent_and_session().await;
         let tool_call = CallToolRequestParams::new(
-            crate::agents::platform_extensions::scheduler::MANAGE_SCHEDULE_TOOL_NAME_COMPLETE,
+            crate::agents::in_process::scheduler::MANAGE_SCHEDULE_TOOL_NAME_COMPLETE,
         )
         .with_arguments(object!({
             "action": "list",
@@ -4308,8 +4344,7 @@ mod tests {
         let capture = SpanFieldCapture::new("dispatch_tool_call");
         let _subscriber = capture.clone().set_default();
         let (agent, session, _data_dir) = tracing_test_agent_and_session().await;
-        let tool_name =
-            crate::agents::platform_extensions::scheduler::MANAGE_SCHEDULE_TOOL_NAME_COMPLETE;
+        let tool_name = crate::agents::in_process::scheduler::MANAGE_SCHEDULE_TOOL_NAME_COMPLETE;
         let tool_call =
             CallToolRequestParams::new(tool_name).with_arguments(object!({ "action": "list" }));
 

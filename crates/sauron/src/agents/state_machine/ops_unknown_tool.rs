@@ -3,8 +3,8 @@
 use anyhow::Result;
 use async_trait::async_trait;
 use rmcp::model::{CallToolResult, ContentBlock, ErrorCode, ErrorData};
-use tracing_futures::Instrument;
 use std::path::Path;
+use tracing_futures::Instrument;
 
 use crate::agents::final_output_tool::FINAL_OUTPUT_TOOL_NAME;
 use crate::agents::state_machine::effects::SauronEffect;

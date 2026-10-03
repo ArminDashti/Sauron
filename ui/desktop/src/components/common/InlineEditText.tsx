@@ -36,144 +36,155 @@ interface InlineEditTextProps {
   singleClickEdit?: boolean;
 }
 
-export const InlineEditText: React.FC<InlineEditTextProps> = ({
-  value,
-  onSave,
-  maxLength = 200,
-  placeholder,
-  disabled = false,
-  className = '',
-  editClassName = '',
-  onEditStart,
-  onEditEnd,
-  allowEmpty = false,
-  singleClickEdit = true,
-}) => {
-  const intl = useIntl();
-  const resolvedPlaceholder = placeholder ?? intl.formatMessage(i18n.enterText);
-  const [isEditing, setIsEditing] = useState(false);
-  const [editValue, setEditValue] = useState(value);
-  const [isSaving, setIsSaving] = useState(false);
-  const inputRef = useRef<HTMLInputElement>(null);
-  const originalValue = useRef(value);
+export interface InlineEditTextHandle {
+  /** Enters edit mode programmatically, e.g. from a context-menu action. */
+  startEdit: () => void;
+}
 
-  useEffect(() => {
-    if (!isEditing) {
+export const InlineEditText = React.forwardRef<InlineEditTextHandle, InlineEditTextProps>(
+  (
+    {
+      value,
+      onSave,
+      maxLength = 200,
+      placeholder,
+      disabled = false,
+      className = '',
+      editClassName = '',
+      onEditStart,
+      onEditEnd,
+      allowEmpty = false,
+      singleClickEdit = true,
+    },
+    ref
+  ) => {
+    const intl = useIntl();
+    const resolvedPlaceholder = placeholder ?? intl.formatMessage(i18n.enterText);
+    const [isEditing, setIsEditing] = useState(false);
+    const [editValue, setEditValue] = useState(value);
+    const [isSaving, setIsSaving] = useState(false);
+    const inputRef = useRef<HTMLInputElement>(null);
+    const originalValue = useRef(value);
+
+    useEffect(() => {
+      if (!isEditing) {
+        setEditValue(value);
+        originalValue.current = value;
+      }
+    }, [value, isEditing]);
+
+    useEffect(() => {
+      if (isEditing && inputRef.current) {
+        inputRef.current.focus();
+        inputRef.current.select();
+      }
+    }, [isEditing]);
+
+    const handleStartEdit = useCallback(() => {
+      if (disabled || isSaving) return;
+      setIsEditing(true);
       setEditValue(value);
-      originalValue.current = value;
-    }
-  }, [value, isEditing]);
+      onEditStart?.();
+    }, [disabled, isSaving, value, onEditStart]);
 
-  useEffect(() => {
-    if (isEditing && inputRef.current) {
-      inputRef.current.focus();
-      inputRef.current.select();
-    }
-  }, [isEditing]);
+    React.useImperativeHandle(ref, () => ({ startEdit: handleStartEdit }), [handleStartEdit]);
 
-  const handleStartEdit = useCallback(() => {
-    if (disabled || isSaving) return;
-    setIsEditing(true);
-    setEditValue(value);
-    onEditStart?.();
-  }, [disabled, isSaving, value, onEditStart]);
-
-  const handleCancel = useCallback(() => {
-    setIsEditing(false);
-    setEditValue(originalValue.current);
-    onEditEnd?.();
-  }, [onEditEnd]);
-
-  const handleSave = useCallback(async () => {
-    if (isSaving) return;
-
-    const trimmedValue = editValue.trim();
-
-    // Check if value unchanged
-    if (trimmedValue === originalValue.current) {
-      handleCancel();
-      return;
-    }
-
-    // Check if empty when not allowed
-    if (!allowEmpty && !trimmedValue) {
-      handleCancel();
-      return;
-    }
-
-    setIsSaving(true);
-    try {
-      await onSave(trimmedValue);
-      originalValue.current = trimmedValue;
+    const handleCancel = useCallback(() => {
       setIsEditing(false);
-      onEditEnd?.();
-    } catch (error) {
-      const errMsg = errorMessage(error, intl.formatMessage(i18n.failedToSave));
-      console.error('InlineEditText save error:', errMsg);
-      toast.error(errMsg);
       setEditValue(originalValue.current);
-      handleCancel();
-    } finally {
-      setIsSaving(false);
-    }
-  }, [editValue, isSaving, allowEmpty, onSave, handleCancel, onEditEnd, intl]);
+      onEditEnd?.();
+    }, [onEditEnd]);
 
-  const handleKeyDown = useCallback(
-    (e: React.KeyboardEvent<HTMLInputElement>) => {
-      if (e.key === 'Enter' && !isSaving) {
-        e.preventDefault();
-        handleSave();
-      } else if (e.key === 'Escape' && !isSaving) {
-        e.preventDefault();
+    const handleSave = useCallback(async () => {
+      if (isSaving) return;
+
+      const trimmedValue = editValue.trim();
+
+      // Check if value unchanged
+      if (trimmedValue === originalValue.current) {
         handleCancel();
+        return;
       }
-    },
-    [handleSave, handleCancel, isSaving]
-  );
 
-  const handleBlur = useCallback(() => {
-    if (!isSaving) {
-      handleSave();
-    }
-  }, [handleSave, isSaving]);
-
-  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setEditValue(e.target.value);
-  }, []);
-
-  const handleClick = useCallback(
-    (e: React.MouseEvent) => {
-      if (singleClickEdit) {
-        e.stopPropagation();
-        handleStartEdit();
+      // Check if empty when not allowed
+      if (!allowEmpty && !trimmedValue) {
+        handleCancel();
+        return;
       }
-    },
-    [singleClickEdit, handleStartEdit]
-  );
 
-  const handleDoubleClick = useCallback(
-    (e: React.MouseEvent) => {
-      if (!singleClickEdit) {
-        e.stopPropagation();
-        handleStartEdit();
+      setIsSaving(true);
+      try {
+        await onSave(trimmedValue);
+        originalValue.current = trimmedValue;
+        setIsEditing(false);
+        onEditEnd?.();
+      } catch (error) {
+        const errMsg = errorMessage(error, intl.formatMessage(i18n.failedToSave));
+        console.error('InlineEditText save error:', errMsg);
+        toast.error(errMsg);
+        setEditValue(originalValue.current);
+        handleCancel();
+      } finally {
+        setIsSaving(false);
       }
-    },
-    [singleClickEdit, handleStartEdit]
-  );
+    }, [editValue, isSaving, allowEmpty, onSave, handleCancel, onEditEnd, intl]);
 
-  if (isEditing) {
-    return (
-      <input
-        ref={inputRef}
-        type="text"
-        value={editValue}
-        onChange={handleChange}
-        onKeyDown={handleKeyDown}
-        onBlur={handleBlur}
-        maxLength={maxLength}
-        placeholder={resolvedPlaceholder}
-        disabled={isSaving}
-        className={`
+    const handleKeyDown = useCallback(
+      (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter' && !isSaving) {
+          e.preventDefault();
+          handleSave();
+        } else if (e.key === 'Escape' && !isSaving) {
+          e.preventDefault();
+          handleCancel();
+        }
+      },
+      [handleSave, handleCancel, isSaving]
+    );
+
+    const handleBlur = useCallback(() => {
+      if (!isSaving) {
+        handleSave();
+      }
+    }, [handleSave, isSaving]);
+
+    const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+      setEditValue(e.target.value);
+    }, []);
+
+    const handleClick = useCallback(
+      (e: React.MouseEvent) => {
+        if (singleClickEdit) {
+          e.stopPropagation();
+          handleStartEdit();
+        }
+      },
+      [singleClickEdit, handleStartEdit]
+    );
+
+    const handleDoubleClick = useCallback(
+      (e: React.MouseEvent) => {
+        if (!singleClickEdit) {
+          e.stopPropagation();
+          handleStartEdit();
+        }
+      },
+      [singleClickEdit, handleStartEdit]
+    );
+
+    if (isEditing) {
+      return (
+        <input
+          ref={inputRef}
+          type="text"
+          value={editValue}
+          onChange={handleChange}
+          onKeyDown={handleKeyDown}
+          onBlur={handleBlur}
+          maxLength={maxLength}
+          placeholder={resolvedPlaceholder}
+          disabled={isSaving}
+          className={`
           w-full px-2 py-1 border rounded
           bg-background-primary text-text-standard
           border-blue-500 ring-2 ring-blue-500/20
@@ -181,25 +192,34 @@ export const InlineEditText: React.FC<InlineEditTextProps> = ({
           disabled:opacity-50 disabled:cursor-not-allowed
           ${editClassName}
         `}
-        onClick={(e) => e.stopPropagation()}
-      />
-    );
-  }
+          onClick={(e) => e.stopPropagation()}
+        />
+      );
+    }
 
-  return (
-    <div
-      className={`
+    return (
+      <div
+        className={`
         cursor-pointer px-2 py-1 rounded
         hover:bg-background-hover
         transition-colors
         ${disabled ? 'opacity-50 cursor-not-allowed' : ''}
         ${className}
       `}
-      onClick={handleClick}
-      onDoubleClick={handleDoubleClick}
-      title={disabled ? '' : singleClickEdit ? intl.formatMessage(i18n.clickToEdit) : intl.formatMessage(i18n.doubleClickToEdit)}
-    >
-      {value || <span className="text-text-subtle italic">{resolvedPlaceholder}</span>}
-    </div>
-  );
-};
+        onClick={handleClick}
+        onDoubleClick={handleDoubleClick}
+        title={
+          disabled
+            ? ''
+            : singleClickEdit
+              ? intl.formatMessage(i18n.clickToEdit)
+              : intl.formatMessage(i18n.doubleClickToEdit)
+        }
+      >
+        {value || <span className="text-text-subtle italic">{resolvedPlaceholder}</span>}
+      </div>
+    );
+  }
+);
+
+InlineEditText.displayName = 'InlineEditText';

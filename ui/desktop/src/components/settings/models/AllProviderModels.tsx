@@ -3,8 +3,9 @@ import { useNavigate } from 'react-router';
 import { AlertCircle, Check, Loader2, RefreshCw, Search, Star, X } from 'lucide-react';
 import { Button } from '../../ui/button';
 import { Input } from '../../ui/input';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../ui/card';
-import ProviderLogo from '../providers/modal/subcomponents/ProviderLogo';
+import { Card, CardContent, CardDescription, CardHeader } from '../../ui/card';
+import { BrandIcon } from '../../logos/BrandLogos';
+import { Select } from '../../ui/Select';
 import {
   ContextBadge,
   DefaultBadge,
@@ -29,14 +30,17 @@ import { errorMessage } from '../../../utils/conversionUtils';
 import { toastError, toastSuccess } from '../../../toasts';
 
 const i18n = defineMessages({
-  title: {
-    id: 'allProviderModels.title',
-    defaultMessage: 'Models from your providers',
-  },
   description: {
     id: 'allProviderModels.description',
-    defaultMessage:
-      'Every model exposed by your activated providers. Select one to make it the default model.',
+    defaultMessage: 'Choose a provider, then pick a model to set as your default.',
+  },
+  selectProvider: {
+    id: 'allProviderModels.selectProvider',
+    defaultMessage: 'Provider',
+  },
+  selectProviderPlaceholder: {
+    id: 'allProviderModels.selectProviderPlaceholder',
+    defaultMessage: 'Select a provider',
   },
   loading: {
     id: 'allProviderModels.loading',
@@ -124,6 +128,12 @@ const i18n = defineMessages({
   },
 });
 
+type ProviderOption = {
+  value: string;
+  label: string;
+  provider: ProviderDetails;
+};
+
 interface AllProviderModelsProps {
   /** Called after a model has been made the default so the parent can refresh. */
   onModelSelected?: () => void;
@@ -152,6 +162,7 @@ export default function AllProviderModels({
   const [loadError, setLoadError] = useState<string | null>(null);
   const [refreshErrors, setRefreshErrors] = useState<Record<string, string>>({});
   const [query, setQuery] = useState('');
+  const [selectedProviderName, setSelectedProviderName] = useState<string | null>(null);
 
   const loadModels = useCallback(async () => {
     setIsLoading(true);
@@ -161,8 +172,19 @@ export default function AllProviderModels({
         acpListSettingsProviderDetails(),
         acpReadDefaults(),
       ]);
-      setProviders(all.filter((provider) => provider.is_configured));
+      const configured = all.filter((provider) => provider.is_configured);
+      setProviders(configured);
       setDefaults(currentDefaults);
+      setSelectedProviderName((current) => {
+        if (current && configured.some((p) => p.name === current)) {
+          return current;
+        }
+        const fromDefaults = currentDefaults.providerId;
+        if (fromDefaults && configured.some((p) => p.name === fromDefaults)) {
+          return fromDefaults;
+        }
+        return configured[0]?.name ?? null;
+      });
     } catch (error) {
       setLoadError(errorMessage(error));
     } finally {
@@ -243,47 +265,59 @@ export default function AllProviderModels({
     [preferredModels, onPreferredModelsChange, intl]
   );
 
-  const totalModels = useMemo(
-    () => providers.reduce((sum, provider) => sum + provider.metadata.known_models.length, 0),
+  const providerOptions = useMemo<ProviderOption[]>(
+    () =>
+      providers.map((provider) => ({
+        value: provider.name,
+        label: provider.metadata.display_name,
+        provider,
+      })),
     [providers]
+  );
+
+  const selectedProvider = useMemo(
+    () => providers.find((provider) => provider.name === selectedProviderName) ?? null,
+    [providers, selectedProviderName]
+  );
+
+  const selectedOption = useMemo(
+    () => providerOptions.find((option) => option.value === selectedProviderName) ?? null,
+    [providerOptions, selectedProviderName]
   );
 
   const normalizedQuery = query.trim().toLowerCase();
 
-  const filteredGroups = useMemo(() => {
-    return providers
-      .map((provider) => {
-        const models = provider.metadata.known_models;
-        const providerMatches =
-          normalizedQuery !== '' &&
-          (provider.metadata.display_name.toLowerCase().includes(normalizedQuery) ||
-            provider.name.toLowerCase().includes(normalizedQuery));
-        const visibleModels =
-          normalizedQuery === '' || providerMatches
-            ? models
-            : models.filter((model) => model.name.toLowerCase().includes(normalizedQuery));
-        return { provider, models: visibleModels };
-      })
-      .filter((group) => normalizedQuery === '' || group.models.length > 0);
-  }, [providers, normalizedQuery]);
+  const providerModels = selectedProvider?.metadata.known_models ?? [];
+  const totalModels = providerModels.length;
 
-  const visibleModels = useMemo(
-    () => filteredGroups.reduce((sum, group) => sum + group.models.length, 0),
-    [filteredGroups]
-  );
+  const visibleModels = useMemo(() => {
+    if (normalizedQuery === '') {
+      return providerModels;
+    }
+    return providerModels.filter((model) => model.name.toLowerCase().includes(normalizedQuery));
+  }, [providerModels, normalizedQuery]);
 
   const countText =
     normalizedQuery === ''
       ? intl.formatMessage(i18n.modelCount, { count: totalModels })
       : intl.formatMessage(i18n.showingCount, {
-          shown: visibleModels,
+          shown: visibleModels.length,
           total: totalModels,
         });
+
+  const renderProviderOption = useCallback(
+    (option: ProviderOption) => (
+      <div className="flex items-center gap-2">
+        <BrandIcon provider={option.value} className="h-5 w-5 shrink-0" />
+        <span className="flex-1 truncate text-text-primary">{option.label}</span>
+      </div>
+    ),
+    []
+  );
 
   return (
     <Card className="rounded-lg">
       <CardHeader className="pb-0">
-        <CardTitle>{intl.formatMessage(i18n.title)}</CardTitle>
         <CardDescription>{intl.formatMessage(i18n.description)}</CardDescription>
       </CardHeader>
       <CardContent className="px-4 pt-4">
@@ -315,6 +349,27 @@ export default function AllProviderModels({
           </div>
         ) : (
           <div className="space-y-4">
+            <label className="block space-y-1.5" htmlFor="all-provider-models-provider-select">
+              <span className="text-sm font-medium text-text-primary">
+                {intl.formatMessage(i18n.selectProvider)}
+              </span>
+              <Select
+                inputId="all-provider-models-provider-select"
+                aria-label={intl.formatMessage(i18n.selectProvider)}
+                options={providerOptions}
+                value={selectedOption}
+                onChange={(option) => {
+                  setSelectedProviderName((option as ProviderOption | null)?.value ?? null);
+                  setQuery('');
+                }}
+                placeholder={intl.formatMessage(i18n.selectProviderPlaceholder)}
+                formatOptionLabel={(option: unknown) =>
+                  renderProviderOption(option as ProviderOption)
+                }
+                data-testid="all-provider-models-provider-select"
+              />
+            </label>
+
             <div className="flex flex-wrap items-center justify-between gap-2">
               <span className="text-xs text-text-secondary" data-testid="all-provider-models-count">
                 {countText}
@@ -363,7 +418,7 @@ export default function AllProviderModels({
               </div>
             </div>
 
-            {filteredGroups.length === 0 ? (
+            {!selectedProvider ? null : visibleModels.length === 0 && normalizedQuery !== '' ? (
               <div className="flex flex-col items-center gap-3 rounded-lg border border-dashed border-border-primary py-8">
                 <p className="text-sm text-text-secondary">
                   {intl.formatMessage(i18n.noSearchResults, { query: query.trim() })}
@@ -373,113 +428,97 @@ export default function AllProviderModels({
                 </Button>
               </div>
             ) : (
-              filteredGroups.map(({ provider, models }) => {
-                const error = refreshErrors[provider.name];
-                const isCurrentProvider = defaults.providerId === provider.name;
-                return (
-                  <div
-                    key={provider.name}
-                    data-testid={`all-provider-models-${provider.name}`}
-                    className="space-y-2"
-                  >
-                    <div className="flex items-center gap-2.5">
-                      <ProviderLogo providerName={provider.name} size="sm" />
-                      <div className="flex min-w-0 flex-1 flex-wrap items-center gap-x-2 gap-y-1">
-                        <h3 className="truncate text-sm font-medium text-text-primary">
-                          {provider.metadata.display_name}
-                        </h3>
-                        <span className="text-xs text-text-secondary">
-                          {intl.formatMessage(i18n.modelCount, { count: models.length })}
-                        </span>
-                      </div>
-                    </div>
+              <div
+                data-testid={`all-provider-models-${selectedProvider.name}`}
+                className="space-y-2"
+              >
+                {refreshErrors[selectedProvider.name] && (
+                  <p className="flex items-center gap-2 text-xs text-red-500">
+                    <AlertCircle className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+                    {intl.formatMessage(i18n.refreshFailed, {
+                      provider: selectedProvider.metadata.display_name,
+                      error: refreshErrors[selectedProvider.name],
+                    })}
+                  </p>
+                )}
 
-                    {error && (
-                      <p className="flex items-center gap-2 text-xs text-red-500">
-                        <AlertCircle className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
-                        {intl.formatMessage(i18n.refreshFailed, {
-                          provider: provider.metadata.display_name,
-                          error,
-                        })}
-                      </p>
-                    )}
-
-                    {models.length === 0 ? (
-                      <p className="text-xs text-text-secondary">
-                        {intl.formatMessage(i18n.noModels)}
-                      </p>
-                    ) : (
-                      <div className="grid gap-2 sm:grid-cols-2">
-                        {models.map((model) => {
-                          const isCurrent = isCurrentProvider && defaults.modelId === model.name;
-                          const isPreferred = isPreferredModel(
-                            preferredModels,
-                            provider.name,
-                            model.name
-                          );
-                          const contextText = formatContextLimit(model.context_limit);
-                          return (
-                            <div key={model.name} className="flex min-w-0 items-stretch gap-1">
-                              <button
-                                type="button"
-                                onClick={() => handleSelectModel(provider, model.name)}
-                                title={
-                                  contextText
-                                    ? `${model.name} (${contextText} context)`
-                                    : model.name
-                                }
-                                aria-pressed={isCurrent}
-                                data-testid={`all-provider-model-${provider.name}-${model.name}`}
-                                className={`flex min-w-0 flex-1 items-center gap-2.5 rounded-lg border px-3 py-2 text-left transition-colors ${
-                                  isCurrent
-                                    ? 'border-border-secondary bg-background-tertiary'
-                                    : 'border-border-primary bg-background-secondary hover:border-border-secondary hover:bg-background-tertiary'
-                                }`}
-                              >
-                                <span
-                                  aria-hidden="true"
-                                  className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full border ${
-                                    isCurrent
-                                      ? 'border-background-inverse bg-background-inverse text-text-inverse'
-                                      : 'border-border-secondary'
-                                  }`}
-                                >
-                                  {isCurrent && <Check className="h-2.5 w-2.5" />}
-                                </span>
-                                <span className="min-w-0 flex-1 truncate text-sm text-text-primary">
-                                  {model.name}
-                                </span>
-                                <ContextBadge contextLimit={model.context_limit} compact />
-                                {model.reasoning && <ReasoningBadge />}
-                                {isCurrent && <DefaultBadge />}
-                              </button>
-                              <button
-                                type="button"
-                                onClick={() => void handleTogglePreferred(provider, model.name)}
-                                aria-label={intl.formatMessage(
-                                  isPreferred ? i18n.removePreferred : i18n.addPreferred,
-                                  { model: model.name }
-                                )}
-                                aria-pressed={isPreferred}
-                                className={`shrink-0 rounded-lg border px-2 transition-colors ${
-                                  isPreferred
-                                    ? 'border-amber-500 text-amber-500 hover:text-amber-600'
-                                    : 'border-border-primary text-text-secondary opacity-60 hover:opacity-100'
-                                }`}
-                              >
-                                <Star
-                                  className={`h-3.5 w-3.5 ${isPreferred ? 'fill-current' : ''}`}
-                                  aria-hidden="true"
-                                />
-                              </button>
-                            </div>
-                          );
-                        })}
-                      </div>
-                    )}
+                {providerModels.length === 0 ? (
+                  <p className="text-xs text-text-secondary">
+                    {intl.formatMessage(i18n.noModels)}
+                  </p>
+                ) : (
+                  <div className="grid gap-2 sm:grid-cols-2">
+                    {visibleModels.map((model) => {
+                      const isCurrentProvider = defaults.providerId === selectedProvider.name;
+                      const isCurrent = isCurrentProvider && defaults.modelId === model.name;
+                      const isPreferred = isPreferredModel(
+                        preferredModels,
+                        selectedProvider.name,
+                        model.name
+                      );
+                      const contextText = formatContextLimit(model.context_limit);
+                      return (
+                        <div key={model.name} className="flex min-w-0 items-stretch gap-1">
+                          <button
+                            type="button"
+                            onClick={() => handleSelectModel(selectedProvider, model.name)}
+                            title={
+                              contextText
+                                ? `${model.name} (${contextText} context)`
+                                : model.name
+                            }
+                            aria-pressed={isCurrent}
+                            data-testid={`all-provider-model-${selectedProvider.name}-${model.name}`}
+                            className={`flex min-w-0 flex-1 items-center gap-2.5 rounded-lg border px-3 py-2 text-left transition-colors ${
+                              isCurrent
+                                ? 'border-border-secondary bg-background-tertiary'
+                                : 'border-border-primary bg-background-secondary hover:border-border-secondary hover:bg-background-tertiary'
+                            }`}
+                          >
+                            <span
+                              aria-hidden="true"
+                              className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full border ${
+                                isCurrent
+                                  ? 'border-background-inverse bg-background-inverse text-text-inverse'
+                                  : 'border-border-secondary'
+                              }`}
+                            >
+                              {isCurrent && <Check className="h-2.5 w-2.5" />}
+                            </span>
+                            <span className="min-w-0 flex-1 truncate text-sm text-text-primary">
+                              {model.name}
+                            </span>
+                            <ContextBadge contextLimit={model.context_limit} compact />
+                            {model.reasoning && <ReasoningBadge />}
+                            {isCurrent && <DefaultBadge />}
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() =>
+                              void handleTogglePreferred(selectedProvider, model.name)
+                            }
+                            aria-label={intl.formatMessage(
+                              isPreferred ? i18n.removePreferred : i18n.addPreferred,
+                              { model: model.name }
+                            )}
+                            aria-pressed={isPreferred}
+                            className={`shrink-0 rounded-lg border px-2 transition-colors ${
+                              isPreferred
+                                ? 'border-amber-500 text-amber-500 hover:text-amber-600'
+                                : 'border-border-primary text-text-secondary opacity-60 hover:opacity-100'
+                            }`}
+                          >
+                            <Star
+                              className={`h-3.5 w-3.5 ${isPreferred ? 'fill-current' : ''}`}
+                              aria-hidden="true"
+                            />
+                          </button>
+                        </div>
+                      );
+                    })}
                   </div>
-                );
-              })
+                )}
+              </div>
             )}
           </div>
         )}

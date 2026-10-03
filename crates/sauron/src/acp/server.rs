@@ -803,10 +803,7 @@ pub(super) fn build_usage_updates(
 /// host-imposed cwd (roaming) wins, otherwise the client-requested cwd is
 /// honored as-is, preserving standard ACP semantics. An empty requested cwd
 /// means the session is chat-only and has no directory at all.
-pub(super) fn effective_session_cwd(
-    host_cwd: Option<&Path>,
-    requested: &Path,
-) -> Option<PathBuf> {
+pub(super) fn effective_session_cwd(host_cwd: Option<&Path>, requested: &Path) -> Option<PathBuf> {
     match host_cwd {
         Some(host_cwd) => Some(host_cwd.to_path_buf()),
         None if requested.as_os_str().is_empty() => None,

@@ -247,12 +247,12 @@ export default function ModelsBottomBar({
   return (
     <div className="relative flex items-center" ref={dropdownRef}>
       <DropdownMenu open={isModelMenuOpen} onOpenChange={handleMenuOpenChange}>
-        <DropdownMenuTrigger className="flex items-center gap-1 rounded-full px-2 py-1 hover:bg-background-secondary hover:cursor-pointer max-w-[180px] md:max-w-[200px] lg:max-w-[380px] min-w-0 text-sm text-text-primary/70 hover:text-text-primary transition-colors">
+        <DropdownMenuTrigger className="flex items-center gap-1 rounded-full px-2 py-1 hover:bg-background-secondary hover:cursor-pointer max-w-[180px] md:max-w-[200px] lg:max-w-[380px] min-w-0 text-xs text-text-primary/70 hover:text-text-primary transition-colors">
           <div className="flex items-center truncate max-w-[130px] md:max-w-[200px] lg:max-w-[360px] min-w-0">
             <BrandIcon
               model={currentModel}
               provider={currentProvider}
-              className="mr-1 h-4 w-4 flex-shrink-0"
+              className="mr-1 h-3.5 w-3.5 flex-shrink-0"
             />
             {isModelLoading ? (
               <span

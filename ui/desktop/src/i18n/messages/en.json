@@ -1502,6 +1502,36 @@
   "groupedExtensionLoadingToast.successfullyLoaded": {
     "defaultMessage": "{count,plural,one{Successfully loaded # extension} other{Successfully loaded # extensions}}"
   },
+  "harnessesSection.configure": {
+    "defaultMessage": "Configure"
+  },
+  "harnessesSection.configured": {
+    "defaultMessage": "Enabled"
+  },
+  "harnessesSection.description": {
+    "defaultMessage": "Use agents from another harness such as Claude Code, Codex, Cursor, OpenCode, or Copilot. Enable one here, then select it in Models to chat with it."
+  },
+  "harnessesSection.empty": {
+    "defaultMessage": "No external agent harnesses are available."
+  },
+  "harnessesSection.installed": {
+    "defaultMessage": "Installed"
+  },
+  "harnessesSection.loadFailed": {
+    "defaultMessage": "Failed to load harnesses"
+  },
+  "harnessesSection.loading": {
+    "defaultMessage": "Loading harnesses..."
+  },
+  "harnessesSection.notConfigured": {
+    "defaultMessage": "Not enabled"
+  },
+  "harnessesSection.notInstalled": {
+    "defaultMessage": "Not installed"
+  },
+  "harnessesSection.title": {
+    "defaultMessage": "Agent Harnesses"
+  },
   "headersSection.add": {
     "defaultMessage": "Add"
   },
@@ -2579,6 +2609,36 @@
   "navigationFooter.you": {
     "defaultMessage": "You"
   },
+  "navigationPanel.action.copyTranscript": {
+    "defaultMessage": "Copy Transcript"
+  },
+  "navigationPanel.action.delete": {
+    "defaultMessage": "Delete"
+  },
+  "navigationPanel.action.fork": {
+    "defaultMessage": "Fork"
+  },
+  "navigationPanel.action.markUnread": {
+    "defaultMessage": "Mark as Unread"
+  },
+  "navigationPanel.action.pin": {
+    "defaultMessage": "Pin"
+  },
+  "navigationPanel.action.rename": {
+    "defaultMessage": "Rename"
+  },
+  "navigationPanel.action.unpin": {
+    "defaultMessage": "Unpin"
+  },
+  "navigationPanel.cancel": {
+    "defaultMessage": "Cancel"
+  },
+  "navigationPanel.delete.message": {
+    "defaultMessage": "Delete \"{name}\"? This cannot be undone."
+  },
+  "navigationPanel.delete.title": {
+    "defaultMessage": "Delete Chat"
+  },
   "navigationPanel.goBack": {
     "defaultMessage": "Back"
   },
@@ -2612,6 +2672,9 @@
   "navigationPanel.noChats": {
     "defaultMessage": "No recent chats"
   },
+  "navigationPanel.pinned": {
+    "defaultMessage": "Pinned"
+  },
   "navigationPanel.projects": {
     "defaultMessage": "Projects"
   },
@@ -2626,6 +2689,21 @@
   },
   "navigationPanel.statusUnread": {
     "defaultMessage": "Unread activity"
+  },
+  "navigationPanel.toast.deleteFailed": {
+    "defaultMessage": "Could not delete chat: {error}"
+  },
+  "navigationPanel.toast.forkFailed": {
+    "defaultMessage": "Could not fork chat: {error}"
+  },
+  "navigationPanel.toast.forked": {
+    "defaultMessage": "Forked into a new chat"
+  },
+  "navigationPanel.toast.transcriptCopied": {
+    "defaultMessage": "Transcript copied to clipboard"
+  },
+  "navigationPanel.toast.transcriptCopyFailed": {
+    "defaultMessage": "Could not copy transcript: {error}"
   },
   "navigationPanel.untitledSession": {
     "defaultMessage": "Untitled session"
@@ -4594,6 +4672,9 @@
   },
   "settingsView.tabExternalBackend": {
     "defaultMessage": "Agent"
+  },
+  "settingsView.tabHarnesses": {
+    "defaultMessage": "Harnesses"
   },
   "settingsView.tabKeyboard": {
     "defaultMessage": "Keyboard"

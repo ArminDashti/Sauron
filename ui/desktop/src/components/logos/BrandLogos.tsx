@@ -1,9 +1,15 @@
 import React from 'react';
+import ProviderMonogram from './ProviderMonogram';
+import { isKnownProvider, resolveProviderIcon } from './providerIcons';
 
 /**
- * Colorful brand marks for providers (companies) and models.
- * Every mark draws a 32x32 rounded tile so icons line up in grids, lists,
- * and dropdowns. Unknown providers/models fall back to the Sauron eye.
+ * Brand marks for providers (companies) and models.
+ *
+ * Resolution order: a real vendored SVG mark for the provider, then the
+ * hand-drawn 32x32 tile below (used for providers with no public logo and for
+ * model-name matching), then initials for known providers, and finally the
+ * Sauron eye for ids we do not recognise. Because the tile is 32x32 and the
+ * vendored SVGs are square, icons line up in grids, lists, and dropdowns.
  */
 
 type BrandMark = React.FC<{ className?: string }>;
@@ -456,7 +462,22 @@ interface BrandIconProps {
 }
 
 export function BrandIcon({ model, provider, className = 'w-8 h-8' }: BrandIconProps) {
+  const icon = resolveProviderIcon(provider);
+  if (icon) {
+    return (
+      <img
+        src={icon}
+        alt=""
+        aria-hidden="true"
+        className={`${className} flex-shrink-0 object-contain dark:brightness-0 dark:invert`}
+      />
+    );
+  }
+
   const Mark = model ? resolveModelMark(model, provider) : resolveProviderMark(provider);
+  if (Mark === SauronEye && isKnownProvider(provider)) {
+    return <ProviderMonogram provider={provider} className={className} />;
+  }
   return <Mark className={className} />;
 }
 

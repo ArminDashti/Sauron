@@ -111,7 +111,7 @@ pub async fn turn_context_message(
 
     let working_dir = session
         .as_ref()
-        .map(|session| session.working_dir.clone())
+        .and_then(|session| session.working_dir.clone())
         .unwrap_or_else(|| PathBuf::from("."));
     let mut parts = mcp_manager.collect_moim_parts(session_id).await;
     parts.extend(compaction_info.map(|value| tag("compaction", &value)));

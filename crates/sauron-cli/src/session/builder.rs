@@ -458,7 +458,7 @@ async fn resolve_session_id(
         });
         let session = session_manager
             .create_session(
-                working_dir,
+                Some(working_dir),
                 "CLI Session".to_string(),
                 SessionType::Hidden,
                 sauron_mode,
@@ -513,7 +513,10 @@ async fn handle_resumed_session_workdir(agent: &Agent, session_id: &str, interac
         output::render_error(&format!("Failed to get current working directory: {}", e));
         process::exit(1);
     });
-    if current_workdir == session.working_dir {
+    let Some(session_working_dir) = session.working_dir.as_deref() else {
+        return;
+    };
+    if current_workdir == session_working_dir {
         return;
     }
 
@@ -523,7 +526,7 @@ async fn handle_resumed_session_workdir(agent: &Agent, session_id: &str, interac
              Your current directory is {}. \
              Do you want to switch back to the original working directory?",
             style("WARNING:").yellow(),
-            style(session.working_dir.display()).cyan(),
+            style(session_working_dir.display()).cyan(),
             style(current_workdir.display()).cyan(),
         ))
         .initial_value(true)
@@ -534,12 +537,12 @@ async fn handle_resumed_session_workdir(agent: &Agent, session_id: &str, interac
         });
 
         if change_workdir {
-            if !session.working_dir.exists() {
+            if !session_working_dir.exists() {
                 output::render_error(&format!(
                     "Cannot switch to original working directory - {} no longer exists",
-                    style(session.working_dir.display()).cyan()
+                    style(session_working_dir.display()).cyan()
                 ));
-            } else if let Err(e) = std::env::set_current_dir(&session.working_dir) {
+            } else if let Err(e) = std::env::set_current_dir(session_working_dir) {
                 output::render_error(&format!(
                     "Failed to switch to original working directory: {}",
                     e
@@ -553,7 +556,7 @@ async fn handle_resumed_session_workdir(agent: &Agent, session_id: &str, interac
                 "Warning: Working directory differs from session (current: {}, session: {}). \
                  Staying in current directory.",
                 current_workdir.display(),
-                session.working_dir.display()
+                session_working_dir.display()
             ))
             .yellow()
         );

@@ -377,12 +377,7 @@ pub fn discover_filesystem_sources(working_dir: Option<&Path>) -> Vec<SourceEntr
     let config = Paths::config_dir();
 
     let local_recipe_dirs: Vec<PathBuf> = working_dir
-        .map(|dir| {
-            vec![
-                dir.join(".sauron/recipes"),
-                dir.join(".agents/recipes"),
-            ]
-        })
+        .map(|dir| vec![dir.join(".sauron/recipes"), dir.join(".agents/recipes")])
         .unwrap_or_default();
 
     let global_recipe_dirs: Vec<PathBuf> = std::env::var("SAURON_RECIPE_PATH")
@@ -624,7 +619,7 @@ impl SummonClient {
             .context
             .session_manager
             .create_session(
-                task_config.parent_working_dir.clone(),
+                Some(task_config.parent_working_dir.clone()),
                 name,
                 SessionType::SubAgent,
                 SauronMode::Auto,
@@ -809,7 +804,7 @@ impl SummonClient {
             .get_session(session_id, false)
             .await
             .ok()
-            .map(|s| s.working_dir)
+            .and_then(|s| s.working_dir)
             .unwrap_or_else(|| std::env::current_dir().unwrap_or_default())
     }
 
@@ -897,7 +892,7 @@ impl SummonClient {
     }
 
     fn discover_filesystem_sources(&self, working_dir: &Path) -> Vec<SourceEntry> {
-        discover_filesystem_sources(working_dir)
+        discover_filesystem_sources(Some(working_dir))
     }
 
     async fn add_subrecipes(
@@ -1388,7 +1383,10 @@ impl SummonClient {
             return Ok(CallToolResult::success(content).with_meta(Some(meta)));
         }
 
-        let working_dir = session.working_dir.clone();
+        let working_dir = session
+            .working_dir
+            .clone()
+            .unwrap_or_else(|| PathBuf::from("."));
         let recipe = self
             .build_delegate_recipe(&params, session_id, &working_dir)
             .await?;
@@ -1707,8 +1705,14 @@ impl SummonClient {
         }
 
         let effective_working_dir = match &params.working_dir {
-            Some(dir) => resolve_working_dir(&session.working_dir, dir)?,
-            None => session.working_dir.clone(),
+            Some(dir) => resolve_working_dir(
+                session.working_dir.as_deref().unwrap_or(Path::new(".")),
+                dir,
+            )?,
+            None => session
+                .working_dir
+                .clone()
+                .unwrap_or_else(|| PathBuf::from(".")),
         };
 
         let task_config = TaskConfig::new(
@@ -2061,7 +2065,10 @@ impl SummonClient {
             .await
             .map_err(|e| format!("Failed to get session: {}", e))?;
 
-        let working_dir = session.working_dir.clone();
+        let working_dir = session
+            .working_dir
+            .clone()
+            .unwrap_or_else(|| PathBuf::from("."));
         let recipe = self
             .build_delegate_recipe(&params, session_id, &working_dir)
             .await?;

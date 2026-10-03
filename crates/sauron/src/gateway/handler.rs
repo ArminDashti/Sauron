@@ -316,7 +316,7 @@ impl GatewayHandler {
             .agent_manager
             .session_manager()
             .create_session(
-                working_dir,
+                Some(working_dir),
                 session_name,
                 SessionType::Gateway,
                 config.get_sauron_mode().unwrap_or_default(),
@@ -343,7 +343,7 @@ impl GatewayHandler {
         // Store default extensions so load_mcp_servers_from_session works.
         let mut extensions = get_enabled_mcp_servers();
         extensions.extend(crate::plugins::mcp_servers::enabled_plugin_mcp_servers(
-            Some(&session.working_dir),
+            session.working_dir.as_deref(),
         ));
         let extensions_state = EnabledExtensionsState::new(extensions);
         let mut extension_data = session.extension_data.clone();
@@ -392,7 +392,7 @@ impl GatewayHandler {
         let current_model_name = config.get_sauron_model().ok();
         let mut current_extensions = get_enabled_mcp_servers();
         current_extensions.extend(crate::plugins::mcp_servers::enabled_plugin_mcp_servers(
-            Some(&session.working_dir),
+            session.working_dir.as_deref(),
         ));
         let current_mode = config.get_sauron_mode().unwrap_or_default();
 

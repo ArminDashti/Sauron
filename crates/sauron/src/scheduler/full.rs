@@ -878,7 +878,7 @@ async fn execute_job(
         .config
         .session_manager
         .create_session(
-            std::env::current_dir()?,
+            Some(std::env::current_dir()?),
             format!("Scheduled job: {}", job.id),
             SessionType::Scheduled,
             SauronMode::Auto,

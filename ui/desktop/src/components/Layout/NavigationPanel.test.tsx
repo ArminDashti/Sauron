@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
@@ -7,6 +7,7 @@ import { NavigationProvider } from './NavigationContext';
 import { IntlTestWrapper } from '../../i18n/test-utils';
 import { useNavigationSessions } from '../../hooks/useNavigationSessions';
 import { groupSessionsByProject } from '../../utils/projectSessions';
+import { acpDeleteSession, acpExportSession, acpForkSession } from '../../acp/sessions';
 import type { SessionListItem } from '../../acp/sessions';
 
 vi.mock('../../hooks/useNavigationSessions', () => ({
@@ -15,6 +16,21 @@ vi.mock('../../hooks/useNavigationSessions', () => ({
 
 vi.mock('../../acp/sessions', () => ({
   acpRenameSession: vi.fn(),
+  acpDeleteSession: vi.fn(),
+  acpExportSession: vi.fn(),
+  acpForkSession: vi.fn(),
+}));
+
+vi.mock('../../acp/chatSessionStore', () => ({
+  acpChatSessionActions: { deleteSnapshot: vi.fn() },
+}));
+
+vi.mock('../../acp/permissionRequests', () => ({
+  cancelAcpPermissionRequestsForSession: vi.fn(),
+}));
+
+vi.mock('../../acp/elicitationRequests', () => ({
+  cancelAcpElicitationRequestsForSession: vi.fn(),
 }));
 
 vi.mock('../ConfigContext', () => ({
@@ -125,5 +141,127 @@ describe('Navigation sidebar', () => {
     expect(folder).toHaveAttribute('aria-expanded', 'false');
     expect(screen.queryByText('Hot module replacement setup')).not.toBeInTheDocument();
     expect(screen.getByText('Add these:')).toBeInTheDocument();
+  });
+});
+
+describe('Navigation sidebar chat context menu', () => {
+  const openMenuOn = async (sessionName: string) => {
+    await userEvent.pointer({
+      keys: '[MouseRight]',
+      target: screen.getByText(sessionName),
+    });
+  };
+
+  beforeEach(() => {
+    localStorage.clear();
+    vi.mocked(useNavigationSessions).mockReturnValue({
+      recentSessions: sessions,
+      recentSessionsByProject: groupSessionsByProject(sessions),
+      isLoadingSessions: false,
+      activeSessionId: 's1',
+      fetchSessions: vi.fn(),
+      handleNavClick: vi.fn(),
+      handleSessionClick: vi.fn(),
+    });
+  });
+
+  it('lists every chat action when a chat is right-clicked', async () => {
+    renderNavigation();
+
+    expect(screen.queryByRole('menu')).not.toBeInTheDocument();
+    await openMenuOn('Hot module replacement setup');
+
+    const menu = await screen.findByRole('menu');
+    expect(menu).toBeInTheDocument();
+    for (const label of ['Pin', 'Rename', 'Mark as Unread', 'Fork', 'Copy Transcript', 'Delete']) {
+      expect(screen.getByRole('menuitem', { name: label })).toBeInTheDocument();
+    }
+  });
+
+  it('does not open the menu on a plain left click', async () => {
+    renderNavigation();
+
+    await userEvent.click(screen.getByText('Hot module replacement setup'));
+
+    expect(screen.queryByRole('menu')).not.toBeInTheDocument();
+  });
+
+  it('moves a pinned chat into the Pinned section and offers Unpin next time', async () => {
+    renderNavigation();
+
+    expect(screen.queryByText('Pinned')).not.toBeInTheDocument();
+    await openMenuOn('Rebuild goose UI status');
+    await userEvent.click(await screen.findByRole('menuitem', { name: 'Pin' }));
+
+    expect(screen.getByText('Pinned')).toBeInTheDocument();
+    expect(JSON.parse(localStorage.getItem('sessions_pinned') ?? '[]')).toEqual(['s2']);
+
+    await openMenuOn('Rebuild goose UI status');
+    expect(await screen.findByRole('menuitem', { name: 'Unpin' })).toBeInTheDocument();
+  });
+
+  it('marks a chat as unread and then disables the action', async () => {
+    renderNavigation();
+
+    expect(screen.queryByLabelText('Has new activity')).not.toBeInTheDocument();
+
+    await openMenuOn('Hot module replacement setup');
+    await userEvent.click(await screen.findByRole('menuitem', { name: 'Mark as Unread' }));
+
+    await waitFor(() => expect(screen.getByLabelText('Has new activity')).toBeInTheDocument());
+
+    await openMenuOn('Hot module replacement setup');
+    expect(await screen.findByRole('menuitem', { name: 'Mark as Unread' })).toHaveAttribute(
+      'aria-disabled',
+      'true'
+    );
+  });
+
+  it('copies the markdown transcript to the clipboard', async () => {
+    vi.mocked(acpExportSession).mockResolvedValue('# transcript');
+    renderNavigation();
+
+    await openMenuOn('Hot module replacement setup');
+    await userEvent.click(await screen.findByRole('menuitem', { name: 'Copy Transcript' }));
+
+    expect(acpExportSession).toHaveBeenCalledWith('s1', 'markdown');
+    await waitFor(() => expect(navigator.clipboard.writeText).toHaveBeenCalledWith('# transcript'));
+  });
+
+  it('forks the chat', async () => {
+    vi.mocked(acpForkSession).mockResolvedValue('s4');
+    renderNavigation();
+
+    await openMenuOn('Hot module replacement setup');
+    await userEvent.click(await screen.findByRole('menuitem', { name: 'Fork' }));
+
+    await waitFor(() => expect(acpForkSession).toHaveBeenCalledWith('s1'));
+  });
+
+  it('confirms before deleting and drops the pin afterwards', async () => {
+    vi.mocked(acpDeleteSession).mockResolvedValue(undefined);
+    localStorage.setItem('sessions_pinned', JSON.stringify(['s2']));
+    renderNavigation();
+
+    await openMenuOn('Rebuild goose UI status');
+    await userEvent.click(await screen.findByRole('menuitem', { name: 'Delete' }));
+
+    // The session survives until the confirmation is accepted.
+    expect(acpDeleteSession).not.toHaveBeenCalled();
+    await userEvent.click(screen.getByRole('button', { name: 'Delete' }));
+
+    await waitFor(() => expect(acpDeleteSession).toHaveBeenCalledWith('s2'));
+    expect(JSON.parse(localStorage.getItem('sessions_pinned') ?? '[]')).toEqual([]);
+  });
+
+  it('closes the menu when Escape is pressed', async () => {
+    renderNavigation();
+
+    await openMenuOn('Hot module replacement setup');
+    expect(await screen.findByRole('menu')).toBeInTheDocument();
+
+    await userEvent.keyboard('{Escape}');
+
+    await waitFor(() => expect(screen.queryByRole('menu')).not.toBeInTheDocument());
   });
 });

@@ -2,6 +2,7 @@
 
 use anyhow::Result;
 use async_trait::async_trait;
+use std::path::Path;
 
 use crate::agents::state_machine::effects::SauronEffect;
 use crate::agents::state_machine::Operation;
@@ -21,9 +22,11 @@ impl Operation<Session, SauronEffect> for RuleOperation {
         session: &Session,
         _conversation: &Conversation,
     ) -> Result<Vec<(String, String)>> {
-        Ok(crate::rules::rules_instructions(&session.working_dir)
-            .map(|instructions| ("rules".to_string(), instructions))
-            .into_iter()
-            .collect())
+        Ok(crate::rules::rules_instructions(
+            session.working_dir.as_deref().unwrap_or(Path::new(".")),
+        )
+        .map(|instructions| ("rules".to_string(), instructions))
+        .into_iter()
+        .collect())
     }
 }

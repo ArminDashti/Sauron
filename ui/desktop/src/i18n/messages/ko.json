@@ -1563,7 +1563,7 @@
     "defaultMessage": "에이전트 하네스"
   },
   "harnessesSection.description": {
-    "defaultMessage": "Cursor, Claude Code, Codex, Copilot 등 다른 하네스의 에이전트를 사용합니다. 여기서 활성화한 다음 Models에서 선택하여 채팅하세요."
+    "defaultMessage": "Cursor, Claude Code, Codex, OpenCode, Copilot 등 다른 하네스의 에이전트를 사용합니다. 여기서 활성화한 다음 Models에서 선택하여 채팅하세요."
   },
   "harnessesSection.loading": {
     "defaultMessage": "하네스를 불러오는 중..."

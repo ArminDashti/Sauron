@@ -10,7 +10,6 @@ on:
       - "crates/sauron-provider-types/**"
       - "crates/sauron-sdk-types/**"
       - "crates/sauron-download-manager/**"
-      - "crates/sauron-local-inference/**"
       - "crates/sauron-providers/**"
       - "crates/sauron-agent/**"
       - "crates/sauron-context-management/**"

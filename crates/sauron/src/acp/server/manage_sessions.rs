@@ -23,7 +23,7 @@ impl SauronAcpAgent {
                     .data(format!("Session not found: {}", session_id))
             })?;
 
-        if path == session.working_dir {
+        if session.working_dir.as_deref() == Some(path.as_path()) {
             return Ok(EmptyResponse {});
         }
 
@@ -48,7 +48,7 @@ impl SauronAcpAgent {
 
         agent
             .mcp_manager
-            .update_working_dir(&session.working_dir)
+            .update_working_dir(session.working_dir.as_deref().unwrap_or(Path::new(".")))
             .await;
 
         Ok(EmptyResponse {})

@@ -1154,9 +1154,13 @@ impl CliSession {
 
         // MCP clients pin themselves to the first session id they see a request for, so
         // extensions must be torn down and re-added under the new session id.
-        for name in self.agent.list_mcp_servers().await {
-            if let Err(e) = self.agent.remove_mcp_server(&name, &self.session_id).await {
-                output::render_extension_error(&name, &e.to_string());
+        for key in self.agent.list_mcp_servers().await {
+            if let Err(e) = self
+                .agent
+                .remove_mcp_server_by_key(&key, &self.session_id)
+                .await
+            {
+                output::render_extension_error(&key, &e.to_string());
             }
         }
 

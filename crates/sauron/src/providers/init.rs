@@ -28,6 +28,7 @@ use super::{
     kimicode::KimiCodeProvider,
     litellm::LiteLLMProvider,
     nanogpt::NanoGptProvider,
+    opencode_acp::OpenCodeAcpProvider,
     pi_acp::PiAcpProvider,
     provider_registry::ProviderRegistry,
     snowflake_def::SnowflakeProviderDef,
@@ -157,6 +158,10 @@ async fn init_registry() -> RwLock<ProviderRegistry> {
         registry.register_with_inventory::<OllamaProviderDef>(
             true,
             Some(registrations::ollama_inventory()),
+        );
+        registry.register_with_inventory::<OpenCodeAcpProvider>(
+            false,
+            Some(registrations::opencode_acp_inventory()),
         );
         registry.register_with_inventory::<OpenAiProviderDef>(
             true,

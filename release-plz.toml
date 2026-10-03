@@ -21,19 +21,11 @@ release = true
 version_group = "gdk"
 
 [[package]]
-name = "sauron-local-inference"
-release = true
-version_group = "gdk"
-# cargo-semver-checks builds with --all-features, which turns on cuda/vulkan and
-# requires a CUDA Toolkit the release runner doesn't have.
-semver_check = false
-
-[[package]]
 name = "sauron-providers"
 release = true
 version_group = "gdk"
-# Same as sauron-local-inference: --all-features pulls in the cuda/vulkan
-# accelerator features through the optional local-inference dependency.
+# --all-features turns on the cuda/vulkan/mlx local-inference accelerators,
+# which need a CUDA/Vulkan/Metal toolchain the release runner doesn't have.
 semver_check = false
 
 [[package]]

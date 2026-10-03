@@ -1563,7 +1563,7 @@
     "defaultMessage": "एजेंट harness"
   },
   "harnessesSection.description": {
-    "defaultMessage": "Cursor, Claude Code, Codex या Copilot जैसे दूसरे harness के एजेंट्स का उपयोग करें। यहाँ एक सक्षम करें, फिर चैट के लिए Models में उसे चुनें।"
+    "defaultMessage": "Cursor, Claude Code, Codex या OpenCode या Copilot जैसे दूसरे harness के एजेंट्स का उपयोग करें। यहाँ एक सक्षम करें, फिर चैट के लिए Models में उसे चुनें।"
   },
   "harnessesSection.loading": {
     "defaultMessage": "harness लोड हो रहे हैं..."

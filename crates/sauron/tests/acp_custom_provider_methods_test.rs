@@ -90,6 +90,7 @@ fn acp_catalog_and_custom_provider_methods_use_core_provider_store() {
             "copilot-acp",
             "amp-acp",
             "cursor-agent",
+            "opencode-acp",
             "pi-acp",
         ] {
             assert!(

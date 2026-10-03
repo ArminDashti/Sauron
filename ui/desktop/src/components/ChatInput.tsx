@@ -34,7 +34,6 @@ import type { Message } from '../types/message';
 import { getInitialWorkingDir } from '../utils/workingDir';
 import { getPredefinedModelsFromEnv } from './settings/models/predefinedModelsUtils';
 import { trackFileAttached, trackVoiceDictation, trackDiagnosticsOpened } from '../utils/analytics';
-import { getNavigationShortcutText } from '../utils/keyboardShortcuts';
 import { UserInput, ImageData } from '../types/message';
 import { compressImageDataUrl } from '../utils/conversionUtils';
 import { fetchCanonicalModelInfo } from '../utils/canonical';
@@ -73,10 +72,7 @@ interface PastedImage {
   error?: string;
 }
 
-type ChatInputLiveVoice = Pick<
-  LiveVoiceController,
-  'phase' | 'muted' | 'stop' | 'toggleMute'
-> & {
+type ChatInputLiveVoice = Pick<LiveVoiceController, 'phase' | 'muted' | 'stop' | 'toggleMute'> & {
   availability: LiveVoiceAvailabilityResponse_unstable | null;
   activeInAnotherSession: boolean;
   start: () => Promise<void>;
@@ -153,6 +149,10 @@ const i18n = defineMessages({
   typeMessage: {
     id: 'chatInput.typeMessage',
     defaultMessage: 'Type a message to send',
+  },
+  placeholder: {
+    id: 'chatInput.placeholder',
+    defaultMessage: 'Ask anything, / for commands, @ for context',
   },
   send: {
     id: 'chatInput.send',
@@ -419,8 +419,14 @@ export default function ChatInput({
     return () => {
       // Save final queue state when component unmounts
       try {
-        window.sessionStorage.setItem('sauron-queue-paused', JSON.stringify(queuePausedRef.current));
-        window.sessionStorage.setItem('sauron-queue-interruption', JSON.stringify(lastInterruption));
+        window.sessionStorage.setItem(
+          'sauron-queue-paused',
+          JSON.stringify(queuePausedRef.current)
+        );
+        window.sessionStorage.setItem(
+          'sauron-queue-interruption',
+          JSON.stringify(lastInterruption)
+        );
       } catch (error) {
         console.error('Error saving queue state on unmount:', error);
       }
@@ -1544,50 +1550,37 @@ export default function ChatInput({
     }
   };
 
-  // Bottom action bar, rendered below the message box. Left side: git branch, working directory
-  // (leaf folder name only). Right side (after spacer): context indicator, extensions,
-  // diagnostics. Secondary controls drop out when the bar is narrow.
+  // Bottom action bar, rendered below the message box. Left side: context window
+  // usage, then cost. Right side (after spacer): extensions, diagnostics, live voice.
+  // Secondary controls drop out when the bar is narrow.
   const bottomBar = (
     <div
       ref={bottomBarRef}
       className={cn('flex flex-row items-center gap-3 px-3 pt-2 pb-1 relative', bottomBarClassName)}
       data-drop-zone="true"
     >
-      {/* Left: git branch, then working directory (leaf folder name only) */}
-      {currentWorkingDir && <GitBranchIndicator dir={currentWorkingDir} />}
-      <DirSwitcher
-        className="ml-1"
-        sessionId={sessionId ?? undefined}
-        workingDir={currentWorkingDir}
-        onWorkingDirChange={async (newDir) => {
-          await onWorkingDirChange?.(newDir);
-          setWorkingDirOverride(newDir);
-        }}
+      {/* Left: context window usage, then accumulated cost */}
+      <ContextWindowIndicator
+        totalTokens={totalTokens || 0}
+        tokenLimit={tokenLimit}
+        alerts={alerts}
       />
+
+      {COST_TRACKING_ENABLED && (
+        <CostTracker
+          inputTokens={accumulatedInputTokens}
+          outputTokens={accumulatedOutputTokens}
+          accumulatedCost={accumulatedCost}
+          model={effectiveModel}
+          provider={effectiveProvider}
+        />
+      )}
 
       {/* Spacer */}
       <div className="flex-1" />
 
       {!isBottomBarNarrow && (
         <>
-          {/* Right: cost tracker (when enabled) */}
-          {COST_TRACKING_ENABLED && (
-            <CostTracker
-              inputTokens={accumulatedInputTokens}
-              outputTokens={accumulatedOutputTokens}
-              accumulatedCost={accumulatedCost}
-              model={effectiveModel}
-              provider={effectiveProvider}
-            />
-          )}
-
-          {/* Right: context window indicator */}
-          <ContextWindowIndicator
-            totalTokens={totalTokens || 0}
-            tokenLimit={tokenLimit}
-            alerts={alerts}
-          />
-
           {/* Right: extension selector */}
           <BottomMenuExtensionSelection
             sessionId={sessionId}
@@ -1694,45 +1687,68 @@ export default function ChatInput({
           className="border-b border-border-primary"
         />
       )}
-      {/* Input row: attach (+) on the left; model, mic, and send inline on the right */}
-      <form onSubmit={onFormSubmit} className="relative px-3 pt-3">
-        <div
-          className={cn(
-            'flex flex-col rounded-[26px] border bg-background-secondary/40 transition-colors',
-            isFocused
-              ? 'border-border-secondary'
-              : 'border-border-primary hover:border-border-secondary'
-          )}
-        >
-          <div className="relative flex items-end gap-1 px-2 py-1.5">
-            {/* Left: attach as + */}
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button
-                  type="button"
-                  onClick={handleFileSelect}
-                  disabled={isFilePickerOpen}
-                  variant="ghost"
-                  size="sm"
-                  shape="round"
-                  className={cn(
-                    'mb-1 shrink-0 bg-background-secondary/70 text-text-primary/70 hover:bg-background-tertiary hover:text-text-primary transition-colors',
-                    isFilePickerOpen ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'
-                  )}
-                >
-                  <Plus className="w-4 h-4" />
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>Attach file</TooltipContent>
-            </Tooltip>
+      {/* Top row, above the message box: working directory, git branch, model */}
+      <div className="flex flex-row items-center gap-3 px-3 pt-3 pb-1">
+        <DirSwitcher
+          className=""
+          sessionId={sessionId ?? undefined}
+          workingDir={currentWorkingDir}
+          onWorkingDirChange={async (newDir) => {
+            await onWorkingDirChange?.(newDir);
+            setWorkingDirOverride(newDir);
+          }}
+        />
+        {currentWorkingDir && <GitBranchIndicator dir={currentWorkingDir} />}
+        <ModelsBottomBar
+          sessionId={sessionId}
+          dropdownRef={dropdownRef}
+          setView={setView}
+          sessionModel={effectiveModel}
+          sessionProvider={effectiveProvider}
+          latestInference={latestInference}
+          onModelChanged={setModelOverride}
+          sessionLoaded={sessionLoaded}
+        />
+      </div>
 
-            <div className="relative min-w-0 flex-1">
+      {/* Message box, flanked by attach (+) on the left and voice dictation on the right */}
+      <form onSubmit={onFormSubmit} className="relative px-3">
+        <div className="flex items-center gap-2">
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                type="button"
+                onClick={handleFileSelect}
+                disabled={isFilePickerOpen}
+                variant="ghost"
+                size="sm"
+                shape="round"
+                className={cn(
+                  'shrink-0 bg-background-secondary/70 text-text-primary/70 hover:bg-background-tertiary hover:text-text-primary transition-colors',
+                  isFilePickerOpen ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'
+                )}
+              >
+                <Plus className="w-4 h-4" />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>Attach file</TooltipContent>
+          </Tooltip>
+
+          <div
+            className={cn(
+              'flex min-w-0 flex-1 flex-col rounded-[26px] border bg-background-secondary/40 transition-colors',
+              isFocused
+                ? 'border-border-secondary'
+                : 'border-border-primary hover:border-border-secondary'
+            )}
+          >
+            <div className="relative">
               <textarea
                 data-testid="chat-input"
                 autoFocus
                 id="dynamic-textarea"
                 dir={composerDir}
-                placeholder={isRecording ? '' : getNavigationShortcutText(intl)}
+                placeholder={isRecording ? '' : intl.formatMessage(i18n.placeholder)}
                 value={displayValue}
                 onChange={handleChange}
                 onCompositionStart={handleCompositionStart}
@@ -1749,74 +1765,13 @@ export default function ChatInput({
                   maxHeight: `${maxHeight}px`,
                   overflowY: 'auto',
                 }}
-                className="w-full outline-none border-none focus:ring-0 bg-transparent px-2 py-1 text-sm resize-none text-text-primary placeholder:text-text-secondary"
+                className="w-full outline-none border-none focus:ring-0 bg-transparent px-4 pt-3 pb-1 text-sm resize-none text-text-primary placeholder:text-text-secondary"
               />
             </div>
 
-            {/* Right: model selector, mic, send/stop */}
-            <div className="mb-1 flex shrink-0 items-center gap-1">
-              <Tooltip>
-                <div>
-                  <ModelsBottomBar
-                    sessionId={sessionId}
-                    dropdownRef={dropdownRef}
-                    setView={setView}
-                    sessionModel={effectiveModel}
-                    sessionProvider={effectiveProvider}
-                    latestInference={latestInference}
-                    onModelChanged={setModelOverride}
-                    sessionLoaded={sessionLoaded}
-                  />
-                </div>
-              </Tooltip>
-
-              {dictationProvider && (
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      size="sm"
-                      shape="round"
-                      onClick={() => {
-                        if (!isEnabled) return;
-                        if (isRecording) {
-                          trackVoiceDictation('stop');
-                          stopRecording();
-                        } else {
-                          trackVoiceDictation('start');
-                          startRecording();
-                        }
-                      }}
-                      // Keep the button hoverable when only !isEnabled so the
-                      // "Dictation not configured" tooltip stays reachable.
-                      // We still natively disable while transcribing.
-                      disabled={isTranscribing}
-                      aria-disabled={!isEnabled}
-                      className={cn(
-                        'transition-colors',
-                        isRecording
-                          ? 'text-red-500 hover:text-red-600'
-                          : 'text-text-primary/70 hover:text-text-primary',
-                        isTranscribing && 'animate-pulse',
-                        !isEnabled && 'opacity-50 cursor-not-allowed'
-                      )}
-                    >
-                      <Microphone size={16} />
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    {!isEnabled ? (
-                      <p>Dictation not configured (Settings)</p>
-                    ) : (
-                      <p>Voice dictation{isRecording ? '' : ' • Say "submit" to send'}</p>
-                    )}
-                  </TooltipContent>
-                </Tooltip>
-              )}
-
-              {(isLoading || hasSubmittableContent) &&
-                (isLoading && !hasSubmittableContent ? (
+            {(isLoading || hasSubmittableContent) && (
+              <div className="flex shrink-0 items-center justify-end gap-1 px-3 py-1.5">
+                {isLoading && !hasSubmittableContent ? (
                   <Button
                     type="button"
                     onClick={handleStop}
@@ -1855,27 +1810,73 @@ export default function ChatInput({
                       <p>{getSubmitButtonTooltip()}</p>
                     </TooltipContent>
                   </Tooltip>
-                ))}
-            </div>
+                )}
+              </div>
+            )}
+
+            {/* Recording/transcribing status indicator */}
+            {(isRecording || isTranscribing) && (
+              <div className="flex items-center gap-2 px-4 pb-2 text-xs text-text-secondary">
+                {isRecording && (
+                  <span className="flex items-center gap-1">
+                    <span className="inline-block w-2 h-2 bg-red-500 rounded-full animate-pulse" />
+                    Listening
+                  </span>
+                )}
+                {isRecording && isTranscribing && <span>•</span>}
+                {isTranscribing && (
+                  <span className="flex items-center gap-1 text-blue-500">
+                    <span className="inline-block w-2 h-2 bg-blue-500 rounded-full animate-pulse" />
+                    Transcribing
+                  </span>
+                )}
+              </div>
+            )}
           </div>
 
-          {/* Recording/transcribing status indicator */}
-          {(isRecording || isTranscribing) && (
-            <div className="flex items-center gap-2 px-3 pb-2 text-xs text-text-secondary">
-              {isRecording && (
-                <span className="flex items-center gap-1">
-                  <span className="inline-block w-2 h-2 bg-red-500 rounded-full animate-pulse" />
-                  Listening
-                </span>
-              )}
-              {isRecording && isTranscribing && <span>•</span>}
-              {isTranscribing && (
-                <span className="flex items-center gap-1 text-blue-500">
-                  <span className="inline-block w-2 h-2 bg-blue-500 rounded-full animate-pulse" />
-                  Transcribing
-                </span>
-              )}
-            </div>
+          {dictationProvider && (
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="sm"
+                  shape="round"
+                  onClick={() => {
+                    if (!isEnabled) return;
+                    if (isRecording) {
+                      trackVoiceDictation('stop');
+                      stopRecording();
+                    } else {
+                      trackVoiceDictation('start');
+                      startRecording();
+                    }
+                  }}
+                  // Keep the button hoverable when only !isEnabled so the
+                  // "Dictation not configured" tooltip stays reachable.
+                  // We still natively disable while transcribing.
+                  disabled={isTranscribing}
+                  aria-disabled={!isEnabled}
+                  className={cn(
+                    'shrink-0 transition-colors',
+                    isRecording
+                      ? 'text-red-500 hover:text-red-600'
+                      : 'text-text-primary/70 hover:text-text-primary',
+                    isTranscribing && 'animate-pulse',
+                    !isEnabled && 'opacity-50 cursor-not-allowed'
+                  )}
+                >
+                  <Microphone size={16} />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                {!isEnabled ? (
+                  <p>Dictation not configured (Settings)</p>
+                ) : (
+                  <p>Voice dictation{isRecording ? '' : ' • Say "submit" to send'}</p>
+                )}
+              </TooltipContent>
+            </Tooltip>
           )}
         </div>
       </form>

@@ -1563,7 +1563,7 @@
     "defaultMessage": "智慧代理 Harness"
   },
   "harnessesSection.description": {
-    "defaultMessage": "使用來自其他 Harness（如 Cursor、Claude Code、Codex 或 Copilot）的智慧代理。在此啟用一個，然後在 Models 中選擇它進行對話。"
+    "defaultMessage": "使用來自其他 Harness（如 Cursor、Claude Code、Codex 或 OpenCode 或 Copilot）的智慧代理。在此啟用一個，然後在 Models 中選擇它進行對話。"
   },
   "harnessesSection.loading": {
     "defaultMessage": "正在載入 Harness..."

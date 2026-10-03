@@ -114,15 +114,37 @@ describe('AllProviderModels', () => {
     );
   });
 
-  it('filters by provider name to reveal all of its models', async () => {
+  it('lists models for the provider chosen in the dropdown', async () => {
     const user = userEvent.setup();
+    mockedListSettingsProviderDetails.mockResolvedValue([
+      makeProvider(),
+      makeProvider({
+        name: 'anthropic',
+        metadata: {
+          config_keys: [],
+          default_model: 'claude-sonnet-4',
+          description: 'Anthropic models',
+          display_name: 'Anthropic',
+          known_models: [{ name: 'claude-sonnet-4', context_limit: 200000 }],
+          model_doc_link: '',
+          name: 'anthropic',
+        },
+      }),
+    ]);
+    mockedListReadDefaults.mockResolvedValue({ providerId: 'openai', modelId: 'gpt-4o' });
     renderWithIntl(<AllProviderModels {...defaultProps} />);
 
-    await screen.findByTestId('all-provider-models-openai');
-    await user.type(screen.getByTestId('all-provider-models-search'), 'openai');
+    await screen.findByTestId('all-provider-model-openai-gpt-4o');
+    expect(screen.queryByTestId('all-provider-model-anthropic-claude-sonnet-4')).not
+      .toBeInTheDocument();
 
-    expect(await screen.findByTestId('all-provider-model-openai-gpt-4o')).toBeInTheDocument();
-    expect(screen.getByTestId('all-provider-model-openai-o3-mini')).toBeInTheDocument();
+    await user.click(screen.getByRole('combobox'));
+    await user.click(await screen.findByText('Anthropic'));
+
+    expect(
+      await screen.findByTestId('all-provider-model-anthropic-claude-sonnet-4')
+    ).toBeInTheDocument();
+    expect(screen.queryByTestId('all-provider-model-openai-gpt-4o')).not.toBeInTheDocument();
   });
 
   it('shows an empty search state with a way to clear the query', async () => {

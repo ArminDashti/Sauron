@@ -222,7 +222,11 @@ pub async fn handle_schedule_sessions(schedule_id: String, limit: Option<usize>)
                         "  - Session ID: {}, Messages: {}, Working Dir: {}, Description: \"{}\", Schedule ID: {:?}",
                         session_name,
                         metadata.message_count,
-                        metadata.working_dir.display(),
+                        metadata
+                            .working_dir
+                            .as_deref()
+                            .unwrap_or(std::path::Path::new(""))
+                            .display(),
                         metadata.name,
                         metadata.schedule_id.as_deref().unwrap_or("N/A")
                     );

@@ -988,6 +988,14 @@ async fn test_copilot_acp_provider() -> Result<()> {
         .await
 }
 
+// Requires: npm install -g opencode-ai
+#[tokio::test]
+async fn test_opencode_acp_provider() -> Result<()> {
+    ProviderTestConfig::with_agentic_provider("opencode-acp", ACP_CURRENT_MODEL, "opencode")
+        .run()
+        .await
+}
+
 #[dtor::dtor(unsafe)]
 fn print_test_report() {
     TEST_REPORT.print_summary();

@@ -1,5 +1,6 @@
 use anyhow::Result;
 use async_trait::async_trait;
+use std::path::Path;
 
 use crate::agents::state_machine::effects::SauronEffect;
 use crate::agents::state_machine::{
@@ -51,8 +52,14 @@ impl Operation<Session, SauronEffect> for EntryHookOperation {
             self.hook_manager
                 .emit(
                     HookEvent::SessionStart,
-                    HookContext::new(HookEvent::SessionStart, &session.id)
-                        .with_working_dir(session.working_dir.to_string_lossy().to_string()),
+                    HookContext::new(HookEvent::SessionStart, &session.id).with_working_dir(
+                        session
+                            .working_dir
+                            .as_deref()
+                            .unwrap_or(Path::new("."))
+                            .to_string_lossy()
+                            .to_string(),
+                    ),
                 )
                 .await;
         }
@@ -67,7 +74,14 @@ impl Operation<Session, SauronEffect> for EntryHookOperation {
                     HookEvent::UserPromptSubmit,
                     HookContext::new(HookEvent::UserPromptSubmit, &session.id)
                         .with_message(prompt)
-                        .with_working_dir(session.working_dir.to_string_lossy().to_string()),
+                        .with_working_dir(
+                            session
+                                .working_dir
+                                .as_deref()
+                                .unwrap_or(Path::new("."))
+                                .to_string_lossy()
+                                .to_string(),
+                        ),
                 )
                 .await;
         }

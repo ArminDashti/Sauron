@@ -13,11 +13,27 @@ workspace = true
 
 [features]
 default = []
-local-inference = ["dep:sauron-local-inference"]
-local-inference-hf-hub = ["local-inference", "sauron-local-inference/hf-hub"]
-cuda = ["local-inference", "sauron-local-inference/cuda"]
-vulkan = ["local-inference", "sauron-local-inference/vulkan"]
-mlx = ["local-inference", "sauron-local-inference/mlx"]
+# On-device inference. llama.cpp and its sys crate build native code, so the
+# whole set stays optional: a default `cargo build -p sauron-providers` must not
+# need a C/C++ toolchain.
+local-inference = [
+    "dep:llama-cpp-2",
+    "dep:llama-cpp-sys-2",
+    "dep:encoding_rs",
+    "dep:etcetera",
+    "dep:minijinja",
+    "dep:pulldown-cmark",
+    "dep:regex",
+]
+local-inference-hf-hub = [
+    "local-inference",
+    "dep:hf-hub",
+    "dep:sauron-download-manager",
+    "dep:sauron-sdk-types",
+]
+cuda = ["local-inference", "llama-cpp-2/cuda"]
+vulkan = ["local-inference", "llama-cpp-2/vulkan"]
+mlx = ["local-inference", "dep:safemlx", "dep:safemlx-lm", "dep:safemlx-lm-utils"]
 rustls-tls = [
     "reqwest/rustls",
     "rmcp/reqwest",
@@ -39,26 +55,44 @@ async-stream = { workspace = true }
 chrono = { workspace = true }
 futures = { workspace = true }
 sauron-provider-types = { version = "0.1.0-alpha.11", path = "../sauron-provider-types", default-features = false }
-sauron-local-inference = { version = "0.1.0-alpha.11", path = "../sauron-local-inference", default-features = false, optional = true }
 reqwest = { workspace = true, features = ["json", "stream"] }
 rmcp = { workspace = true, features = ["server", "macros"] }
 serde = { workspace = true }
 serde_json = { workspace = true }
 tracing = { workspace = true }
 async-trait = { workspace = true }
-tokio = { workspace = true }
+tokio = { workspace = true, features = ["fs", "rt-multi-thread", "sync", "time"] }
 tokio-stream = { workspace = true, features = ["io-util"] }
 tokio-util = { workspace = true, features = ["compat", "io", "codec"] }
 url = { workspace = true }
 urlencoding = { workspace = true }
 uuid = { workspace = true, features = ["v4"] }
 base64 = { workspace = true }
+include_dir = { workspace = true }
+
+# On-device inference, behind the `local-inference` feature.
+llama-cpp-2 = { workspace = true, optional = true }
+llama-cpp-sys-2 = { workspace = true, optional = true }
+encoding_rs = { version = "0.8.35", default-features = false, optional = true }
+etcetera = { workspace = true, optional = true }
+minijinja = { version = "2.18", default-features = false, features = ["loader", "multi_template", "serde"], optional = true }
+pulldown-cmark = { version = "0.13.4", default-features = false, optional = true }
+regex = { workspace = true, optional = true }
+sauron-download-manager = { version = "0.1.0-alpha.11", path = "../sauron-download-manager", optional = true }
+sauron-sdk-types = { version = "0.1.0-alpha.11", path = "../sauron-sdk-types", default-features = false, optional = true }
+hf-hub = { version = "1.0.0", default-features = false, optional = true }
+
 tokio-tungstenite = { version = "0.28", default-features = false, features = ["connect", "handshake"], optional = true }
 http = { workspace = true, optional = true }
 pem = { version = "4.0.0", default-features = false, features = ["std"], optional = true }
 pkcs8 = { version = "0.11", default-features = false, features = ["alloc", "std"], optional = true }
 sec1 = { version = "0.8", default-features = false, features = ["der", "std"], optional = true }
-include_dir = { workspace = true }
+
+[target.'cfg(target_os = "macos")'.dependencies]
+llama-cpp-2 = { workspace = true, features = ["sampler", "metal", "mtmd"], optional = true }
+safemlx = { default-features = false, features = ["accelerate", "metal", "safetensors"], optional = true, version = "0.1.2" }
+safemlx-lm = { optional = true, version = "0.4.1" }
+safemlx-lm-utils = { optional = true, version = "0.1.2" }
 
 [dev-dependencies]
 test-case = { workspace = true }

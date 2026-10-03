@@ -1,5 +1,7 @@
 //! Sauron-specific inference request preparation.
 
+use std::path::Path;
+
 #[cfg(feature = "code-mode")]
 use crate::agents::McpManager;
 use crate::agents::PromptManager;
@@ -49,7 +51,7 @@ impl InferenceRequestPreparer<Session> for SauronInferenceRequestPreparer<'_> {
         let tools =
             crate::agents::reply_parts::prepare_inference_tools(input.tools, code_execution_mode);
         let system_prompt = self.prompt_manager.lock().await.build_system_prompt(
-            &session.working_dir,
+            session.working_dir.as_deref().unwrap_or(Path::new(".")),
             input.prompt_parts,
             sauron_mode,
         );
@@ -66,7 +68,7 @@ impl InferenceRequestPreparer<Session> for SauronInferenceRequestPreparer<'_> {
             .map(Message::as_concat_text);
         let context_limit = Some(self.context_limit);
         let additional_messages = crate::agents::moim::turn_context_event(
-            &session.working_dir,
+            session.working_dir.as_deref().unwrap_or(Path::new(".")),
             context_limit,
             input.moim_parts,
             turn_start,

@@ -4,7 +4,7 @@ use console::style;
 use sauron::agents::mcp_manager::get_parameter_names;
 use sauron::agents::mcp_server::{ToolInfo, IN_PROCESS_SERVERS};
 use sauron::agents::Agent;
-use sauron::agents::{extension::Envs, McpServerConfig};
+use sauron::agents::{mcp_server::Envs, McpServerConfig};
 use sauron::config::declarative_providers::{
     create_custom_provider, remove_custom_provider, AuthConfig, CreateCustomProviderParams,
 };
@@ -1764,7 +1764,7 @@ pub async fn configure_tool_permissions_dialog() -> anyhow::Result<()> {
         .config
         .session_manager
         .create_session(
-            std::env::current_dir().unwrap_or_else(|_| std::path::PathBuf::from(".")),
+            Some(std::env::current_dir().unwrap_or_else(|_| std::path::PathBuf::from("."))),
             "Tool Permission Configuration".to_string(),
             SessionType::Hidden,
             agent.config.sauron_mode,

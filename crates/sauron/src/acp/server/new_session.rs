@@ -1,7 +1,5 @@
 use crate::acp::custom_requests::SauronExtension;
-use crate::acp::server::{
-    enabled_extensions_data, meta_string, validate_absolute_cwd, ResultExt,
-};
+use crate::acp::server::{enabled_extensions_data, meta_string, validate_absolute_cwd, ResultExt};
 use crate::agents::McpServerLoadResult;
 use crate::config::{Config, SauronMode};
 use crate::recipe::{Recipe, Settings};
@@ -65,12 +63,12 @@ impl SauronAcpAgent {
         cx: &ConnectionTo<Client>,
         mut args: NewSessionRequest,
     ) -> Result<NewSessionResponse, agent_client_protocol::Error> {
-        let meta = new_session_meta_fields(args.meta.as_ref())?;
-        let working_dir = self.resolve_requested_working_dir(&mut args, meta.chat_only)?;
         let config = Config::global();
         let session_type = session_type_from_meta(args.meta.as_ref())?;
         let current_mode: SauronMode = config.get_sauron_mode().unwrap_or_default();
         let recipe = self.resolve_recipe_from_meta(args.meta.as_ref()).await?;
+        let meta = new_session_meta_fields(args.meta.as_ref(), recipe.as_ref())?;
+        let working_dir = self.resolve_requested_working_dir(&mut args, meta.chat_only)?;
         let session_name = recipe_title(recipe.as_ref())
             .map(str::to_string)
             .or_else(|| meta.client_title.clone())

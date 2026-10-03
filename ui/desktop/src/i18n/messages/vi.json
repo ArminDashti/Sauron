@@ -1563,7 +1563,7 @@
     "defaultMessage": "Harness agen"
   },
   "harnessesSection.description": {
-    "defaultMessage": "Sử dụng agen từ harness khác như Cursor, Claude Code, Codex hoặc Copilot. Bật một harness tại đây, rồi chọn nó trong Models để trò chuyện."
+    "defaultMessage": "Sử dụng agen từ harness khác như Cursor, Claude Code, Codex hoặc OpenCode hoặc Copilot. Bật một harness tại đây, rồi chọn nó trong Models để trò chuyện."
   },
   "harnessesSection.loading": {
     "defaultMessage": "Đang tải harness..."

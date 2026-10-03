@@ -92,7 +92,14 @@ impl Operation<Session, SauronEffect> for StopHookOperation {
 
         let context = HookContext::new(HookEvent::Stop, &session.id)
             .with_last_assistant_message(last_assistant_text)
-            .with_working_dir(session.working_dir.as_deref().unwrap_or(Path::new(".")).to_string_lossy().into_owned());
+            .with_working_dir(
+                session
+                    .working_dir
+                    .as_deref()
+                    .unwrap_or(Path::new("."))
+                    .to_string_lossy()
+                    .into_owned(),
+            );
         match self
             .hook_manager
             .emit_blocking(HookEvent::Stop, context)

@@ -77,13 +77,10 @@ describe('HarnessesSection', () => {
     vi.clearAllMocks();
   });
 
-  it('shows a loading state and then lists agent harnesses', async () => {
+  it('shows a loading state and then lists the supported agent harnesses', async () => {
     mockedListSetupCatalog.mockResolvedValue([
       catalogEntry(),
-      catalogEntry({ providerId: 'claude-acp', name: 'Claude Code' }),
-      // Model providers and the built-in goose harness never belong here.
-      catalogEntry({ providerId: 'openai', name: 'OpenAI', category: 'model' }),
-      catalogEntry({ providerId: 'goose', name: 'Goose' }),
+      catalogEntry({ providerId: 'claude-acp', name: 'Claude Code ACP' }),
     ]);
     mockedListProviderDetails.mockResolvedValue([
       providerDetails(),
@@ -94,9 +91,61 @@ describe('HarnessesSection', () => {
 
     expect(screen.getByText('Loading harnesses...')).toBeInTheDocument();
     expect(await screen.findByText('Cursor Agent')).toBeInTheDocument();
-    expect(screen.getByText('Claude Code')).toBeInTheDocument();
-    expect(screen.queryByText('OpenAI')).not.toBeInTheDocument();
+    expect(screen.getByText('Claude Code ACP')).toBeInTheDocument();
+  });
+
+  it('lists only the supported harnesses in a stable order', async () => {
+    mockedListSetupCatalog.mockResolvedValue([
+      catalogEntry(),
+      catalogEntry({ providerId: 'copilot-acp', name: 'GitHub Copilot CLI (ACP)' }),
+      catalogEntry({ providerId: 'codex-acp', name: 'Codex ACP' }),
+      catalogEntry({ providerId: 'opencode-acp', name: 'OpenCode' }),
+      // Harnesses sauron does not support stay out of this section, even when
+      // their CLI is installed.
+      catalogEntry({ providerId: 'amp-acp', name: 'Amp' }),
+      catalogEntry({ providerId: 'pi-acp', name: 'Pi', showOnlyWhenInstalled: true }),
+      catalogEntry({ providerId: 'goose', name: 'Goose' }),
+      // Model providers never belong here.
+      catalogEntry({ providerId: 'openai', name: 'OpenAI', category: 'model' }),
+    ]);
+    mockedListProviderDetails.mockResolvedValue([
+      providerDetails(),
+      providerDetails({ name: 'copilot-acp' }),
+      providerDetails({ name: 'codex-acp' }),
+      providerDetails({ name: 'opencode-acp' }),
+      providerDetails({ name: 'amp-acp' }),
+      providerDetails({ name: 'pi-acp' }),
+    ]);
+
+    renderWithIntl(<HarnessesSection />);
+
+    expect(await screen.findByText('Cursor Agent')).toBeInTheDocument();
+    const rendered = screen
+      .getAllByRole('heading', { level: 3 })
+      .map((heading) => heading.textContent);
+    expect(rendered).toEqual(['Codex ACP', 'Cursor Agent', 'OpenCode', 'GitHub Copilot CLI (ACP)']);
+    expect(screen.queryByText('Amp')).not.toBeInTheDocument();
+    expect(screen.queryByText('Pi')).not.toBeInTheDocument();
     expect(screen.queryByText('Goose')).not.toBeInTheDocument();
+    expect(screen.queryByText('OpenAI')).not.toBeInTheDocument();
+  });
+
+  it('renders a brand icon for each supported harness', async () => {
+    mockedListSetupCatalog.mockResolvedValue([
+      catalogEntry(),
+      catalogEntry({ providerId: 'opencode-acp', name: 'OpenCode' }),
+    ]);
+    mockedListProviderDetails.mockResolvedValue([
+      providerDetails(),
+      providerDetails({ name: 'opencode-acp' }),
+    ]);
+
+    const { container } = renderWithIntl(<HarnessesSection />);
+
+    expect(await screen.findByText('Cursor Agent')).toBeInTheDocument();
+    const icons = [...container.querySelectorAll('img')].map((img) => img.getAttribute('src'));
+    expect(icons).toHaveLength(2);
+    icons.forEach((src) => expect(src).toMatch(/\.svg|data:image/));
   });
 
   it('shows enabled and installation status per harness', async () => {
@@ -119,20 +168,17 @@ describe('HarnessesSection', () => {
     expect(screen.getByText('Not installed')).toBeInTheDocument();
   });
 
-  it('hides optional harnesses until their CLI is installed', async () => {
-    mockedListSetupCatalog.mockResolvedValue([
-      catalogEntry({ providerId: 'pi-acp', name: 'Pi', showOnlyWhenInstalled: true }),
-      catalogEntry({ providerId: 'amp-acp', name: 'Amp', showOnlyWhenInstalled: true }),
-    ]);
+  it('omits a supported harness the setup catalog does not advertise', async () => {
+    mockedListSetupCatalog.mockResolvedValue([catalogEntry()]);
     mockedListProviderDetails.mockResolvedValue([
-      providerDetails({ name: 'pi-acp', is_available: true }),
-      providerDetails({ name: 'amp-acp', is_available: false }),
+      providerDetails(),
+      providerDetails({ name: 'claude-acp' }),
     ]);
 
     renderWithIntl(<HarnessesSection />);
 
-    expect(await screen.findByText('Pi')).toBeInTheDocument();
-    expect(screen.queryByText('Amp')).not.toBeInTheDocument();
+    expect(await screen.findByText('Cursor Agent')).toBeInTheDocument();
+    expect(screen.queryByText('Claude Code')).not.toBeInTheDocument();
   });
 
   it('opens the configuration modal and refreshes after configuring', async () => {

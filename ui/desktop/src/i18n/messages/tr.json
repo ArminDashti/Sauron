@@ -1563,7 +1563,7 @@
     "defaultMessage": "Ajan harness'ları"
   },
   "harnessesSection.description": {
-    "defaultMessage": "Cursor, Claude Code, Codex veya Copilot gibi başka bir harness'tan ajanlar kullanın. Burada birini etkinleştirin, ardından sohbet için Models'de seçin."
+    "defaultMessage": "Cursor, Claude Code, Codex veya OpenCode veya Copilot gibi başka bir harness'tan ajanlar kullanın. Burada birini etkinleştirin, ardından sohbet için Models'de seçin."
   },
   "harnessesSection.loading": {
     "defaultMessage": "Harness'lar yükleniyor..."

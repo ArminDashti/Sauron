@@ -971,15 +971,14 @@ dependencies = [
 
 [[package]]
 name = "aws-smithy-runtime-api"
-version = "1.16.0"
+version = "1.18.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9c054752dd9e4dc73d0b75748c99ac2d0feafbf2f25c7b0516f03a3534161223"
+checksum = "9bb0deb40a69de59f7809251cfe1ab16de135f42c49d222d1202b4d0ce19720f"
 dependencies = [
  "aws-smithy-async",
  "aws-smithy-runtime-api-macros",
  "aws-smithy-types",
  "bytes",
- "http 0.2.12",
  "http 1.5.0",
  "pin-project-lite",
  "tokio",
@@ -1011,9 +1010,9 @@ dependencies = [
 
 [[package]]
 name = "aws-smithy-types"
-version = "1.6.3"
+version = "1.8.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8f94d16e797ec62cd999fc9d5942b48fa7050c3093ddadff48e4d7528d16fcb9"
+checksum = "69bb407740a197147da48238ecc94498493c9e85445732360cec180296ca45f1"
 dependencies = [
  "base64-simd",
  "bytes",
@@ -6278,9 +6277,9 @@ dependencies = [
 
 [[package]]
 name = "jsonschema"
-version = "0.55.1"
+version = "0.58.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b68339c3d874e48151d74ffe256d93a58cffa240983cb0967d3cbaea083a44fe"
+checksum = "ea18b8d5e1469b1bdd6b349169305141316a7c26da27f239773b65c830c0f5d6"
 dependencies = [
  "ahash",
  "bytecount",
@@ -6306,18 +6305,18 @@ dependencies = [
 
 [[package]]
 name = "jsonschema-regex"
-version = "0.55.1"
+version = "0.58.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6307b5b51216ec9b941b52244c74043fa0b1d6b657b56199f57cb1416d3641c5"
+checksum = "854e9e22c420535035e95eed240cbfb4a5f4b7da74d122d63144e0c31926dbfd"
 dependencies = [
  "regex-syntax",
 ]
 
 [[package]]
 name = "jsonschema-value"
-version = "0.55.1"
+version = "0.58.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0230ac05e09c6111e96c147b75c390579f5cbd45654b980c68ac60fe17b3f129"
+checksum = "4e3bfac11ac357ec620880025757d38c67da8fd5b9ef5024d19f0f360002b4ca"
 dependencies = [
  "ahash",
  "bytecount",
@@ -9308,9 +9307,9 @@ dependencies = [
 
 [[package]]
 name = "referencing"
-version = "0.55.1"
+version = "0.58.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a196a5b4a8a12f46b6353174df865a05d41a6055aff212ec30877492788618b6"
+checksum = "590efadb0a669f1712c1e3ab810a55d4c3d20d0127c455f7236dd0710aba0346"
 dependencies = [
  "ahash",
  "fluent-uri",
@@ -10261,40 +10260,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "sauron-local-inference"
-version = "0.1.0-alpha.11"
-dependencies = [
- "anyhow",
- "async-stream",
- "async-trait",
- "base64 0.23.1",
- "chrono",
- "encoding_rs",
- "env-lock",
- "etcetera",
- "futures",
- "hf-hub",
- "include_dir",
- "llama-cpp-2",
- "llama-cpp-sys-2",
- "minijinja",
- "pulldown-cmark",
- "regex",
- "rmcp 3.4.1",
- "safemlx",
- "safemlx-lm",
- "safemlx-lm-utils",
- "sauron-download-manager",
- "sauron-provider-types",
- "sauron-sdk-types",
- "serde",
- "serde_json",
- "tokio",
- "tracing",
- "uuid",
-]
-
-[[package]]
 name = "sauron-provider-types"
 version = "0.1.0-alpha.11"
 dependencies = [
@@ -10335,17 +10300,29 @@ dependencies = [
  "async-trait",
  "base64 0.23.1",
  "chrono",
+ "encoding_rs",
  "env-lock",
+ "etcetera",
  "flate2",
  "futures",
+ "hf-hub",
  "http 1.5.0",
  "include_dir",
+ "llama-cpp-2",
+ "llama-cpp-sys-2",
+ "minijinja",
  "pem 4.0.0",
  "pkcs8 0.11.0",
+ "pulldown-cmark",
+ "regex",
  "reqwest 0.13.5",
  "rmcp 3.4.1",
- "sauron-local-inference",
+ "safemlx",
+ "safemlx-lm",
+ "safemlx-lm-utils",
+ "sauron-download-manager",
  "sauron-provider-types",
+ "sauron-sdk-types",
  "sec1 0.8.1",
  "serde",
  "serde_json",

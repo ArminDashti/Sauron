@@ -88,6 +88,12 @@ function shouldSetupUpdater(): boolean {
   return UPDATES_ENABLED || process.env.ENABLE_DEV_UPDATES === 'true';
 }
 
+// Electron draws its File/Edit/View/Window/Help bar at the top of every framed window on
+// Windows and Linux. The application menu itself stays installed, so its accelerators
+// (New Chat, Find, Toggle Navigation, …) keep firing and Alt still reveals the bar.
+// macOS owns that bar in the system menu, where removing it would drop Cmd+C/V/A.
+const AUTO_HIDE_MENU_BAR = process.platform !== 'darwin';
+
 // =======================================================================
 // Native menu localization
 // -----------------------------------------------------------------------
@@ -1253,6 +1259,7 @@ const createChat = async (
       trafficLightPosition: process.platform === 'darwin' ? { x: 20, y: 16 } : undefined,
       vibrancy: process.platform === 'darwin' ? 'window' : undefined,
       frame: process.platform !== 'darwin',
+      autoHideMenuBar: AUTO_HIDE_MENU_BAR,
       // windowStateKeeper persists the outer window bounds (getBounds), so the
       // window must be restored by outer bounds too. With useContentSize the saved
       // outer height is reapplied as the content height, growing the window by the
@@ -3145,6 +3152,7 @@ async function appMain() {
         height: sauronApp.height ?? 600,
         resizable: sauronApp.resizable ?? true,
         useContentSize: true,
+        autoHideMenuBar: AUTO_HIDE_MENU_BAR,
         webPreferences: {
           preload: path.join(__dirname, 'preload.js'),
           nodeIntegration: false,

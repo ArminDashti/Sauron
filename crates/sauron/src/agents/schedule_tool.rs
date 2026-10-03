@@ -452,7 +452,11 @@ impl ScheduleTool {
                                 "- Session: {} (Messages: {}, Working Dir: {})",
                                 session_name,
                                 session.message_count,
-                                session.working_dir.display()
+                                session
+                                    .working_dir
+                                    .as_deref()
+                                    .unwrap_or(Path::new(""))
+                                    .display()
                             )
                         })
                         .collect();

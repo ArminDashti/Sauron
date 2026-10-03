@@ -1563,7 +1563,7 @@
     "defaultMessage": "智能体 Harness"
   },
   "harnessesSection.description": {
-    "defaultMessage": "使用来自其他 Harness（如 Cursor、Claude Code、Codex 或 Copilot）的智能体。在此启用一个，然后在 Models 中选择它进行对话。"
+    "defaultMessage": "使用来自其他 Harness（如 Cursor、Claude Code、Codex 或 OpenCode 或 Copilot）的智能体。在此启用一个，然后在 Models 中选择它进行对话。"
   },
   "harnessesSection.loading": {
     "defaultMessage": "正在加载 Harness..."

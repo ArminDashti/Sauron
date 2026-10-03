@@ -26,6 +26,14 @@ describe('ModelIcon', () => {
     expect(bedrock).not.toBe(iconSrc('anthropic'));
   });
 
+  it('resolves agent harness ids onto their own brand mark', () => {
+    expect(iconSrc('claude-acp')).toBe(iconSrc('claude'));
+    expect(iconSrc('codex-acp')).toBe(iconSrc('openai'));
+    expect(iconSrc('cursor-agent')).toBe(iconSrc('cursor'));
+    expect(iconSrc('opencode-acp')).toBe(iconSrc('opencode'));
+    expect(iconSrc('copilot-acp')).toBe(iconSrc('github_copilot'));
+  });
+
   it('matches providers case-insensitively and falls back for unknown ones', () => {
     expect(iconSrc('OpenAI')).toBe(iconSrc('openai'));
 
@@ -38,5 +46,13 @@ describe('ModelIcon', () => {
     const { container } = render(<ModelIcon provider={null} />);
     expect(container.querySelector('img')).toBeNull();
     expect(container.querySelector('svg')).not.toBeNull();
+  });
+
+  it('renders initials for a known provider that publishes no brand mark', () => {
+    const { container } = render(<ModelIcon provider="routstr" />);
+    expect(container.querySelector('img')).toBeNull();
+    const svg = container.querySelector('svg');
+    expect(svg).not.toBeNull();
+    expect(svg?.textContent).toBe('R');
   });
 });

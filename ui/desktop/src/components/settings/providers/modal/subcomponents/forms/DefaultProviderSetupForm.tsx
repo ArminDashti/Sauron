@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState, useCallback } from 'react';
+import React, { useEffect, useMemo, useState, useCallback, useId } from 'react';
 import { Input } from '../../../../../ui/input';
 import { acpReadProviderConfig } from '../../../../../../acp/providers';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '../../../../../ui/collapsible';
@@ -22,6 +22,10 @@ const i18n = defineMessages({
   apiKeyEnvHint: {
     id: 'defaultProviderSetupForm.apiKeyEnvHint',
     defaultMessage: 'Enter {example} to read the key from an environment variable instead of storing it.',
+  },
+  optional: {
+    id: 'parameterInput.optional',
+    defaultMessage: 'Optional',
   },
   apiHostPlaceholder: {
     id: 'defaultProviderSetupForm.apiHostPlaceholder',
@@ -97,6 +101,7 @@ export default function DefaultProviderSetupForm({
     [provider.metadata.config_keys]
   );
   const intl = useIntl();
+  const fieldIdPrefix = useId();
   const [isLoading, setIsLoading] = useState(true);
   const [optionalExpanded, setOptionalExpanded] = useState(false);
 
@@ -268,11 +273,20 @@ export default function DefaultProviderSetupForm({
 
       return (
         <div key={parameter.name}>
-          <label className="block text-sm font-medium text-text-primary mb-1">
+          <label
+            htmlFor={`${fieldIdPrefix}-${parameter.name}`}
+            className="block text-sm font-medium text-text-primary mb-1"
+          >
             {getFieldLabel(parameter)}
             {parameter.required && <span className="text-red-500 ml-1">*</span>}
+            {!parameter.required && (
+              <span className="ml-2 text-xs font-normal text-text-secondary">
+                {intl.formatMessage(i18n.optional)}
+              </span>
+            )}
           </label>
           <Input
+            id={`${fieldIdPrefix}-${parameter.name}`}
             type="text"
             value={getRenderValue(parameter)}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {

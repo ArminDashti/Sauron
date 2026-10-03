@@ -1,6 +1,7 @@
 use anyhow::{Context, Result};
 
 use cliclack::{confirm, multiselect, select};
+#[cfg(not(target_os = "windows"))]
 use etcetera::home_dir;
 use regex::Regex;
 use sauron::session::{
@@ -15,7 +16,10 @@ use std::path::PathBuf;
 
 const TRUNCATED_DESC_LENGTH: usize = 60;
 
-fn display_path_with_tilde(path: &Path) -> String {
+fn display_path_with_tilde(path: Option<&Path>) -> String {
+    let Some(path) = path else {
+        return "chat-only".to_string();
+    };
     #[cfg(not(target_os = "windows"))]
     if let Ok(home) = home_dir() {
         if let Ok(stripped) = path.strip_prefix(&home) {
@@ -32,7 +36,7 @@ async fn remove_sessions(session_manager: &SessionManager, sessions: Vec<Session
             "- {} {} ({})",
             session.id,
             session.name,
-            display_path_with_tilde(&session.working_dir)
+            display_path_with_tilde(session.working_dir.as_deref())
         );
     }
 
@@ -76,7 +80,7 @@ fn prompt_interactive_session_removal(sessions: &[Session]) -> Result<Vec<Sessio
                 session_activity_at(s),
                 truncated_desc,
                 s.id,
-                display_path_with_tilde(&s.working_dir)
+                display_path_with_tilde(s.working_dir.as_deref())
             );
             (display_text, s.clone())
         })
@@ -210,8 +214,9 @@ pub async fn handle_session_list(
         let pat_lower = pat.to_string_lossy().to_lowercase();
         sessions.retain(|s| {
             s.working_dir
-                .to_string_lossy()
-                .to_lowercase()
+                .as_deref()
+                .map(|dir| dir.to_string_lossy().to_lowercase())
+                .unwrap_or_default()
                 .contains(&pat_lower)
         });
     }
@@ -254,7 +259,7 @@ pub async fn handle_session_list(
                     session.id,
                     session.name,
                     session_activity_at(&session),
-                    display_path_with_tilde(&session.working_dir)
+                    display_path_with_tilde(session.working_dir.as_deref())
                 );
                 if !write_line_or_broken_pipe_ok(&mut out, &output)? {
                     return Ok(());
