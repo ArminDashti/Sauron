@@ -6,3 +6,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [0.1.0-alpha.11](https://github.com/ArminDashti/Sauron/releases/tag/gdk-v0.1.0-alpha.11) - 2026-10-03
+
+### Added
+
+- *(identity)* rebrand Goose to Sauron with colorful logos and icons
