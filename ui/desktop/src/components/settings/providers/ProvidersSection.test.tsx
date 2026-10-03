@@ -97,16 +97,16 @@ describe('ProvidersSection', () => {
     const user = userEvent.setup();
     render(<ProvidersSection setView={vi.fn()} />, { wrapper: IntlTestWrapper });
 
-    expect(await screen.findByPlaceholderText('Your API key')).toBeInTheDocument();
-    await user.click(screen.getByRole('button', { name: 'Show 1 options' }));
+    expect(await screen.findByLabelText(/^API Key/)).toBeInTheDocument();
+    await user.click(screen.getByRole('button', { name: /Show 1 options/ }));
     expect(screen.getByText('Optional')).toBeInTheDocument();
 
     await user.click(screen.getByRole('combobox'));
     await user.click(await screen.findByRole('option', { name: /OpenRouter/ }));
 
-    expect(await screen.findByText('OpenRouter API Key')).toBeInTheDocument();
-    const apiKey = await screen.findByPlaceholderText('Your API key');
+    const apiKey = await screen.findByLabelText(/^OpenRouter API Key/);
     expect(apiKey).toBeRequired();
+    expect(screen.queryByLabelText(/^API Key/)).not.toBeInTheDocument();
 
     await user.click(screen.getByRole('button', { name: 'Submit' }));
     expect(await screen.findByText('OPENROUTER_API_KEY is required')).toBeInTheDocument();
