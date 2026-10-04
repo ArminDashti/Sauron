@@ -29,6 +29,8 @@ interface CreateSessionOptions {
   recipeId?: string;
   extensionConfigs?: ExtensionConfig[];
   allExtensions?: FixedExtensionEntry[];
+  /** Start a folder-less chat: no working directory, repository or file tools. */
+  chatOnly?: boolean;
 }
 
 /**
@@ -121,11 +123,16 @@ async function createAcpSession(
       }
     }
     const sauronExtensions = await resolveSauronExtensions(selectedExtensionConfigs(options));
-    return await acpChatSessionController.createSession(workingDir, sauronExtensions, {
-      recipeId: options?.recipeId,
-      recipeDeeplink: options?.recipeDeeplink,
-      recipeParameterScopeId: configuredParameterScope?.id,
-    });
+    return await acpChatSessionController.createSession(
+      workingDir,
+      sauronExtensions,
+      {
+        recipeId: options?.recipeId,
+        recipeDeeplink: options?.recipeDeeplink,
+        recipeParameterScopeId: configuredParameterScope?.id,
+      },
+      options?.chatOnly ?? false
+    );
   } finally {
     configuredParameterScope?.finish();
   }
@@ -146,6 +153,7 @@ export async function startNewSession(
     recipeDeeplink?: string;
     recipeId?: string;
     allExtensions?: FixedExtensionEntry[];
+    chatOnly?: boolean;
   }
 ): Promise<Session> {
   const session = await createSession(workingDir, options);

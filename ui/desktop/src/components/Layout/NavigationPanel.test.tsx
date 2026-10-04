@@ -8,6 +8,7 @@ import { IntlTestWrapper } from '../../i18n/test-utils';
 import { useNavigationSessions } from '../../hooks/useNavigationSessions';
 import { groupSessionsByProject } from '../../utils/projectSessions';
 import { acpDeleteSession, acpExportSession, acpForkSession } from '../../acp/sessions';
+import { startNewSession } from '../../sessions';
 import type { SessionListItem } from '../../acp/sessions';
 
 vi.mock('../../hooks/useNavigationSessions', () => ({
@@ -37,6 +38,10 @@ vi.mock('../ConfigContext', () => ({
   useConfig: () => ({ extensionsList: [] }),
 }));
 
+vi.mock('../../sessions', () => ({
+  startNewSession: vi.fn(),
+}));
+
 const iso = (secondsAgo: number) =>
   new Date((Math.floor(Date.now() / 1000) - secondsAgo) * 1000).toISOString();
 
@@ -49,6 +54,7 @@ const sessions: SessionListItem[] = [
     lastMessageAt: iso(7 * 60),
     messageCount: 4,
     createdAt: iso(8 * 60),
+    chatOnly: false,
   },
   {
     id: 's2',
@@ -58,6 +64,7 @@ const sessions: SessionListItem[] = [
     lastMessageAt: iso(13 * 60),
     messageCount: 2,
     createdAt: iso(20 * 60),
+    chatOnly: false,
   },
   {
     id: 's3',
@@ -66,6 +73,7 @@ const sessions: SessionListItem[] = [
     updatedAt: iso(12 * 3600),
     messageCount: 0,
     createdAt: iso(12 * 3600),
+    chatOnly: false,
   },
 ];
 
@@ -263,5 +271,61 @@ describe('Navigation sidebar chat context menu', () => {
     await userEvent.keyboard('{Escape}');
 
     await waitFor(() => expect(screen.queryByRole('menu')).not.toBeInTheDocument());
+  });
+});
+
+describe('Navigation sidebar chats section', () => {
+  const workspaceSession: SessionListItem = {
+    id: 'w1',
+    name: 'Refactor the parser',
+    workingDir: '/repo/Sauron',
+    updatedAt: iso(60),
+    messageCount: 3,
+    createdAt: iso(120),
+    chatOnly: false,
+  };
+
+  const folderLessSession: SessionListItem = {
+    id: 'c1',
+    name: 'Trip ideas',
+    workingDir: '',
+    updatedAt: iso(30),
+    messageCount: 2,
+    createdAt: iso(90),
+    chatOnly: true,
+  };
+
+  beforeEach(() => {
+    localStorage.clear();
+    vi.mocked(useNavigationSessions).mockReturnValue({
+      recentSessions: [folderLessSession, workspaceSession],
+      recentSessionsByProject: groupSessionsByProject([workspaceSession]),
+      isLoadingSessions: false,
+      activeSessionId: 'c1',
+      fetchSessions: vi.fn(),
+      handleNavClick: vi.fn(),
+      handleSessionClick: vi.fn(),
+    });
+  });
+
+  it('lists folder-less chats under Chats, outside the workspace groups', () => {
+    renderNavigation();
+
+    expect(screen.getByText('Chats')).toBeInTheDocument();
+    expect(screen.getByText('Trip ideas')).toBeInTheDocument();
+    expect(screen.getByText('Sauron')).toBeInTheDocument();
+    expect(screen.queryByText('Unknown')).not.toBeInTheDocument();
+  });
+
+  it('starts a folder-less chat from the New chat entry', async () => {
+    renderNavigation();
+
+    await userEvent.click(screen.getByRole('button', { name: 'New chat' }));
+
+    await waitFor(() =>
+      expect(startNewSession).toHaveBeenCalledWith(undefined, expect.any(Function), '', {
+        chatOnly: true,
+      })
+    );
   });
 });

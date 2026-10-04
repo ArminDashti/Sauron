@@ -92,6 +92,8 @@ Object.defineProperty(window, 'electron', {
     getSystemUsage: vi.fn(() => Promise.resolve({ cpuPercent: 12, memoryPercent: 34 })),
     logInfo: vi.fn(),
     logError: vi.fn(),
+    getVersion: vi.fn(() => '0.0.0-test'),
+    closeWindow: vi.fn(),
     on: vi.fn(),
     off: vi.fn(),
     broadcastFontSizeChange: vi.fn(),

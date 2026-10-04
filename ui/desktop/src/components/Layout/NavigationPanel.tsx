@@ -10,6 +10,7 @@ import {
   GitFork,
   ListFilter,
   MailQuestion,
+  MessageSquarePlus,
   Pencil,
   Pin,
   PinOff,
@@ -51,6 +52,8 @@ import {
 } from '../ui/context-menu';
 import { ConfirmationModal } from '../ui/ConfirmationModal';
 import { usePinnedSessions } from '../../hooks/usePinnedSessions';
+import { useNavigation } from '../../hooks/useNavigation';
+import { startNewSession } from '../../sessions';
 import { formatMessageTimestamp, formatRelativeTimestamp } from '../../utils/timeUtils';
 import { errorMessage } from '../../utils/conversionUtils';
 import { cn } from '../../utils';
@@ -69,6 +72,18 @@ const i18n = defineMessages({
   projects: {
     id: 'navigationPanel.projects',
     defaultMessage: 'Projects',
+  },
+  chats: {
+    id: 'navigationPanel.chats',
+    defaultMessage: 'Chats',
+  },
+  newChat: {
+    id: 'navigationPanel.newChat',
+    defaultMessage: 'New chat',
+  },
+  toastNewChatFailed: {
+    id: 'navigationPanel.toast.newChatFailed',
+    defaultMessage: 'Could not start chat: {error}',
   },
   workspaces: {
     id: 'navigationPanel.workspaces',
@@ -533,6 +548,7 @@ export const Navigation: React.FC<{
   const { isNavExpanded } = useNavigationContext();
   const location = useLocation();
   const navigate = useNavigate();
+  const setView = useNavigation();
 
   const isActive = useCallback((path: string) => location.pathname === path, [location.pathname]);
 
@@ -581,6 +597,24 @@ export const Navigation: React.FC<{
   }, []);
 
   const [sessionToDelete, setSessionToDelete] = useState<SessionListItem | null>(null);
+  const [isStartingChat, setIsStartingChat] = useState(false);
+
+  const handleStartChat = useCallback(async () => {
+    if (isStartingChat) return;
+    setIsStartingChat(true);
+    try {
+      await startNewSession(undefined, setView, '', { chatOnly: true });
+    } catch (error) {
+      console.error('Failed to start chat:', error);
+      toast.error(
+        intl.formatMessage(i18n.toastNewChatFailed, {
+          error: errorMessage(error, 'Unknown error'),
+        })
+      );
+    } finally {
+      setIsStartingChat(false);
+    }
+  }, [isStartingChat, intl, setView]);
 
   const handleTogglePin = useCallback(
     (session: SessionListItem) => togglePin(session.id),
@@ -664,14 +698,36 @@ export const Navigation: React.FC<{
     }
   }, [sessionToDelete, forgetSessions, intl]);
 
+  // Folder-less chats get their own section: with no repository to group under
+  // they would otherwise land in an "Unknown" workspace group.
+  const chatOnlySessions = useMemo(
+    () => recentSessions.filter((session) => session.chatOnly),
+    [recentSessions]
+  );
+
+  const pinnedChatSessions = useMemo(
+    () => chatOnlySessions.filter((session) => isPinned(session.id)),
+    [chatOnlySessions, isPinned]
+  );
+
+  const unpinnedChatSessions = useMemo(
+    () => chatOnlySessions.filter((session) => !isPinned(session.id)),
+    [chatOnlySessions, isPinned]
+  );
+
+  const workspaceSessions = useMemo(
+    () => recentSessions.filter((session) => !session.chatOnly),
+    [recentSessions]
+  );
+
   const pinnedSessions = useMemo(
-    () => recentSessions.filter((session) => isPinned(session.id)),
-    [recentSessions, isPinned]
+    () => workspaceSessions.filter((session) => isPinned(session.id)),
+    [workspaceSessions, isPinned]
   );
 
   const unpinnedSessions = useMemo(
-    () => recentSessions.filter((session) => !isPinned(session.id)),
-    [recentSessions, isPinned]
+    () => workspaceSessions.filter((session) => !isPinned(session.id)),
+    [workspaceSessions, isPinned]
   );
 
   const unpinnedSessionsByProject = useMemo(
@@ -707,6 +763,7 @@ export const Navigation: React.FC<{
 
   const homeNavItem = NAV_ITEMS.find((item) => item.id === 'home');
   const newChatLabel = homeNavItem ? getNavItemLabel(homeNavItem, intl) : '';
+  const newChatOnlyLabel = intl.formatMessage(i18n.newChat);
   const backLabel = intl.formatMessage(i18n.goBack);
   const forwardLabel = intl.formatMessage(i18n.goForward);
   const groupLabel = intl.formatMessage(i18n.groupChats);
@@ -787,14 +844,42 @@ export const Navigation: React.FC<{
       </div>
 
       <div className="mt-3.5 flex min-h-0 flex-1 flex-col overflow-y-auto px-[3px] pb-2">
-        <SectionHeader label={intl.formatMessage(i18n.projects)} />
+        <SectionHeader label={intl.formatMessage(i18n.chats)} />
         <button
-          onClick={() => handleNavClick('/')}
-          className="flex h-8 w-full items-center gap-2.5 rounded-[10px] px-2 text-sm text-text-secondary transition-colors hover:bg-background-tertiary/60 hover:text-text-primary"
+          onClick={() => void handleStartChat()}
+          disabled={isStartingChat}
+          data-testid="sidebar-start-chat"
+          className="flex h-8 w-full items-center gap-2.5 rounded-[10px] px-2 text-sm text-text-secondary transition-colors hover:bg-background-tertiary/60 hover:text-text-primary disabled:opacity-60"
         >
-          <Plus className="w-3.5 h-3.5 flex-shrink-0" />
-          <span className="truncate text-left">{intl.formatMessage(i18n.newProject)}</span>
+          <MessageSquarePlus className="w-3.5 h-3.5 flex-shrink-0" />
+          <span className="truncate text-left">{newChatOnlyLabel}</span>
         </button>
+        <div className="flex flex-col gap-[1.5px]">
+          {pinnedChatSessions.length > 0 && (
+            <>
+              <SectionHeader label={intl.formatMessage(i18n.pinned)} />
+              {pinnedChatSessions.map((session) => renderSessionRow(session))}
+              <div className="h-2.5" aria-hidden="true" />
+            </>
+          )}
+          {unpinnedChatSessions.map((session) => renderSessionRow(session))}
+          {chatOnlySessions.length === 0 && (
+            <div className="px-3 py-2 text-xs text-text-secondary">
+              {intl.formatMessage(isLoadingSessions ? i18n.loadingChats : i18n.noChats)}
+            </div>
+          )}
+        </div>
+
+        <div className="mt-3.5">
+          <SectionHeader label={intl.formatMessage(i18n.projects)} />
+          <button
+            onClick={() => handleNavClick('/')}
+            className="flex h-8 w-full items-center gap-2.5 rounded-[10px] px-2 text-sm text-text-secondary transition-colors hover:bg-background-tertiary/60 hover:text-text-primary"
+          >
+            <Plus className="w-3.5 h-3.5 flex-shrink-0" />
+            <span className="truncate text-left">{intl.formatMessage(i18n.newProject)}</span>
+          </button>
+        </div>
 
         <div className="mt-3.5">
           <SectionHeader
@@ -842,11 +927,7 @@ export const Navigation: React.FC<{
               </>
             )}
             {unpinnedSessions.length === 0
-              ? recentSessions.length === 0 && (
-                  <div className="px-3 py-2 text-xs text-text-secondary">
-                    {intl.formatMessage(isLoadingSessions ? i18n.loadingChats : i18n.noChats)}
-                  </div>
-                )
+              ? null
               : groupedByWorkspace
                 ? unpinnedSessionsByProject.map((group: ProjectGroup, index: number) => {
                     const isCollapsed = collapsedProjects.has(group.path);
@@ -885,7 +966,11 @@ export const Navigation: React.FC<{
 
       <NavigationFooter
         settingsActive={isActive(SETTINGS_NAV_ITEM.path)}
-        onOpenSettings={() => handleNavClick(SETTINGS_NAV_ITEM.path)}
+        onOpenSettings={(section) =>
+          handleNavClick(
+            section ? `${SETTINGS_NAV_ITEM.path}?section=${section}` : SETTINGS_NAV_ITEM.path
+          )
+        }
       />
 
       <ConfirmationModal

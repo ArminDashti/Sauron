@@ -1,15 +1,4 @@
-import {
-  AppWindow,
-  Clock,
-  FileText,
-  Github,
-  History,
-  LayoutGrid,
-  MessageSquarePlus,
-  Puzzle,
-  Settings,
-  Zap,
-} from 'lucide-react';
+import { Clock, History, LayoutGrid, MessageSquarePlus, Settings } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { defineMessages, type IntlShape, type MessageDescriptor } from 'react-intl';
 
@@ -26,12 +15,7 @@ export interface NavItem {
 export const NAV_ITEMS: NavItem[] = [
   { id: 'home', path: '/', label: 'New Chat', icon: MessageSquarePlus },
   { id: 'hub', path: '/hub', label: 'Hub', icon: LayoutGrid },
-  { id: 'github', path: '/github', label: 'GitHub', icon: Github },
-  { id: 'recipes', path: '/recipes', label: 'Recipes', icon: FileText },
-  { id: 'skills', path: '/skills', label: 'Skills', icon: Zap },
-  { id: 'apps', path: '/apps', label: 'Apps', icon: AppWindow },
   { id: 'scheduler', path: '/schedules', label: 'Scheduler', icon: Clock },
-  { id: 'extensions', path: '/extensions', label: 'Extensions', icon: Puzzle },
   { id: 'sessions', path: '/sessions', label: 'Session History', icon: History },
 ];
 
@@ -54,29 +38,9 @@ const navItemMessages = defineMessages({
     id: 'navigation.itemHub',
     defaultMessage: 'Hub',
   },
-  github: {
-    id: 'navigation.itemGitHub',
-    defaultMessage: 'GitHub',
-  },
-  recipes: {
-    id: 'navigation.itemRecipes',
-    defaultMessage: 'Recipes',
-  },
-  skills: {
-    id: 'navigation.itemSkills',
-    defaultMessage: 'Skills',
-  },
-  apps: {
-    id: 'navigation.itemApps',
-    defaultMessage: 'Apps',
-  },
   scheduler: {
     id: 'navigation.itemScheduler',
     defaultMessage: 'Scheduler',
-  },
-  extensions: {
-    id: 'navigation.itemExtensions',
-    defaultMessage: 'Extensions',
   },
   sessions: {
     id: 'navigation.itemSessions',

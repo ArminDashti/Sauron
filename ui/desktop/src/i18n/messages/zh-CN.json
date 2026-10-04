@@ -56,15 +56,6 @@
   "allProviderModels.emptyHint": {
     "defaultMessage": "Configure a provider to see the models it offers."
   },
-  "allProviderModels.filterAll": {
-    "defaultMessage": "全部"
-  },
-  "allProviderModels.filterFree": {
-    "defaultMessage": "免费"
-  },
-  "allProviderModels.freeCount": {
-    "defaultMessage": "{count} 个免费"
-  },
   "allProviderModels.loadFailed": {
     "defaultMessage": "Could not load provider models"
   },
@@ -73,12 +64,6 @@
   },
   "allProviderModels.modelCount": {
     "defaultMessage": "{count,plural,one{# model} other{# models}}"
-  },
-  "allProviderModels.noFreeModels": {
-    "defaultMessage": "您的提供商没有免费模型。"
-  },
-  "allProviderModels.noFreeModelsHint": {
-    "defaultMessage": "当提供商在本地运行模型（Ollama、本地模型）或列出免费变体（例如 OpenRouter 的 :free 模型）时，模型会显示为免费。"
   },
   "allProviderModels.noModels": {
     "defaultMessage": "No models reported by this provider."
@@ -107,14 +92,8 @@
   "allProviderModels.searchPlaceholder": {
     "defaultMessage": "搜索模型..."
   },
-  "allProviderModels.showAll": {
-    "defaultMessage": "显示所有模型"
-  },
   "allProviderModels.showingCount": {
     "defaultMessage": "正在显示 {total, number} 个模型中的 {shown, number} 个"
-  },
-  "allProviderModels.title": {
-    "defaultMessage": "Models from your providers"
   },
   "announcementModal.gotIt": {
     "defaultMessage": "知道了！"
@@ -131,131 +110,17 @@
   "appLayout.showChanges": {
     "defaultMessage": "显示更改面板"
   },
-  "appsView.customApp": {
-    "defaultMessage": "自定义应用"
-  },
-  "appsView.deleteApp": {
-    "defaultMessage": "Delete app"
-  },
-  "appsView.deleteConfirm": {
-    "defaultMessage": "Delete \"{name}\"? This cannot be undone."
-  },
-  "appsView.description": {
-    "defaultMessage": "来自你 MCP 服务器的应用，以及 sauron 自己构建的应用。你可以通过聊天界面让它创建新应用，新应用会显示在这里。"
-  },
-  "appsView.errorLoading": {
-    "defaultMessage": "加载应用出错：{error}"
-  },
-  "appsView.errorPrefix": {
-    "defaultMessage": "Error: {error}"
-  },
-  "appsView.importApp": {
-    "defaultMessage": "导入应用"
-  },
-  "appsView.launch": {
-    "defaultMessage": "启动"
-  },
-  "appsView.loading": {
-    "defaultMessage": "正在加载应用…"
-  },
-  "appsView.noAppsDescription": {
-    "defaultMessage": "打开聊天，告诉 sauron 你想要什么应用，它可以为你构建一个，然后出现在这里。或者如果有人分享了一个应用，你可以用上面的按钮导入。"
-  },
-  "appsView.noAppsTitle": {
-    "defaultMessage": "暂无可用应用"
-  },
-  "appsView.retiredChatApp": {
-    "defaultMessage": "Chat app retired"
-  },
-  "appsView.retiredChatAppDetail": {
-    "defaultMessage": "We removed this feature because MCP sampling is no longer supported."
-  },
-  "appsView.retry": {
-    "defaultMessage": "重试"
-  },
-  "appsView.title": {
-    "defaultMessage": "应用"
-  },
-  "authSettings.activeProviderWarning": {
-    "defaultMessage": "这是当前正在使用的提供商。在配置其他凭据之前，新的请求可能会失败。"
-  },
-  "authSettings.cancel": {
-    "defaultMessage": "取消"
-  },
   "authSettings.cancelSignIn": {
     "defaultMessage": "取消"
   },
-  "authSettings.checkingStatus": {
-    "defaultMessage": "检查中..."
-  },
-  "authSettings.connectedAccounts": {
-    "defaultMessage": "已连接的账户"
-  },
-  "authSettings.connectedAccountsDescription": {
-    "defaultMessage": "登录后 Sauron 即可使用你的外部账户。"
-  },
-  "authSettings.delete": {
-    "defaultMessage": "删除"
-  },
-  "authSettings.deleteCredential": {
-    "defaultMessage": "删除凭据"
-  },
-  "authSettings.deleteMessage": {
-    "defaultMessage": "要删除 {provider} 的 {name} 凭据吗？"
-  },
-  "authSettings.deleteTitle": {
-    "defaultMessage": "删除凭据"
-  },
-  "authSettings.deleted": {
-    "defaultMessage": "凭据已删除"
-  },
-  "authSettings.description": {
-    "defaultMessage": "管理 sauron 在本地存储的提供商凭据。"
-  },
-  "authSettings.empty": {
-    "defaultMessage": "未找到本地存储的提供商凭据。"
-  },
-  "authSettings.expiresAt": {
-    "defaultMessage": "到期时间：{date}"
-  },
-  "authSettings.failedToConfigure": {
-    "defaultMessage": "配置凭据失败：{error}"
-  },
-  "authSettings.failedToDelete": {
-    "defaultMessage": "删除凭据失败：{error}"
-  },
-  "authSettings.failedToLoad": {
-    "defaultMessage": "加载提供商凭据失败"
-  },
-  "authSettings.githubAccountDescription": {
-    "defaultMessage": "搜索仓库、处理代码、管理议题并创建拉取请求。"
-  },
-  "authSettings.githubAccountName": {
-    "defaultMessage": "GitHub"
-  },
-  "authSettings.githubConnected": {
-    "defaultMessage": "已连接"
-  },
   "authSettings.githubEnterCode": {
     "defaultMessage": "在 {url} 输入此代码以授权 Sauron："
-  },
-  "authSettings.githubNotConnected": {
-    "defaultMessage": "未连接"
-  },
-  "authSettings.githubOpenDevicePage": {
-    "defaultMessage": "打开 GitHub 设备页面"
   },
   "authSettings.githubSignInFailed": {
     "defaultMessage": "GitHub sign-in failed: {error}"
   },
   "authSettings.githubSignInUnavailable": {
     "defaultMessage": "GitHub 登录仅在桌面应用中可用。"
-  },
-  "authSettings.githubSignOutMessage": {
-    "defaultMessage": "在你重新登录之前，Sauron 将无法操作你的 GitHub 仓库。"
-  },
-  "authSettings.githubSignOutTitle": {
-    "defaultMessage": "Sign out of GitHub"
   },
   "authSettings.githubSignedIn": {
     "defaultMessage": "已登录 GitHub。GitHub 扩展已可使用。"
@@ -269,32 +134,8 @@
   "authSettings.githubWaitingForAuthorization": {
     "defaultMessage": "正在等待 GitHub 授权..."
   },
-  "authSettings.loading": {
-    "defaultMessage": "正在加载凭据..."
-  },
-  "authSettings.reauthorize": {
-    "defaultMessage": "重新授权"
-  },
-  "authSettings.signIn": {
-    "defaultMessage": "登录"
-  },
   "authSettings.signInWithGitHub": {
     "defaultMessage": "使用 GitHub 登录"
-  },
-  "authSettings.signOutFromGitHub": {
-    "defaultMessage": "Sign out"
-  },
-  "authSettings.signedIn": {
-    "defaultMessage": "凭据已配置"
-  },
-  "authSettings.storageProviderCache": {
-    "defaultMessage": "提供商缓存"
-  },
-  "authSettings.storageSecretStore": {
-    "defaultMessage": "密钥存储"
-  },
-  "authSettings.title": {
-    "defaultMessage": "提供商凭据"
   },
   "backButton.back": {
     "defaultMessage": "返回"
@@ -433,9 +274,6 @@
   },
   "chatInput.failedToReadImage": {
     "defaultMessage": "读取图片文件失败"
-  },
-  "chatInput.navigationShortcut": {
-    "defaultMessage": "{prefix}↑/{prefix}↓ 浏览消息"
   },
   "chatInput.processingDroppedFiles": {
     "defaultMessage": "正在处理拖入的文件…"
@@ -1196,6 +1034,9 @@
   "dirSwitcher.gitWorktrees": {
     "defaultMessage": "Git 工作树"
   },
+  "dirSwitcher.noFolder": {
+    "defaultMessage": "No folder"
+  },
   "dirSwitcher.noWorktreesFound": {
     "defaultMessage": "未找到工作树"
   },
@@ -1559,17 +1400,14 @@
   "groupedExtensionLoadingToast.successfullyLoaded": {
     "defaultMessage": "{count,plural,one{成功加载 # 个扩展} other{成功加载 # 个扩展}}"
   },
-  "harnessesSection.title": {
-    "defaultMessage": "智能体 Harness"
+  "harnessesSection.configure": {
+    "defaultMessage": "配置"
+  },
+  "harnessesSection.configured": {
+    "defaultMessage": "已启用"
   },
   "harnessesSection.description": {
     "defaultMessage": "使用来自其他 Harness（如 Cursor、Claude Code、Codex 或 OpenCode 或 Copilot）的智能体。在此启用一个，然后在 Models 中选择它进行对话。"
-  },
-  "harnessesSection.loading": {
-    "defaultMessage": "正在加载 Harness..."
-  },
-  "harnessesSection.loadFailed": {
-    "defaultMessage": "加载 Harness 失败"
   },
   "harnessesSection.empty": {
     "defaultMessage": "没有可用的外部智能体 Harness。"
@@ -1577,17 +1415,20 @@
   "harnessesSection.installed": {
     "defaultMessage": "已安装"
   },
-  "harnessesSection.notInstalled": {
-    "defaultMessage": "未安装"
+  "harnessesSection.loadFailed": {
+    "defaultMessage": "加载 Harness 失败"
   },
-  "harnessesSection.configure": {
-    "defaultMessage": "配置"
-  },
-  "harnessesSection.configured": {
-    "defaultMessage": "已启用"
+  "harnessesSection.loading": {
+    "defaultMessage": "正在加载 Harness..."
   },
   "harnessesSection.notConfigured": {
     "defaultMessage": "未启用"
+  },
+  "harnessesSection.notInstalled": {
+    "defaultMessage": "未安装"
+  },
+  "harnessesSection.title": {
+    "defaultMessage": "智能体 Harness"
   },
   "headersSection.add": {
     "defaultMessage": "添加"
@@ -1666,21 +1507,6 @@
   },
   "huggingFaceModelSearch.tooLarge": {
     "defaultMessage": "可能超出内存（模型 {size}，可用 {available}）"
-  },
-  "huggingFaceSignInPrompt.failedToConfigure": {
-    "defaultMessage": "登录 Hugging Face 失败：{error}"
-  },
-  "huggingFaceSignInPrompt.signIn": {
-    "defaultMessage": "登录"
-  },
-  "huggingFaceSignInPrompt.signedIn": {
-    "defaultMessage": "已登录 Hugging Face"
-  },
-  "huggingFaceSignInPrompt.signingIn": {
-    "defaultMessage": "正在登录..."
-  },
-  "huggingFaceSignInPrompt.title": {
-    "defaultMessage": "Hugging Face"
   },
   "imagePreview.altText": {
     "defaultMessage": "sauron 图片"
@@ -2054,9 +1880,6 @@
   "localInferenceSettings.evictFromMemory": {
     "defaultMessage": "Evict from memory"
   },
-  "localInferenceSettings.huggingFaceSignInNote": {
-    "defaultMessage": "登录后可在搜索和下载模型时提高速率限制，并访问私有或受限的 Hugging Face 仓库。"
-  },
   "localInferenceSettings.loadedInMemory": {
     "defaultMessage": "Loaded in memory"
   },
@@ -2378,30 +2201,6 @@
   "microphoneSelector.test": {
     "defaultMessage": "测试"
   },
-  "modeSelectionItem.autonomousDescription": {
-    "defaultMessage": "完整文件修改能力，可自由编辑、创建和删除文件。"
-  },
-  "modeSelectionItem.autonomousLabel": {
-    "defaultMessage": "自主"
-  },
-  "modeSelectionItem.chatOnlyDescription": {
-    "defaultMessage": "仅与所选提供商交互，不使用工具或扩展。"
-  },
-  "modeSelectionItem.chatOnlyLabel": {
-    "defaultMessage": "仅聊天"
-  },
-  "modeSelectionItem.manualDescription": {
-    "defaultMessage": "所有工具、扩展和文件修改都需要人工批准"
-  },
-  "modeSelectionItem.manualLabel": {
-    "defaultMessage": "手动"
-  },
-  "modeSelectionItem.smartDescription": {
-    "defaultMessage": "根据风险级别智能判断哪些操作需要批准"
-  },
-  "modeSelectionItem.smartLabel": {
-    "defaultMessage": "智能"
-  },
   "modelAndProviderContext.modelChangeFailed": {
     "defaultMessage": "{provider}/{model} 失败"
   },
@@ -2431,9 +2230,6 @@
   },
   "modelBadges.reasoning": {
     "defaultMessage": "推理"
-  },
-  "modelSettingsButtons.switchModels": {
-    "defaultMessage": "切换模型"
   },
   "modelSettingsPanel.batchSize": {
     "defaultMessage": "批处理大小"
@@ -2615,20 +2411,11 @@
   "modelsBottomBar.selectModel": {
     "defaultMessage": "选择模型"
   },
-  "navigation.itemApps": {
-    "defaultMessage": "应用"
-  },
-  "navigation.itemExtensions": {
-    "defaultMessage": "扩展"
-  },
   "navigation.itemHome": {
     "defaultMessage": "新对话"
   },
   "navigation.itemHub": {
     "defaultMessage": "中心"
-  },
-  "navigation.itemRecipes": {
-    "defaultMessage": "配方"
   },
   "navigation.itemScheduler": {
     "defaultMessage": "调度"
@@ -2639,20 +2426,32 @@
   "navigation.itemSettings": {
     "defaultMessage": "设置"
   },
-  "navigation.itemSkills": {
-    "defaultMessage": "技能"
+  "navigationFooter.about": {
+    "defaultMessage": "About Sauron"
   },
-  "navigationFooter.cpuUsage": {
-    "defaultMessage": "CPU {percent}%"
+  "navigationFooter.aboutVersion": {
+    "defaultMessage": "Sauron {version}"
   },
-  "navigationFooter.memoryUsage": {
-    "defaultMessage": "内存 {percent}%"
+  "navigationFooter.accountMenu": {
+    "defaultMessage": "Account"
+  },
+  "navigationFooter.close": {
+    "defaultMessage": "Close"
+  },
+  "navigationFooter.keyboardShortcuts": {
+    "defaultMessage": "Keyboard shortcuts"
+  },
+  "navigationFooter.quit": {
+    "defaultMessage": "Quit Sauron"
   },
   "navigationFooter.sendFeedback": {
     "defaultMessage": "发送反馈"
   },
   "navigationFooter.you": {
     "defaultMessage": "你"
+  },
+  "navigationPanel.chats": {
+    "defaultMessage": "Chats"
   },
   "navigationPanel.goBack": {
     "defaultMessage": "后退"
@@ -2681,6 +2480,9 @@
   "navigationPanel.metaUpdated": {
     "defaultMessage": "更新时间"
   },
+  "navigationPanel.newChat": {
+    "defaultMessage": "New chat"
+  },
   "navigationPanel.newProject": {
     "defaultMessage": "新建项目"
   },
@@ -2701,6 +2503,9 @@
   },
   "navigationPanel.statusUnread": {
     "defaultMessage": "未读活动"
+  },
+  "navigationPanel.toast.newChatFailed": {
+    "defaultMessage": "Could not start chat: {error}"
   },
   "navigationPanel.untitledSession": {
     "defaultMessage": "未命名会话"
@@ -2920,18 +2725,6 @@
   },
   "pluginsSettings.title": {
     "defaultMessage": "Plugins"
-  },
-  "preferredModels.empty": {
-    "defaultMessage": "为下方模型加星标，即可在此处和聊天中随时使用。"
-  },
-  "preferredModels.remove": {
-    "defaultMessage": "将 {model} 从首选模型中移除"
-  },
-  "preferredModels.removeFailed": {
-    "defaultMessage": "更新首选模型失败"
-  },
-  "preferredModels.title": {
-    "defaultMessage": "首选模型"
   },
   "privacyInfoModal.collectErrors": {
     "defaultMessage": "错误类型（例如“rate_limit”“auth”——不含详情）"
@@ -3181,9 +2974,6 @@
   },
   "providerConfigurationModal.goBack": {
     "defaultMessage": "返回"
-  },
-  "providerConfigurationModal.huggingFaceOAuthDescription": {
-    "defaultMessage": "登录后即可使用 Hugging Face Inference Providers，而无需手动输入 API 令牌。"
   },
   "providerConfigurationModal.oauthLoginFailed": {
     "defaultMessage": "OAuth 登录失败：{error}"
@@ -4661,35 +4451,17 @@
   "settings.version.title": {
     "defaultMessage": "版本"
   },
-  "settingsView.noResults": {
-    "defaultMessage": "无结果"
-  },
-  "settingsView.searchPlaceholder": {
-    "defaultMessage": "搜索设置"
-  },
   "settingsView.tabApp": {
     "defaultMessage": "应用"
   },
   "settingsView.tabAppearance": {
     "defaultMessage": "Appearance"
   },
-  "settingsView.tabChat": {
-    "defaultMessage": "聊天"
-  },
   "settingsView.tabExternalBackend": {
     "defaultMessage": "外部后端"
   },
-  "settingsView.tabHarnesses": {
-    "defaultMessage": "Harness"
-  },
-  "settingsView.tabKeyboard": {
-    "defaultMessage": "键盘"
-  },
   "settingsView.tabMcp": {
     "defaultMessage": "MCP"
-  },
-  "settingsView.tabModels": {
-    "defaultMessage": "模型"
   },
   "settingsView.tabPlugins": {
     "defaultMessage": "Plugins"
@@ -4756,15 +4528,6 @@
   },
   "spellcheckToggle.title": {
     "defaultMessage": "启用拼写检查"
-  },
-  "standaloneAppView.failedToLoad": {
-    "defaultMessage": "加载应用失败"
-  },
-  "standaloneAppView.initializing": {
-    "defaultMessage": "正在初始化应用…"
-  },
-  "standaloneAppView.missingParams": {
-    "defaultMessage": "缺少必需参数"
   },
   "stringUtils.configuredProvider": {
     "defaultMessage": "{name} 提供商已配置"
@@ -5159,60 +4922,6 @@
   "updateSection.versionIsAvailable": {
     "defaultMessage": "{version} 版本已可用"
   },
-  "userMessage.cancel": {
-    "defaultMessage": "取消"
-  },
-  "userMessage.cancelAriaLabel": {
-    "defaultMessage": "取消编辑"
-  },
-  "userMessage.editAriaLabel": {
-    "defaultMessage": "编辑消息内容"
-  },
-  "userMessage.editButton": {
-    "defaultMessage": "编辑"
-  },
-  "userMessage.editImagesHeading": {
-    "defaultMessage": "已附加的图片："
-  },
-  "userMessage.editInPlace": {
-    "defaultMessage": "原地编辑"
-  },
-  "userMessage.editInPlaceAriaLabel": {
-    "defaultMessage": "原地编辑消息"
-  },
-  "userMessage.editInPlaceDescription": {
-    "defaultMessage": "<b>原地编辑</b>会更新当前会话 • <b>分叉会话</b>会创建新会话"
-  },
-  "userMessage.editInPlaceTitle": {
-    "defaultMessage": "更新此会话中的消息"
-  },
-  "userMessage.editMessageAriaLabel": {
-    "defaultMessage": "编辑消息：{preview}"
-  },
-  "userMessage.editMessageTitle": {
-    "defaultMessage": "编辑消息"
-  },
-  "userMessage.editPlaceholder": {
-    "defaultMessage": "编辑你的消息…"
-  },
-  "userMessage.emptyError": {
-    "defaultMessage": "消息不能为空"
-  },
-  "userMessage.forkSession": {
-    "defaultMessage": "分叉会话"
-  },
-  "userMessage.forkSessionAriaLabel": {
-    "defaultMessage": "用编辑过的消息分叉会话"
-  },
-  "userMessage.forkSessionTitle": {
-    "defaultMessage": "用编辑过的消息创建新会话"
-  },
-  "userMessage.removeImageFromEdit": {
-    "defaultMessage": "从消息中移除图片"
-  },
-  "settingsView.tabStats": {
-    "defaultMessage": "Stats"
-  },
   "usageStats.byModel": {
     "defaultMessage": "Per model"
   },
@@ -5284,8 +4993,58 @@
   },
   "usageStats.writeTokens": {
     "defaultMessage": "Write tokens"
-  }
-,
+  },
+  "userMessage.cancel": {
+    "defaultMessage": "取消"
+  },
+  "userMessage.cancelAriaLabel": {
+    "defaultMessage": "取消编辑"
+  },
+  "userMessage.editAriaLabel": {
+    "defaultMessage": "编辑消息内容"
+  },
+  "userMessage.editButton": {
+    "defaultMessage": "编辑"
+  },
+  "userMessage.editImagesHeading": {
+    "defaultMessage": "已附加的图片："
+  },
+  "userMessage.editInPlace": {
+    "defaultMessage": "原地编辑"
+  },
+  "userMessage.editInPlaceAriaLabel": {
+    "defaultMessage": "原地编辑消息"
+  },
+  "userMessage.editInPlaceDescription": {
+    "defaultMessage": "<b>原地编辑</b>会更新当前会话 • <b>分叉会话</b>会创建新会话"
+  },
+  "userMessage.editInPlaceTitle": {
+    "defaultMessage": "更新此会话中的消息"
+  },
+  "userMessage.editMessageAriaLabel": {
+    "defaultMessage": "编辑消息：{preview}"
+  },
+  "userMessage.editMessageTitle": {
+    "defaultMessage": "编辑消息"
+  },
+  "userMessage.editPlaceholder": {
+    "defaultMessage": "编辑你的消息…"
+  },
+  "userMessage.emptyError": {
+    "defaultMessage": "消息不能为空"
+  },
+  "userMessage.forkSession": {
+    "defaultMessage": "分叉会话"
+  },
+  "userMessage.forkSessionAriaLabel": {
+    "defaultMessage": "用编辑过的消息分叉会话"
+  },
+  "userMessage.forkSessionTitle": {
+    "defaultMessage": "用编辑过的消息创建新会话"
+  },
+  "userMessage.removeImageFromEdit": {
+    "defaultMessage": "从消息中移除图片"
+  },
   "worktreeSettings.description": {
     "defaultMessage": "控制工作目录选择器提供哪些目录"
   },

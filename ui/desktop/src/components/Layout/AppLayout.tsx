@@ -2,9 +2,10 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { IpcRendererEvent } from 'electron';
 import { Outlet, useLocation } from 'react-router';
 import { motion } from 'framer-motion';
-import { GitCompareArrows, PanelLeft } from 'lucide-react';
+import { PanelLeft, PanelRight } from 'lucide-react';
 import { defineMessages, useIntl } from '../../i18n';
 import { Button } from '../ui/button';
+import { Dialog, DialogContent, DialogTitle } from '../ui/dialog';
 import ChatSessionsContainer from '../ChatSessionsContainer';
 import { ChangesPanel } from '../changes/ChangesPanel';
 import { useChatContext } from '../../contexts/ChatContext';
@@ -26,11 +27,11 @@ const i18n = defineMessages({
   },
   showChanges: {
     id: 'appLayout.showChanges',
-    defaultMessage: 'Show changes panel',
+    defaultMessage: 'Expand right sidebar',
   },
   hideChanges: {
     id: 'appLayout.hideChanges',
-    defaultMessage: 'Hide changes panel',
+    defaultMessage: 'Collapse right sidebar',
   },
 });
 
@@ -74,7 +75,7 @@ const AppLayoutContent: React.FC<AppLayoutContentProps> = ({ activeSessions, liv
 
   const [isChangesExpanded, setIsChangesExpandedState] = useState<boolean>(() => {
     const stored = localStorage.getItem('changes_panel_expanded');
-    return stored !== 'false';
+    return stored === null ? false : stored === 'true';
   });
 
   const setIsChangesExpanded = useCallback((expanded: boolean) => {
@@ -160,21 +161,6 @@ const AppLayoutContent: React.FC<AppLayoutContentProps> = ({ activeSessions, liv
 
   const { setChat } = chatContext;
 
-  if (isOnSettingsRoute) {
-    return (
-      <div className="relative flex h-full w-full flex-1 bg-background-secondary">
-        <Outlet />
-        <div className="hidden">
-          <ChatSessionsContainer
-            setChat={setChat}
-            activeSessions={activeSessions}
-            liveVoice={liveVoice}
-          />
-        </div>
-      </div>
-    );
-  }
-
   const needsTrafficLightInset = safeIsMacOS && !isFullScreen;
   const headerPadding = needsTrafficLightInset ? 'pl-[96px]' : 'pl-4';
   const headerTop = needsTrafficLightInset ? 'top-[14px]' : 'top-[11px]';
@@ -198,11 +184,12 @@ const AppLayoutContent: React.FC<AppLayoutContentProps> = ({ activeSessions, liv
           size="xs"
           title={navToggleTitle}
           aria-label={navToggleTitle}
+          aria-expanded={isNavExpanded}
         >
           <PanelLeft className="w-5 h-5" />
         </Button>
-        {/* Toggles the right-hand changes panel. Lives in the left cluster so it
-            never collides with the chat watermark at the top-right corner. */}
+        {/* The right sidebar toggle shares the left header cluster to avoid the
+            chat watermark at the top-right corner. */}
         <Button
           onClick={() => setIsChangesExpanded(!isChangesExpanded)}
           className="no-drag hover:!bg-background-tertiary"
@@ -210,8 +197,9 @@ const AppLayoutContent: React.FC<AppLayoutContentProps> = ({ activeSessions, liv
           size="xs"
           title={changesToggleTitle}
           aria-label={changesToggleTitle}
+          aria-expanded={isChangesExpanded}
         >
-          <GitCompareArrows className="w-5 h-5" />
+          <PanelRight className="w-5 h-5" />
         </Button>
       </div>
 
@@ -241,7 +229,7 @@ const AppLayoutContent: React.FC<AppLayoutContentProps> = ({ activeSessions, liv
 
         {/* Main content — no border / no card; just flows on the canvas. */}
         <div className="flex-1 overflow-hidden min-h-0">
-          <Outlet />
+          {isOnSettingsRoute ? <div className="h-full w-full" aria-hidden="true" /> : <Outlet />}
           {/* Always render ChatSessionsContainer to keep SSE connections alive.
               When navigating away from /pair, hide it with CSS */}
           <div className={isOnPairRoute ? 'contents' : 'hidden'}>
@@ -275,6 +263,24 @@ const AppLayoutContent: React.FC<AppLayoutContentProps> = ({ activeSessions, liv
           )}
         </motion.div>
       </div>
+
+      <Dialog open={isOnSettingsRoute}>
+        <DialogContent
+          aria-describedby={undefined}
+          className="h-[min(90vh,900px)] max-h-[calc(100vh-2rem)] w-[min(92vw,1040px)] max-w-none overflow-hidden border-border-primary bg-background-primary p-0 shadow-2xl duration-300"
+          onEscapeKeyDown={(event) => {
+            event.preventDefault();
+            window.history.back();
+          }}
+          onOpenAutoFocus={(event) => event.preventDefault()}
+          onPointerDownOutside={(event) => {
+            event.preventDefault();
+          }}
+        >
+          <DialogTitle className="sr-only">Settings</DialogTitle>
+          <Outlet />
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

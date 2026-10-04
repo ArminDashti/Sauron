@@ -11,7 +11,6 @@ import { toastError, toastSuccess } from '../../../toasts';
 import { IntlTestWrapper } from '../../../i18n/test-utils';
 import type { ProviderDetails } from '../../../types/providers';
 
-
 const defaultProps = {
   preferredModels: [],
   onPreferredModelsChange: vi.fn(),
@@ -135,8 +134,9 @@ describe('AllProviderModels', () => {
     renderWithIntl(<AllProviderModels {...defaultProps} />);
 
     await screen.findByTestId('all-provider-model-openai-gpt-4o');
-    expect(screen.queryByTestId('all-provider-model-anthropic-claude-sonnet-4')).not
-      .toBeInTheDocument();
+    expect(
+      screen.queryByTestId('all-provider-model-anthropic-claude-sonnet-4')
+    ).not.toBeInTheDocument();
 
     await user.click(screen.getByRole('combobox'));
     await user.click(await screen.findByText('Anthropic'));
@@ -162,10 +162,9 @@ describe('AllProviderModels', () => {
     expect(screen.queryByText(/No models match/)).not.toBeInTheDocument();
   });
 
-  it('saves the selected model as default and notifies the parent', async () => {
+  it('saves the selected model as default', async () => {
     const user = userEvent.setup();
-    const onModelSelected = vi.fn();
-    renderWithIntl(<AllProviderModels {...defaultProps} onModelSelected={onModelSelected} />);
+    renderWithIntl(<AllProviderModels {...defaultProps} />);
 
     await screen.findByTestId('all-provider-models-openai');
     await user.click(screen.getByTestId('all-provider-model-openai-o3-mini'));
@@ -174,7 +173,6 @@ describe('AllProviderModels', () => {
       expect(mockedSaveDefaults).toHaveBeenCalledWith('openai', 'o3-mini');
     });
     expect(mockedToastSuccess).toHaveBeenCalled();
-    expect(onModelSelected).toHaveBeenCalledTimes(1);
 
     const selected = screen.getByTestId('all-provider-model-openai-o3-mini');
     expect(selected).toHaveAttribute('aria-pressed', 'true');
@@ -204,5 +202,38 @@ describe('AllProviderModels', () => {
 
     expect(await screen.findByText('No activated providers yet.')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Configure providers' })).toBeInTheDocument();
+  });
+
+  it('keeps only allowlisted providers, custom ones included', async () => {
+    const user = userEvent.setup();
+    const named = (name: string, displayName: string): ProviderDetails =>
+      makeProvider({
+        name,
+        metadata: {
+          config_keys: [],
+          default_model: '',
+          description: `${displayName} models`,
+          display_name: displayName,
+          known_models: [{ name: `${name}-model`, context_limit: 1000 }],
+          model_doc_link: '',
+          name,
+        },
+      });
+    mockedListSettingsProviderDetails.mockResolvedValue([
+      named('deepseek', 'DeepSeek'),
+      named('custom_my_endpoint', 'My endpoint'),
+      named('custom_tensorix', 'Tensorix'),
+      named('huggingface', 'Hugging Face'),
+      named('openai', 'OpenAI'),
+    ]);
+    renderWithIntl(<AllProviderModels {...defaultProps} />);
+
+    await screen.findByTestId('all-provider-models-openai');
+    await user.click(screen.getByRole('combobox'));
+
+    expect(await screen.findByText('My endpoint')).toBeInTheDocument();
+    expect(screen.getByText('Hugging Face')).toBeInTheDocument();
+    expect(screen.queryByText('DeepSeek')).not.toBeInTheDocument();
+    expect(screen.queryByText('Tensorix')).not.toBeInTheDocument();
   });
 });

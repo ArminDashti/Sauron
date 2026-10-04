@@ -56,15 +56,6 @@
   "allProviderModels.emptyHint": {
     "defaultMessage": "Configure a provider to see the models it offers."
   },
-  "allProviderModels.filterAll": {
-    "defaultMessage": "Semua"
-  },
-  "allProviderModels.filterFree": {
-    "defaultMessage": "Gratis"
-  },
-  "allProviderModels.freeCount": {
-    "defaultMessage": "{count} gratis"
-  },
   "allProviderModels.loadFailed": {
     "defaultMessage": "Could not load provider models"
   },
@@ -73,12 +64,6 @@
   },
   "allProviderModels.modelCount": {
     "defaultMessage": "{count,plural,one{# model} other{# models}}"
-  },
-  "allProviderModels.noFreeModels": {
-    "defaultMessage": "Tidak ada model gratis dari provider Anda."
-  },
-  "allProviderModels.noFreeModelsHint": {
-    "defaultMessage": "Model dianggap gratis saat provider menjalankannya secara lokal (Ollama, model lokal) atau mencantumkan varian gratis, seperti model :free dari OpenRouter."
   },
   "allProviderModels.noModels": {
     "defaultMessage": "No models reported by this provider."
@@ -107,14 +92,8 @@
   "allProviderModels.searchPlaceholder": {
     "defaultMessage": "Cari model..."
   },
-  "allProviderModels.showAll": {
-    "defaultMessage": "Tampilkan semua model"
-  },
   "allProviderModels.showingCount": {
     "defaultMessage": "Menampilkan {shown, number} dari {total, number} model"
-  },
-  "allProviderModels.title": {
-    "defaultMessage": "Models from your providers"
   },
   "announcementModal.gotIt": {
     "defaultMessage": "Mengerti!"
@@ -131,131 +110,17 @@
   "appLayout.showChanges": {
     "defaultMessage": "Tampilkan panel perubahan"
   },
-  "appsView.customApp": {
-    "defaultMessage": "Aplikasi khusus"
-  },
-  "appsView.deleteApp": {
-    "defaultMessage": "Delete app"
-  },
-  "appsView.deleteConfirm": {
-    "defaultMessage": "Delete \"{name}\"? This cannot be undone."
-  },
-  "appsView.description": {
-    "defaultMessage": "Aplikasi dari server MCP Anda dan Aplikasi yang dibuat oleh sauron sendiri. Anda dapat memintanya membuat aplikasi baru melalui antarmuka obrolan dan aplikasi tersebut akan muncul di sini."
-  },
-  "appsView.errorLoading": {
-    "defaultMessage": "Kesalahan saat memuat aplikasi: {error}"
-  },
-  "appsView.errorPrefix": {
-    "defaultMessage": "Error: {error}"
-  },
-  "appsView.importApp": {
-    "defaultMessage": "Impor Aplikasi"
-  },
-  "appsView.launch": {
-    "defaultMessage": "Jalankan"
-  },
-  "appsView.loading": {
-    "defaultMessage": "Memuat aplikasi..."
-  },
-  "appsView.noAppsDescription": {
-    "defaultMessage": "Buka obrolan dan mintalah sauron membuat aplikasi yang Anda inginkan. sauron dapat membuatkannya untuk Anda dan aplikasi tersebut akan muncul di sini. Atau jika seseorang membagikan sebuah aplikasi, Anda dapat mengimpornya menggunakan tombol di atas."
-  },
-  "appsView.noAppsTitle": {
-    "defaultMessage": "Tidak ada aplikasi yang tersedia"
-  },
-  "appsView.retiredChatApp": {
-    "defaultMessage": "Chat app retired"
-  },
-  "appsView.retiredChatAppDetail": {
-    "defaultMessage": "We removed this feature because MCP sampling is no longer supported."
-  },
-  "appsView.retry": {
-    "defaultMessage": "Coba lagi"
-  },
-  "appsView.title": {
-    "defaultMessage": "Aplikasi"
-  },
-  "authSettings.activeProviderWarning": {
-    "defaultMessage": "Ini adalah penyedia aktif. Permintaan baru mungkin gagal hingga Anda mengonfigurasi kredensial lain."
-  },
-  "authSettings.cancel": {
-    "defaultMessage": "Batal"
-  },
   "authSettings.cancelSignIn": {
     "defaultMessage": "Batal"
   },
-  "authSettings.checkingStatus": {
-    "defaultMessage": "Memeriksa..."
-  },
-  "authSettings.connectedAccounts": {
-    "defaultMessage": "Akun terhubung"
-  },
-  "authSettings.connectedAccountsDescription": {
-    "defaultMessage": "Masuk agar Sauron dapat bekerja dengan akun eksternal Anda."
-  },
-  "authSettings.delete": {
-    "defaultMessage": "Hapus"
-  },
-  "authSettings.deleteCredential": {
-    "defaultMessage": "Hapus kredensial"
-  },
-  "authSettings.deleteMessage": {
-    "defaultMessage": "Hapus kredensial {name} untuk {provider}?"
-  },
-  "authSettings.deleteTitle": {
-    "defaultMessage": "Hapus kredensial"
-  },
-  "authSettings.deleted": {
-    "defaultMessage": "Kredensial dihapus"
-  },
-  "authSettings.description": {
-    "defaultMessage": "Kelola kredensial penyedia yang disimpan secara lokal oleh sauron."
-  },
-  "authSettings.empty": {
-    "defaultMessage": "Tidak ditemukan kredensial penyedia yang tersimpan secara lokal."
-  },
-  "authSettings.expiresAt": {
-    "defaultMessage": "Kedaluwarsa {date}"
-  },
-  "authSettings.failedToConfigure": {
-    "defaultMessage": "Gagal mengonfigurasi kredensial: {error}"
-  },
-  "authSettings.failedToDelete": {
-    "defaultMessage": "Gagal menghapus kredensial: {error}"
-  },
-  "authSettings.failedToLoad": {
-    "defaultMessage": "Gagal memuat kredensial penyedia"
-  },
-  "authSettings.githubAccountDescription": {
-    "defaultMessage": "Cari repositori, bekerja dengan kode, kelola issue, dan buka pull request."
-  },
-  "authSettings.githubAccountName": {
-    "defaultMessage": "GitHub"
-  },
-  "authSettings.githubConnected": {
-    "defaultMessage": "Terhubung"
-  },
   "authSettings.githubEnterCode": {
     "defaultMessage": "Masukkan kode ini di {url} untuk memberi otorisasi kepada Sauron:"
-  },
-  "authSettings.githubNotConnected": {
-    "defaultMessage": "Tidak terhubung"
-  },
-  "authSettings.githubOpenDevicePage": {
-    "defaultMessage": "Buka halaman perangkat GitHub"
   },
   "authSettings.githubSignInFailed": {
     "defaultMessage": "GitHub sign-in failed: {error}"
   },
   "authSettings.githubSignInUnavailable": {
     "defaultMessage": "Masuk GitHub hanya tersedia di aplikasi desktop."
-  },
-  "authSettings.githubSignOutMessage": {
-    "defaultMessage": "Sauron tidak akan dapat bekerja dengan repositori GitHub Anda sampai Anda masuk kembali."
-  },
-  "authSettings.githubSignOutTitle": {
-    "defaultMessage": "Sign out of GitHub"
   },
   "authSettings.githubSignedIn": {
     "defaultMessage": "Berhasil masuk ke GitHub. Ekstensi GitHub siap digunakan."
@@ -269,32 +134,8 @@
   "authSettings.githubWaitingForAuthorization": {
     "defaultMessage": "Menunggu otorisasi GitHub..."
   },
-  "authSettings.loading": {
-    "defaultMessage": "Memuat kredensial..."
-  },
-  "authSettings.reauthorize": {
-    "defaultMessage": "Otorisasi ulang"
-  },
-  "authSettings.signIn": {
-    "defaultMessage": "Masuk"
-  },
   "authSettings.signInWithGitHub": {
     "defaultMessage": "Masuk dengan GitHub"
-  },
-  "authSettings.signOutFromGitHub": {
-    "defaultMessage": "Sign out"
-  },
-  "authSettings.signedIn": {
-    "defaultMessage": "Kredensial dikonfigurasi"
-  },
-  "authSettings.storageProviderCache": {
-    "defaultMessage": "Cache penyedia"
-  },
-  "authSettings.storageSecretStore": {
-    "defaultMessage": "Penyimpanan rahasia"
-  },
-  "authSettings.title": {
-    "defaultMessage": "Kredensial Penyedia"
   },
   "backButton.back": {
     "defaultMessage": "Kembali"
@@ -433,9 +274,6 @@
   },
   "chatInput.failedToReadImage": {
     "defaultMessage": "Gagal membaca berkas gambar"
-  },
-  "chatInput.navigationShortcut": {
-    "defaultMessage": "{prefix}↑/{prefix}↓ untuk menavigasi pesan"
   },
   "chatInput.processingDroppedFiles": {
     "defaultMessage": "Memproses berkas yang dijatuhkan..."
@@ -1196,6 +1034,9 @@
   "dirSwitcher.gitWorktrees": {
     "defaultMessage": "Git worktree"
   },
+  "dirSwitcher.noFolder": {
+    "defaultMessage": "No folder"
+  },
   "dirSwitcher.noWorktreesFound": {
     "defaultMessage": "Tidak ada worktree yang ditemukan"
   },
@@ -1559,17 +1400,14 @@
   "groupedExtensionLoadingToast.successfullyLoaded": {
     "defaultMessage": "{count,plural,one{Berhasil memuat # ekstensi} other{Berhasil memuat # ekstensi}}"
   },
-  "harnessesSection.title": {
-    "defaultMessage": "Harness agen"
+  "harnessesSection.configure": {
+    "defaultMessage": "Konfigurasikan"
+  },
+  "harnessesSection.configured": {
+    "defaultMessage": "Diaktifkan"
   },
   "harnessesSection.description": {
     "defaultMessage": "Gunakan agen dari harness lain seperti Cursor, Claude Code, Codex, atau OpenCode, atau Copilot. Aktifkan salah satunya di sini, lalu pilih di Models untuk mengobrol dengannya."
-  },
-  "harnessesSection.loading": {
-    "defaultMessage": "Memuat harness..."
-  },
-  "harnessesSection.loadFailed": {
-    "defaultMessage": "Gagal memuat harness"
   },
   "harnessesSection.empty": {
     "defaultMessage": "Tidak ada harness agen eksternal yang tersedia."
@@ -1577,17 +1415,20 @@
   "harnessesSection.installed": {
     "defaultMessage": "Terpasang"
   },
-  "harnessesSection.notInstalled": {
-    "defaultMessage": "Tidak terpasang"
+  "harnessesSection.loadFailed": {
+    "defaultMessage": "Gagal memuat harness"
   },
-  "harnessesSection.configure": {
-    "defaultMessage": "Konfigurasikan"
-  },
-  "harnessesSection.configured": {
-    "defaultMessage": "Diaktifkan"
+  "harnessesSection.loading": {
+    "defaultMessage": "Memuat harness..."
   },
   "harnessesSection.notConfigured": {
     "defaultMessage": "Tidak diaktifkan"
+  },
+  "harnessesSection.notInstalled": {
+    "defaultMessage": "Tidak terpasang"
+  },
+  "harnessesSection.title": {
+    "defaultMessage": "Harness agen"
   },
   "headersSection.add": {
     "defaultMessage": "Tambah"
@@ -1666,21 +1507,6 @@
   },
   "huggingFaceModelSearch.tooLarge": {
     "defaultMessage": "Mungkin tidak muat dalam memori (model {size}, {available} tersedia)"
-  },
-  "huggingFaceSignInPrompt.failedToConfigure": {
-    "defaultMessage": "Gagal masuk ke Hugging Face: {error}"
-  },
-  "huggingFaceSignInPrompt.signIn": {
-    "defaultMessage": "Masuk"
-  },
-  "huggingFaceSignInPrompt.signedIn": {
-    "defaultMessage": "Hugging Face telah masuk"
-  },
-  "huggingFaceSignInPrompt.signingIn": {
-    "defaultMessage": "Sedang masuk..."
-  },
-  "huggingFaceSignInPrompt.title": {
-    "defaultMessage": "Hugging Face"
   },
   "imagePreview.altText": {
     "defaultMessage": "gambar sauron"
@@ -2054,9 +1880,6 @@
   "localInferenceSettings.evictFromMemory": {
     "defaultMessage": "Evict from memory"
   },
-  "localInferenceSettings.huggingFaceSignInNote": {
-    "defaultMessage": "Masuk untuk meningkatkan batas laju saat mencari dan mengunduh model, serta untuk mengakses repositori Hugging Face yang privat atau terbatas."
-  },
   "localInferenceSettings.loadedInMemory": {
     "defaultMessage": "Loaded in memory"
   },
@@ -2378,30 +2201,6 @@
   "microphoneSelector.test": {
     "defaultMessage": "Uji"
   },
-  "modeSelectionItem.autonomousDescription": {
-    "defaultMessage": "Kemampuan modifikasi file penuh, edit, buat, dan hapus file dengan bebas."
-  },
-  "modeSelectionItem.autonomousLabel": {
-    "defaultMessage": "Otonom"
-  },
-  "modeSelectionItem.chatOnlyDescription": {
-    "defaultMessage": "Berinteraksi dengan penyedia yang dipilih tanpa menggunakan alat atau ekstensi."
-  },
-  "modeSelectionItem.chatOnlyLabel": {
-    "defaultMessage": "Obrolan saja"
-  },
-  "modeSelectionItem.manualDescription": {
-    "defaultMessage": "Semua alat, ekstensi, dan modifikasi file akan memerlukan persetujuan manusia"
-  },
-  "modeSelectionItem.manualLabel": {
-    "defaultMessage": "Manual"
-  },
-  "modeSelectionItem.smartDescription": {
-    "defaultMessage": "Tentukan secara cerdas tindakan mana yang memerlukan persetujuan berdasarkan tingkat risiko"
-  },
-  "modeSelectionItem.smartLabel": {
-    "defaultMessage": "Cerdas"
-  },
   "modelAndProviderContext.modelChangeFailed": {
     "defaultMessage": "{provider}/{model} gagal"
   },
@@ -2431,9 +2230,6 @@
   },
   "modelBadges.reasoning": {
     "defaultMessage": "Penalaran"
-  },
-  "modelSettingsButtons.switchModels": {
-    "defaultMessage": "Ganti model"
   },
   "modelSettingsPanel.batchSize": {
     "defaultMessage": "Ukuran batch"
@@ -2615,20 +2411,11 @@
   "modelsBottomBar.selectModel": {
     "defaultMessage": "Pilih Model"
   },
-  "navigation.itemApps": {
-    "defaultMessage": "Aplikasi"
-  },
-  "navigation.itemExtensions": {
-    "defaultMessage": "Ekstensi"
-  },
   "navigation.itemHome": {
     "defaultMessage": "Obrolan Baru"
   },
   "navigation.itemHub": {
     "defaultMessage": "Hub"
-  },
-  "navigation.itemRecipes": {
-    "defaultMessage": "Resep"
   },
   "navigation.itemScheduler": {
     "defaultMessage": "Penjadwal"
@@ -2639,20 +2426,32 @@
   "navigation.itemSettings": {
     "defaultMessage": "Pengaturan"
   },
-  "navigation.itemSkills": {
-    "defaultMessage": "Keterampilan"
+  "navigationFooter.about": {
+    "defaultMessage": "About Sauron"
   },
-  "navigationFooter.cpuUsage": {
-    "defaultMessage": "CPU {percent}%"
+  "navigationFooter.aboutVersion": {
+    "defaultMessage": "Sauron {version}"
   },
-  "navigationFooter.memoryUsage": {
-    "defaultMessage": "Memori {percent}%"
+  "navigationFooter.accountMenu": {
+    "defaultMessage": "Account"
+  },
+  "navigationFooter.close": {
+    "defaultMessage": "Close"
+  },
+  "navigationFooter.keyboardShortcuts": {
+    "defaultMessage": "Keyboard shortcuts"
+  },
+  "navigationFooter.quit": {
+    "defaultMessage": "Quit Sauron"
   },
   "navigationFooter.sendFeedback": {
     "defaultMessage": "Kirim masukan"
   },
   "navigationFooter.you": {
     "defaultMessage": "Anda"
+  },
+  "navigationPanel.chats": {
+    "defaultMessage": "Chats"
   },
   "navigationPanel.goBack": {
     "defaultMessage": "Kembali"
@@ -2681,6 +2480,9 @@
   "navigationPanel.metaUpdated": {
     "defaultMessage": "Diperbarui"
   },
+  "navigationPanel.newChat": {
+    "defaultMessage": "New chat"
+  },
   "navigationPanel.newProject": {
     "defaultMessage": "Proyek baru"
   },
@@ -2701,6 +2503,9 @@
   },
   "navigationPanel.statusUnread": {
     "defaultMessage": "Aktivitas belum dibaca"
+  },
+  "navigationPanel.toast.newChatFailed": {
+    "defaultMessage": "Could not start chat: {error}"
   },
   "navigationPanel.untitledSession": {
     "defaultMessage": "Sesi tanpa judul"
@@ -2920,18 +2725,6 @@
   },
   "pluginsSettings.title": {
     "defaultMessage": "Plugins"
-  },
-  "preferredModels.empty": {
-    "defaultMessage": "Beri tanda bintang pada model di bawah agar mudah diakses di sini dan di obrolan."
-  },
-  "preferredModels.remove": {
-    "defaultMessage": "Hapus {model} dari model favorit"
-  },
-  "preferredModels.removeFailed": {
-    "defaultMessage": "Gagal memperbarui model favorit"
-  },
-  "preferredModels.title": {
-    "defaultMessage": "Model favorit"
   },
   "privacyInfoModal.collectErrors": {
     "defaultMessage": "Jenis kesalahan (mis., \"rate_limit\", \"auth\" - tanpa detail)"
@@ -3181,9 +2974,6 @@
   },
   "providerConfigurationModal.goBack": {
     "defaultMessage": "Kembali"
-  },
-  "providerConfigurationModal.huggingFaceOAuthDescription": {
-    "defaultMessage": "Masuk untuk menggunakan Hugging Face Inference Providers tanpa memasukkan token API secara manual."
   },
   "providerConfigurationModal.oauthLoginFailed": {
     "defaultMessage": "Login OAuth gagal: {error}"
@@ -4661,35 +4451,17 @@
   "settings.version.title": {
     "defaultMessage": "Versi"
   },
-  "settingsView.noResults": {
-    "defaultMessage": "Tidak ada hasil"
-  },
-  "settingsView.searchPlaceholder": {
-    "defaultMessage": "Cari Pengaturan"
-  },
   "settingsView.tabApp": {
     "defaultMessage": "Aplikasi"
   },
   "settingsView.tabAppearance": {
     "defaultMessage": "Appearance"
   },
-  "settingsView.tabChat": {
-    "defaultMessage": "Obrolan"
-  },
   "settingsView.tabExternalBackend": {
     "defaultMessage": "Backend Eksternal"
   },
-  "settingsView.tabHarnesses": {
-    "defaultMessage": "Harnesses"
-  },
-  "settingsView.tabKeyboard": {
-    "defaultMessage": "Keyboard"
-  },
   "settingsView.tabMcp": {
     "defaultMessage": "MCP"
-  },
-  "settingsView.tabModels": {
-    "defaultMessage": "Model"
   },
   "settingsView.tabPlugins": {
     "defaultMessage": "Plugins"
@@ -4756,15 +4528,6 @@
   },
   "spellcheckToggle.title": {
     "defaultMessage": "Aktifkan Pemeriksaan Ejaan"
-  },
-  "standaloneAppView.failedToLoad": {
-    "defaultMessage": "Gagal Memuat Aplikasi"
-  },
-  "standaloneAppView.initializing": {
-    "defaultMessage": "Menginisialisasi aplikasi..."
-  },
-  "standaloneAppView.missingParams": {
-    "defaultMessage": "Parameter yang diperlukan tidak ada"
   },
   "stringUtils.configuredProvider": {
     "defaultMessage": "Penyedia {name} telah dikonfigurasi"
@@ -5159,60 +4922,6 @@
   "updateSection.versionIsAvailable": {
     "defaultMessage": "Versi {version} tersedia"
   },
-  "userMessage.cancel": {
-    "defaultMessage": "Batal"
-  },
-  "userMessage.cancelAriaLabel": {
-    "defaultMessage": "Batalkan pengeditan"
-  },
-  "userMessage.editAriaLabel": {
-    "defaultMessage": "Edit konten pesan"
-  },
-  "userMessage.editButton": {
-    "defaultMessage": "Edit"
-  },
-  "userMessage.editImagesHeading": {
-    "defaultMessage": "Gambar terlampir:"
-  },
-  "userMessage.editInPlace": {
-    "defaultMessage": "Edit di Tempat"
-  },
-  "userMessage.editInPlaceAriaLabel": {
-    "defaultMessage": "Edit pesan di tempat"
-  },
-  "userMessage.editInPlaceDescription": {
-    "defaultMessage": "<b>Edit di Tempat</b> memperbarui sesi ini • <b>Cabang Sesi</b> membuat sesi baru"
-  },
-  "userMessage.editInPlaceTitle": {
-    "defaultMessage": "Perbarui pesan dalam sesi ini"
-  },
-  "userMessage.editMessageAriaLabel": {
-    "defaultMessage": "Edit pesan: {preview}"
-  },
-  "userMessage.editMessageTitle": {
-    "defaultMessage": "Edit pesan"
-  },
-  "userMessage.editPlaceholder": {
-    "defaultMessage": "Edit pesan Anda..."
-  },
-  "userMessage.emptyError": {
-    "defaultMessage": "Pesan tidak boleh kosong"
-  },
-  "userMessage.forkSession": {
-    "defaultMessage": "Cabang Sesi"
-  },
-  "userMessage.forkSessionAriaLabel": {
-    "defaultMessage": "Cabangkan sesi dengan pesan yang diedit"
-  },
-  "userMessage.forkSessionTitle": {
-    "defaultMessage": "Buat sesi baru dengan pesan yang diedit"
-  },
-  "userMessage.removeImageFromEdit": {
-    "defaultMessage": "Hapus gambar dari pesan"
-  },
-  "settingsView.tabStats": {
-    "defaultMessage": "Stats"
-  },
   "usageStats.byModel": {
     "defaultMessage": "Per model"
   },
@@ -5284,8 +4993,58 @@
   },
   "usageStats.writeTokens": {
     "defaultMessage": "Write tokens"
-  }
-,
+  },
+  "userMessage.cancel": {
+    "defaultMessage": "Batal"
+  },
+  "userMessage.cancelAriaLabel": {
+    "defaultMessage": "Batalkan pengeditan"
+  },
+  "userMessage.editAriaLabel": {
+    "defaultMessage": "Edit konten pesan"
+  },
+  "userMessage.editButton": {
+    "defaultMessage": "Edit"
+  },
+  "userMessage.editImagesHeading": {
+    "defaultMessage": "Gambar terlampir:"
+  },
+  "userMessage.editInPlace": {
+    "defaultMessage": "Edit di Tempat"
+  },
+  "userMessage.editInPlaceAriaLabel": {
+    "defaultMessage": "Edit pesan di tempat"
+  },
+  "userMessage.editInPlaceDescription": {
+    "defaultMessage": "<b>Edit di Tempat</b> memperbarui sesi ini • <b>Cabang Sesi</b> membuat sesi baru"
+  },
+  "userMessage.editInPlaceTitle": {
+    "defaultMessage": "Perbarui pesan dalam sesi ini"
+  },
+  "userMessage.editMessageAriaLabel": {
+    "defaultMessage": "Edit pesan: {preview}"
+  },
+  "userMessage.editMessageTitle": {
+    "defaultMessage": "Edit pesan"
+  },
+  "userMessage.editPlaceholder": {
+    "defaultMessage": "Edit pesan Anda..."
+  },
+  "userMessage.emptyError": {
+    "defaultMessage": "Pesan tidak boleh kosong"
+  },
+  "userMessage.forkSession": {
+    "defaultMessage": "Cabang Sesi"
+  },
+  "userMessage.forkSessionAriaLabel": {
+    "defaultMessage": "Cabangkan sesi dengan pesan yang diedit"
+  },
+  "userMessage.forkSessionTitle": {
+    "defaultMessage": "Buat sesi baru dengan pesan yang diedit"
+  },
+  "userMessage.removeImageFromEdit": {
+    "defaultMessage": "Hapus gambar dari pesan"
+  },
   "worktreeSettings.description": {
     "defaultMessage": "Atur direktori apa yang ditawarkan pemilih direktori kerja"
   },

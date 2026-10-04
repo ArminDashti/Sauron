@@ -9,7 +9,15 @@ import {
 } from '../../../acp/providers';
 import type { ProviderDetails } from '../../../types/providers';
 import { createNavigationHandler } from '../../../utils/navigationUtils';
+import { filterSupportedProviders } from '../../../utils/supportedProviders';
 import { defineMessages, useIntl } from '../../../i18n';
+
+const offeredProviders = (providers: ProviderDetails[]): ProviderDetails[] =>
+  filterSupportedProviders(providers).sort((a, b) =>
+    a.metadata.display_name.localeCompare(b.metadata.display_name, undefined, {
+      sensitivity: 'base',
+    })
+  );
 
 const i18n = defineMessages({
   otherProviders: {
@@ -58,7 +66,7 @@ export default function ProviderSettings({
         ? acpListSetupProviderDetails()
         : acpListSettingsProviderDetails());
       if (result) {
-        setProviders(result);
+        setProviders(offeredProviders(result));
         initialLoadDone.current = true;
       }
     } catch (error) {
@@ -80,7 +88,7 @@ export default function ProviderSettings({
       const result = await (isOnboarding
         ? acpListSetupProviderDetails()
         : acpListSettingsProviderDetails());
-      if (result) setProviders(result);
+      if (result) setProviders(offeredProviders(result));
     }
   }, [isOnboarding]);
 

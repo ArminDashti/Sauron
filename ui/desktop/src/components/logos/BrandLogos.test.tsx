@@ -32,9 +32,9 @@ describe('BrandIcon', () => {
   });
 
   it('renders initials for known providers with neither a logo nor a tile', () => {
-    const { container } = render(<BrandIcon provider="routstr" />);
+    const { container } = render(<BrandIcon provider="orcarouter" />);
     expect(container.querySelector('img')).toBeNull();
-    expect(container.querySelector('svg')?.textContent).toBe('R');
+    expect(container.querySelector('svg')?.textContent).toBe('OR');
   });
 
   it('falls back to the Sauron eye for unknown providers', () => {
@@ -43,10 +43,10 @@ describe('BrandIcon', () => {
     expect(container.querySelector('svg')).not.toBeNull();
   });
 
-  it('still matches models by name when no provider is given', () => {
+  it('matches models by name when no provider is given', () => {
     const { container } = render(<BrandIcon model="claude-sonnet-4-5" />);
     expect(container.querySelector('text')).toBeNull();
-    expect(container.querySelector('svg')).not.toBeNull();
+    expect(container.querySelector('img')).not.toBeNull();
   });
 });
 

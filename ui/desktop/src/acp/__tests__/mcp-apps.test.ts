@@ -1,14 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { getAcpClient } from '../acpConnection';
-import {
-  deleteMcpApp,
-  callMcpAppTool,
-  exportMcpApp,
-  importMcpApp,
-  listMcpApps,
-  listMcpAppTools,
-  readMcpAppResource,
-} from '../mcp-apps';
+import { callMcpAppTool, listMcpAppTools, readMcpAppResource } from '../mcp-apps';
 
 vi.mock('../acpConnection', () => ({
   getAcpClient: vi.fn(),
@@ -20,10 +12,6 @@ function createClient() {
       resourcesRead_unstable: vi.fn(),
       toolsCall_unstable: vi.fn(),
       toolsList_unstable: vi.fn(),
-      appsList_unstable: vi.fn(),
-      appsExport_unstable: vi.fn(),
-      appsImport_unstable: vi.fn(),
-      appsDelete_unstable: vi.fn(),
     },
   };
 }
@@ -163,77 +151,5 @@ describe('ACP MCP app helpers', () => {
         },
       },
     ]);
-  });
-
-  it('lists apps through ACP', async () => {
-    client.sauron.appsList_unstable.mockResolvedValue({
-      apps: [
-        {
-          uri: 'ui://apps/weather',
-          name: 'weather',
-          mimeType: 'text/html;profile=mcp-app',
-          text: '<main>Weather</main>',
-          mcpServers: ['apps'],
-        },
-      ],
-    });
-
-    const apps = await listMcpApps('session-1');
-
-    expect(client.sauron.appsList_unstable).toHaveBeenCalledWith({ sessionId: 'session-1' });
-    expect(apps).toEqual([
-      {
-        uri: 'ui://apps/weather',
-        name: 'weather',
-        mimeType: 'text/html;profile=mcp-app',
-        text: '<main>Weather</main>',
-        mcpServers: ['apps'],
-      },
-    ]);
-  });
-
-  it('imports and exports apps through ACP', async () => {
-    client.sauron.appsExport_unstable.mockResolvedValue({
-      html: '<html><body>Weather</body></html>',
-    });
-    client.sauron.appsImport_unstable.mockResolvedValue({
-      name: 'weather',
-      message: 'ok',
-    });
-
-    await expect(exportMcpApp('weather')).resolves.toBe('<html><body>Weather</body></html>');
-    await importMcpApp('<html><body>Weather</body></html>');
-
-    expect(client.sauron.appsExport_unstable).toHaveBeenCalledWith({ name: 'weather' });
-    expect(client.sauron.appsImport_unstable).toHaveBeenCalledWith({
-      html: '<html><body>Weather</body></html>',
-    });
-  });
-
-  it('deletes apps through ACP', async () => {
-    client.sauron.appsDelete_unstable.mockResolvedValue({
-      name: 'weather',
-      message: 'App deleted',
-    });
-
-    await deleteMcpApp('weather');
-
-    expect(client.sauron.appsDelete_unstable).toHaveBeenCalledWith({ name: 'weather' });
-  });
-
-  it('normalizes ACP delete errors', async () => {
-    client.sauron.appsDelete_unstable.mockRejectedValue({
-      error: { data: 'Cannot delete default app' },
-    });
-
-    await expect(deleteMcpApp('clock')).rejects.toThrow('Cannot delete default app');
-  });
-
-  it('normalizes ACP export errors', async () => {
-    client.sauron.appsExport_unstable.mockRejectedValue({
-      error: { message: 'App not found' },
-    });
-
-    await expect(exportMcpApp('missing')).rejects.toThrow('App not found');
   });
 });

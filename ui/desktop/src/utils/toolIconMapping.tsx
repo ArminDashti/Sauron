@@ -8,6 +8,7 @@ import {
   FileEdit,
   FilePlus,
   FileText,
+  Globe,
   Monitor,
   Numbers,
   Save,
@@ -96,6 +97,8 @@ export const getExtensionIcon = (extensionName: string): React.ComponentType<Too
       return Brain;
     case 'computercontroller':
       return Monitor;
+    case 'browser':
+      return Globe;
     default:
       return Tool;
   }

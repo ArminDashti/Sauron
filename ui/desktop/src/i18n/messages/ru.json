@@ -56,15 +56,6 @@
   "allProviderModels.emptyHint": {
     "defaultMessage": "Configure a provider to see the models it offers."
   },
-  "allProviderModels.filterAll": {
-    "defaultMessage": "Все"
-  },
-  "allProviderModels.filterFree": {
-    "defaultMessage": "Бесплатные"
-  },
-  "allProviderModels.freeCount": {
-    "defaultMessage": "{count} бесплатных"
-  },
   "allProviderModels.loadFailed": {
     "defaultMessage": "Could not load provider models"
   },
@@ -73,12 +64,6 @@
   },
   "allProviderModels.modelCount": {
     "defaultMessage": "{count,plural,one{# model} other{# models}}"
-  },
-  "allProviderModels.noFreeModels": {
-    "defaultMessage": "Бесплатных моделей от ваших провайдеров нет."
-  },
-  "allProviderModels.noFreeModelsHint": {
-    "defaultMessage": "Модель считается бесплатной, если провайдер запускает её локально (Ollama, локальные модели) или предлагает бесплатные варианты, например :free модели OpenRouter."
   },
   "allProviderModels.noModels": {
     "defaultMessage": "No models reported by this provider."
@@ -107,14 +92,8 @@
   "allProviderModels.searchPlaceholder": {
     "defaultMessage": "Поиск моделей..."
   },
-  "allProviderModels.showAll": {
-    "defaultMessage": "Показать все модели"
-  },
   "allProviderModels.showingCount": {
     "defaultMessage": "Показано {shown, number} из {total, number} моделей"
-  },
-  "allProviderModels.title": {
-    "defaultMessage": "Models from your providers"
   },
   "announcementModal.gotIt": {
     "defaultMessage": "Понятно!"
@@ -131,131 +110,17 @@
   "appLayout.showChanges": {
     "defaultMessage": "Показать панель изменений"
   },
-  "appsView.customApp": {
-    "defaultMessage": "Пользовательское приложение"
-  },
-  "appsView.deleteApp": {
-    "defaultMessage": "Delete app"
-  },
-  "appsView.deleteConfirm": {
-    "defaultMessage": "Delete \"{name}\"? This cannot be undone."
-  },
-  "appsView.description": {
-    "defaultMessage": "Приложения с ваших MCP-серверов и приложения, созданные самим sauron. Вы можете попросить его создать новые приложения через чат, и они появятся здесь."
-  },
-  "appsView.errorLoading": {
-    "defaultMessage": "Ошибка загрузки приложений: {error}"
-  },
-  "appsView.errorPrefix": {
-    "defaultMessage": "Error: {error}"
-  },
-  "appsView.importApp": {
-    "defaultMessage": "Импортировать приложение"
-  },
-  "appsView.launch": {
-    "defaultMessage": "Запустить"
-  },
-  "appsView.loading": {
-    "defaultMessage": "Загрузка приложений..."
-  },
-  "appsView.noAppsDescription": {
-    "defaultMessage": "Откройте чат и попросите sauron создать нужное приложение. Он может собрать его для вас, после чего оно появится здесь. Если кто-то поделился приложением, импортируйте его кнопкой выше."
-  },
-  "appsView.noAppsTitle": {
-    "defaultMessage": "Нет доступных приложений"
-  },
-  "appsView.retiredChatApp": {
-    "defaultMessage": "Chat app retired"
-  },
-  "appsView.retiredChatAppDetail": {
-    "defaultMessage": "We removed this feature because MCP sampling is no longer supported."
-  },
-  "appsView.retry": {
-    "defaultMessage": "Повторить"
-  },
-  "appsView.title": {
-    "defaultMessage": "Приложения"
-  },
-  "authSettings.activeProviderWarning": {
-    "defaultMessage": "Это активный провайдер. Новые запросы могут завершаться ошибкой, пока вы не настроите другие учетные данные."
-  },
-  "authSettings.cancel": {
-    "defaultMessage": "Отмена"
-  },
   "authSettings.cancelSignIn": {
     "defaultMessage": "Отмена"
   },
-  "authSettings.checkingStatus": {
-    "defaultMessage": "Проверка..."
-  },
-  "authSettings.connectedAccounts": {
-    "defaultMessage": "Подключённые аккаунты"
-  },
-  "authSettings.connectedAccountsDescription": {
-    "defaultMessage": "Войдите, чтобы Sauron мог работать с вашими внешними аккаунтами."
-  },
-  "authSettings.delete": {
-    "defaultMessage": "Удалить"
-  },
-  "authSettings.deleteCredential": {
-    "defaultMessage": "Удалить учетные данные"
-  },
-  "authSettings.deleteMessage": {
-    "defaultMessage": "Удалить учетные данные {name} для {provider}?"
-  },
-  "authSettings.deleteTitle": {
-    "defaultMessage": "Удалить учетные данные"
-  },
-  "authSettings.deleted": {
-    "defaultMessage": "Учетные данные удалены"
-  },
-  "authSettings.description": {
-    "defaultMessage": "Управляйте учетными данными провайдеров, сохраненными локально в sauron."
-  },
-  "authSettings.empty": {
-    "defaultMessage": "Локально сохраненные учетные данные провайдеров не найдены."
-  },
-  "authSettings.expiresAt": {
-    "defaultMessage": "Истекает {date}"
-  },
-  "authSettings.failedToConfigure": {
-    "defaultMessage": "Не удалось настроить учетные данные: {error}"
-  },
-  "authSettings.failedToDelete": {
-    "defaultMessage": "Не удалось удалить учетные данные: {error}"
-  },
-  "authSettings.failedToLoad": {
-    "defaultMessage": "Не удалось загрузить учетные данные провайдера"
-  },
-  "authSettings.githubAccountDescription": {
-    "defaultMessage": "Поиск репозиториев, работа с кодом, управление issues и создание pull request-ов."
-  },
-  "authSettings.githubAccountName": {
-    "defaultMessage": "GitHub"
-  },
-  "authSettings.githubConnected": {
-    "defaultMessage": "Подключено"
-  },
   "authSettings.githubEnterCode": {
     "defaultMessage": "Введите этот код на {url}, чтобы авторизовать Sauron:"
-  },
-  "authSettings.githubNotConnected": {
-    "defaultMessage": "Не подключено"
-  },
-  "authSettings.githubOpenDevicePage": {
-    "defaultMessage": "Открыть страницу устройства GitHub"
   },
   "authSettings.githubSignInFailed": {
     "defaultMessage": "GitHub sign-in failed: {error}"
   },
   "authSettings.githubSignInUnavailable": {
     "defaultMessage": "Вход через GitHub доступен только в настольном приложении."
-  },
-  "authSettings.githubSignOutMessage": {
-    "defaultMessage": "Sauron не сможет работать с вашими репозиториями GitHub, пока вы не войдёте снова."
-  },
-  "authSettings.githubSignOutTitle": {
-    "defaultMessage": "Sign out of GitHub"
   },
   "authSettings.githubSignedIn": {
     "defaultMessage": "Вы вошли в GitHub. Расширение GitHub готово к работе."
@@ -269,32 +134,8 @@
   "authSettings.githubWaitingForAuthorization": {
     "defaultMessage": "Ожидание авторизации GitHub..."
   },
-  "authSettings.loading": {
-    "defaultMessage": "Загрузка учетных данных..."
-  },
-  "authSettings.reauthorize": {
-    "defaultMessage": "Авторизоваться снова"
-  },
-  "authSettings.signIn": {
-    "defaultMessage": "Войти"
-  },
   "authSettings.signInWithGitHub": {
     "defaultMessage": "Войти через GitHub"
-  },
-  "authSettings.signOutFromGitHub": {
-    "defaultMessage": "Sign out"
-  },
-  "authSettings.signedIn": {
-    "defaultMessage": "Учетные данные настроены"
-  },
-  "authSettings.storageProviderCache": {
-    "defaultMessage": "Кэш провайдера"
-  },
-  "authSettings.storageSecretStore": {
-    "defaultMessage": "Хранилище секретов"
-  },
-  "authSettings.title": {
-    "defaultMessage": "Учетные данные провайдера"
   },
   "backButton.back": {
     "defaultMessage": "Назад"
@@ -433,9 +274,6 @@
   },
   "chatInput.failedToReadImage": {
     "defaultMessage": "Не удалось прочитать файл изображения"
-  },
-  "chatInput.navigationShortcut": {
-    "defaultMessage": "{prefix}↑/{prefix}↓ для навигации по сообщениям"
   },
   "chatInput.processingDroppedFiles": {
     "defaultMessage": "Обработка перетащенных файлов..."
@@ -1196,6 +1034,9 @@
   "dirSwitcher.gitWorktrees": {
     "defaultMessage": "Git worktrees"
   },
+  "dirSwitcher.noFolder": {
+    "defaultMessage": "No folder"
+  },
   "dirSwitcher.noWorktreesFound": {
     "defaultMessage": "Git worktrees не найдены"
   },
@@ -1559,17 +1400,14 @@
   "groupedExtensionLoadingToast.successfullyLoaded": {
     "defaultMessage": "{count, plural, one {Успешно загружено # расширение} few {Успешно загружено # расширения} many {Успешно загружено # расширений} other {Успешно загружено # расширения}}"
   },
-  "harnessesSection.title": {
-    "defaultMessage": "Harness'ы агентов"
+  "harnessesSection.configure": {
+    "defaultMessage": "Настроить"
+  },
+  "harnessesSection.configured": {
+    "defaultMessage": "Включено"
   },
   "harnessesSection.description": {
     "defaultMessage": "Используйте агентов из другой harness, такой как Cursor, Claude Code, Codex или OpenCode или Copilot. Включите здесь, затем выберите их в Models для общения."
-  },
-  "harnessesSection.loading": {
-    "defaultMessage": "Загрузка harness'ов..."
-  },
-  "harnessesSection.loadFailed": {
-    "defaultMessage": "Не удалось загрузить harness'ы"
   },
   "harnessesSection.empty": {
     "defaultMessage": "Внешние harness'ы агентов недоступны."
@@ -1577,17 +1415,20 @@
   "harnessesSection.installed": {
     "defaultMessage": "Установлено"
   },
-  "harnessesSection.notInstalled": {
-    "defaultMessage": "Не установлено"
+  "harnessesSection.loadFailed": {
+    "defaultMessage": "Не удалось загрузить harness'ы"
   },
-  "harnessesSection.configure": {
-    "defaultMessage": "Настроить"
-  },
-  "harnessesSection.configured": {
-    "defaultMessage": "Включено"
+  "harnessesSection.loading": {
+    "defaultMessage": "Загрузка harness'ов..."
   },
   "harnessesSection.notConfigured": {
     "defaultMessage": "Не включено"
+  },
+  "harnessesSection.notInstalled": {
+    "defaultMessage": "Не установлено"
+  },
+  "harnessesSection.title": {
+    "defaultMessage": "Harness'ы агентов"
   },
   "headersSection.add": {
     "defaultMessage": "Добавить"
@@ -1666,21 +1507,6 @@
   },
   "huggingFaceModelSearch.tooLarge": {
     "defaultMessage": "Может не поместиться в память (модель {size}, доступно {available})"
-  },
-  "huggingFaceSignInPrompt.failedToConfigure": {
-    "defaultMessage": "Не удалось войти в Hugging Face: {error}"
-  },
-  "huggingFaceSignInPrompt.signIn": {
-    "defaultMessage": "Войти"
-  },
-  "huggingFaceSignInPrompt.signedIn": {
-    "defaultMessage": "Вход в Hugging Face выполнен"
-  },
-  "huggingFaceSignInPrompt.signingIn": {
-    "defaultMessage": "Выполняется вход..."
-  },
-  "huggingFaceSignInPrompt.title": {
-    "defaultMessage": "Hugging Face"
   },
   "imagePreview.altText": {
     "defaultMessage": "изображение sauron"
@@ -2054,9 +1880,6 @@
   "localInferenceSettings.evictFromMemory": {
     "defaultMessage": "Evict from memory"
   },
-  "localInferenceSettings.huggingFaceSignInNote": {
-    "defaultMessage": "Войдите, чтобы увеличить лимиты запросов при поиске и загрузке моделей, а также получить доступ к приватным или ограниченным репозиториям Hugging Face."
-  },
   "localInferenceSettings.loadedInMemory": {
     "defaultMessage": "Loaded in memory"
   },
@@ -2378,30 +2201,6 @@
   "microphoneSelector.test": {
     "defaultMessage": "Проверить"
   },
-  "modeSelectionItem.autonomousDescription": {
-    "defaultMessage": "Полные возможности изменения файлов: свободное редактирование, создание и удаление файлов."
-  },
-  "modeSelectionItem.autonomousLabel": {
-    "defaultMessage": "Автономный"
-  },
-  "modeSelectionItem.chatOnlyDescription": {
-    "defaultMessage": "Работать с выбранным провайдером без использования инструментов или расширений."
-  },
-  "modeSelectionItem.chatOnlyLabel": {
-    "defaultMessage": "Только чат"
-  },
-  "modeSelectionItem.manualDescription": {
-    "defaultMessage": "Все инструменты, расширения и изменения файлов будут требовать подтверждения человеком"
-  },
-  "modeSelectionItem.manualLabel": {
-    "defaultMessage": "Вручную"
-  },
-  "modeSelectionItem.smartDescription": {
-    "defaultMessage": "Интеллектуально определять, какие действия требуют подтверждения, исходя из уровня риска"
-  },
-  "modeSelectionItem.smartLabel": {
-    "defaultMessage": "Умный"
-  },
   "modelAndProviderContext.modelChangeFailed": {
     "defaultMessage": "{provider}/{model} не удалось"
   },
@@ -2431,9 +2230,6 @@
   },
   "modelBadges.reasoning": {
     "defaultMessage": "Рассуждение"
-  },
-  "modelSettingsButtons.switchModels": {
-    "defaultMessage": "Переключить модели"
   },
   "modelSettingsPanel.batchSize": {
     "defaultMessage": "Размер пакета"
@@ -2615,20 +2411,11 @@
   "modelsBottomBar.selectModel": {
     "defaultMessage": "Выбрать модель"
   },
-  "navigation.itemApps": {
-    "defaultMessage": "Приложения"
-  },
-  "navigation.itemExtensions": {
-    "defaultMessage": "Расширения"
-  },
   "navigation.itemHome": {
     "defaultMessage": "Новый чат"
   },
   "navigation.itemHub": {
     "defaultMessage": "Хаб"
-  },
-  "navigation.itemRecipes": {
-    "defaultMessage": "Рецепты"
   },
   "navigation.itemScheduler": {
     "defaultMessage": "Планировщик"
@@ -2639,20 +2426,32 @@
   "navigation.itemSettings": {
     "defaultMessage": "Настройки"
   },
-  "navigation.itemSkills": {
-    "defaultMessage": "Навыки"
+  "navigationFooter.about": {
+    "defaultMessage": "About Sauron"
   },
-  "navigationFooter.cpuUsage": {
-    "defaultMessage": "CPU {percent}%"
+  "navigationFooter.aboutVersion": {
+    "defaultMessage": "Sauron {version}"
   },
-  "navigationFooter.memoryUsage": {
-    "defaultMessage": "Память {percent}%"
+  "navigationFooter.accountMenu": {
+    "defaultMessage": "Account"
+  },
+  "navigationFooter.close": {
+    "defaultMessage": "Close"
+  },
+  "navigationFooter.keyboardShortcuts": {
+    "defaultMessage": "Keyboard shortcuts"
+  },
+  "navigationFooter.quit": {
+    "defaultMessage": "Quit Sauron"
   },
   "navigationFooter.sendFeedback": {
     "defaultMessage": "Отправить отзыв"
   },
   "navigationFooter.you": {
     "defaultMessage": "Вы"
+  },
+  "navigationPanel.chats": {
+    "defaultMessage": "Chats"
   },
   "navigationPanel.goBack": {
     "defaultMessage": "Назад"
@@ -2681,6 +2480,9 @@
   "navigationPanel.metaUpdated": {
     "defaultMessage": "Обновлено"
   },
+  "navigationPanel.newChat": {
+    "defaultMessage": "New chat"
+  },
   "navigationPanel.newProject": {
     "defaultMessage": "Новый проект"
   },
@@ -2701,6 +2503,9 @@
   },
   "navigationPanel.statusUnread": {
     "defaultMessage": "Непрочитанная активность"
+  },
+  "navigationPanel.toast.newChatFailed": {
+    "defaultMessage": "Could not start chat: {error}"
   },
   "navigationPanel.untitledSession": {
     "defaultMessage": "Безымянный сеанс"
@@ -2920,18 +2725,6 @@
   },
   "pluginsSettings.title": {
     "defaultMessage": "Plugins"
-  },
-  "preferredModels.empty": {
-    "defaultMessage": "Отметьте модели звёздой ниже, чтобы они всегда были под рукой здесь и в чатах."
-  },
-  "preferredModels.remove": {
-    "defaultMessage": "Убрать {model} из предпочтительных моделей"
-  },
-  "preferredModels.removeFailed": {
-    "defaultMessage": "Не удалось обновить предпочтительные modelos"
-  },
-  "preferredModels.title": {
-    "defaultMessage": "Предпочтительные модели"
   },
   "privacyInfoModal.collectErrors": {
     "defaultMessage": "Типы ошибок (например, «rate_limit», «auth» - без подробностей)"
@@ -3181,9 +2974,6 @@
   },
   "providerConfigurationModal.goBack": {
     "defaultMessage": "Назад"
-  },
-  "providerConfigurationModal.huggingFaceOAuthDescription": {
-    "defaultMessage": "Войдите, чтобы использовать Hugging Face Inference Providers без ручного ввода API-токена."
   },
   "providerConfigurationModal.oauthLoginFailed": {
     "defaultMessage": "Вход OAuth не удался: {error}"
@@ -4661,35 +4451,17 @@
   "settings.version.title": {
     "defaultMessage": "Версия"
   },
-  "settingsView.noResults": {
-    "defaultMessage": "Нет результатов"
-  },
-  "settingsView.searchPlaceholder": {
-    "defaultMessage": "Поиск в настройках"
-  },
   "settingsView.tabApp": {
     "defaultMessage": "Приложение"
   },
   "settingsView.tabAppearance": {
     "defaultMessage": "Appearance"
   },
-  "settingsView.tabChat": {
-    "defaultMessage": "Чат"
-  },
   "settingsView.tabExternalBackend": {
     "defaultMessage": "Внешний бэкенд"
   },
-  "settingsView.tabHarnesses": {
-    "defaultMessage": "Harness'ы"
-  },
-  "settingsView.tabKeyboard": {
-    "defaultMessage": "Клавиатура"
-  },
   "settingsView.tabMcp": {
     "defaultMessage": "MCP"
-  },
-  "settingsView.tabModels": {
-    "defaultMessage": "Модели"
   },
   "settingsView.tabPlugins": {
     "defaultMessage": "Plugins"
@@ -4756,15 +4528,6 @@
   },
   "spellcheckToggle.title": {
     "defaultMessage": "Включить проверку орфографии"
-  },
-  "standaloneAppView.failedToLoad": {
-    "defaultMessage": "Не удалось загрузить приложение"
-  },
-  "standaloneAppView.initializing": {
-    "defaultMessage": "Инициализация приложения..."
-  },
-  "standaloneAppView.missingParams": {
-    "defaultMessage": "Отсутствуют обязательные параметры"
   },
   "stringUtils.configuredProvider": {
     "defaultMessage": "Провайдер {name} настроен"
@@ -5159,60 +4922,6 @@
   "updateSection.versionIsAvailable": {
     "defaultMessage": "Доступна версия {version}"
   },
-  "userMessage.cancel": {
-    "defaultMessage": "Отмена"
-  },
-  "userMessage.cancelAriaLabel": {
-    "defaultMessage": "Отменить редактирование"
-  },
-  "userMessage.editAriaLabel": {
-    "defaultMessage": "Изменить содержимое сообщения"
-  },
-  "userMessage.editButton": {
-    "defaultMessage": "Изменить"
-  },
-  "userMessage.editImagesHeading": {
-    "defaultMessage": "Прикрепленные изображения:"
-  },
-  "userMessage.editInPlace": {
-    "defaultMessage": "Изменить на месте"
-  },
-  "userMessage.editInPlaceAriaLabel": {
-    "defaultMessage": "Изменить сообщение на месте"
-  },
-  "userMessage.editInPlaceDescription": {
-    "defaultMessage": "<b>Изменить на месте</b> обновляет этот сеанс • <b>Ответвить сеанс</b> создает новый сеанс"
-  },
-  "userMessage.editInPlaceTitle": {
-    "defaultMessage": "Обновить сообщение в этом сеансе"
-  },
-  "userMessage.editMessageAriaLabel": {
-    "defaultMessage": "Изменить сообщение: {preview}"
-  },
-  "userMessage.editMessageTitle": {
-    "defaultMessage": "Изменить сообщение"
-  },
-  "userMessage.editPlaceholder": {
-    "defaultMessage": "Измените сообщение..."
-  },
-  "userMessage.emptyError": {
-    "defaultMessage": "Сообщение не может быть пустым"
-  },
-  "userMessage.forkSession": {
-    "defaultMessage": "Форкнуть сеанс"
-  },
-  "userMessage.forkSessionAriaLabel": {
-    "defaultMessage": "Форкнуть сеанс с измененным сообщением"
-  },
-  "userMessage.forkSessionTitle": {
-    "defaultMessage": "Создать новый сеанс с измененным сообщением"
-  },
-  "userMessage.removeImageFromEdit": {
-    "defaultMessage": "Удалить изображение из сообщения"
-  },
-  "settingsView.tabStats": {
-    "defaultMessage": "Stats"
-  },
   "usageStats.byModel": {
     "defaultMessage": "Per model"
   },
@@ -5284,8 +4993,58 @@
   },
   "usageStats.writeTokens": {
     "defaultMessage": "Write tokens"
-  }
-,
+  },
+  "userMessage.cancel": {
+    "defaultMessage": "Отмена"
+  },
+  "userMessage.cancelAriaLabel": {
+    "defaultMessage": "Отменить редактирование"
+  },
+  "userMessage.editAriaLabel": {
+    "defaultMessage": "Изменить содержимое сообщения"
+  },
+  "userMessage.editButton": {
+    "defaultMessage": "Изменить"
+  },
+  "userMessage.editImagesHeading": {
+    "defaultMessage": "Прикрепленные изображения:"
+  },
+  "userMessage.editInPlace": {
+    "defaultMessage": "Изменить на месте"
+  },
+  "userMessage.editInPlaceAriaLabel": {
+    "defaultMessage": "Изменить сообщение на месте"
+  },
+  "userMessage.editInPlaceDescription": {
+    "defaultMessage": "<b>Изменить на месте</b> обновляет этот сеанс • <b>Ответвить сеанс</b> создает новый сеанс"
+  },
+  "userMessage.editInPlaceTitle": {
+    "defaultMessage": "Обновить сообщение в этом сеансе"
+  },
+  "userMessage.editMessageAriaLabel": {
+    "defaultMessage": "Изменить сообщение: {preview}"
+  },
+  "userMessage.editMessageTitle": {
+    "defaultMessage": "Изменить сообщение"
+  },
+  "userMessage.editPlaceholder": {
+    "defaultMessage": "Измените сообщение..."
+  },
+  "userMessage.emptyError": {
+    "defaultMessage": "Сообщение не может быть пустым"
+  },
+  "userMessage.forkSession": {
+    "defaultMessage": "Форкнуть сеанс"
+  },
+  "userMessage.forkSessionAriaLabel": {
+    "defaultMessage": "Форкнуть сеанс с измененным сообщением"
+  },
+  "userMessage.forkSessionTitle": {
+    "defaultMessage": "Создать новый сеанс с измененным сообщением"
+  },
+  "userMessage.removeImageFromEdit": {
+    "defaultMessage": "Удалить изображение из сообщения"
+  },
   "worktreeSettings.description": {
     "defaultMessage": "Управляет тем, какие каталоги предлагает выбор рабочего каталога"
   },

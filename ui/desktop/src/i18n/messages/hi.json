@@ -56,15 +56,6 @@
   "allProviderModels.emptyHint": {
     "defaultMessage": "Configure a provider to see the models it offers."
   },
-  "allProviderModels.filterAll": {
-    "defaultMessage": "सभी"
-  },
-  "allProviderModels.filterFree": {
-    "defaultMessage": "मुफ़्त"
-  },
-  "allProviderModels.freeCount": {
-    "defaultMessage": "{count} मुफ़्त"
-  },
   "allProviderModels.loadFailed": {
     "defaultMessage": "Could not load provider models"
   },
@@ -73,12 +64,6 @@
   },
   "allProviderModels.modelCount": {
     "defaultMessage": "{count,plural,one{# model} other{# models}}"
-  },
-  "allProviderModels.noFreeModels": {
-    "defaultMessage": "आपके प्रोवाइडरों से कोई मुफ़्त मॉडल नहीं हैं।"
-  },
-  "allProviderModels.noFreeModelsHint": {
-    "defaultMessage": "मॉडल तब मुफ़्त माने जाते हैं जब कोई प्रोवाइडर उन्हें स्थानीय रूप से चलाता है (Ollama, स्थानीय मॉडल) या मुफ़्त वेरिएंट सूचीबद्ध करता है, जैसे OpenRouter के :free मॉडल।"
   },
   "allProviderModels.noModels": {
     "defaultMessage": "No models reported by this provider."
@@ -107,14 +92,8 @@
   "allProviderModels.searchPlaceholder": {
     "defaultMessage": "मॉडल खोजें..."
   },
-  "allProviderModels.showAll": {
-    "defaultMessage": "सभी मॉडल दिखाएँ"
-  },
   "allProviderModels.showingCount": {
     "defaultMessage": "{total, number} में से {shown, number} मॉडल दिखाए जा रहे हैं"
-  },
-  "allProviderModels.title": {
-    "defaultMessage": "Models from your providers"
   },
   "announcementModal.gotIt": {
     "defaultMessage": "समझ गया!"
@@ -131,131 +110,17 @@
   "appLayout.showChanges": {
     "defaultMessage": "परिवर्तन पैनल दिखाएँ"
   },
-  "appsView.customApp": {
-    "defaultMessage": "कस्टम ऐप"
-  },
-  "appsView.deleteApp": {
-    "defaultMessage": "Delete app"
-  },
-  "appsView.deleteConfirm": {
-    "defaultMessage": "Delete \"{name}\"? This cannot be undone."
-  },
-  "appsView.description": {
-    "defaultMessage": "आपके MCP सर्वर से एप्लिकेशन और sauron द्वारा निर्मित ऐप्स। आप इसे चैट इंटरफ़ेस के माध्यम से नए ऐप्स बनाने के लिए कह सकते हैं और वे यहां दिखाई देंगे।"
-  },
-  "appsView.errorLoading": {
-    "defaultMessage": "ऐप्स लोड करने में त्रुटि: {error}"
-  },
-  "appsView.errorPrefix": {
-    "defaultMessage": "Error: {error}"
-  },
-  "appsView.importApp": {
-    "defaultMessage": "ऐप आयात करें"
-  },
-  "appsView.launch": {
-    "defaultMessage": "लॉन्च करें"
-  },
-  "appsView.loading": {
-    "defaultMessage": "ऐप्स लोड हो रहे हैं..."
-  },
-  "appsView.noAppsDescription": {
-    "defaultMessage": "चैट खोलें और sauron से उस ऐप के बारे में पूछें जो आप चाहते हैं। यह आपके लिए एक निर्माण कर सकता है और वह यहां दिखाई देगा। या यदि किसी ने कोई ऐप साझा किया है, तो आप ऊपर दिए गए बटन का उपयोग करके इसे आयात कर सकते हैं।"
-  },
-  "appsView.noAppsTitle": {
-    "defaultMessage": "कोई ऐप्स उपलब्ध नहीं"
-  },
-  "appsView.retiredChatApp": {
-    "defaultMessage": "Chat app retired"
-  },
-  "appsView.retiredChatAppDetail": {
-    "defaultMessage": "We removed this feature because MCP sampling is no longer supported."
-  },
-  "appsView.retry": {
-    "defaultMessage": "पुनः प्रयास करें"
-  },
-  "appsView.title": {
-    "defaultMessage": "ऐप्स"
-  },
-  "authSettings.activeProviderWarning": {
-    "defaultMessage": "यह सक्रिय प्रदाता है. जब तक आप कोई अन्य क्रेडेंशियल कॉन्फ़िगर नहीं करते तब तक नए अनुरोध विफल हो सकते हैं।"
-  },
-  "authSettings.cancel": {
-    "defaultMessage": "रद्द करें"
-  },
   "authSettings.cancelSignIn": {
     "defaultMessage": "रद्द करें"
   },
-  "authSettings.checkingStatus": {
-    "defaultMessage": "जाँच हो रही है..."
-  },
-  "authSettings.connectedAccounts": {
-    "defaultMessage": "कनेक्ट किए गए खाते"
-  },
-  "authSettings.connectedAccountsDescription": {
-    "defaultMessage": "Sauron को अपने बाहरी खातों के साथ काम करने देने के लिए साइन इन करें।"
-  },
-  "authSettings.delete": {
-    "defaultMessage": "हटाएँ"
-  },
-  "authSettings.deleteCredential": {
-    "defaultMessage": "क्रेडेंशियल हटाएँ"
-  },
-  "authSettings.deleteMessage": {
-    "defaultMessage": "{provider} के लिए {name} क्रेडेंशियल हटाएं?"
-  },
-  "authSettings.deleteTitle": {
-    "defaultMessage": "क्रेडेंशियल हटाएँ"
-  },
-  "authSettings.deleted": {
-    "defaultMessage": "क्रेडेंशियल हटा दिया गया"
-  },
-  "authSettings.description": {
-    "defaultMessage": "sauron द्वारा स्थानीय रूप से संग्रहीत प्रदाता क्रेडेंशियल प्रबंधित करें।"
-  },
-  "authSettings.empty": {
-    "defaultMessage": "कोई स्थानीय रूप से संग्रहीत प्रदाता क्रेडेंशियल नहीं मिला।"
-  },
-  "authSettings.expiresAt": {
-    "defaultMessage": "समाप्त हो रहा है {date}"
-  },
-  "authSettings.failedToConfigure": {
-    "defaultMessage": "क्रेडेंशियल कॉन्फ़िगर करने में विफल: {error}"
-  },
-  "authSettings.failedToDelete": {
-    "defaultMessage": "क्रेडेंशियल हटाने में विफल: {error}"
-  },
-  "authSettings.failedToLoad": {
-    "defaultMessage": "प्रदाता क्रेडेंशियल लोड करने में विफल"
-  },
-  "authSettings.githubAccountDescription": {
-    "defaultMessage": "रिपॉज़िटरी खोजें, कोड के साथ काम करें, इश्यू प्रबंधित करें और पुल रिक्वेस्ट खोलें।"
-  },
-  "authSettings.githubAccountName": {
-    "defaultMessage": "GitHub"
-  },
-  "authSettings.githubConnected": {
-    "defaultMessage": "कनेक्टेड"
-  },
   "authSettings.githubEnterCode": {
     "defaultMessage": "Sauron को अधिकृत करने के लिए {url} पर यह कोड दर्ज करें:"
-  },
-  "authSettings.githubNotConnected": {
-    "defaultMessage": "कनेक्टेड नहीं"
-  },
-  "authSettings.githubOpenDevicePage": {
-    "defaultMessage": "GitHub डिवाइस पेज खोलें"
   },
   "authSettings.githubSignInFailed": {
     "defaultMessage": "GitHub sign-in failed: {error}"
   },
   "authSettings.githubSignInUnavailable": {
     "defaultMessage": "GitHub साइन-इन केवल डेस्कटॉप ऐप में उपलब्ध है।"
-  },
-  "authSettings.githubSignOutMessage": {
-    "defaultMessage": "जब तक आप फिर से साइन इन नहीं करते, Sauron आपके GitHub रिपॉज़िटरी के साथ काम नहीं कर पाएगा।"
-  },
-  "authSettings.githubSignOutTitle": {
-    "defaultMessage": "Sign out of GitHub"
   },
   "authSettings.githubSignedIn": {
     "defaultMessage": "GitHub पर साइन इन हो गया। GitHub एक्सटेंशन उपयोग के लिए तैयार है।"
@@ -269,32 +134,8 @@
   "authSettings.githubWaitingForAuthorization": {
     "defaultMessage": "GitHub प्राधिकरण की प्रतीक्षा है..."
   },
-  "authSettings.loading": {
-    "defaultMessage": "क्रेडेंशियल लोड हो रहा है..."
-  },
-  "authSettings.reauthorize": {
-    "defaultMessage": "पुन: प्राधिकृत करें"
-  },
-  "authSettings.signIn": {
-    "defaultMessage": "साइन इन करें"
-  },
   "authSettings.signInWithGitHub": {
     "defaultMessage": "GitHub से साइन इन करें"
-  },
-  "authSettings.signOutFromGitHub": {
-    "defaultMessage": "Sign out"
-  },
-  "authSettings.signedIn": {
-    "defaultMessage": "क्रेडेंशियल कॉन्फ़िगर किया गया"
-  },
-  "authSettings.storageProviderCache": {
-    "defaultMessage": "प्रदाता कैश"
-  },
-  "authSettings.storageSecretStore": {
-    "defaultMessage": "गुप्त भंडार"
-  },
-  "authSettings.title": {
-    "defaultMessage": "प्रदाता क्रेडेंशियल"
   },
   "backButton.back": {
     "defaultMessage": "वापस"
@@ -433,9 +274,6 @@
   },
   "chatInput.failedToReadImage": {
     "defaultMessage": "छवि फ़ाइल पढ़ने में विफल"
-  },
-  "chatInput.navigationShortcut": {
-    "defaultMessage": "संदेशों को नेविगेट करने के लिए {prefix}↑/{prefix}↓"
   },
   "chatInput.processingDroppedFiles": {
     "defaultMessage": "छोड़ी गई फ़ाइलें संसाधित हो रही हैं..."
@@ -1196,6 +1034,9 @@
   "dirSwitcher.gitWorktrees": {
     "defaultMessage": "गिट वर्कट्रीज़"
   },
+  "dirSwitcher.noFolder": {
+    "defaultMessage": "No folder"
+  },
   "dirSwitcher.noWorktreesFound": {
     "defaultMessage": "कोई कार्यवृक्ष नहीं मिला"
   },
@@ -1559,17 +1400,14 @@
   "groupedExtensionLoadingToast.successfullyLoaded": {
     "defaultMessage": "{count,plural,one{# एक्सटेंशन सफलतापूर्वक लोड हो गया} other{# एक्सटेंशन सफलतापूर्वक लोड हो गए}}"
   },
-  "harnessesSection.title": {
-    "defaultMessage": "एजेंट harness"
+  "harnessesSection.configure": {
+    "defaultMessage": "कॉन्फ़िगर करें"
+  },
+  "harnessesSection.configured": {
+    "defaultMessage": "सक्षम"
   },
   "harnessesSection.description": {
     "defaultMessage": "Cursor, Claude Code, Codex या OpenCode या Copilot जैसे दूसरे harness के एजेंट्स का उपयोग करें। यहाँ एक सक्षम करें, फिर चैट के लिए Models में उसे चुनें।"
-  },
-  "harnessesSection.loading": {
-    "defaultMessage": "harness लोड हो रहे हैं..."
-  },
-  "harnessesSection.loadFailed": {
-    "defaultMessage": "harness लोड करना विफल रहा"
   },
   "harnessesSection.empty": {
     "defaultMessage": "कोई बाहरी एजेंट harness उपलब्ध नहीं हैं।"
@@ -1577,17 +1415,20 @@
   "harnessesSection.installed": {
     "defaultMessage": "इंस्टॉल किया गया"
   },
-  "harnessesSection.notInstalled": {
-    "defaultMessage": "इंस्टॉल नहीं किया गया"
+  "harnessesSection.loadFailed": {
+    "defaultMessage": "harness लोड करना विफल रहा"
   },
-  "harnessesSection.configure": {
-    "defaultMessage": "कॉन्फ़िगर करें"
-  },
-  "harnessesSection.configured": {
-    "defaultMessage": "सक्षम"
+  "harnessesSection.loading": {
+    "defaultMessage": "harness लोड हो रहे हैं..."
   },
   "harnessesSection.notConfigured": {
     "defaultMessage": "सक्षम नहीं"
+  },
+  "harnessesSection.notInstalled": {
+    "defaultMessage": "इंस्टॉल नहीं किया गया"
+  },
+  "harnessesSection.title": {
+    "defaultMessage": "एजेंट harness"
   },
   "headersSection.add": {
     "defaultMessage": "जोड़ें"
@@ -1666,21 +1507,6 @@
   },
   "huggingFaceModelSearch.tooLarge": {
     "defaultMessage": "मेमोरी में फ़िट नहीं हो सकता ({size} मॉडल, {available} उपलब्ध)"
-  },
-  "huggingFaceSignInPrompt.failedToConfigure": {
-    "defaultMessage": "हगिंग फेस में साइन इन करने में विफल: {error}"
-  },
-  "huggingFaceSignInPrompt.signIn": {
-    "defaultMessage": "साइन इन करें"
-  },
-  "huggingFaceSignInPrompt.signedIn": {
-    "defaultMessage": "हगिंग फेस ने साइन इन किया"
-  },
-  "huggingFaceSignInPrompt.signingIn": {
-    "defaultMessage": "साइन इन किया जा रहा है..."
-  },
-  "huggingFaceSignInPrompt.title": {
-    "defaultMessage": "आलिंगन करता हुआ चेहरा"
   },
   "imagePreview.altText": {
     "defaultMessage": "sauron छवि"
@@ -2054,9 +1880,6 @@
   "localInferenceSettings.evictFromMemory": {
     "defaultMessage": "Evict from memory"
   },
-  "localInferenceSettings.huggingFaceSignInNote": {
-    "defaultMessage": "मॉडल खोजते और डाउनलोड करते समय दर सीमा बढ़ाने के लिए और निजी या गेटेड हगिंग फेस रिपॉजिटरी तक पहुंचने के लिए साइन इन करें।"
-  },
   "localInferenceSettings.loadedInMemory": {
     "defaultMessage": "Loaded in memory"
   },
@@ -2378,30 +2201,6 @@
   "microphoneSelector.test": {
     "defaultMessage": "परीक्षण"
   },
-  "modeSelectionItem.autonomousDescription": {
-    "defaultMessage": "पूर्ण फ़ाइल संशोधन क्षमताएं, फ़ाइलों को स्वतंत्र रूप से संपादित करें, बनाएं और हटाएं।"
-  },
-  "modeSelectionItem.autonomousLabel": {
-    "defaultMessage": "स्वायत्त"
-  },
-  "modeSelectionItem.chatOnlyDescription": {
-    "defaultMessage": "टूल या एक्सटेंशन का उपयोग किए बिना चयनित प्रदाता से बातचीत करें।"
-  },
-  "modeSelectionItem.chatOnlyLabel": {
-    "defaultMessage": "केवल चैट करें"
-  },
-  "modeSelectionItem.manualDescription": {
-    "defaultMessage": "सभी टूल, एक्सटेंशन और फ़ाइल संशोधनों के लिए मानव अनुमोदन की आवश्यकता होगी"
-  },
-  "modeSelectionItem.manualLabel": {
-    "defaultMessage": "मैनुअल"
-  },
-  "modeSelectionItem.smartDescription": {
-    "defaultMessage": "जोखिम स्तर के आधार पर समझदारी से निर्धारित करें कि किन कार्यों को अनुमोदन की आवश्यकता है"
-  },
-  "modeSelectionItem.smartLabel": {
-    "defaultMessage": "होशियार"
-  },
   "modelAndProviderContext.modelChangeFailed": {
     "defaultMessage": "{provider}/{model} विफल"
   },
@@ -2431,9 +2230,6 @@
   },
   "modelBadges.reasoning": {
     "defaultMessage": "रीज़निंग"
-  },
-  "modelSettingsButtons.switchModels": {
-    "defaultMessage": "मॉडल स्विच करें"
   },
   "modelSettingsPanel.batchSize": {
     "defaultMessage": "बैच का आकार"
@@ -2615,20 +2411,11 @@
   "modelsBottomBar.selectModel": {
     "defaultMessage": "मॉडल का चयन करें"
   },
-  "navigation.itemApps": {
-    "defaultMessage": "ऐप्स"
-  },
-  "navigation.itemExtensions": {
-    "defaultMessage": "एक्सटेंशन"
-  },
   "navigation.itemHome": {
     "defaultMessage": "नई चैट"
   },
   "navigation.itemHub": {
     "defaultMessage": "हब"
-  },
-  "navigation.itemRecipes": {
-    "defaultMessage": "व्यंजन विधि"
   },
   "navigation.itemScheduler": {
     "defaultMessage": "अनुसूचक"
@@ -2639,20 +2426,32 @@
   "navigation.itemSettings": {
     "defaultMessage": "Settings"
   },
-  "navigation.itemSkills": {
-    "defaultMessage": "कौशल"
+  "navigationFooter.about": {
+    "defaultMessage": "About Sauron"
   },
-  "navigationFooter.cpuUsage": {
-    "defaultMessage": "CPU {percent}%"
+  "navigationFooter.aboutVersion": {
+    "defaultMessage": "Sauron {version}"
   },
-  "navigationFooter.memoryUsage": {
-    "defaultMessage": "मेमोरी {percent}%"
+  "navigationFooter.accountMenu": {
+    "defaultMessage": "Account"
+  },
+  "navigationFooter.close": {
+    "defaultMessage": "Close"
+  },
+  "navigationFooter.keyboardShortcuts": {
+    "defaultMessage": "Keyboard shortcuts"
+  },
+  "navigationFooter.quit": {
+    "defaultMessage": "Quit Sauron"
   },
   "navigationFooter.sendFeedback": {
     "defaultMessage": "प्रतिक्रिया भेजें"
   },
   "navigationFooter.you": {
     "defaultMessage": "आप"
+  },
+  "navigationPanel.chats": {
+    "defaultMessage": "Chats"
   },
   "navigationPanel.goBack": {
     "defaultMessage": "वापस"
@@ -2681,6 +2480,9 @@
   "navigationPanel.metaUpdated": {
     "defaultMessage": "अपडेट किया गया"
   },
+  "navigationPanel.newChat": {
+    "defaultMessage": "New chat"
+  },
   "navigationPanel.newProject": {
     "defaultMessage": "नया प्रोजेक्ट"
   },
@@ -2701,6 +2503,9 @@
   },
   "navigationPanel.statusUnread": {
     "defaultMessage": "अपठित गतिविधि"
+  },
+  "navigationPanel.toast.newChatFailed": {
+    "defaultMessage": "Could not start chat: {error}"
   },
   "navigationPanel.untitledSession": {
     "defaultMessage": "शीर्षकहीन सत्र"
@@ -2920,18 +2725,6 @@
   },
   "pluginsSettings.title": {
     "defaultMessage": "Plugins"
-  },
-  "preferredModels.empty": {
-    "defaultMessage": "इन्हें यहाँ और चैट में आसानी से उपलब्ध रखने के लिए नीचे मॉडलों पर तारा लगाएँ।"
-  },
-  "preferredModels.remove": {
-    "defaultMessage": "{model} को पसंदीदा मॉडल से हटाएँ"
-  },
-  "preferredModels.removeFailed": {
-    "defaultMessage": "पसंदीदा मॉडल अपडेट नहीं हो सके"
-  },
-  "preferredModels.title": {
-    "defaultMessage": "पसंदीदा मॉडल"
   },
   "privacyInfoModal.collectErrors": {
     "defaultMessage": "त्रुटि प्रकार (उदाहरण के लिए, \"रेट_लिमिट\", \"ऑथ\" - कोई विवरण नहीं)"
@@ -3181,9 +2974,6 @@
   },
   "providerConfigurationModal.goBack": {
     "defaultMessage": "वापस जाओ"
-  },
-  "providerConfigurationModal.huggingFaceOAuthDescription": {
-    "defaultMessage": "मैन्युअल रूप से API टोकन दर्ज किए बिना हगिंग फेस इंफ़रेंस प्रोवाइडर्स का उपयोग करने के लिए साइन इन करें।"
   },
   "providerConfigurationModal.oauthLoginFailed": {
     "defaultMessage": "OAuth लॉगिन विफल: {error}"
@@ -4661,35 +4451,17 @@
   "settings.version.title": {
     "defaultMessage": "संस्करण"
   },
-  "settingsView.noResults": {
-    "defaultMessage": "कोई परिणाम नहीं"
-  },
-  "settingsView.searchPlaceholder": {
-    "defaultMessage": "सेटिंग खोजें"
-  },
   "settingsView.tabApp": {
     "defaultMessage": "ऐप"
   },
   "settingsView.tabAppearance": {
     "defaultMessage": "Appearance"
   },
-  "settingsView.tabChat": {
-    "defaultMessage": "बातचीत"
-  },
   "settingsView.tabExternalBackend": {
     "defaultMessage": "बाहरी बैकएंड"
   },
-  "settingsView.tabHarnesses": {
-    "defaultMessage": "Harnesses"
-  },
-  "settingsView.tabKeyboard": {
-    "defaultMessage": "कीबोर्ड"
-  },
   "settingsView.tabMcp": {
     "defaultMessage": "MCP"
-  },
-  "settingsView.tabModels": {
-    "defaultMessage": "मॉडल"
   },
   "settingsView.tabPlugins": {
     "defaultMessage": "Plugins"
@@ -4756,15 +4528,6 @@
   },
   "spellcheckToggle.title": {
     "defaultMessage": "वर्तनी जांच सक्षम करें"
-  },
-  "standaloneAppView.failedToLoad": {
-    "defaultMessage": "ऐप लोड करने में विफल"
-  },
-  "standaloneAppView.initializing": {
-    "defaultMessage": "ऐप प्रारंभ किया जा रहा है..."
-  },
-  "standaloneAppView.missingParams": {
-    "defaultMessage": "आवश्यक पैरामीटर गुम हैं"
   },
   "stringUtils.configuredProvider": {
     "defaultMessage": "{name} प्रदाता कॉन्फ़िगर किया गया है"
@@ -5159,60 +4922,6 @@
   "updateSection.versionIsAvailable": {
     "defaultMessage": "संस्करण {version} उपलब्ध है"
   },
-  "userMessage.cancel": {
-    "defaultMessage": "रद्द करें"
-  },
-  "userMessage.cancelAriaLabel": {
-    "defaultMessage": "संपादन रद्द करें"
-  },
-  "userMessage.editAriaLabel": {
-    "defaultMessage": "संदेश सामग्री संपादित करें"
-  },
-  "userMessage.editButton": {
-    "defaultMessage": "संपादित करें"
-  },
-  "userMessage.editImagesHeading": {
-    "defaultMessage": "संलग्न छवियाँ:"
-  },
-  "userMessage.editInPlace": {
-    "defaultMessage": "यथास्थान संपादित करें"
-  },
-  "userMessage.editInPlaceAriaLabel": {
-    "defaultMessage": "संदेश को यथास्थान संपादित करें"
-  },
-  "userMessage.editInPlaceDescription": {
-    "defaultMessage": "<b>स्थान में संपादित करें</b> इस सत्र को अपडेट करता है • <b>फोर्क सत्र</b> एक नया सत्र बनाता है"
-  },
-  "userMessage.editInPlaceTitle": {
-    "defaultMessage": "इस सत्र में संदेश अद्यतन करें"
-  },
-  "userMessage.editMessageAriaLabel": {
-    "defaultMessage": "संदेश संपादित करें: {preview}"
-  },
-  "userMessage.editMessageTitle": {
-    "defaultMessage": "संदेश संपादित करें"
-  },
-  "userMessage.editPlaceholder": {
-    "defaultMessage": "अपना संदेश संपादित करें..."
-  },
-  "userMessage.emptyError": {
-    "defaultMessage": "संदेश खाली नहीं हो सकता"
-  },
-  "userMessage.forkSession": {
-    "defaultMessage": "कांटा सत्र"
-  },
-  "userMessage.forkSessionAriaLabel": {
-    "defaultMessage": "संपादित संदेश के साथ फोर्क सत्र"
-  },
-  "userMessage.forkSessionTitle": {
-    "defaultMessage": "संपादित संदेश के साथ एक नया सत्र बनाएं"
-  },
-  "userMessage.removeImageFromEdit": {
-    "defaultMessage": "संदेश से छवि हटाएँ"
-  },
-  "settingsView.tabStats": {
-    "defaultMessage": "Stats"
-  },
   "usageStats.byModel": {
     "defaultMessage": "Per model"
   },
@@ -5284,8 +4993,58 @@
   },
   "usageStats.writeTokens": {
     "defaultMessage": "Write tokens"
-  }
-,
+  },
+  "userMessage.cancel": {
+    "defaultMessage": "रद्द करें"
+  },
+  "userMessage.cancelAriaLabel": {
+    "defaultMessage": "संपादन रद्द करें"
+  },
+  "userMessage.editAriaLabel": {
+    "defaultMessage": "संदेश सामग्री संपादित करें"
+  },
+  "userMessage.editButton": {
+    "defaultMessage": "संपादित करें"
+  },
+  "userMessage.editImagesHeading": {
+    "defaultMessage": "संलग्न छवियाँ:"
+  },
+  "userMessage.editInPlace": {
+    "defaultMessage": "यथास्थान संपादित करें"
+  },
+  "userMessage.editInPlaceAriaLabel": {
+    "defaultMessage": "संदेश को यथास्थान संपादित करें"
+  },
+  "userMessage.editInPlaceDescription": {
+    "defaultMessage": "<b>स्थान में संपादित करें</b> इस सत्र को अपडेट करता है • <b>फोर्क सत्र</b> एक नया सत्र बनाता है"
+  },
+  "userMessage.editInPlaceTitle": {
+    "defaultMessage": "इस सत्र में संदेश अद्यतन करें"
+  },
+  "userMessage.editMessageAriaLabel": {
+    "defaultMessage": "संदेश संपादित करें: {preview}"
+  },
+  "userMessage.editMessageTitle": {
+    "defaultMessage": "संदेश संपादित करें"
+  },
+  "userMessage.editPlaceholder": {
+    "defaultMessage": "अपना संदेश संपादित करें..."
+  },
+  "userMessage.emptyError": {
+    "defaultMessage": "संदेश खाली नहीं हो सकता"
+  },
+  "userMessage.forkSession": {
+    "defaultMessage": "कांटा सत्र"
+  },
+  "userMessage.forkSessionAriaLabel": {
+    "defaultMessage": "संपादित संदेश के साथ फोर्क सत्र"
+  },
+  "userMessage.forkSessionTitle": {
+    "defaultMessage": "संपादित संदेश के साथ एक नया सत्र बनाएं"
+  },
+  "userMessage.removeImageFromEdit": {
+    "defaultMessage": "संदेश से छवि हटाएँ"
+  },
   "worktreeSettings.description": {
     "defaultMessage": "नियंत्रित करें कार्य निर्देशिका चयनकर्ता कौन-सी निर्देशिकाए प्रदान करता है"
   },

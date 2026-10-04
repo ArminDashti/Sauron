@@ -3,7 +3,6 @@ import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import {
   acpListSettingsProviderDetails,
-  acpReadDefaults,
   acpReadProviderConfig,
   acpRefreshProviderDetails,
   acpSaveProviderConfig,
@@ -14,7 +13,6 @@ import ProvidersSection from './ProvidersSection';
 
 vi.mock('../../../acp/providers', () => ({
   acpListSettingsProviderDetails: vi.fn(),
-  acpReadDefaults: vi.fn(),
   acpReadProviderConfig: vi.fn(),
   acpRefreshProviderDetails: vi.fn(),
   acpSaveDefaults: vi.fn(),
@@ -24,7 +22,7 @@ vi.mock('../../../acp/providers', () => ({
 vi.mock('../../../contexts/FeaturesContext', () => ({
   useFeatures: () => ({ localInference: false }),
 }));
-vi.mock('../auth/AuthSettingsSection', () => ({ default: () => null }));
+vi.mock('../models/ModelsSection', () => ({ default: () => null }));
 vi.mock('../localInference/LocalInferenceSection', () => ({ default: () => null }));
 vi.mock('../reset_provider/ResetProviderSection', () => ({ default: () => null }));
 vi.mock('./modal/ProviderConfigurationModal', () => ({ default: () => null }));
@@ -83,7 +81,6 @@ describe('ProvidersSection', () => {
       mistralProvider,
       openRouterProvider,
     ]);
-    vi.mocked(acpReadDefaults).mockResolvedValue({ providerId: null, modelId: null });
     vi.mocked(acpReadProviderConfig).mockResolvedValue([]);
     vi.mocked(acpSaveProviderConfig).mockResolvedValue(undefined);
     vi.mocked(acpRefreshProviderDetails).mockImplementation(async (providerId) => ({
@@ -97,28 +94,29 @@ describe('ProvidersSection', () => {
     const user = userEvent.setup();
     render(<ProvidersSection setView={vi.fn()} />, { wrapper: IntlTestWrapper });
 
-    expect(await screen.findByLabelText(/^API Key/)).toBeInTheDocument();
-    await user.click(screen.getByRole('button', { name: /Show 1 options/ }));
-    expect(screen.getByText('Optional')).toBeInTheDocument();
+    // Providers are alphabetized by their displayed names.
+    const apiKey = (await screen.findByLabelText('API Key', { exact: false })) as HTMLInputElement;
+    expect(apiKey).toBeRequired();
+
+    await user.click(screen.getByRole('button', { name: 'Submit' }));
+    expect(await screen.findByText('MISTRAL_API_KEY is required')).toBeInTheDocument();
+    expect(acpSaveProviderConfig).not.toHaveBeenCalled();
+
+    await user.type(apiKey, 'test-mistral-key');
+    await user.click(screen.getByRole('button', { name: 'Submit' }));
+
+    await waitFor(() =>
+      expect(acpSaveProviderConfig).toHaveBeenCalledWith('mistral', [
+        { key: 'MISTRAL_API_KEY', value: 'test-mistral-key' },
+      ])
+    );
+    await waitFor(() => expect(acpRefreshProviderDetails).toHaveBeenCalledWith('mistral'));
 
     await user.click(screen.getByRole('combobox'));
     await user.click(await screen.findByRole('option', { name: /OpenRouter/ }));
 
-    const apiKey = await screen.findByLabelText(/^OpenRouter API Key/);
-    expect(apiKey).toBeRequired();
-    expect(screen.queryByLabelText(/^API Key/)).not.toBeInTheDocument();
-
-    await user.click(screen.getByRole('button', { name: 'Submit' }));
-    expect(await screen.findByText('OPENROUTER_API_KEY is required')).toBeInTheDocument();
-    expect(acpSaveProviderConfig).not.toHaveBeenCalled();
-
-    await user.type(apiKey, 'test-openrouter-key');
-    await user.click(screen.getByRole('button', { name: 'Submit' }));
-
-    await waitFor(() =>
-      expect(acpSaveProviderConfig).toHaveBeenCalledWith('openrouter', [
-        { key: 'OPENROUTER_API_KEY', value: 'test-openrouter-key' },
-      ])
-    );
+    expect(await screen.findByLabelText(/OpenRouter API Key/)).toBeInTheDocument();
+    expect(screen.queryByLabelText(/Mistral API Key/)).not.toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Configure' })).toBeInTheDocument();
   });
 });

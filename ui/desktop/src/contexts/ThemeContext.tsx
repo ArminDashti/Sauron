@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useEffect, useState, useCallback, useMemo } from 'react';
 import { applyThemeTokens, buildMcpHostStyles, themes } from '../theme/theme-tokens';
 import type { ThemeId, ThemeVariant } from '../theme/theme-tokens';
+import { defaultCustomTheme, normalizeCustomTheme, type CustomTheme } from '../theme/custom-theme';
 import type { McpUiHostStyles } from '@modelcontextprotocol/ext-apps/app-bridge';
 
 type ThemePreference = ThemeId | 'system';
@@ -12,6 +13,9 @@ interface ThemeContextValue {
   resolvedThemeId: ThemeId;
   resolvedTheme: ResolvedTheme;
   mcpHostStyles: McpUiHostStyles;
+  customTheme: CustomTheme;
+  /** Saves, activates and broadcasts an edited user theme. */
+  saveCustomTheme: (theme: CustomTheme) => Promise<void>;
 }
 
 const ThemeContext = createContext<ThemeContextValue | null>(null);
@@ -29,6 +33,10 @@ function resolveThemeId(preference: ThemePreference): ThemeId {
   return preference;
 }
 
+function themeVariant(themeId: ThemeId, customTheme: CustomTheme): ResolvedTheme {
+  return themeId === 'custom' ? customTheme.variant : themes[themeId].variant;
+}
+
 function applyThemeToDocument(theme: ResolvedTheme): void {
   const toRemove = theme === 'dark' ? 'light' : 'dark';
   document.documentElement.classList.add(theme);
@@ -44,19 +52,25 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
   // Start with light theme to avoid flash, will update once settings load
   const [userThemePreference, setUserThemePreferenceState] = useState<ThemePreference>('light');
   const [resolvedThemeId, setResolvedThemeId] = useState<ThemeId>('light');
-  const resolvedTheme = themes[resolvedThemeId].variant;
-  const mcpHostStyles = useMemo(() => buildMcpHostStyles(resolvedThemeId), [resolvedThemeId]);
+  const [customTheme, setCustomTheme] = useState<CustomTheme>(defaultCustomTheme);
+  const resolvedTheme = themeVariant(resolvedThemeId, customTheme);
+  const mcpHostStyles = useMemo(
+    () => buildMcpHostStyles(resolvedThemeId, customTheme),
+    [resolvedThemeId, customTheme]
+  );
 
   useEffect(() => {
     async function loadThemeFromSettings() {
       try {
-        const [useSystemTheme, savedTheme] = await Promise.all([
+        const [useSystemTheme, savedTheme, savedCustomTheme] = await Promise.all([
           window.electron.getSetting('useSystemTheme'),
           window.electron.getSetting('theme'),
+          window.electron.getSetting('customTheme'),
         ]);
 
         const preference: ThemePreference = useSystemTheme ? 'system' : savedTheme;
 
+        setCustomTheme(normalizeCustomTheme(savedCustomTheme));
         setUserThemePreferenceState(preference);
         setResolvedThemeId(resolveThemeId(preference));
       } catch (error) {
@@ -93,6 +107,26 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
     });
   }, []);
 
+  const saveCustomTheme = useCallback(async (theme: CustomTheme) => {
+    setCustomTheme(theme);
+    setUserThemePreferenceState('custom');
+    setResolvedThemeId('custom');
+    try {
+      await window.electron.setSetting('customTheme', theme);
+      await window.electron.setSetting('useSystemTheme', false);
+      await window.electron.setSetting('theme', 'custom');
+    } catch (error) {
+      console.warn('[ThemeContext] Failed to save custom theme:', error);
+    }
+    // Other windows re-read the saved theme when tokensUpdated is set.
+    window.electron?.broadcastThemeChange({
+      mode: theme.variant,
+      useSystemTheme: false,
+      theme: 'custom',
+      tokensUpdated: true,
+    });
+  }, []);
+
   // Listen for system theme changes when preference is 'system'
   useEffect(() => {
     if (userThemePreference !== 'system') return;
@@ -112,10 +146,19 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
     if (!window.electron) return;
 
     const handleThemeChanged = (_event: unknown, ...args: unknown[]) => {
-      const themeData = args[0] as { useSystemTheme: boolean; theme: ThemeId };
-      const newPreference: ThemePreference = themeData.useSystemTheme
-        ? 'system'
-        : themeData.theme;
+      const themeData = args[0] as {
+        useSystemTheme: boolean;
+        theme: ThemeId;
+        tokensUpdated?: boolean;
+      };
+      const newPreference: ThemePreference = themeData.useSystemTheme ? 'system' : themeData.theme;
+
+      if (themeData.tokensUpdated) {
+        window.electron
+          .getSetting('customTheme')
+          .then((saved) => setCustomTheme(normalizeCustomTheme(saved)))
+          .catch(() => {});
+      }
 
       setUserThemePreferenceState(newPreference);
       setResolvedThemeId(resolveThemeId(newPreference));
@@ -137,10 +180,10 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
 
   // Apply theme class and CSS tokens whenever the resolved theme changes
   useEffect(() => {
-    applyThemeToDocument(themes[resolvedThemeId].variant);
-    applyThemeTokens(resolvedThemeId);
+    applyThemeToDocument(resolvedTheme);
+    applyThemeTokens(resolvedThemeId, customTheme);
     document.documentElement.dataset.theme = resolvedThemeId;
-  }, [resolvedThemeId]);
+  }, [resolvedTheme, resolvedThemeId, customTheme]);
 
   const value: ThemeContextValue = {
     userThemePreference,
@@ -148,6 +191,8 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
     resolvedThemeId,
     resolvedTheme,
     mcpHostStyles,
+    customTheme,
+    saveCustomTheme,
   };
 
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;

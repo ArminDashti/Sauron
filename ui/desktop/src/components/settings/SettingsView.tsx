@@ -1,8 +1,6 @@
 import { ScrollArea } from '../ui/scroll-area';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs';
 import { View, ViewOptions } from '../../utils/navigationUtils';
-import ModelsSection from './models/ModelsSection';
-import HarnessesSection from './harnesses/HarnessesSection';
 import ProvidersSection from './providers/ProvidersSection';
 import ExternalBackendSection from './app/ExternalBackendSection';
 import AgentLoopSettings from './AgentLoopSettings';
@@ -13,76 +11,43 @@ import PluginsSettingsSection from './plugins/PluginsSettingsSection';
 import ConfigSettings from './config/ConfigSettings';
 import PromptsSettingsSection from './PromptsSettingsSection';
 import type { ExtensionConfig } from '../../types/extensions';
-import {
-  Blocks,
-  Bot,
-  Share2,
-  Monitor,
-  MessageSquare,
-  FileText,
-  Keyboard,
-  KeyRound,
-  HardDrive,
-  Palette,
-  Plug,
-  Puzzle,
-  Server,
-} from 'lucide-react';
+import { Bot, FileText, Monitor, Palette, Plug, Puzzle, Server, Zap } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 import ChatSettingsSection from './chat/ChatSettingsSection';
 import KeyboardShortcutsSection from './keyboard/KeyboardShortcutsSection';
+import HarnessesSection from './harnesses/HarnessesSection';
+import SkillsSection from './skills/SkillsSection';
 import { CONFIGURATION_ENABLED, PROMPTS_SETTINGS_ENABLED } from '../../updates';
 import { trackSettingsTabViewed } from '../../utils/analytics';
 import { defineMessages, useIntl } from '../../i18n';
 import BackButton from '../ui/BackButton';
 import { useNavigationContext } from '../Layout/NavigationContext';
-import { useFeatures } from '../../contexts/FeaturesContext';
-import LocalInferenceSection from './localInference/LocalInferenceSection';
+import { cn } from '../../utils';
 
 const i18n = defineMessages({
   title: {
     id: 'settingsView.title',
     defaultMessage: 'Settings',
   },
-  tabModels: {
-    id: 'settingsView.tabModels',
-    defaultMessage: 'Models',
-  },
   tabProviders: {
     id: 'settingsView.tabProviders',
     defaultMessage: 'Providers',
-  },
-  tabHarnesses: {
-    id: 'settingsView.tabHarnesses',
-    defaultMessage: 'Harnesses',
-  },
-  tabLocalInference: {
-    id: 'settingsView.tabLocalInference',
-    defaultMessage: 'Local inference',
-  },
-  tabChat: {
-    id: 'settingsView.tabChat',
-    defaultMessage: 'Chat',
   },
   tabAgent: {
     id: 'settingsView.tabExternalBackend',
     defaultMessage: 'Agent',
   },
+  tabSkills: {
+    id: 'settingsView.tabSkills',
+    defaultMessage: 'Skills',
+  },
   tabPrompts: {
     id: 'settingsView.tabPrompts',
     defaultMessage: 'Prompts',
   },
-  tabKeyboard: {
-    id: 'settingsView.tabKeyboard',
-    defaultMessage: 'Keyboard',
-  },
   tabMcp: {
     id: 'settingsView.tabMcp',
     defaultMessage: 'MCP',
-  },
-  tabAuth: {
-    id: 'settingsView.tabAuth',
-    defaultMessage: 'Auth',
   },
   tabPlugins: {
     id: 'settingsView.tabPlugins',
@@ -116,24 +81,19 @@ export default function SettingsView({
   setView: (view: View, viewOptions?: ViewOptions) => void;
   viewOptions: SettingsViewOptions;
 }) {
-  const [activeTab, setActiveTab] = useState('models');
+  const [activeTab, setActiveTab] = useState('appearance');
   const hasTrackedInitialTab = useRef(false);
   const { navWidth } = useNavigationContext();
   const intl = useIntl();
-  const { localInference } = useFeatures();
+  const safeIsMacOS = (window?.electron?.platform || 'darwin') === 'darwin';
 
   const activeTabTitles: Record<string, string> = {
-    models: intl.formatMessage(i18n.tabModels),
-    harnesses: intl.formatMessage(i18n.tabHarnesses),
+    appearance: intl.formatMessage(i18n.tabAppearance),
     providers: intl.formatMessage(i18n.tabProviders),
-    'local-inference': intl.formatMessage(i18n.tabLocalInference),
-    chat: intl.formatMessage(i18n.tabChat),
-    sharing: intl.formatMessage(i18n.tabAgent),
-    keyboard: intl.formatMessage(i18n.tabKeyboard),
-    auth: intl.formatMessage(i18n.tabAuth),
+    agent: intl.formatMessage(i18n.tabAgent),
+    skills: intl.formatMessage(i18n.tabSkills),
     mcp: intl.formatMessage(i18n.tabMcp),
     plugins: intl.formatMessage(i18n.tabPlugins),
-    appearance: intl.formatMessage(i18n.tabAppearance),
     app: intl.formatMessage(i18n.tabApp),
   };
 
@@ -151,27 +111,27 @@ export default function SettingsView({
   // Determine initial tab based on section prop
   useEffect(() => {
     if (viewOptions.section) {
-      // Map section names to tab values
+      // Sections merged into another tab resolve to the tab that now owns them.
       const sectionToTab: Record<string, string> = {
         update: 'app',
-        models: 'models',
-        harnesses: 'harnesses',
-        providers: 'providers',
-        modes: 'chat',
-        sharing: 'sharing',
-        styles: 'chat',
-        tools: 'chat',
-        agent: 'sharing',
         app: 'app',
-        chat: 'chat',
-        keyboard: 'keyboard',
-        auth: 'providers',
-        mcp: 'mcp',
-        plugins: 'plugins',
+        keyboard: 'app',
+        providers: 'providers',
+        models: 'providers',
+        'local-inference': 'providers',
+        agent: 'agent',
+        sharing: 'agent',
+        harnesses: 'agent',
         appearance: 'appearance',
         theme: 'appearance',
         language: 'appearance',
-        'local-inference': 'local-inference',
+        chat: 'appearance',
+        modes: 'appearance',
+        styles: 'appearance',
+        tools: 'appearance',
+        skills: 'skills',
+        mcp: 'mcp',
+        plugins: 'plugins',
       };
 
       if (PROMPTS_SETTINGS_ENABLED) {
@@ -219,30 +179,29 @@ export default function SettingsView({
             aria-label={intl.formatMessage(i18n.title)}
             className="flex h-full w-full flex-col overflow-hidden rounded-xl border border-border-primary bg-background-primary"
           >
-            <div className="h-[48px] flex-shrink-0 no-drag" />
-            <div className="px-2">
+            {/* Back sits in the top band so it is the first control in the
+                sidebar; the left inset keeps it clear of the macOS window
+                controls that share this strip. */}
+            <div
+              className={cn(
+                'flex h-[48px] flex-shrink-0 items-center pr-2 no-drag',
+                safeIsMacOS ? 'pl-[88px]' : 'pl-2'
+              )}
+            >
               <BackButton
                 onClick={onClose}
                 variant="ghost"
-                className="mb-3 w-full justify-start rounded-full px-3 text-sm font-medium hover:bg-background-tertiary/60"
+                className="w-full justify-start rounded-full px-3 text-sm font-medium hover:bg-background-tertiary/60"
               />
             </div>
             <TabsList className="w-full min-h-0 flex-1 flex-col items-stretch gap-0.5 overflow-y-auto bg-transparent px-2 py-0">
               <TabsTrigger
-                value="models"
+                value="appearance"
                 className={settingsTabClass}
-                data-testid="settings-models-tab"
+                data-testid="settings-appearance-tab"
               >
-                <Bot className="h-5 w-5" />
-                {intl.formatMessage(i18n.tabModels)}
-              </TabsTrigger>
-              <TabsTrigger
-                value="harnesses"
-                className={settingsTabClass}
-                data-testid="settings-harnesses-tab"
-              >
-                <Blocks className="h-5 w-5" />
-                {intl.formatMessage(i18n.tabHarnesses)}
+                <Palette className="h-5 w-5" />
+                {intl.formatMessage(i18n.tabAppearance)}
               </TabsTrigger>
               <TabsTrigger
                 value="providers"
@@ -252,57 +211,21 @@ export default function SettingsView({
                 <Server className="h-5 w-5" />
                 {intl.formatMessage(i18n.tabProviders)}
               </TabsTrigger>
-              {localInference && (
-                <TabsTrigger
-                  value="local-inference"
-                  className={settingsTabClass}
-                  data-testid="settings-local-inference-tab"
-                >
-                  <HardDrive className="h-5 w-5" />
-                  {intl.formatMessage(i18n.tabLocalInference)}
-                </TabsTrigger>
-              )}
               <TabsTrigger
-                value="chat"
+                value="agent"
                 className={settingsTabClass}
-                data-testid="settings-chat-tab"
+                data-testid="settings-agent-tab"
               >
-                <MessageSquare className="h-5 w-5" />
-                {intl.formatMessage(i18n.tabChat)}
-              </TabsTrigger>
-              <TabsTrigger
-                value="sharing"
-                className={settingsTabClass}
-                data-testid="settings-sharing-tab"
-              >
-                <Share2 className="h-5 w-5" />
+                <Bot className="h-5 w-5" />
                 {intl.formatMessage(i18n.tabAgent)}
               </TabsTrigger>
-              {PROMPTS_SETTINGS_ENABLED && (
-                <TabsTrigger
-                  value="prompts"
-                  className={settingsTabClass}
-                  data-testid="settings-prompts-tab"
-                >
-                  <FileText className="h-5 w-5" />
-                  {intl.formatMessage(i18n.tabPrompts)}
-                </TabsTrigger>
-              )}
               <TabsTrigger
-                value="keyboard"
+                value="skills"
                 className={settingsTabClass}
-                data-testid="settings-keyboard-tab"
+                data-testid="settings-skills-tab"
               >
-                <Keyboard className="h-5 w-5" />
-                {intl.formatMessage(i18n.tabKeyboard)}
-              </TabsTrigger>
-              <TabsTrigger
-                value="auth"
-                className={settingsTabClass}
-                data-testid="settings-auth-tab"
-              >
-                <KeyRound className="h-5 w-5" />
-                {intl.formatMessage(i18n.tabAuth)}
+                <Zap className="h-5 w-5" />
+                {intl.formatMessage(i18n.tabSkills)}
               </TabsTrigger>
               <TabsTrigger value="mcp" className={settingsTabClass} data-testid="settings-mcp-tab">
                 <Plug className="h-5 w-5" />
@@ -316,18 +239,20 @@ export default function SettingsView({
                 <Puzzle className="h-5 w-5" />
                 {intl.formatMessage(i18n.tabPlugins)}
               </TabsTrigger>
-              <TabsTrigger
-                value="appearance"
-                className={settingsTabClass}
-                data-testid="settings-appearance-tab"
-              >
-                <Palette className="h-5 w-5" />
-                {intl.formatMessage(i18n.tabAppearance)}
-              </TabsTrigger>
               <TabsTrigger value="app" className={settingsTabClass} data-testid="settings-app-tab">
                 <Monitor className="h-5 w-5" />
                 {intl.formatMessage(i18n.tabApp)}
               </TabsTrigger>
+              {PROMPTS_SETTINGS_ENABLED && (
+                <TabsTrigger
+                  value="prompts"
+                  className={settingsTabClass}
+                  data-testid="settings-prompts-tab"
+                >
+                  <FileText className="h-5 w-5" />
+                  {intl.formatMessage(i18n.tabPrompts)}
+                </TabsTrigger>
+              )}
             </TabsList>
           </aside>
         </div>
@@ -342,17 +267,13 @@ export default function SettingsView({
           <ScrollArea className="min-h-0 flex-1 px-12">
             <div className="mx-auto max-w-5xl pb-10">
               <TabsContent
-                value="models"
+                value="appearance"
                 className="mt-0 focus-visible:outline-none focus-visible:ring-0"
               >
-                <ModelsSection setView={setView} />
-              </TabsContent>
-
-              <TabsContent
-                value="harnesses"
-                className="mt-0 focus-visible:outline-none focus-visible:ring-0"
-              >
-                <HarnessesSection />
+                <div className="space-y-4">
+                  <AppearanceSettingsSection />
+                  <ChatSettingsSection />
+                </div>
               </TabsContent>
 
               <TabsContent
@@ -362,46 +283,22 @@ export default function SettingsView({
                 <ProvidersSection setView={setView} />
               </TabsContent>
 
-              {localInference && (
-                <TabsContent
-                  value="local-inference"
-                  className="mt-0 focus-visible:outline-none focus-visible:ring-0"
-                >
-                  <LocalInferenceSection />
-                </TabsContent>
-              )}
-
               <TabsContent
-                value="chat"
+                value="agent"
                 className="mt-0 focus-visible:outline-none focus-visible:ring-0"
               >
-                <ChatSettingsSection />
-              </TabsContent>
-
-              <TabsContent
-                value="sharing"
-                className="mt-0 focus-visible:outline-none focus-visible:ring-0"
-              >
-                <div className="space-y-4 pb-8">
+                <div className="space-y-4">
                   <AgentLoopSettings />
                   <ExternalBackendSection />
+                  <HarnessesSection />
                 </div>
               </TabsContent>
 
-              {PROMPTS_SETTINGS_ENABLED && (
-                <TabsContent
-                  value="prompts"
-                  className="mt-0 focus-visible:outline-none focus-visible:ring-0"
-                >
-                  <PromptsSettingsSection />
-                </TabsContent>
-              )}
-
               <TabsContent
-                value="keyboard"
+                value="skills"
                 className="mt-0 focus-visible:outline-none focus-visible:ring-0"
               >
-                <KeyboardShortcutsSection />
+                <SkillsSection />
               </TabsContent>
 
               <TabsContent
@@ -419,21 +316,24 @@ export default function SettingsView({
               </TabsContent>
 
               <TabsContent
-                value="appearance"
-                className="mt-0 focus-visible:outline-none focus-visible:ring-0"
-              >
-                <AppearanceSettingsSection />
-              </TabsContent>
-
-              <TabsContent
                 value="app"
                 className="mt-0 focus-visible:outline-none focus-visible:ring-0"
               >
                 <div className="space-y-8">
                   {CONFIGURATION_ENABLED && <ConfigSettings />}
                   <AppSettingsSection scrollToSection={viewOptions.section} />
+                  <KeyboardShortcutsSection />
                 </div>
               </TabsContent>
+
+              {PROMPTS_SETTINGS_ENABLED && (
+                <TabsContent
+                  value="prompts"
+                  className="mt-0 focus-visible:outline-none focus-visible:ring-0"
+                >
+                  <PromptsSettingsSection />
+                </TabsContent>
+              )}
             </div>
           </ScrollArea>
         </main>

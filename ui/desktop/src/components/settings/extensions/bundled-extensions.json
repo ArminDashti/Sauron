@@ -54,6 +54,17 @@
     "bundled": true
   },
   {
+    "id": "browser",
+    "name": "browser",
+    "display_name": "Browser",
+    "description": "Web automation via Playwright: navigate, click, type, and screenshots (requires Node.js and Chromium).",
+    "enabled": false,
+    "type": "platform",
+    "env_keys": [],
+    "timeout": 300,
+    "bundled": true
+  },
+  {
     "id": "github",
     "name": "GitHub",
     "description": "Connect your GitHub account to search repositories, work with code, manage issues, and open pull requests. Requires a GitHub personal access token.",

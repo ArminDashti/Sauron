@@ -307,11 +307,6 @@ export async function acpListProviderSecrets(): Promise<ProviderSecretDto[]> {
   return secrets;
 }
 
-export async function acpDeleteProviderSecret(id: string): Promise<void> {
-  const client = await getAcpClient();
-  await client.sauron.providersSecretsDelete_unstable({ id });
-}
-
 /**
  * Whether a provider's token key has a value set (env var, stored secret, or
  * cached OAuth credential).

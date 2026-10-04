@@ -12,7 +12,8 @@ describe('resolveProviderIcon', () => {
     expect(resolveProviderIcon('openai')).toBeTruthy();
     expect(resolveProviderIcon('anthropic')).toBeTruthy();
     expect(resolveProviderIcon('gcp_vertex_ai')).toBeTruthy();
-    expect(resolveProviderIcon('custom_tensorix')).toBeUndefined();
+    expect(resolveProviderIcon('sauron')).toBeTruthy();
+    expect(resolveProviderIcon('litellm')).toBeTruthy();
   });
 
   it('normalises case and surrounding whitespace', () => {
@@ -26,7 +27,7 @@ describe('resolveProviderIcon', () => {
   });
 
   it('returns undefined for providers with no brand mark', () => {
-    expect(resolveProviderIcon('routstr')).toBeUndefined();
+    expect(resolveProviderIcon('orcarouter')).toBeUndefined();
     expect(resolveProviderIcon('acme')).toBeUndefined();
     expect(resolveProviderIcon(null)).toBeUndefined();
     expect(resolveProviderIcon('')).toBeUndefined();
@@ -37,6 +38,7 @@ describe('isKnownProvider', () => {
   it('is true for both branded and unbranded providers', () => {
     expect(isKnownProvider('openai')).toBe(true);
     expect(isKnownProvider('routstr')).toBe(true);
+    expect(isKnownProvider('orcarouter')).toBe(true);
   });
 
   it('is false for ids we have never heard of', () => {
@@ -47,7 +49,7 @@ describe('isKnownProvider', () => {
 
 describe('resolveProviderLabel', () => {
   it('uses the curated display name for unbranded providers', () => {
-    expect(resolveProviderLabel('nano-gpt')).toBe('NanoGPT');
+    expect(resolveProviderLabel('orcarouter')).toBe('OrcaRouter');
     expect(resolveProviderLabel('local')).toBe('Local Inference');
   });
 
@@ -58,13 +60,16 @@ describe('resolveProviderLabel', () => {
 
 describe('providerMonogram', () => {
   it('takes the first letter of each of the first two words', () => {
-    expect(providerMonogram('nano-gpt')).toBe('NG');
-    expect(providerMonogram('llama_swap')).toBe('LS');
     expect(providerMonogram('local')).toBe('LI');
+    expect(providerMonogram('futur mix')).toBe('FM');
   });
 
-  it('uses a single letter for single-word names', () => {
-    expect(providerMonogram('routstr')).toBe('R');
+  it('splits camel-case names into two letters', () => {
+    expect(providerMonogram('FuturMix')).toBe('FM');
+  });
+
+  it('uses the first two letters of a single-word name', () => {
+    expect(providerMonogram('orcarouter')).toBe('OR');
   });
 
   it('never returns an empty string', () => {
@@ -75,10 +80,10 @@ describe('providerMonogram', () => {
 
 describe('providerAccent', () => {
   it('is stable for the same provider', () => {
-    expect(providerAccent('routstr')).toBe(providerAccent('routstr'));
+    expect(providerAccent('orcarouter')).toBe(providerAccent('orcarouter'));
   });
 
   it('differs between providers', () => {
-    expect(providerAccent('routstr')).not.toBe(providerAccent('saygm'));
+    expect(providerAccent('orcarouter')).not.toBe(providerAccent('saygm'));
   });
 });

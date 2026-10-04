@@ -185,6 +185,49 @@ describe('ACP sessions', () => {
     });
   });
 
+  it('asks for a folder-less chat when chatOnly is set', async () => {
+    const client = newSessionClient();
+
+    await acpNewSession('', [], undefined, true);
+
+    expect(client.connection.agent.request).toHaveBeenCalledWith(methods.agent.session.new, {
+      cwd: '',
+      mcpServers: [],
+      _meta: {
+        client: 'sauron-desktop',
+        chatOnly: true,
+        enabledExtensions: [],
+      },
+    });
+  });
+
+  it('leaves the chatOnly flag out for repository chats', async () => {
+    const client = newSessionClient();
+
+    await acpNewSession('/tmp', undefined);
+
+    expect(client.connection.agent.request).toHaveBeenCalledWith(methods.agent.session.new, {
+      cwd: '/tmp',
+      mcpServers: [],
+      _meta: { client: 'sauron-desktop' },
+    });
+  });
+
+  it('marks a session with an empty cwd as a folder-less chat', async () => {
+    const client = {
+      sauron: {
+        sessionInfo_unstable: vi.fn().mockResolvedValue({
+          session: sessionInfo({ cwd: '', _meta: { messageCount: 2 } }),
+        }),
+      },
+    };
+    vi.mocked(getAcpClient).mockResolvedValue(
+      client as unknown as Awaited<ReturnType<typeof getAcpClient>>
+    );
+
+    expect((await acpGetSessionListItem('session-1')).chatOnly).toBe(true);
+  });
+
   it('returns a list item from ACP session info', async () => {
     const client = {
       sauron: {

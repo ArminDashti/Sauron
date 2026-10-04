@@ -37,8 +37,7 @@ import { expandTilde, sanitizeSauronPathRoot } from './utils/pathUtils';
 import log from './utils/logger';
 import { ensureWinShims } from './utils/winShims';
 import { addRecentDir, loadRecentDirs } from './utils/recentDirs';
-import { formatAppName, errorMessage, formatErrorForLogging } from './utils/conversionUtils';
-import { isRetiredSauronChatApp } from './utils/retiredApps';
+import { errorMessage, formatErrorForLogging } from './utils/conversionUtils';
 import type { Settings, SettingKey } from './utils/settings';
 import { defaultSettings, getKeyboardShortcuts } from './utils/settings';
 import { isValidFontSizeSetting } from './utils/fontSize';
@@ -60,7 +59,6 @@ import './utils/userProfileIpc';
 import './utils/systemUsageIpc';
 import './utils/recipeHash';
 import './utils/usageStatsIpc';
-import type { SauronApp } from './types/apps';
 import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer';
 import { WEB_PROTOCOLS } from './utils/urlSecurity';
 import { openExternalUrl } from './utils/openExternalUrl';
@@ -964,7 +962,6 @@ let appConfig = {
 };
 
 const windowMap = new Map<number, BrowserWindow>();
-const appWindows = new Map<string, BrowserWindow>();
 const desktopFileAccess = new DesktopFileAccess();
 
 function requireRegularRendererWindow(event: IpcMainInvokeEvent): BrowserWindow {
@@ -1136,10 +1133,14 @@ const createChat = async (
       const originLease = leaseBackendOrigin(resolvedAcpUrl);
       const leaseCertificateTrust = externalCertificateTrust;
       externalCertificateTrust = null;
-      sauronServeLease = sauronServeLeases.createExternal(resolvedAcpUrl, serverSecret, async () => {
-        originLease.release();
-        leaseCertificateTrust?.release();
-      });
+      sauronServeLease = sauronServeLeases.createExternal(
+        resolvedAcpUrl,
+        serverSecret,
+        async () => {
+          originLease.release();
+          leaseCertificateTrust?.release();
+        }
+      );
     } catch (error) {
       externalCertificateTrust?.release();
       log.error('External ACP backend is misconfigured', error);
@@ -2067,58 +2068,6 @@ ipcMain.handle('get-dock-icon-state', () => {
   } catch (error) {
     console.error('Error getting dock icon state:', error);
     return true;
-  }
-});
-
-// Get system stats (CPU, Memory, Disk, Network)
-ipcMain.handle('get-system-stats', async () => {
-  try {
-    const cpus = os.cpus();
-    const cpuUsage = os.loadavg()[0] / cpus.length * 100;
-    const totalMemory = os.totalmem();
-    const freeMemory = os.freemem();
-    const memoryUsage = ((totalMemory - freeMemory) / totalMemory) * 100;
-
-    // Disk usage (approximate for root drive)
-    let diskUsage = 0;
-    try {
-      const stats = await fs.stat('/');
-      diskUsage = 50; // Placeholder - would need platform-specific disk API
-    } catch {
-      diskUsage = 0;
-    }
-
-    // Network stats (approximate)
-    const networkInterfaces = os.networkInterfaces();
-    let downloadSpeed = 0;
-    let uploadSpeed = 0;
-    for (const iface of Object.values(networkInterfaces)) {
-      if (iface) {
-        for (const config of iface) {
-          if (!config.internal) {
-            downloadSpeed += Math.random() * 10; // Placeholder - would need real network monitoring
-            uploadSpeed += Math.random() * 2;
-          }
-        }
-      }
-    }
-
-    return {
-      cpu: Math.round(cpuUsage),
-      memory: Math.round(memoryUsage),
-      disk: Math.round(diskUsage),
-      download: Math.round(downloadSpeed),
-      upload: Math.round(uploadSpeed),
-    };
-  } catch (error) {
-    console.error('Error getting system stats:', error);
-    return {
-      cpu: 0,
-      memory: 0,
-      disk: 0,
-      download: 0,
-      upload: 0,
-    };
   }
 });
 
@@ -3115,124 +3064,6 @@ async function appMain() {
     } catch (error) {
       console.error('Error opening directory in explorer:', error);
       return false;
-    }
-  });
-
-  ipcMain.handle('launch-app', async (event, sauronApp: SauronApp) => {
-    try {
-      if (isRetiredSauronChatApp(sauronApp)) {
-        throw new Error('This built-in Chat app is no longer supported.');
-      }
-
-      const launchingWindow = BrowserWindow.fromWebContents(event.sender);
-      if (!launchingWindow) {
-        throw new Error('Could not find launching window');
-      }
-
-      const launchingWindowId = launchingWindow.id;
-      const launchingSauronServeLease = sauronServeLeases.get(launchingWindowId);
-      if (!launchingSauronServeLease) {
-        throw new Error('No backend lease found for launching window');
-      }
-
-      const launchingWorkingDir = await launchingWindow.webContents
-        .executeJavaScript(`window.appConfig ? window.appConfig.get('SAURON_WORKING_DIR') : null`)
-        .catch((error) => {
-          console.warn('Failed to get working directory from launching window:', error);
-          return undefined;
-        });
-      const workingDir = resolveWorkingDir(
-        typeof launchingWorkingDir === 'string' ? launchingWorkingDir : undefined,
-        undefined,
-        app.getPath('home')
-      );
-      const appWindow = new BrowserWindow({
-        title: formatAppName(sauronApp.name),
-        width: sauronApp.width ?? 800,
-        height: sauronApp.height ?? 600,
-        resizable: sauronApp.resizable ?? true,
-        useContentSize: true,
-        autoHideMenuBar: AUTO_HIDE_MENU_BAR,
-        webPreferences: {
-          preload: path.join(__dirname, 'preload.js'),
-          nodeIntegration: false,
-          contextIsolation: true,
-          webSecurity: true,
-          additionalArguments: [
-            JSON.stringify({
-              ...appConfig,
-              SAURON_LOCALE: getConfiguredSauronLocale(),
-              SAURON_WORKING_DIR: workingDir,
-              SAURON_VERSION: version,
-            }),
-          ],
-          partition: 'persist:sauron',
-        },
-      });
-
-      sauronServeLeases.attachWindow(appWindow.id, launchingSauronServeLease);
-
-      appWindows.set(sauronApp.name, appWindow);
-
-      appWindow.on('closed', () => {
-        void sauronServeLeases.releaseWindow(appWindow.id);
-        appWindows.delete(sauronApp.name);
-      });
-
-      const extensionName = sauronApp.mcpServers?.[0] ?? '';
-
-      const url = getAppUrl();
-
-      const searchParams = new URLSearchParams();
-      searchParams.set('resourceUri', sauronApp.uri);
-      searchParams.set('extensionName', extensionName);
-      searchParams.set('appName', sauronApp.name);
-      searchParams.set('workingDir', workingDir);
-
-      url.hash = `/standalone-app?${searchParams.toString()}`;
-      await appWindow.loadURL(formatUrl(url));
-      appWindow.show();
-    } catch (error) {
-      console.error('Failed to launch app:', error);
-      throw error;
-    }
-  });
-
-  ipcMain.handle('refresh-app', async (_event, sauronApp: SauronApp) => {
-    try {
-      const appWindow = appWindows.get(sauronApp.name);
-      if (!appWindow || appWindow.isDestroyed()) {
-        console.log(`App window for '${sauronApp.name}' not found or destroyed, skipping refresh`);
-        return;
-      }
-
-      // Bring to front first
-      if (appWindow.isMinimized()) {
-        appWindow.restore();
-      }
-      appWindow.show();
-      appWindow.focus();
-
-      // Then reload
-      await appWindow.webContents.reload();
-    } catch (error) {
-      console.error('Failed to refresh app:', error);
-      throw error;
-    }
-  });
-
-  ipcMain.handle('close-app', async (_event, appName: string) => {
-    try {
-      const appWindow = appWindows.get(appName);
-      if (!appWindow || appWindow.isDestroyed()) {
-        console.log(`App window for '${appName}' not found or destroyed, skipping close`);
-        return;
-      }
-
-      appWindow.close();
-    } catch (error) {
-      console.error('Failed to close app:', error);
-      throw error;
     }
   });
 }

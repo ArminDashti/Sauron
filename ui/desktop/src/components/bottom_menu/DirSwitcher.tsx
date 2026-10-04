@@ -22,6 +22,10 @@ const i18n = defineMessages({
     id: 'dirSwitcher.currentDirectory',
     defaultMessage: 'Current directory',
   },
+  noFolder: {
+    id: 'dirSwitcher.noFolder',
+    defaultMessage: 'No folder',
+  },
   gitWorktrees: {
     id: 'dirSwitcher.gitWorktrees',
     defaultMessage: 'Git worktrees',
@@ -117,9 +121,10 @@ export const DirSwitcher: React.FC<DirSwitcherProps> = ({
     setWorktreeDirs([]);
 
     const recent = await window.electron.listRecentDirs().catch(() => []);
-    const worktrees = worktreesEnabled
-      ? await window.electron.listGitWorktreeDirs(workingDir).catch(() => [])
-      : [];
+    const worktrees =
+      worktreesEnabled && workingDir
+        ? await window.electron.listGitWorktreeDirs(workingDir).catch(() => [])
+        : [];
 
     if (version !== refreshVersionRef.current) return;
 
@@ -196,7 +201,7 @@ export const DirSwitcher: React.FC<DirSwitcherProps> = ({
 
     const isCmdOrCtrlClick = event.metaKey || event.ctrlKey;
 
-    if (isCmdOrCtrlClick) {
+    if (isCmdOrCtrlClick && workingDir) {
       event.preventDefault();
       event.stopPropagation();
       await window.electron.openDirectoryInExplorer(workingDir);
@@ -231,7 +236,7 @@ export const DirSwitcher: React.FC<DirSwitcherProps> = ({
               >
                 <FolderDot className="mr-1" size={16} />
                 <div className="max-w-[200px] truncate">
-                  {splitDirPath(workingDir).name || workingDir}
+                  {splitDirPath(workingDir).name || intl.formatMessage(i18n.noFolder)}
                 </div>
                 <ChevronDown className="ml-0.5 flex-shrink-0 opacity-70" size={12} />
               </button>
@@ -239,13 +244,20 @@ export const DirSwitcher: React.FC<DirSwitcherProps> = ({
           </TooltipTrigger>
           <DropdownMenuContent className="w-[28rem]" side="top" align="start">
             <DropdownMenuLabel>{intl.formatMessage(i18n.currentDirectory)}</DropdownMenuLabel>
-            <DropdownMenuItem
-              onSelect={() => void window.electron.openDirectoryInExplorer(workingDir)}
-            >
-              <FolderOpen className="mr-2 h-4 w-4 flex-shrink-0" />
-              <DirNameLabel dir={workingDir} />
-              <Check className="ml-auto h-4 w-4 flex-shrink-0" />
-            </DropdownMenuItem>
+            {workingDir ? (
+              <DropdownMenuItem
+                onSelect={() => void window.electron.openDirectoryInExplorer(workingDir)}
+              >
+                <FolderOpen className="mr-2 h-4 w-4 flex-shrink-0" />
+                <DirNameLabel dir={workingDir} />
+                <Check className="ml-auto h-4 w-4 flex-shrink-0" />
+              </DropdownMenuItem>
+            ) : (
+              <DropdownMenuItem disabled>
+                <FolderDot className="mr-2 h-4 w-4 flex-shrink-0" />
+                <span>{intl.formatMessage(i18n.noFolder)}</span>
+              </DropdownMenuItem>
+            )}
 
             <DropdownMenuSeparator />
             <DropdownMenuLabel>{intl.formatMessage(i18n.enterPath)}</DropdownMenuLabel>
@@ -316,15 +328,19 @@ export const DirSwitcher: React.FC<DirSwitcherProps> = ({
               <Plus className="mr-2 h-4 w-4" />
               <span>{intl.formatMessage(i18n.chooseDirectory)}</span>
             </DropdownMenuItem>
-            <DropdownMenuItem
-              onSelect={() => void window.electron.openDirectoryInExplorer(workingDir)}
-            >
-              <FolderOpen className="mr-2 h-4 w-4" />
-              <span>{intl.formatMessage(i18n.openInFinder)}</span>
-            </DropdownMenuItem>
+            {workingDir && (
+              <DropdownMenuItem
+                onSelect={() => void window.electron.openDirectoryInExplorer(workingDir)}
+              >
+                <FolderOpen className="mr-2 h-4 w-4" />
+                <span>{intl.formatMessage(i18n.openInFinder)}</span>
+              </DropdownMenuItem>
+            )}
           </DropdownMenuContent>
         </DropdownMenu>
-        <TooltipContent side="top">{workingDir}</TooltipContent>
+        <TooltipContent side="top">
+          {workingDir || intl.formatMessage(i18n.noFolder)}
+        </TooltipContent>
       </Tooltip>
     </TooltipProvider>
   );

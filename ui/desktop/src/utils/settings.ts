@@ -1,4 +1,5 @@
 import type { ThemeId } from '../theme/theme-tokens';
+import { defaultCustomTheme, type CustomTheme } from '../theme/custom-theme';
 import { DEFAULT_FONT_SIZE } from './fontSize';
 
 export type RecentModel = {
@@ -55,6 +56,8 @@ export interface Settings {
   // UI preferences (migrated from localStorage)
   theme: ThemeId;
   useSystemTheme: boolean;
+  /** User-authored theme, applied when `theme` is 'custom'. */
+  customTheme: CustomTheme;
   /** Root font size as a percentage of the default (see utils/fontSize.ts). */
   fontSize: number;
   language: LanguageSetting;
@@ -102,6 +105,7 @@ export const defaultSettings: Settings = {
   // UI preferences
   theme: 'light',
   useSystemTheme: true,
+  customTheme: defaultCustomTheme,
   fontSize: DEFAULT_FONT_SIZE,
   language: 'system',
   responseStyle: 'concise',

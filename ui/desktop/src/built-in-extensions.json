@@ -42,5 +42,14 @@
     "enabled": false,
     "type": "builtin",
     "env_keys": []
+  },
+  {
+    "id": "browser",
+    "name": "Browser",
+    "description": "Web automation via Playwright (requires Node.js and Chromium).",
+    "enabled": false,
+    "type": "platform",
+    "env_keys": [],
+    "timeout": 300
   }
 ]

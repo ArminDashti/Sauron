@@ -34,7 +34,12 @@ pub fn name_to_key(name: &str) -> String {
 pub(crate) fn is_mcp_server_available(config: &McpServerConfig) -> bool {
     match config {
         McpServerConfig::Platform { name, .. } => {
-            crate::agents::mcp_server::IN_PROCESS_SERVERS.contains_key(name_to_key(name).as_str())
+            let key = name_to_key(name);
+            if key == "browser" {
+                return crate::agents::in_process::browser::is_playwright_mcp_launchable()
+                    && crate::agents::mcp_server::IN_PROCESS_SERVERS.contains_key(key.as_str());
+            }
+            crate::agents::mcp_server::IN_PROCESS_SERVERS.contains_key(key.as_str())
         }
         _ => true,
     }

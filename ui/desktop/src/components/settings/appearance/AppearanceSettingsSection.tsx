@@ -14,6 +14,7 @@ import {
 import { COST_TRACKING_ENABLED } from '../../../updates';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../ui/card';
 import ThemeSelector from '../../SauronSidebar/ThemeSelector';
+import CustomThemeEditor from './CustomThemeEditor';
 import { useFontSize } from '../../../contexts/FontSizeContext';
 import {
   DEFAULT_FONT_SIZE,
@@ -76,6 +77,11 @@ const i18n = defineMessages({
   themeDesc: {
     id: 'settings.theme.description',
     defaultMessage: 'Customize the look and feel of sauron',
+  },
+  customThemeTitle: { id: 'settings.customTheme.title', defaultMessage: 'Custom theme' },
+  customThemeDesc: {
+    id: 'settings.customTheme.description',
+    defaultMessage: 'Build your own theme by picking a base and its colors',
   },
   fontSizeTitle: { id: 'settings.fontSize.title', defaultMessage: 'Font size' },
   fontSizeDesc: {
@@ -487,6 +493,16 @@ export default function AppearanceSettingsSection() {
         </CardHeader>
         <CardContent className="pt-4 px-4">
           <ThemeSelector className="w-auto" hideTitle horizontal />
+        </CardContent>
+      </Card>
+
+      <Card className="rounded-lg">
+        <CardHeader className="pb-0">
+          <CardTitle className="mb-1">{intl.formatMessage(i18n.customThemeTitle)}</CardTitle>
+          <CardDescription>{intl.formatMessage(i18n.customThemeDesc)}</CardDescription>
+        </CardHeader>
+        <CardContent className="pt-4 px-4">
+          <CustomThemeEditor />
         </CardContent>
       </Card>
 

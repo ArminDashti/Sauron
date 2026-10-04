@@ -12,6 +12,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '../ui/dialog';
 import { HardDrive, Key, Plus } from 'lucide-react';
 import { defineMessages, useIntl } from '../../i18n';
 import { useFeatures } from '../../contexts/FeaturesContext';
+import { filterSupportedProviders } from '../../utils/supportedProviders';
 
 const i18n = defineMessages({
   useLocalModel: {
@@ -74,7 +75,13 @@ export default function ProviderSelector({
   useEffect(() => {
     const load = async () => {
       try {
-        setProviderList(await acpListSetupProviderDetails());
+        setProviderList(
+          filterSupportedProviders(await acpListSetupProviderDetails()).sort((a, b) =>
+            a.metadata.display_name.localeCompare(b.metadata.display_name, undefined, {
+              sensitivity: 'base',
+            })
+          )
+        );
       } catch (err) {
         console.error('Failed to fetch providers:', err);
       }
@@ -84,12 +91,11 @@ export default function ProviderSelector({
 
   const options: ProviderOption[] = useMemo(() => {
     return [...providerList]
-      .sort((a, b) => {
-        const aPreferred = a.provider_type === 'Preferred' ? 0 : 1;
-        const bPreferred = b.provider_type === 'Preferred' ? 0 : 1;
-        if (aPreferred !== bPreferred) return aPreferred - bPreferred;
-        return a.metadata.display_name.localeCompare(b.metadata.display_name);
-      })
+      .sort((a, b) =>
+        a.metadata.display_name.localeCompare(b.metadata.display_name, undefined, {
+          sensitivity: 'base',
+        })
+      )
       .map((provider) => ({
         value: provider.name,
         label: provider.metadata.display_name,

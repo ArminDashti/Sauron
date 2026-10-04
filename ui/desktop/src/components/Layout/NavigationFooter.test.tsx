@@ -52,13 +52,25 @@ describe('NavigationFooter', () => {
 
   it('shows CPU and memory usage percentages above the profile row', async () => {
     window.electron.getSystemUsage = vi.fn(() =>
-      Promise.resolve({ cpuPercent: 12, memoryPercent: 34 })
+      Promise.resolve({
+        cpuPercent: 12,
+        memoryPercent: 34,
+        diskPercent: 56,
+        downloadMbps: 12,
+        uploadMbps: 3,
+      })
     );
     renderFooter();
 
     const usageRow = await screen.findByTestId('system-usage');
     expect(usageRow).toHaveTextContent('CPU 12%');
-    expect(usageRow).toHaveTextContent('Memory 34%');
+    expect(usageRow).toHaveTextContent('Mem 34%');
+    expect(within(usageRow).getByLabelText('CPU 12%')).toBeInTheDocument();
+    expect(within(usageRow).getByLabelText('Disk Usage 56%')).toBeInTheDocument();
+    expect(within(usageRow).getByLabelText('Download 12 Mbps')).toBeInTheDocument();
+    expect(within(usageRow).getByLabelText('Upload 3 Mbps')).toBeInTheDocument();
+    expect(within(usageRow).getByLabelText('Download 12 Mbps')).toBeInTheDocument();
+    expect(within(usageRow).getByLabelText('Upload 3 Mbps')).toBeInTheDocument();
     expect(within(usageRow).queryByRole('button')).not.toBeInTheDocument();
   });
 

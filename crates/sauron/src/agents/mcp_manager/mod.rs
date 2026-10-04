@@ -24,7 +24,7 @@ use super::tool_execution::{ToolCallContext, ToolCallNotificationEmitter, ToolCa
 use super::types::SharedProvider;
 use crate::action_required_manager::ActionRequiredManager;
 use crate::agents::mcp_client::{
-    ConnectContext, McpClientTrait, SauronMcpClientCapabilities, SauronMcpHostInfo,
+    ConnectContext, McpClient, McpClientTrait, SauronMcpClientCapabilities, SauronMcpHostInfo,
 };
 use crate::agents::reply_parts::is_tool_visible_to_app;
 use crate::config::mcp_servers::name_to_key;
@@ -386,6 +386,17 @@ pub fn is_hidden_server(name: &str) -> bool {
     IN_PROCESS_SERVERS
         .get(name_to_key(name).as_str())
         .is_some_and(|def| def.hidden)
+}
+
+pub(crate) async fn connect_playwright_mcp(ctx: ConnectContext) -> McpServerResult<McpClient> {
+    stdio::connect(
+        "npx",
+        &["-y".to_string(), "@playwright/mcp@latest".to_string()],
+        HashMap::new(),
+        None,
+        ctx,
+    )
+    .await
 }
 
 /// Result of resolving a tool call to its owning extension

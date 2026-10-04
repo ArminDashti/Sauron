@@ -5,37 +5,29 @@ import PermissionRulesModal from '../permission/PermissionRulesModal';
 import { defineMessages, useIntl } from '../../../i18n';
 
 const i18n = defineMessages({
-  autonomousLabel: {
-    id: 'modeSelectionItem.autonomousLabel',
-    defaultMessage: 'Autonomous',
+  askLabel: {
+    id: 'modeSelectionItem.askLabel',
+    defaultMessage: 'Ask',
   },
-  autonomousDescription: {
-    id: 'modeSelectionItem.autonomousDescription',
-    defaultMessage: 'Full file modification capabilities, edit, create, and delete files freely.',
+  askDescription: {
+    id: 'modeSelectionItem.askDescription',
+    defaultMessage: 'Ask questions and get answers without tools or file modifications.',
   },
-  manualLabel: {
-    id: 'modeSelectionItem.manualLabel',
-    defaultMessage: 'Manual',
+  codeLabel: {
+    id: 'modeSelectionItem.codeLabel',
+    defaultMessage: 'Code',
   },
-  manualDescription: {
-    id: 'modeSelectionItem.manualDescription',
-    defaultMessage: 'All tools, extensions and file modifications will require human approval',
+  codeDescription: {
+    id: 'modeSelectionItem.codeDescription',
+    defaultMessage: 'Edit, create and delete files freely to complete the task.',
   },
-  smartLabel: {
-    id: 'modeSelectionItem.smartLabel',
-    defaultMessage: 'Smart',
+  planLabel: {
+    id: 'modeSelectionItem.planLabel',
+    defaultMessage: 'Plan',
   },
-  smartDescription: {
-    id: 'modeSelectionItem.smartDescription',
-    defaultMessage: 'Intelligently determine which actions need approval based on risk level',
-  },
-  chatOnlyLabel: {
-    id: 'modeSelectionItem.chatOnlyLabel',
-    defaultMessage: 'Chat only',
-  },
-  chatOnlyDescription: {
-    id: 'modeSelectionItem.chatOnlyDescription',
-    defaultMessage: 'Engage with the selected provider without using tools or extensions.',
+  planDescription: {
+    id: 'modeSelectionItem.planDescription',
+    defaultMessage: 'Investigate and propose a plan; every tool call needs your approval.',
   },
 });
 
@@ -47,24 +39,19 @@ export interface SauronMode {
 
 export const all_sauron_modes: SauronMode[] = [
   {
+    key: 'chat',
+    labelDescriptor: i18n.askLabel,
+    descriptionDescriptor: i18n.askDescription,
+  },
+  {
     key: 'auto',
-    labelDescriptor: i18n.autonomousLabel,
-    descriptionDescriptor: i18n.autonomousDescription,
+    labelDescriptor: i18n.codeLabel,
+    descriptionDescriptor: i18n.codeDescription,
   },
   {
     key: 'approve',
-    labelDescriptor: i18n.manualLabel,
-    descriptionDescriptor: i18n.manualDescription,
-  },
-  {
-    key: 'smart_approve',
-    labelDescriptor: i18n.smartLabel,
-    descriptionDescriptor: i18n.smartDescription,
-  },
-  {
-    key: 'chat',
-    labelDescriptor: i18n.chatOnlyLabel,
-    descriptionDescriptor: i18n.chatOnlyDescription,
+    labelDescriptor: i18n.planLabel,
+    descriptionDescriptor: i18n.planDescription,
   },
 ];
 
@@ -97,7 +84,9 @@ export const ModeSelectionItem = forwardRef<HTMLDivElement, ModeSelectionItemPro
             <div>
               <h3 className="text-text-primary">{intl.formatMessage(mode.labelDescriptor)}</h3>
               {showDescription && (
-                <p className="text-text-secondary mt-[2px]">{intl.formatMessage(mode.descriptionDescriptor)}</p>
+                <p className="text-text-secondary mt-[2px]">
+                  {intl.formatMessage(mode.descriptionDescriptor)}
+                </p>
               )}
             </div>
           </div>

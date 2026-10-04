@@ -74,11 +74,16 @@ describe('createSession recipe consent gate', () => {
       hasSecurityWarnings: false,
     });
     expect(mocks.recordRecipeHash).toHaveBeenCalledWith(recipe);
-    expect(mocks.controllerCreateSession).toHaveBeenCalledWith('/work', undefined, {
-      recipeId: undefined,
-      recipeDeeplink: 'ENCODED',
-      recipeParameterScopeId: undefined,
-    });
+    expect(mocks.controllerCreateSession).toHaveBeenCalledWith(
+      '/work',
+      undefined,
+      {
+        recipeId: undefined,
+        recipeDeeplink: 'ENCODED',
+        recipeParameterScopeId: undefined,
+      },
+      false
+    );
     expect(mocks.requestRecipeConsent.mock.invocationCallOrder[0]).toBeLessThan(
       mocks.controllerCreateSession.mock.invocationCallOrder[0]
     );
@@ -119,7 +124,8 @@ describe('createSession recipe consent gate', () => {
     expect(mocks.controllerCreateSession).toHaveBeenCalledWith(
       '/work',
       undefined,
-      expect.objectContaining({ recipeId: 'saved-1' })
+      expect.objectContaining({ recipeId: 'saved-1' }),
+      false
     );
   });
 

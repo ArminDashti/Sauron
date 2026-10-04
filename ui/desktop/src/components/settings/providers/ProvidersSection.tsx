@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState, type FormEvent } from 'react';
-import { CheckCircle2, ChevronDown, ChevronUp, Loader2, RefreshCw, Settings2 } from 'lucide-react';
+import { CheckCircle2, ChevronDown, ChevronUp, Loader2, RefreshCw, Wrench } from 'lucide-react';
 import { Button } from '../../ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../ui/card';
 import { Select } from '../../ui/Select';
@@ -12,7 +12,6 @@ import { providerConfigSubmitHandler } from './modal/subcomponents/handlers/Defa
 import ResetProviderSection from '../reset_provider/ResetProviderSection';
 import {
   acpListSettingsProviderDetails,
-  acpReadDefaults,
   acpRefreshProviderDetails,
   acpSaveDefaults,
 } from '../../../acp/providers';
@@ -21,29 +20,11 @@ import type { View } from '../../../utils/navigationUtils';
 import { defineMessages, useIntl } from '../../../i18n';
 import { toastError, toastSuccess } from '../../../toasts';
 import { useFeatures } from '../../../contexts/FeaturesContext';
-import AuthSettingsSection from '../auth/AuthSettingsSection';
 import LocalInferenceSection from '../localInference/LocalInferenceSection';
-
-/** Providers surfaced in the Settings > Providers section. */
-const SUPPORTED_PROVIDER_IDS = [
-  'opencode_go',
-  'mistral',
-  'google',
-  'openrouter',
-  'ollama',
-  'openai',
-] as const;
+import ModelsSection from '../models/ModelsSection';
+import { filterSupportedProviders } from '../../../utils/supportedProviders';
 
 const i18n = defineMessages({
-  title: {
-    id: 'providersSection.title',
-    defaultMessage: 'Model Providers',
-  },
-  description: {
-    id: 'providersSection.description',
-    defaultMessage:
-      'Configure your AI model providers and load their available models directly from each provider API.',
-  },
   loading: {
     id: 'providersSection.loading',
     defaultMessage: 'Loading providers...',
@@ -141,10 +122,7 @@ interface ProviderConfigurationFieldsProps {
   onConfigured: (provider: ProviderDetails) => Promise<void>;
 }
 
-function ProviderConfigurationFields({
-  provider,
-  onConfigured,
-}: ProviderConfigurationFieldsProps) {
+function ProviderConfigurationFields({ provider, onConfigured }: ProviderConfigurationFieldsProps) {
   const intl = useIntl();
   const [configValues, setConfigValues] = useState<Record<string, ConfigInput>>({});
   const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});
@@ -198,9 +176,8 @@ function ProviderConfigurationFields({
   };
 
   return (
-    <form className="mt-4 space-y-3" onSubmit={handleSubmit}>
+    <form className="mt-4 space-y-3" onSubmit={handleSubmit} noValidate>
       <DefaultProviderSetupForm
-        key={provider.name}
         configValues={configValues}
         setConfigValues={setConfigValues}
         provider={configuredProvider}
@@ -230,27 +207,20 @@ export default function ProvidersSection({ setView }: ProvidersSectionProps) {
   const [modelError, setModelError] = useState<string | null>(null);
   const [showModels, setShowModels] = useState(false);
 
-  const sortProviders = useCallback((list: ProviderDetails[]) => {
-    const rank = (id: string) => {
-      const index = (SUPPORTED_PROVIDER_IDS as readonly string[]).indexOf(id);
-      return index === -1 ? SUPPORTED_PROVIDER_IDS.length : index;
-    };
-    return [...list].sort((a, b) => rank(a.name) - rank(b.name));
-  }, []);
-
   const loadProviders = useCallback(async () => {
     setLoading(true);
     setLoadError(null);
     try {
       const all = await acpListSettingsProviderDetails();
-      const list = sortProviders(
-        all.filter((p) => (SUPPORTED_PROVIDER_IDS as readonly string[]).includes(p.name))
+      const list = filterSupportedProviders(all).sort((a, b) =>
+        a.metadata.display_name.localeCompare(b.metadata.display_name, undefined, {
+          sensitivity: 'base',
+        })
       );
       setProviders(list);
       setSelectedName((current) => {
         if (current && list.some((p) => p.name === current)) return current;
-        const fallback = list.find((p) => p.is_configured) ?? list[0];
-        return fallback?.name ?? null;
+        return list[0]?.name ?? null;
       });
     } catch (error) {
       console.error('Failed to load providers:', error);
@@ -258,23 +228,6 @@ export default function ProvidersSection({ setView }: ProvidersSectionProps) {
     } finally {
       setLoading(false);
     }
-  }, [sortProviders]);
-
-  // Preselect the provider that is actually driving the app so the section opens
-  // on the live configuration rather than an arbitrary entry.
-  useEffect(() => {
-    let cancelled = false;
-    acpReadDefaults()
-      .then(({ providerId }) => {
-        if (cancelled || !providerId) return;
-        setSelectedName((current) => current ?? providerId);
-      })
-      .catch(() => {
-        /* defaults are advisory here — the first provider stays selected */
-      });
-    return () => {
-      cancelled = true;
-    };
   }, []);
 
   const selectedProvider = useMemo(
@@ -361,11 +314,17 @@ export default function ProvidersSection({ setView }: ProvidersSectionProps) {
 
   const options = useMemo(
     () =>
-      providers.map((provider) => ({
-        value: provider.name,
-        label: provider.metadata.display_name,
-        provider,
-      })),
+      [...providers]
+        .sort((a, b) =>
+          a.metadata.display_name.localeCompare(b.metadata.display_name, undefined, {
+            sensitivity: 'base',
+          })
+        )
+        .map((provider) => ({
+          value: provider.name,
+          label: provider.metadata.display_name,
+          provider,
+        })),
     [providers]
   );
 
@@ -413,17 +372,11 @@ export default function ProvidersSection({ setView }: ProvidersSectionProps) {
 
   return (
     <section id="providers" className="space-y-4 pr-4">
-      <Card className="p-2 pb-4">
-        <CardHeader className="pb-0">
-          <CardTitle>{intl.formatMessage(i18n.title)}</CardTitle>
-          <CardDescription>{intl.formatMessage(i18n.description)}</CardDescription>
-        </CardHeader>
-        <CardContent className="px-2">
-          <Button size="sm" variant="link" onClick={() => setView('ConfigureProviders')}>
-            {intl.formatMessage(i18n.manageAll)}
-          </Button>
-        </CardContent>
-      </Card>
+      <div className="flex justify-end">
+        <Button size="sm" variant="link" onClick={() => setView('ConfigureProviders')}>
+          {intl.formatMessage(i18n.manageAll)}
+        </Button>
+      </div>
 
       {loading ? (
         <div className="flex items-center gap-2 text-sm text-text-secondary">
@@ -453,6 +406,7 @@ export default function ProvidersSection({ setView }: ProvidersSectionProps) {
                 </p>
 
                 <ProviderConfigurationFields
+                  key={selectedProvider.name}
                   provider={selectedProvider}
                   onConfigured={onProviderConfigured}
                 />
@@ -464,7 +418,7 @@ export default function ProvidersSection({ setView }: ProvidersSectionProps) {
                     onClick={() => setConfiguring(selectedProvider)}
                     data-testid={`providers-configure-${selectedProvider.name}`}
                   >
-                    <Settings2 className="mr-1 h-4 w-4" />
+                    <Wrench className="mr-1 h-4 w-4" />
                     {intl.formatMessage(i18n.configure)}
                   </Button>
                   <Button
@@ -548,7 +502,7 @@ export default function ProvidersSection({ setView }: ProvidersSectionProps) {
 
       {localInference && <LocalInferenceSection />}
 
-      <AuthSettingsSection />
+      <ModelsSection />
 
       <Card className="pb-2 rounded-lg">
         <CardHeader className="pb-0">

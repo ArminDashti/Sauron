@@ -33,6 +33,7 @@ import { trackModelChanged } from '../../../../utils/analytics';
 import { addToRecentModels } from '../../../../utils/recentModels';
 import FreeModelBadge from '../FreeModelBadge';
 import { BrandIcon } from '../../../logos/BrandLogos';
+import { filterSupportedProviders } from '../../../../utils/supportedProviders';
 
 const i18n = defineMessages({
   thinkingEffortOff: {
@@ -492,7 +493,13 @@ export const SwitchModelModal = ({
     (async () => {
       try {
         const providersResponse = await acpListProviderDetails();
-        const activeProviders = providersResponse.filter((provider) => provider.is_configured);
+        const activeProviders = filterSupportedProviders(providersResponse)
+          .filter((provider) => provider.is_configured)
+          .sort((a, b) =>
+            a.metadata.display_name.localeCompare(b.metadata.display_name, undefined, {
+              sensitivity: 'base',
+            })
+          );
         setActiveProvidersList(activeProviders);
         setProviderOptions([
           ...activeProviders.map(({ metadata, name }) => ({
@@ -784,7 +791,11 @@ export const SwitchModelModal = ({
                       <div className="flex-1">
                         <div className="flex items-center justify-between">
                           <div className="flex items-center gap-2 min-w-0">
-                            <ModelIcon provider={model.provider} className="h-4 w-4" />
+                            <ModelIcon
+                              provider={model.provider}
+                              model={model.name}
+                              className="h-4 w-4"
+                            />
                             <span className="text-text-primary font-medium">
                               {model.alias || model.name}
                             </span>

@@ -1,8 +1,6 @@
 import type { CallToolResult } from '@modelcontextprotocol/sdk/types.js';
 import type { ToolListItem } from '@aaif/sauron-acp-client';
-import type { SauronApp } from '../types/apps';
 import { getAcpClient } from './acpConnection';
-import { normalizeAcpError } from './errors';
 
 type JsonRecord = Record<string, unknown>;
 export type McpAppTool = ToolListItem;
@@ -61,45 +59,6 @@ function flattenReadResourceResult(result: unknown, fallbackUri: string): McpApp
     text,
     _meta: metaField(first),
   };
-}
-
-function acpApp(value: unknown): SauronApp | null {
-  if (!isRecord(value)) return null;
-  return value as SauronApp;
-}
-
-export async function listMcpApps(sessionId?: string): Promise<SauronApp[]> {
-  const client = await getAcpClient();
-  const response = await client.sauron.appsList_unstable(sessionId ? { sessionId } : {});
-  return (response.apps ?? []).map(acpApp).filter((app): app is SauronApp => !!app);
-}
-
-export async function exportMcpApp(name: string): Promise<string> {
-  try {
-    const client = await getAcpClient();
-    const response = await client.sauron.appsExport_unstable({ name });
-    return response.html;
-  } catch (error) {
-    throw normalizeAcpError(error, 'Failed to export app');
-  }
-}
-
-export async function importMcpApp(html: string): Promise<void> {
-  try {
-    const client = await getAcpClient();
-    await client.sauron.appsImport_unstable({ html });
-  } catch (error) {
-    throw normalizeAcpError(error, 'Failed to import app');
-  }
-}
-
-export async function deleteMcpApp(name: string): Promise<void> {
-  try {
-    const client = await getAcpClient();
-    await client.sauron.appsDelete_unstable({ name });
-  } catch (error) {
-    throw normalizeAcpError(error, 'Failed to delete app');
-  }
 }
 
 export async function listMcpAppTools(

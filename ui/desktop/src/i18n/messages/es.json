@@ -56,15 +56,6 @@
   "allProviderModels.emptyHint": {
     "defaultMessage": "Configure a provider to see the models it offers."
   },
-  "allProviderModels.filterAll": {
-    "defaultMessage": "Todos"
-  },
-  "allProviderModels.filterFree": {
-    "defaultMessage": "Gratis"
-  },
-  "allProviderModels.freeCount": {
-    "defaultMessage": "{count} gratis"
-  },
   "allProviderModels.loadFailed": {
     "defaultMessage": "Could not load provider models"
   },
@@ -73,12 +64,6 @@
   },
   "allProviderModels.modelCount": {
     "defaultMessage": "{count,plural,one{# model} other{# models}}"
-  },
-  "allProviderModels.noFreeModels": {
-    "defaultMessage": "No hay modelos gratuitos de tus proveedores."
-  },
-  "allProviderModels.noFreeModelsHint": {
-    "defaultMessage": "Los modelos se consideran gratuitos cuando un proveedor los ejecuta localmente (Ollama, modelos locales) o enumera variantes gratuitas, como los modelos :free de OpenRouter."
   },
   "allProviderModels.noModels": {
     "defaultMessage": "No models reported by this provider."
@@ -107,14 +92,8 @@
   "allProviderModels.searchPlaceholder": {
     "defaultMessage": "Buscar modelos..."
   },
-  "allProviderModels.showAll": {
-    "defaultMessage": "Mostrar todos los modelos"
-  },
   "allProviderModels.showingCount": {
     "defaultMessage": "Mostrando {shown, number} de {total, number} modelos"
-  },
-  "allProviderModels.title": {
-    "defaultMessage": "Models from your providers"
   },
   "announcementModal.gotIt": {
     "defaultMessage": "¡Entendido!"
@@ -131,131 +110,17 @@
   "appLayout.showChanges": {
     "defaultMessage": "Mostrar panel de cambios"
   },
-  "appsView.customApp": {
-    "defaultMessage": "App personalizada"
-  },
-  "appsView.deleteApp": {
-    "defaultMessage": "Delete app"
-  },
-  "appsView.deleteConfirm": {
-    "defaultMessage": "Delete \"{name}\"? This cannot be undone."
-  },
-  "appsView.description": {
-    "defaultMessage": "Aplicaciones de tus servidores MCP y Apps creadas por sauron. Puedes pedirle que cree nuevas apps desde la interfaz de chat y aparecerán aquí."
-  },
-  "appsView.errorLoading": {
-    "defaultMessage": "Error al cargar las apps: {error}"
-  },
-  "appsView.errorPrefix": {
-    "defaultMessage": "Error: {error}"
-  },
-  "appsView.importApp": {
-    "defaultMessage": "Importar App"
-  },
-  "appsView.launch": {
-    "defaultMessage": "Abrir"
-  },
-  "appsView.loading": {
-    "defaultMessage": "Cargando apps..."
-  },
-  "appsView.noAppsDescription": {
-    "defaultMessage": "Abre un chat y pídele a sauron la app que quieras tener. Puede crearte una y aparecerá aquí. O si alguien compartió una app, puedes importarla con el botón de arriba."
-  },
-  "appsView.noAppsTitle": {
-    "defaultMessage": "No hay apps disponibles"
-  },
-  "appsView.retiredChatApp": {
-    "defaultMessage": "Chat app retired"
-  },
-  "appsView.retiredChatAppDetail": {
-    "defaultMessage": "We removed this feature because MCP sampling is no longer supported."
-  },
-  "appsView.retry": {
-    "defaultMessage": "Reintentar"
-  },
-  "appsView.title": {
-    "defaultMessage": "Apps"
-  },
-  "authSettings.activeProviderWarning": {
-    "defaultMessage": "Este es el proveedor activo. Las nuevas solicitudes pueden fallar hasta que configures otra credencial."
-  },
-  "authSettings.cancel": {
-    "defaultMessage": "Cancelar"
-  },
   "authSettings.cancelSignIn": {
     "defaultMessage": "Cancelar"
   },
-  "authSettings.checkingStatus": {
-    "defaultMessage": "Comprobando..."
-  },
-  "authSettings.connectedAccounts": {
-    "defaultMessage": "Cuentas conectadas"
-  },
-  "authSettings.connectedAccountsDescription": {
-    "defaultMessage": "Inicia sesión para que Sauron trabaje con tus cuentas externas."
-  },
-  "authSettings.delete": {
-    "defaultMessage": "Eliminar"
-  },
-  "authSettings.deleteCredential": {
-    "defaultMessage": "Eliminar credencial"
-  },
-  "authSettings.deleteMessage": {
-    "defaultMessage": "¿Eliminar la credencial {name} de {provider}?"
-  },
-  "authSettings.deleteTitle": {
-    "defaultMessage": "Eliminar credencial"
-  },
-  "authSettings.deleted": {
-    "defaultMessage": "Credencial eliminada"
-  },
-  "authSettings.description": {
-    "defaultMessage": "Gestiona las credenciales de proveedores que sauron guarda localmente."
-  },
-  "authSettings.empty": {
-    "defaultMessage": "No se encontraron credenciales de proveedores guardadas localmente."
-  },
-  "authSettings.expiresAt": {
-    "defaultMessage": "Vence {date}"
-  },
-  "authSettings.failedToConfigure": {
-    "defaultMessage": "No se pudo configurar la credencial: {error}"
-  },
-  "authSettings.failedToDelete": {
-    "defaultMessage": "No se pudo eliminar la credencial: {error}"
-  },
-  "authSettings.failedToLoad": {
-    "defaultMessage": "No se pudieron cargar las credenciales de proveedores"
-  },
-  "authSettings.githubAccountDescription": {
-    "defaultMessage": "Busca repositorios, trabaja con código, gestiona issues y abre pull requests."
-  },
-  "authSettings.githubAccountName": {
-    "defaultMessage": "GitHub"
-  },
-  "authSettings.githubConnected": {
-    "defaultMessage": "Conectado"
-  },
   "authSettings.githubEnterCode": {
     "defaultMessage": "Introduce este código en {url} para autorizar a Sauron:"
-  },
-  "authSettings.githubNotConnected": {
-    "defaultMessage": "No conectado"
-  },
-  "authSettings.githubOpenDevicePage": {
-    "defaultMessage": "Abrir la página de dispositivo de GitHub"
   },
   "authSettings.githubSignInFailed": {
     "defaultMessage": "GitHub sign-in failed: {error}"
   },
   "authSettings.githubSignInUnavailable": {
     "defaultMessage": "El inicio de sesión con GitHub solo está disponible en la aplicación de escritorio."
-  },
-  "authSettings.githubSignOutMessage": {
-    "defaultMessage": "Sauron no podrá trabajar con tus repositorios de GitHub hasta que vuelvas a iniciar sesión."
-  },
-  "authSettings.githubSignOutTitle": {
-    "defaultMessage": "Sign out of GitHub"
   },
   "authSettings.githubSignedIn": {
     "defaultMessage": "Sesión iniciada en GitHub. La extensión de GitHub está lista para usar."
@@ -269,32 +134,8 @@
   "authSettings.githubWaitingForAuthorization": {
     "defaultMessage": "Esperando la autorización de GitHub..."
   },
-  "authSettings.loading": {
-    "defaultMessage": "Cargando credenciales..."
-  },
-  "authSettings.reauthorize": {
-    "defaultMessage": "Volver a autorizar"
-  },
-  "authSettings.signIn": {
-    "defaultMessage": "Iniciar sesión"
-  },
   "authSettings.signInWithGitHub": {
     "defaultMessage": "Iniciar sesión con GitHub"
-  },
-  "authSettings.signOutFromGitHub": {
-    "defaultMessage": "Sign out"
-  },
-  "authSettings.signedIn": {
-    "defaultMessage": "Credencial configurada"
-  },
-  "authSettings.storageProviderCache": {
-    "defaultMessage": "Caché del proveedor"
-  },
-  "authSettings.storageSecretStore": {
-    "defaultMessage": "Almacén de secretos"
-  },
-  "authSettings.title": {
-    "defaultMessage": "Credenciales de proveedores"
   },
   "backButton.back": {
     "defaultMessage": "Atrás"
@@ -433,9 +274,6 @@
   },
   "chatInput.failedToReadImage": {
     "defaultMessage": "No se pudo leer el archivo de imagen"
-  },
-  "chatInput.navigationShortcut": {
-    "defaultMessage": "{prefix}↑/{prefix}↓ para navegar entre mensajes"
   },
   "chatInput.processingDroppedFiles": {
     "defaultMessage": "Procesando archivos soltados..."
@@ -1196,6 +1034,9 @@
   "dirSwitcher.gitWorktrees": {
     "defaultMessage": "Worktrees de Git"
   },
+  "dirSwitcher.noFolder": {
+    "defaultMessage": "No folder"
+  },
   "dirSwitcher.noWorktreesFound": {
     "defaultMessage": "No se encontraron worktrees"
   },
@@ -1559,17 +1400,14 @@
   "groupedExtensionLoadingToast.successfullyLoaded": {
     "defaultMessage": "{count,plural,one{Se cargó correctamente # extensión} other{Se cargaron correctamente # extensiones}}"
   },
-  "harnessesSection.title": {
-    "defaultMessage": "Harnesses de agentes"
+  "harnessesSection.configure": {
+    "defaultMessage": "Configurar"
+  },
+  "harnessesSection.configured": {
+    "defaultMessage": "Activado"
   },
   "harnessesSection.description": {
     "defaultMessage": "Usa agentes de otro harness como Cursor, Claude Code, Codex o OpenCode o Copilot. Activa uno aquí y luego selecciónalo en Models para chatear con él."
-  },
-  "harnessesSection.loading": {
-    "defaultMessage": "Cargando harnesses..."
-  },
-  "harnessesSection.loadFailed": {
-    "defaultMessage": "No se pudieron cargar los harnesses"
   },
   "harnessesSection.empty": {
     "defaultMessage": "No hay harnesses de agentes externos disponibles."
@@ -1577,17 +1415,20 @@
   "harnessesSection.installed": {
     "defaultMessage": "Instalado"
   },
-  "harnessesSection.notInstalled": {
-    "defaultMessage": "No instalado"
+  "harnessesSection.loadFailed": {
+    "defaultMessage": "No se pudieron cargar los harnesses"
   },
-  "harnessesSection.configure": {
-    "defaultMessage": "Configurar"
-  },
-  "harnessesSection.configured": {
-    "defaultMessage": "Activado"
+  "harnessesSection.loading": {
+    "defaultMessage": "Cargando harnesses..."
   },
   "harnessesSection.notConfigured": {
     "defaultMessage": "No activado"
+  },
+  "harnessesSection.notInstalled": {
+    "defaultMessage": "No instalado"
+  },
+  "harnessesSection.title": {
+    "defaultMessage": "Harnesses de agentes"
   },
   "headersSection.add": {
     "defaultMessage": "Añadir"
@@ -1666,21 +1507,6 @@
   },
   "huggingFaceModelSearch.tooLarge": {
     "defaultMessage": "Puede que no quepa en memoria (modelo de {size}, {available} disponible)"
-  },
-  "huggingFaceSignInPrompt.failedToConfigure": {
-    "defaultMessage": "No se pudo iniciar sesión en Hugging Face: {error}"
-  },
-  "huggingFaceSignInPrompt.signIn": {
-    "defaultMessage": "Iniciar sesión"
-  },
-  "huggingFaceSignInPrompt.signedIn": {
-    "defaultMessage": "Sesión iniciada en Hugging Face"
-  },
-  "huggingFaceSignInPrompt.signingIn": {
-    "defaultMessage": "Iniciando sesión..."
-  },
-  "huggingFaceSignInPrompt.title": {
-    "defaultMessage": "Hugging Face"
   },
   "imagePreview.altText": {
     "defaultMessage": "imagen de sauron"
@@ -2054,9 +1880,6 @@
   "localInferenceSettings.evictFromMemory": {
     "defaultMessage": "Evict from memory"
   },
-  "localInferenceSettings.huggingFaceSignInNote": {
-    "defaultMessage": "Inicia sesión para aumentar los límites de uso al buscar y descargar modelos, y para acceder a repositorios de Hugging Face privados o restringidos."
-  },
   "localInferenceSettings.loadedInMemory": {
     "defaultMessage": "Loaded in memory"
   },
@@ -2378,30 +2201,6 @@
   "microphoneSelector.test": {
     "defaultMessage": "Probar"
   },
-  "modeSelectionItem.autonomousDescription": {
-    "defaultMessage": "Capacidades completas de modificación de archivos: edita, crea y elimina archivos libremente."
-  },
-  "modeSelectionItem.autonomousLabel": {
-    "defaultMessage": "Autónomo"
-  },
-  "modeSelectionItem.chatOnlyDescription": {
-    "defaultMessage": "Interactúa con el proveedor seleccionado sin usar herramientas ni extensiones."
-  },
-  "modeSelectionItem.chatOnlyLabel": {
-    "defaultMessage": "Solo chat"
-  },
-  "modeSelectionItem.manualDescription": {
-    "defaultMessage": "Todas las herramientas, extensiones y modificaciones de archivos requerirán aprobación humana"
-  },
-  "modeSelectionItem.manualLabel": {
-    "defaultMessage": "Manual"
-  },
-  "modeSelectionItem.smartDescription": {
-    "defaultMessage": "Determina de forma inteligente qué acciones necesitan aprobación según el nivel de riesgo"
-  },
-  "modeSelectionItem.smartLabel": {
-    "defaultMessage": "Inteligente"
-  },
   "modelAndProviderContext.modelChangeFailed": {
     "defaultMessage": "{provider}/{model} falló"
   },
@@ -2431,9 +2230,6 @@
   },
   "modelBadges.reasoning": {
     "defaultMessage": "Razonamiento"
-  },
-  "modelSettingsButtons.switchModels": {
-    "defaultMessage": "Cambiar de modelo"
   },
   "modelSettingsPanel.batchSize": {
     "defaultMessage": "Tamaño de lote"
@@ -2615,20 +2411,11 @@
   "modelsBottomBar.selectModel": {
     "defaultMessage": "Seleccionar modelo"
   },
-  "navigation.itemApps": {
-    "defaultMessage": "Apps"
-  },
-  "navigation.itemExtensions": {
-    "defaultMessage": "Extensiones"
-  },
   "navigation.itemHome": {
     "defaultMessage": "Nuevo chat"
   },
   "navigation.itemHub": {
     "defaultMessage": "Hub"
-  },
-  "navigation.itemRecipes": {
-    "defaultMessage": "Recetas"
   },
   "navigation.itemScheduler": {
     "defaultMessage": "Programador"
@@ -2639,20 +2426,32 @@
   "navigation.itemSettings": {
     "defaultMessage": "Ajustes"
   },
-  "navigation.itemSkills": {
-    "defaultMessage": "Skills"
+  "navigationFooter.about": {
+    "defaultMessage": "About Sauron"
   },
-  "navigationFooter.cpuUsage": {
-    "defaultMessage": "CPU {percent}%"
+  "navigationFooter.aboutVersion": {
+    "defaultMessage": "Sauron {version}"
   },
-  "navigationFooter.memoryUsage": {
-    "defaultMessage": "Memoria {percent}%"
+  "navigationFooter.accountMenu": {
+    "defaultMessage": "Account"
+  },
+  "navigationFooter.close": {
+    "defaultMessage": "Close"
+  },
+  "navigationFooter.keyboardShortcuts": {
+    "defaultMessage": "Keyboard shortcuts"
+  },
+  "navigationFooter.quit": {
+    "defaultMessage": "Quit Sauron"
   },
   "navigationFooter.sendFeedback": {
     "defaultMessage": "Enviar comentarios"
   },
   "navigationFooter.you": {
     "defaultMessage": "Tú"
+  },
+  "navigationPanel.chats": {
+    "defaultMessage": "Chats"
   },
   "navigationPanel.goBack": {
     "defaultMessage": "Atrás"
@@ -2681,6 +2480,9 @@
   "navigationPanel.metaUpdated": {
     "defaultMessage": "Actualizado"
   },
+  "navigationPanel.newChat": {
+    "defaultMessage": "New chat"
+  },
   "navigationPanel.newProject": {
     "defaultMessage": "Nuevo proyecto"
   },
@@ -2701,6 +2503,9 @@
   },
   "navigationPanel.statusUnread": {
     "defaultMessage": "Actividad sin leer"
+  },
+  "navigationPanel.toast.newChatFailed": {
+    "defaultMessage": "Could not start chat: {error}"
   },
   "navigationPanel.untitledSession": {
     "defaultMessage": "Sesión sin título"
@@ -2920,18 +2725,6 @@
   },
   "pluginsSettings.title": {
     "defaultMessage": "Plugins"
-  },
-  "preferredModels.empty": {
-    "defaultMessage": "Marca modelos con una estrella abajo para tenerlos a mano aquí y en los chats."
-  },
-  "preferredModels.remove": {
-    "defaultMessage": "Quitar {model} de los modelos preferidos"
-  },
-  "preferredModels.removeFailed": {
-    "defaultMessage": "No se pudieron actualizar los modelos preferidos"
-  },
-  "preferredModels.title": {
-    "defaultMessage": "Modelos preferidos"
   },
   "privacyInfoModal.collectErrors": {
     "defaultMessage": "Tipos de error (ej.: \"rate_limit\", \"auth\" - sin detalles)"
@@ -3181,9 +2974,6 @@
   },
   "providerConfigurationModal.goBack": {
     "defaultMessage": "Volver"
-  },
-  "providerConfigurationModal.huggingFaceOAuthDescription": {
-    "defaultMessage": "Inicia sesión para usar los Inference Providers de Hugging Face sin introducir manualmente un token de API."
   },
   "providerConfigurationModal.oauthLoginFailed": {
     "defaultMessage": "Falló el inicio de sesión con OAuth: {error}"
@@ -4661,35 +4451,17 @@
   "settings.version.title": {
     "defaultMessage": "Versión"
   },
-  "settingsView.noResults": {
-    "defaultMessage": "Sin resultados"
-  },
-  "settingsView.searchPlaceholder": {
-    "defaultMessage": "Buscar en la configuración"
-  },
   "settingsView.tabApp": {
     "defaultMessage": "App"
   },
   "settingsView.tabAppearance": {
     "defaultMessage": "Appearance"
   },
-  "settingsView.tabChat": {
-    "defaultMessage": "Chat"
-  },
   "settingsView.tabExternalBackend": {
     "defaultMessage": "Backend externo"
   },
-  "settingsView.tabHarnesses": {
-    "defaultMessage": "Harnesses"
-  },
-  "settingsView.tabKeyboard": {
-    "defaultMessage": "Teclado"
-  },
   "settingsView.tabMcp": {
     "defaultMessage": "MCP"
-  },
-  "settingsView.tabModels": {
-    "defaultMessage": "Modelos"
   },
   "settingsView.tabPlugins": {
     "defaultMessage": "Plugins"
@@ -4756,15 +4528,6 @@
   },
   "spellcheckToggle.title": {
     "defaultMessage": "Activar corrección ortográfica"
-  },
-  "standaloneAppView.failedToLoad": {
-    "defaultMessage": "No se pudo cargar la app"
-  },
-  "standaloneAppView.initializing": {
-    "defaultMessage": "Inicializando la app..."
-  },
-  "standaloneAppView.missingParams": {
-    "defaultMessage": "Faltan parámetros requeridos"
   },
   "stringUtils.configuredProvider": {
     "defaultMessage": "El proveedor {name} está configurado"
@@ -5159,60 +4922,6 @@
   "updateSection.versionIsAvailable": {
     "defaultMessage": "La versión {version} está disponible"
   },
-  "userMessage.cancel": {
-    "defaultMessage": "Cancelar"
-  },
-  "userMessage.cancelAriaLabel": {
-    "defaultMessage": "Cancelar edición"
-  },
-  "userMessage.editAriaLabel": {
-    "defaultMessage": "Editar el contenido del mensaje"
-  },
-  "userMessage.editButton": {
-    "defaultMessage": "Editar"
-  },
-  "userMessage.editImagesHeading": {
-    "defaultMessage": "Imágenes adjuntas:"
-  },
-  "userMessage.editInPlace": {
-    "defaultMessage": "Editar en el sitio"
-  },
-  "userMessage.editInPlaceAriaLabel": {
-    "defaultMessage": "Editar el mensaje en el sitio"
-  },
-  "userMessage.editInPlaceDescription": {
-    "defaultMessage": "<b>Editar en el sitio</b> actualiza esta sesión • <b>Duplicar sesión</b> crea una nueva sesión"
-  },
-  "userMessage.editInPlaceTitle": {
-    "defaultMessage": "Actualizar el mensaje en esta sesión"
-  },
-  "userMessage.editMessageAriaLabel": {
-    "defaultMessage": "Editar mensaje: {preview}"
-  },
-  "userMessage.editMessageTitle": {
-    "defaultMessage": "Editar mensaje"
-  },
-  "userMessage.editPlaceholder": {
-    "defaultMessage": "Edita tu mensaje..."
-  },
-  "userMessage.emptyError": {
-    "defaultMessage": "El mensaje no puede estar vacío"
-  },
-  "userMessage.forkSession": {
-    "defaultMessage": "Duplicar sesión"
-  },
-  "userMessage.forkSessionAriaLabel": {
-    "defaultMessage": "Duplicar la sesión con el mensaje editado"
-  },
-  "userMessage.forkSessionTitle": {
-    "defaultMessage": "Crear una nueva sesión con el mensaje editado"
-  },
-  "userMessage.removeImageFromEdit": {
-    "defaultMessage": "Eliminar imagen del mensaje"
-  },
-  "settingsView.tabStats": {
-    "defaultMessage": "Stats"
-  },
   "usageStats.byModel": {
     "defaultMessage": "Per model"
   },
@@ -5284,8 +4993,58 @@
   },
   "usageStats.writeTokens": {
     "defaultMessage": "Write tokens"
-  }
-,
+  },
+  "userMessage.cancel": {
+    "defaultMessage": "Cancelar"
+  },
+  "userMessage.cancelAriaLabel": {
+    "defaultMessage": "Cancelar edición"
+  },
+  "userMessage.editAriaLabel": {
+    "defaultMessage": "Editar el contenido del mensaje"
+  },
+  "userMessage.editButton": {
+    "defaultMessage": "Editar"
+  },
+  "userMessage.editImagesHeading": {
+    "defaultMessage": "Imágenes adjuntas:"
+  },
+  "userMessage.editInPlace": {
+    "defaultMessage": "Editar en el sitio"
+  },
+  "userMessage.editInPlaceAriaLabel": {
+    "defaultMessage": "Editar el mensaje en el sitio"
+  },
+  "userMessage.editInPlaceDescription": {
+    "defaultMessage": "<b>Editar en el sitio</b> actualiza esta sesión • <b>Duplicar sesión</b> crea una nueva sesión"
+  },
+  "userMessage.editInPlaceTitle": {
+    "defaultMessage": "Actualizar el mensaje en esta sesión"
+  },
+  "userMessage.editMessageAriaLabel": {
+    "defaultMessage": "Editar mensaje: {preview}"
+  },
+  "userMessage.editMessageTitle": {
+    "defaultMessage": "Editar mensaje"
+  },
+  "userMessage.editPlaceholder": {
+    "defaultMessage": "Edita tu mensaje..."
+  },
+  "userMessage.emptyError": {
+    "defaultMessage": "El mensaje no puede estar vacío"
+  },
+  "userMessage.forkSession": {
+    "defaultMessage": "Duplicar sesión"
+  },
+  "userMessage.forkSessionAriaLabel": {
+    "defaultMessage": "Duplicar la sesión con el mensaje editado"
+  },
+  "userMessage.forkSessionTitle": {
+    "defaultMessage": "Crear una nueva sesión con el mensaje editado"
+  },
+  "userMessage.removeImageFromEdit": {
+    "defaultMessage": "Eliminar imagen del mensaje"
+  },
   "worktreeSettings.description": {
     "defaultMessage": "Controla qué directorios ofrece el selector de directorio de trabajo"
   },

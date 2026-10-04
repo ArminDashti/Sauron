@@ -48,7 +48,7 @@
     "defaultMessage": "Failed to set default model"
   },
   "allProviderModels.description": {
-    "defaultMessage": "Every model exposed by your activated providers. Select one to make it the default model."
+    "defaultMessage": "Choose a provider, then pick a model to set as your default."
   },
   "allProviderModels.empty": {
     "defaultMessage": "No activated providers yet."
@@ -92,11 +92,14 @@
   "allProviderModels.searchPlaceholder": {
     "defaultMessage": "Search models..."
   },
+  "allProviderModels.selectProvider": {
+    "defaultMessage": "Provider"
+  },
+  "allProviderModels.selectProviderPlaceholder": {
+    "defaultMessage": "Select a provider"
+  },
   "allProviderModels.showingCount": {
     "defaultMessage": "Showing {shown, number} of {total, number} models"
-  },
-  "allProviderModels.title": {
-    "defaultMessage": "Models from your providers"
   },
   "announcementModal.gotIt": {
     "defaultMessage": "Got it!"
@@ -104,122 +107,23 @@
   "appLayout.collapseNavigation": {
     "defaultMessage": "Collapse navigation"
   },
+  "appLayout.hideChanges": {
+    "defaultMessage": "Hide changes panel"
+  },
   "appLayout.openNavigation": {
     "defaultMessage": "Open navigation"
   },
-  "appsView.customApp": {
-    "defaultMessage": "Custom app"
-  },
-  "appsView.deleteApp": {
-    "defaultMessage": "Delete app"
-  },
-  "appsView.deleteConfirm": {
-    "defaultMessage": "Delete \"{name}\"? This cannot be undone."
-  },
-  "appsView.description": {
-    "defaultMessage": "Applications from your MCP servers and Apps built by sauron itself. You can ask it to create new apps through the chat interface and they will appear here."
-  },
-  "appsView.errorLoading": {
-    "defaultMessage": "Error loading apps: {error}"
-  },
-  "appsView.errorPrefix": {
-    "defaultMessage": "Error: {error}"
-  },
-  "appsView.importApp": {
-    "defaultMessage": "Import App"
-  },
-  "appsView.launch": {
-    "defaultMessage": "Launch"
-  },
-  "appsView.loading": {
-    "defaultMessage": "Loading apps..."
-  },
-  "appsView.noAppsDescription": {
-    "defaultMessage": "Open a chat and ask sauron for the app you want to have. It can build one for you and that will appear here. Or if somebody shared an app, you can import it using the button above."
-  },
-  "appsView.noAppsTitle": {
-    "defaultMessage": "No apps available"
-  },
-  "appsView.retiredChatApp": {
-    "defaultMessage": "Chat app retired"
-  },
-  "appsView.retiredChatAppDetail": {
-    "defaultMessage": "We removed this feature because MCP sampling is no longer supported."
-  },
-  "appsView.retry": {
-    "defaultMessage": "Retry"
-  },
-  "appsView.title": {
-    "defaultMessage": "Apps"
-  },
-  "authSettings.activeProviderWarning": {
-    "defaultMessage": "This is the active provider. New requests may fail until you configure another credential."
-  },
-  "authSettings.cancel": {
-    "defaultMessage": "Cancel"
+  "appLayout.showChanges": {
+    "defaultMessage": "Show changes panel"
   },
   "authSettings.cancelSignIn": {
     "defaultMessage": "Cancel"
   },
-  "authSettings.checkingStatus": {
-    "defaultMessage": "Checking..."
-  },
-  "authSettings.connectedAccounts": {
-    "defaultMessage": "Connected accounts"
-  },
-  "authSettings.connectedAccountsDescription": {
-    "defaultMessage": "Sign in to let Sauron work with your external accounts."
-  },
-  "authSettings.delete": {
-    "defaultMessage": "Delete"
-  },
-  "authSettings.deleteCredential": {
-    "defaultMessage": "Delete credential"
-  },
-  "authSettings.deleteMessage": {
-    "defaultMessage": "Delete the {name} credential for {provider}?"
-  },
-  "authSettings.deleteTitle": {
-    "defaultMessage": "Delete credential"
-  },
-  "authSettings.deleted": {
-    "defaultMessage": "Credential deleted"
-  },
-  "authSettings.description": {
-    "defaultMessage": "Manage provider credentials stored locally by sauron."
-  },
-  "authSettings.empty": {
-    "defaultMessage": "No locally stored provider credentials were found."
-  },
-  "authSettings.expiresAt": {
-    "defaultMessage": "Expires {date}"
-  },
-  "authSettings.failedToConfigure": {
-    "defaultMessage": "Failed to configure credential: {error}"
-  },
-  "authSettings.failedToDelete": {
-    "defaultMessage": "Failed to delete credential: {error}"
-  },
-  "authSettings.failedToLoad": {
-    "defaultMessage": "Failed to load provider credentials"
-  },
-  "authSettings.githubAccountDescription": {
-    "defaultMessage": "Search repositories, work with code, manage issues, and open pull requests."
-  },
-  "authSettings.githubAccountName": {
-    "defaultMessage": "GitHub"
-  },
   "authSettings.githubBrowserOpenFailed": {
     "defaultMessage": "Could not open the browser. Use Open GitHub again."
   },
-  "authSettings.githubConnected": {
-    "defaultMessage": "Connected"
-  },
   "authSettings.githubEnterCode": {
     "defaultMessage": "Enter this code at {url} to authorize Sauron:"
-  },
-  "authSettings.githubNotConnected": {
-    "defaultMessage": "Not connected"
   },
   "authSettings.githubOpenAgain": {
     "defaultMessage": "Open GitHub again"
@@ -229,12 +133,6 @@
   },
   "authSettings.githubSignInUnavailable": {
     "defaultMessage": "GitHub sign-in is only available in the desktop app."
-  },
-  "authSettings.githubSignOutMessage": {
-    "defaultMessage": "Sauron will no longer be able to work with your GitHub repositories until you sign in again."
-  },
-  "authSettings.githubSignOutTitle": {
-    "defaultMessage": "Sign out of GitHub"
   },
   "authSettings.githubSignedIn": {
     "defaultMessage": "Signed in to GitHub. The GitHub extension is ready to use."
@@ -248,32 +146,8 @@
   "authSettings.githubWaitingForAuthorization": {
     "defaultMessage": "Waiting for GitHub authorization..."
   },
-  "authSettings.loading": {
-    "defaultMessage": "Loading credentials..."
-  },
-  "authSettings.reauthorize": {
-    "defaultMessage": "Reauthorize"
-  },
-  "authSettings.signIn": {
-    "defaultMessage": "Sign in"
-  },
   "authSettings.signInWithGitHub": {
     "defaultMessage": "Sign in with GitHub"
-  },
-  "authSettings.signOutFromGitHub": {
-    "defaultMessage": "Sign out"
-  },
-  "authSettings.signedIn": {
-    "defaultMessage": "Credential configured"
-  },
-  "authSettings.storageProviderCache": {
-    "defaultMessage": "Provider cache"
-  },
-  "authSettings.storageSecretStore": {
-    "defaultMessage": "Secret store"
-  },
-  "authSettings.title": {
-    "defaultMessage": "Provider Credentials"
   },
   "backButton.back": {
     "defaultMessage": "Back"
@@ -323,6 +197,81 @@
   "cardButtons.launch": {
     "defaultMessage": "Launch"
   },
+  "changesPanel.cleanTree": {
+    "defaultMessage": "Working tree clean"
+  },
+  "changesPanel.close": {
+    "defaultMessage": "Close changes panel"
+  },
+  "changesPanel.commitAndPush": {
+    "defaultMessage": "Commit & Push"
+  },
+  "changesPanel.commitFailed": {
+    "defaultMessage": "Commit failed"
+  },
+  "changesPanel.commitPlaceholder": {
+    "defaultMessage": "Commit message"
+  },
+  "changesPanel.commitSuccess": {
+    "defaultMessage": "Committed and pushed"
+  },
+  "changesPanel.committing": {
+    "defaultMessage": "Committing…"
+  },
+  "changesPanel.loadFailed": {
+    "defaultMessage": "Could not load git changes"
+  },
+  "changesPanel.loading": {
+    "defaultMessage": "Loading changes…"
+  },
+  "changesPanel.loadingDiff": {
+    "defaultMessage": "Loading diff…"
+  },
+  "changesPanel.noChanges": {
+    "defaultMessage": "No changes"
+  },
+  "changesPanel.noDirectory": {
+    "defaultMessage": "No working directory selected"
+  },
+  "changesPanel.notARepo": {
+    "defaultMessage": "Not a git repository"
+  },
+  "changesPanel.pushFailed": {
+    "defaultMessage": "Committed, but push failed"
+  },
+  "changesPanel.refresh": {
+    "defaultMessage": "Refresh changes"
+  },
+  "changesPanel.retry": {
+    "defaultMessage": "Retry"
+  },
+  "changesPanel.statusAdded": {
+    "defaultMessage": "Added"
+  },
+  "changesPanel.statusConflicted": {
+    "defaultMessage": "Conflicted"
+  },
+  "changesPanel.statusCopied": {
+    "defaultMessage": "Copied"
+  },
+  "changesPanel.statusDeleted": {
+    "defaultMessage": "Deleted"
+  },
+  "changesPanel.statusModified": {
+    "defaultMessage": "Modified"
+  },
+  "changesPanel.statusRenamed": {
+    "defaultMessage": "Renamed"
+  },
+  "changesPanel.statusUntracked": {
+    "defaultMessage": "Untracked"
+  },
+  "changesPanel.title": {
+    "defaultMessage": "Changes"
+  },
+  "changesPanel.uncommitted": {
+    "defaultMessage": "Uncommitted"
+  },
   "chat.notification.taskComplete.body": {
     "defaultMessage": "Click here to bring Sauron back into focus."
   },
@@ -338,8 +287,8 @@
   "chatInput.failedToReadImage": {
     "defaultMessage": "Failed to read image file"
   },
-  "chatInput.navigationShortcut": {
-    "defaultMessage": "{prefix}↑/{prefix}↓ to navigate messages"
+  "chatInput.placeholder": {
+    "defaultMessage": "Ask anything, / for commands, @ for context"
   },
   "chatInput.processingDroppedFiles": {
     "defaultMessage": "Processing dropped files..."
@@ -788,6 +737,9 @@
   "customProviderForm.apiKey": {
     "defaultMessage": "API Key"
   },
+  "customProviderForm.apiKeyEnvHint": {
+    "defaultMessage": "Enter {example} to read the key from an environment variable instead of storing it."
+  },
   "customProviderForm.apiKeyPlaceholderExisting": {
     "defaultMessage": "Leave blank to keep existing key"
   },
@@ -926,6 +878,87 @@
   "customProviderForm.valuePlaceholder": {
     "defaultMessage": "Value"
   },
+  "customTheme.baseDark": {
+    "defaultMessage": "Dark base"
+  },
+  "customTheme.baseLabel": {
+    "defaultMessage": "Base"
+  },
+  "customTheme.baseLight": {
+    "defaultMessage": "Light base"
+  },
+  "customTheme.colorsLabel": {
+    "defaultMessage": "Colors"
+  },
+  "customTheme.inactiveNotice": {
+    "defaultMessage": "The custom theme is saved but not active yet."
+  },
+  "customTheme.nameLabel": {
+    "defaultMessage": "Theme name"
+  },
+  "customTheme.namePlaceholder": {
+    "defaultMessage": "My theme"
+  },
+  "customTheme.previewAccent": {
+    "defaultMessage": "Accent"
+  },
+  "customTheme.previewLabel": {
+    "defaultMessage": "Preview"
+  },
+  "customTheme.previewSurface": {
+    "defaultMessage": "Secondary surface"
+  },
+  "customTheme.previewText": {
+    "defaultMessage": "The quick brown fox"
+  },
+  "customTheme.resetColors": {
+    "defaultMessage": "Reset colors"
+  },
+  "customTheme.save": {
+    "defaultMessage": "Save and use"
+  },
+  "customTheme.saved": {
+    "defaultMessage": "Saved"
+  },
+  "customTheme.slotAccent": {
+    "defaultMessage": "Accent"
+  },
+  "customTheme.slotAccentText": {
+    "defaultMessage": "Text on accent"
+  },
+  "customTheme.slotBackground": {
+    "defaultMessage": "Background"
+  },
+  "customTheme.slotBorder": {
+    "defaultMessage": "Border"
+  },
+  "customTheme.slotDanger": {
+    "defaultMessage": "Danger"
+  },
+  "customTheme.slotElevated": {
+    "defaultMessage": "Elevated surface"
+  },
+  "customTheme.slotInfo": {
+    "defaultMessage": "Info"
+  },
+  "customTheme.slotMutedText": {
+    "defaultMessage": "Muted text"
+  },
+  "customTheme.slotStrongBorder": {
+    "defaultMessage": "Strong border"
+  },
+  "customTheme.slotSuccess": {
+    "defaultMessage": "Success"
+  },
+  "customTheme.slotSurface": {
+    "defaultMessage": "Surface"
+  },
+  "customTheme.slotText": {
+    "defaultMessage": "Text"
+  },
+  "customTheme.slotWarning": {
+    "defaultMessage": "Warning"
+  },
   "defaultCardButtons.configureSettings": {
     "defaultMessage": "Configure {name} settings"
   },
@@ -943,6 +976,9 @@
   },
   "defaultProviderSetupForm.apiHostPlaceholder": {
     "defaultMessage": "https://api.example.com"
+  },
+  "defaultProviderSetupForm.apiKeyEnvHint": {
+    "defaultMessage": "Enter {example} to read the key from an environment variable instead of storing it."
   },
   "defaultProviderSetupForm.apiKeyLabel": {
     "defaultMessage": "API Key"
@@ -1067,6 +1103,12 @@
   "dictationSettings.voiceDictationProvider": {
     "defaultMessage": "Voice Dictation Provider"
   },
+  "diffViewer.noDiff": {
+    "defaultMessage": "No textual changes to display"
+  },
+  "diffViewer.unmodifiedLines": {
+    "defaultMessage": "{count} unmodified lines"
+  },
   "dirSwitcher.chooseDirectory": {
     "defaultMessage": "Choose directory…"
   },
@@ -1087,6 +1129,9 @@
   },
   "dirSwitcher.gitWorktrees": {
     "defaultMessage": "Git worktrees"
+  },
+  "dirSwitcher.noFolder": {
+    "defaultMessage": "No folder"
   },
   "dirSwitcher.noWorktreesFound": {
     "defaultMessage": "No worktrees found"
@@ -1400,6 +1445,9 @@
   "externalBackendSection.workingDirPlaceholder": {
     "defaultMessage": "/home/sauron/workspace"
   },
+  "freeModelBadge.label": {
+    "defaultMessage": "Free"
+  },
   "gitBranchIndicator.failedToSwitch": {
     "defaultMessage": "Failed to switch to {branch}"
   },
@@ -1609,21 +1657,6 @@
   },
   "huggingFaceModelSearch.tooLarge": {
     "defaultMessage": "May not fit in memory ({size} model, {available} available)"
-  },
-  "huggingFaceSignInPrompt.failedToConfigure": {
-    "defaultMessage": "Failed to sign in to Hugging Face: {error}"
-  },
-  "huggingFaceSignInPrompt.signIn": {
-    "defaultMessage": "Sign in"
-  },
-  "huggingFaceSignInPrompt.signedIn": {
-    "defaultMessage": "Hugging Face signed in"
-  },
-  "huggingFaceSignInPrompt.signingIn": {
-    "defaultMessage": "Signing in..."
-  },
-  "huggingFaceSignInPrompt.title": {
-    "defaultMessage": "Hugging Face"
   },
   "imagePreview.altText": {
     "defaultMessage": "sauron image"
@@ -1997,9 +2030,6 @@
   "localInferenceSettings.evictFromMemory": {
     "defaultMessage": "Evict from memory"
   },
-  "localInferenceSettings.huggingFaceSignInNote": {
-    "defaultMessage": "Sign in to increase rate limits when searching and downloading models, and to access private or gated Hugging Face repositories."
-  },
   "localInferenceSettings.loadedInMemory": {
     "defaultMessage": "Loaded in memory"
   },
@@ -2321,29 +2351,23 @@
   "microphoneSelector.test": {
     "defaultMessage": "Test"
   },
-  "modeSelectionItem.autonomousDescription": {
-    "defaultMessage": "Full file modification capabilities, edit, create, and delete files freely."
+  "modeSelectionItem.askDescription": {
+    "defaultMessage": "Ask questions and get answers without tools or file modifications."
   },
-  "modeSelectionItem.autonomousLabel": {
-    "defaultMessage": "Autonomous"
+  "modeSelectionItem.askLabel": {
+    "defaultMessage": "Ask"
   },
-  "modeSelectionItem.chatOnlyDescription": {
-    "defaultMessage": "Engage with the selected provider without using tools or extensions."
+  "modeSelectionItem.codeDescription": {
+    "defaultMessage": "Edit, create and delete files freely to complete the task."
   },
-  "modeSelectionItem.chatOnlyLabel": {
-    "defaultMessage": "Chat only"
+  "modeSelectionItem.codeLabel": {
+    "defaultMessage": "Code"
   },
-  "modeSelectionItem.manualDescription": {
-    "defaultMessage": "All tools, extensions and file modifications will require human approval"
+  "modeSelectionItem.planDescription": {
+    "defaultMessage": "Investigate and propose a plan; every tool call needs your approval."
   },
-  "modeSelectionItem.manualLabel": {
-    "defaultMessage": "Manual"
-  },
-  "modeSelectionItem.smartDescription": {
-    "defaultMessage": "Intelligently determine which actions need approval based on risk level"
-  },
-  "modeSelectionItem.smartLabel": {
-    "defaultMessage": "Smart"
+  "modeSelectionItem.planLabel": {
+    "defaultMessage": "Plan"
   },
   "modelAndProviderContext.modelChangeFailed": {
     "defaultMessage": "{provider}/{model} failed"
@@ -2374,9 +2398,6 @@
   },
   "modelBadges.reasoning": {
     "defaultMessage": "Reasoning"
-  },
-  "modelSettingsButtons.switchModels": {
-    "defaultMessage": "Switch models"
   },
   "modelSettingsPanel.batchSize": {
     "defaultMessage": "Batch size"
@@ -2558,23 +2579,14 @@
   "modelsBottomBar.selectModel": {
     "defaultMessage": "Select Model"
   },
-  "navigation.itemApps": {
-    "defaultMessage": "Apps"
-  },
-  "navigation.itemExtensions": {
-    "defaultMessage": "Extensions"
-  },
-  "navigation.itemGitHub": {
-    "defaultMessage": "GitHub"
+  "modelsSection.modelsHeading": {
+    "defaultMessage": "Models"
   },
   "navigation.itemHome": {
     "defaultMessage": "New Chat"
   },
   "navigation.itemHub": {
     "defaultMessage": "Hub"
-  },
-  "navigation.itemRecipes": {
-    "defaultMessage": "Recipes"
   },
   "navigation.itemScheduler": {
     "defaultMessage": "Scheduler"
@@ -2585,26 +2597,44 @@
   "navigation.itemSettings": {
     "defaultMessage": "Settings"
   },
-  "navigation.itemSkills": {
-    "defaultMessage": "Skills"
+  "navigationFooter.about": {
+    "defaultMessage": "About Sauron"
   },
-  "navigationFooter.cpu": {
-    "defaultMessage": "CPU"
+  "navigationFooter.aboutVersion": {
+    "defaultMessage": "Sauron {version}"
   },
-  "navigationFooter.disk": {
-    "defaultMessage": "Disk"
+  "navigationFooter.accountMenu": {
+    "defaultMessage": "Account"
   },
-  "navigationFooter.download": {
-    "defaultMessage": "DL"
+  "navigationFooter.close": {
+    "defaultMessage": "Close"
   },
-  "navigationFooter.memory": {
-    "defaultMessage": "Memory"
+  "navigationFooter.cpuUsage": {
+    "defaultMessage": "CPU {value}%"
+  },
+  "navigationFooter.diskUsage": {
+    "defaultMessage": "Disk {value}%"
+  },
+  "navigationFooter.downloadMbps": {
+    "defaultMessage": "↓ {value} Mbps"
+  },
+  "navigationFooter.keyboardShortcuts": {
+    "defaultMessage": "Keyboard shortcuts"
+  },
+  "navigationFooter.memoryUsage": {
+    "defaultMessage": "Memory {value}%"
+  },
+  "navigationFooter.quit": {
+    "defaultMessage": "Quit Sauron"
   },
   "navigationFooter.sendFeedback": {
     "defaultMessage": "Send feedback"
   },
-  "navigationFooter.upload": {
-    "defaultMessage": "UP"
+  "navigationFooter.systemUsage": {
+    "defaultMessage": "System usage"
+  },
+  "navigationFooter.uploadMbps": {
+    "defaultMessage": "↑ {value} Mbps"
   },
   "navigationFooter.you": {
     "defaultMessage": "You"
@@ -2632,6 +2662,9 @@
   },
   "navigationPanel.cancel": {
     "defaultMessage": "Cancel"
+  },
+  "navigationPanel.chats": {
+    "defaultMessage": "Chats"
   },
   "navigationPanel.delete.message": {
     "defaultMessage": "Delete \"{name}\"? This cannot be undone."
@@ -2666,6 +2699,9 @@
   "navigationPanel.metaUpdated": {
     "defaultMessage": "Updated"
   },
+  "navigationPanel.newChat": {
+    "defaultMessage": "New chat"
+  },
   "navigationPanel.newProject": {
     "defaultMessage": "New Project"
   },
@@ -2698,6 +2734,9 @@
   },
   "navigationPanel.toast.forked": {
     "defaultMessage": "Forked into a new chat"
+  },
+  "navigationPanel.toast.newChatFailed": {
+    "defaultMessage": "Could not start chat: {error}"
   },
   "navigationPanel.toast.transcriptCopied": {
     "defaultMessage": "Transcript copied to clipboard"
@@ -2913,7 +2952,7 @@
     "defaultMessage": "Manage skills"
   },
   "pluginsSettings.pluginCount": {
-    "defaultMessage": "{count,plural,=0{No plugins} one{# plugin} other{# plugins}}"
+    "defaultMessage": "{count,plural,one{# plugin} other{# plugins} =0{No plugins}}"
   },
   "pluginsSettings.refresh": {
     "defaultMessage": "Refresh"
@@ -2923,18 +2962,6 @@
   },
   "pluginsSettings.title": {
     "defaultMessage": "Plugins"
-  },
-  "preferredModels.empty": {
-    "defaultMessage": "Star models below to keep them handy here and in chats."
-  },
-  "preferredModels.remove": {
-    "defaultMessage": "Remove {model} from preferred models"
-  },
-  "preferredModels.removeFailed": {
-    "defaultMessage": "Failed to update preferred models"
-  },
-  "preferredModels.title": {
-    "defaultMessage": "Preferred models"
   },
   "privacyInfoModal.collectErrors": {
     "defaultMessage": "Error types (e.g., \"rate_limit\", \"auth\" - no details)"
@@ -3185,9 +3212,6 @@
   "providerConfigurationModal.goBack": {
     "defaultMessage": "Go Back"
   },
-  "providerConfigurationModal.huggingFaceOAuthDescription": {
-    "defaultMessage": "Sign in to use Hugging Face Inference Providers without manually entering an API token."
-  },
   "providerConfigurationModal.oauthLoginFailed": {
     "defaultMessage": "OAuth login failed: {error}"
   },
@@ -3343,6 +3367,9 @@
   },
   "providersSection.resetTitle": {
     "defaultMessage": "Reset Provider and Model"
+  },
+  "providersSection.selectProvider": {
+    "defaultMessage": "Select a provider"
   },
   "providersSection.setDefault": {
     "defaultMessage": "Click a model to use it as your default."
@@ -4476,7 +4503,7 @@
     "defaultMessage": "Agent Loop"
   },
   "settings.appearance.description": {
-    "defaultMessage": "Configure how goose appears on your system"
+    "defaultMessage": "Configure how sauron appears on your system"
   },
   "settings.appearance.title": {
     "defaultMessage": "Appearance"
@@ -4490,8 +4517,14 @@
   "settings.costTracking.title": {
     "defaultMessage": "Cost Tracking"
   },
+  "settings.customTheme.description": {
+    "defaultMessage": "Build your own theme by picking a base and its colors"
+  },
+  "settings.customTheme.title": {
+    "defaultMessage": "Custom theme"
+  },
   "settings.dockIcon.description": {
-    "defaultMessage": "Show goose in the dock"
+    "defaultMessage": "Show sauron in the dock"
   },
   "settings.dockIcon.title": {
     "defaultMessage": "Dock icon"
@@ -4524,7 +4557,7 @@
     "defaultMessage": "Help & feedback"
   },
   "settings.language.description": {
-    "defaultMessage": "Choose the display language for goose"
+    "defaultMessage": "Choose the display language for sauron"
   },
   "settings.language.english": {
     "defaultMessage": "English"
@@ -4581,7 +4614,7 @@
     "defaultMessage": "Chinese (Traditional)"
   },
   "settings.menuBarIcon.description": {
-    "defaultMessage": "Show goose in the menu bar"
+    "defaultMessage": "Show sauron in the menu bar"
   },
   "settings.menuBarIcon.title": {
     "defaultMessage": "Menu bar icon"
@@ -4602,7 +4635,7 @@
     "defaultMessage": "Click on Notifications"
   },
   "settings.notifications.modal.macStep3": {
-    "defaultMessage": "Find and select goose in the application list"
+    "defaultMessage": "Find and select sauron in the application list"
   },
   "settings.notifications.modal.macStep4": {
     "defaultMessage": "Enable notifications and adjust settings as desired"
@@ -4620,7 +4653,7 @@
     "defaultMessage": "Go to System > Notifications"
   },
   "settings.notifications.modal.winStep3": {
-    "defaultMessage": "Find and select goose in the application list"
+    "defaultMessage": "Find and select sauron in the application list"
   },
   "settings.notifications.modal.winStep4": {
     "defaultMessage": "Toggle notifications on and adjust settings as desired"
@@ -4628,8 +4661,14 @@
   "settings.notifications.openSettings": {
     "defaultMessage": "Open Settings"
   },
+  "settings.notifications.sound.description": {
+    "defaultMessage": "Play a sound with task completion notifications"
+  },
+  "settings.notifications.sound.title": {
+    "defaultMessage": "Notification sound"
+  },
   "settings.notifications.task.description": {
-    "defaultMessage": "Notify when Goose finishes a task while the window is in the background"
+    "defaultMessage": "Notify when Sauron finishes a task while the window is in the background"
   },
   "settings.notifications.task.title": {
     "defaultMessage": "Task completion notifications"
@@ -4638,13 +4677,13 @@
     "defaultMessage": "Notifications"
   },
   "settings.preventSleep.description": {
-    "defaultMessage": "Keep your computer awake while goose is running a task (screen can still lock)"
+    "defaultMessage": "Keep your computer awake while sauron is running a task (screen can still lock)"
   },
   "settings.preventSleep.title": {
     "defaultMessage": "Prevent Sleep"
   },
   "settings.theme.description": {
-    "defaultMessage": "Customize the look and feel of goose"
+    "defaultMessage": "Customize the look and feel of sauron"
   },
   "settings.theme.title": {
     "defaultMessage": "Theme"
@@ -4661,32 +4700,14 @@
   "settingsView.tabApp": {
     "defaultMessage": "App"
   },
-  "settingsView.tabAuth": {
-    "defaultMessage": "Auth"
-  },
   "settingsView.tabAppearance": {
     "defaultMessage": "Appearance"
-  },
-  "settingsView.tabChat": {
-    "defaultMessage": "Chat"
   },
   "settingsView.tabExternalBackend": {
     "defaultMessage": "Agent"
   },
-  "settingsView.tabHarnesses": {
-    "defaultMessage": "Harnesses"
-  },
-  "settingsView.tabKeyboard": {
-    "defaultMessage": "Keyboard"
-  },
-  "settingsView.tabLocalInference": {
-    "defaultMessage": "Local inference"
-  },
   "settingsView.tabMcp": {
     "defaultMessage": "MCP"
-  },
-  "settingsView.tabModels": {
-    "defaultMessage": "Models"
   },
   "settingsView.tabPlugins": {
     "defaultMessage": "Plugins"
@@ -4696,6 +4717,9 @@
   },
   "settingsView.tabProviders": {
     "defaultMessage": "Providers"
+  },
+  "settingsView.tabSkills": {
+    "defaultMessage": "Skills"
   },
   "settingsView.title": {
     "defaultMessage": "Settings"
@@ -4714,6 +4738,27 @@
   },
   "shortcutRecorder.save": {
     "defaultMessage": "Save"
+  },
+  "skillsSection.description": {
+    "defaultMessage": "Skills extend what the agent can do. Sauron discovers them from SKILL.md files in your global and project skill directories."
+  },
+  "skillsSection.empty": {
+    "defaultMessage": "No skills are installed."
+  },
+  "skillsSection.globalScope": {
+    "defaultMessage": "Global"
+  },
+  "skillsSection.loadFailed": {
+    "defaultMessage": "Failed to load skills"
+  },
+  "skillsSection.loading": {
+    "defaultMessage": "Loading skills..."
+  },
+  "skillsSection.projectScope": {
+    "defaultMessage": "Project"
+  },
+  "skillsSection.title": {
+    "defaultMessage": "Skills"
   },
   "skillsView.addSkill": {
     "defaultMessage": "Add Skill"
@@ -4753,15 +4798,6 @@
   },
   "spellcheckToggle.title": {
     "defaultMessage": "Enable Spellcheck"
-  },
-  "standaloneAppView.failedToLoad": {
-    "defaultMessage": "Failed to Load App"
-  },
-  "standaloneAppView.initializing": {
-    "defaultMessage": "Initializing app..."
-  },
-  "standaloneAppView.missingParams": {
-    "defaultMessage": "Missing required parameters"
   },
   "stringUtils.configuredProvider": {
     "defaultMessage": "{name} provider is configured"
@@ -5155,6 +5191,78 @@
   },
   "updateSection.versionIsAvailable": {
     "defaultMessage": "Version {version} is available"
+  },
+  "usageStats.byModel": {
+    "defaultMessage": "Per model"
+  },
+  "usageStats.byProvider": {
+    "defaultMessage": "Per provider"
+  },
+  "usageStats.cost": {
+    "defaultMessage": "Cost"
+  },
+  "usageStats.empty": {
+    "defaultMessage": "No usage was recorded in this date range."
+  },
+  "usageStats.inputCacheTokens": {
+    "defaultMessage": "Input cache tokens"
+  },
+  "usageStats.inputTokens": {
+    "defaultMessage": "Input tokens"
+  },
+  "usageStats.loading": {
+    "defaultMessage": "Loading usage stats…"
+  },
+  "usageStats.modelColumn": {
+    "defaultMessage": "Model"
+  },
+  "usageStats.preset30": {
+    "defaultMessage": "Last 30 days"
+  },
+  "usageStats.preset7": {
+    "defaultMessage": "Last 7 days"
+  },
+  "usageStats.presetAll": {
+    "defaultMessage": "All time"
+  },
+  "usageStats.presetYear": {
+    "defaultMessage": "This year"
+  },
+  "usageStats.providerColumn": {
+    "defaultMessage": "Provider"
+  },
+  "usageStats.rangeDescription": {
+    "defaultMessage": "Usage is grouped by model and by provider for the selected dates."
+  },
+  "usageStats.rangeFrom": {
+    "defaultMessage": "From"
+  },
+  "usageStats.rangeLabel": {
+    "defaultMessage": "Date range"
+  },
+  "usageStats.rangeTo": {
+    "defaultMessage": "To"
+  },
+  "usageStats.sessions": {
+    "defaultMessage": "{count,plural,one{# session} other{# sessions}}"
+  },
+  "usageStats.sourceLedger": {
+    "defaultMessage": "Recorded usage"
+  },
+  "usageStats.sourceMessages": {
+    "defaultMessage": "Estimated from stored messages"
+  },
+  "usageStats.total": {
+    "defaultMessage": "Total"
+  },
+  "usageStats.unknown": {
+    "defaultMessage": "Unknown"
+  },
+  "usageStats.writeCacheTokens": {
+    "defaultMessage": "Write cache tokens"
+  },
+  "usageStats.writeTokens": {
+    "defaultMessage": "Write tokens"
   },
   "userMessage.cancel": {
     "defaultMessage": "Cancel"

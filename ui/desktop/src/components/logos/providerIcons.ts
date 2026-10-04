@@ -1,6 +1,8 @@
 import AnthropicIcon from './icons/anthropic.svg';
+import AimlapiIcon from './icons/aimlapi.svg';
 import AlibabacloudIcon from './icons/alibabacloud.svg';
 import AmpIcon from './icons/amp.svg';
+import AtomicChatIcon from './icons/atomic_chat.svg';
 import AwsBedrockIcon from './icons/aws_bedrock.svg';
 import AzureFoundryIcon from './icons/azure_foundry.svg';
 import CerebrasIcon from './icons/cerebras.svg';
@@ -13,6 +15,7 @@ import DeepseekIcon from './icons/deepseek.svg';
 import FireworksIcon from './icons/fireworks.svg';
 import FriendliIcon from './icons/friendli.svg';
 import GeminiIcon from './icons/gemini.svg';
+import GondolaIcon from './icons/gondola.svg';
 import GoogleIcon from './icons/google.svg';
 import GroqIcon from './icons/groq.svg';
 import GithubCopilotIcon from './icons/github_copilot.svg';
@@ -20,26 +23,38 @@ import HuggingfaceIcon from './icons/huggingface.svg';
 import IflytekcloudIcon from './icons/iflytekcloud.svg';
 import InceptionIcon from './icons/inception.svg';
 import KimiIcon from './icons/kimi.svg';
+import LitellmIcon from './icons/litellm.svg';
+import LlamaswapIcon from './icons/llama_swap.svg';
 import LmstudioIcon from './icons/lmstudio.svg';
 import MetaIcon from './icons/meta.svg';
 import MicrosoftIcon from './icons/microsoft.svg';
 import MinimaxIcon from './icons/minimax.svg';
 import MistralIcon from './icons/mistral.svg';
 import MoonshotIcon from './icons/moonshot.svg';
+import NanogptIcon from './icons/nano_gpt.svg';
 import NearIcon from './icons/near.svg';
 import NvidiaIcon from './icons/nvidia.svg';
 import NovitaIcon from './icons/novita.svg';
 import OllamaIcon from './icons/ollama.svg';
+import OmlxIcon from './icons/omlx.svg';
 import OpencodeIcon from './icons/opencode.svg';
 import OpenaiIcon from './icons/openai.svg';
 import OpenrouterIcon from './icons/openrouter.svg';
+import OpperIcon from './icons/opper.svg';
 import OvhIcon from './icons/ovh.svg';
 import PerplexityIcon from './icons/perplexity.svg';
 import PiIcon from './icons/pi.svg';
+import PleumrouterIcon from './icons/pleumrouter.svg';
+import RoutstrIcon from './icons/routstr.svg';
 import SakanaIcon from './icons/sakana.svg';
+import SaladcloudIcon from './icons/saladcloud.svg';
+import SauronIcon from '../../images/glyph.svg';
+import SaygmIcon from './icons/saygm.svg';
 import ScalewayIcon from './icons/scaleway.svg';
 import SnowflakeIcon from './icons/snowflake.svg';
+import TetrateIcon from './icons/tetrate.svg';
 import TogetherIcon from './icons/together.svg';
+import TrustedrouterIcon from './icons/trustedrouter.svg';
 import VeniceIcon from './icons/venice.svg';
 import VercelIcon from './icons/vercel.svg';
 import VertexaiIcon from './icons/vertexai.svg';
@@ -50,10 +65,11 @@ import ZhipuIcon from './icons/zhipu.svg';
 /**
  * Canonical provider id -> vendored brand mark.
  *
- * The marks are transparent-background SVGs from Simple Icons (CC0-1.0) and
- * LobeHub Icons (MIT), normalised to a plain `viewBox="0 0 24 24"` shape so
- * `dark:brightness-0 dark:invert` handles dark mode uniformly across the set.
- * Keys are the ids the Rust provider registry reports, not model names.
+ * The marks are transparent-background SVGs from Simple Icons (CC0-1.0),
+ * LobeHub Icons (MIT), and the vendors' own published assets, normalised to a
+ * plain `viewBox="0 0 24 24"` shape so `dark:brightness-0 dark:invert` handles
+ * dark mode uniformly across the set. Keys are the ids the Rust provider
+ * registry reports, not model names.
  */
 const PROVIDER_ICONS: Record<string, string> = {
   // major labs and clouds
@@ -93,6 +109,23 @@ const PROVIDER_ICONS: Record<string, string> = {
   inception: InceptionIcon,
   iflytek: IflytekcloudIcon,
   iflytek_astron: IflytekcloudIcon,
+
+  // gateways whose marks are vendor assets rather than icon-set entries
+  aimlapi: AimlapiIcon,
+  atomic_chat: AtomicChatIcon,
+  gondola: GondolaIcon,
+  litellm: LitellmIcon,
+  llama_swap: LlamaswapIcon,
+  'nano-gpt': NanogptIcon,
+  omlx: OmlxIcon,
+  opper: OpperIcon,
+  pleumrouter: PleumrouterIcon,
+  routstr: RoutstrIcon,
+  saladcloud: SaladcloudIcon,
+  sauron: SauronIcon,
+  saygm: SaygmIcon,
+  tetrate: TetrateIcon,
+  trustedrouter: TrustedrouterIcon,
 
   // clouds and platforms
   ollama: OllamaIcon,
@@ -151,34 +184,18 @@ const PROVIDER_ICON_ALIASES: Record<string, string> = {
 };
 
 /**
- * Display names for providers that have no public brand mark. These drive the
+ * Display names for providers that publish no usable brand mark. These drive the
  * monogram fallback, so they must stay short and recognisable at 16px.
  */
 const PROVIDER_LABELS: Record<string, string> = {
-  aimlapi: 'AI/ML API',
-  atomic_chat: 'Atomic Chat',
   avian: 'Avian',
   celeris: 'Celeris',
   empiriolabs: 'EmpirioLabs',
   eurouter: 'EUrouter',
   futurmix: 'FuturMix',
-  gondola: 'Gondola',
-  llama_swap: 'Llama Swap',
-  litellm: 'LiteLLM',
   local: 'Local Inference',
   lynkr: 'Lynkr',
-  'nano-gpt': 'NanoGPT',
-  omlx: 'oMLX',
-  opper: 'Opper',
   orcarouter: 'OrcaRouter',
-  pleumrouter: 'PleumRouter',
-  routstr: 'Routstr',
-  saladcloud: 'SaladCloud',
-  sauron: 'Sauron',
-  saygm: 'SayGM',
-  tetrate: 'Tetrate',
-  custom_tensorix: 'Tensorix',
-  trustedrouter: 'TrustedRouter',
 };
 
 const normalize = (provider?: string | null): string => provider?.trim().toLowerCase() ?? '';

@@ -56,15 +56,6 @@
   "allProviderModels.emptyHint": {
     "defaultMessage": "Configure a provider to see the models it offers."
   },
-  "allProviderModels.filterAll": {
-    "defaultMessage": "Tümü"
-  },
-  "allProviderModels.filterFree": {
-    "defaultMessage": "Ücretsiz"
-  },
-  "allProviderModels.freeCount": {
-    "defaultMessage": "{count} ücretsiz"
-  },
   "allProviderModels.loadFailed": {
     "defaultMessage": "Could not load provider models"
   },
@@ -73,12 +64,6 @@
   },
   "allProviderModels.modelCount": {
     "defaultMessage": "{count,plural,one{# model} other{# models}}"
-  },
-  "allProviderModels.noFreeModels": {
-    "defaultMessage": "Sağlayıcılarınızda ücretsiz model yok."
-  },
-  "allProviderModels.noFreeModelsHint": {
-    "defaultMessage": "Modeller, bir sağlayıcı bunları yerel çalıştırdığında (Ollama, yerel modeller) veya OpenRouter'in :free modelleri gibi ücretsiz varyantlar sunduğunda ücretsiz olarak gösterilir."
   },
   "allProviderModels.noModels": {
     "defaultMessage": "No models reported by this provider."
@@ -107,14 +92,8 @@
   "allProviderModels.searchPlaceholder": {
     "defaultMessage": "Modelleri ara..."
   },
-  "allProviderModels.showAll": {
-    "defaultMessage": "Tüm modelleri göster"
-  },
   "allProviderModels.showingCount": {
     "defaultMessage": "{total, number} modelden {shown, number} tanesi gösteriliyor"
-  },
-  "allProviderModels.title": {
-    "defaultMessage": "Models from your providers"
   },
   "announcementModal.gotIt": {
     "defaultMessage": "Anladım!"
@@ -131,131 +110,17 @@
   "appLayout.showChanges": {
     "defaultMessage": "Değişiklikler panelini göster"
   },
-  "appsView.customApp": {
-    "defaultMessage": "Özel uygulama"
-  },
-  "appsView.deleteApp": {
-    "defaultMessage": "Delete app"
-  },
-  "appsView.deleteConfirm": {
-    "defaultMessage": "Delete \"{name}\"? This cannot be undone."
-  },
-  "appsView.description": {
-    "defaultMessage": "MCP sunucularınızdaki uygulamalar ve sauron tarafından oluşturulan Uygulamalar. Sohbet arayüzü aracılığıyla yeni uygulamalar oluşturmasını isteyebilirsiniz; bunlar burada görünecektir."
-  },
-  "appsView.errorLoading": {
-    "defaultMessage": "Uygulamalar yüklenirken hata oluştu: {error}"
-  },
-  "appsView.errorPrefix": {
-    "defaultMessage": "Error: {error}"
-  },
-  "appsView.importApp": {
-    "defaultMessage": "Uygulamayı İçe Aktar"
-  },
-  "appsView.launch": {
-    "defaultMessage": "Başlat"
-  },
-  "appsView.loading": {
-    "defaultMessage": "Uygulamalar yükleniyor..."
-  },
-  "appsView.noAppsDescription": {
-    "defaultMessage": "Bir sohbet açın ve istediğiniz uygulamayı sauron'a sorun. Sizin için bir uygulama oluşturabilir ve bu uygulama burada görünür. Birisi bir uygulama paylaştıysa yukarıdaki düğmeyi kullanarak içe aktarabilirsiniz."
-  },
-  "appsView.noAppsTitle": {
-    "defaultMessage": "Kullanılabilir uygulama yok"
-  },
-  "appsView.retiredChatApp": {
-    "defaultMessage": "Chat app retired"
-  },
-  "appsView.retiredChatAppDetail": {
-    "defaultMessage": "We removed this feature because MCP sampling is no longer supported."
-  },
-  "appsView.retry": {
-    "defaultMessage": "Yeniden dene"
-  },
-  "appsView.title": {
-    "defaultMessage": "Uygulamalar"
-  },
-  "authSettings.activeProviderWarning": {
-    "defaultMessage": "Bu etkin sağlayıcıdır. Başka bir kimlik bilgisi yapılandırana kadar yeni istekler başarısız olabilir."
-  },
-  "authSettings.cancel": {
-    "defaultMessage": "İptal"
-  },
   "authSettings.cancelSignIn": {
     "defaultMessage": "İptal"
   },
-  "authSettings.checkingStatus": {
-    "defaultMessage": "Kontrol ediliyor..."
-  },
-  "authSettings.connectedAccounts": {
-    "defaultMessage": "Bağlı hesaplar"
-  },
-  "authSettings.connectedAccountsDescription": {
-    "defaultMessage": "Sauron'un harici hesaplarınızla çalışmasına izin vermek için oturum açın."
-  },
-  "authSettings.delete": {
-    "defaultMessage": "Sil"
-  },
-  "authSettings.deleteCredential": {
-    "defaultMessage": "Kimlik bilgisini sil"
-  },
-  "authSettings.deleteMessage": {
-    "defaultMessage": "{provider} için {name} kimlik bilgisi silinsin mi?"
-  },
-  "authSettings.deleteTitle": {
-    "defaultMessage": "Kimlik bilgisini sil"
-  },
-  "authSettings.deleted": {
-    "defaultMessage": "Kimlik bilgisi silindi"
-  },
-  "authSettings.description": {
-    "defaultMessage": "sauron tarafından yerel olarak saklanan sağlayıcı kimlik bilgilerini yönetin."
-  },
-  "authSettings.empty": {
-    "defaultMessage": "Yerel olarak saklanan sağlayıcı kimlik bilgisi bulunamadı."
-  },
-  "authSettings.expiresAt": {
-    "defaultMessage": "{date} tarihinde sona erer"
-  },
-  "authSettings.failedToConfigure": {
-    "defaultMessage": "Kimlik bilgisi yapılandırılamadı: {error}"
-  },
-  "authSettings.failedToDelete": {
-    "defaultMessage": "Kimlik bilgisi silinemedi: {error}"
-  },
-  "authSettings.failedToLoad": {
-    "defaultMessage": "Sağlayıcı kimlik bilgileri yüklenemedi"
-  },
-  "authSettings.githubAccountDescription": {
-    "defaultMessage": "Depoları arayın, kodla çalışın, sorunları yönetin ve pull request açın."
-  },
-  "authSettings.githubAccountName": {
-    "defaultMessage": "GitHub"
-  },
-  "authSettings.githubConnected": {
-    "defaultMessage": "Bağlı"
-  },
   "authSettings.githubEnterCode": {
     "defaultMessage": "Sauron'u yetkilendirmek için {url} adresine bu kodu girin:"
-  },
-  "authSettings.githubNotConnected": {
-    "defaultMessage": "Bağlı değil"
-  },
-  "authSettings.githubOpenDevicePage": {
-    "defaultMessage": "GitHub cihaz sayfasını aç"
   },
   "authSettings.githubSignInFailed": {
     "defaultMessage": "GitHub sign-in failed: {error}"
   },
   "authSettings.githubSignInUnavailable": {
     "defaultMessage": "GitHub oturum açma yalnızca masaüstü uygulamasında kullanılabilir."
-  },
-  "authSettings.githubSignOutMessage": {
-    "defaultMessage": "Yeniden oturum açana kadar Sauron GitHub depolarınızla çalışamaz."
-  },
-  "authSettings.githubSignOutTitle": {
-    "defaultMessage": "Sign out of GitHub"
   },
   "authSettings.githubSignedIn": {
     "defaultMessage": "GitHub'a giriş yapıldı. GitHub eklentisi kullanıma hazır."
@@ -269,32 +134,8 @@
   "authSettings.githubWaitingForAuthorization": {
     "defaultMessage": "GitHub yetkisi bekleniyor..."
   },
-  "authSettings.loading": {
-    "defaultMessage": "Kimlik bilgileri yükleniyor..."
-  },
-  "authSettings.reauthorize": {
-    "defaultMessage": "Yeniden yetkilendir"
-  },
-  "authSettings.signIn": {
-    "defaultMessage": "Oturum aç"
-  },
   "authSettings.signInWithGitHub": {
     "defaultMessage": "GitHub ile giriş yap"
-  },
-  "authSettings.signOutFromGitHub": {
-    "defaultMessage": "Sign out"
-  },
-  "authSettings.signedIn": {
-    "defaultMessage": "Kimlik bilgisi yapılandırıldı"
-  },
-  "authSettings.storageProviderCache": {
-    "defaultMessage": "Sağlayıcı önbelleği"
-  },
-  "authSettings.storageSecretStore": {
-    "defaultMessage": "Gizli anahtar deposu"
-  },
-  "authSettings.title": {
-    "defaultMessage": "Sağlayıcı Kimlik Bilgileri"
   },
   "backButton.back": {
     "defaultMessage": "Geri"
@@ -433,9 +274,6 @@
   },
   "chatInput.failedToReadImage": {
     "defaultMessage": "Resim dosyası okunamadı"
-  },
-  "chatInput.navigationShortcut": {
-    "defaultMessage": "Mesajlarda gezinmek için {prefix}↑/{prefix}↓"
   },
   "chatInput.processingDroppedFiles": {
     "defaultMessage": "Bırakılan dosyalar işleniyor..."
@@ -1196,6 +1034,9 @@
   "dirSwitcher.gitWorktrees": {
     "defaultMessage": "Git çalışma ağaçları"
   },
+  "dirSwitcher.noFolder": {
+    "defaultMessage": "No folder"
+  },
   "dirSwitcher.noWorktreesFound": {
     "defaultMessage": "Hiçbir çalışma ağacı bulunamadı"
   },
@@ -1559,17 +1400,14 @@
   "groupedExtensionLoadingToast.successfullyLoaded": {
     "defaultMessage": "{count,plural,one{# uzantı başarıyla yüklendi} other{# uzantı başarıyla yüklendi}}"
   },
-  "harnessesSection.title": {
-    "defaultMessage": "Ajan harness'ları"
+  "harnessesSection.configure": {
+    "defaultMessage": "Yapılandır"
+  },
+  "harnessesSection.configured": {
+    "defaultMessage": "Etkin"
   },
   "harnessesSection.description": {
     "defaultMessage": "Cursor, Claude Code, Codex veya OpenCode veya Copilot gibi başka bir harness'tan ajanlar kullanın. Burada birini etkinleştirin, ardından sohbet için Models'de seçin."
-  },
-  "harnessesSection.loading": {
-    "defaultMessage": "Harness'lar yükleniyor..."
-  },
-  "harnessesSection.loadFailed": {
-    "defaultMessage": "Harness'lar yüklenemedi"
   },
   "harnessesSection.empty": {
     "defaultMessage": "Harici ajan harness\"ı yok."
@@ -1577,17 +1415,20 @@
   "harnessesSection.installed": {
     "defaultMessage": "Yüklü"
   },
-  "harnessesSection.notInstalled": {
-    "defaultMessage": "Yüklü değil"
+  "harnessesSection.loadFailed": {
+    "defaultMessage": "Harness'lar yüklenemedi"
   },
-  "harnessesSection.configure": {
-    "defaultMessage": "Yapılandır"
-  },
-  "harnessesSection.configured": {
-    "defaultMessage": "Etkin"
+  "harnessesSection.loading": {
+    "defaultMessage": "Harness'lar yükleniyor..."
   },
   "harnessesSection.notConfigured": {
     "defaultMessage": "Etkin değil"
+  },
+  "harnessesSection.notInstalled": {
+    "defaultMessage": "Yüklü değil"
+  },
+  "harnessesSection.title": {
+    "defaultMessage": "Ajan harness'ları"
   },
   "headersSection.add": {
     "defaultMessage": "Ekle"
@@ -1666,21 +1507,6 @@
   },
   "huggingFaceModelSearch.tooLarge": {
     "defaultMessage": "Belleğe sığmayabilir ({size} modeli, {available} mevcuttur)"
-  },
-  "huggingFaceSignInPrompt.failedToConfigure": {
-    "defaultMessage": "Hugging Face oturumu açılamadı: {error}"
-  },
-  "huggingFaceSignInPrompt.signIn": {
-    "defaultMessage": "Oturum aç"
-  },
-  "huggingFaceSignInPrompt.signedIn": {
-    "defaultMessage": "Hugging Face oturumu açıldı"
-  },
-  "huggingFaceSignInPrompt.signingIn": {
-    "defaultMessage": "Oturum açılıyor..."
-  },
-  "huggingFaceSignInPrompt.title": {
-    "defaultMessage": "Hugging Face"
   },
   "imagePreview.altText": {
     "defaultMessage": "sauron resmi"
@@ -2054,9 +1880,6 @@
   "localInferenceSettings.evictFromMemory": {
     "defaultMessage": "Evict from memory"
   },
-  "localInferenceSettings.huggingFaceSignInNote": {
-    "defaultMessage": "Model ararken ve indirirken hız sınırlarını artırmak ve özel ya da erişimi kısıtlı Hugging Face depolarına erişmek için oturum açın."
-  },
   "localInferenceSettings.loadedInMemory": {
     "defaultMessage": "Loaded in memory"
   },
@@ -2378,30 +2201,6 @@
   "microphoneSelector.test": {
     "defaultMessage": "testi"
   },
-  "modeSelectionItem.autonomousDescription": {
-    "defaultMessage": "Tam dosya değiştirme yetenekleri, dosyaları özgürce düzenleyin, oluşturun ve silin."
-  },
-  "modeSelectionItem.autonomousLabel": {
-    "defaultMessage": "Özerk"
-  },
-  "modeSelectionItem.chatOnlyDescription": {
-    "defaultMessage": "Araç veya uzantı kullanmadan seçilen sağlayıcıyla etkileşime geçin."
-  },
-  "modeSelectionItem.chatOnlyLabel": {
-    "defaultMessage": "Yalnızca sohbet"
-  },
-  "modeSelectionItem.manualDescription": {
-    "defaultMessage": "Tüm araçlar, uzantılar ve dosya değişiklikleri insan onayı gerektirecektir"
-  },
-  "modeSelectionItem.manualLabel": {
-    "defaultMessage": "Manuel"
-  },
-  "modeSelectionItem.smartDescription": {
-    "defaultMessage": "Risk düzeyine göre hangi eylemlerin onaylanması gerektiğini akıllıca belirleyin"
-  },
-  "modeSelectionItem.smartLabel": {
-    "defaultMessage": "Akıllı"
-  },
   "modelAndProviderContext.modelChangeFailed": {
     "defaultMessage": "{provider}/{model} başarısız oldu"
   },
@@ -2431,9 +2230,6 @@
   },
   "modelBadges.reasoning": {
     "defaultMessage": "Akıl yürütme"
-  },
-  "modelSettingsButtons.switchModels": {
-    "defaultMessage": "Modelleri değiştir"
   },
   "modelSettingsPanel.batchSize": {
     "defaultMessage": "Parti boyutu"
@@ -2615,20 +2411,11 @@
   "modelsBottomBar.selectModel": {
     "defaultMessage": "Modeli Seçin"
   },
-  "navigation.itemApps": {
-    "defaultMessage": "Uygulamalar"
-  },
-  "navigation.itemExtensions": {
-    "defaultMessage": "Uzantılar"
-  },
   "navigation.itemHome": {
     "defaultMessage": "Yeni Sohbet"
   },
   "navigation.itemHub": {
     "defaultMessage": "Hub"
-  },
-  "navigation.itemRecipes": {
-    "defaultMessage": "Tarifler"
   },
   "navigation.itemScheduler": {
     "defaultMessage": "Zamanlayıcı"
@@ -2639,20 +2426,32 @@
   "navigation.itemSettings": {
     "defaultMessage": "Ayarlar"
   },
-  "navigation.itemSkills": {
-    "defaultMessage": "Beceriler"
+  "navigationFooter.about": {
+    "defaultMessage": "About Sauron"
   },
-  "navigationFooter.cpuUsage": {
-    "defaultMessage": "CPU {percent}%"
+  "navigationFooter.aboutVersion": {
+    "defaultMessage": "Sauron {version}"
   },
-  "navigationFooter.memoryUsage": {
-    "defaultMessage": "Bellek {percent}%"
+  "navigationFooter.accountMenu": {
+    "defaultMessage": "Account"
+  },
+  "navigationFooter.close": {
+    "defaultMessage": "Close"
+  },
+  "navigationFooter.keyboardShortcuts": {
+    "defaultMessage": "Keyboard shortcuts"
+  },
+  "navigationFooter.quit": {
+    "defaultMessage": "Quit Sauron"
   },
   "navigationFooter.sendFeedback": {
     "defaultMessage": "Geri bildirim gönder"
   },
   "navigationFooter.you": {
     "defaultMessage": "Siz"
+  },
+  "navigationPanel.chats": {
+    "defaultMessage": "Chats"
   },
   "navigationPanel.goBack": {
     "defaultMessage": "Geri"
@@ -2681,6 +2480,9 @@
   "navigationPanel.metaUpdated": {
     "defaultMessage": "Güncellendi"
   },
+  "navigationPanel.newChat": {
+    "defaultMessage": "New chat"
+  },
   "navigationPanel.newProject": {
     "defaultMessage": "Yeni proje"
   },
@@ -2701,6 +2503,9 @@
   },
   "navigationPanel.statusUnread": {
     "defaultMessage": "Okunmamış etkinlik"
+  },
+  "navigationPanel.toast.newChatFailed": {
+    "defaultMessage": "Could not start chat: {error}"
   },
   "navigationPanel.untitledSession": {
     "defaultMessage": "Başlıksız oturum"
@@ -2920,18 +2725,6 @@
   },
   "pluginsSettings.title": {
     "defaultMessage": "Plugins"
-  },
-  "preferredModels.empty": {
-    "defaultMessage": "Burada ve sohbetlerde kullanmak için aşağıdaki modellere yıldız ekleyin."
-  },
-  "preferredModels.remove": {
-    "defaultMessage": "{model} modelini tercih edilenlerden kaldır"
-  },
-  "preferredModels.removeFailed": {
-    "defaultMessage": "Tercih edilen modeller güncellenemedi"
-  },
-  "preferredModels.title": {
-    "defaultMessage": "Tercih edilen modeller"
   },
   "privacyInfoModal.collectErrors": {
     "defaultMessage": "Hata türleri (ör. \"rate_limit\", \"auth\" - ayrıntı yok)"
@@ -3181,9 +2974,6 @@
   },
   "providerConfigurationModal.goBack": {
     "defaultMessage": "Geri Dön"
-  },
-  "providerConfigurationModal.huggingFaceOAuthDescription": {
-    "defaultMessage": "API belirtecini elle girmeden Hugging Face Inference Providers kullanmak için oturum açın."
   },
   "providerConfigurationModal.oauthLoginFailed": {
     "defaultMessage": "OAuth oturum açma işlemi başarısız oldu: {error}"
@@ -4661,35 +4451,17 @@
   "settings.version.title": {
     "defaultMessage": "Sürüm"
   },
-  "settingsView.noResults": {
-    "defaultMessage": "Sonuç yok"
-  },
-  "settingsView.searchPlaceholder": {
-    "defaultMessage": "Ayarlarında Ara"
-  },
   "settingsView.tabApp": {
     "defaultMessage": "Uygulama"
   },
   "settingsView.tabAppearance": {
     "defaultMessage": "Appearance"
   },
-  "settingsView.tabChat": {
-    "defaultMessage": "Sohbet"
-  },
   "settingsView.tabExternalBackend": {
     "defaultMessage": "Harici Arka Uç"
   },
-  "settingsView.tabHarnesses": {
-    "defaultMessage": "Harness'lar"
-  },
-  "settingsView.tabKeyboard": {
-    "defaultMessage": "Klavye"
-  },
   "settingsView.tabMcp": {
     "defaultMessage": "MCP"
-  },
-  "settingsView.tabModels": {
-    "defaultMessage": "Modeller"
   },
   "settingsView.tabPlugins": {
     "defaultMessage": "Plugins"
@@ -4756,15 +4528,6 @@
   },
   "spellcheckToggle.title": {
     "defaultMessage": "Yazım Denetimini Etkinleştir"
-  },
-  "standaloneAppView.failedToLoad": {
-    "defaultMessage": "Uygulama Yüklenemedi"
-  },
-  "standaloneAppView.initializing": {
-    "defaultMessage": "Uygulama başlatılıyor..."
-  },
-  "standaloneAppView.missingParams": {
-    "defaultMessage": "Gerekli parametreler eksik"
   },
   "stringUtils.configuredProvider": {
     "defaultMessage": "{name} sağlayıcısı yapılandırıldı"
@@ -5159,60 +4922,6 @@
   "updateSection.versionIsAvailable": {
     "defaultMessage": "Sürüm {version} mevcut"
   },
-  "userMessage.cancel": {
-    "defaultMessage": "İptal"
-  },
-  "userMessage.cancelAriaLabel": {
-    "defaultMessage": "Düzenlemeyi iptal et"
-  },
-  "userMessage.editAriaLabel": {
-    "defaultMessage": "Mesaj içeriğini düzenle"
-  },
-  "userMessage.editButton": {
-    "defaultMessage": "Düzenle"
-  },
-  "userMessage.editImagesHeading": {
-    "defaultMessage": "Ekli görseller:"
-  },
-  "userMessage.editInPlace": {
-    "defaultMessage": "Yerinde Düzenle"
-  },
-  "userMessage.editInPlaceAriaLabel": {
-    "defaultMessage": "Mesajı yerinde düzenleyin"
-  },
-  "userMessage.editInPlaceDescription": {
-    "defaultMessage": "<b>Yerinde Düzenle</b> bu oturumu günceller • <b>Oturumu Çatalla</b> yeni bir oturum oluşturur"
-  },
-  "userMessage.editInPlaceTitle": {
-    "defaultMessage": "Bu oturumdaki mesajı güncelleyin"
-  },
-  "userMessage.editMessageAriaLabel": {
-    "defaultMessage": "Mesajı düzenle: {preview}"
-  },
-  "userMessage.editMessageTitle": {
-    "defaultMessage": "Mesajı düzenle"
-  },
-  "userMessage.editPlaceholder": {
-    "defaultMessage": "Mesajınızı düzenleyin..."
-  },
-  "userMessage.emptyError": {
-    "defaultMessage": "Mesaj boş olamaz"
-  },
-  "userMessage.forkSession": {
-    "defaultMessage": "Çatal Oturumu"
-  },
-  "userMessage.forkSessionAriaLabel": {
-    "defaultMessage": "Düzenlenmiş mesajla oturumu çatallayın"
-  },
-  "userMessage.forkSessionTitle": {
-    "defaultMessage": "Düzenlenen mesajla yeni bir oturum oluşturun"
-  },
-  "userMessage.removeImageFromEdit": {
-    "defaultMessage": "Görseli mesajdan kaldır"
-  },
-  "settingsView.tabStats": {
-    "defaultMessage": "Stats"
-  },
   "usageStats.byModel": {
     "defaultMessage": "Per model"
   },
@@ -5284,8 +4993,58 @@
   },
   "usageStats.writeTokens": {
     "defaultMessage": "Write tokens"
-  }
-,
+  },
+  "userMessage.cancel": {
+    "defaultMessage": "İptal"
+  },
+  "userMessage.cancelAriaLabel": {
+    "defaultMessage": "Düzenlemeyi iptal et"
+  },
+  "userMessage.editAriaLabel": {
+    "defaultMessage": "Mesaj içeriğini düzenle"
+  },
+  "userMessage.editButton": {
+    "defaultMessage": "Düzenle"
+  },
+  "userMessage.editImagesHeading": {
+    "defaultMessage": "Ekli görseller:"
+  },
+  "userMessage.editInPlace": {
+    "defaultMessage": "Yerinde Düzenle"
+  },
+  "userMessage.editInPlaceAriaLabel": {
+    "defaultMessage": "Mesajı yerinde düzenleyin"
+  },
+  "userMessage.editInPlaceDescription": {
+    "defaultMessage": "<b>Yerinde Düzenle</b> bu oturumu günceller • <b>Oturumu Çatalla</b> yeni bir oturum oluşturur"
+  },
+  "userMessage.editInPlaceTitle": {
+    "defaultMessage": "Bu oturumdaki mesajı güncelleyin"
+  },
+  "userMessage.editMessageAriaLabel": {
+    "defaultMessage": "Mesajı düzenle: {preview}"
+  },
+  "userMessage.editMessageTitle": {
+    "defaultMessage": "Mesajı düzenle"
+  },
+  "userMessage.editPlaceholder": {
+    "defaultMessage": "Mesajınızı düzenleyin..."
+  },
+  "userMessage.emptyError": {
+    "defaultMessage": "Mesaj boş olamaz"
+  },
+  "userMessage.forkSession": {
+    "defaultMessage": "Çatal Oturumu"
+  },
+  "userMessage.forkSessionAriaLabel": {
+    "defaultMessage": "Düzenlenmiş mesajla oturumu çatallayın"
+  },
+  "userMessage.forkSessionTitle": {
+    "defaultMessage": "Düzenlenen mesajla yeni bir oturum oluşturun"
+  },
+  "userMessage.removeImageFromEdit": {
+    "defaultMessage": "Görseli mesajdan kaldır"
+  },
   "worktreeSettings.description": {
     "defaultMessage": "Çalışma dizini seçicinin sunduğu dizinleri denetler"
   },

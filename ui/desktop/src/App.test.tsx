@@ -9,6 +9,7 @@ import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest';
 import { AppInner, PairRouteWrapper, resolveSessionInitialMessage } from './App';
 import { IntlTestWrapper } from './i18n/test-utils';
 import { FeaturesProvider } from './contexts/FeaturesContext';
+import { ConfigProvider } from './components/ConfigContext';
 import { reconnectAcpAfterSystemResume } from './acp/acpConnection';
 import { createSession } from './sessions';
 import { RecipeParameterScopesUnsupportedError } from './acp/errors';
@@ -203,7 +204,9 @@ Object.defineProperty(window, 'matchMedia', {
 function AppInnerTestWrapper({ children }: { children: React.ReactNode }) {
   return (
     <IntlTestWrapper>
-      <FeaturesProvider>{children}</FeaturesProvider>
+      <FeaturesProvider>
+        <ConfigProvider>{children}</ConfigProvider>
+      </FeaturesProvider>
     </IntlTestWrapper>
   );
 }

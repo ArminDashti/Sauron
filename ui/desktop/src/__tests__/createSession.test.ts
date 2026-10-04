@@ -119,11 +119,16 @@ describe('createSession ACP session extensions', () => {
     });
 
     expect(mockedGetConfiguredSauronExtensions).toHaveBeenCalledOnce();
-    expect(mockedCreateAcpSession).toHaveBeenCalledWith('/tmp', [sauronExtension('developer')], {
-      recipeDeeplink: undefined,
-      recipeId: undefined,
-      recipeParameterScopeId: undefined,
-    });
+    expect(mockedCreateAcpSession).toHaveBeenCalledWith(
+      '/tmp',
+      [sauronExtension('developer')],
+      {
+        recipeDeeplink: undefined,
+        recipeId: undefined,
+        recipeParameterScopeId: undefined,
+      },
+      false
+    );
   });
 
   it('sends an explicitly empty selection as an empty list, not as "unspecified"', async () => {
@@ -133,11 +138,16 @@ describe('createSession ACP session extensions', () => {
     });
 
     expect(mockedGetConfiguredSauronExtensions).not.toHaveBeenCalled();
-    expect(mockedCreateAcpSession).toHaveBeenCalledWith('/tmp', [], {
-      recipeDeeplink: undefined,
-      recipeId: undefined,
-      recipeParameterScopeId: undefined,
-    });
+    expect(mockedCreateAcpSession).toHaveBeenCalledWith(
+      '/tmp',
+      [],
+      {
+        recipeDeeplink: undefined,
+        recipeId: undefined,
+        recipeParameterScopeId: undefined,
+      },
+      false
+    );
   });
 
   it('leaves the set unspecified when no configured extensions are enabled', async () => {
@@ -146,32 +156,47 @@ describe('createSession ACP session extensions', () => {
     });
 
     expect(mockedGetConfiguredSauronExtensions).not.toHaveBeenCalled();
-    expect(mockedCreateAcpSession).toHaveBeenCalledWith('/tmp', undefined, {
-      recipeDeeplink: undefined,
-      recipeId: undefined,
-      recipeParameterScopeId: undefined,
-    });
+    expect(mockedCreateAcpSession).toHaveBeenCalledWith(
+      '/tmp',
+      undefined,
+      {
+        recipeDeeplink: undefined,
+        recipeId: undefined,
+        recipeParameterScopeId: undefined,
+      },
+      false
+    );
   });
 
   it('leaves the set unspecified while the configured extensions are still loading', async () => {
     await createSession('/tmp', { allExtensions: [] });
 
-    expect(mockedCreateAcpSession).toHaveBeenCalledWith('/tmp', undefined, {
-      recipeDeeplink: undefined,
-      recipeId: undefined,
-      recipeParameterScopeId: undefined,
-    });
+    expect(mockedCreateAcpSession).toHaveBeenCalledWith(
+      '/tmp',
+      undefined,
+      {
+        recipeDeeplink: undefined,
+        recipeId: undefined,
+        recipeParameterScopeId: undefined,
+      },
+      false
+    );
   });
 
   it('scopes startup parameters to recipe deeplink session creation', async () => {
     await createSession('/tmp', { recipeDeeplink: 'sauron://recipe?url=example' });
 
     expect(mockedBeginConfiguredRecipeParameterScope).toHaveBeenCalledOnce();
-    expect(mockedCreateAcpSession).toHaveBeenCalledWith('/tmp', undefined, {
-      recipeDeeplink: 'sauron://recipe?url=example',
-      recipeId: undefined,
-      recipeParameterScopeId: 'scope-1',
-    });
+    expect(mockedCreateAcpSession).toHaveBeenCalledWith(
+      '/tmp',
+      undefined,
+      {
+        recipeDeeplink: 'sauron://recipe?url=example',
+        recipeId: undefined,
+        recipeParameterScopeId: 'scope-1',
+      },
+      false
+    );
     expect(finishConfiguredRecipeParameterScope).toHaveBeenCalledOnce();
   });
 

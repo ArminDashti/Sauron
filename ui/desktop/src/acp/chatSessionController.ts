@@ -49,7 +49,8 @@ export interface AcpChatSessionController {
   createSession(
     cwd: string,
     sauronExtensions: SauronExtension[] | undefined,
-    recipe?: AcpRecipeOptions
+    recipe?: AcpRecipeOptions,
+    chatOnly?: boolean
   ): Promise<Session>;
   loadSession(sessionId: string, options?: AcpLoadSessionOptions): Promise<void>;
   restoreSession(sessionId: string): Promise<void>;
@@ -115,9 +116,15 @@ async function forkSessionWithEditedMessage(
 async function createSession(
   cwd: string,
   sauronExtensions: SauronExtension[] | undefined,
-  recipe?: AcpRecipeOptions
+  recipe?: AcpRecipeOptions,
+  chatOnly = false
 ): Promise<Session> {
-  const { sessionId, sessionInfo, meta } = await acpNewSession(cwd, sauronExtensions, recipe);
+  const { sessionId, sessionInfo, meta } = await acpNewSession(
+    chatOnly ? '' : cwd,
+    sauronExtensions,
+    recipe,
+    chatOnly
+  );
   const session = sessionInfoToSession(sessionInfo, meta);
 
   showExtensionLoadResults(meta.extensionResults);

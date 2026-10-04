@@ -55,13 +55,6 @@ declare global {
     isCreatingRecipe?: boolean;
     electron: {
       getUserProfile: () => Promise<{ username: string }>;
-      getSystemStats: () => Promise<{
-        cpu: number;
-        memory: number;
-        disk: number;
-        download: number;
-        upload: number;
-      }>;
       openExternal: (url: string) => Promise<'opened' | null>;
     };
   }

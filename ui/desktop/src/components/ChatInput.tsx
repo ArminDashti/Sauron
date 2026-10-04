@@ -105,6 +105,28 @@ const getContextAlertType = (totalTokens: number, tokenLimit: number): AlertType
 // Manual compact trigger message - must match backend constant
 const MANUAL_COMPACT_TRIGGER = '/compact';
 
+// The message box sits one gutter in from the composer edge: the `px-3` padding,
+// the 2rem attach button, and the 8px gap before the box. The rows above and
+// below the box share this inset so their content lines up with the box's left
+// edge instead of the window edge.
+const MESSAGE_BOX_LEFT_INSET = 'pl-[3.25rem]';
+
+// The box's right edge follows the voice gutter, which holds a varying number of
+// 2rem controls with 4px between them. Indexed by that control count (0-3) so
+// Tailwind sees literal class names and the rows below the box stay aligned with
+// it.
+const MESSAGE_BOX_RIGHT_INSETS = [
+  'pr-[1.25rem]',
+  'pr-[3.25rem]',
+  'pr-[5.5rem]',
+  'pr-[7.75rem]',
+] as const;
+
+// Both composer gutters use this so the voice controls on the right mirror the
+// attach button on the left.
+const COMPOSER_GUTTER_BUTTON =
+  'shrink-0 bg-background-secondary/70 hover:bg-background-tertiary transition-colors';
+
 const i18n = defineMessages({
   dictationError: {
     id: 'chatInput.dictationError',
@@ -1412,6 +1434,11 @@ export default function ChatInput({
     allDroppedFiles.some((file) => !file.error && !file.isLoading);
   const isAnyImageLoading = pastedImages.some((img) => img.isLoading);
   const isAnyDroppedFileLoading = allDroppedFiles.some((file) => file.isLoading);
+
+  // Dictation plus the live-voice control, which itself renders a mute button
+  // while the session is live.
+  const voiceControlCount =
+    (dictationProvider ? 1 : 0) + (liveVoice ? (liveVoice.phase === 'live' ? 2 : 1) : 0);
   const isSubmitButtonDisabled =
     !hasSubmittableContent ||
     isAnyImageLoading ||
@@ -1551,12 +1578,17 @@ export default function ChatInput({
   };
 
   // Bottom action bar, rendered below the message box. Left side: context window
-  // usage, then cost. Right side (after spacer): extensions, diagnostics, live voice.
+  // usage, then cost. Right side (after spacer): extensions and diagnostics.
   // Secondary controls drop out when the bar is narrow.
   const bottomBar = (
     <div
       ref={bottomBarRef}
-      className={cn('flex flex-row items-center gap-3 px-3 pt-2 pb-1 relative', bottomBarClassName)}
+      className={cn(
+        'flex flex-row items-center gap-3 pt-2 pb-1 relative',
+        MESSAGE_BOX_LEFT_INSET,
+        MESSAGE_BOX_RIGHT_INSETS[Math.min(voiceControlCount, 3)],
+        bottomBarClassName
+      )}
       data-drop-zone="true"
     >
       {/* Left: context window usage, then accumulated cost */}
@@ -1610,23 +1642,6 @@ export default function ChatInput({
             </Tooltip>
           )}
         </>
-      )}
-
-      {liveVoice && (
-        <LiveVoiceButton
-          availability={liveVoice.availability}
-          phase={liveVoice.phase}
-          muted={liveVoice.muted}
-          activeInAnotherSession={liveVoice.activeInAnotherSession}
-          onStart={() => void liveVoice.start()}
-          onStop={() => void liveVoice.stop()}
-          onToggleMute={liveVoice.toggleMute}
-          composerEmpty={
-            displayValue.trim().length === 0 &&
-            pastedImages.length === 0 &&
-            allDroppedFiles.length === 0
-          }
-        />
       )}
 
       {sessionId && diagnosticsOpen && (
@@ -1688,7 +1703,9 @@ export default function ChatInput({
         />
       )}
       {/* Top row, above the message box: working directory, git branch, model */}
-      <div className="flex flex-row items-center gap-3 px-3 pt-3 pb-1">
+      <div
+        className={cn('flex flex-row items-center gap-3 pr-3 pt-3 pb-1', MESSAGE_BOX_LEFT_INSET)}
+      >
         <DirSwitcher
           className=""
           sessionId={sessionId ?? undefined}
@@ -1724,7 +1741,8 @@ export default function ChatInput({
                 size="sm"
                 shape="round"
                 className={cn(
-                  'shrink-0 bg-background-secondary/70 text-text-primary/70 hover:bg-background-tertiary hover:text-text-primary transition-colors',
+                  COMPOSER_GUTTER_BUTTON,
+                  'text-text-primary/70 hover:text-text-primary',
                   isFilePickerOpen ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'
                 )}
               >
@@ -1834,50 +1852,71 @@ export default function ChatInput({
             )}
           </div>
 
-          {dictationProvider && (
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button
-                  type="button"
-                  variant="ghost"
-                  size="sm"
-                  shape="round"
-                  onClick={() => {
-                    if (!isEnabled) return;
-                    if (isRecording) {
-                      trackVoiceDictation('stop');
-                      stopRecording();
-                    } else {
-                      trackVoiceDictation('start');
-                      startRecording();
-                    }
-                  }}
-                  // Keep the button hoverable when only !isEnabled so the
-                  // "Dictation not configured" tooltip stays reachable.
-                  // We still natively disable while transcribing.
-                  disabled={isTranscribing}
-                  aria-disabled={!isEnabled}
-                  className={cn(
-                    'shrink-0 transition-colors',
-                    isRecording
-                      ? 'text-red-500 hover:text-red-600'
-                      : 'text-text-primary/70 hover:text-text-primary',
-                    isTranscribing && 'animate-pulse',
-                    !isEnabled && 'opacity-50 cursor-not-allowed'
+          {/* Right gutter, outside the message box: dictation and live voice */}
+          <div className="flex shrink-0 items-center gap-1">
+            {dictationProvider && (
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="sm"
+                    shape="round"
+                    onClick={() => {
+                      if (!isEnabled) return;
+                      if (isRecording) {
+                        trackVoiceDictation('stop');
+                        stopRecording();
+                      } else {
+                        trackVoiceDictation('start');
+                        startRecording();
+                      }
+                    }}
+                    // Keep the button hoverable when only !isEnabled so the
+                    // "Dictation not configured" tooltip stays reachable.
+                    // We still natively disable while transcribing.
+                    disabled={isTranscribing}
+                    aria-disabled={!isEnabled}
+                    className={cn(
+                      COMPOSER_GUTTER_BUTTON,
+                      isRecording
+                        ? 'text-red-500 hover:text-red-600'
+                        : 'text-text-primary/70 hover:text-text-primary',
+                      isTranscribing && 'animate-pulse',
+                      !isEnabled && 'opacity-50 cursor-not-allowed'
+                    )}
+                  >
+                    <Microphone size={16} />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  {!isEnabled ? (
+                    <p>Dictation not configured (Settings)</p>
+                  ) : (
+                    <p>Voice dictation{isRecording ? '' : ' • Say "submit" to send'}</p>
                   )}
-                >
-                  <Microphone size={16} />
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>
-                {!isEnabled ? (
-                  <p>Dictation not configured (Settings)</p>
-                ) : (
-                  <p>Voice dictation{isRecording ? '' : ' • Say "submit" to send'}</p>
-                )}
-              </TooltipContent>
-            </Tooltip>
-          )}
+                </TooltipContent>
+              </Tooltip>
+            )}
+
+            {liveVoice && (
+              <LiveVoiceButton
+                availability={liveVoice.availability}
+                phase={liveVoice.phase}
+                muted={liveVoice.muted}
+                activeInAnotherSession={liveVoice.activeInAnotherSession}
+                onStart={() => void liveVoice.start()}
+                onStop={() => void liveVoice.stop()}
+                onToggleMute={liveVoice.toggleMute}
+                className={COMPOSER_GUTTER_BUTTON}
+                composerEmpty={
+                  displayValue.trim().length === 0 &&
+                  pastedImages.length === 0 &&
+                  allDroppedFiles.length === 0
+                }
+              />
+            )}
+          </div>
         </div>
       </form>
 

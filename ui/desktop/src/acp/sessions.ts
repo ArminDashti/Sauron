@@ -24,6 +24,7 @@ interface SauronSessionInfoMeta {
   userSetName?: boolean;
   hasRecipe?: boolean;
   lastMessageSnippet?: string;
+  chatOnly?: boolean;
 }
 
 export interface SessionListItem {
@@ -41,6 +42,8 @@ export interface SessionListItem {
   userSetName?: boolean;
   hasRecipe?: boolean;
   sessionType?: Session['session_type'];
+  /** True for folder-less chats: no working directory, repository or file tools. */
+  chatOnly: boolean;
 }
 
 export interface SessionListPage {
@@ -130,6 +133,8 @@ function sessionInfoToListItem(s: SessionInfo): SessionListItem {
     userSetName: meta.userSetName,
     hasRecipe: meta.hasRecipe,
     sessionType: meta.sessionType,
+    // Backends older than the chatOnly meta flag still report an empty cwd.
+    chatOnly: meta.chatOnly ?? s.cwd === '',
   };
 }
 
@@ -239,14 +244,22 @@ export interface AcpRecipeOptions {
  * `sauronExtensions` is three-valued: `undefined` leaves the key out so the backend
  * uses the configured set, while `[]` asks for a session with no extensions. The
  * backend already distinguishes the two, so the client has to as well.
+ *
+ * `chatOnly` asks for a folder-less chat: the backend attaches no working
+ * directory, no repository and no filesystem- or shell-backed tools, so `cwd`
+ * must be empty.
  */
 export async function acpNewSession(
   cwd: string,
   sauronExtensions: SauronExtension[] | undefined,
-  recipe?: AcpRecipeOptions
+  recipe?: AcpRecipeOptions,
+  chatOnly = false
 ): Promise<AcpNewSessionResult> {
   const client = await getAcpClient();
   const meta: Record<string, unknown> = { client: 'sauron-desktop' };
+  if (chatOnly) {
+    meta.chatOnly = true;
+  }
   if (sauronExtensions !== undefined) {
     meta.enabledExtensions = sauronExtensions;
   }

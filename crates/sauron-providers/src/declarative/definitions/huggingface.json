@@ -1,0 +1,22 @@
+{
+  "name": "huggingface",
+  "engine": "openai",
+  "display_name": "Hugging Face",
+  "description": "Hugging Face Inference Providers via the Hugging Face Router.",
+  "api_key_env": "HF_TOKEN",
+  "base_url": "https://router.huggingface.co/v1",
+  "catalog_provider_id": "huggingface",
+  "dynamic_models": true,
+  "models": [
+    {
+      "name": "Qwen/Qwen3-Coder-480B-A35B-Instruct"
+    }
+  ],
+  "preserves_thinking": true,
+  "supports_streaming": true,
+  "model_doc_link": "https://huggingface.co/docs/inference-providers",
+  "setup_steps": [
+    "Create or select a Hugging Face access token with Inference Providers permissions.",
+    "Set HF_TOKEN in Sauron's provider configuration."
+  ]
+}

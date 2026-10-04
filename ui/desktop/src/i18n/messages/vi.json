@@ -56,15 +56,6 @@
   "allProviderModels.emptyHint": {
     "defaultMessage": "Configure a provider to see the models it offers."
   },
-  "allProviderModels.filterAll": {
-    "defaultMessage": "Tất cả"
-  },
-  "allProviderModels.filterFree": {
-    "defaultMessage": "Miễn phí"
-  },
-  "allProviderModels.freeCount": {
-    "defaultMessage": "{count} miễn phí"
-  },
   "allProviderModels.loadFailed": {
     "defaultMessage": "Could not load provider models"
   },
@@ -73,12 +64,6 @@
   },
   "allProviderModels.modelCount": {
     "defaultMessage": "{count,plural,one{# model} other{# models}}"
-  },
-  "allProviderModels.noFreeModels": {
-    "defaultMessage": "Không có model miễn phí từ các nhà cung cấp của bạn."
-  },
-  "allProviderModels.noFreeModelsHint": {
-    "defaultMessage": "Các model được coi là miễn phí khi nhà cung cấp chạy chúng trên máy (Ollama, model cục bộ) hoặc liệt kê các biến thể miễn phí, chẳng hạn như các :free model của OpenRouter."
   },
   "allProviderModels.noModels": {
     "defaultMessage": "No models reported by this provider."
@@ -107,14 +92,8 @@
   "allProviderModels.searchPlaceholder": {
     "defaultMessage": "Tìm kiếm mô hình..."
   },
-  "allProviderModels.showAll": {
-    "defaultMessage": "Hiện tất cả model"
-  },
   "allProviderModels.showingCount": {
     "defaultMessage": "Đang hiển thị {shown, number} trong {total, number} mô hình"
-  },
-  "allProviderModels.title": {
-    "defaultMessage": "Models from your providers"
   },
   "announcementModal.gotIt": {
     "defaultMessage": "Đã hiểu!"
@@ -131,131 +110,17 @@
   "appLayout.showChanges": {
     "defaultMessage": "Hiện bảng thay đổi"
   },
-  "appsView.customApp": {
-    "defaultMessage": "Ứng dụng tùy chỉnh"
-  },
-  "appsView.deleteApp": {
-    "defaultMessage": "Delete app"
-  },
-  "appsView.deleteConfirm": {
-    "defaultMessage": "Delete \"{name}\"? This cannot be undone."
-  },
-  "appsView.description": {
-    "defaultMessage": "Các ứng dụng từ máy chủ MCP của bạn và các ứng dụng do sauron tự tạo. Bạn có thể yêu cầu nó tạo ứng dụng mới thông qua giao diện trò chuyện và chúng sẽ xuất hiện ở đây."
-  },
-  "appsView.errorLoading": {
-    "defaultMessage": "Lỗi khi tải ứng dụng: {error}"
-  },
-  "appsView.errorPrefix": {
-    "defaultMessage": "Error: {error}"
-  },
-  "appsView.importApp": {
-    "defaultMessage": "Nhập ứng dụng"
-  },
-  "appsView.launch": {
-    "defaultMessage": "Khởi chạy"
-  },
-  "appsView.loading": {
-    "defaultMessage": "Đang tải ứng dụng..."
-  },
-  "appsView.noAppsDescription": {
-    "defaultMessage": "Mở một cuộc trò chuyện và yêu cầu sauron tạo ứng dụng bạn muốn. Nó có thể tạo cho bạn và ứng dụng sẽ xuất hiện ở đây. Hoặc nếu ai đó đã chia sẻ một ứng dụng, bạn có thể nhập nó bằng nút phía trên."
-  },
-  "appsView.noAppsTitle": {
-    "defaultMessage": "Không có ứng dụng nào"
-  },
-  "appsView.retiredChatApp": {
-    "defaultMessage": "Chat app retired"
-  },
-  "appsView.retiredChatAppDetail": {
-    "defaultMessage": "We removed this feature because MCP sampling is no longer supported."
-  },
-  "appsView.retry": {
-    "defaultMessage": "Thử lại"
-  },
-  "appsView.title": {
-    "defaultMessage": "Ứng dụng"
-  },
-  "authSettings.activeProviderWarning": {
-    "defaultMessage": "Đây là nhà cung cấp đang hoạt động. Các yêu cầu mới có thể thất bại cho đến khi bạn cấu hình thông tin xác thực khác."
-  },
-  "authSettings.cancel": {
-    "defaultMessage": "Hủy"
-  },
   "authSettings.cancelSignIn": {
     "defaultMessage": "Hủy"
   },
-  "authSettings.checkingStatus": {
-    "defaultMessage": "Đang kiểm tra..."
-  },
-  "authSettings.connectedAccounts": {
-    "defaultMessage": "Tài khoản đã kết nối"
-  },
-  "authSettings.connectedAccountsDescription": {
-    "defaultMessage": "Đăng nhập để cho phép Sauron làm việc với các tài khoản bên ngoài của bạn."
-  },
-  "authSettings.delete": {
-    "defaultMessage": "Xóa"
-  },
-  "authSettings.deleteCredential": {
-    "defaultMessage": "Xóa thông tin xác thực"
-  },
-  "authSettings.deleteMessage": {
-    "defaultMessage": "Xóa thông tin xác thực {name} cho {provider}?"
-  },
-  "authSettings.deleteTitle": {
-    "defaultMessage": "Xóa thông tin xác thực"
-  },
-  "authSettings.deleted": {
-    "defaultMessage": "Đã xóa thông tin xác thực"
-  },
-  "authSettings.description": {
-    "defaultMessage": "Quản lý thông tin xác thực nhà cung cấp được sauron lưu trữ cục bộ."
-  },
-  "authSettings.empty": {
-    "defaultMessage": "Không tìm thấy thông tin xác thực nhà cung cấp nào được lưu trữ cục bộ."
-  },
-  "authSettings.expiresAt": {
-    "defaultMessage": "Hết hạn {date}"
-  },
-  "authSettings.failedToConfigure": {
-    "defaultMessage": "Không thể cấu hình thông tin xác thực: {error}"
-  },
-  "authSettings.failedToDelete": {
-    "defaultMessage": "Không thể xóa thông tin xác thực: {error}"
-  },
-  "authSettings.failedToLoad": {
-    "defaultMessage": "Không thể tải thông tin xác thực nhà cung cấp"
-  },
-  "authSettings.githubAccountDescription": {
-    "defaultMessage": "Tìm kiếm kho mã, làm việc với mã, quản lý issues và mở pull request."
-  },
-  "authSettings.githubAccountName": {
-    "defaultMessage": "GitHub"
-  },
-  "authSettings.githubConnected": {
-    "defaultMessage": "Đã kết nối"
-  },
   "authSettings.githubEnterCode": {
     "defaultMessage": "Nhập mã này tại {url} để ủy quyền cho Sauron:"
-  },
-  "authSettings.githubNotConnected": {
-    "defaultMessage": "Chưa kết nối"
-  },
-  "authSettings.githubOpenDevicePage": {
-    "defaultMessage": "Mở trang thiết bị GitHub"
   },
   "authSettings.githubSignInFailed": {
     "defaultMessage": "GitHub sign-in failed: {error}"
   },
   "authSettings.githubSignInUnavailable": {
     "defaultMessage": "Đăng nhập GitHub chỉ có sẵn trong ứng dụng máy tính để bàn."
-  },
-  "authSettings.githubSignOutMessage": {
-    "defaultMessage": "Sauron sẽ không thể làm việc với các kho GitHub của bạn cho đến khi bạn đăng nhập lại."
-  },
-  "authSettings.githubSignOutTitle": {
-    "defaultMessage": "Sign out of GitHub"
   },
   "authSettings.githubSignedIn": {
     "defaultMessage": "Đã đăng nhập GitHub. Tiện ích mở rộng GitHub đã sẵn sàng sử dụng."
@@ -269,32 +134,8 @@
   "authSettings.githubWaitingForAuthorization": {
     "defaultMessage": "Đang chờ ủy quyền GitHub..."
   },
-  "authSettings.loading": {
-    "defaultMessage": "Đang tải thông tin xác thực..."
-  },
-  "authSettings.reauthorize": {
-    "defaultMessage": "Cấp quyền lại"
-  },
-  "authSettings.signIn": {
-    "defaultMessage": "Đăng nhập"
-  },
   "authSettings.signInWithGitHub": {
     "defaultMessage": "Đăng nhập bằng GitHub"
-  },
-  "authSettings.signOutFromGitHub": {
-    "defaultMessage": "Sign out"
-  },
-  "authSettings.signedIn": {
-    "defaultMessage": "Đã cấu hình thông tin xác thực"
-  },
-  "authSettings.storageProviderCache": {
-    "defaultMessage": "Bộ nhớ đệm nhà cung cấp"
-  },
-  "authSettings.storageSecretStore": {
-    "defaultMessage": "Kho lưu trữ bí mật"
-  },
-  "authSettings.title": {
-    "defaultMessage": "Thông tin xác thực nhà cung cấp"
   },
   "backButton.back": {
     "defaultMessage": "Quay lại"
@@ -433,9 +274,6 @@
   },
   "chatInput.failedToReadImage": {
     "defaultMessage": "Không thể đọc tệp hình ảnh"
-  },
-  "chatInput.navigationShortcut": {
-    "defaultMessage": "{prefix}↑/{prefix}↓ để điều hướng tin nhắn"
   },
   "chatInput.processingDroppedFiles": {
     "defaultMessage": "Đang xử lý các tệp đã thả..."
@@ -1196,6 +1034,9 @@
   "dirSwitcher.gitWorktrees": {
     "defaultMessage": "Git worktree"
   },
+  "dirSwitcher.noFolder": {
+    "defaultMessage": "No folder"
+  },
   "dirSwitcher.noWorktreesFound": {
     "defaultMessage": "Không tìm thấy worktree nào"
   },
@@ -1559,17 +1400,14 @@
   "groupedExtensionLoadingToast.successfullyLoaded": {
     "defaultMessage": "{count,plural,one{Đã tải thành công # tiện ích mở rộng} other{Đã tải thành công # tiện ích mở rộng}}"
   },
-  "harnessesSection.title": {
-    "defaultMessage": "Harness agen"
+  "harnessesSection.configure": {
+    "defaultMessage": "Cấu hình"
+  },
+  "harnessesSection.configured": {
+    "defaultMessage": "Đã bật"
   },
   "harnessesSection.description": {
     "defaultMessage": "Sử dụng agen từ harness khác như Cursor, Claude Code, Codex hoặc OpenCode hoặc Copilot. Bật một harness tại đây, rồi chọn nó trong Models để trò chuyện."
-  },
-  "harnessesSection.loading": {
-    "defaultMessage": "Đang tải harness..."
-  },
-  "harnessesSection.loadFailed": {
-    "defaultMessage": "Không thể tải harness"
   },
   "harnessesSection.empty": {
     "defaultMessage": "Không có harness agen bên ngoài nào."
@@ -1577,17 +1415,20 @@
   "harnessesSection.installed": {
     "defaultMessage": "Đã cài đặt"
   },
-  "harnessesSection.notInstalled": {
-    "defaultMessage": "Chưa cài đặt"
+  "harnessesSection.loadFailed": {
+    "defaultMessage": "Không thể tải harness"
   },
-  "harnessesSection.configure": {
-    "defaultMessage": "Cấu hình"
-  },
-  "harnessesSection.configured": {
-    "defaultMessage": "Đã bật"
+  "harnessesSection.loading": {
+    "defaultMessage": "Đang tải harness..."
   },
   "harnessesSection.notConfigured": {
     "defaultMessage": "Chưa bật"
+  },
+  "harnessesSection.notInstalled": {
+    "defaultMessage": "Chưa cài đặt"
+  },
+  "harnessesSection.title": {
+    "defaultMessage": "Harness agen"
   },
   "headersSection.add": {
     "defaultMessage": "Thêm"
@@ -1666,21 +1507,6 @@
   },
   "huggingFaceModelSearch.tooLarge": {
     "defaultMessage": "Có thể không vừa với bộ nhớ (mô hình {size}, khả dụng {available})"
-  },
-  "huggingFaceSignInPrompt.failedToConfigure": {
-    "defaultMessage": "Không thể đăng nhập vào Hugging Face: {error}"
-  },
-  "huggingFaceSignInPrompt.signIn": {
-    "defaultMessage": "Đăng nhập"
-  },
-  "huggingFaceSignInPrompt.signedIn": {
-    "defaultMessage": "Đã đăng nhập Hugging Face"
-  },
-  "huggingFaceSignInPrompt.signingIn": {
-    "defaultMessage": "Đang đăng nhập..."
-  },
-  "huggingFaceSignInPrompt.title": {
-    "defaultMessage": "Hugging Face"
   },
   "imagePreview.altText": {
     "defaultMessage": "hình ảnh sauron"
@@ -2054,9 +1880,6 @@
   "localInferenceSettings.evictFromMemory": {
     "defaultMessage": "Evict from memory"
   },
-  "localInferenceSettings.huggingFaceSignInNote": {
-    "defaultMessage": "Đăng nhập để tăng giới hạn tốc độ khi tìm kiếm và tải xuống mô hình, và để truy cập các kho lưu trữ Hugging Face riêng tư hoặc bị giới hạn."
-  },
   "localInferenceSettings.loadedInMemory": {
     "defaultMessage": "Loaded in memory"
   },
@@ -2378,30 +2201,6 @@
   "microphoneSelector.test": {
     "defaultMessage": "Kiểm tra"
   },
-  "modeSelectionItem.autonomousDescription": {
-    "defaultMessage": "Khả năng chỉnh sửa tệp đầy đủ, chỉnh sửa, tạo và xóa tệp một cách tự do."
-  },
-  "modeSelectionItem.autonomousLabel": {
-    "defaultMessage": "Tự động"
-  },
-  "modeSelectionItem.chatOnlyDescription": {
-    "defaultMessage": "Tương tác với nhà cung cấp đã chọn mà không sử dụng công cụ hoặc tiện ích mở rộng."
-  },
-  "modeSelectionItem.chatOnlyLabel": {
-    "defaultMessage": "Chỉ trò chuyện"
-  },
-  "modeSelectionItem.manualDescription": {
-    "defaultMessage": "Tất cả công cụ, tiện ích mở rộng và chỉnh sửa tệp sẽ yêu cầu sự phê duyệt của con người"
-  },
-  "modeSelectionItem.manualLabel": {
-    "defaultMessage": "Thủ công"
-  },
-  "modeSelectionItem.smartDescription": {
-    "defaultMessage": "Tự động xác định một cách thông minh những hành động nào cần phê duyệt dựa trên mức độ rủi ro"
-  },
-  "modeSelectionItem.smartLabel": {
-    "defaultMessage": "Thông minh"
-  },
   "modelAndProviderContext.modelChangeFailed": {
     "defaultMessage": "{provider}/{model} thất bại"
   },
@@ -2431,9 +2230,6 @@
   },
   "modelBadges.reasoning": {
     "defaultMessage": "Suy luận"
-  },
-  "modelSettingsButtons.switchModels": {
-    "defaultMessage": "Chuyển đổi mô hình"
   },
   "modelSettingsPanel.batchSize": {
     "defaultMessage": "Kích thước lô"
@@ -2615,20 +2411,11 @@
   "modelsBottomBar.selectModel": {
     "defaultMessage": "Chọn mô hình"
   },
-  "navigation.itemApps": {
-    "defaultMessage": "Ứng dụng"
-  },
-  "navigation.itemExtensions": {
-    "defaultMessage": "Tiện ích mở rộng"
-  },
   "navigation.itemHome": {
     "defaultMessage": "Trò chuyện mới"
   },
   "navigation.itemHub": {
     "defaultMessage": "Hub"
-  },
-  "navigation.itemRecipes": {
-    "defaultMessage": "Công thức"
   },
   "navigation.itemScheduler": {
     "defaultMessage": "Bộ lập lịch"
@@ -2639,20 +2426,32 @@
   "navigation.itemSettings": {
     "defaultMessage": "Cài đặt"
   },
-  "navigation.itemSkills": {
-    "defaultMessage": "Kỹ năng"
+  "navigationFooter.about": {
+    "defaultMessage": "About Sauron"
   },
-  "navigationFooter.cpuUsage": {
-    "defaultMessage": "CPU {percent}%"
+  "navigationFooter.aboutVersion": {
+    "defaultMessage": "Sauron {version}"
   },
-  "navigationFooter.memoryUsage": {
-    "defaultMessage": "Bộ nhớ {percent}%"
+  "navigationFooter.accountMenu": {
+    "defaultMessage": "Account"
+  },
+  "navigationFooter.close": {
+    "defaultMessage": "Close"
+  },
+  "navigationFooter.keyboardShortcuts": {
+    "defaultMessage": "Keyboard shortcuts"
+  },
+  "navigationFooter.quit": {
+    "defaultMessage": "Quit Sauron"
   },
   "navigationFooter.sendFeedback": {
     "defaultMessage": "Gửi phản hồi"
   },
   "navigationFooter.you": {
     "defaultMessage": "Bạn"
+  },
+  "navigationPanel.chats": {
+    "defaultMessage": "Chats"
   },
   "navigationPanel.goBack": {
     "defaultMessage": "Quay lại"
@@ -2681,6 +2480,9 @@
   "navigationPanel.metaUpdated": {
     "defaultMessage": "Đã cập nhật"
   },
+  "navigationPanel.newChat": {
+    "defaultMessage": "New chat"
+  },
   "navigationPanel.newProject": {
     "defaultMessage": "Dự án mới"
   },
@@ -2701,6 +2503,9 @@
   },
   "navigationPanel.statusUnread": {
     "defaultMessage": "Hoạt động chưa đọc"
+  },
+  "navigationPanel.toast.newChatFailed": {
+    "defaultMessage": "Could not start chat: {error}"
   },
   "navigationPanel.untitledSession": {
     "defaultMessage": "Phiên chưa đặt tên"
@@ -2920,18 +2725,6 @@
   },
   "pluginsSettings.title": {
     "defaultMessage": "Plugins"
-  },
-  "preferredModels.empty": {
-    "defaultMessage": "Đánh dấu sao cho các mô hình bên dưới để dùng nhanh ở đây và trong chat."
-  },
-  "preferredModels.remove": {
-    "defaultMessage": "Bỏ {model} khỏi mô hình yêu thích"
-  },
-  "preferredModels.removeFailed": {
-    "defaultMessage": "Không thể cập nhật mô hình yêu thích"
-  },
-  "preferredModels.title": {
-    "defaultMessage": "Mô hình yêu thích"
   },
   "privacyInfoModal.collectErrors": {
     "defaultMessage": "Loại lỗi (ví dụ: \"rate_limit\", \"auth\" - không có chi tiết)"
@@ -3181,9 +2974,6 @@
   },
   "providerConfigurationModal.goBack": {
     "defaultMessage": "Quay lại"
-  },
-  "providerConfigurationModal.huggingFaceOAuthDescription": {
-    "defaultMessage": "Đăng nhập để sử dụng Hugging Face Inference Providers mà không cần nhập thủ công token API."
   },
   "providerConfigurationModal.oauthLoginFailed": {
     "defaultMessage": "Đăng nhập OAuth thất bại: {error}"
@@ -4661,35 +4451,17 @@
   "settings.version.title": {
     "defaultMessage": "Phiên bản"
   },
-  "settingsView.noResults": {
-    "defaultMessage": "Không có kết quả"
-  },
-  "settingsView.searchPlaceholder": {
-    "defaultMessage": "Tìm trong cài đặt"
-  },
   "settingsView.tabApp": {
     "defaultMessage": "Ứng dụng"
   },
   "settingsView.tabAppearance": {
     "defaultMessage": "Appearance"
   },
-  "settingsView.tabChat": {
-    "defaultMessage": "Trò chuyện"
-  },
   "settingsView.tabExternalBackend": {
     "defaultMessage": "Backend bên ngoài"
   },
-  "settingsView.tabHarnesses": {
-    "defaultMessage": "Harness"
-  },
-  "settingsView.tabKeyboard": {
-    "defaultMessage": "Bàn phím"
-  },
   "settingsView.tabMcp": {
     "defaultMessage": "MCP"
-  },
-  "settingsView.tabModels": {
-    "defaultMessage": "Mô hình"
   },
   "settingsView.tabPlugins": {
     "defaultMessage": "Plugins"
@@ -4756,15 +4528,6 @@
   },
   "spellcheckToggle.title": {
     "defaultMessage": "Bật kiểm tra chính tả"
-  },
-  "standaloneAppView.failedToLoad": {
-    "defaultMessage": "Không thể tải ứng dụng"
-  },
-  "standaloneAppView.initializing": {
-    "defaultMessage": "Đang khởi tạo ứng dụng..."
-  },
-  "standaloneAppView.missingParams": {
-    "defaultMessage": "Thiếu tham số bắt buộc"
   },
   "stringUtils.configuredProvider": {
     "defaultMessage": "Nhà cung cấp {name} đã được định cấu hình"
@@ -5159,60 +4922,6 @@
   "updateSection.versionIsAvailable": {
     "defaultMessage": "Đã có phiên bản {version}"
   },
-  "userMessage.cancel": {
-    "defaultMessage": "Hủy"
-  },
-  "userMessage.cancelAriaLabel": {
-    "defaultMessage": "Hủy chỉnh sửa"
-  },
-  "userMessage.editAriaLabel": {
-    "defaultMessage": "Chỉnh sửa nội dung tin nhắn"
-  },
-  "userMessage.editButton": {
-    "defaultMessage": "Chỉnh sửa"
-  },
-  "userMessage.editImagesHeading": {
-    "defaultMessage": "Hình ảnh đính kèm:"
-  },
-  "userMessage.editInPlace": {
-    "defaultMessage": "Chỉnh sửa tại chỗ"
-  },
-  "userMessage.editInPlaceAriaLabel": {
-    "defaultMessage": "Chỉnh sửa tin nhắn tại chỗ"
-  },
-  "userMessage.editInPlaceDescription": {
-    "defaultMessage": "<b>Chỉnh sửa tại chỗ</b> cập nhật phiên làm việc này • <b>Tách nhánh phiên làm việc</b> tạo một phiên làm việc mới"
-  },
-  "userMessage.editInPlaceTitle": {
-    "defaultMessage": "Cập nhật tin nhắn trong phiên làm việc này"
-  },
-  "userMessage.editMessageAriaLabel": {
-    "defaultMessage": "Chỉnh sửa tin nhắn: {preview}"
-  },
-  "userMessage.editMessageTitle": {
-    "defaultMessage": "Chỉnh sửa tin nhắn"
-  },
-  "userMessage.editPlaceholder": {
-    "defaultMessage": "Chỉnh sửa tin nhắn của bạn..."
-  },
-  "userMessage.emptyError": {
-    "defaultMessage": "Tin nhắn không được để trống"
-  },
-  "userMessage.forkSession": {
-    "defaultMessage": "Tách nhánh phiên làm việc"
-  },
-  "userMessage.forkSessionAriaLabel": {
-    "defaultMessage": "Tách nhánh phiên làm việc với tin nhắn đã chỉnh sửa"
-  },
-  "userMessage.forkSessionTitle": {
-    "defaultMessage": "Tạo một phiên làm việc mới với tin nhắn đã chỉnh sửa"
-  },
-  "userMessage.removeImageFromEdit": {
-    "defaultMessage": "Xóa hình ảnh khỏi tin nhắn"
-  },
-  "settingsView.tabStats": {
-    "defaultMessage": "Stats"
-  },
   "usageStats.byModel": {
     "defaultMessage": "Per model"
   },
@@ -5284,8 +4993,58 @@
   },
   "usageStats.writeTokens": {
     "defaultMessage": "Write tokens"
-  }
-,
+  },
+  "userMessage.cancel": {
+    "defaultMessage": "Hủy"
+  },
+  "userMessage.cancelAriaLabel": {
+    "defaultMessage": "Hủy chỉnh sửa"
+  },
+  "userMessage.editAriaLabel": {
+    "defaultMessage": "Chỉnh sửa nội dung tin nhắn"
+  },
+  "userMessage.editButton": {
+    "defaultMessage": "Chỉnh sửa"
+  },
+  "userMessage.editImagesHeading": {
+    "defaultMessage": "Hình ảnh đính kèm:"
+  },
+  "userMessage.editInPlace": {
+    "defaultMessage": "Chỉnh sửa tại chỗ"
+  },
+  "userMessage.editInPlaceAriaLabel": {
+    "defaultMessage": "Chỉnh sửa tin nhắn tại chỗ"
+  },
+  "userMessage.editInPlaceDescription": {
+    "defaultMessage": "<b>Chỉnh sửa tại chỗ</b> cập nhật phiên làm việc này • <b>Tách nhánh phiên làm việc</b> tạo một phiên làm việc mới"
+  },
+  "userMessage.editInPlaceTitle": {
+    "defaultMessage": "Cập nhật tin nhắn trong phiên làm việc này"
+  },
+  "userMessage.editMessageAriaLabel": {
+    "defaultMessage": "Chỉnh sửa tin nhắn: {preview}"
+  },
+  "userMessage.editMessageTitle": {
+    "defaultMessage": "Chỉnh sửa tin nhắn"
+  },
+  "userMessage.editPlaceholder": {
+    "defaultMessage": "Chỉnh sửa tin nhắn của bạn..."
+  },
+  "userMessage.emptyError": {
+    "defaultMessage": "Tin nhắn không được để trống"
+  },
+  "userMessage.forkSession": {
+    "defaultMessage": "Tách nhánh phiên làm việc"
+  },
+  "userMessage.forkSessionAriaLabel": {
+    "defaultMessage": "Tách nhánh phiên làm việc với tin nhắn đã chỉnh sửa"
+  },
+  "userMessage.forkSessionTitle": {
+    "defaultMessage": "Tạo một phiên làm việc mới với tin nhắn đã chỉnh sửa"
+  },
+  "userMessage.removeImageFromEdit": {
+    "defaultMessage": "Xóa hình ảnh khỏi tin nhắn"
+  },
   "worktreeSettings.description": {
     "defaultMessage": "Kiểm soát những thư mục mà bộ chọn thư mục làm việc cung cấp"
   },

@@ -17,7 +17,6 @@ import {
 import { HuggingFaceModelSearch } from './HuggingFaceModelSearch';
 import { ModelSettingsPanel } from './ModelSettingsPanel';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '../../ui/dialog';
-import HuggingFaceSignInPrompt from '../auth/HuggingFaceSignInPrompt';
 import { acpSaveDefaults } from '../../../acp/providers';
 
 const i18n = defineMessages({
@@ -101,11 +100,6 @@ const i18n = defineMessages({
   visionEncoderNotDownloaded: {
     id: 'localInferenceSettings.visionEncoderNotDownloaded',
     defaultMessage: 'Vision encoder not downloaded',
-  },
-  huggingFaceSignInNote: {
-    id: 'localInferenceSettings.huggingFaceSignInNote',
-    defaultMessage:
-      'Sign in to increase rate limits when searching and downloading models, and to access private or gated Hugging Face repositories.',
   },
 });
 
@@ -375,8 +369,6 @@ export const LocalInferenceSettings = () => {
           {intl.formatMessage(i18n.description)}
         </p>
       </div>
-
-      <HuggingFaceSignInPrompt description={intl.formatMessage(i18n.huggingFaceSignInNote)} />
 
       {/* Active Downloads */}
       {downloads.size > 0 && (

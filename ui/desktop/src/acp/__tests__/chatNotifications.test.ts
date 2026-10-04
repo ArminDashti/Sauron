@@ -3,7 +3,6 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { AppEvents } from '../../constants/events';
 import { ChatState } from '../../types/chatState';
 import type { Session } from '../../types/session';
-import { maybeHandlePlatformEvent } from '../../utils/platform_events';
 import {
   handleAcpSauronSessionNotification,
   handleAcpSessionNotification,
@@ -22,10 +21,6 @@ vi.mock('../chatSessionStore', () => ({
   },
 }));
 
-vi.mock('../../utils/platform_events', () => ({
-  maybeHandlePlatformEvent: vi.fn(),
-}));
-
 const SESSION_ID = 'session-1';
 
 function sessionInfoUpdate(title: string): SessionNotification {
@@ -34,27 +29,6 @@ function sessionInfoUpdate(title: string): SessionNotification {
     update: {
       sessionUpdate: 'session_info_update',
       title,
-    },
-  };
-}
-
-function platformEventToolUpdate(status: 'in_progress' | 'completed'): SessionNotification {
-  return {
-    sessionId: SESSION_ID,
-    update: {
-      sessionUpdate: 'tool_call_update',
-      toolCallId: 'tool-1',
-      status,
-      _meta: {
-        toolNotification: {
-          type: 'platform_event',
-          params: {
-            extension: 'apps',
-            event_type: 'app_created',
-            app_name: 'platform-event-repro',
-          },
-        },
-      },
     },
   };
 }
@@ -165,28 +139,6 @@ describe('handleAcpSessionNotification', () => {
         detail: { sessionId: SESSION_ID, newName: 'Generated name' },
       })
     );
-  });
-
-  it('forwards live ACP platform events to the desktop platform event handler', async () => {
-    await handleAcpSessionNotification(platformEventToolUpdate('in_progress'));
-
-    expect(maybeHandlePlatformEvent).toHaveBeenCalledWith(
-      {
-        method: 'platform_event',
-        params: {
-          extension: 'apps',
-          event_type: 'app_created',
-          app_name: 'platform-event-repro',
-        },
-      },
-      SESSION_ID
-    );
-  });
-
-  it('does not forward completed platform event metadata as a live desktop event', async () => {
-    await handleAcpSessionNotification(platformEventToolUpdate('completed'));
-
-    expect(maybeHandlePlatformEvent).not.toHaveBeenCalled();
   });
 
   it('routes Live voice interaction endings outside the conversation store', async () => {

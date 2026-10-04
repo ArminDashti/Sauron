@@ -56,15 +56,6 @@
   "allProviderModels.emptyHint": {
     "defaultMessage": "Configure a provider to see the models it offers."
   },
-  "allProviderModels.filterAll": {
-    "defaultMessage": "전체"
-  },
-  "allProviderModels.filterFree": {
-    "defaultMessage": "무료"
-  },
-  "allProviderModels.freeCount": {
-    "defaultMessage": "{count}개 무료"
-  },
   "allProviderModels.loadFailed": {
     "defaultMessage": "Could not load provider models"
   },
@@ -73,12 +64,6 @@
   },
   "allProviderModels.modelCount": {
     "defaultMessage": "{count,plural,one{# model} other{# models}}"
-  },
-  "allProviderModels.noFreeModels": {
-    "defaultMessage": "제공업체에 무료 모델이 없습니다."
-  },
-  "allProviderModels.noFreeModelsHint": {
-    "defaultMessage": "제공업체가 로컬에서 실행하거나(Ollama, 로컬 모델) OpenRouter의 :free 같은 무료 변형을 제공하는 경우 모델이 무료로 표시됩니다."
   },
   "allProviderModels.noModels": {
     "defaultMessage": "No models reported by this provider."
@@ -107,14 +92,8 @@
   "allProviderModels.searchPlaceholder": {
     "defaultMessage": "모델 검색..."
   },
-  "allProviderModels.showAll": {
-    "defaultMessage": "모든 모델 보기"
-  },
   "allProviderModels.showingCount": {
     "defaultMessage": "{total, number}개 중 {shown, number}개 모델 표시"
-  },
-  "allProviderModels.title": {
-    "defaultMessage": "Models from your providers"
   },
   "announcementModal.gotIt": {
     "defaultMessage": "알았어요!"
@@ -131,131 +110,17 @@
   "appLayout.showChanges": {
     "defaultMessage": "변경 사항 패널 표시"
   },
-  "appsView.customApp": {
-    "defaultMessage": "사용자 지정 앱"
-  },
-  "appsView.deleteApp": {
-    "defaultMessage": "앱 삭제"
-  },
-  "appsView.deleteConfirm": {
-    "defaultMessage": "\"{name}\"을(를) 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다."
-  },
-  "appsView.description": {
-    "defaultMessage": "MCP 서버의 애플리케이션과 sauron 자체에서 구축한 앱입니다. 채팅 인터페이스를 통해 새 앱을 생성하도록 요청할 수 있으며 여기에 표시됩니다."
-  },
-  "appsView.errorLoading": {
-    "defaultMessage": "앱 로딩 오류: {error}"
-  },
-  "appsView.errorPrefix": {
-    "defaultMessage": "오류: {error}"
-  },
-  "appsView.importApp": {
-    "defaultMessage": "앱 가져오기"
-  },
-  "appsView.launch": {
-    "defaultMessage": "실행"
-  },
-  "appsView.loading": {
-    "defaultMessage": "앱 로드 중..."
-  },
-  "appsView.noAppsDescription": {
-    "defaultMessage": "채팅을 열고 원하는 앱을 sauron에 요청하세요. sauron가 앱을 만들어 주면 여기에 표시됩니다. 또는 누군가가 앱을 공유한 경우 위 버튼을 사용하여 가져올 수 있습니다."
-  },
-  "appsView.noAppsTitle": {
-    "defaultMessage": "사용 가능한 앱이 없습니다."
-  },
-  "appsView.retiredChatApp": {
-    "defaultMessage": "채팅 앱 중단됨"
-  },
-  "appsView.retiredChatAppDetail": {
-    "defaultMessage": "MCP 샘플링이 더 이상 지원되지 않아 이 기능을 제거했습니다."
-  },
-  "appsView.retry": {
-    "defaultMessage": "다시 시도"
-  },
-  "appsView.title": {
-    "defaultMessage": "앱"
-  },
-  "authSettings.activeProviderWarning": {
-    "defaultMessage": "현재 사용 중인 제공업체입니다. 다른 자격 증명을 설정할 때까지 새 요청이 실패할 수 있습니다."
-  },
-  "authSettings.cancel": {
-    "defaultMessage": "취소"
-  },
   "authSettings.cancelSignIn": {
     "defaultMessage": "취소"
   },
-  "authSettings.checkingStatus": {
-    "defaultMessage": "확인 중..."
-  },
-  "authSettings.connectedAccounts": {
-    "defaultMessage": "연결된 계정"
-  },
-  "authSettings.connectedAccountsDescription": {
-    "defaultMessage": "Sauron이 외부 계정으로 작업할 수 있도록 로그인하세요."
-  },
-  "authSettings.delete": {
-    "defaultMessage": "삭제"
-  },
-  "authSettings.deleteCredential": {
-    "defaultMessage": "자격 증명 삭제"
-  },
-  "authSettings.deleteMessage": {
-    "defaultMessage": "{provider}의 {name} 자격 증명을 삭제하시겠습니까?"
-  },
-  "authSettings.deleteTitle": {
-    "defaultMessage": "자격 증명 삭제"
-  },
-  "authSettings.deleted": {
-    "defaultMessage": "자격 증명이 삭제되었습니다."
-  },
-  "authSettings.description": {
-    "defaultMessage": "sauron에 로컬로 저장된 제공업체 자격 증명을 관리합니다."
-  },
-  "authSettings.empty": {
-    "defaultMessage": "로컬에 저장된 제공업체 자격 증명을 찾을 수 없습니다."
-  },
-  "authSettings.expiresAt": {
-    "defaultMessage": "{date} 만료"
-  },
-  "authSettings.failedToConfigure": {
-    "defaultMessage": "자격 증명 구성 실패: {error}"
-  },
-  "authSettings.failedToDelete": {
-    "defaultMessage": "자격 증명 삭제 실패: {error}"
-  },
-  "authSettings.failedToLoad": {
-    "defaultMessage": "제공업체 자격 증명을 로드하지 못했습니다."
-  },
-  "authSettings.githubAccountDescription": {
-    "defaultMessage": "리포지토리를 검색하고, 코드로 작업하고, 이슈를 관리하고, 풀 리퀘스트를 엽니다."
-  },
-  "authSettings.githubAccountName": {
-    "defaultMessage": "GitHub"
-  },
-  "authSettings.githubConnected": {
-    "defaultMessage": "연결됨"
-  },
   "authSettings.githubEnterCode": {
     "defaultMessage": "Sauron을 승인하려면 {url}에서 이 코드를 입력하세요:"
-  },
-  "authSettings.githubNotConnected": {
-    "defaultMessage": "연결되지 않음"
-  },
-  "authSettings.githubOpenDevicePage": {
-    "defaultMessage": "GitHub 기기 페이지 열기"
   },
   "authSettings.githubSignInFailed": {
     "defaultMessage": "GitHub sign-in failed: {error}"
   },
   "authSettings.githubSignInUnavailable": {
     "defaultMessage": "GitHub 로그인은 데스크톱 앱에서만 사용할 수 있습니다."
-  },
-  "authSettings.githubSignOutMessage": {
-    "defaultMessage": "다시 로그인할 때까지 Sauron은 GitHub 리포지토리로 작업할 수 없습니다."
-  },
-  "authSettings.githubSignOutTitle": {
-    "defaultMessage": "Sign out of GitHub"
   },
   "authSettings.githubSignedIn": {
     "defaultMessage": "GitHub에 로그인했습니다. GitHub 확장을 사용할 준비가 되었습니다."
@@ -269,32 +134,8 @@
   "authSettings.githubWaitingForAuthorization": {
     "defaultMessage": "GitHub 승인을 기다리는 중..."
   },
-  "authSettings.loading": {
-    "defaultMessage": "자격 증명을 불러오는 중..."
-  },
-  "authSettings.reauthorize": {
-    "defaultMessage": "재승인"
-  },
-  "authSettings.signIn": {
-    "defaultMessage": "로그인"
-  },
   "authSettings.signInWithGitHub": {
     "defaultMessage": "GitHub로 로그인"
-  },
-  "authSettings.signOutFromGitHub": {
-    "defaultMessage": "Sign out"
-  },
-  "authSettings.signedIn": {
-    "defaultMessage": "자격 증명이 설정되었습니다."
-  },
-  "authSettings.storageProviderCache": {
-    "defaultMessage": "제공업체 캐시"
-  },
-  "authSettings.storageSecretStore": {
-    "defaultMessage": "비밀 저장소"
-  },
-  "authSettings.title": {
-    "defaultMessage": "제공업체 자격 증명"
   },
   "backButton.back": {
     "defaultMessage": "뒤로"
@@ -433,9 +274,6 @@
   },
   "chatInput.failedToReadImage": {
     "defaultMessage": "이미지 파일을 읽지 못했습니다."
-  },
-  "chatInput.navigationShortcut": {
-    "defaultMessage": "{prefix}↑/{prefix}↓ 메시지 탐색"
   },
   "chatInput.processingDroppedFiles": {
     "defaultMessage": "끌어다 놓은 파일을 처리하는 중..."
@@ -1196,6 +1034,9 @@
   "dirSwitcher.gitWorktrees": {
     "defaultMessage": "Git 워크트리"
   },
+  "dirSwitcher.noFolder": {
+    "defaultMessage": "No folder"
+  },
   "dirSwitcher.noWorktreesFound": {
     "defaultMessage": "작업 트리를 찾을 수 없습니다."
   },
@@ -1559,17 +1400,14 @@
   "groupedExtensionLoadingToast.successfullyLoaded": {
     "defaultMessage": "{count,plural,one{#개의 익스텐션을 성공적으로 로드했습니다} other{#개의 익스텐션을 성공적으로 로드했습니다}}"
   },
-  "harnessesSection.title": {
-    "defaultMessage": "에이전트 하네스"
+  "harnessesSection.configure": {
+    "defaultMessage": "구성"
+  },
+  "harnessesSection.configured": {
+    "defaultMessage": "활성화됨"
   },
   "harnessesSection.description": {
     "defaultMessage": "Cursor, Claude Code, Codex, OpenCode, Copilot 등 다른 하네스의 에이전트를 사용합니다. 여기서 활성화한 다음 Models에서 선택하여 채팅하세요."
-  },
-  "harnessesSection.loading": {
-    "defaultMessage": "하네스를 불러오는 중..."
-  },
-  "harnessesSection.loadFailed": {
-    "defaultMessage": "하네스를 불러오지 못했습니다"
   },
   "harnessesSection.empty": {
     "defaultMessage": "외부 에이전트 하네스가 없습니다."
@@ -1577,17 +1415,20 @@
   "harnessesSection.installed": {
     "defaultMessage": "설치됨"
   },
-  "harnessesSection.notInstalled": {
-    "defaultMessage": "설치되지 않음"
+  "harnessesSection.loadFailed": {
+    "defaultMessage": "하네스를 불러오지 못했습니다"
   },
-  "harnessesSection.configure": {
-    "defaultMessage": "구성"
-  },
-  "harnessesSection.configured": {
-    "defaultMessage": "활성화됨"
+  "harnessesSection.loading": {
+    "defaultMessage": "하네스를 불러오는 중..."
   },
   "harnessesSection.notConfigured": {
     "defaultMessage": "비활성화됨"
+  },
+  "harnessesSection.notInstalled": {
+    "defaultMessage": "설치되지 않음"
+  },
+  "harnessesSection.title": {
+    "defaultMessage": "에이전트 하네스"
   },
   "headersSection.add": {
     "defaultMessage": "추가"
@@ -1666,21 +1507,6 @@
   },
   "huggingFaceModelSearch.tooLarge": {
     "defaultMessage": "메모리에 맞지 않을 수 있습니다. ({size} 모델, {available} 사용 가능)"
-  },
-  "huggingFaceSignInPrompt.failedToConfigure": {
-    "defaultMessage": "Hugging Face에 로그인하지 못했습니다: {error}"
-  },
-  "huggingFaceSignInPrompt.signIn": {
-    "defaultMessage": "로그인"
-  },
-  "huggingFaceSignInPrompt.signedIn": {
-    "defaultMessage": "Hugging Face 로그인됨"
-  },
-  "huggingFaceSignInPrompt.signingIn": {
-    "defaultMessage": "로그인 중..."
-  },
-  "huggingFaceSignInPrompt.title": {
-    "defaultMessage": "Hugging Face"
   },
   "imagePreview.altText": {
     "defaultMessage": "sauron 이미지"
@@ -2054,9 +1880,6 @@
   "localInferenceSettings.evictFromMemory": {
     "defaultMessage": "메모리에서 제거"
   },
-  "localInferenceSettings.huggingFaceSignInNote": {
-    "defaultMessage": "모델 검색 및 다운로드 시 속도 제한 한도를 높이고 비공개 또는 접근 제한된 Hugging Face 리포지토리에 액세스하려면 로그인하세요."
-  },
   "localInferenceSettings.loadedInMemory": {
     "defaultMessage": "메모리에 로드됨"
   },
@@ -2378,30 +2201,6 @@
   "microphoneSelector.test": {
     "defaultMessage": "테스트"
   },
-  "modeSelectionItem.autonomousDescription": {
-    "defaultMessage": "파일을 자유롭게 편집, 생성, 삭제할 수 있습니다."
-  },
-  "modeSelectionItem.autonomousLabel": {
-    "defaultMessage": "자율"
-  },
-  "modeSelectionItem.chatOnlyDescription": {
-    "defaultMessage": "도구나 익스텐션을 사용하지 않고 선택한 제공업체와 대화합니다."
-  },
-  "modeSelectionItem.chatOnlyLabel": {
-    "defaultMessage": "채팅 전용"
-  },
-  "modeSelectionItem.manualDescription": {
-    "defaultMessage": "모든 도구, 익스텐션, 파일 수정에는 사용자 승인이 필요합니다."
-  },
-  "modeSelectionItem.manualLabel": {
-    "defaultMessage": "수동"
-  },
-  "modeSelectionItem.smartDescription": {
-    "defaultMessage": "위험 수준에 따라 승인이 필요한 작업을 지능적으로 판단합니다."
-  },
-  "modeSelectionItem.smartLabel": {
-    "defaultMessage": "스마트"
-  },
   "modelAndProviderContext.modelChangeFailed": {
     "defaultMessage": "{provider}/{model} 실패"
   },
@@ -2431,9 +2230,6 @@
   },
   "modelBadges.reasoning": {
     "defaultMessage": "추론"
-  },
-  "modelSettingsButtons.switchModels": {
-    "defaultMessage": "모델 전환"
   },
   "modelSettingsPanel.batchSize": {
     "defaultMessage": "배치 크기"
@@ -2615,20 +2411,11 @@
   "modelsBottomBar.selectModel": {
     "defaultMessage": "모델 선택"
   },
-  "navigation.itemApps": {
-    "defaultMessage": "앱"
-  },
-  "navigation.itemExtensions": {
-    "defaultMessage": "익스텐션"
-  },
   "navigation.itemHome": {
     "defaultMessage": "새 채팅"
   },
   "navigation.itemHub": {
     "defaultMessage": "허브"
-  },
-  "navigation.itemRecipes": {
-    "defaultMessage": "레시피"
   },
   "navigation.itemScheduler": {
     "defaultMessage": "스케줄러"
@@ -2639,20 +2426,32 @@
   "navigation.itemSettings": {
     "defaultMessage": "설정"
   },
-  "navigation.itemSkills": {
-    "defaultMessage": "스킬"
+  "navigationFooter.about": {
+    "defaultMessage": "About Sauron"
   },
-  "navigationFooter.cpuUsage": {
-    "defaultMessage": "CPU {percent}%"
+  "navigationFooter.aboutVersion": {
+    "defaultMessage": "Sauron {version}"
   },
-  "navigationFooter.memoryUsage": {
-    "defaultMessage": "메모리 {percent}%"
+  "navigationFooter.accountMenu": {
+    "defaultMessage": "Account"
+  },
+  "navigationFooter.close": {
+    "defaultMessage": "Close"
+  },
+  "navigationFooter.keyboardShortcuts": {
+    "defaultMessage": "Keyboard shortcuts"
+  },
+  "navigationFooter.quit": {
+    "defaultMessage": "Quit Sauron"
   },
   "navigationFooter.sendFeedback": {
     "defaultMessage": "피드백 보내기"
   },
   "navigationFooter.you": {
     "defaultMessage": "나"
+  },
+  "navigationPanel.chats": {
+    "defaultMessage": "Chats"
   },
   "navigationPanel.goBack": {
     "defaultMessage": "뒤로"
@@ -2681,6 +2480,9 @@
   "navigationPanel.metaUpdated": {
     "defaultMessage": "업데이트됨"
   },
+  "navigationPanel.newChat": {
+    "defaultMessage": "New chat"
+  },
   "navigationPanel.newProject": {
     "defaultMessage": "새 프로젝트"
   },
@@ -2701,6 +2503,9 @@
   },
   "navigationPanel.statusUnread": {
     "defaultMessage": "읽지 않은 활동"
+  },
+  "navigationPanel.toast.newChatFailed": {
+    "defaultMessage": "Could not start chat: {error}"
   },
   "navigationPanel.untitledSession": {
     "defaultMessage": "제목 없는 세션"
@@ -2920,18 +2725,6 @@
   },
   "pluginsSettings.title": {
     "defaultMessage": "Plugins"
-  },
-  "preferredModels.empty": {
-    "defaultMessage": "아래 모델에 별을 표시하면 여기와 채트에서 쉽게 사용할 수 있습니다."
-  },
-  "preferredModels.remove": {
-    "defaultMessage": "{model}을 선호 모델에서 제거"
-  },
-  "preferredModels.removeFailed": {
-    "defaultMessage": "선호 모델을 업데이트하지 못했습니다"
-  },
-  "preferredModels.title": {
-    "defaultMessage": "선호 모델"
   },
   "privacyInfoModal.collectErrors": {
     "defaultMessage": "오류 유형(예: 'rate_limit', 'auth' - 세부정보 없음)"
@@ -3181,9 +2974,6 @@
   },
   "providerConfigurationModal.goBack": {
     "defaultMessage": "돌아가기"
-  },
-  "providerConfigurationModal.huggingFaceOAuthDescription": {
-    "defaultMessage": "API 토큰을 수동으로 입력하지 않고도 Hugging Face 추론 제공업체를 사용하려면 로그인하세요."
   },
   "providerConfigurationModal.oauthLoginFailed": {
     "defaultMessage": "OAuth 로그인 실패: {error}"
@@ -4661,35 +4451,17 @@
   "settings.version.title": {
     "defaultMessage": "버전"
   },
-  "settingsView.noResults": {
-    "defaultMessage": "결과 없음"
-  },
-  "settingsView.searchPlaceholder": {
-    "defaultMessage": "설정 검색"
-  },
   "settingsView.tabApp": {
     "defaultMessage": "앱"
   },
   "settingsView.tabAppearance": {
     "defaultMessage": "Appearance"
   },
-  "settingsView.tabChat": {
-    "defaultMessage": "채팅"
-  },
   "settingsView.tabExternalBackend": {
     "defaultMessage": "외부 백엔드"
   },
-  "settingsView.tabHarnesses": {
-    "defaultMessage": "하네스"
-  },
-  "settingsView.tabKeyboard": {
-    "defaultMessage": "키보드"
-  },
   "settingsView.tabMcp": {
     "defaultMessage": "MCP"
-  },
-  "settingsView.tabModels": {
-    "defaultMessage": "모델"
   },
   "settingsView.tabPlugins": {
     "defaultMessage": "Plugins"
@@ -4756,15 +4528,6 @@
   },
   "spellcheckToggle.title": {
     "defaultMessage": "맞춤법 검사 켜기"
-  },
-  "standaloneAppView.failedToLoad": {
-    "defaultMessage": "앱을 로드하지 못했습니다."
-  },
-  "standaloneAppView.initializing": {
-    "defaultMessage": "앱 초기화 중..."
-  },
-  "standaloneAppView.missingParams": {
-    "defaultMessage": "필수 매개변수가 누락되었습니다."
   },
   "stringUtils.configuredProvider": {
     "defaultMessage": "{name} 제공업체가 구성되었습니다."
@@ -5159,60 +4922,6 @@
   "updateSection.versionIsAvailable": {
     "defaultMessage": "버전 {version}을 사용할 수 있습니다."
   },
-  "userMessage.cancel": {
-    "defaultMessage": "취소"
-  },
-  "userMessage.cancelAriaLabel": {
-    "defaultMessage": "편집 취소"
-  },
-  "userMessage.editAriaLabel": {
-    "defaultMessage": "메시지 내용 편집"
-  },
-  "userMessage.editButton": {
-    "defaultMessage": "편집"
-  },
-  "userMessage.editImagesHeading": {
-    "defaultMessage": "첨부된 이미지:"
-  },
-  "userMessage.editInPlace": {
-    "defaultMessage": "바로 편집"
-  },
-  "userMessage.editInPlaceAriaLabel": {
-    "defaultMessage": "메시지를 바로 편집"
-  },
-  "userMessage.editInPlaceDescription": {
-    "defaultMessage": "<b>바로 편집</b>은 이 세션을 업데이트합니다 • <b>세션 포크</b>는 새 세션을 만듭니다"
-  },
-  "userMessage.editInPlaceTitle": {
-    "defaultMessage": "이 세션의 메시지 업데이트"
-  },
-  "userMessage.editMessageAriaLabel": {
-    "defaultMessage": "메시지 수정: {preview}"
-  },
-  "userMessage.editMessageTitle": {
-    "defaultMessage": "메시지 편집"
-  },
-  "userMessage.editPlaceholder": {
-    "defaultMessage": "메시지를 편집하세요..."
-  },
-  "userMessage.emptyError": {
-    "defaultMessage": "메시지는 비워둘 수 없습니다."
-  },
-  "userMessage.forkSession": {
-    "defaultMessage": "세션 포크"
-  },
-  "userMessage.forkSessionAriaLabel": {
-    "defaultMessage": "편집한 메시지로 세션 포크"
-  },
-  "userMessage.forkSessionTitle": {
-    "defaultMessage": "편집한 메시지로 새 세션 만들기"
-  },
-  "userMessage.removeImageFromEdit": {
-    "defaultMessage": "메시지에서 이미지 제거"
-  },
-  "settingsView.tabStats": {
-    "defaultMessage": "Stats"
-  },
   "usageStats.byModel": {
     "defaultMessage": "Per model"
   },
@@ -5284,8 +4993,58 @@
   },
   "usageStats.writeTokens": {
     "defaultMessage": "Write tokens"
-  }
-,
+  },
+  "userMessage.cancel": {
+    "defaultMessage": "취소"
+  },
+  "userMessage.cancelAriaLabel": {
+    "defaultMessage": "편집 취소"
+  },
+  "userMessage.editAriaLabel": {
+    "defaultMessage": "메시지 내용 편집"
+  },
+  "userMessage.editButton": {
+    "defaultMessage": "편집"
+  },
+  "userMessage.editImagesHeading": {
+    "defaultMessage": "첨부된 이미지:"
+  },
+  "userMessage.editInPlace": {
+    "defaultMessage": "바로 편집"
+  },
+  "userMessage.editInPlaceAriaLabel": {
+    "defaultMessage": "메시지를 바로 편집"
+  },
+  "userMessage.editInPlaceDescription": {
+    "defaultMessage": "<b>바로 편집</b>은 이 세션을 업데이트합니다 • <b>세션 포크</b>는 새 세션을 만듭니다"
+  },
+  "userMessage.editInPlaceTitle": {
+    "defaultMessage": "이 세션의 메시지 업데이트"
+  },
+  "userMessage.editMessageAriaLabel": {
+    "defaultMessage": "메시지 수정: {preview}"
+  },
+  "userMessage.editMessageTitle": {
+    "defaultMessage": "메시지 편집"
+  },
+  "userMessage.editPlaceholder": {
+    "defaultMessage": "메시지를 편집하세요..."
+  },
+  "userMessage.emptyError": {
+    "defaultMessage": "메시지는 비워둘 수 없습니다."
+  },
+  "userMessage.forkSession": {
+    "defaultMessage": "세션 포크"
+  },
+  "userMessage.forkSessionAriaLabel": {
+    "defaultMessage": "편집한 메시지로 세션 포크"
+  },
+  "userMessage.forkSessionTitle": {
+    "defaultMessage": "편집한 메시지로 새 세션 만들기"
+  },
+  "userMessage.removeImageFromEdit": {
+    "defaultMessage": "메시지에서 이미지 제거"
+  },
   "worktreeSettings.description": {
     "defaultMessage": "작업 디렉토리 선ഝd가 제공하는 디렉토리를 제어합니다"
   },

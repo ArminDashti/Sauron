@@ -53,7 +53,6 @@ pub(crate) mod declarative_providers {
         saygm,
         scaleway,
         tanzu,
-        tensorix,
         together,
         trustedrouter,
         venice,

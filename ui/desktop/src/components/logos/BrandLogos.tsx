@@ -1,6 +1,7 @@
 import React from 'react';
 import ProviderMonogram from './ProviderMonogram';
 import { isKnownProvider, resolveProviderIcon } from './providerIcons';
+import { resolveModelIcon } from './modelIcons';
 
 /**
  * Brand marks for providers (companies) and models.
@@ -100,12 +101,7 @@ const Xai: BrandMark = ({ className }) => (
 
 const Groq: BrandMark = ({ className }) => (
   <Tile fill="#FF4A00" className={className}>
-    <path
-      d="M22.14 9.04 A9.5 9.5 0 1 0 25.5 16"
-      fill="none"
-      stroke="#ffffff"
-      strokeWidth="4.4"
-    />
+    <path d="M22.14 9.04 A9.5 9.5 0 1 0 25.5 16" fill="none" stroke="#ffffff" strokeWidth="4.4" />
     <rect x="15.6" y="13.7" width="9.6" height="4.6" rx="0.6" fill="#ffffff" />
   </Tile>
 );
@@ -373,6 +369,11 @@ const PROVIDER_MARKS: Record<string, BrandMark> = {
   amazon: Aws,
   huggingface: HuggingFace,
   hf: HuggingFace,
+  meta: Meta,
+  llama: Meta,
+  deepseek: DeepSeek,
+  qwen: Qwen,
+  alibaba: Qwen,
   moonshot: Moonshot,
   kimi: Moonshot,
   mistral: Mistral,
@@ -393,76 +394,18 @@ function resolveProviderMark(provider?: string | null): BrandMark {
   return SauronEye;
 }
 
-/* ---------------------------------------------------------------- model registry */
-
-const MODEL_PREFIXES: [string, BrandMark][] = [
-  ['gpt', OpenAI],
-  ['chatgpt', OpenAI],
-  ['o1', OpenAI],
-  ['o3', OpenAI],
-  ['o4', OpenAI],
-  ['text-embedding', OpenAI],
-  ['sora', OpenAI],
-  ['claude', Anthropic],
-  ['anthropic', Anthropic],
-  ['gemini', Gemini],
-  ['gemma', Gemini],
-  ['palm', Gemini],
-  ['grok', Xai],
-  ['llama', Meta],
-  ['meta', Meta],
-  ['deepseek', DeepSeek],
-  ['qwen', Qwen],
-  ['qwq', Qwen],
-  ['tongyi', Qwen],
-  ['glm', Azure],
-  ['chatglm', Azure],
-  ['mistral', Mistral],
-  ['mixtral', Mistral],
-  ['codestral', Mistral],
-  ['magistral', Mistral],
-  ['minimax', MiniMax],
-  ['abab', MiniMax],
-  ['command', Cohere],
-  ['aya', Cohere],
-  ['phi', Azure],
-  ['mai', Azure],
-  ['kimi', Moonshot],
-  ['moonshot', Moonshot],
-  ['ollama', Ollama],
-  ['llava', Ollama],
-  ['huggingface', HuggingFace],
-  ['smollm', HuggingFace],
-  ['snowflake', Snowflake],
-  ['databricks', Databricks],
-  ['openrouter', OpenRouter],
-  ['bedrock', Aws],
-];
-
-function resolveModelMark(model?: string | null, provider?: string | null): BrandMark {
-  const m = (model || '').trim().toLowerCase();
-  if (m) {
-    const head = m.includes('/') ? m.split('/')[0] : '';
-    for (const [prefix, mark] of MODEL_PREFIXES) {
-      if (m.startsWith(prefix) || head === prefix) return mark;
-    }
-    if (head && PROVIDER_MARKS[head]) return PROVIDER_MARKS[head];
-  }
-  return resolveProviderMark(provider);
-}
-
 /* ---------------------------------------------------------------- public API */
 
 interface BrandIconProps {
-  /** Model id/name — matched by family prefix (gpt, claude, gemini, …). */
-  model?: string | null;
   /** Provider id or display name (openai, "OpenAI", aws bedrock, …). */
   provider?: string | null;
+  /** Model id; its own vendor/family mark wins over the provider's when known. */
+  model?: string | null;
   className?: string;
 }
 
-export function BrandIcon({ model, provider, className = 'w-8 h-8' }: BrandIconProps) {
-  const icon = resolveProviderIcon(provider);
+export function BrandIcon({ provider, model, className = 'w-8 h-8' }: BrandIconProps) {
+  const icon = resolveModelIcon(model) ?? resolveProviderIcon(provider);
   if (icon) {
     return (
       <img
@@ -474,7 +417,17 @@ export function BrandIcon({ model, provider, className = 'w-8 h-8' }: BrandIconP
     );
   }
 
-  const Mark = model ? resolveModelMark(model, provider) : resolveProviderMark(provider);
+  return <ProviderFallback provider={provider} className={className} />;
+}
+
+function ProviderFallback({
+  provider,
+  className,
+}: {
+  provider?: string | null;
+  className: string;
+}) {
+  const Mark = resolveProviderMark(provider);
   if (Mark === SauronEye && isKnownProvider(provider)) {
     return <ProviderMonogram provider={provider} className={className} />;
   }

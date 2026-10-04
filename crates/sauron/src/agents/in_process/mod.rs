@@ -6,6 +6,7 @@ pub mod apps;
 pub mod chatrecall;
 #[cfg(feature = "code-mode")]
 pub mod code_execution;
+pub mod browser;
 pub mod developer;
 pub mod ext_manager;
 pub mod orchestrator;
@@ -179,6 +180,27 @@ pub static IN_PROCESS_SERVERS: Lazy<HashMap<&'static str, InProcessServerDef>> =
             unprefixed_tools: true,
             hidden: false,
             client_factory: |ctx| Some(Box::new(developer::DeveloperClient::new(ctx).unwrap())),
+        },
+    );
+
+    map.insert(
+        browser::EXTENSION_NAME,
+        InProcessServerDef {
+            name: browser::EXTENSION_NAME,
+            display_name: "Browser",
+            description:
+                "Browse the web with Playwright: navigate pages, click, type, and capture screenshots",
+            default_enabled: false,
+            unprefixed_tools: true,
+            hidden: false,
+            client_factory: |ctx| {
+                if !browser::is_playwright_mcp_launchable() {
+                    return None;
+                }
+                browser::BrowserClient::new(ctx)
+                    .ok()
+                    .map(|client| Box::new(client) as Box<dyn McpClientTrait>)
+            },
         },
     );
 

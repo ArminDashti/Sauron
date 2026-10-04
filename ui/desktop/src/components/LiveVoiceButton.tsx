@@ -50,6 +50,7 @@ interface LiveVoiceButtonProps {
   onStart: () => void;
   onStop: () => void;
   onToggleMute: () => void;
+  className?: string;
 }
 
 export function LiveVoiceButton({
@@ -61,6 +62,7 @@ export function LiveVoiceButton({
   onStart,
   onStop,
   onToggleMute,
+  className,
 }: LiveVoiceButtonProps) {
   const intl = useIntl();
   if (availability === null && !isLiveVoiceActive(phase) && !activeInAnotherSession) return null;
@@ -122,6 +124,7 @@ export function LiveVoiceButton({
               data-phase={phase}
               className={cn(
                 'transition-colors',
+                className,
                 canStop && 'text-red-500 hover:text-red-600 cursor-pointer',
                 phase === 'error' && 'text-red-500 hover:text-red-600 cursor-pointer',
                 phase === 'idle' && eligible && 'text-text-primary/70 cursor-pointer',

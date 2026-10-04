@@ -56,15 +56,6 @@
   "allProviderModels.emptyHint": {
     "defaultMessage": "Configure a provider to see the models it offers."
   },
-  "allProviderModels.filterAll": {
-    "defaultMessage": "すべて"
-  },
-  "allProviderModels.filterFree": {
-    "defaultMessage": "無料"
-  },
-  "allProviderModels.freeCount": {
-    "defaultMessage": "{count} 件無料"
-  },
   "allProviderModels.loadFailed": {
     "defaultMessage": "Could not load provider models"
   },
@@ -73,12 +64,6 @@
   },
   "allProviderModels.modelCount": {
     "defaultMessage": "{count,plural,one{# model} other{# models}}"
-  },
-  "allProviderModels.noFreeModels": {
-    "defaultMessage": "プロバイダーに無料モデルがありません。"
-  },
-  "allProviderModels.noFreeModelsHint": {
-    "defaultMessage": "モデルは、プロバイダーがローカルで実行する場合（Ollama、ローカルモデル）や、OpenRouter の :free のような無料バリアントを提供する場合に無料として表示されます。"
   },
   "allProviderModels.noModels": {
     "defaultMessage": "No models reported by this provider."
@@ -107,14 +92,8 @@
   "allProviderModels.searchPlaceholder": {
     "defaultMessage": "モデルを検索..."
   },
-  "allProviderModels.showAll": {
-    "defaultMessage": "すべてのモデルを表示"
-  },
   "allProviderModels.showingCount": {
     "defaultMessage": "{total, number} 件中 {shown, number} 件のモデルを表示"
-  },
-  "allProviderModels.title": {
-    "defaultMessage": "Models from your providers"
   },
   "announcementModal.gotIt": {
     "defaultMessage": "了解しました"
@@ -131,131 +110,17 @@
   "appLayout.showChanges": {
     "defaultMessage": "変更パネルを表示"
   },
-  "appsView.customApp": {
-    "defaultMessage": "カスタムアプリ"
-  },
-  "appsView.deleteApp": {
-    "defaultMessage": "Delete app"
-  },
-  "appsView.deleteConfirm": {
-    "defaultMessage": "Delete \"{name}\"? This cannot be undone."
-  },
-  "appsView.description": {
-    "defaultMessage": "MCPサーバーのアプリケーションと、sauron自身が作成したアプリです。チャット画面で新しいアプリの作成を依頼すると、ここに表示されます。"
-  },
-  "appsView.errorLoading": {
-    "defaultMessage": "アプリの読み込みエラー: {error}"
-  },
-  "appsView.errorPrefix": {
-    "defaultMessage": "Error: {error}"
-  },
-  "appsView.importApp": {
-    "defaultMessage": "アプリをインポート"
-  },
-  "appsView.launch": {
-    "defaultMessage": "起動"
-  },
-  "appsView.loading": {
-    "defaultMessage": "アプリを読み込み中..."
-  },
-  "appsView.noAppsDescription": {
-    "defaultMessage": "チャットを開き、欲しいアプリをsauronに依頼してください。sauronが作成したアプリがここに表示されます。誰かから共有されたアプリがある場合は、上のボタンでインポートできます。"
-  },
-  "appsView.noAppsTitle": {
-    "defaultMessage": "利用可能なアプリはありません"
-  },
-  "appsView.retiredChatApp": {
-    "defaultMessage": "Chat app retired"
-  },
-  "appsView.retiredChatAppDetail": {
-    "defaultMessage": "We removed this feature because MCP sampling is no longer supported."
-  },
-  "appsView.retry": {
-    "defaultMessage": "再試行"
-  },
-  "appsView.title": {
-    "defaultMessage": "アプリ"
-  },
-  "authSettings.activeProviderWarning": {
-    "defaultMessage": "これは現在使用中のプロバイダーです。別の認証情報を設定するまで、新しいリクエストが失敗する可能性があります。"
-  },
-  "authSettings.cancel": {
-    "defaultMessage": "キャンセル"
-  },
   "authSettings.cancelSignIn": {
     "defaultMessage": "キャンセル"
   },
-  "authSettings.checkingStatus": {
-    "defaultMessage": "確認中..."
-  },
-  "authSettings.connectedAccounts": {
-    "defaultMessage": "接続済みアカウント"
-  },
-  "authSettings.connectedAccountsDescription": {
-    "defaultMessage": "サインインして、Sauron が外部アカウントで作業できるようにします。"
-  },
-  "authSettings.delete": {
-    "defaultMessage": "削除"
-  },
-  "authSettings.deleteCredential": {
-    "defaultMessage": "認証情報を削除"
-  },
-  "authSettings.deleteMessage": {
-    "defaultMessage": "{provider} の {name} 認証情報を削除しますか？"
-  },
-  "authSettings.deleteTitle": {
-    "defaultMessage": "認証情報を削除"
-  },
-  "authSettings.deleted": {
-    "defaultMessage": "認証情報を削除しました"
-  },
-  "authSettings.description": {
-    "defaultMessage": "sauronがローカルに保存したプロバイダー認証情報を管理します。"
-  },
-  "authSettings.empty": {
-    "defaultMessage": "ローカルに保存されたプロバイダー認証情報は見つかりませんでした。"
-  },
-  "authSettings.expiresAt": {
-    "defaultMessage": "有効期限: {date}"
-  },
-  "authSettings.failedToConfigure": {
-    "defaultMessage": "認証情報の設定に失敗しました: {error}"
-  },
-  "authSettings.failedToDelete": {
-    "defaultMessage": "認証情報の削除に失敗しました: {error}"
-  },
-  "authSettings.failedToLoad": {
-    "defaultMessage": "プロバイダー認証情報の読み込みに失敗しました"
-  },
-  "authSettings.githubAccountDescription": {
-    "defaultMessage": "リポジトリを検索し、コードを操作し、Issue を管理し、Pull Request を開きます。"
-  },
-  "authSettings.githubAccountName": {
-    "defaultMessage": "GitHub"
-  },
-  "authSettings.githubConnected": {
-    "defaultMessage": "接続済み"
-  },
   "authSettings.githubEnterCode": {
     "defaultMessage": "Sauron を承認するには {url} でこのコードを入力してください:"
-  },
-  "authSettings.githubNotConnected": {
-    "defaultMessage": "未接続"
-  },
-  "authSettings.githubOpenDevicePage": {
-    "defaultMessage": "GitHub デバイスページを開く"
   },
   "authSettings.githubSignInFailed": {
     "defaultMessage": "GitHub sign-in failed: {error}"
   },
   "authSettings.githubSignInUnavailable": {
     "defaultMessage": "GitHub サインインはデスクトップアプリでのみ利用できます。"
-  },
-  "authSettings.githubSignOutMessage": {
-    "defaultMessage": "再サインインするまで、Sauron は GitHub リポジトリを操作できません。"
-  },
-  "authSettings.githubSignOutTitle": {
-    "defaultMessage": "Sign out of GitHub"
   },
   "authSettings.githubSignedIn": {
     "defaultMessage": "GitHub にサインインしました。GitHub 拡張機能を使用準備ができました。"
@@ -269,32 +134,8 @@
   "authSettings.githubWaitingForAuthorization": {
     "defaultMessage": "GitHub の承認を待っています..."
   },
-  "authSettings.loading": {
-    "defaultMessage": "認証情報を読み込み中..."
-  },
-  "authSettings.reauthorize": {
-    "defaultMessage": "再認証"
-  },
-  "authSettings.signIn": {
-    "defaultMessage": "サインイン"
-  },
   "authSettings.signInWithGitHub": {
     "defaultMessage": "GitHub でサインイン"
-  },
-  "authSettings.signOutFromGitHub": {
-    "defaultMessage": "Sign out"
-  },
-  "authSettings.signedIn": {
-    "defaultMessage": "認証情報を設定しました"
-  },
-  "authSettings.storageProviderCache": {
-    "defaultMessage": "プロバイダーキャッシュ"
-  },
-  "authSettings.storageSecretStore": {
-    "defaultMessage": "シークレットストア"
-  },
-  "authSettings.title": {
-    "defaultMessage": "プロバイダー認証情報"
   },
   "backButton.back": {
     "defaultMessage": "戻る"
@@ -433,9 +274,6 @@
   },
   "chatInput.failedToReadImage": {
     "defaultMessage": "画像ファイルの読み込みに失敗しました"
-  },
-  "chatInput.navigationShortcut": {
-    "defaultMessage": "{prefix}↑/{prefix}↓でメッセージを移動"
   },
   "chatInput.processingDroppedFiles": {
     "defaultMessage": "ドロップしたファイルを処理中..."
@@ -1196,6 +1034,9 @@
   "dirSwitcher.gitWorktrees": {
     "defaultMessage": "Git worktree"
   },
+  "dirSwitcher.noFolder": {
+    "defaultMessage": "No folder"
+  },
   "dirSwitcher.noWorktreesFound": {
     "defaultMessage": "worktreeが見つかりません"
   },
@@ -1559,17 +1400,14 @@
   "groupedExtensionLoadingToast.successfullyLoaded": {
     "defaultMessage": "{count,plural,one{# 個の拡張機能を読み込みました} other{# 個の拡張機能を読み込みました}}"
   },
-  "harnessesSection.title": {
-    "defaultMessage": "エージェントハーネス"
+  "harnessesSection.configure": {
+    "defaultMessage": "設定"
+  },
+  "harnessesSection.configured": {
+    "defaultMessage": "有効"
   },
   "harnessesSection.description": {
     "defaultMessage": "Cursor、Claude Code、Codex、OpenCode、Copilot などの別のハーネスのエージェントを使用します。ここで有効にし、Models で選択してチャットできます。"
-  },
-  "harnessesSection.loading": {
-    "defaultMessage": "ハーネスを読み込み中..."
-  },
-  "harnessesSection.loadFailed": {
-    "defaultMessage": "ハーネスの読み込みに失敗しました"
   },
   "harnessesSection.empty": {
     "defaultMessage": "外部エージェントハーネスはありません。"
@@ -1577,17 +1415,20 @@
   "harnessesSection.installed": {
     "defaultMessage": "インストール済み"
   },
-  "harnessesSection.notInstalled": {
-    "defaultMessage": "未インストール"
+  "harnessesSection.loadFailed": {
+    "defaultMessage": "ハーネスの読み込みに失敗しました"
   },
-  "harnessesSection.configure": {
-    "defaultMessage": "設定"
-  },
-  "harnessesSection.configured": {
-    "defaultMessage": "有効"
+  "harnessesSection.loading": {
+    "defaultMessage": "ハーネスを読み込み中..."
   },
   "harnessesSection.notConfigured": {
     "defaultMessage": "無効"
+  },
+  "harnessesSection.notInstalled": {
+    "defaultMessage": "未インストール"
+  },
+  "harnessesSection.title": {
+    "defaultMessage": "エージェントハーネス"
   },
   "headersSection.add": {
     "defaultMessage": "追加"
@@ -1666,21 +1507,6 @@
   },
   "huggingFaceModelSearch.tooLarge": {
     "defaultMessage": "メモリに収まらない可能性があります（{size}モデル、利用可能: {available}）"
-  },
-  "huggingFaceSignInPrompt.failedToConfigure": {
-    "defaultMessage": "Hugging Faceへのサインインに失敗しました: {error}"
-  },
-  "huggingFaceSignInPrompt.signIn": {
-    "defaultMessage": "サインイン"
-  },
-  "huggingFaceSignInPrompt.signedIn": {
-    "defaultMessage": "Hugging Faceにサインイン済み"
-  },
-  "huggingFaceSignInPrompt.signingIn": {
-    "defaultMessage": "サインイン中..."
-  },
-  "huggingFaceSignInPrompt.title": {
-    "defaultMessage": "Hugging Face"
   },
   "imagePreview.altText": {
     "defaultMessage": "sauron画像"
@@ -2054,9 +1880,6 @@
   "localInferenceSettings.evictFromMemory": {
     "defaultMessage": "Evict from memory"
   },
-  "localInferenceSettings.huggingFaceSignInNote": {
-    "defaultMessage": "モデルの検索・ダウンロード時のレート制限を緩和し、非公開またはゲート付きHugging Faceリポジトリにアクセスするにはサインインしてください。"
-  },
   "localInferenceSettings.loadedInMemory": {
     "defaultMessage": "Loaded in memory"
   },
@@ -2378,30 +2201,6 @@
   "microphoneSelector.test": {
     "defaultMessage": "テスト"
   },
-  "modeSelectionItem.autonomousDescription": {
-    "defaultMessage": "ファイルを自由に編集、作成、削除できる完全なファイル変更権限。"
-  },
-  "modeSelectionItem.autonomousLabel": {
-    "defaultMessage": "自律"
-  },
-  "modeSelectionItem.chatOnlyDescription": {
-    "defaultMessage": "ツールや拡張機能を使わず、選択したプロバイダーとやり取りします。"
-  },
-  "modeSelectionItem.chatOnlyLabel": {
-    "defaultMessage": "チャットのみ"
-  },
-  "modeSelectionItem.manualDescription": {
-    "defaultMessage": "すべてのツール、拡張機能、ファイル変更には人による承認が必要です"
-  },
-  "modeSelectionItem.manualLabel": {
-    "defaultMessage": "手動"
-  },
-  "modeSelectionItem.smartDescription": {
-    "defaultMessage": "リスクレベルに基づき、承認が必要な操作を自動判断します"
-  },
-  "modeSelectionItem.smartLabel": {
-    "defaultMessage": "スマート"
-  },
   "modelAndProviderContext.modelChangeFailed": {
     "defaultMessage": "{provider}/{model}に失敗しました"
   },
@@ -2431,9 +2230,6 @@
   },
   "modelBadges.reasoning": {
     "defaultMessage": "思考"
-  },
-  "modelSettingsButtons.switchModels": {
-    "defaultMessage": "モデルを切り替え"
   },
   "modelSettingsPanel.batchSize": {
     "defaultMessage": "バッチサイズ"
@@ -2615,20 +2411,11 @@
   "modelsBottomBar.selectModel": {
     "defaultMessage": "モデルを選択"
   },
-  "navigation.itemApps": {
-    "defaultMessage": "アプリ"
-  },
-  "navigation.itemExtensions": {
-    "defaultMessage": "拡張機能"
-  },
   "navigation.itemHome": {
     "defaultMessage": "新規チャット"
   },
   "navigation.itemHub": {
     "defaultMessage": "ハブ"
-  },
-  "navigation.itemRecipes": {
-    "defaultMessage": "レシピ"
   },
   "navigation.itemScheduler": {
     "defaultMessage": "スケジューラー"
@@ -2639,20 +2426,32 @@
   "navigation.itemSettings": {
     "defaultMessage": "設定"
   },
-  "navigation.itemSkills": {
-    "defaultMessage": "スキル"
+  "navigationFooter.about": {
+    "defaultMessage": "About Sauron"
   },
-  "navigationFooter.cpuUsage": {
-    "defaultMessage": "CPU {percent}%"
+  "navigationFooter.aboutVersion": {
+    "defaultMessage": "Sauron {version}"
   },
-  "navigationFooter.memoryUsage": {
-    "defaultMessage": "メモリ {percent}%"
+  "navigationFooter.accountMenu": {
+    "defaultMessage": "Account"
+  },
+  "navigationFooter.close": {
+    "defaultMessage": "Close"
+  },
+  "navigationFooter.keyboardShortcuts": {
+    "defaultMessage": "Keyboard shortcuts"
+  },
+  "navigationFooter.quit": {
+    "defaultMessage": "Quit Sauron"
   },
   "navigationFooter.sendFeedback": {
     "defaultMessage": "フィードバックを送信"
   },
   "navigationFooter.you": {
     "defaultMessage": "あなた"
+  },
+  "navigationPanel.chats": {
+    "defaultMessage": "Chats"
   },
   "navigationPanel.goBack": {
     "defaultMessage": "戻る"
@@ -2681,6 +2480,9 @@
   "navigationPanel.metaUpdated": {
     "defaultMessage": "更新"
   },
+  "navigationPanel.newChat": {
+    "defaultMessage": "New chat"
+  },
   "navigationPanel.newProject": {
     "defaultMessage": "新しいプロジェクト"
   },
@@ -2701,6 +2503,9 @@
   },
   "navigationPanel.statusUnread": {
     "defaultMessage": "未読のアクティビティ"
+  },
+  "navigationPanel.toast.newChatFailed": {
+    "defaultMessage": "Could not start chat: {error}"
   },
   "navigationPanel.untitledSession": {
     "defaultMessage": "無題のセッション"
@@ -2920,18 +2725,6 @@
   },
   "pluginsSettings.title": {
     "defaultMessage": "Plugins"
-  },
-  "preferredModels.empty": {
-    "defaultMessage": "下のモデルに星を付けると、ここやチャットでいつでも使いやすくなります。"
-  },
-  "preferredModels.remove": {
-    "defaultMessage": "{model} を優先モデルから削除"
-  },
-  "preferredModels.removeFailed": {
-    "defaultMessage": "優先モデルを更新できませんでした"
-  },
-  "preferredModels.title": {
-    "defaultMessage": "優先モデル"
   },
   "privacyInfoModal.collectErrors": {
     "defaultMessage": "エラーの種類（例: 「rate_limit」「auth」— 詳細なし）"
@@ -3181,9 +2974,6 @@
   },
   "providerConfigurationModal.goBack": {
     "defaultMessage": "戻る"
-  },
-  "providerConfigurationModal.huggingFaceOAuthDescription": {
-    "defaultMessage": "APIトークンを手動で入力せずにHugging Face Inference Providersを使用するにはサインインしてください。"
   },
   "providerConfigurationModal.oauthLoginFailed": {
     "defaultMessage": "OAuthログインに失敗しました: {error}"
@@ -4661,35 +4451,17 @@
   "settings.version.title": {
     "defaultMessage": "バージョン"
   },
-  "settingsView.noResults": {
-    "defaultMessage": "結果がありません"
-  },
-  "settingsView.searchPlaceholder": {
-    "defaultMessage": "設定を検索"
-  },
   "settingsView.tabApp": {
     "defaultMessage": "アプリ"
   },
   "settingsView.tabAppearance": {
     "defaultMessage": "Appearance"
   },
-  "settingsView.tabChat": {
-    "defaultMessage": "チャット"
-  },
   "settingsView.tabExternalBackend": {
     "defaultMessage": "外部バックエンド"
   },
-  "settingsView.tabHarnesses": {
-    "defaultMessage": "ハーネス"
-  },
-  "settingsView.tabKeyboard": {
-    "defaultMessage": "キーボード"
-  },
   "settingsView.tabMcp": {
     "defaultMessage": "MCP"
-  },
-  "settingsView.tabModels": {
-    "defaultMessage": "モデル"
   },
   "settingsView.tabPlugins": {
     "defaultMessage": "Plugins"
@@ -4756,15 +4528,6 @@
   },
   "spellcheckToggle.title": {
     "defaultMessage": "スペルチェックを有効にする"
-  },
-  "standaloneAppView.failedToLoad": {
-    "defaultMessage": "アプリを読み込めませんでした"
-  },
-  "standaloneAppView.initializing": {
-    "defaultMessage": "アプリを初期化中..."
-  },
-  "standaloneAppView.missingParams": {
-    "defaultMessage": "必須パラメータが不足しています"
   },
   "stringUtils.configuredProvider": {
     "defaultMessage": "{name}プロバイダーが設定されています"
@@ -5159,60 +4922,6 @@
   "updateSection.versionIsAvailable": {
     "defaultMessage": "バージョン {version} が利用可能です"
   },
-  "userMessage.cancel": {
-    "defaultMessage": "キャンセル"
-  },
-  "userMessage.cancelAriaLabel": {
-    "defaultMessage": "編集をキャンセル"
-  },
-  "userMessage.editAriaLabel": {
-    "defaultMessage": "メッセージ内容を編集"
-  },
-  "userMessage.editButton": {
-    "defaultMessage": "編集"
-  },
-  "userMessage.editImagesHeading": {
-    "defaultMessage": "添付画像:"
-  },
-  "userMessage.editInPlace": {
-    "defaultMessage": "その場で編集"
-  },
-  "userMessage.editInPlaceAriaLabel": {
-    "defaultMessage": "メッセージをその場で編集"
-  },
-  "userMessage.editInPlaceDescription": {
-    "defaultMessage": "<b>その場で編集</b>はこのセッションを更新します • <b>セッションをフォーク</b>は新しいセッションを作成します"
-  },
-  "userMessage.editInPlaceTitle": {
-    "defaultMessage": "このセッションのメッセージを更新"
-  },
-  "userMessage.editMessageAriaLabel": {
-    "defaultMessage": "メッセージを編集: {preview}"
-  },
-  "userMessage.editMessageTitle": {
-    "defaultMessage": "メッセージを編集"
-  },
-  "userMessage.editPlaceholder": {
-    "defaultMessage": "メッセージを編集..."
-  },
-  "userMessage.emptyError": {
-    "defaultMessage": "メッセージを空にすることはできません"
-  },
-  "userMessage.forkSession": {
-    "defaultMessage": "セッションをフォーク"
-  },
-  "userMessage.forkSessionAriaLabel": {
-    "defaultMessage": "編集したメッセージでセッションをフォーク"
-  },
-  "userMessage.forkSessionTitle": {
-    "defaultMessage": "編集したメッセージで新しいセッションを作成"
-  },
-  "userMessage.removeImageFromEdit": {
-    "defaultMessage": "メッセージから画像を削除"
-  },
-  "settingsView.tabStats": {
-    "defaultMessage": "Stats"
-  },
   "usageStats.byModel": {
     "defaultMessage": "Per model"
   },
@@ -5284,8 +4993,58 @@
   },
   "usageStats.writeTokens": {
     "defaultMessage": "Write tokens"
-  }
-,
+  },
+  "userMessage.cancel": {
+    "defaultMessage": "キャンセル"
+  },
+  "userMessage.cancelAriaLabel": {
+    "defaultMessage": "編集をキャンセル"
+  },
+  "userMessage.editAriaLabel": {
+    "defaultMessage": "メッセージ内容を編集"
+  },
+  "userMessage.editButton": {
+    "defaultMessage": "編集"
+  },
+  "userMessage.editImagesHeading": {
+    "defaultMessage": "添付画像:"
+  },
+  "userMessage.editInPlace": {
+    "defaultMessage": "その場で編集"
+  },
+  "userMessage.editInPlaceAriaLabel": {
+    "defaultMessage": "メッセージをその場で編集"
+  },
+  "userMessage.editInPlaceDescription": {
+    "defaultMessage": "<b>その場で編集</b>はこのセッションを更新します • <b>セッションをフォーク</b>は新しいセッションを作成します"
+  },
+  "userMessage.editInPlaceTitle": {
+    "defaultMessage": "このセッションのメッセージを更新"
+  },
+  "userMessage.editMessageAriaLabel": {
+    "defaultMessage": "メッセージを編集: {preview}"
+  },
+  "userMessage.editMessageTitle": {
+    "defaultMessage": "メッセージを編集"
+  },
+  "userMessage.editPlaceholder": {
+    "defaultMessage": "メッセージを編集..."
+  },
+  "userMessage.emptyError": {
+    "defaultMessage": "メッセージを空にすることはできません"
+  },
+  "userMessage.forkSession": {
+    "defaultMessage": "セッションをフォーク"
+  },
+  "userMessage.forkSessionAriaLabel": {
+    "defaultMessage": "編集したメッセージでセッションをフォーク"
+  },
+  "userMessage.forkSessionTitle": {
+    "defaultMessage": "編集したメッセージで新しいセッションを作成"
+  },
+  "userMessage.removeImageFromEdit": {
+    "defaultMessage": "メッセージから画像を削除"
+  },
   "worktreeSettings.description": {
     "defaultMessage": "作業ディレクトリピッカーが提供するディレクトリを制御します"
   },

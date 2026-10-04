@@ -172,7 +172,10 @@ export const ChangesPanel: React.FC<ChangesPanelProps> = ({ onClose }) => {
 
   const dir = useMemo(() => {
     const active = recentSessions.find((session) => session.id === activeSessionId);
-    return active?.workingDir || getInitialWorkingDir();
+    // A folder-less chat has no repository; `''` keeps the panel empty instead of
+    // falling back to whatever directory the window was opened with.
+    if (active) return active.workingDir;
+    return getInitialWorkingDir();
   }, [recentSessions, activeSessionId]);
 
   const [data, setData] = useState<GitChangesResult | null>(null);

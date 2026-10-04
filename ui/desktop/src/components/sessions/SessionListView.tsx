@@ -4,8 +4,6 @@ import { defineMessages, useIntl } from '../../i18n';
 import {
   MessageSquareText,
   AlertCircle,
-  Calendar,
-  Folder,
   Edit2,
   Trash2,
   Download,
@@ -20,10 +18,9 @@ import { Card } from '../ui/card';
 import { Button } from '../ui/button';
 import { Switch } from '../ui/switch';
 import { ScrollArea } from '../ui/scroll-area';
-import { formatMessageTimestamp } from '../../utils/timeUtils';
 import { SearchView } from '../conversation/SearchView';
 import { MainPanelLayout } from '../Layout/MainPanelLayout';
-import { groupSessionsByDate, sessionActivityAt, type DateGroup } from '../../utils/dateUtils';
+import { groupSessionsByDate, type DateGroup } from '../../utils/dateUtils';
 import { errorMessage } from '../../utils/conversionUtils';
 import { Skeleton } from '../ui/skeleton';
 import { toast } from 'react-toastify';
@@ -67,6 +64,9 @@ const i18n = defineMessages({
     defaultMessage: 'Failed to update session description: {error}',
   },
   chatHistory: { id: 'sessions.chatHistory', defaultMessage: 'Chat history' },
+  projectColumn: { id: 'sessions.column.project', defaultMessage: 'Project' },
+  titleColumn: { id: 'sessions.column.title', defaultMessage: 'Title' },
+  startedAtColumn: { id: 'sessions.column.startedAt', defaultMessage: 'Started at' },
   importSession: { id: 'sessions.import', defaultMessage: 'Import Session' },
   chatHistoryDesc: {
     id: 'sessions.chatHistoryDesc',
@@ -280,831 +280,854 @@ interface SessionListViewProps {
   embedded?: boolean;
 }
 
-const SessionListView: React.FC<SessionListViewProps> = React.memo(({ onSelectSession, embedded = false }) => {
-  const intl = useIntl();
-  const [sessions, setSessions] = useState<SessionListItem[]>([]);
-  const [isPrefetchingSessions, setIsPrefetchingSessions] = useState(false);
-  const [dateGroups, setDateGroups] = useState<DateGroup[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [showSkeleton, setShowSkeleton] = useState(true);
-  const [showContent, setShowContent] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+const SessionListView: React.FC<SessionListViewProps> = React.memo(
+  ({ onSelectSession, embedded = false }) => {
+    const intl = useIntl();
+    const [sessions, setSessions] = useState<SessionListItem[]>([]);
+    const [isPrefetchingSessions, setIsPrefetchingSessions] = useState(false);
+    const [dateGroups, setDateGroups] = useState<DateGroup[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [showSkeleton, setShowSkeleton] = useState(true);
+    const [showContent, setShowContent] = useState(false);
+    const [error, setError] = useState<string | null>(null);
 
-  const [visibleGroupsCount, setVisibleGroupsCount] = useState(15);
-  const [isScheduledExpanded, setIsScheduledExpanded] = useState(false);
+    const [visibleGroupsCount, setVisibleGroupsCount] = useState(15);
+    const [isScheduledExpanded, setIsScheduledExpanded] = useState(false);
 
-  // Edit modal state
-  const [showEditModal, setShowEditModal] = useState(false);
-  const [editingSession, setEditingSession] = useState<SessionListItem | null>(null);
+    // Edit modal state
+    const [showEditModal, setShowEditModal] = useState(false);
+    const [editingSession, setEditingSession] = useState<SessionListItem | null>(null);
 
-  // Delete confirmation modal state
-  const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
-  const [sessionToDelete, setSessionToDelete] = useState<SessionListItem | null>(null);
+    // Delete confirmation modal state
+    const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
+    const [sessionToDelete, setSessionToDelete] = useState<SessionListItem | null>(null);
 
-  const [includeAcpSessions, setIncludeAcpSessions] = useState(
-    () => localStorage.getItem(INCLUDE_ACP_SESSIONS_KEY) === 'true'
-  );
-  const includeAcpSessionsRef = useRef(includeAcpSessions);
-  includeAcpSessionsRef.current = includeAcpSessions;
+    const [includeAcpSessions, setIncludeAcpSessions] = useState(
+      () => localStorage.getItem(INCLUDE_ACP_SESSIONS_KEY) === 'true'
+    );
+    const includeAcpSessionsRef = useRef(includeAcpSessions);
+    includeAcpSessionsRef.current = includeAcpSessions;
 
-  // Search state for debouncing
-  const [searchTerm, setSearchTerm] = useState('');
-  const debouncedSearchTerm = useDebounce(searchTerm, 300); // 300ms debounce
-  const debouncedSearchTermRef = useRef(debouncedSearchTerm);
-  debouncedSearchTermRef.current = debouncedSearchTerm;
+    // Search state for debouncing
+    const [searchTerm, setSearchTerm] = useState('');
+    const debouncedSearchTerm = useDebounce(searchTerm, 300); // 300ms debounce
+    const debouncedSearchTermRef = useRef(debouncedSearchTerm);
+    debouncedSearchTermRef.current = debouncedSearchTerm;
 
-  const containerRef = useRef<HTMLDivElement>(null);
-  const loadGenerationRef = useRef(0);
-  const hasLoadedRef = useRef(false);
+    const containerRef = useRef<HTMLDivElement>(null);
+    const loadGenerationRef = useRef(0);
+    const hasLoadedRef = useRef(false);
 
-  const fileInputRef = useRef<HTMLInputElement>(null);
+    const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const memoizedAllDateGroups = useMemo(() => {
-    if (sessions.length > 0) {
-      return groupSessionsByDate(sessions);
-    }
-    return [];
-  }, [sessions]);
+    const memoizedAllDateGroups = useMemo(() => {
+      if (sessions.length > 0) {
+        return groupSessionsByDate(sessions);
+      }
+      return [];
+    }, [sessions]);
 
-  const activeDateGroups = useMemo(() => {
-    return debouncedSearchTerm.length > 0 ? memoizedAllDateGroups : dateGroups;
-  }, [debouncedSearchTerm, memoizedAllDateGroups, dateGroups]);
+    const activeDateGroups = useMemo(() => {
+      return debouncedSearchTerm.length > 0 ? memoizedAllDateGroups : dateGroups;
+    }, [debouncedSearchTerm, memoizedAllDateGroups, dateGroups]);
 
-  const visibleDateGroups = useMemo(() => {
-    return activeDateGroups.slice(0, visibleGroupsCount);
-  }, [activeDateGroups, visibleGroupsCount]);
+    const visibleDateGroups = useMemo(() => {
+      return activeDateGroups.slice(0, visibleGroupsCount);
+    }, [activeDateGroups, visibleGroupsCount]);
 
-  const previousSearchTermRef = useRef('');
-  useEffect(() => {
-    const wasSearching = previousSearchTermRef.current.length > 0;
-    const isSearching = debouncedSearchTerm.length > 0;
-    previousSearchTermRef.current = debouncedSearchTerm;
+    const previousSearchTermRef = useRef('');
+    useEffect(() => {
+      const wasSearching = previousSearchTermRef.current.length > 0;
+      const isSearching = debouncedSearchTerm.length > 0;
+      previousSearchTermRef.current = debouncedSearchTerm;
 
-    if (isSearching) {
-      setVisibleGroupsCount(memoizedAllDateGroups.length);
-    } else if (wasSearching) {
-      setVisibleGroupsCount(15);
-    }
-  }, [debouncedSearchTerm, memoizedAllDateGroups.length]);
+      if (isSearching) {
+        setVisibleGroupsCount(memoizedAllDateGroups.length);
+      } else if (wasSearching) {
+        setVisibleGroupsCount(15);
+      }
+    }, [debouncedSearchTerm, memoizedAllDateGroups.length]);
 
-  const loadRemainingSessionPages = useCallback(
-    async (initialCursor: string, loadId: number, keyword: string, includeAcp: boolean) => {
-      let cursor: string | null = initialCursor;
-      setIsPrefetchingSessions(true);
+    const loadRemainingSessionPages = useCallback(
+      async (initialCursor: string, loadId: number, keyword: string, includeAcp: boolean) => {
+        let cursor: string | null = initialCursor;
+        setIsPrefetchingSessions(true);
 
-      try {
-        while (cursor && loadGenerationRef.current === loadId) {
-          const resp = await acpListSessions(cursor, { keyword, includeAcp });
+        try {
+          while (cursor && loadGenerationRef.current === loadId) {
+            const resp = await acpListSessions(cursor, { keyword, includeAcp });
+            if (loadGenerationRef.current !== loadId) return;
+
+            cursor = resp.nextCursor;
+            startTransition(() => {
+              setSessions((prev) => {
+                const seen = new Set(prev.map((s) => s.id));
+                return [...prev, ...resp.sessions.filter((s) => !seen.has(s.id))];
+              });
+            });
+          }
+        } catch (err) {
+          console.error('Failed to load remaining sessions:', err);
+        } finally {
+          if (loadGenerationRef.current === loadId) {
+            setIsPrefetchingSessions(false);
+          }
+        }
+      },
+      []
+    );
+
+    const loadSessions = useCallback(
+      async (
+        keyword: string = debouncedSearchTermRef.current,
+        includeAcp: boolean = includeAcpSessionsRef.current
+      ) => {
+        const loadId = loadGenerationRef.current + 1;
+        loadGenerationRef.current = loadId;
+        // Only show the skeleton on the first load; subsequent loads (e.g. typing a
+        // search keyword) update the list in place without flashing the skeleton.
+        const isFirstLoad = !hasLoadedRef.current;
+        setIsPrefetchingSessions(false);
+        setError(null);
+        if (isFirstLoad) {
+          setIsLoading(true);
+          setShowSkeleton(true);
+          setShowContent(false);
+        }
+        try {
+          const resp = await acpListSessions(undefined, { keyword, includeAcp });
+          if (loadGenerationRef.current !== loadId) return;
+          hasLoadedRef.current = true;
+
+          startTransition(() => {
+            setSessions(resp.sessions);
+          });
+
+          if (resp.nextCursor) {
+            void loadRemainingSessionPages(resp.nextCursor, loadId, keyword, includeAcp);
+          }
+        } catch (err) {
           if (loadGenerationRef.current !== loadId) return;
 
-          cursor = resp.nextCursor;
-          startTransition(() => {
-            setSessions((prev) => {
-              const seen = new Set(prev.map((s) => s.id));
-              return [...prev, ...resp.sessions.filter((s) => !seen.has(s.id))];
-            });
-          });
+          console.error('Failed to load sessions:', err);
+          setError('Failed to load sessions. Please try again later.');
+          setSessions([]);
+        } finally {
+          if (loadGenerationRef.current === loadId && isFirstLoad) {
+            setIsLoading(false);
+          }
         }
-      } catch (err) {
-        console.error('Failed to load remaining sessions:', err);
-      } finally {
-        if (loadGenerationRef.current === loadId) {
-          setIsPrefetchingSessions(false);
+      },
+      [loadRemainingSessionPages]
+    );
+
+    const handleScroll = useCallback(
+      (target: HTMLDivElement) => {
+        const { scrollTop, scrollHeight, clientHeight } = target;
+        const threshold = 200;
+
+        if (scrollHeight - scrollTop - clientHeight >= threshold) return;
+
+        if (visibleGroupsCount < activeDateGroups.length) {
+          setVisibleGroupsCount((prev) => Math.min(prev + 5, activeDateGroups.length));
         }
-      }
-    },
-    []
-  );
+      },
+      [visibleGroupsCount, activeDateGroups.length]
+    );
 
-  const loadSessions = useCallback(
-    async (
-      keyword: string = debouncedSearchTermRef.current,
-      includeAcp: boolean = includeAcpSessionsRef.current
-    ) => {
-      const loadId = loadGenerationRef.current + 1;
-      loadGenerationRef.current = loadId;
-      // Only show the skeleton on the first load; subsequent loads (e.g. typing a
-      // search keyword) update the list in place without flashing the skeleton.
-      const isFirstLoad = !hasLoadedRef.current;
-      setIsPrefetchingSessions(false);
-      setError(null);
-      if (isFirstLoad) {
-        setIsLoading(true);
-        setShowSkeleton(true);
-        setShowContent(false);
-      }
-      try {
-        const resp = await acpListSessions(undefined, { keyword, includeAcp });
-        if (loadGenerationRef.current !== loadId) return;
-        hasLoadedRef.current = true;
+    useEffect(() => {
+      loadSessions(debouncedSearchTerm, includeAcpSessions);
+      return () => {
+        // Bump the generation so any in-flight load for the previous keyword is discarded.
+        loadGenerationRef.current += 1;
+      };
+    }, [loadSessions, debouncedSearchTerm, includeAcpSessions]);
 
+    // Timing logic to prevent flicker between skeleton and content on initial load
+    useEffect(() => {
+      if (!isLoading && showSkeleton) {
+        setShowSkeleton(false);
+        // Use startTransition for non-blocking content show
         startTransition(() => {
-          setSessions(resp.sessions);
+          setTimeout(() => {
+            setShowContent(true);
+          }, 10);
         });
+      }
+      return () => void 0;
+    }, [isLoading, showSkeleton]);
 
-        if (resp.nextCursor) {
-          void loadRemainingSessionPages(resp.nextCursor, loadId, keyword, includeAcp);
-        }
-      } catch (err) {
-        if (loadGenerationRef.current !== loadId) return;
-
-        console.error('Failed to load sessions:', err);
-        setError('Failed to load sessions. Please try again later.');
-        setSessions([]);
-      } finally {
-        if (loadGenerationRef.current === loadId && isFirstLoad) {
-          setIsLoading(false);
+    const { humanSessions, scheduledSessions } = useMemo(() => {
+      const human: SessionListItem[] = [];
+      const scheduled: SessionListItem[] = [];
+      for (const s of sessions) {
+        if (s.sessionType === 'scheduled') {
+          scheduled.push(s);
+        } else {
+          human.push(s);
         }
       }
-    },
-    [loadRemainingSessionPages]
-  );
+      return { humanSessions: human, scheduledSessions: scheduled };
+    }, [sessions]);
 
-  const handleScroll = useCallback(
-    (target: HTMLDivElement) => {
-      const { scrollTop, scrollHeight, clientHeight } = target;
-      const threshold = 200;
-
-      if (scrollHeight - scrollTop - clientHeight >= threshold) return;
-
-      if (visibleGroupsCount < activeDateGroups.length) {
-        setVisibleGroupsCount((prev) => Math.min(prev + 5, activeDateGroups.length));
+    const memoizedDateGroups = useMemo(() => {
+      if (humanSessions.length > 0) {
+        return groupSessionsByDate(humanSessions);
       }
-    },
-    [visibleGroupsCount, activeDateGroups.length]
-  );
+      return [];
+    }, [humanSessions]);
 
-  useEffect(() => {
-    loadSessions(debouncedSearchTerm, includeAcpSessions);
-    return () => {
-      // Bump the generation so any in-flight load for the previous keyword is discarded.
-      loadGenerationRef.current += 1;
-    };
-  }, [loadSessions, debouncedSearchTerm, includeAcpSessions]);
+    const memoizedScheduledDateGroups = useMemo(() => {
+      if (scheduledSessions.length > 0) {
+        return groupSessionsByDate(scheduledSessions);
+      }
+      return [];
+    }, [scheduledSessions]);
 
-  // Timing logic to prevent flicker between skeleton and content on initial load
-  useEffect(() => {
-    if (!isLoading && showSkeleton) {
-      setShowSkeleton(false);
-      // Use startTransition for non-blocking content show
+    // Update date groups when filtered sessions change
+    useEffect(() => {
       startTransition(() => {
-        setTimeout(() => {
-          setShowContent(true);
-        }, 10);
+        setDateGroups(memoizedDateGroups);
       });
-    }
-    return () => void 0;
-  }, [isLoading, showSkeleton]);
+    }, [memoizedDateGroups]);
 
-  const { humanSessions, scheduledSessions } = useMemo(() => {
-    const human: SessionListItem[] = [];
-    const scheduled: SessionListItem[] = [];
-    for (const s of sessions) {
-      if (s.sessionType === 'scheduled') {
-        scheduled.push(s);
-      } else {
-        human.push(s);
-      }
-    }
-    return { humanSessions: human, scheduledSessions: scheduled };
-  }, [sessions]);
+    // Handle immediate search input (updates search term for debouncing).
+    const handleSearch = useCallback((term: string) => {
+      setSearchTerm(term);
+    }, []);
 
-  const memoizedDateGroups = useMemo(() => {
-    if (humanSessions.length > 0) {
-      return groupSessionsByDate(humanSessions);
-    }
-    return [];
-  }, [humanSessions]);
+    const handleIncludeAcpSessionsChange = useCallback((checked: boolean) => {
+      localStorage.setItem(INCLUDE_ACP_SESSIONS_KEY, String(checked));
+      setIncludeAcpSessions(checked);
+    }, []);
 
-  const memoizedScheduledDateGroups = useMemo(() => {
-    if (scheduledSessions.length > 0) {
-      return groupSessionsByDate(scheduledSessions);
-    }
-    return [];
-  }, [scheduledSessions]);
+    // Handle modal close
+    const handleModalClose = useCallback(() => {
+      setShowEditModal(false);
+      setEditingSession(null);
+    }, []);
 
-  // Update date groups when filtered sessions change
-  useEffect(() => {
-    startTransition(() => {
-      setDateGroups(memoizedDateGroups);
-    });
-  }, [memoizedDateGroups]);
-
-  // Handle immediate search input (updates search term for debouncing).
-  const handleSearch = useCallback((term: string) => {
-    setSearchTerm(term);
-  }, []);
-
-  const handleIncludeAcpSessionsChange = useCallback((checked: boolean) => {
-    localStorage.setItem(INCLUDE_ACP_SESSIONS_KEY, String(checked));
-    setIncludeAcpSessions(checked);
-  }, []);
-
-  // Handle modal close
-  const handleModalClose = useCallback(() => {
-    setShowEditModal(false);
-    setEditingSession(null);
-  }, []);
-
-  const handleModalSave = useCallback(async (sessionId: string, newDescription: string) => {
-    // Update state immediately for optimistic UI
-    setSessions((prevSessions) =>
-      prevSessions.map((s) =>
-        s.id === sessionId ? { ...s, name: newDescription, user_set_name: true } : s
-      )
-    );
-    window.dispatchEvent(
-      new CustomEvent(AppEvents.SESSION_RENAMED, {
-        detail: { sessionId, newName: newDescription, userInitiated: true },
-      })
-    );
-  }, []);
-
-  const handleEditSession = useCallback((session: SessionListItem) => {
-    setEditingSession(session);
-    setShowEditModal(true);
-  }, []);
-
-  const handleDeleteSession = useCallback((session: SessionListItem) => {
-    setSessionToDelete(session);
-    setShowDeleteConfirmation(true);
-  }, []);
-
-  const handleDuplicateSession = useCallback(
-    async (session: SessionListItem) => {
-      try {
-        await acpForkSession(session.id);
-        toast.success(intl.formatMessage(i18n.duplicateSuccess, { name: session.name }));
-        window.dispatchEvent(new CustomEvent(AppEvents.SESSION_CREATED));
-        await loadSessions();
-      } catch (error) {
-        console.error('Error duplicating session:', error);
-        toast.error(
-          intl.formatMessage(i18n.duplicateFailed, { error: errorMessage(error, 'Unknown error') })
-        );
-      }
-    },
-    [loadSessions, intl]
-  );
-
-  const handleConfirmDelete = useCallback(async () => {
-    if (!sessionToDelete) return;
-
-    setShowDeleteConfirmation(false);
-    const sessionToDeleteId = sessionToDelete.id;
-    const sessionName = sessionToDelete.name;
-    setSessionToDelete(null);
-
-    try {
-      await acpDeleteSession(sessionToDeleteId);
-      toast.success(intl.formatMessage(i18n.deleteSuccess));
-      window.dispatchEvent(
-        new CustomEvent(AppEvents.SESSION_DELETED, { detail: { sessionId: sessionToDeleteId } })
+    const handleModalSave = useCallback(async (sessionId: string, newDescription: string) => {
+      // Update state immediately for optimistic UI
+      setSessions((prevSessions) =>
+        prevSessions.map((s) =>
+          s.id === sessionId ? { ...s, name: newDescription, user_set_name: true } : s
+        )
       );
-      cancelAcpPermissionRequestsForSession(sessionToDeleteId);
-      cancelAcpElicitationRequestsForSession(sessionToDeleteId);
-      acpChatSessionActions.deleteSnapshot(sessionToDeleteId);
-    } catch (error) {
-      console.error('Error deleting session:', error);
-      toast.error(
-        intl.formatMessage(i18n.deleteFailed, {
-          name: sessionName,
-          error: errorMessage(error, 'Unknown error'),
+      window.dispatchEvent(
+        new CustomEvent(AppEvents.SESSION_RENAMED, {
+          detail: { sessionId, newName: newDescription, userInitiated: true },
         })
       );
-    }
-    await loadSessions();
-  }, [sessionToDelete, loadSessions, intl]);
+    }, []);
 
-  const handleCancelDelete = useCallback(() => {
-    setShowDeleteConfirmation(false);
-    setSessionToDelete(null);
-  }, []);
+    const handleEditSession = useCallback((session: SessionListItem) => {
+      setEditingSession(session);
+      setShowEditModal(true);
+    }, []);
 
-  const handleExportSession = useCallback(
-    async (session: SessionListItem, format: SessionExportFormat) => {
+    const handleDeleteSession = useCallback((session: SessionListItem) => {
+      setSessionToDelete(session);
+      setShowDeleteConfirmation(true);
+    }, []);
+
+    const handleDuplicateSession = useCallback(
+      async (session: SessionListItem) => {
+        try {
+          await acpForkSession(session.id);
+          toast.success(intl.formatMessage(i18n.duplicateSuccess, { name: session.name }));
+          window.dispatchEvent(new CustomEvent(AppEvents.SESSION_CREATED));
+          await loadSessions();
+        } catch (error) {
+          console.error('Error duplicating session:', error);
+          toast.error(
+            intl.formatMessage(i18n.duplicateFailed, {
+              error: errorMessage(error, 'Unknown error'),
+            })
+          );
+        }
+      },
+      [loadSessions, intl]
+    );
+
+    const handleConfirmDelete = useCallback(async () => {
+      if (!sessionToDelete) return;
+
+      setShowDeleteConfirmation(false);
+      const sessionToDeleteId = sessionToDelete.id;
+      const sessionName = sessionToDelete.name;
+      setSessionToDelete(null);
+
       try {
-        const data = await acpExportSession(session.id, format);
-        const isMarkdown = format === 'markdown';
-        const blob = new Blob([data], {
-          type: isMarkdown ? 'text/markdown' : 'application/json',
-        });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `${session.name}.${isMarkdown ? 'md' : 'json'}`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-        toast.success(intl.formatMessage(i18n.exportSuccess));
+        await acpDeleteSession(sessionToDeleteId);
+        toast.success(intl.formatMessage(i18n.deleteSuccess));
+        window.dispatchEvent(
+          new CustomEvent(AppEvents.SESSION_DELETED, { detail: { sessionId: sessionToDeleteId } })
+        );
+        cancelAcpPermissionRequestsForSession(sessionToDeleteId);
+        cancelAcpElicitationRequestsForSession(sessionToDeleteId);
+        acpChatSessionActions.deleteSnapshot(sessionToDeleteId);
       } catch (error) {
+        console.error('Error deleting session:', error);
         toast.error(
-          intl.formatMessage(i18n.exportFailed, { error: errorMessage(error, 'Unknown error') })
+          intl.formatMessage(i18n.deleteFailed, {
+            name: sessionName,
+            error: errorMessage(error, 'Unknown error'),
+          })
         );
       }
-    },
-    [intl]
-  );
+      await loadSessions();
+    }, [sessionToDelete, loadSessions, intl]);
 
-  const handleImportClick = useCallback(async () => {
-    const native = window.electron?.selectImportSessionFile;
-    if (typeof native === 'function') {
-      try {
-        const result = await native();
-        if (!result) return;
-        if (result.error) {
-          toast.error(intl.formatMessage(i18n.importFailed, { error: result.error }));
-          return;
+    const handleCancelDelete = useCallback(() => {
+      setShowDeleteConfirmation(false);
+      setSessionToDelete(null);
+    }, []);
+
+    const handleExportSession = useCallback(
+      async (session: SessionListItem, format: SessionExportFormat) => {
+        try {
+          const data = await acpExportSession(session.id, format);
+          const isMarkdown = format === 'markdown';
+          const blob = new Blob([data], {
+            type: isMarkdown ? 'text/markdown' : 'application/json',
+          });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = `${session.name}.${isMarkdown ? 'md' : 'json'}`;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+          toast.success(intl.formatMessage(i18n.exportSuccess));
+        } catch (error) {
+          toast.error(
+            intl.formatMessage(i18n.exportFailed, { error: errorMessage(error, 'Unknown error') })
+          );
         }
-        await acpImportSession(result.contents);
-        toast.success(intl.formatMessage(i18n.importSuccess));
-        window.dispatchEvent(new CustomEvent(AppEvents.SESSION_CREATED));
-        await loadSessions();
-      } catch (error) {
-        toast.error(
-          intl.formatMessage(i18n.importFailed, { error: errorMessage(error, 'Unknown error') })
-        );
-      }
-      return;
-    }
-    // Fallback for non-Electron contexts (tests, web build).
-    fileInputRef.current?.click();
-  }, [intl, loadSessions]);
+      },
+      [intl]
+    );
 
-  const handleImportSession = useCallback(
-    async (e: React.ChangeEvent<HTMLInputElement>) => {
-      const file = e.target.files?.[0];
-      if (!file) return;
-
-      try {
-        const json = await file.text();
-        await acpImportSession(json);
-
-        toast.success(intl.formatMessage(i18n.importSuccess));
-        window.dispatchEvent(new CustomEvent(AppEvents.SESSION_CREATED));
-        await loadSessions();
-      } catch (error) {
-        toast.error(intl.formatMessage(i18n.importFailed, { error: String(error) }));
-      } finally {
-        if (fileInputRef.current) {
-          fileInputRef.current.value = '';
+    const handleImportClick = useCallback(async () => {
+      const native = window.electron?.selectImportSessionFile;
+      if (typeof native === 'function') {
+        try {
+          const result = await native();
+          if (!result) return;
+          if (result.error) {
+            toast.error(intl.formatMessage(i18n.importFailed, { error: result.error }));
+            return;
+          }
+          await acpImportSession(result.contents);
+          toast.success(intl.formatMessage(i18n.importSuccess));
+          window.dispatchEvent(new CustomEvent(AppEvents.SESSION_CREATED));
+          await loadSessions();
+        } catch (error) {
+          toast.error(
+            intl.formatMessage(i18n.importFailed, { error: errorMessage(error, 'Unknown error') })
+          );
         }
+        return;
       }
-    },
-    [loadSessions, intl]
-  );
+      // Fallback for non-Electron contexts (tests, web build).
+      fileInputRef.current?.click();
+    }, [intl, loadSessions]);
 
-  const handleOpenInNewWindow = useCallback((session: SessionListItem, e: React.MouseEvent) => {
-    e.stopPropagation();
-    window.electron.createChatWindow({
-      dir: session.workingDir,
-      resumeSessionId: session.id,
-      viewType: 'pair',
-    });
-  }, []);
+    const handleImportSession = useCallback(
+      async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
 
-  const SessionItem = React.memo(function SessionItem({
-    session,
-    onEditClick,
-    onDuplicateClick,
-    onDeleteClick,
-    onExportClick,
-    onOpenInNewWindow,
-  }: {
-    session: SessionListItem;
-    onEditClick: (session: SessionListItem) => void;
-    onDuplicateClick: (session: SessionListItem) => void;
-    onDeleteClick: (session: SessionListItem) => void;
-    onExportClick: (session: SessionListItem, format: SessionExportFormat) => void;
-    onOpenInNewWindow: (session: SessionListItem, e: React.MouseEvent) => void;
-  }) {
-    const handleEditClick = useCallback(
-      (e: React.MouseEvent) => {
-        e.stopPropagation();
-        onEditClick(session);
+        try {
+          const json = await file.text();
+          await acpImportSession(json);
+
+          toast.success(intl.formatMessage(i18n.importSuccess));
+          window.dispatchEvent(new CustomEvent(AppEvents.SESSION_CREATED));
+          await loadSessions();
+        } catch (error) {
+          toast.error(intl.formatMessage(i18n.importFailed, { error: String(error) }));
+        } finally {
+          if (fileInputRef.current) {
+            fileInputRef.current.value = '';
+          }
+        }
       },
-      [onEditClick, session]
+      [loadSessions, intl]
     );
 
-    const handleDuplicateClick = useCallback(
-      (e: React.MouseEvent) => {
-        e.stopPropagation();
-        onDuplicateClick(session);
-      },
-      [onDuplicateClick, session]
-    );
+    const formatStartedAt = useCallback((value: string) => {
+      const date = new Date(value);
+      if (Number.isNaN(date.getTime())) return '—';
+      const pad = (part: number) => String(part).padStart(2, '0');
+      return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())} ${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}`;
+    }, []);
 
-    const handleDeleteClick = useCallback(
-      (e: React.MouseEvent) => {
-        e.stopPropagation();
-        onDeleteClick(session);
-      },
-      [onDeleteClick, session]
-    );
+    const handleOpenInNewWindow = useCallback((session: SessionListItem, e: React.MouseEvent) => {
+      e.stopPropagation();
+      window.electron.createChatWindow({
+        dir: session.workingDir,
+        resumeSessionId: session.id,
+        viewType: 'pair',
+      });
+    }, []);
 
-    const handleCardClick = useCallback(() => {
-      onSelectSession(session.id);
-    }, [session.id]);
+    const SessionItem = React.memo(function SessionItem({
+      session,
+      onEditClick,
+      onDuplicateClick,
+      onDeleteClick,
+      onExportClick,
+      onOpenInNewWindow,
+    }: {
+      session: SessionListItem;
+      onEditClick: (session: SessionListItem) => void;
+      onDuplicateClick: (session: SessionListItem) => void;
+      onDeleteClick: (session: SessionListItem) => void;
+      onExportClick: (session: SessionListItem, format: SessionExportFormat) => void;
+      onOpenInNewWindow: (session: SessionListItem, e: React.MouseEvent) => void;
+    }) {
+      const handleEditClick = useCallback(
+        (e: React.MouseEvent) => {
+          e.stopPropagation();
+          onEditClick(session);
+        },
+        [onEditClick, session]
+      );
 
-    const handleExportSelect = useCallback(
-      (format: SessionExportFormat) => {
-        onExportClick(session, format);
-      },
-      [onExportClick, session]
-    );
+      const handleDuplicateClick = useCallback(
+        (e: React.MouseEvent) => {
+          e.stopPropagation();
+          onDuplicateClick(session);
+        },
+        [onDuplicateClick, session]
+      );
 
-    const handleOpenInNewWindowClick = useCallback(
-      (e: React.MouseEvent) => {
-        onOpenInNewWindow(session, e);
-      },
-      [onOpenInNewWindow, session]
-    );
+      const handleDeleteClick = useCallback(
+        (e: React.MouseEvent) => {
+          e.stopPropagation();
+          onDeleteClick(session);
+        },
+        [onDeleteClick, session]
+      );
 
-    const displayName = session.name;
+      const handleCardClick = useCallback(() => {
+        onSelectSession(session.id);
+      }, [session.id]);
 
-    return (
-      <Card
-        onClick={handleCardClick}
-        className="h-full py-3 px-4 hover:shadow-default cursor-pointer transition-all duration-150 flex flex-col justify-between relative group"
-      >
-        <div>
-          <h3 className="text-base break-words line-clamp-2 w-full mb-1">{displayName}</h3>
-          {session.sessionType === 'acp' && (
-            <span className="text-xs text-text-tertiary bg-background-secondary px-2 py-0.5 rounded-full">
-              {intl.formatMessage(i18n.acpBadge)}
+      const handleExportSelect = useCallback(
+        (format: SessionExportFormat) => {
+          onExportClick(session, format);
+        },
+        [onExportClick, session]
+      );
+
+      const handleOpenInNewWindowClick = useCallback(
+        (e: React.MouseEvent) => {
+          onOpenInNewWindow(session, e);
+        },
+        [onOpenInNewWindow, session]
+      );
+
+      const displayName = session.name;
+
+      return (
+        <Card
+          onClick={handleCardClick}
+          className="grid grid-cols-[minmax(0,1fr)_minmax(0,2fr)_minmax(145px,auto)_auto] items-center gap-3 rounded-none border-x-0 border-t-0 px-3 py-3 shadow-none hover:bg-background-secondary/70 cursor-pointer transition-colors relative group"
+        >
+          <div className="min-w-0 text-xs text-text-secondary" title={session.workingDir || '—'}>
+            <span className="block truncate">
+              {session.workingDir ? session.workingDir.split(/[\\/]/).filter(Boolean).pop() : '—'}
             </span>
-          )}
-          <div className="flex-1 mt-2">
-            <div className="flex items-center text-text-secondary text-xs">
-              <Calendar className="w-3 h-3 mr-1 flex-shrink-0" />
-              <span>{formatMessageTimestamp(Date.parse(sessionActivityAt(session)) / 1000)}</span>
-            </div>
-            <div className="flex items-center text-text-secondary text-xs">
-              <Folder className="w-3 h-3 mr-1 flex-shrink-0" />
-              <span className="truncate">{session.workingDir}</span>
-            </div>
           </div>
-        </div>
-        <div className="flex items-center justify-between mt-1">
-          <div className="flex items-center space-x-3 text-xs text-text-secondary">
-            <div className="flex items-center">
-              <MessageSquareText className="w-3 h-3 mr-1" />
+          <div className="min-w-0">
+            <h3 className="truncate text-sm font-medium text-text-primary" title={displayName}>
+              {displayName}
+            </h3>
+            {session.sessionType === 'acp' && (
+              <span className="text-xs text-text-tertiary bg-background-secondary px-2 py-0.5 rounded-full">
+                {intl.formatMessage(i18n.acpBadge)}
+              </span>
+            )}
+            <div className="mt-1 flex items-center gap-1 text-xs text-text-tertiary">
+              <MessageSquareText className="h-3 w-3 shrink-0" />
               <span className="font-mono">{session.messageCount}</span>
             </div>
           </div>
-        </div>
-        <div className="flex justify-end gap-1 opacity-0 group-hover:opacity-100 has-data-[state=open]:opacity-100 transition-opacity">
-          <button
-            onClick={handleOpenInNewWindowClick}
-            className="p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
-            title={intl.formatMessage(i18n.openInNewWindow)}
-          >
-            <ExternalLink className="w-3 h-3 text-text-secondary hover:text-text-primary" />
-          </button>
-          <button
-            onClick={handleEditClick}
-            className="p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
-            title={intl.formatMessage(i18n.editSessionName)}
-          >
-            <Edit2 className="w-3 h-3 text-text-secondary hover:text-text-primary" />
-          </button>
-          <button
-            onClick={handleDuplicateClick}
-            className="p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
-            title={intl.formatMessage(i18n.duplicateSession)}
-          >
-            <Copy className="w-3 h-3 text-text-secondary hover:text-text-primary" />
-          </button>
-          <button
-            onClick={handleDeleteClick}
-            className="p-2 rounded hover:bg-red-50 dark:hover:bg-red-900/20 cursor-pointer transition-colors"
-            title={intl.formatMessage(i18n.deleteSession)}
-          >
-            <Trash2 className="w-3 h-3 text-red-500 hover:text-red-600" />
-          </button>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <button
+          <div className="whitespace-nowrap text-xs tabular-nums text-text-secondary">
+            {formatStartedAt(session.createdAt || session.updatedAt)}
+          </div>
+          <div className="absolute right-3 top-1/2 flex -translate-y-1/2 justify-end gap-1 bg-background-primary pl-2 opacity-0 group-hover:opacity-100 has-data-[state=open]:opacity-100 transition-opacity">
+            <button
+              onClick={handleOpenInNewWindowClick}
+              className="p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
+              title={intl.formatMessage(i18n.openInNewWindow)}
+            >
+              <ExternalLink className="w-3 h-3 text-text-secondary hover:text-text-primary" />
+            </button>
+            <button
+              onClick={handleEditClick}
+              className="p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
+              title={intl.formatMessage(i18n.editSessionName)}
+            >
+              <Edit2 className="w-3 h-3 text-text-secondary hover:text-text-primary" />
+            </button>
+            <button
+              onClick={handleDuplicateClick}
+              className="p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
+              title={intl.formatMessage(i18n.duplicateSession)}
+            >
+              <Copy className="w-3 h-3 text-text-secondary hover:text-text-primary" />
+            </button>
+            <button
+              onClick={handleDeleteClick}
+              className="p-2 rounded hover:bg-red-50 dark:hover:bg-red-900/20 cursor-pointer transition-colors"
+              title={intl.formatMessage(i18n.deleteSession)}
+            >
+              <Trash2 className="w-3 h-3 text-red-500 hover:text-red-600" />
+            </button>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button
+                  onClick={(e) => e.stopPropagation()}
+                  className="p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
+                  title={intl.formatMessage(i18n.exportSession)}
+                >
+                  <Download className="w-3 h-3 text-text-secondary hover:text-text-primary" />
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent
+                align="end"
+                className="w-64"
                 onClick={(e) => e.stopPropagation()}
-                className="p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
-                title={intl.formatMessage(i18n.exportSession)}
               >
-                <Download className="w-3 h-3 text-text-secondary hover:text-text-primary" />
-              </button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-64" onClick={(e) => e.stopPropagation()}>
-              <DropdownMenuItem onSelect={() => handleExportSelect('json')}>
-                <div className="flex flex-col">
-                  <span>{intl.formatMessage(i18n.exportAsJson)}</span>
-                </div>
-              </DropdownMenuItem>
-              <DropdownMenuItem onSelect={() => handleExportSelect('markdown')}>
-                <div className="flex flex-col">
-                  <span>{intl.formatMessage(i18n.exportAsMarkdown)}</span>
-                </div>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
-      </Card>
-    );
-  });
-
-  const SessionSkeleton = React.memo(({ variant = 0 }: { variant?: number }) => {
-    const titleWidths = ['w-3/4', 'w-2/3', 'w-4/5', 'w-1/2'];
-    const pathWidths = ['w-32', 'w-28', 'w-36', 'w-24'];
-    const tokenWidths = ['w-12', 'w-10', 'w-14', 'w-8'];
-
-    return (
-      <Card className="session-skeleton h-full py-3 px-4 flex flex-col justify-between">
-        <div className="flex-1">
-          <Skeleton className={`h-5 ${titleWidths[variant % titleWidths.length]} mb-2`} />
-          <div className="flex items-center mb-1">
-            <Skeleton className="h-3 w-3 mr-1 rounded-sm" />
-            <Skeleton className="h-4 w-20" />
+                <DropdownMenuItem onSelect={() => handleExportSelect('json')}>
+                  <div className="flex flex-col">
+                    <span>{intl.formatMessage(i18n.exportAsJson)}</span>
+                  </div>
+                </DropdownMenuItem>
+                <DropdownMenuItem onSelect={() => handleExportSelect('markdown')}>
+                  <div className="flex flex-col">
+                    <span>{intl.formatMessage(i18n.exportAsMarkdown)}</span>
+                  </div>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
-          <div className="flex items-center mb-1">
-            <Skeleton className="h-3 w-3 mr-1 rounded-sm" />
-            <Skeleton className={`h-4 ${pathWidths[variant % pathWidths.length]}`} />
-          </div>
-        </div>
-
-        <div className="flex items-center justify-between mt-1 pt-2">
-          <div className="flex items-center space-x-3">
-            <div className="flex items-center">
-              <Skeleton className="h-3 w-3 mr-1 rounded-sm" />
-              <Skeleton className="h-4 w-8" />
-            </div>
-            <div className="flex items-center">
-              <Skeleton className="h-3 w-3 mr-1 rounded-sm" />
-              <Skeleton className={`h-4 ${tokenWidths[variant % tokenWidths.length]}`} />
-            </div>
-          </div>
-        </div>
-      </Card>
-    );
-  });
-
-  SessionSkeleton.displayName = 'SessionSkeleton';
-
-  const renderActualContent = () => {
-    if (error) {
-      return (
-        <div className="flex flex-col items-center justify-center h-full text-text-secondary">
-          <AlertCircle className="h-12 w-12 text-red-500 mb-4" />
-          <p className="text-lg mb-2">{intl.formatMessage(i18n.errorLoading)}</p>
-          <p className="text-sm text-center mb-4">{error}</p>
-          <Button onClick={() => loadSessions(debouncedSearchTerm)} variant="default">
-            {intl.formatMessage(i18n.tryAgain)}
-          </Button>
-        </div>
+        </Card>
       );
-    }
+    });
 
-    if (sessions.length === 0) {
-      // `sessions` holds the keyword-filtered set, so an empty result while searching
-      // means "no matches" rather than "no sessions at all".
-      if (debouncedSearchTerm) {
+    const SessionSkeleton = React.memo(({ variant = 0 }: { variant?: number }) => {
+      const titleWidths = ['w-3/4', 'w-2/3', 'w-4/5', 'w-1/2'];
+      const pathWidths = ['w-32', 'w-28', 'w-36', 'w-24'];
+      const tokenWidths = ['w-12', 'w-10', 'w-14', 'w-8'];
+
+      return (
+        <Card className="session-skeleton h-full py-3 px-4 flex flex-col justify-between">
+          <div className="flex-1">
+            <Skeleton className={`h-5 ${titleWidths[variant % titleWidths.length]} mb-2`} />
+            <div className="flex items-center mb-1">
+              <Skeleton className="h-3 w-3 mr-1 rounded-sm" />
+              <Skeleton className="h-4 w-20" />
+            </div>
+            <div className="flex items-center mb-1">
+              <Skeleton className="h-3 w-3 mr-1 rounded-sm" />
+              <Skeleton className={`h-4 ${pathWidths[variant % pathWidths.length]}`} />
+            </div>
+          </div>
+
+          <div className="flex items-center justify-between mt-1 pt-2">
+            <div className="flex items-center space-x-3">
+              <div className="flex items-center">
+                <Skeleton className="h-3 w-3 mr-1 rounded-sm" />
+                <Skeleton className="h-4 w-8" />
+              </div>
+              <div className="flex items-center">
+                <Skeleton className="h-3 w-3 mr-1 rounded-sm" />
+                <Skeleton className={`h-4 ${tokenWidths[variant % tokenWidths.length]}`} />
+              </div>
+            </div>
+          </div>
+        </Card>
+      );
+    });
+
+    SessionSkeleton.displayName = 'SessionSkeleton';
+
+    const renderActualContent = () => {
+      if (error) {
         return (
-          <div className="flex flex-col items-center justify-center h-full text-text-secondary mt-4">
-            <MessageSquareText className="h-12 w-12 mb-4" />
-            <p className="text-lg mb-2">{intl.formatMessage(i18n.noMatching)}</p>
-            <p className="text-sm">{intl.formatMessage(i18n.noMatchingDesc)}</p>
+          <div className="flex flex-col items-center justify-center h-full text-text-secondary">
+            <AlertCircle className="h-12 w-12 text-red-500 mb-4" />
+            <p className="text-lg mb-2">{intl.formatMessage(i18n.errorLoading)}</p>
+            <p className="text-sm text-center mb-4">{error}</p>
+            <Button onClick={() => loadSessions(debouncedSearchTerm)} variant="default">
+              {intl.formatMessage(i18n.tryAgain)}
+            </Button>
           </div>
         );
       }
-      return (
-        <div className="flex flex-col justify-center h-full text-text-secondary">
-          <MessageSquareText className="h-12 w-12 mb-4" />
-          <p className="text-lg mb-2">{intl.formatMessage(i18n.noSessions)}</p>
-          <p className="text-sm">{intl.formatMessage(i18n.noSessionsDesc)}</p>
-        </div>
-      );
-    }
 
-    return (
-      <div className="space-y-8">
-        {visibleDateGroups.map((group) => (
-          <div key={group.label} className="space-y-4">
-            <div className="sticky top-0 z-10 bg-background-primary/95 backdrop-blur-sm">
-              <h2 className="text-text-secondary">{group.label}</h2>
+      if (sessions.length === 0) {
+        // `sessions` holds the keyword-filtered set, so an empty result while searching
+        // means "no matches" rather than "no sessions at all".
+        if (debouncedSearchTerm) {
+          return (
+            <div className="flex flex-col items-center justify-center h-full text-text-secondary mt-4">
+              <MessageSquareText className="h-12 w-12 mb-4" />
+              <p className="text-lg mb-2">{intl.formatMessage(i18n.noMatching)}</p>
+              <p className="text-sm">{intl.formatMessage(i18n.noMatchingDesc)}</p>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4">
-              {group.sessions.map((session) => (
-                <SessionItem
-                  key={session.id}
-                  session={session}
-                  onEditClick={handleEditSession}
-                  onDuplicateClick={handleDuplicateSession}
-                  onDeleteClick={handleDeleteSession}
-                  onExportClick={handleExportSession}
-                  onOpenInNewWindow={handleOpenInNewWindow}
-                />
-              ))}
-            </div>
+          );
+        }
+        return (
+          <div className="flex flex-col justify-center h-full text-text-secondary">
+            <MessageSquareText className="h-12 w-12 mb-4" />
+            <p className="text-lg mb-2">{intl.formatMessage(i18n.noSessions)}</p>
+            <p className="text-sm">{intl.formatMessage(i18n.noSessionsDesc)}</p>
           </div>
-        ))}
+        );
+      }
 
-        {!debouncedSearchTerm &&
-          visibleGroupsCount >= activeDateGroups.length &&
-          memoizedScheduledDateGroups.length > 0 && (
-            <div className="space-y-4">
-            <button
-              onClick={() => setIsScheduledExpanded((v) => !v)}
-              aria-expanded={isScheduledExpanded}
-              aria-controls="scheduled-job-sessions"
-              className="sticky top-0 z-10 w-full flex items-center justify-between bg-background-primary/95 backdrop-blur-sm py-2 px-1 rounded-lg hover:bg-background-secondary transition-colors cursor-pointer"
-            >
-              <div className="flex items-center gap-2">
-                <Clock className="w-4 h-4 text-text-secondary" />
-                <h2 className="text-text-secondary font-medium">
-                  {intl.formatMessage(i18n.scheduledJobs)}
-                </h2>
-                <span className="text-xs text-text-tertiary bg-background-secondary px-2 py-0.5 rounded-full">
-                  {intl.formatMessage(i18n.scheduledJobsCount, { count: scheduledSessions.length })}
-                </span>
+      return (
+        <div className="space-y-8">
+          {visibleDateGroups.map((group) => (
+            <div key={group.label} className="space-y-4">
+              <div className="sticky top-0 z-10 bg-background-primary/95 backdrop-blur-sm">
+                <h2 className="text-text-secondary">{group.label}</h2>
               </div>
-              {isScheduledExpanded ? (
-                <ChevronDown className="w-4 h-4 text-text-secondary" />
-              ) : (
-                <ChevronRight className="w-4 h-4 text-text-secondary" />
-              )}
-            </button>
-
-            {isScheduledExpanded && (
-              <div id="scheduled-job-sessions" className="space-y-8">
-                {memoizedScheduledDateGroups.map((group) => (
-                  <div key={group.label} className="space-y-4">
-                    <div className="sticky top-0 z-10 bg-background-primary/95 backdrop-blur-sm">
-                      <h2 className="text-text-secondary">{group.label}</h2>
-                    </div>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4">
-                      {group.sessions.map((session) => (
-                        <SessionItem
-                          key={session.id}
-                          session={session}
-                          onEditClick={handleEditSession}
-                          onDuplicateClick={handleDuplicateSession}
-                          onDeleteClick={handleDeleteSession}
-                          onExportClick={handleExportSession}
-                          onOpenInNewWindow={handleOpenInNewWindow}
-                        />
-                      ))}
-                    </div>
-                  </div>
+              <div className="overflow-hidden rounded-lg border border-border-primary bg-background-primary">
+                <div className="grid grid-cols-[minmax(0,1fr)_minmax(0,2fr)_minmax(145px,auto)] gap-3 border-b border-border-primary bg-background-secondary px-3 py-2 text-[11px] font-semibold uppercase tracking-wide text-text-tertiary">
+                  <span>{intl.formatMessage(i18n.projectColumn)}</span>
+                  <span>{intl.formatMessage(i18n.titleColumn)}</span>
+                  <span>{intl.formatMessage(i18n.startedAtColumn)}</span>
+                </div>
+                {group.sessions.map((session) => (
+                  <SessionItem
+                    key={session.id}
+                    session={session}
+                    onEditClick={handleEditSession}
+                    onDuplicateClick={handleDuplicateSession}
+                    onDeleteClick={handleDeleteSession}
+                    onExportClick={handleExportSession}
+                    onOpenInNewWindow={handleOpenInNewWindow}
+                  />
                 ))}
               </div>
+            </div>
+          ))}
+
+          {!debouncedSearchTerm &&
+            visibleGroupsCount >= activeDateGroups.length &&
+            memoizedScheduledDateGroups.length > 0 && (
+              <div className="space-y-4">
+                <button
+                  onClick={() => setIsScheduledExpanded((v) => !v)}
+                  aria-expanded={isScheduledExpanded}
+                  aria-controls="scheduled-job-sessions"
+                  className="sticky top-0 z-10 w-full flex items-center justify-between bg-background-primary/95 backdrop-blur-sm py-2 px-1 rounded-lg hover:bg-background-secondary transition-colors cursor-pointer"
+                >
+                  <div className="flex items-center gap-2">
+                    <Clock className="w-4 h-4 text-text-secondary" />
+                    <h2 className="text-text-secondary font-medium">
+                      {intl.formatMessage(i18n.scheduledJobs)}
+                    </h2>
+                    <span className="text-xs text-text-tertiary bg-background-secondary px-2 py-0.5 rounded-full">
+                      {intl.formatMessage(i18n.scheduledJobsCount, {
+                        count: scheduledSessions.length,
+                      })}
+                    </span>
+                  </div>
+                  {isScheduledExpanded ? (
+                    <ChevronDown className="w-4 h-4 text-text-secondary" />
+                  ) : (
+                    <ChevronRight className="w-4 h-4 text-text-secondary" />
+                  )}
+                </button>
+
+                {isScheduledExpanded && (
+                  <div id="scheduled-job-sessions" className="space-y-8">
+                    {memoizedScheduledDateGroups.map((group) => (
+                      <div key={group.label} className="space-y-4">
+                        <div className="sticky top-0 z-10 bg-background-primary/95 backdrop-blur-sm">
+                          <h2 className="text-text-secondary">{group.label}</h2>
+                        </div>
+                        <div className="overflow-hidden rounded-lg border border-border-primary bg-background-primary">
+                          <div className="grid grid-cols-[minmax(0,1fr)_minmax(0,2fr)_minmax(145px,auto)] gap-3 border-b border-border-primary bg-background-secondary px-3 py-2 text-[11px] font-semibold uppercase tracking-wide text-text-tertiary">
+                            <span>{intl.formatMessage(i18n.projectColumn)}</span>
+                            <span>{intl.formatMessage(i18n.titleColumn)}</span>
+                            <span>{intl.formatMessage(i18n.startedAtColumn)}</span>
+                          </div>
+                          {group.sessions.map((session) => (
+                            <SessionItem
+                              key={session.id}
+                              session={session}
+                              onEditClick={handleEditSession}
+                              onDuplicateClick={handleDuplicateSession}
+                              onDeleteClick={handleDeleteSession}
+                              onExportClick={handleExportSession}
+                              onOpenInNewWindow={handleOpenInNewWindow}
+                            />
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
             )}
+
+          {isPrefetchingSessions && (
+            <div className="flex justify-center py-8">
+              <div className="flex items-center space-x-2 text-text-secondary">
+                <div className="animate-spin rounded-full h-4 w-4 border-b-2"></div>
+                <span>{intl.formatMessage(i18n.loadingMore)}</span>
+              </div>
             </div>
           )}
+        </div>
+      );
+    };
 
-        {isPrefetchingSessions && (
-          <div className="flex justify-center py-8">
-            <div className="flex items-center space-x-2 text-text-secondary">
-              <div className="animate-spin rounded-full h-4 w-4 border-b-2"></div>
-              <span>{intl.formatMessage(i18n.loadingMore)}</span>
-            </div>
-          </div>
-        )}
-      </div>
-    );
-  };
-
-  return (
-    <>
-      <MainPanelLayout embedded={embedded}>
-        <div className="flex-1 flex flex-col min-h-0">
-          <div className="bg-background-primary px-8 pb-8 pt-16">
-            <div className="flex flex-col page-transition">
-              <div className="flex justify-between items-center mb-1">
-                <h1 className="text-4xl font-light">{intl.formatMessage(i18n.chatHistory)}</h1>
-                <div className="flex items-center gap-2">
-                  <Button
-                    onClick={handleImportClick}
-                    variant="outline"
-                    size="sm"
-                    className="flex items-center gap-2"
-                  >
-                    <Upload className="w-4 h-4" />
-                    {intl.formatMessage(i18n.importSession)}
-                  </Button>
+    return (
+      <>
+        <MainPanelLayout embedded={embedded}>
+          <div className="flex-1 flex flex-col min-h-0">
+            <div className="bg-background-primary px-8 pb-8 pt-16">
+              <div className="flex flex-col page-transition">
+                <div className="flex justify-between items-center mb-1">
+                  <h1 className="text-4xl font-light">{intl.formatMessage(i18n.chatHistory)}</h1>
+                  <div className="flex items-center gap-2">
+                    <Button
+                      onClick={handleImportClick}
+                      variant="outline"
+                      size="sm"
+                      className="flex items-center gap-2"
+                    >
+                      <Upload className="w-4 h-4" />
+                      {intl.formatMessage(i18n.importSession)}
+                    </Button>
+                  </div>
                 </div>
+                <p className="text-sm text-text-secondary mb-4">
+                  {intl.formatMessage(i18n.chatHistoryDesc, { shortcut: getSearchShortcutText() })}
+                </p>
+                <label className="flex items-center gap-2 text-sm text-text-secondary mb-4 cursor-pointer w-fit">
+                  <Switch
+                    variant="mono"
+                    checked={includeAcpSessions}
+                    onCheckedChange={handleIncludeAcpSessionsChange}
+                  />
+                  {intl.formatMessage(i18n.includeAcpSessions)}
+                </label>
               </div>
-              <p className="text-sm text-text-secondary mb-4">
-                {intl.formatMessage(i18n.chatHistoryDesc, { shortcut: getSearchShortcutText() })}
-              </p>
-              <label className="flex items-center gap-2 text-sm text-text-secondary mb-4 cursor-pointer w-fit">
-                <Switch
-                  variant="mono"
-                  checked={includeAcpSessions}
-                  onCheckedChange={handleIncludeAcpSessionsChange}
-                />
-                {intl.formatMessage(i18n.includeAcpSessions)}
-              </label>
             </div>
-          </div>
 
-          <div className="flex-1 min-h-0 relative">
-            <ScrollArea handleScroll={handleScroll} className="h-full" data-search-scroll-area>
-              <div ref={containerRef} className="h-full relative px-8">
-                <SearchView
-                  onSearch={handleSearch}
-                  className="relative"
-                  placeholder={intl.formatMessage(i18n.searchPlaceholder)}
-                  showCaseSensitive={false}
-                  showNavigation={false}
-                  highlightMatches={false}
-                >
-                  {/* Skeleton layer - always rendered but conditionally visible */}
-                  <div
-                    className={`absolute inset-0 transition-opacity duration-300 ${
-                      isLoading || showSkeleton
-                        ? 'opacity-100 z-10'
-                        : 'opacity-0 z-0 pointer-events-none'
-                    }`}
+            <div className="flex-1 min-h-0 relative">
+              <ScrollArea handleScroll={handleScroll} className="h-full" data-search-scroll-area>
+                <div ref={containerRef} className="h-full relative px-8">
+                  <SearchView
+                    onSearch={handleSearch}
+                    className="relative"
+                    placeholder={intl.formatMessage(i18n.searchPlaceholder)}
+                    showCaseSensitive={false}
+                    showNavigation={false}
+                    highlightMatches={false}
                   >
-                    <div className="space-y-8">
-                      {/* Today section */}
-                      <div className="space-y-4">
-                        <Skeleton className="h-6 w-16" />
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4">
-                          <SessionSkeleton variant={0} />
-                          <SessionSkeleton variant={1} />
-                          <SessionSkeleton variant={2} />
-                          <SessionSkeleton variant={3} />
-                          <SessionSkeleton variant={0} />
+                    {/* Skeleton layer - always rendered but conditionally visible */}
+                    <div
+                      className={`absolute inset-0 transition-opacity duration-300 ${
+                        isLoading || showSkeleton
+                          ? 'opacity-100 z-10'
+                          : 'opacity-0 z-0 pointer-events-none'
+                      }`}
+                    >
+                      <div className="space-y-8">
+                        {/* Today section */}
+                        <div className="space-y-4">
+                          <Skeleton className="h-6 w-16" />
+                          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4">
+                            <SessionSkeleton variant={0} />
+                            <SessionSkeleton variant={1} />
+                            <SessionSkeleton variant={2} />
+                            <SessionSkeleton variant={3} />
+                            <SessionSkeleton variant={0} />
+                          </div>
                         </div>
-                      </div>
 
-                      {/* Yesterday section */}
-                      <div className="space-y-4">
-                        <Skeleton className="h-6 w-20" />
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4">
-                          <SessionSkeleton variant={1} />
-                          <SessionSkeleton variant={2} />
-                          <SessionSkeleton variant={3} />
-                          <SessionSkeleton variant={0} />
-                          <SessionSkeleton variant={1} />
-                          <SessionSkeleton variant={2} />
+                        {/* Yesterday section */}
+                        <div className="space-y-4">
+                          <Skeleton className="h-6 w-20" />
+                          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4">
+                            <SessionSkeleton variant={1} />
+                            <SessionSkeleton variant={2} />
+                            <SessionSkeleton variant={3} />
+                            <SessionSkeleton variant={0} />
+                            <SessionSkeleton variant={1} />
+                            <SessionSkeleton variant={2} />
+                          </div>
                         </div>
-                      </div>
 
-                      {/* Additional section */}
-                      <div className="space-y-4">
-                        <Skeleton className="h-6 w-24" />
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4">
-                          <SessionSkeleton variant={3} />
-                          <SessionSkeleton variant={0} />
-                          <SessionSkeleton variant={1} />
+                        {/* Additional section */}
+                        <div className="space-y-4">
+                          <Skeleton className="h-6 w-24" />
+                          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4">
+                            <SessionSkeleton variant={3} />
+                            <SessionSkeleton variant={0} />
+                            <SessionSkeleton variant={1} />
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
 
-                  {/* Content layer - always rendered but conditionally visible */}
-                  <div
-                    className={`relative transition-opacity duration-300 ${
-                      showContent ? 'opacity-100 z-10' : 'opacity-0 z-0'
-                    }`}
-                  >
-                    {renderActualContent()}
-                  </div>
-                </SearchView>
-              </div>
-            </ScrollArea>
+                    {/* Content layer - always rendered but conditionally visible */}
+                    <div
+                      className={`relative transition-opacity duration-300 ${
+                        showContent ? 'opacity-100 z-10' : 'opacity-0 z-0'
+                      }`}
+                    >
+                      {renderActualContent()}
+                    </div>
+                  </SearchView>
+                </div>
+              </ScrollArea>
+            </div>
           </div>
-        </div>
-      </MainPanelLayout>
+        </MainPanelLayout>
 
-      <input
-        ref={fileInputRef}
-        type="file"
-        accept=".json,.jsonl,application/json,application/x-ndjson"
-        onChange={handleImportSession}
-        className="hidden"
-      />
+        <input
+          ref={fileInputRef}
+          type="file"
+          accept=".json,.jsonl,application/json,application/x-ndjson"
+          onChange={handleImportSession}
+          className="hidden"
+        />
 
-      <EditSessionModal
-        session={editingSession}
-        isOpen={showEditModal}
-        onClose={handleModalClose}
-        onSave={handleModalSave}
-      />
+        <EditSessionModal
+          session={editingSession}
+          isOpen={showEditModal}
+          onClose={handleModalClose}
+          onSave={handleModalSave}
+        />
 
-      <ConfirmationModal
-        isOpen={showDeleteConfirmation}
-        title={intl.formatMessage(i18n.deleteTitle)}
-        message={intl.formatMessage(i18n.deleteMessage, { name: sessionToDelete?.name ?? '' })}
-        confirmLabel={intl.formatMessage(i18n.deleteTitle)}
-        cancelLabel={intl.formatMessage(i18n.cancel)}
-        confirmVariant="destructive"
-        onConfirm={handleConfirmDelete}
-        onCancel={handleCancelDelete}
-      />
-    </>
-  );
-});
+        <ConfirmationModal
+          isOpen={showDeleteConfirmation}
+          title={intl.formatMessage(i18n.deleteTitle)}
+          message={intl.formatMessage(i18n.deleteMessage, { name: sessionToDelete?.name ?? '' })}
+          confirmLabel={intl.formatMessage(i18n.deleteTitle)}
+          cancelLabel={intl.formatMessage(i18n.cancel)}
+          confirmVariant="destructive"
+          onConfirm={handleConfirmDelete}
+          onCancel={handleCancelDelete}
+        />
+      </>
+    );
+  }
+);
 
 SessionListView.displayName = 'SessionListView';
 

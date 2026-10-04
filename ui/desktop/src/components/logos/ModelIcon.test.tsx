@@ -49,10 +49,10 @@ describe('ModelIcon', () => {
   });
 
   it('renders initials for a known provider that publishes no brand mark', () => {
-    const { container } = render(<ModelIcon provider="routstr" />);
+    const { container } = render(<ModelIcon provider="orcarouter" />);
     expect(container.querySelector('img')).toBeNull();
     const svg = container.querySelector('svg');
     expect(svg).not.toBeNull();
-    expect(svg?.textContent).toBe('R');
+    expect(svg?.textContent).toBe('OR');
   });
 });

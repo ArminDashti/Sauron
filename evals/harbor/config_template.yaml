@@ -26,6 +26,12 @@ extensions:
     name: memory
     type: builtin
     timeout: 300
+  browser:
+    bundled: true
+    enabled: false
+    name: browser
+    type: platform
+    timeout: 300
   summon:
     bundled: true
     enabled: false

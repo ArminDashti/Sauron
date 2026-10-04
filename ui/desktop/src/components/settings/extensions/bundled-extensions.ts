@@ -11,7 +11,7 @@ type BundledExtension = {
   display_name?: string;
   description: string;
   enabled: boolean;
-  type: 'builtin' | 'stdio' | 'streamable_http';
+  type: 'builtin' | 'platform' | 'stdio' | 'streamable_http';
   cmd?: string;
   args?: string[];
   uri?: string;
@@ -90,6 +90,16 @@ export async function syncBundledExtensions(
       let extConfig: ExtensionConfig;
       switch (bundledExt.type) {
         case 'builtin':
+          extConfig = {
+            type: bundledExt.type,
+            name: bundledExt.name,
+            description: bundledExt.description,
+            display_name: bundledExt.display_name,
+            timeout: bundledExt.timeout ?? 300,
+            bundled: true,
+          };
+          break;
+        case 'platform':
           extConfig = {
             type: bundledExt.type,
             name: bundledExt.name,

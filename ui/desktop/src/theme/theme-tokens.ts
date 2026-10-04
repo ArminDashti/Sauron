@@ -29,10 +29,12 @@ import {
   type ThemeTokens,
 } from './theme-base';
 import { popularThemes, type PopularThemeId } from './popular-themes';
+import type { CustomTheme } from './custom-theme';
 
 export type { ColorTokens, ThemeDefinition, ThemeTokens, ThemeVariant } from './theme-base';
 
 export { baseTokens };
+export type { CustomTheme } from './custom-theme';
 
 // ---------------------------------------------------------------------------
 // Light theme — colors & shadows
@@ -222,18 +224,41 @@ export const auraTokens: ThemeTokens = { ...baseTokens, ...auraFontTokens, ...au
 // `variant` drives the .dark/.light class and colorScheme for anything outside
 // the token system; `tokens` is the map applied to :root. Adding a future theme
 // is a single entry here (plus its token map in `popular-themes.ts`).
+// `custom` is a placeholder entry: its tokens are rebuilt from the user's saved
+// custom theme by `resolveThemeTokens`.
 // ---------------------------------------------------------------------------
-export type ThemeId = 'light' | 'dark' | 'aura' | PopularThemeId;
+export type ThemeId = 'light' | 'dark' | 'aura' | 'custom' | PopularThemeId;
 
 export const themes: Record<ThemeId, ThemeDefinition> = {
   light: { variant: 'light', tokens: lightTokens },
   dark: { variant: 'dark', tokens: darkTokens },
   aura: { variant: 'dark', tokens: auraTokens },
+  custom: { variant: 'dark', tokens: darkTokens },
   ...popularThemes,
 };
 
 export const isThemeId = (value: unknown): value is ThemeId =>
   typeof value === 'string' && Object.prototype.hasOwnProperty.call(themes, value);
+
+/** Tokens for a theme id, layering a custom theme's overrides on its base. */
+export function resolveThemeTokens(themeId: ThemeId, custom?: CustomTheme): ThemeTokens {
+  if (themeId === 'custom' && custom) {
+    return { ...themes[custom.variant].tokens, ...custom.colors };
+  }
+  return (themes[themeId] ?? themes.light).tokens;
+}
+
+/** Background + accent colors used to preview a theme in pickers. */
+export function themeSwatchFor(
+  themeId: ThemeId,
+  custom?: CustomTheme
+): { background: string; accent: string } {
+  const tokens = resolveThemeTokens(themeId, custom);
+  return {
+    background: tokens['--color-background-secondary'],
+    accent: tokens['--color-background-inverse'],
+  };
+}
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -282,8 +307,11 @@ const HOST_FONT_CSS = `
  * Aura's monospace font family reach the guest.
  * css.fonts provides @font-face rules so sandboxed apps can load host fonts.
  */
-export function buildMcpHostStyles(themeId: ThemeId = 'light'): McpUiHostStyles {
-  const tokens = (themes[themeId] ?? themes.light).tokens;
+export function buildMcpHostStyles(
+  themeId: ThemeId = 'light',
+  custom?: CustomTheme
+): McpUiHostStyles {
+  const tokens = resolveThemeTokens(themeId, custom);
   const isBuiltinVariant = themeId === 'light' || themeId === 'dark';
   const variables: McpUiStyles = {} as McpUiStyles;
   for (const key of Object.keys(lightTokens) as McpUiStyleVariableKey[]) {
@@ -313,10 +341,11 @@ export function getResolvedTheme(): ThemeId {
 /**
  * Apply a theme's tokens to the document root as CSS custom properties.
  * When called without an argument, resolves the theme from localStorage.
+ * A custom theme's overrides are layered on top of its light/dark base.
  */
-export function applyThemeTokens(theme?: ThemeId): void {
+export function applyThemeTokens(theme?: ThemeId, custom?: CustomTheme): void {
   const resolved = theme ?? getResolvedTheme();
-  const { tokens } = themes[resolved] ?? themes.light;
+  const tokens = resolveThemeTokens(resolved, custom);
   const root = document.documentElement;
   for (const [key, value] of Object.entries(tokens)) {
     root.style.setProperty(key, value);

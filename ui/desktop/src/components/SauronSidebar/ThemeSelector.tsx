@@ -4,6 +4,7 @@ import { Button } from '../ui/button';
 import { useTheme } from '../../contexts/ThemeContext';
 import { defineMessages, useIntl } from '../../i18n';
 import { POPULAR_THEME_IDS, POPULAR_THEME_LABELS, themeSwatch } from '../../theme/popular-themes';
+import { themeSwatchFor } from '../../theme/theme-tokens';
 import type { ThemeId } from '../../theme/theme-tokens';
 
 const i18n = defineMessages({
@@ -62,10 +63,15 @@ const ThemeSelector: React.FC<ThemeSelectorProps> = ({
   horizontal = false,
 }) => {
   const intl = useIntl();
-  const { userThemePreference, setUserThemePreference } = useTheme();
+  const { userThemePreference, setUserThemePreference, customTheme } = useTheme();
 
   const namedThemes = useMemo(
     () => [
+      {
+        id: 'custom' as ThemeId,
+        label: customTheme.name,
+        swatch: themeSwatchFor('custom', customTheme),
+      },
       {
         id: 'aura' as ThemeId,
         label: intl.formatMessage(i18n.aura),
@@ -77,7 +83,7 @@ const ThemeSelector: React.FC<ThemeSelectorProps> = ({
         swatch: themeSwatch(id),
       })),
     ],
-    [intl]
+    [intl, customTheme]
   );
 
   return (
@@ -122,9 +128,7 @@ const ThemeSelector: React.FC<ThemeSelectorProps> = ({
       </div>
 
       <div className={!horizontal ? 'px-3' : ''}>
-        <div className="mb-1.5 text-xs text-text-secondary">
-          {intl.formatMessage(i18n.popular)}
-        </div>
+        <div className="mb-1.5 text-xs text-text-secondary">{intl.formatMessage(i18n.popular)}</div>
         <div className="grid grid-cols-2 gap-1.5 sm:grid-cols-3">
           {namedThemes.map(({ id, label, swatch }) => (
             <Button

@@ -27,6 +27,7 @@ import {
 } from '../../../utils/preferredModels';
 import { defineMessages, useIntl } from '../../../i18n';
 import { errorMessage } from '../../../utils/conversionUtils';
+import { filterSupportedProviders } from '../../../utils/supportedProviders';
 import { toastError, toastSuccess } from '../../../toasts';
 
 const i18n = defineMessages({
@@ -135,8 +136,6 @@ type ProviderOption = {
 };
 
 interface AllProviderModelsProps {
-  /** Called after a model has been made the default so the parent can refresh. */
-  onModelSelected?: () => void;
   preferredModels?: RecentModel[];
   onPreferredModelsChange?: (next: RecentModel[]) => void;
 }
@@ -146,7 +145,6 @@ interface AllProviderModelsProps {
  * section shows all selectable models in one place.
  */
 export default function AllProviderModels({
-  onModelSelected,
   preferredModels = [],
   onPreferredModelsChange,
 }: AllProviderModelsProps) {
@@ -172,7 +170,13 @@ export default function AllProviderModels({
         acpListSettingsProviderDetails(),
         acpReadDefaults(),
       ]);
-      const configured = all.filter((provider) => provider.is_configured);
+      const configured = filterSupportedProviders(all)
+        .filter((provider) => provider.is_configured)
+        .sort((a, b) =>
+          a.metadata.display_name.localeCompare(b.metadata.display_name, undefined, {
+            sensitivity: 'base',
+          })
+        );
       setProviders(configured);
       setDefaults(currentDefaults);
       setSelectedProviderName((current) => {
@@ -235,7 +239,6 @@ export default function AllProviderModels({
           title: intl.formatMessage(i18n.defaultSet, { model }),
           msg: '',
         });
-        onModelSelected?.();
       } catch (error) {
         toastError({
           title: intl.formatMessage(i18n.defaultSetFailed),
@@ -243,7 +246,7 @@ export default function AllProviderModels({
         });
       }
     },
-    [intl, onModelSelected]
+    [intl]
   );
 
   const handleTogglePreferred = useCallback(
@@ -267,11 +270,17 @@ export default function AllProviderModels({
 
   const providerOptions = useMemo<ProviderOption[]>(
     () =>
-      providers.map((provider) => ({
-        value: provider.name,
-        label: provider.metadata.display_name,
-        provider,
-      })),
+      [...providers]
+        .sort((a, b) =>
+          a.metadata.display_name.localeCompare(b.metadata.display_name, undefined, {
+            sensitivity: 'base',
+          })
+        )
+        .map((provider) => ({
+          value: provider.name,
+          label: provider.metadata.display_name,
+          provider,
+        })),
     [providers]
   );
 
@@ -443,9 +452,7 @@ export default function AllProviderModels({
                 )}
 
                 {providerModels.length === 0 ? (
-                  <p className="text-xs text-text-secondary">
-                    {intl.formatMessage(i18n.noModels)}
-                  </p>
+                  <p className="text-xs text-text-secondary">{intl.formatMessage(i18n.noModels)}</p>
                 ) : (
                   <div className="grid gap-2 sm:grid-cols-2">
                     {visibleModels.map((model) => {
@@ -463,9 +470,7 @@ export default function AllProviderModels({
                             type="button"
                             onClick={() => handleSelectModel(selectedProvider, model.name)}
                             title={
-                              contextText
-                                ? `${model.name} (${contextText} context)`
-                                : model.name
+                              contextText ? `${model.name} (${contextText} context)` : model.name
                             }
                             aria-pressed={isCurrent}
                             data-testid={`all-provider-model-${selectedProvider.name}-${model.name}`}
@@ -485,6 +490,11 @@ export default function AllProviderModels({
                             >
                               {isCurrent && <Check className="h-2.5 w-2.5" />}
                             </span>
+                            <BrandIcon
+                              model={model.name}
+                              provider={selectedProvider.name}
+                              className="h-4 w-4 shrink-0"
+                            />
                             <span className="min-w-0 flex-1 truncate text-sm text-text-primary">
                               {model.name}
                             </span>
@@ -494,9 +504,7 @@ export default function AllProviderModels({
                           </button>
                           <button
                             type="button"
-                            onClick={() =>
-                              void handleTogglePreferred(selectedProvider, model.name)
-                            }
+                            onClick={() => void handleTogglePreferred(selectedProvider, model.name)}
                             aria-label={intl.formatMessage(
                               isPreferred ? i18n.removePreferred : i18n.addPreferred,
                               { model: model.name }
