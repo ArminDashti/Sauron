@@ -1,6 +1,6 @@
 {
   "name": "@aaif/sauron-binary-linux-arm64",
-  "version": "1.53.0",
+  "version": "1.54.0",
   "description": "Sauron binary for Linux ARM64",
   "license": "Apache-2.0",
   "repository": {

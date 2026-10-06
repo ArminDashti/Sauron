@@ -10001,7 +10001,7 @@ dependencies = [
 
 [[package]]
 name = "sauron"
-version = "1.53.0"
+version = "1.54.0"
 dependencies = [
  "agent-client-protocol",
  "agent-client-protocol-http",
@@ -10140,7 +10140,7 @@ dependencies = [
 
 [[package]]
 name = "sauron-acp-macros"
-version = "1.53.0"
+version = "1.54.0"
 dependencies = [
  "quote",
  "syn 3.0.5",
@@ -10170,7 +10170,7 @@ dependencies = [
 
 [[package]]
 name = "sauron-cli"
-version = "1.53.0"
+version = "1.54.0"
 dependencies = [
  "agent-client-protocol",
  "anstream",
@@ -10341,7 +10341,7 @@ dependencies = [
 
 [[package]]
 name = "sauron-roaming"
-version = "1.53.0"
+version = "1.54.0"
 dependencies = [
  "anyhow",
  "base64 0.23.1",
@@ -10392,7 +10392,7 @@ dependencies = [
 
 [[package]]
 name = "sauron-test"
-version = "1.53.0"
+version = "1.54.0"
 dependencies = [
  "clap",
  "serde_json",
@@ -10400,7 +10400,7 @@ dependencies = [
 
 [[package]]
 name = "sauron-test-support"
-version = "1.53.0"
+version = "1.54.0"
 dependencies = [
  "axum",
  "env-lock",
