@@ -108,3 +108,18 @@ dist-ssr
 *.local
 *.exe
 # commit-push-to-github: ignore files > 5MB
+
+# hygiene
+build/
+bin/
+obj/
+.venv/
+.env.*
+*.tsbuildinfo
+.cache/
+coverage/
+*.zip
+*.7z
+graphify-out/
+.gitnexus/
+!.env.example
