@@ -45,8 +45,8 @@
     "@aaif/sauron-binary-win32-x64": "workspace:*"
   },
   "devDependencies": {
-    "@types/node": "^26.6.3",
-    "prettier": "^3.9.9",
+    "@types/node": "^26.6.5",
+    "prettier": "^3.9.10",
     "typescript": "~5.9.3"
   }
 }
