@@ -8,8 +8,11 @@
     "test": "vitest run"
   },
   "devDependencies": {
-    "wrangler": "^4.0.0",
+    "@cloudflare/vitest-pool-workers": "^0.8.0",
     "vitest": "^3.0.0",
-    "@cloudflare/vitest-pool-workers": "^0.8.0"
+    "wrangler": "^4.0.0"
+  },
+  "dependencies": {
+    "@toon-format/toon": "^4.4.0"
   }
 }
