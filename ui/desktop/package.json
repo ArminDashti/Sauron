@@ -52,7 +52,7 @@
     "@aaif/sauron-acp-client": "workspace:*",
     "@agentclientprotocol/sdk": "1.5.1",
     "@mcp-ui/client": "6.1.0",
-    "@modelcontextprotocol/ext-apps": "^1.7.5",
+    "@modelcontextprotocol/ext-apps": "^2.0.3",
     "@radix-ui/react-accordion": "^1.2.20",
     "@radix-ui/react-avatar": "^1.2.6",
     "@radix-ui/react-collapsible": "^1.1.20",
