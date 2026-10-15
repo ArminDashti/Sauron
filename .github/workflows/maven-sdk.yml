@@ -80,7 +80,7 @@ jobs:
           cp "$lib" "maven-native/${{ matrix.resource-prefix }}/"
 
       - name: Upload native library artifact
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
         with:
           name: sauron-sdk-native-${{ matrix.name }}
           path: maven-native/**
@@ -147,7 +147,7 @@ jobs:
           cp -R "$HOME/.m2/repository/io/github/aaif-sauron/gdk/$VERSION" maven-artifacts/
 
       - name: Upload Maven artifact bundle
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
         with:
           name: sauron-sdk-maven
           path: maven-artifacts/**

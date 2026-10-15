@@ -194,7 +194,7 @@ jobs:
           echo "ARTIFACT_GZ=target/${TARGET}/release/sauron-${TARGET}${VARIANT_SUFFIX}.tar.gz" >> $GITHUB_ENV
 
       - name: Upload CLI artifact
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9  # v7.0.2
         with:
           name: sauron-${{ matrix.architecture }}-${{ matrix.target-suffix }}${{ matrix.variant != 'standard' && matrix.variant != 'musl' && format('-{0}', matrix.variant) || '' }}
           path: |
@@ -212,7 +212,7 @@ jobs:
 
       - name: Upload internal Sauron binary
         if: ${{ inputs.package_desktop && matrix.target-suffix == 'unknown-linux-gnu' }}
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9  # v7.0.2
         with:
           name: internal-sauron-${{ matrix.architecture }}-${{ matrix.target-suffix }}${{ matrix.variant == 'vulkan' && '-vulkan' || '' }}
           path: artifacts/internal-sauron-${{ matrix.architecture }}-${{ matrix.target-suffix }}${{ matrix.variant == 'vulkan' && '-vulkan' || '' }}
@@ -397,21 +397,21 @@ jobs:
           find out/ -type f \( -name "*.deb" -o -name "*.rpm" -o -name "*.flatpak" \) -exec ls -lh {} \;
 
       - name: Upload .deb package
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9  # v7.0.2
         with:
           name: Sauron-linux-${{ matrix.electron_arch }}${{ matrix.variant_suffix }}-deb
           path: ui/desktop/out/make/deb/${{ matrix.electron_arch }}/*${{ matrix.variant_suffix }}.deb
           if-no-files-found: error
 
       - name: Upload .rpm package
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9  # v7.0.2
         with:
           name: Sauron-linux-${{ matrix.electron_arch }}${{ matrix.variant_suffix }}-rpm
           path: ui/desktop/out/make/rpm/${{ matrix.electron_arch }}/*${{ matrix.variant_suffix }}.rpm
           if-no-files-found: error
 
       - name: Upload .flatpak package
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9  # v7.0.2
         with:
           name: Sauron-linux-${{ matrix.electron_arch }}${{ matrix.variant_suffix }}-flatpak
           path: ui/desktop/out/make/flatpak/${{ matrix.flatpak_arch }}/*${{ matrix.variant_suffix }}.flatpak
