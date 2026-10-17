@@ -82,7 +82,7 @@ sauron-download-manager = { version = "0.1.0-alpha.11", path = "../sauron-downlo
 sauron-sdk-types = { version = "0.1.0-alpha.11", path = "../sauron-sdk-types", default-features = false, optional = true }
 hf-hub = { version = "1.0.0", default-features = false, optional = true }
 
-tokio-tungstenite = { version = "0.28", default-features = false, features = ["connect", "handshake"], optional = true }
+tokio-tungstenite = { version = "0.29", default-features = false, features = ["connect", "handshake"], optional = true }
 http = { workspace = true, optional = true }
 pem = { version = "4.0.0", default-features = false, features = ["std"], optional = true }
 pkcs8 = { version = "0.11", default-features = false, features = ["alloc", "std"], optional = true }
