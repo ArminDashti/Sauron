@@ -10086,7 +10086,7 @@ dependencies = [
  "opentelemetry-appender-tracing",
  "opentelemetry-otlp 0.33.0",
  "opentelemetry-stdout",
- "opentelemetry_sdk 0.32.1",
+ "opentelemetry_sdk 0.33.0",
  "pastey",
  "pctx_code_mode",
  "pem 4.0.0",
