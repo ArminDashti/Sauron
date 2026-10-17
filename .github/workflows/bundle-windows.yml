@@ -142,7 +142,7 @@ jobs:
           Get-Item $binaryPath
 
       - name: Upload binary artifact
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9  # v7.0.2
         with:
           name: internal-sauron-x86_64-pc-windows-msvc${{ inputs.windows_variant == 'cuda' && '-cuda' || '' }}
           path: target/x86_64-pc-windows-msvc/release/sauron.exe
@@ -172,7 +172,7 @@ jobs:
           7z a -tzip "sauron-x86_64-pc-windows-msvc${VARIANT_SUFFIX}.zip" sauron-package/
 
       - name: Upload CLI artifact
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9  # v7.0.2
         with:
           name: sauron-x86_64-pc-windows-msvc${{ inputs.windows_variant == 'cuda' && '-cuda' || '' }}
           path: sauron-x86_64-pc-windows-msvc${{ inputs.windows_variant == 'cuda' && '-cuda' || '' }}.zip
@@ -276,7 +276,7 @@ jobs:
           ls -la ./dist-windows/resources/bin/
 
       - name: Upload unsigned distribution
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9  # v7.0.2
         with:
           name: internal-windows-unsigned${{ inputs.windows_variant == 'cuda' && '-cuda' || '' }}
           path: ui/desktop/dist-windows/
@@ -337,7 +337,7 @@ jobs:
         run: 7z a -tzip "Sauron-win32-x64${VARIANT_SUFFIX}.zip" dist-windows/
 
       - name: Upload signed Windows build
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9  # v7.0.2
         with:
           name: Sauron-win32-x64${{ inputs.windows_variant == 'cuda' && '-cuda' || '' }}
           path: Sauron-win32-x64${{ inputs.windows_variant == 'cuda' && '-cuda' || '' }}.zip
@@ -363,7 +363,7 @@ jobs:
         run: 7z a -tzip "Sauron-win32-x64${VARIANT_SUFFIX}.zip" dist-windows/
 
       - name: Upload Windows build
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9  # v7.0.2
         with:
           name: Sauron-win32-x64${{ inputs.windows_variant == 'cuda' && '-cuda' || '' }}
           path: Sauron-win32-x64${{ inputs.windows_variant == 'cuda' && '-cuda' || '' }}.zip
